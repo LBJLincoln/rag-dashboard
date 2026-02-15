@@ -322,7 +322,7 @@ def main():
 
     # Load questions
     print("\n  Loading questions...")
-    questions = load_questions(include_1000=args.include_1000, dataset=args.dataset)
+    questions = load_questions(include_1000=args.include_1000, dataset=args.dataset or "phase-1")
 
     # Filter to requested types + apply max
     for t in list(questions.keys()):

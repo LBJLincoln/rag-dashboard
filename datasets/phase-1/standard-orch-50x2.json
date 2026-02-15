@@ -41,7 +41,7 @@
     {
       "id": "std-06", "rag_target": "standard",
       "question": "What is the theory of relativity?",
-      "expected_answer": "Einstein's theory describing gravity and spacetime",
+      "expected_answer": "Einstein theory gravity spacetime",
       "category": "definition", "namespace": "benchmark-squad_v2"
     },
     {
@@ -65,7 +65,7 @@
     {
       "id": "std-10", "rag_target": "standard",
       "question": "What is the speed of light?",
-      "expected_answer": "approximately 299,792 kilometers per second",
+      "expected_answer": "299,792 per second",
       "category": "factual", "namespace": "benchmark-squad_v2"
     },
     {

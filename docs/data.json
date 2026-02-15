@@ -1,14 +1,14 @@
 {
   "meta": {
-    "generated_at": "2026-02-14T11:11:53.541738Z",
+    "generated_at": "2026-02-15T11:31:50.586846Z",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
     "total_unique_questions": 40,
-    "total_test_runs": 104,
-    "total_iterations": 5,
-    "status": "running",
-    "current_session": "2026-02-14T08-11-45"
+    "total_test_runs": 148,
+    "total_iterations": 10,
+    "status": "complete",
+    "current_session": "2026-02-15T10-41-21"
   },
   "reference_cloud_executions": {
     "note": "Executions reussies sur n8n Cloud (avant migration Docker). Servent de reference uniquement.",
@@ -1546,6 +1546,708 @@
           "timestamp": "2026-02-14T11:11:51.530970Z"
         }
       ]
+    },
+    {
+      "id": "iter-2026-02-15T10-13-43",
+      "number": 6,
+      "timestamp_start": "2026-02-15T10:13:43.202521Z",
+      "timestamp_end": null,
+      "label": "standard-debug-15fev",
+      "description": "Dataset: phase-1, Parallel: standard, Max: 10, Reset: True",
+      "changes_applied": [],
+      "results_summary": {},
+      "total_tested": 0,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0,
+      "questions": []
+    },
+    {
+      "id": "iter-2026-02-15T10-37-34",
+      "number": 7,
+      "timestamp_start": "2026-02-15T10:37:34.835742Z",
+      "timestamp_end": "2026-02-15T10:38:34.347760Z",
+      "label": "debug-test",
+      "description": "debug",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 2,
+          "correct": 2,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 29373,
+          "p95_latency_ms": 31242,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 2,
+      "total_correct": 2,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "std-01",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 27504,
+          "answer": "Normandy is located in northern France.",
+          "expected": "France",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:38:02.826443Z"
+        },
+        {
+          "id": "std-02",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 31242,
+          "answer": "The first season of *SpongeBob SquarePants* premiered on May 1 1999.",
+          "expected": "May 1, 1999",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:38:34.347745Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-15T10-38-50",
+      "number": 8,
+      "timestamp_start": "2026-02-15T10:38:51.081399Z",
+      "timestamp_end": null,
+      "label": "standard-15fev-eval-fix",
+      "description": "Dataset: phase-1, Parallel: standard, Max: 10, Reset: True",
+      "changes_applied": [],
+      "results_summary": {},
+      "total_tested": 0,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0,
+      "questions": []
+    },
+    {
+      "id": "iter-2026-02-15T10-39-52",
+      "number": 9,
+      "timestamp_start": "2026-02-15T10:39:52.579822Z",
+      "timestamp_end": "2026-02-15T10:41:08.341418Z",
+      "label": "bug-fix-test",
+      "description": "Dataset: phase-1, Parallel: standard, Max: 2, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 2,
+          "correct": 2,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 28622,
+          "p95_latency_ms": 33003,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 2,
+      "total_correct": 2,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "std-01",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 33003,
+          "answer": "Normandy is located in France.",
+          "expected": "France",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:40:32.097799Z"
+        },
+        {
+          "id": "std-02",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 24241,
+          "answer": "The first season of *SpongeBob SquarePants* premiered on May 1, 1999.",
+          "expected": "May 1, 1999",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:40:58.344094Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-15T10-41-21",
+      "number": 10,
+      "timestamp_start": "2026-02-15T10:41:21.094682Z",
+      "timestamp_end": "2026-02-15T11:31:50.586785Z",
+      "label": "15fev-all-10-10-gates",
+      "description": "Dataset: phase-1, Parallel: standard,graph,quantitative,orchestrator, Max: 10, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "quantitative": {
+          "tested": 10,
+          "correct": 10,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 51220,
+          "p95_latency_ms": 79241,
+          "avg_f1": 1.0
+        },
+        "standard": {
+          "tested": 10,
+          "correct": 9,
+          "errors": 1,
+          "accuracy_pct": 90.0,
+          "avg_latency_ms": 48998,
+          "p95_latency_ms": 90239,
+          "avg_f1": 0.7155
+        },
+        "graph": {
+          "tested": 10,
+          "correct": 8,
+          "errors": 2,
+          "accuracy_pct": 80.0,
+          "avg_latency_ms": 64100,
+          "p95_latency_ms": 90260,
+          "avg_f1": 0.9625
+        },
+        "orchestrator": {
+          "tested": 10,
+          "correct": 9,
+          "errors": 1,
+          "accuracy_pct": 90.0,
+          "avg_latency_ms": 229319,
+          "p95_latency_ms": 302232,
+          "avg_f1": 0.9667
+        }
+      },
+      "total_tested": 40,
+      "total_correct": 36,
+      "overall_accuracy_pct": 90.0,
+      "questions": [
+        {
+          "id": "quant-01",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 79241,
+          "answer": "Based on the executed SQL query, there are no results for TechVision Inc's total revenue in fiscal year 2023. This could be due to several reasons:\n\n1. TechVision Inc might not have reported their financials for fiscal year 2023 yet.\n2. The data might not be available in the database being queried.\n3. There could be a discrepancy in the company name or fiscal year format used in the database.\n\nTo get the accurate information, you might need to:\n\n1. Check if TechVision Inc has released their fisc",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:42:48.823789Z"
+        },
+        {
+          "id": "std-01",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 86275,
+          "answer": "Normandy is located in France.",
+          "expected": "France",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:42:56.336192Z"
+        },
+        {
+          "id": "graph-01",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 90260,
+          "answer": "",
+          "expected": "Nobel Prize",
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "timestamp": "2026-02-15T10:42:59.101082Z"
+        },
+        {
+          "id": "std-02",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 40001,
+          "answer": "The first season of *SpongeBob SquarePants* premiered on May 1, 1999.",
+          "expected": "May 1, 1999",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:43:37.589173Z"
+        },
+        {
+          "id": "quant-02",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 48001,
+          "answer": "The SQL query executed to find GreenEnergy Corp's net income for the fiscal year 2023 returned no results. This could be due to several reasons:\n\n1. There might be no financial data available for GreenEnergy Corp in the database for the year 2023.\n2. The company name might be spelled differently in the database, or there could be variations in the company name that were not accounted for in the query.\n3. The fiscal year or period specified in the query might not match the data available in the d",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:43:38.325907Z"
+        },
+        {
+          "id": "graph-02",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 54020,
+          "answer": "Albert Einstein",
+          "expected": "Albert Einstein",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:43:54.099170Z"
+        },
+        {
+          "id": "quant-03",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 33493,
+          "answer": "The SQL query executed to find the revenue of HealthPlus Labs in Q4 2023 returned no results. This indicates that there is no data available for HealthPlus Labs in the financials table for the specified period and fiscal year. Therefore, the revenue for HealthPlus Labs in Q4 2023 is not available in the dataset.",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:44:12.829918Z"
+        },
+        {
+          "id": "std-03",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 36500,
+          "answer": "The capital of Japan is Tokyo.",
+          "expected": "Tokyo",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:44:16.095079Z"
+        },
+        {
+          "id": "std-04",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 52993,
+          "answer": "William Shakespeare wrote *Romeo and Juliet*.",
+          "expected": "William Shakespeare",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:45:09.850210Z"
+        },
+        {
+          "id": "quant-04",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 62527,
+          "answer": "The SQL query executed to compare the gross profit of TechVision Inc and GreenEnergy Corp in FY 2023 returned no results. This means that either:\n\n1. The data for these companies in FY 2023 is not available in the database.\n2. There might be a typo or inconsistency in the company names as stored in the database.\n3. The fiscal year or period might be recorded differently in the database.\n\nTo get the desired information, you may need to:\n\n1. Verify the exact company names in the database.\n2. Check",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:45:16.592394Z"
+        },
+        {
+          "id": "graph-03",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 87248,
+          "answer": "penicillin",
+          "expected": "Penicillin",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:45:21.843096Z"
+        },
+        {
+          "id": "std-05",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.3125,
+          "latency_ms": 28993,
+          "answer": "Penicillin is a β‑lactam antibiotic discovered by Alexander Fleming that kills bacteria by inhibiting cell‑wall synthesis. It was the first widely effective drug to treat many bacterial infections.",
+          "expected": "An antibiotic discovered by Alexander Fleming",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:45:39.588354Z"
+        },
+        {
+          "id": "quant-05",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 35999,
+          "answer": "Based on the executed SQL query, there are no results for TechVision Inc's R&D spending in 2023. This could be due to several reasons:\n\n1. The data for TechVision Inc's R&D expenses in 2023 might not be available in the database.\n2. There might be no records for TechVision Inc in the financials table for the year 2023.\n3. The company name might be entered differently in the database, causing the ILIKE search to not find a match.\n\nTo get the correct information, you might need to:\n\n1. Check if th",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:45:53.825822Z"
+        },
+        {
+          "id": "graph-04",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 41989,
+          "answer": "Bacterial infections",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:46:05.095645Z"
+        },
+        {
+          "id": "std-06",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.1818,
+          "latency_ms": 31983,
+          "answer": "The theory of relativity, developed by Albert Einstein, comprises two interrelated parts: special relativity, which describes how the laws of physics are the same for all non‑accelerating observers and shows that space and time are linked into spacetime, and general relativity, which explains gravity as the curvature of spacetime caused by mass and energy.",
+          "expected": "Einstein theory gravity spacetime",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:46:12.842711Z"
+        },
+        {
+          "id": "quant-06",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 39982,
+          "answer": "The SQL query executed to find the diluted EPS for HealthPlus Labs in fiscal year 2023 returned no results. This means that there is no data available in the financials table for HealthPlus Labs for the specified fiscal year and period. Therefore, the diluted EPS for HealthPlus Labs in fiscal year 2023 is not available in the current dataset.",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:46:34.336336Z"
+        },
+        {
+          "id": "std-07",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 50250,
+          "answer": "The largest ocean on Earth is the Pacific Ocean.",
+          "expected": "Pacific Ocean",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:47:03.843888Z"
+        },
+        {
+          "id": "graph-05",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 67736,
+          "answer": "Sherborne School, King's College Cambridge, Princeton University, St John's College Cambridge",
+          "expected": "Cambridge",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:47:13.837688Z"
+        },
+        {
+          "id": "quant-07",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 54248,
+          "answer": "Based on the executed SQL query, there are no results for TechVision Inc's cash and equivalents at the end of 2023. This could be due to several reasons:\n\n1. TechVision Inc may not have reported their financials for the fiscal year 2023 yet.\n2. The company name might be slightly different in the database (e.g., different capitalization or spacing).\n3. The data for TechVision Inc might not be available in the 'default' tenant_id.\n\nTo get the correct information, you may need to:\n1. Check if TechV",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:47:29.587780Z"
+        },
+        {
+          "id": "std-08",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 32754,
+          "answer": "Leonardo da Vinci painted the Mona Lisa.",
+          "expected": "Leonardo da Vinci",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:47:37.574913Z"
+        },
+        {
+          "id": "graph-06",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 50492,
+          "answer": "They were rivals in the \"War of Currents\" over electrical transmission systems.",
+          "expected": "rival",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:48:05.849765Z"
+        },
+        {
+          "id": "quant-08",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 38735,
+          "answer": "The SQL query executed to find GreenEnergy Corp's total assets at the end of fiscal year 2023 returned no results. This could be due to several reasons:\n\n1. There might be no data available for GreenEnergy Corp in the financials table for the specified fiscal year and period.\n2. The company name might be spelled differently in the database, causing the ILIKE filter to not match any records.\n3. The fiscal year or period might be recorded differently in the database.\n\nTo resolve this issue, you ma",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:48:09.589978Z"
+        },
+        {
+          "id": "std-09",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.5455,
+          "latency_ms": 40001,
+          "answer": "Photosynthesis is the process by which green plants use chlorophyll to capture sunlight, converting carbon dioxide and water into glucose (chemical energy) and releasing oxygen.",
+          "expected": "Process by which plants convert light energy into chemical energy",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:48:18.350431Z"
+        },
+        {
+          "id": "quant-09",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 73989,
+          "answer": "The SQL query executed to find the total stockholders equity for HealthPlus Labs at the end of 2023 returned no results. This indicates that there is no available data for HealthPlus Labs' total stockholders equity for the fiscal year 2023 in the database. Therefore, the total stockholders equity for HealthPlus Labs at the end of 2023 is not available based on the current data.",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:49:27.095463Z"
+        },
+        {
+          "id": "graph-07",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 90241,
+          "answer": "",
+          "expected": "Newton Darwin Turing",
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "timestamp": "2026-02-15T10:49:37.828082Z"
+        },
+        {
+          "id": "std-10",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 90239,
+          "answer": "",
+          "expected": "299,792 per second",
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "timestamp": "2026-02-15T10:49:50.842987Z"
+        },
+        {
+          "id": "quant-10",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 45994,
+          "answer": "Based on the executed SQL query, there is no data available for TechVision Inc's operating income in Q3 2023. The query returned 0 rows, indicating that the required financial information is not present in the database for the specified company and period.",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:50:15.347583Z"
+        },
+        {
+          "id": "graph-08",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 60242,
+          "answer": "The World Wide Web is a system of interlinked hypertext documents accessed via the Internet. It was created at CERN in Switzerland.",
+          "expected": "CERN",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:50:40.595124Z"
+        },
+        {
+          "id": "graph-09",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 49009,
+          "answer": "Tech giants, healthcare, finance, automotive, retail, and education organizations use AI.",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:51:31.338634Z"
+        },
+        {
+          "id": "graph-10",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 49765,
+          "answer": "Paris",
+          "expected": "Paris",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:52:22.847449Z"
+        },
+        {
+          "id": "orch-01",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 220747,
+          "answer": "The SQL query executed to find TechVision Inc's revenue for the year 2023 returned no results. This means that there is no record in the financials table that matches the specified criteria: company name containing \"TechVision Inc\", fiscal year 2023, period 'FY', and tenant_id 'benchmark'. \n\nPossible reasons for this outcome include:\n1. TechVision Inc does not have any financial data recorded for the year 2023 in the database.\n2. The company name might be spelled differently or not exactly as \"T",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:56:08.594653Z"
+        },
+        {
+          "id": "orch-02",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 158759,
+          "answer": "Alexander Fleming discovered penicillin.\n\n---\n**Sources:**\n[1] natural_questions (100%)\n[2] triviaqa (91%)\n[3] msmarco (83%)\n[4] pubmed (75%)\n[5] hotpotqa (67%)",
+          "expected": "Alexander Fleming",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T10:58:53.601497Z"
+        },
+        {
+          "id": "orch-03",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 302232,
+          "answer": "",
+          "expected": "Nobel Prize",
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "timestamp": "2026-02-15T11:04:03.344899Z"
+        },
+        {
+          "id": "orch-04",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 170734,
+          "answer": "The SQL query executed successfully but returned no results, indicating that there is no Q4 2023 revenue data available for GreenEnergy Corp in the database. This could be due to several reasons:\n\n1. The data for Q4 2023 has not been entered into the database yet.\n2. GreenEnergy Corp might not have reported their Q4 2023 financials.\n3. There could be a discrepancy in the company name or tenant ID used in the query.\n\nTo resolve this, you might want to:\n- Verify the company name and tenant ID in t",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T11:07:00.326159Z"
+        },
+        {
+          "id": "orch-05",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 210006,
+          "answer": "Isaac Newton, Charles Darwin, James Clerk Maxwell, Ernest Rutherford\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T11:10:36.340816Z"
+        },
+        {
+          "id": "orch-06",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 189974,
+          "answer": "The capital city of France is Paris.\n\n---\n**Sources:**\n[1] wikihop (100%)\n[2] hotpotqa (91%)\n[3] musique (83%)\n[4] natural_questions (75%)",
+          "expected": "Paris",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T11:13:51.853713Z"
+        },
+        {
+          "id": "orch-07",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 263249,
+          "answer": "The SQL query executed successfully but returned no results, indicating that there is no financial data available for HealthPlus Labs in 2023 in the database. This could be due to several reasons:\n\n1. HealthPlus Labs may not have reported financial data for 2023 yet.\n2. The company name might be entered differently in the database (e.g., \"Health Plus Labs\" or \"HealthPlus Laboratories\").\n3. The data might not be available in the 'benchmark' tenant.\n4. The fiscal year 2023 data might not have been",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T11:18:19.823845Z"
+        },
+        {
+          "id": "orch-08",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 290012,
+          "answer": "John McCarthy, Marvin Minsky, Nathaniel Rochester, Claude Shannon\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T11:23:14.354481Z"
+        },
+        {
+          "id": "orch-09",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 217995,
+          "answer": "Machine learning is a branch of artificial intelligence that enables computers to automatically learn patterns from data and improve their performance on tasks without being explicitly programmed. It typically uses algorithms and statistical models to make predictions or decisions based on observed examples.\n\n---\n**Sources:**\n[1] msmarco (100%)\n[2] squad (91%)\n[3] hotpotqa (67%)",
+          "expected": "artificial intelligence",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T11:26:58.099761Z"
+        },
+        {
+          "id": "orch-10",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 269482,
+          "answer": "The SQL query executed to compare R&D spending of three companies in 2023 returned no results. This means that there is no data available for the specified companies (Company A, Company B, and Company C) in the financials table for the fiscal year 2023. Possible reasons for this could be:\n\n1. The companies do not exist in the database.\n2. The companies have not reported their financials for the fiscal year 2023 yet.\n3. There might be a typo in the company names or other parameters in the query.\n",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T11:31:32.338058Z"
+        }
+      ]
     }
   ],
   "question_registry": {
@@ -1582,13 +2284,49 @@
           "error_type": null,
           "answer": "Normandy is located in France, specifically in its northern region.",
           "timestamp": "2026-02-14T07:16:08.044999Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-37-34",
+          "iteration_number": 7,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 27504,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Normandy is located in northern France.",
+          "timestamp": "2026-02-15T10:38:02.826521Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-39-52",
+          "iteration_number": 9,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 33003,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Normandy is located in France.",
+          "timestamp": "2026-02-15T10:40:32.097887Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 86275,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Normandy is located in France.",
+          "timestamp": "2026-02-15T10:42:56.336289Z"
         }
       ],
-      "total_runs": 2,
-      "pass_count": 2,
+      "total_runs": 5,
+      "pass_count": 5,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-14T07:16:08.044999Z",
+      "last_tested": "2026-02-15T10:42:56.336289Z",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -1625,13 +2363,49 @@
           "error_type": null,
           "answer": "The first season of *SpongeBob SquarePants* premiered on May 1, 1999.",
           "timestamp": "2026-02-14T07:16:37.024161Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-37-34",
+          "iteration_number": 7,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 31242,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The first season of *SpongeBob SquarePants* premiered on May 1 1999.",
+          "timestamp": "2026-02-15T10:38:34.347807Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-39-52",
+          "iteration_number": 9,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 24241,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The first season of *SpongeBob SquarePants* premiered on May 1, 1999.",
+          "timestamp": "2026-02-15T10:40:58.345599Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 40001,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The first season of *SpongeBob SquarePants* premiered on May 1, 1999.",
+          "timestamp": "2026-02-15T10:43:37.589279Z"
         }
       ],
-      "total_runs": 2,
-      "pass_count": 1,
-      "pass_rate": 0.5,
+      "total_runs": 5,
+      "pass_count": 4,
+      "pass_rate": 0.8,
       "current_status": "pass",
-      "last_tested": "2026-02-14T07:16:37.024161Z",
+      "last_tested": "2026-02-15T10:43:37.589279Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -1656,13 +2430,25 @@
           "error_type": null,
           "answer": "The capital of Japan is Tokyo.",
           "timestamp": "2026-02-14T07:17:27.271360Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 36500,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The capital of Japan is Tokyo.",
+          "timestamp": "2026-02-15T10:44:16.095181Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-14T07:17:27.271360Z",
+      "last_tested": "2026-02-15T10:44:16.095181Z",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -1687,13 +2473,25 @@
           "error_type": null,
           "answer": "William Shakespeare wrote *Romeo and Juliet*.",
           "timestamp": "2026-02-14T07:17:51.020705Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 52993,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "William Shakespeare wrote *Romeo and Juliet*.",
+          "timestamp": "2026-02-15T10:45:09.851165Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-14T07:17:51.020705Z",
+      "last_tested": "2026-02-15T10:45:09.851165Z",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -1718,15 +2516,27 @@
           "error_type": null,
           "answer": "Penicillin is a natural antibiotic discovered by Alexander Fleming that kills bacteria by inhibiting their cell‑wall synthesis.",
           "timestamp": "2026-02-14T07:18:22.298429Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 0.3125,
+          "latency_ms": 28993,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Penicillin is a β‑lactam antibiotic discovered by Alexander Fleming that kills bacteria by inhibiting cell‑wall synthesis. It was the first widely effective drug to treat many bacterial infections.",
+          "timestamp": "2026-02-15T10:45:39.588467Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-14T07:18:22.298429Z",
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T10:45:39.588467Z",
       "best_f1": 0.4545,
-      "trend": "stable"
+      "trend": "improving"
     },
     "std-06": {
       "id": "std-06",
@@ -1749,15 +2559,27 @@
           "error_type": null,
           "answer": "The theory of relativity, formulated by Albert Einstein, describes how space, time, and gravity are interrelated, encompassing special relativity (1905) and general relativity (1915).",
           "timestamp": "2026-02-14T07:18:46.284715Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 0.1818,
+          "latency_ms": 31983,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "The theory of relativity, developed by Albert Einstein, comprises two interrelated parts: special relativity, which describes how the laws of physics are the same for all non‑accelerating observers and shows that space and time are linked into spacetime, and general relativity, which explains gravity as the curvature of spacetime caused by mass and energy.",
+          "timestamp": "2026-02-15T10:46:12.843103Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-14T07:18:46.284715Z",
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T10:46:12.843103Z",
       "best_f1": 0.2143,
-      "trend": "stable"
+      "trend": "improving"
     },
     "std-07": {
       "id": "std-07",
@@ -1780,13 +2602,25 @@
           "error_type": null,
           "answer": "The largest ocean on Earth is the Pacific Ocean.",
           "timestamp": "2026-02-14T07:19:09.036618Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 50250,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The largest ocean on Earth is the Pacific Ocean.",
+          "timestamp": "2026-02-15T10:47:03.846383Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-14T07:19:09.036618Z",
+      "last_tested": "2026-02-15T10:47:03.846383Z",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -1811,13 +2645,25 @@
           "error_type": null,
           "answer": "Leonardo da Vinci painted the Mona Lisa.",
           "timestamp": "2026-02-14T07:19:42.034205Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 32754,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Leonardo da Vinci painted the Mona Lisa.",
+          "timestamp": "2026-02-15T10:47:37.575038Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-14T07:19:42.034205Z",
+      "last_tested": "2026-02-15T10:47:37.575038Z",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -1842,13 +2688,25 @@
           "error_type": null,
           "answer": "Photosynthesis is the process by which green plants convert light energy into chemical energy, using chlorophyll to transform carbon dioxide and water into glucose and oxygen.",
           "timestamp": "2026-02-14T07:20:15.048844Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 0.5455,
+          "latency_ms": 40001,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Photosynthesis is the process by which green plants use chlorophyll to capture sunlight, converting carbon dioxide and water into glucose (chemical energy) and releasing oxygen.",
+          "timestamp": "2026-02-15T10:48:18.350558Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-14T07:20:15.048844Z",
+      "last_tested": "2026-02-15T10:48:18.350558Z",
       "best_f1": 0.5455,
       "trend": "stable"
     },
@@ -1873,15 +2731,27 @@
           "error_type": null,
           "answer": "The speed of light in a vacuum is exactly 299,792,458 meters per second (approximately 299,792 kilometers per second).",
           "timestamp": "2026-02-14T07:20:38.549476Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 90239,
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "answer": "",
+          "timestamp": "2026-02-15T10:49:50.843136Z"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 1,
-      "pass_rate": 1.0,
-      "current_status": "pass",
-      "last_tested": "2026-02-14T07:20:38.549476Z",
+      "pass_rate": 0.5,
+      "current_status": "error",
+      "last_tested": "2026-02-15T10:49:50.843136Z",
       "best_f1": 0.9,
-      "trend": "stable"
+      "trend": "regressing"
     },
     "graph-01": {
       "id": "graph-01",
@@ -1940,13 +2810,25 @@
           "error_type": null,
           "answer": "Marie Curie was the first woman to win a Nobel Prize and the first person to win Nobel Prizes in two different scientific fields.",
           "timestamp": "2026-02-14T08:51:05.783464Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 90260,
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "answer": "",
+          "timestamp": "2026-02-15T10:42:59.101172Z"
         }
       ],
-      "total_runs": 4,
+      "total_runs": 5,
       "pass_count": 2,
-      "pass_rate": 0.5,
-      "current_status": "fail",
-      "last_tested": "2026-02-14T08:51:05.783464Z",
+      "pass_rate": 0.4,
+      "current_status": "error",
+      "last_tested": "2026-02-15T10:42:59.101172Z",
       "best_f1": 0.5714,
       "trend": "regressing"
     },
@@ -2007,13 +2889,25 @@
           "error_type": null,
           "answer": "Albert Einstein",
           "timestamp": "2026-02-14T08:51:59.290408Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 54020,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Albert Einstein",
+          "timestamp": "2026-02-15T10:43:54.099268Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 3,
-      "pass_rate": 0.75,
+      "total_runs": 5,
+      "pass_count": 4,
+      "pass_rate": 0.8,
       "current_status": "pass",
-      "last_tested": "2026-02-14T08:51:59.290408Z",
+      "last_tested": "2026-02-15T10:43:54.099268Z",
       "best_f1": 1.0,
       "trend": "stable"
     },
@@ -2074,15 +2968,27 @@
           "error_type": "TIMEOUT",
           "answer": "",
           "timestamp": "2026-02-14T08:53:00.048033Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 87248,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "penicillin",
+          "timestamp": "2026-02-15T10:45:21.843204Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "error",
-      "last_tested": "2026-02-14T08:53:00.048033Z",
-      "best_f1": 0.0,
-      "trend": "stable"
+      "total_runs": 5,
+      "pass_count": 1,
+      "pass_rate": 0.2,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T10:45:21.843204Z",
+      "best_f1": 1.0,
+      "trend": "improving"
     },
     "graph-04": {
       "id": "graph-04",
@@ -2141,13 +3047,25 @@
           "error_type": null,
           "answer": "Streptococcal infections, pneumococcal infections, syphilis, tetanus, anthrax, diphtheria",
           "timestamp": "2026-02-14T08:53:51.305368Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 41989,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "Bacterial infections",
+          "timestamp": "2026-02-15T10:46:05.095759Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 1,
-      "pass_rate": 0.25,
+      "total_runs": 5,
+      "pass_count": 2,
+      "pass_rate": 0.4,
       "current_status": "pass",
-      "last_tested": "2026-02-14T08:53:51.305368Z",
+      "last_tested": "2026-02-15T10:46:05.095759Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -2208,13 +3126,25 @@
           "error_type": null,
           "answer": "Sherborne School, King's College Cambridge, Princeton University",
           "timestamp": "2026-02-14T08:54:29.546778Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 67736,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Sherborne School, King's College Cambridge, Princeton University, St John's College Cambridge",
+          "timestamp": "2026-02-15T10:47:13.837817Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 2,
-      "pass_rate": 0.5,
+      "total_runs": 5,
+      "pass_count": 3,
+      "pass_rate": 0.6,
       "current_status": "pass",
-      "last_tested": "2026-02-14T08:54:29.546778Z",
+      "last_tested": "2026-02-15T10:47:13.837817Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -2275,13 +3205,25 @@
           "error_type": null,
           "answer": "They were rivals in the \"War of the Currents\" over electrical systems.",
           "timestamp": "2026-02-14T08:55:11.545104Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 50492,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "They were rivals in the \"War of Currents\" over electrical transmission systems.",
+          "timestamp": "2026-02-15T10:48:06.079028Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 1,
-      "pass_rate": 0.25,
+      "total_runs": 5,
+      "pass_count": 2,
+      "pass_rate": 0.4,
       "current_status": "pass",
-      "last_tested": "2026-02-14T08:55:11.545104Z",
+      "last_tested": "2026-02-15T10:48:06.079028Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -2330,15 +3272,27 @@
           "error_type": null,
           "answer": "Isaac Newton, Charles Darwin, James Clerk Maxwell, Ernest Rutherford, Alan Turing, Stephen Hawking, Rosalind Franklin, Francis Crick, Frederick Sanger",
           "timestamp": "2026-02-14T08:55:47.045860Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 90241,
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "answer": "",
+          "timestamp": "2026-02-15T10:49:37.833064Z"
         }
       ],
-      "total_runs": 3,
+      "total_runs": 4,
       "pass_count": 1,
-      "pass_rate": 0.333,
-      "current_status": "pass",
-      "last_tested": "2026-02-14T08:55:47.045860Z",
+      "pass_rate": 0.25,
+      "current_status": "error",
+      "last_tested": "2026-02-15T10:49:37.833064Z",
       "best_f1": 0.4762,
-      "trend": "improving"
+      "trend": "stable"
     },
     "graph-08": {
       "id": "graph-08",
@@ -2385,13 +3339,25 @@
           "error_type": null,
           "answer": "The World Wide Web is a global information system created at CERN in Geneva, Switzerland.",
           "timestamp": "2026-02-14T08:56:46.296674Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 60242,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The World Wide Web is a system of interlinked hypertext documents accessed via the Internet. It was created at CERN in Switzerland.",
+          "timestamp": "2026-02-15T10:50:40.598356Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-14T08:56:46.296674Z",
+      "last_tested": "2026-02-15T10:50:40.598356Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -2440,13 +3406,25 @@
           "error_type": null,
           "answer": "Google, Microsoft, Amazon, IBM, Meta, Mayo Clinic, Pfizer, Babylon Health, JPMorgan Chase, Mastercard, Goldman Sachs",
           "timestamp": "2026-02-14T08:57:40.030172Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 49009,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "Tech giants, healthcare, finance, automotive, retail, and education organizations use AI.",
+          "timestamp": "2026-02-15T10:51:31.340259Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-14T08:57:40.030172Z",
+      "last_tested": "2026-02-15T10:51:31.340259Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -2495,13 +3473,25 @@
           "error_type": null,
           "answer": "Paris",
           "timestamp": "2026-02-14T08:58:15.781798Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 49765,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Paris",
+          "timestamp": "2026-02-15T10:52:22.849083Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 3,
+      "total_runs": 4,
+      "pass_count": 4,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-14T08:58:15.781798Z",
+      "last_tested": "2026-02-15T10:52:22.849083Z",
       "best_f1": 1.0,
       "trend": "stable"
     },
@@ -2550,13 +3540,25 @@
           "error_type": null,
           "answer": "TechVision Inc's total revenue in fiscal year 2023 was $1,250,000,000.",
           "timestamp": "2026-02-14T07:58:41.288294Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 79241,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the executed SQL query, there are no results for TechVision Inc's total revenue in fiscal year 2023. This could be due to several reasons:\n\n1. TechVision Inc might not have reported their financials for fiscal year 2023 yet.\n2. The data might not be available in the database being queried.\n3. There could be a discrepancy in the company name or fiscal year format used in the database.\n\nTo get the accurate information, you might need to:\n\n1. Check if TechVision Inc has released their fisc",
+          "timestamp": "2026-02-15T10:42:48.834437Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 1,
-      "pass_rate": 0.333,
+      "total_runs": 4,
+      "pass_count": 2,
+      "pass_rate": 0.5,
       "current_status": "pass",
-      "last_tested": "2026-02-14T07:58:41.288294Z",
+      "last_tested": "2026-02-15T10:42:48.834437Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -2605,13 +3607,25 @@
           "error_type": null,
           "answer": "GreenEnergy Corp's net income in 2023 was $1,250,000.",
           "timestamp": "2026-02-14T07:59:15.036482Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 48001,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL query executed to find GreenEnergy Corp's net income for the fiscal year 2023 returned no results. This could be due to several reasons:\n\n1. There might be no financial data available for GreenEnergy Corp in the database for the year 2023.\n2. The company name might be spelled differently in the database, or there could be variations in the company name that were not accounted for in the query.\n3. The fiscal year or period specified in the query might not match the data available in the d",
+          "timestamp": "2026-02-15T10:43:38.326001Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-14T07:59:15.036482Z",
+      "last_tested": "2026-02-15T10:43:38.326001Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -2660,13 +3674,25 @@
           "error_type": null,
           "answer": "The revenue of HealthPlus Labs in Q4 2023 was $12,500,000.",
           "timestamp": "2026-02-14T07:59:49.049974Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 33493,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL query executed to find the revenue of HealthPlus Labs in Q4 2023 returned no results. This indicates that there is no data available for HealthPlus Labs in the financials table for the specified period and fiscal year. Therefore, the revenue for HealthPlus Labs in Q4 2023 is not available in the dataset.",
+          "timestamp": "2026-02-15T10:44:12.830020Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-14T07:59:49.049974Z",
+      "last_tested": "2026-02-15T10:44:12.830020Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -2715,13 +3741,25 @@
           "error_type": null,
           "answer": "The SQL query executed successfully but returned only 1 row of data, which is insufficient to compare the gross profit of both TechVision Inc and GreenEnergy Corp for FY 2023. The query was designed to retrieve gross profit data for both companies, but it appears that data for only one company is available in the database for the specified fiscal year.\n\nTo provide a meaningful comparison, we would need data for both companies. The current result shows that either:\n1. Data for one of the companie",
           "timestamp": "2026-02-14T08:00:49.026474Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 62527,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL query executed to compare the gross profit of TechVision Inc and GreenEnergy Corp in FY 2023 returned no results. This means that either:\n\n1. The data for these companies in FY 2023 is not available in the database.\n2. There might be a typo or inconsistency in the company names as stored in the database.\n3. The fiscal year or period might be recorded differently in the database.\n\nTo get the desired information, you may need to:\n\n1. Verify the exact company names in the database.\n2. Check",
+          "timestamp": "2026-02-15T10:45:16.592490Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 1,
-      "pass_rate": 0.333,
+      "total_runs": 4,
+      "pass_count": 2,
+      "pass_rate": 0.5,
       "current_status": "pass",
-      "last_tested": "2026-02-14T08:00:49.026474Z",
+      "last_tested": "2026-02-15T10:45:16.592490Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -2770,13 +3808,25 @@
           "error_type": null,
           "answer": "TechVision Inc's R&D spending in 2023 was $45,000,000.",
           "timestamp": "2026-02-14T08:01:23.273089Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 35999,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the executed SQL query, there are no results for TechVision Inc's R&D spending in 2023. This could be due to several reasons:\n\n1. The data for TechVision Inc's R&D expenses in 2023 might not be available in the database.\n2. There might be no records for TechVision Inc in the financials table for the year 2023.\n3. The company name might be entered differently in the database, causing the ILIKE search to not find a match.\n\nTo get the correct information, you might need to:\n\n1. Check if th",
+          "timestamp": "2026-02-15T10:45:53.825954Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-14T08:01:23.273089Z",
+      "last_tested": "2026-02-15T10:45:53.825954Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -2825,13 +3875,25 @@
           "error_type": null,
           "answer": "The diluted EPS for HealthPlus Labs in fiscal year 2023 was **0.45**.",
           "timestamp": "2026-02-14T08:01:45.527229Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 39982,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL query executed to find the diluted EPS for HealthPlus Labs in fiscal year 2023 returned no results. This means that there is no data available in the financials table for HealthPlus Labs for the specified fiscal year and period. Therefore, the diluted EPS for HealthPlus Labs in fiscal year 2023 is not available in the current dataset.",
+          "timestamp": "2026-02-15T10:46:34.339805Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-14T08:01:45.527229Z",
+      "last_tested": "2026-02-15T10:46:34.339805Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -2880,13 +3942,25 @@
           "error_type": null,
           "answer": "Based on the SQL query results, TechVision Inc had **$12,500,000** in cash and equivalents at the end of 2023.",
           "timestamp": "2026-02-14T08:02:31.027029Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 54248,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the executed SQL query, there are no results for TechVision Inc's cash and equivalents at the end of 2023. This could be due to several reasons:\n\n1. TechVision Inc may not have reported their financials for the fiscal year 2023 yet.\n2. The company name might be slightly different in the database (e.g., different capitalization or spacing).\n3. The data for TechVision Inc might not be available in the 'default' tenant_id.\n\nTo get the correct information, you may need to:\n1. Check if TechV",
+          "timestamp": "2026-02-15T10:47:29.587910Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 1,
-      "pass_rate": 0.333,
+      "total_runs": 4,
+      "pass_count": 2,
+      "pass_rate": 0.5,
       "current_status": "pass",
-      "last_tested": "2026-02-14T08:02:31.027029Z",
+      "last_tested": "2026-02-15T10:47:29.587910Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -2935,13 +4009,25 @@
           "error_type": null,
           "answer": "Based on the SQL query results, GreenEnergy Corp's total assets at the end of fiscal year 2023 were **$12,450,000,000** (12.45 billion dollars).\n\nThe query successfully retrieved this information from the financials table by filtering for:\n- Company name containing \"GreenEnergy Corp\"\n- Fiscal year 2023\n- Period = 'FY' (fiscal year)\n- Tenant ID = 'default'\n\nThe result shows a single row with the total_assets value of 12,450,000,000, which represents the company's total assets at the end of their ",
           "timestamp": "2026-02-14T08:03:20.534437Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 38735,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL query executed to find GreenEnergy Corp's total assets at the end of fiscal year 2023 returned no results. This could be due to several reasons:\n\n1. There might be no data available for GreenEnergy Corp in the financials table for the specified fiscal year and period.\n2. The company name might be spelled differently in the database, causing the ILIKE filter to not match any records.\n3. The fiscal year or period might be recorded differently in the database.\n\nTo resolve this issue, you ma",
+          "timestamp": "2026-02-15T10:48:09.590094Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-14T08:03:20.534437Z",
+      "last_tested": "2026-02-15T10:48:09.590094Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -2990,13 +4076,25 @@
           "error_type": null,
           "answer": "The total stockholders equity for HealthPlus Labs at the end of 2023 was **$1,250,000,000** (1.25 billion dollars).",
           "timestamp": "2026-02-14T08:04:01.025606Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 73989,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL query executed to find the total stockholders equity for HealthPlus Labs at the end of 2023 returned no results. This indicates that there is no available data for HealthPlus Labs' total stockholders equity for the fiscal year 2023 in the database. Therefore, the total stockholders equity for HealthPlus Labs at the end of 2023 is not available based on the current data.",
+          "timestamp": "2026-02-15T10:49:27.335363Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 1,
-      "pass_rate": 0.333,
+      "total_runs": 4,
+      "pass_count": 2,
+      "pass_rate": 0.5,
       "current_status": "pass",
-      "last_tested": "2026-02-14T08:04:01.025606Z",
+      "last_tested": "2026-02-15T10:49:27.335363Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -3045,13 +4143,25 @@
           "error_type": null,
           "answer": "TechVision Inc's operating income in Q3 2023 was **$12,500,000**.",
           "timestamp": "2026-02-14T08:04:28.041709Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 45994,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the executed SQL query, there is no data available for TechVision Inc's operating income in Q3 2023. The query returned 0 rows, indicating that the required financial information is not present in the database for the specified company and period.",
+          "timestamp": "2026-02-15T10:50:15.573792Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 1,
-      "pass_rate": 0.333,
+      "total_runs": 4,
+      "pass_count": 2,
+      "pass_rate": 0.5,
       "current_status": "pass",
-      "last_tested": "2026-02-14T08:04:28.041709Z",
+      "last_tested": "2026-02-15T10:50:15.573792Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -3100,13 +4210,25 @@
           "error_type": null,
           "answer": "Based on the SQL query results, TechVision Inc's revenue for the year 2023 was **$1,250,000,000** (1.25 billion dollars).\n\nThe query successfully retrieved this information from the financials table by filtering for:\n- Tenant ID: 'benchmark'\n- Company name containing 'TechVision Inc' (case-insensitive)\n- Fiscal year: 2023\n- Period: 'FY' (fiscal year)\n\nThe result shows a single row with the revenue value of 1,250,000,000 for TechVision Inc in 2023.\n\n---\n**Sources:**\n[1] SQL Result 1",
           "timestamp": "2026-02-14T10:46:20.031076Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 220747,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL query executed to find TechVision Inc's revenue for the year 2023 returned no results. This means that there is no record in the financials table that matches the specified criteria: company name containing \"TechVision Inc\", fiscal year 2023, period 'FY', and tenant_id 'benchmark'. \n\nPossible reasons for this outcome include:\n1. TechVision Inc does not have any financial data recorded for the year 2023 in the database.\n2. The company name might be spelled differently or not exactly as \"T",
+          "timestamp": "2026-02-15T10:56:08.825127Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 1,
-      "pass_rate": 0.333,
+      "total_runs": 4,
+      "pass_count": 2,
+      "pass_rate": 0.5,
       "current_status": "pass",
-      "last_tested": "2026-02-14T10:46:20.031076Z",
+      "last_tested": "2026-02-15T10:56:08.825127Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -3155,13 +4277,25 @@
           "error_type": null,
           "answer": "Alexander Fleming discovered penicillin.\n\n---\n**Sources:**\n[1] natural_questions (100%)\n[2] triviaqa (91%)\n[3] msmarco (83%)\n[4] pubmed (75%)",
           "timestamp": "2026-02-14T10:48:45.788844Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 158759,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Alexander Fleming discovered penicillin.\n\n---\n**Sources:**\n[1] natural_questions (100%)\n[2] triviaqa (91%)\n[3] msmarco (83%)\n[4] pubmed (75%)\n[5] hotpotqa (67%)",
+          "timestamp": "2026-02-15T10:58:53.833610Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 3,
+      "total_runs": 4,
+      "pass_count": 4,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-14T10:48:45.788844Z",
+      "last_tested": "2026-02-15T10:58:53.833610Z",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -3210,15 +4344,27 @@
           "error_type": null,
           "answer": "Marie Curie won two Nobel Prizes: Physics in 1903 and Chemistry in 1911.\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
           "timestamp": "2026-02-14T10:51:40.288813Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 302232,
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "answer": "",
+          "timestamp": "2026-02-15T11:04:03.580355Z"
         }
       ],
-      "total_runs": 3,
+      "total_runs": 4,
       "pass_count": 2,
-      "pass_rate": 0.667,
-      "current_status": "pass",
-      "last_tested": "2026-02-14T10:51:40.288813Z",
+      "pass_rate": 0.5,
+      "current_status": "error",
+      "last_tested": "2026-02-15T11:04:03.580355Z",
       "best_f1": 0.9,
-      "trend": "improving"
+      "trend": "stable"
     },
     "orch-04": {
       "id": "orch-04",
@@ -3265,13 +4411,25 @@
           "error_type": null,
           "answer": "The Q4 2023 revenue for GreenEnergy Corp is **$1,250,000,000**.\n\n---\n**Sources:**\n[1] SQL Result 1",
           "timestamp": "2026-02-14T10:54:45.794088Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 170734,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL query executed successfully but returned no results, indicating that there is no Q4 2023 revenue data available for GreenEnergy Corp in the database. This could be due to several reasons:\n\n1. The data for Q4 2023 has not been entered into the database yet.\n2. GreenEnergy Corp might not have reported their Q4 2023 financials.\n3. There could be a discrepancy in the company name or tenant ID used in the query.\n\nTo resolve this, you might want to:\n- Verify the company name and tenant ID in t",
+          "timestamp": "2026-02-15T11:07:00.336309Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 1,
-      "pass_rate": 0.333,
+      "total_runs": 4,
+      "pass_count": 2,
+      "pass_rate": 0.5,
       "current_status": "pass",
-      "last_tested": "2026-02-14T10:54:45.794088Z",
+      "last_tested": "2026-02-15T11:07:00.336309Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -3320,13 +4478,25 @@
           "error_type": null,
           "answer": "Isaac Newton, Charles Darwin, Stephen Hawking, Rosalind Franklin, James Watson, Francis Crick\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
           "timestamp": "2026-02-14T10:58:02.796320Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 210006,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "Isaac Newton, Charles Darwin, James Clerk Maxwell, Ernest Rutherford\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "timestamp": "2026-02-15T11:10:36.592741Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 1,
-      "pass_rate": 0.333,
+      "total_runs": 4,
+      "pass_count": 2,
+      "pass_rate": 0.5,
       "current_status": "pass",
-      "last_tested": "2026-02-14T10:58:02.796320Z",
+      "last_tested": "2026-02-15T11:10:36.592741Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -3375,13 +4545,25 @@
           "error_type": null,
           "answer": "The capital city of France is Paris.\n\n---\n**Sources:**\n[1] wikihop (100%)\n[2] hotpotqa (91%)\n[3] musique (83%)\n[4] natural_questions (75%)",
           "timestamp": "2026-02-14T11:00:18.536533Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 189974,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The capital city of France is Paris.\n\n---\n**Sources:**\n[1] wikihop (100%)\n[2] hotpotqa (91%)\n[3] musique (83%)\n[4] natural_questions (75%)",
+          "timestamp": "2026-02-15T11:13:52.082854Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-14T11:00:18.536533Z",
+      "last_tested": "2026-02-15T11:13:52.082854Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -3418,13 +4600,25 @@
           "error_type": null,
           "answer": "The gross profit margin for HealthPlus Labs in 2023 is **0.00%**.\n\nThis result indicates that either:\n1. The company had zero gross profit (gross_profit = 0), or\n2. The company had zero revenue (revenue = 0), or\n3. Both gross profit and revenue were zero\n\nA gross profit margin of 0.00% is unusual for a healthcare company and suggests there may be data quality issues or the company had significant financial challenges in 2023. In a typical healthcare business, you would expect a positive gross pr",
           "timestamp": "2026-02-14T11:04:18.790183Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 263249,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL query executed successfully but returned no results, indicating that there is no financial data available for HealthPlus Labs in 2023 in the database. This could be due to several reasons:\n\n1. HealthPlus Labs may not have reported financial data for 2023 yet.\n2. The company name might be entered differently in the database (e.g., \"Health Plus Labs\" or \"HealthPlus Laboratories\").\n3. The data might not be available in the 'benchmark' tenant.\n4. The fiscal year 2023 data might not have been",
+          "timestamp": "2026-02-15T11:18:19.833901Z"
         }
       ],
-      "total_runs": 2,
-      "pass_count": 1,
-      "pass_rate": 0.5,
+      "total_runs": 3,
+      "pass_count": 2,
+      "pass_rate": 0.667,
       "current_status": "pass",
-      "last_tested": "2026-02-14T11:04:18.790183Z",
+      "last_tested": "2026-02-15T11:18:19.833901Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -3461,13 +4655,25 @@
           "error_type": null,
           "answer": "Artificial Intelligence as a field was founded by John McCarthy, who coined the term “artificial intelligence” in 1956.\n\n---\n**Sources:**\n[1] hotpotqa (100%)\n[2] wikihop (67%)",
           "timestamp": "2026-02-14T11:06:41.295439Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 290012,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "John McCarthy, Marvin Minsky, Nathaniel Rochester, Claude Shannon\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "timestamp": "2026-02-15T11:23:14.846734Z"
         }
       ],
-      "total_runs": 2,
-      "pass_count": 1,
-      "pass_rate": 0.5,
+      "total_runs": 3,
+      "pass_count": 2,
+      "pass_rate": 0.667,
       "current_status": "pass",
-      "last_tested": "2026-02-14T11:06:41.295439Z",
+      "last_tested": "2026-02-15T11:23:14.846734Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -3504,13 +4710,25 @@
           "error_type": null,
           "answer": "Machine learning is a branch of artificial intelligence that enables systems to automatically learn patterns from data and improve their performance on tasks without explicit programming.\n\n---\n**Sources:**\n[1] msmarco (100%)\n[2] squad (91%)\n[3] hotpotqa (75%)",
           "timestamp": "2026-02-14T11:09:08.556899Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 217995,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Machine learning is a branch of artificial intelligence that enables computers to automatically learn patterns from data and improve their performance on tasks without being explicitly programmed. It typically uses algorithms and statistical models to make predictions or decisions based on observed examples.\n\n---\n**Sources:**\n[1] msmarco (100%)\n[2] squad (91%)\n[3] hotpotqa (67%)",
+          "timestamp": "2026-02-15T11:26:58.337396Z"
         }
       ],
-      "total_runs": 2,
-      "pass_count": 1,
-      "pass_rate": 0.5,
+      "total_runs": 3,
+      "pass_count": 2,
+      "pass_rate": 0.667,
       "current_status": "pass",
-      "last_tested": "2026-02-14T11:09:08.556899Z",
+      "last_tested": "2026-02-15T11:26:58.337396Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -3547,78 +4765,30 @@
           "error_type": null,
           "answer": "Based on the SQL query results, I can see that the query successfully executed to compare R&D spending of three companies in 2023. However, the results show only 1 row, which suggests that data for only one of the three companies is available in the database.\n\nThe query filtered for:\n- Fiscal year 2023\n- Period 'FY' (full year)\n- Tenant ID 'benchmark'\n- Companies: Company A, Company B, and Company C\n\nSince only one row is returned, this means that R&D expense data is only available for one of th",
           "timestamp": "2026-02-14T11:11:51.535736Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T10-41-21",
+          "iteration_number": 10,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 269482,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL query executed to compare R&D spending of three companies in 2023 returned no results. This means that there is no data available for the specified companies (Company A, Company B, and Company C) in the financials table for the fiscal year 2023. Possible reasons for this could be:\n\n1. The companies do not exist in the database.\n2. The companies have not reported their financials for the fiscal year 2023 yet.\n3. There might be a typo in the company names or other parameters in the query.\n",
+          "timestamp": "2026-02-15T11:31:32.346809Z"
         }
       ],
-      "total_runs": 2,
-      "pass_count": 1,
-      "pass_rate": 0.5,
+      "total_runs": 3,
+      "pass_count": 2,
+      "pass_rate": 0.667,
       "current_status": "pass",
-      "last_tested": "2026-02-14T11:11:51.535736Z",
+      "last_tested": "2026-02-15T11:31:32.346809Z",
       "best_f1": 1.0,
       "trend": "improving"
     }
   },
   "quick_tests": [
-    {
-      "timestamp": "2026-02-14T06:15:17.477358Z",
-      "pipeline": "standard",
-      "query": "Where is Normandy located?",
-      "status": "pass",
-      "latency_ms": 22257,
-      "response_preview": "Normandy is a region in northern France, situated in the north‑west of the country.",
-      "trigger": "5q-sequential",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-14T06:15:44.479915Z",
-      "pipeline": "standard",
-      "query": "Who painted the Mona Lisa?",
-      "status": "pass",
-      "latency_ms": 26747,
-      "response_preview": "Leonardo da Vinci painted the Mona Lisa.",
-      "trigger": "5q-sequential",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-14T06:16:02.242544Z",
-      "pipeline": "standard",
-      "query": "What is the largest ocean?",
-      "status": "pass",
-      "latency_ms": 17528,
-      "response_preview": "The largest ocean is the Pacific Ocean.",
-      "trigger": "5q-sequential",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-14T06:16:24.738652Z",
-      "pipeline": "standard",
-      "query": "What year did World War II end?",
-      "status": "pass",
-      "latency_ms": 22487,
-      "response_preview": "World War II ended in 1945.",
-      "trigger": "5q-sequential",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-14T06:17:12.579201Z",
-      "pipeline": "graph",
-      "query": "What did Marie Curie win Nobel Prizes for?",
-      "status": "pass",
-      "latency_ms": 30831,
-      "response_preview": "Physics and Chemistry",
-      "trigger": "5q-sequential",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-14T06:18:15.004322Z",
-      "pipeline": "graph",
-      "query": "What did Alexander Fleming discover?",
-      "status": "pass",
-      "latency_ms": 61685,
-      "response_preview": "Penicillin, the world's first antibiotic.",
-      "trigger": "5q-sequential",
-      "error": null
-    },
     {
       "timestamp": "2026-02-14T06:18:57.267956Z",
       "pipeline": "graph",
@@ -4056,6 +5226,66 @@
       "status": "pass",
       "latency_ms": 258491,
       "response_preview": "The largest ocean is the Pacific Ocean.\n\n---\n**Sources:**\n[1] natural_questions (100%)\n[2] triviaqa (91%)\n[3] musique (83%)\n[4] climatefever (75%)\n[5] wikihop (67%)",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-15T10:10:49.643524Z",
+      "pipeline": "standard",
+      "query": "What is the capital of Japan?",
+      "status": "pass",
+      "latency_ms": 16565,
+      "response_preview": "The capital of Japan is Tokyo.",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-15T10:11:38.598258Z",
+      "pipeline": "standard",
+      "query": "What is the capital of Japan?",
+      "status": "pass",
+      "latency_ms": 16377,
+      "response_preview": "The capital of Japan is Tokyo.",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-15T10:11:56.459559Z",
+      "pipeline": "standard",
+      "query": "Where is Normandy located?",
+      "status": "pass",
+      "latency_ms": 17841,
+      "response_preview": "Normandy is a region in the northern part of France.",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-15T10:12:21.641445Z",
+      "pipeline": "standard",
+      "query": "Who painted the Mona Lisa?",
+      "status": "pass",
+      "latency_ms": 25164,
+      "response_preview": "Leonardo da Vinci painted the Mona Lisa.",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-15T10:12:42.412293Z",
+      "pipeline": "standard",
+      "query": "What is the largest ocean?",
+      "status": "pass",
+      "latency_ms": 20513,
+      "response_preview": "The largest ocean is the Pacific Ocean.",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-15T10:13:03.396631Z",
+      "pipeline": "standard",
+      "query": "What year did World War II end?",
+      "status": "pass",
+      "latency_ms": 20529,
+      "response_preview": "World War II ended in 1945.",
       "trigger": "manual",
       "error": null
     }
@@ -5789,6 +7019,751 @@
         "sub_pipelines": [],
         "routing": null
       }
+    },
+    {
+      "timestamp": "2026-02-15T10:38:02.853493Z",
+      "question_id": "std-01",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 27504,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Normandy is located in northern France.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:38:34.582939Z",
+      "question_id": "std-02",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 31242,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The first season of *SpongeBob SquarePants* premiered on May 1 1999.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:40:32.583207Z",
+      "question_id": "std-01",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 33003,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Normandy is located in France.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:40:59.074273Z",
+      "question_id": "std-02",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 24241,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The first season of *SpongeBob SquarePants* premiered on May 1, 1999.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:42:49.341517Z",
+      "question_id": "quant-01",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 79241,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the executed SQL query, there are no results for TechVision Inc's total revenue in fiscal y",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:42:56.592669Z",
+      "question_id": "std-01",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 86275,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Normandy is located in France.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:42:59.587851Z",
+      "question_id": "graph-01",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 90260,
+      "error_type": "TIMEOUT",
+      "error_preview": "timed out",
+      "answer_preview": "",
+      "confidence": null,
+      "pipeline_details_summary": null
+    },
+    {
+      "timestamp": "2026-02-15T10:43:38.347573Z",
+      "question_id": "quant-02",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 48001,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL query executed to find GreenEnergy Corp's net income for the fiscal year 2023 returned no re",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:43:38.092430Z",
+      "question_id": "std-02",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 40001,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The first season of *SpongeBob SquarePants* premiered on May 1, 1999.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:43:54.339225Z",
+      "question_id": "graph-02",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 54020,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Albert Einstein",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:44:13.086043Z",
+      "question_id": "quant-03",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 33493,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL query executed to find the revenue of HealthPlus Labs in Q4 2023 returned no results. This i",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:44:16.343719Z",
+      "question_id": "std-03",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 36500,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The capital of Japan is Tokyo.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:45:10.103993Z",
+      "question_id": "std-04",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 52993,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "William Shakespeare wrote *Romeo and Juliet*.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:45:17.325592Z",
+      "question_id": "quant-04",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 62527,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL query executed to compare the gross profit of TechVision Inc and GreenEnergy Corp in FY 2023",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:45:22.092743Z",
+      "question_id": "graph-03",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 87248,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "penicillin",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:45:40.342445Z",
+      "question_id": "std-05",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.3125,
+      "latency_ms": 28993,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Penicillin is a β‑lactam antibiotic discovered by Alexander Fleming that kills bacteria by inhibitin",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:45:53.847221Z",
+      "question_id": "quant-05",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 35999,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the executed SQL query, there are no results for TechVision Inc's R&D spending in 2023. Thi",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:46:05.337943Z",
+      "question_id": "graph-04",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 41989,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Bacterial infections",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:46:13.081943Z",
+      "question_id": "std-06",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.1818,
+      "latency_ms": 31983,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The theory of relativity, developed by Albert Einstein, comprises two interrelated parts: special re",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:46:34.597224Z",
+      "question_id": "quant-06",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 39982,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL query executed to find the diluted EPS for HealthPlus Labs in fiscal year 2023 returned no r",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:47:04.103896Z",
+      "question_id": "std-07",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 50250,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The largest ocean on Earth is the Pacific Ocean.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:47:14.340619Z",
+      "question_id": "graph-05",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 67736,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Sherborne School, King's College Cambridge, Princeton University, St John's College Cambridge",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:47:30.342449Z",
+      "question_id": "quant-07",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 54248,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the executed SQL query, there are no results for TechVision Inc's cash and equivalents at t",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:47:37.831427Z",
+      "question_id": "std-08",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 32754,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Leonardo da Vinci painted the Mona Lisa.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:48:06.578089Z",
+      "question_id": "graph-06",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 50492,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "They were rivals in the \"War of Currents\" over electrical transmission systems.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:48:10.593576Z",
+      "question_id": "quant-08",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 38735,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL query executed to find GreenEnergy Corp's total assets at the end of fiscal year 2023 return",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:48:18.837848Z",
+      "question_id": "std-09",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.5455,
+      "latency_ms": 40001,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Photosynthesis is the process by which green plants use chlorophyll to capture sunlight, converting ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:49:27.835567Z",
+      "question_id": "quant-09",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 73989,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL query executed to find the total stockholders equity for HealthPlus Labs at the end of 2023 ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:49:38.101814Z",
+      "question_id": "graph-07",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 90241,
+      "error_type": "TIMEOUT",
+      "error_preview": "timed out",
+      "answer_preview": "",
+      "confidence": null,
+      "pipeline_details_summary": null
+    },
+    {
+      "timestamp": "2026-02-15T10:49:51.104591Z",
+      "question_id": "std-10",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 90239,
+      "error_type": "TIMEOUT",
+      "error_preview": "timed out",
+      "answer_preview": "",
+      "confidence": null,
+      "pipeline_details_summary": null
+    },
+    {
+      "timestamp": "2026-02-15T10:50:16.596736Z",
+      "question_id": "quant-10",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 45994,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the executed SQL query, there is no data available for TechVision Inc's operating income in",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:50:41.100550Z",
+      "question_id": "graph-08",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 60242,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The World Wide Web is a system of interlinked hypertext documents accessed via the Internet. It was ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:51:31.832775Z",
+      "question_id": "graph-09",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 49009,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Tech giants, healthcare, finance, automotive, retail, and education organizations use AI.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:52:23.588312Z",
+      "question_id": "graph-10",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 49765,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Paris",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:56:09.590590Z",
+      "question_id": "orch-01",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 220747,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL query executed to find TechVision Inc's revenue for the year 2023 returned no results. This ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-15T10:58:55.579915Z",
+      "question_id": "orch-02",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 158759,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Alexander Fleming discovered penicillin.\n\n---\n**Sources:**\n[1] natural_questions (100%)\n[2] triviaqa",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-15T11:04:05.348746Z",
+      "question_id": "orch-03",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 302232,
+      "error_type": "TIMEOUT",
+      "error_preview": "timed out",
+      "answer_preview": "",
+      "confidence": null,
+      "pipeline_details_summary": null
+    },
+    {
+      "timestamp": "2026-02-15T11:07:02.102804Z",
+      "question_id": "orch-04",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 170734,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL query executed successfully but returned no results, indicating that there is no Q4 2023 rev",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-15T11:10:38.578947Z",
+      "question_id": "orch-05",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 210006,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Isaac Newton, Charles Darwin, James Clerk Maxwell, Ernest Rutherford\n\n---\n**Sources:**\n[1] graph_rag",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-15T11:13:53.099560Z",
+      "question_id": "orch-06",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 189974,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The capital city of France is Paris.\n\n---\n**Sources:**\n[1] wikihop (100%)\n[2] hotpotqa (91%)\n[3] mus",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-15T11:18:21.080230Z",
+      "question_id": "orch-07",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 263249,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL query executed successfully but returned no results, indicating that there is no financial d",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-15T11:23:16.824978Z",
+      "question_id": "orch-08",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 290012,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "John McCarthy, Marvin Minsky, Nathaniel Rochester, Claude Shannon\n\n---\n**Sources:**\n[1] graph_rag_ll",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-15T11:26:59.581520Z",
+      "question_id": "orch-09",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 217995,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Machine learning is a branch of artificial intelligence that enables computers to automatically lear",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-15T11:31:34.101796Z",
+      "question_id": "orch-10",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 269482,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL query executed to compare R&D spending of three companies in 2023 returned no results. This ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    }
+  ],
+  "history": [
+    {
+      "timestamp": "2026-02-15T10:41:08.341438Z",
+      "event": "eval_complete",
+      "total_tested": 108,
+      "standard": 100.0
+    },
+    {
+      "timestamp": "2026-02-15T11:31:50.586825Z",
+      "event": "eval_complete",
+      "total_tested": 148,
+      "quantitative": 100.0,
+      "standard": 90.0,
+      "graph": 80.0,
+      "orchestrator": 90.0
     }
   ]
 }

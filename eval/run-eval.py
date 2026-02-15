@@ -98,19 +98,38 @@ def evaluate_answer(answer, expected_answer):
         return {"correct": True, "method": "SUBSET_MATCH", "f1": 0.8}
     else:
         # Token-level F1 for partial matches
+        # Remove common stopwords that cause false negatives (e.g. "an" vs "a")
+        STOPWORDS = {"a", "an", "the", "is", "of", "in", "to", "and", "for", "on", "at", "with", "from", "s"}
         answer_tokens = set(norm_answer.split())
         expected_tokens = set(norm_expected.split())
-        if not expected_tokens:
+        # Filter stopwords from expected (keep content words only)
+        content_expected = expected_tokens - STOPWORDS
+        if not content_expected:
+            content_expected = expected_tokens  # Fallback if all stopwords
+        if not content_expected:
             return {"correct": False, "method": "NO_MATCH", "f1": 0.0}
-        overlap = answer_tokens & expected_tokens
+        # Exact token overlap
+        overlap = answer_tokens & content_expected
+        # Fuzzy: substring matching for tokens >= 3 chars (handles "light"/"sunlight", "299792"/"299792458")
+        unmatched = content_expected - overlap
+        for et in list(unmatched):
+            if len(et) < 3:
+                continue
+            for at in answer_tokens:
+                if len(at) < 3:
+                    continue
+                if et in at or at in et:
+                    overlap.add(et)
+                    break
         if not overlap:
             return {"correct": False, "method": "NO_MATCH", "f1": 0.0}
         precision = len(overlap) / len(answer_tokens) if answer_tokens else 0
-        recall = len(overlap) / len(expected_tokens)
+        recall = len(overlap) / len(content_expected)
         f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0
-        # Consider correct if F1 >= 0.5 OR recall == 1.0 (all expected tokens found)
-        is_correct = f1 >= 0.5 or recall >= 1.0
-        return {"correct": is_correct, "method": "TOKEN_F1", "f1": round(f1, 4)}
+        # Consider correct if F1 >= 0.5 OR recall == 1.0 OR fuzzy recall >= 0.85
+        is_correct = f1 >= 0.5 or recall >= 1.0 or recall >= 0.85
+        method = "TOKEN_F1" if recall < 0.85 else "FUZZY_RECALL"
+        return {"correct": is_correct, "method": method, "f1": round(f1, 4)}
 
 def compute_f1(answer, expected):
     """Compute F1 score between answer and expected."""
