@@ -1,7 +1,7 @@
 {
   "error_id": "err-2026-02-15-graph-01-timeout",
-  "timestamp": "2026-02-15T15:50:13.236777Z",
-  "session_id": "2026-02-15T15-47-38",
+  "timestamp": "2026-02-15T17:50:43.654862Z",
+  "session_id": "2026-02-15T17-48-03",
   "question_id": "graph-01",
   "rag_type": "graph",
   "error_type": "TIMEOUT",
@@ -11,7 +11,7 @@
   "partial_response": null,
   "pipeline_details": {},
   "performance": {
-    "total_latency_ms": 120252,
+    "total_latency_ms": 121984,
     "http_status": null,
     "response_size_bytes": 0,
     "cost_usd": 0

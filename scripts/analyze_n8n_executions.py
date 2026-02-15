@@ -188,7 +188,7 @@ if __name__ == "__main__":
     from importlib.machinery import SourceFileLoader
 
     # Dynamically load node-analyzer.py to access WORKFLOW_IDS and fetch functions
-    EVAL_DIR = os.path.join(os.path.dirname(__file__), 'eval')
+    EVAL_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'eval')
     sys.path.insert(0, EVAL_DIR)
     try:
         node_analyzer = SourceFileLoader("node_analyzer", os.path.join(EVAL_DIR, "node-analyzer.py")).load_module()

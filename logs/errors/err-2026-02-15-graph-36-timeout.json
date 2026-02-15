@@ -1,7 +1,7 @@
 {
   "error_id": "err-2026-02-15-graph-36-timeout",
-  "timestamp": "2026-02-15T12:22:46.850353Z",
-  "session_id": "2026-02-15T11-33-40",
+  "timestamp": "2026-02-15T18:33:28.806642Z",
+  "session_id": "2026-02-15T17-48-03",
   "question_id": "graph-36",
   "rag_type": "graph",
   "error_type": "TIMEOUT",
@@ -11,11 +11,11 @@
   "partial_response": null,
   "pipeline_details": {},
   "performance": {
-    "total_latency_ms": 91740,
+    "total_latency_ms": 121248,
     "http_status": null,
     "response_size_bytes": 0,
     "cost_usd": 0
   },
   "question": "What is William Shakespeare's connection to London?",
-  "expected": "Shakespeare was active in London"
+  "expected": "Shakespeare London"
 }
