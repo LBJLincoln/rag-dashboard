@@ -44,9 +44,10 @@
 
 | DB | Content | Phase 1 | Phase 2 |
 |---|---|---|---|
-| **Pinecone** | Vector embeddings | 10,411 vectors, 12 namespaces | Configurable via n8n |
-| **Neo4j** | Entity graph | 110 nodes, 151 relationships | +4,884 entities |
-| **Supabase** | Financial tables + exec_sql RPC | 1,356 rows, 7 tables + exec_sql() function | +450 rows |
+| **Pinecone** (sota-rag-cohere-1024) | Vector embeddings | 10,411 vectors, 12 namespaces | Standard RAG search |
+| **Pinecone** (sota-rag-phase2-graph) | Graph passage embeddings | N/A | 1,296 musique passages (e5-large, 1024-dim) |
+| **Neo4j** | Entity graph | 19,788 nodes, 76,717 relationships | +4,884 entities, +21,810 rels from Phase 2 |
+| **Supabase** | Financial tables + benchmark_datasets | 38 tables, 10,772+ rows | +1,000 Phase 2 questions in benchmark_datasets |
 
 ---
 
@@ -147,7 +148,7 @@ mon-ipad/
 
 ## Phase Gates (Targets)
 
-### Phase 1 — Baseline (200q) — CURRENT
+### Phase 1 — Baseline (200q) — PASSED
 | Pipeline | Target |
 |---|---|
 | Standard | >=85% |

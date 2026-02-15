@@ -93,6 +93,29 @@ python3 n8n/sync.py
 
 ---
 
+## Commandes de peuplement BDD (Phase 2)
+
+```bash
+# Supabase: 1000 questions Phase 2 -> benchmark_datasets
+set -a && source .env.local && set +a && python3 db/populate/phase2_ingest_all.py --skip-pinecone
+
+# Neo4j: entites Phase 2 (musique + 2wikimultihopqa)
+set -a && source .env.local && set +a && python3 db/populate/phase2_neo4j.py
+
+# Supabase: tables financieres (finqa, tatqa, convfinqa)
+set -a && source .env.local && set +a && python3 db/populate/phase2_supabase.py --dry-run
+
+# Wikitablequestions: fetch table data from HuggingFace
+python3 db/populate/fetch_wikitablequestions.py
+
+# Pinecone: embeddings Phase 2 (requires Cohere or Pinecone SDK)
+set -a && source .env.local && set +a && python3 db/populate/phase2_ingest_all.py --skip-supabase
+```
+
+**IMPORTANT**: Toujours `set -a && source .env.local && set +a` avant les scripts Python qui necessitent des cles API. Sans `set -a`, les variables ne sont pas exportees.
+
+---
+
 ## Commandes echouees — NE PAS reproduire
 
 | Commande | Erreur | Solution |
@@ -104,6 +127,9 @@ python3 n8n/sync.py
 | `google/gemma-3-27b-it:free` via OpenRouter | 429 — plus dans le free tier | Utiliser `nvidia/nemotron-3-nano-30b-a3b:free` |
 | Pinecone avec credential `httpHeaderAuth` ID `3DEiHDwB09D65919` | Credential inexistante en Docker | `authentication: "none"` + header `Api-Key` manuel |
 | `https://api.cohere.ai/v2/rerank` | Erreur 404/400 | Utiliser `/v1/rerank` |
+| Cohere embed API (trial keys) | 429/1000 calls per month exhausted | Utiliser Pinecone integrated inference (e5-large) ou attendre reset mensuel |
+| `source .env.local` sans `set -a` | Variables non exportees, scripts Python ne les voient pas | Toujours `set -a && source .env.local && set +a` |
+| `python3 eval/iterative-eval.py --pipeline graph` | Arg silencieusement ignore (0 questions) | Utiliser `--pipelines graph --dataset phase-1` |
 
 ---
 
