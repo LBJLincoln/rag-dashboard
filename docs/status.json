@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-15T18:34:44.288839Z",
+  "generated_at": "2026-02-15T19:42:01.314097Z",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -16,22 +16,22 @@
       "gap": 7.0
     },
     "graph": {
-      "accuracy": 58.0,
+      "accuracy": 66.0,
       "tested": 50,
-      "correct": 29,
-      "errors": 8,
+      "correct": 33,
+      "errors": 3,
       "target": 70.0,
       "met": false,
-      "gap": -12.0
+      "gap": -4.0
     },
     "quantitative": {
-      "accuracy": 84.0,
+      "accuracy": 92.0,
       "tested": 50,
-      "correct": 42,
+      "correct": 46,
       "errors": 1,
       "target": 85.0,
-      "met": false,
-      "gap": -1.0
+      "met": true,
+      "gap": 7.0
     },
     "orchestrator": {
       "accuracy": 90.0,
@@ -44,32 +44,31 @@
     }
   },
   "overall": {
-    "accuracy": 81.0,
+    "accuracy": 85.0,
     "target": 75.0,
     "met": true
   },
   "blockers": [
-    "graph: 58.0% < 70.0% (gap: -12.0pp)",
-    "quantitative: 84.0% < 85.0% (gap: -1.0pp)"
+    "graph: 66.0% < 70.0% (gap: -4.0pp)"
   ],
-  "next_action": "Fix graph pipeline (58.0% vs 70.0% target, gap: -12.0pp)",
+  "next_action": "Fix graph pipeline (66.0% vs 70.0% target, gap: -4.0pp)",
   "last_iteration": {
-    "id": "iter-2026-02-15T17-48-03",
-    "label": "15fev-s3-graph-expected-fix",
-    "timestamp": "2026-02-15T17:48:04.396043Z",
-    "total_tested": 36,
-    "overall_accuracy_pct": 61.1,
+    "id": "iter-2026-02-15T18-58-32",
+    "label": "15fev-s3-quant-company-tenant-fix",
+    "timestamp": "2026-02-15T18:58:32.299232Z",
+    "total_tested": 50,
+    "overall_accuracy_pct": 92.0,
     "pipelines": {
-      "graph": {
-        "tested": 36,
-        "correct": 22,
-        "accuracy": 61.1
+      "quantitative": {
+        "tested": 50,
+        "correct": 46,
+        "accuracy": 92.0
       }
     }
   },
   "totals": {
     "unique_questions": 160,
-    "test_runs": 637,
-    "iterations": 15
+    "test_runs": 701,
+    "iterations": 16
   }
 }

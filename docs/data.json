@@ -1,14 +1,14 @@
 {
   "meta": {
-    "generated_at": "2026-02-15T18:35:34.565076Z",
+    "generated_at": "2026-02-15T19:36:45.810762Z",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
     "total_unique_questions": 160,
-    "total_test_runs": 638,
-    "total_iterations": 15,
-    "status": "running",
-    "current_session": "2026-02-15T17-48-03"
+    "total_test_runs": 701,
+    "total_iterations": 16,
+    "status": "complete",
+    "current_session": "2026-02-15T18-58-32"
   },
   "reference_cloud_executions": {
     "note": "Executions reussies sur n8n Cloud (avant migration Docker). Servent de reference uniquement.",
@@ -8314,24 +8314,24 @@
       "id": "iter-2026-02-15T17-48-03",
       "number": 15,
       "timestamp_start": "2026-02-15T17:48:04.396043Z",
-      "timestamp_end": "2026-02-15T18:35:34.556648Z",
+      "timestamp_end": "2026-02-15T18:51:17.062312Z",
       "label": "15fev-s3-graph-expected-fix",
       "description": "Dataset: phase-1, Parallel: graph, Max: None, Reset: True",
       "changes_applied": [],
       "results_summary": {
         "graph": {
-          "tested": 37,
-          "correct": 23,
+          "tested": 50,
+          "correct": 33,
           "errors": 3,
-          "accuracy_pct": 62.2,
-          "avg_latency_ms": 72578,
-          "p95_latency_ms": 121984,
-          "avg_f1": 0.641
+          "accuracy_pct": 66.0,
+          "avg_latency_ms": 70752,
+          "p95_latency_ms": 121248,
+          "avg_f1": 0.6147
         }
       },
-      "total_tested": 37,
-      "total_correct": 23,
-      "overall_accuracy_pct": 62.2,
+      "total_tested": 50,
+      "total_correct": 33,
+      "overall_accuracy_pct": 66.0,
       "questions": [
         {
           "id": "graph-01",
@@ -8813,6 +8813,850 @@
           "error": null,
           "error_type": null,
           "timestamp": "2026-02-15T18:35:34.554078Z"
+        },
+        {
+          "id": "graph-38",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.5,
+          "latency_ms": 83231,
+          "answer": "Allies during World War II",
+          "expected": "wartime partnership allies",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T18:37:03.064862Z"
+        },
+        {
+          "id": "graph-39",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 57742,
+          "answer": "None.",
+          "expected": "Cleopatra is connected to Cairo",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T18:38:03.294074Z"
+        },
+        {
+          "id": "graph-40",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 60262,
+          "answer": "Measles, mumps, rubella, polio, tetanus, diphtheria, pertussis, influenza.",
+          "expected": "Influenza",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T18:39:05.789899Z"
+        },
+        {
+          "id": "graph-41",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.2857,
+          "latency_ms": 59494,
+          "answer": "Steam engine catalyzed Industrial Revolution, enabling mass production, revolutionizing transportation, and influencing electricity generation.",
+          "expected": "Steam Engine is connected to Electricity, which connects to Internet and AI",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T18:40:07.296089Z"
+        },
+        {
+          "id": "graph-42",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 53737,
+          "answer": "Leonardo da Vinci",
+          "expected": "Leonardo da Vinci",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T18:41:03.050139Z"
+        },
+        {
+          "id": "graph-43",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.2727,
+          "latency_ms": 69770,
+          "answer": "Isaac Newton was president of the Royal Society for nearly 24 years, from 1703 until his death in 1727.",
+          "expected": "Newton Royal Society",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T18:42:15.561409Z"
+        },
+        {
+          "id": "graph-44",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 57241,
+          "answer": "Washington, D.C., United States.",
+          "expected": "Washington D.C.",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T18:43:17.814303Z"
+        },
+        {
+          "id": "graph-45",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.4615,
+          "latency_ms": 60764,
+          "answer": "Nuclear energy generates electricity through fission-powered steam turbines.",
+          "expected": "Nuclear Energy is connected to Electricity",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T18:44:21.793457Z"
+        },
+        {
+          "id": "graph-46",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.129,
+          "latency_ms": 60990,
+          "answer": "Claude Monet, Pierre-Auguste Renoir, Camille Pissarro, Paul Cézanne, Paul Gauguin, Pablo Picasso, Georges Braque, Henri Matisse, Salvador Dalí, René Magritte, Joan Miró, Man Ray, Alexander Calder",
+          "expected": "Pablo Picasso, Vincent van Gogh",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T18:45:25.291300Z"
+        },
+        {
+          "id": "graph-47",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.0577,
+          "latency_ms": 82484,
+          "answer": "Pablo Picasso had a profound connection to the Museo del Prado in Madrid, which significantly influenced his artistic development. As a young artist, Picasso made several trips to the Prado, where he studied and copied works by Spanish masters such as Diego Velázquez, Francisco Goya, and El Greco. This early exposure to the Prado's collection played a crucial role in shaping Picasso's artistic style and understanding of Spanish art history.\n\nOne of the most notable connections between Picasso an",
+          "expected": "Picasso Museo Prado",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T18:46:51.796137Z"
+        },
+        {
+          "id": "graph-48",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.3333,
+          "latency_ms": 65244,
+          "answer": "Louis Pasteur's germ theory and vaccination work laid the foundation for Alexander Fleming's 1928 discovery of penicillin, the first antibiotic.",
+          "expected": "Pasteur Fleming Penicillin vaccination",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T18:48:03.301618Z"
+        },
+        {
+          "id": "graph-49",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 74991,
+          "answer": "Alfred Hitchcock, Stanley Kubrick, Ridley Scott, Christopher Nolan",
+          "expected": "Alfred Hitchcock",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T18:49:26.043800Z"
+        },
+        {
+          "id": "graph-50",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 66258,
+          "answer": "Paris, France",
+          "expected": "Paris",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T18:50:38.802687Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-15T18-58-32",
+      "number": 16,
+      "timestamp_start": "2026-02-15T18:58:32.299232Z",
+      "timestamp_end": "2026-02-15T19:36:45.801468Z",
+      "label": "15fev-s3-quant-company-tenant-fix",
+      "description": "Dataset: phase-1, Parallel: quantitative, Max: None, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "quantitative": {
+          "tested": 50,
+          "correct": 46,
+          "errors": 1,
+          "accuracy_pct": 92.0,
+          "avg_latency_ms": 40595,
+          "p95_latency_ms": 76250,
+          "avg_f1": 0.8849
+        }
+      },
+      "total_tested": 50,
+      "total_correct": 46,
+      "overall_accuracy_pct": 92.0,
+      "questions": [
+        {
+          "id": "quant-01",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 36237,
+          "answer": "TechVision Inc's total revenue in fiscal year 2023 was $6,745,000,000.",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T18:59:42.812486Z"
+        },
+        {
+          "id": "quant-02",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 52750,
+          "answer": "GreenEnergy Corp's net income in 2023 was $664,400,000.",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:00:38.048349Z"
+        },
+        {
+          "id": "quant-03",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 27238,
+          "answer": "The revenue of HealthPlus Labs in Q4 2023 was $322,560,000.",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:01:07.046001Z"
+        },
+        {
+          "id": "quant-04",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 39495,
+          "answer": "In FY 2023, TechVision Inc had a gross profit of $4,586,600,000, while GreenEnergy Corp had a gross profit of $1,715,000,000. TechVision Inc's gross profit was significantly higher than GreenEnergy Corp's by $2,871,600,000.",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:01:49.043718Z"
+        },
+        {
+          "id": "quant-05",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 50243,
+          "answer": "TechVision Inc's R&D spending in 2023 was $1,349,000,000.",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:02:43.044747Z"
+        },
+        {
+          "id": "quant-06",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 76250,
+          "answer": "The diluted EPS for HealthPlus Labs in fiscal year 2023 was 6.71.",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:04:02.805263Z"
+        },
+        {
+          "id": "quant-07",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 27258,
+          "answer": "TechVision Inc had $2,200,000,000 in cash and equivalents at the end of 2023.",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:04:32.044209Z"
+        },
+        {
+          "id": "quant-08",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 26979,
+          "answer": "GreenEnergy Corp's total assets at the end of fiscal year 2023 were $4,460,000,000.",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:05:01.285870Z"
+        },
+        {
+          "id": "quant-09",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 33737,
+          "answer": "The total stockholders equity for HealthPlus Labs at the end of 2023 was $795,000,000.",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:05:37.554760Z"
+        },
+        {
+          "id": "quant-10",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 21253,
+          "answer": "TechVision Inc's operating income in Q3 2023 was $516,525,000.",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:06:00.813194Z"
+        },
+        {
+          "id": "quant-11",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.2857,
+          "latency_ms": 78505,
+          "answer": "TechVision Inc's revenue growth from 2020 to 2023 was as follows:\n\n- 2020 to 2021: 20% growth\n- 2021 to 2022: 15% growth\n- 2022 to 2023: 15% growth\n\nThe overall revenue growth from 2020 to 2023 was approximately 58.7%.",
+          "expected": "2020: 4250000000, 2023: 6745000000, growth ~58.7%",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:07:25.044774Z"
+        },
+        {
+          "id": "quant-12",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 58233,
+          "answer": "TechVision Inc had the highest revenue in fiscal year 2023, with a revenue of $6,745,000,000.",
+          "expected": "TechVision Inc",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:08:28.052366Z"
+        },
+        {
+          "id": "quant-13",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 50990,
+          "answer": "The total long-term debt for GreenEnergy Corp at the end of 2023 was $300,000,000.",
+          "expected": "300000000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:09:22.815314Z"
+        },
+        {
+          "id": "quant-14",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 27003,
+          "answer": "TechVision has 47 active employees.",
+          "expected": "47",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:09:52.795076Z"
+        },
+        {
+          "id": "quant-15",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 62000,
+          "answer": "The average salary of Engineering employees at TechVision is $172,000.",
+          "expected": "172000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:10:59.545228Z"
+        },
+        {
+          "id": "quant-16",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 25024,
+          "answer": "GreenEnergy Corp has 6 products in its catalog.",
+          "expected": "6",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:11:32.045761Z"
+        },
+        {
+          "id": "quant-17",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 45003,
+          "answer": "The cost of goods sold for TechVision Inc in FY 2022 was $1,935,450,000.",
+          "expected": "1935450000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:12:19.799049Z"
+        },
+        {
+          "id": "quant-18",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 41773,
+          "answer": "The tax expense for GreenEnergy Corp in Q2 2023 was $42,440,000.",
+          "expected": "42440000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:13:06.066274Z"
+        },
+        {
+          "id": "quant-19",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 53255,
+          "answer": "HealthPlus Labs' revenue in 2020 was $320,000,000.",
+          "expected": "320000000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:14:04.044230Z"
+        },
+        {
+          "id": "quant-20",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.2609,
+          "latency_ms": 48749,
+          "answer": "Based on the SQL query results, here's a comparison of the operating expenses for all three companies in 2023:\n\n1. TechVision Inc: $2,563,000,000\n2. GreenEnergy Corp: $876,000,000\n3. HealthPlus Labs: $380,160,000\n\nTechVision Inc has the highest operating expenses among the three companies, followed by GreenEnergy Corp, and then HealthPlus Labs with the lowest operating expenses.",
+          "expected": "TechVision: 2563000000, GreenEnergy: 876000000, HealthPlus: 380160000",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:14:58.537019Z"
+        },
+        {
+          "id": "quant-21",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 26747,
+          "answer": "TechVision Inc's basic EPS in Q1 2023 was 3.71.",
+          "expected": "3.71",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:15:27.551940Z"
+        },
+        {
+          "id": "quant-22",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 21499,
+          "answer": "The list price of the VisionAI Platform product is $299.99.",
+          "expected": "299.99",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:15:51.285580Z"
+        },
+        {
+          "id": "quant-23",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 39241,
+          "answer": "TechVision Inc's total revenue across all quarters in 2023 was $6,745,000,000.",
+          "expected": "6745000000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:16:33.042642Z"
+        },
+        {
+          "id": "quant-24",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 65752,
+          "answer": "The accounts receivable for TechVision Inc at the end of 2022 was $1,173,000,000.",
+          "expected": "1173000000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:17:44.040943Z"
+        },
+        {
+          "id": "quant-25",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 34757,
+          "answer": "There are 21 employees in the Sales department across all companies.",
+          "expected": "21",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:18:22.544951Z"
+        },
+        {
+          "id": "quant-26",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 28988,
+          "answer": "GreenEnergy Corp's revenue in 2021 was $2,160,000,000.",
+          "expected": "2160000000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:18:55.046491Z"
+        },
+        {
+          "id": "quant-27",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 27502,
+          "answer": "The interest expense for TechVision Inc in FY 2023 was $35,000,000.",
+          "expected": "35000000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:19:26.302855Z"
+        },
+        {
+          "id": "quant-28",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 48744,
+          "answer": "Based on the SQL query results, TechVision Inc had the highest net income growth from 2020 to 2023, with a growth of $796,600,000.",
+          "expected": "HealthPlus Labs",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:20:18.312660Z"
+        },
+        {
+          "id": "quant-29",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 46751,
+          "answer": "The total current assets for GreenEnergy Corp at the end of 2023 was $2,160,000,000.",
+          "expected": "2160000000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:21:10.288621Z"
+        },
+        {
+          "id": "quant-30",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 27744,
+          "answer": "HealthPlus Labs' operating income in Q2 2023 was $52,532,000.",
+          "expected": "52532000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:21:41.304462Z"
+        },
+        {
+          "id": "quant-31",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 59250,
+          "answer": "The selling, general and administrative expense for TechVision Inc in 2023 was $1,214,000,000.",
+          "expected": "1214000000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:22:49.043902Z"
+        },
+        {
+          "id": "quant-32",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 49017,
+          "answer": "Based on the executed SQL query, there are no results returned for GreenEnergy Corp's shares outstanding. This could be due to several reasons:\n\n1. The company name might be slightly different in the database (e.g., \"Green Energy Corp\" instead of \"GreenEnergy Corp\").\n2. The company might not have any balance sheet data in the database.\n3. The data might not be available for the most recent fiscal year.\n\nTo get the correct information, you may need to:\n\n1. Verify the exact company name in the dat",
+          "expected": "50000000",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:23:43.309831Z"
+        },
+        {
+          "id": "quant-33",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.4444,
+          "latency_ms": 58014,
+          "answer": "HealthPlus Labs sells two products in the Diagnostics category: GenomeScan 1.0 and GenomeScan 2.0.",
+          "expected": "GenomeScan 1.0, GenomeScan 2.0",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:24:45.062857Z"
+        },
+        {
+          "id": "quant-34",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 25988,
+          "answer": "TechVision Inc's gross profit margin in FY 2023 was 68%.",
+          "expected": "68%",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:25:15.046056Z"
+        },
+        {
+          "id": "quant-35",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 28753,
+          "answer": "The total revenue for all companies combined in fiscal year 2023 was $11,547,000,000.",
+          "expected": "11547000000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:25:46.300312Z"
+        },
+        {
+          "id": "quant-36",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 19752,
+          "answer": "The goodwill on TechVision Inc's balance sheet at the end of 2023 is $950,000,000.",
+          "expected": "950000000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:26:08.801633Z"
+        },
+        {
+          "id": "quant-37",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 38490,
+          "answer": "GreenEnergy Corp's Q1 2023 revenue was $803,000,000.",
+          "expected": "803000000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:26:50.545497Z"
+        },
+        {
+          "id": "quant-38",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 53006,
+          "answer": "Based on the SQL query results, Q4 had the highest revenue for TechVision Inc in 2023, with a revenue of $1,851,500,000.",
+          "expected": "Q4",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:27:52.293262Z"
+        },
+        {
+          "id": "quant-39",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 28005,
+          "answer": "HealthPlus Labs' income before tax in FY 2023 was $220,840,000.",
+          "expected": "220840000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:28:23.039516Z"
+        },
+        {
+          "id": "quant-40",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 25276,
+          "answer": "The retained earnings for TechVision Inc at the end of 2023 was $5,149,000,000.",
+          "expected": "5149000000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:28:51.301568Z"
+        },
+        {
+          "id": "quant-41",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 32525,
+          "answer": "There are 8 departments at TechVision.",
+          "expected": "8",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:29:26.046738Z"
+        },
+        {
+          "id": "quant-42",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 54995,
+          "answer": "GreenEnergy Corp's operating income in 2022 was $561,600,000.",
+          "expected": "561600000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:30:25.041128Z"
+        },
+        {
+          "id": "quant-43",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 18260,
+          "answer": "",
+          "expected": "3200.00",
+          "match_type": "NO_ANSWER",
+          "error": "Expecting value: line 1 column 1 (char 0)",
+          "error_type": "UNKNOWN",
+          "timestamp": "2026-02-15T19:30:45.545608Z"
+        },
+        {
+          "id": "quant-44",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 21740,
+          "answer": "The total liabilities for HealthPlus Labs at the end of 2022 were $305,000,000.",
+          "expected": "305000000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:31:11.800813Z"
+        },
+        {
+          "id": "quant-45",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 34765,
+          "answer": "TechVision Inc's revenue per quarter in 2023 showed a consistent upward trend:\n\n- Q1: $1,552,350,000\n- Q2: $1,619,400,000\n- Q3: $1,721,750,000\n- Q4: $1,851,500,000\n\nThe company experienced steady growth throughout the year, with each quarter showing an increase in revenue compared to the previous quarter. The growth rate accelerated in the latter half of the year, with Q4 revenue being approximately 19.3% higher than Q1 revenue.",
+          "expected": "Q1: 1552350000, Q2: 1619400000, Q3: 1721750000, Q4: 1851500000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:31:51.298955Z"
+        },
+        {
+          "id": "quant-46",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 62507,
+          "answer": "HealthPlus Labs' revenue growth rate from 2022 to 2023 was 50%.",
+          "expected": "50%",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:32:59.058567Z"
+        },
+        {
+          "id": "quant-47",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 86221,
+          "answer": "The property, plant and equipment value for GreenEnergy Corp at the end of 2023 was $1,950,000,000.",
+          "expected": "1950000000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:34:31.314791Z"
+        },
+        {
+          "id": "quant-48",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 35756,
+          "answer": "Based on the SQL query results, TechVision Inc spent the most on research and development in 2023, with a total expenditure of $1,349,000,000.",
+          "expected": "TechVision Inc",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:35:10.056021Z"
+        },
+        {
+          "id": "quant-49",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 23500,
+          "answer": "GreenEnergy Corp's basic EPS in fiscal year 2022 was 8.75.",
+          "expected": "8.75",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:35:36.038914Z"
+        },
+        {
+          "id": "quant-50",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 24256,
+          "answer": "The total short-term debt across all companies at the end of 2023 was $220,000,000.",
+          "expected": "220000000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:36:02.541736Z"
         }
       ]
     }
@@ -11031,13 +11875,25 @@
           "error_type": null,
           "answer": "TechVision Inc's total revenue in fiscal year 2023 was $6,745,000,000.",
           "timestamp": "2026-02-15T15:50:03.721935Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 36237,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "TechVision Inc's total revenue in fiscal year 2023 was $6,745,000,000.",
+          "timestamp": "2026-02-15T18:59:42.814956Z"
         }
       ],
-      "total_runs": 8,
-      "pass_count": 5,
-      "pass_rate": 0.625,
+      "total_runs": 9,
+      "pass_count": 6,
+      "pass_rate": 0.667,
       "current_status": "pass",
-      "last_tested": "2026-02-15T15:50:03.721935Z",
+      "last_tested": "2026-02-15T18:59:42.814956Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -11146,13 +12002,25 @@
           "error_type": null,
           "answer": "GreenEnergy Corp's net income in 2023 was $664,400,000.",
           "timestamp": "2026-02-15T15:50:33.995220Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 52750,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "GreenEnergy Corp's net income in 2023 was $664,400,000.",
+          "timestamp": "2026-02-15T19:00:38.049509Z"
         }
       ],
-      "total_runs": 8,
-      "pass_count": 6,
-      "pass_rate": 0.75,
+      "total_runs": 9,
+      "pass_count": 7,
+      "pass_rate": 0.778,
       "current_status": "pass",
-      "last_tested": "2026-02-15T15:50:33.995220Z",
+      "last_tested": "2026-02-15T19:00:38.049509Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -11261,13 +12129,25 @@
           "error_type": null,
           "answer": "The revenue of HealthPlus Labs in Q4 2023 was $322,560,000.",
           "timestamp": "2026-02-15T15:51:05.738183Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 27238,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "The revenue of HealthPlus Labs in Q4 2023 was $322,560,000.",
+          "timestamp": "2026-02-15T19:01:07.055458Z"
         }
       ],
-      "total_runs": 8,
-      "pass_count": 6,
-      "pass_rate": 0.75,
+      "total_runs": 9,
+      "pass_count": 7,
+      "pass_rate": 0.778,
       "current_status": "pass",
-      "last_tested": "2026-02-15T15:51:05.738183Z",
+      "last_tested": "2026-02-15T19:01:07.055458Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -11364,13 +12244,25 @@
           "error_type": null,
           "answer": "TechVision Inc had a gross profit of $4,586,600,000 in FY 2023, while GreenEnergy Corp had a gross profit of $1,715,000,000 in the same period. TechVision Inc's gross profit was approximately 2.67 times higher than GreenEnergy Corp's.",
           "timestamp": "2026-02-15T15:51:44.738040Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 39495,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "In FY 2023, TechVision Inc had a gross profit of $4,586,600,000, while GreenEnergy Corp had a gross profit of $1,715,000,000. TechVision Inc's gross profit was significantly higher than GreenEnergy Corp's by $2,871,600,000.",
+          "timestamp": "2026-02-15T19:01:49.043853Z"
         }
       ],
-      "total_runs": 7,
-      "pass_count": 5,
-      "pass_rate": 0.714,
+      "total_runs": 8,
+      "pass_count": 6,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T15:51:44.738040Z",
+      "last_tested": "2026-02-15T19:01:49.043853Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -11467,13 +12359,25 @@
           "error_type": null,
           "answer": "TechVision Inc's R&D spending in 2023 was $1,349,000,000.",
           "timestamp": "2026-02-15T15:53:22.227398Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 50243,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "TechVision Inc's R&D spending in 2023 was $1,349,000,000.",
+          "timestamp": "2026-02-15T19:02:43.044908Z"
         }
       ],
-      "total_runs": 7,
-      "pass_count": 6,
-      "pass_rate": 0.857,
+      "total_runs": 8,
+      "pass_count": 7,
+      "pass_rate": 0.875,
       "current_status": "pass",
-      "last_tested": "2026-02-15T15:53:22.227398Z",
+      "last_tested": "2026-02-15T19:02:43.044908Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -11570,13 +12474,25 @@
           "error_type": null,
           "answer": "The diluted EPS for HealthPlus Labs in fiscal year 2023 was 6.71.",
           "timestamp": "2026-02-15T15:54:01.722496Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 76250,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "The diluted EPS for HealthPlus Labs in fiscal year 2023 was 6.71.",
+          "timestamp": "2026-02-15T19:04:02.809011Z"
         }
       ],
-      "total_runs": 7,
-      "pass_count": 6,
-      "pass_rate": 0.857,
+      "total_runs": 8,
+      "pass_count": 7,
+      "pass_rate": 0.875,
       "current_status": "pass",
-      "last_tested": "2026-02-15T15:54:01.722496Z",
+      "last_tested": "2026-02-15T19:04:02.809011Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -11673,13 +12589,25 @@
           "error_type": null,
           "answer": "TechVision Inc had $2,200,000,000 in cash and equivalents at the end of 2023.",
           "timestamp": "2026-02-15T15:54:39.247147Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 27258,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "TechVision Inc had $2,200,000,000 in cash and equivalents at the end of 2023.",
+          "timestamp": "2026-02-15T19:04:32.047875Z"
         }
       ],
-      "total_runs": 7,
-      "pass_count": 5,
-      "pass_rate": 0.714,
+      "total_runs": 8,
+      "pass_count": 6,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T15:54:39.247147Z",
+      "last_tested": "2026-02-15T19:04:32.047875Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -11776,13 +12704,25 @@
           "error_type": null,
           "answer": "GreenEnergy Corp's total assets at the end of fiscal year 2023 were $4,460,000,000.",
           "timestamp": "2026-02-15T15:55:11.978541Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 26979,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "GreenEnergy Corp's total assets at the end of fiscal year 2023 were $4,460,000,000.",
+          "timestamp": "2026-02-15T19:05:01.286004Z"
         }
       ],
-      "total_runs": 7,
-      "pass_count": 6,
-      "pass_rate": 0.857,
+      "total_runs": 8,
+      "pass_count": 7,
+      "pass_rate": 0.875,
       "current_status": "pass",
-      "last_tested": "2026-02-15T15:55:11.978541Z",
+      "last_tested": "2026-02-15T19:05:01.286004Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -11879,13 +12819,25 @@
           "error_type": null,
           "answer": "The total stockholders equity for HealthPlus Labs at the end of 2023 was $795,000,000.",
           "timestamp": "2026-02-15T15:56:16.734738Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 33737,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "The total stockholders equity for HealthPlus Labs at the end of 2023 was $795,000,000.",
+          "timestamp": "2026-02-15T19:05:37.556900Z"
         }
       ],
-      "total_runs": 7,
-      "pass_count": 5,
-      "pass_rate": 0.714,
+      "total_runs": 8,
+      "pass_count": 6,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T15:56:16.734738Z",
+      "last_tested": "2026-02-15T19:05:37.556900Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -11982,13 +12934,25 @@
           "error_type": null,
           "answer": "TechVision Inc's operating income in Q3 2023 was $516,525,000.",
           "timestamp": "2026-02-15T15:56:57.218206Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 21253,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "TechVision Inc's operating income in Q3 2023 was $516,525,000.",
+          "timestamp": "2026-02-15T19:06:00.813291Z"
         }
       ],
-      "total_runs": 7,
-      "pass_count": 5,
-      "pass_rate": 0.714,
+      "total_runs": 8,
+      "pass_count": 6,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T15:56:57.218206Z",
+      "last_tested": "2026-02-15T19:06:00.813291Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -12659,15 +13623,27 @@
           "error_type": null,
           "answer": "Based on the SQL results, TechVision Inc's revenue growth from 2020 to 2023 was as follows:\n\n- 2020 to 2021: 20% growth\n- 2021 to 2022: 15% growth\n- 2022 to 2023: 15% growth\n\nThe overall revenue growth from 2020 to 2023 was approximately 58.82% (calculated as (6745000000 - 4250000000) / 4250000000 * 100).",
           "timestamp": "2026-02-15T15:57:40.495322Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": false,
+          "f1": 0.2857,
+          "latency_ms": 78505,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "TechVision Inc's revenue growth from 2020 to 2023 was as follows:\n\n- 2020 to 2021: 20% growth\n- 2021 to 2022: 15% growth\n- 2022 to 2023: 15% growth\n\nThe overall revenue growth from 2020 to 2023 was approximately 58.7%.",
+          "timestamp": "2026-02-15T19:07:25.050678Z"
         }
       ],
-      "total_runs": 3,
+      "total_runs": 4,
       "pass_count": 1,
-      "pass_rate": 0.333,
-      "current_status": "pass",
-      "last_tested": "2026-02-15T15:57:40.495322Z",
-      "best_f1": 0.2703,
-      "trend": "improving"
+      "pass_rate": 0.25,
+      "current_status": "fail",
+      "last_tested": "2026-02-15T19:07:25.050678Z",
+      "best_f1": 0.2857,
+      "trend": "stable"
     },
     "std-11": {
       "id": "std-11",
@@ -12769,13 +13745,25 @@
           "error_type": null,
           "answer": "TechVision Inc had the highest revenue in fiscal year 2023, with a revenue of $6,745,000,000.",
           "timestamp": "2026-02-15T15:58:33.497028Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 58233,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "TechVision Inc had the highest revenue in fiscal year 2023, with a revenue of $6,745,000,000.",
+          "timestamp": "2026-02-15T19:08:28.057469Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T15:58:33.497028Z",
+      "last_tested": "2026-02-15T19:08:28.057469Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -12879,13 +13867,25 @@
           "error_type": null,
           "answer": "The total long-term debt for GreenEnergy Corp at the end of 2023 was $300,000,000.",
           "timestamp": "2026-02-15T15:59:24.248540Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 50990,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The total long-term debt for GreenEnergy Corp at the end of 2023 was $300,000,000.",
+          "timestamp": "2026-02-15T19:09:22.815447Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T15:59:24.248540Z",
+      "last_tested": "2026-02-15T19:09:22.815447Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -12989,15 +13989,27 @@
           "error_type": null,
           "answer": "Based on the executed SQL query and the results, TechVision has 0 active employees. The query searched for active employees in the 'benchmark' tenant with a company name containing 'TechVision', but returned no results. This could mean that TechVision either has no employees in the system, or all employees are not marked as 'active'.",
           "timestamp": "2026-02-15T15:59:48.497111Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 27003,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "TechVision has 47 active employees.",
+          "timestamp": "2026-02-15T19:09:52.796430Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T15:59:48.497111Z",
-      "best_f1": 0.0,
-      "trend": "stable"
+      "total_runs": 4,
+      "pass_count": 1,
+      "pass_rate": 0.25,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T19:09:52.796430Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "quant-15": {
       "id": "quant-15",
@@ -13044,15 +14056,27 @@
           "error_type": null,
           "answer": "Based on the executed SQL query and the results, there are no Engineering employees at TechVision in the database. The query returned 0 rows, which means there is no data available to calculate an average salary. Therefore, it's not possible to provide an average salary for Engineering employees at TechVision based on the current data.",
           "timestamp": "2026-02-15T16:00:29.241837Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 62000,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The average salary of Engineering employees at TechVision is $172,000.",
+          "timestamp": "2026-02-15T19:10:59.551206Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T16:00:29.241837Z",
-      "best_f1": 0.0,
-      "trend": "stable"
+      "total_runs": 4,
+      "pass_count": 1,
+      "pass_rate": 0.25,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T19:10:59.551206Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "std-14": {
       "id": "std-14",
@@ -13221,15 +14245,27 @@
           "error_type": null,
           "answer": "Based on the executed SQL query and the results provided, it appears that there are no products in the catalog for GreenEnergy Corp. The query returned 0 rows, which means that either:\n\n1. GreenEnergy Corp does not have any products in the catalog, or\n2. There might be an issue with the data or the query itself.\n\nTo confirm the result, you may want to double-check the following:\n\n1. Ensure that the company name is correctly spelled and formatted in the database.\n2. Verify that the 'tenant_id' is",
           "timestamp": "2026-02-15T16:01:20.724775Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 25024,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "GreenEnergy Corp has 6 products in its catalog.",
+          "timestamp": "2026-02-15T19:11:32.045975Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T16:01:20.724775Z",
-      "best_f1": 0.0,
-      "trend": "stable"
+      "total_runs": 4,
+      "pass_count": 1,
+      "pass_rate": 0.25,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T19:11:32.045975Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "std-15": {
       "id": "std-15",
@@ -13331,13 +14367,25 @@
           "error_type": null,
           "answer": "The cost of goods sold for TechVision Inc in FY 2022 was $1,935,450,000.",
           "timestamp": "2026-02-15T16:02:23.744223Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 45003,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The cost of goods sold for TechVision Inc in FY 2022 was $1,935,450,000.",
+          "timestamp": "2026-02-15T19:12:19.799910Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:02:23.744223Z",
+      "last_tested": "2026-02-15T19:12:19.799910Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -13508,13 +14556,25 @@
           "error_type": null,
           "answer": "The tax expense for GreenEnergy Corp in Q2 2023 was $42,440,000.",
           "timestamp": "2026-02-15T16:03:23.726261Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 41773,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The tax expense for GreenEnergy Corp in Q2 2023 was $42,440,000.",
+          "timestamp": "2026-02-15T19:13:06.289531Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:03:23.726261Z",
+      "last_tested": "2026-02-15T19:13:06.289531Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -13563,13 +14623,25 @@
           "error_type": null,
           "answer": "HealthPlus Labs' revenue in 2020 was $320,000,000.",
           "timestamp": "2026-02-15T16:03:51.494018Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 53255,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "HealthPlus Labs' revenue in 2020 was $320,000,000.",
+          "timestamp": "2026-02-15T19:14:04.051253Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:03:51.494018Z",
+      "last_tested": "2026-02-15T19:14:04.051253Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -13740,13 +14812,25 @@
           "error_type": null,
           "answer": "Based on the SQL query results, here's a comparison of the operating expenses for the three companies in 2023:\n\n1. TechVision Inc: $2,563,000,000\n2. GreenEnergy Corp: $876,000,000\n3. HealthPlus Labs: $380,160,000\n\nTechVision Inc has the highest operating expenses among the three companies, followed by GreenEnergy Corp, and HealthPlus Labs has the lowest operating expenses.",
           "timestamp": "2026-02-15T16:05:09.248367Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.2609,
+          "latency_ms": 48749,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the SQL query results, here's a comparison of the operating expenses for all three companies in 2023:\n\n1. TechVision Inc: $2,563,000,000\n2. GreenEnergy Corp: $876,000,000\n3. HealthPlus Labs: $380,160,000\n\nTechVision Inc has the highest operating expenses among the three companies, followed by GreenEnergy Corp, and then HealthPlus Labs with the lowest operating expenses.",
+          "timestamp": "2026-02-15T19:14:58.543259Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:05:09.248367Z",
+      "last_tested": "2026-02-15T19:14:58.543259Z",
       "best_f1": 0.2791,
       "trend": "improving"
     },
@@ -13917,13 +15001,25 @@
           "error_type": null,
           "answer": "TechVision Inc's basic EPS in Q1 2023 was 3.71.",
           "timestamp": "2026-02-15T16:05:47.219406Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 26747,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "TechVision Inc's basic EPS in Q1 2023 was 3.71.",
+          "timestamp": "2026-02-15T19:15:27.553758Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:05:47.219406Z",
+      "last_tested": "2026-02-15T19:15:27.553758Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -14094,13 +15190,25 @@
           "error_type": null,
           "answer": "The list price of the VisionAI Platform product is $299.99.",
           "timestamp": "2026-02-15T16:06:25.475232Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 21499,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The list price of the VisionAI Platform product is $299.99.",
+          "timestamp": "2026-02-15T19:15:51.285711Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:06:25.475232Z",
+      "last_tested": "2026-02-15T19:15:51.285711Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -14204,13 +15312,25 @@
           "error_type": null,
           "answer": "TechVision Inc's total revenue across all quarters in 2023 was $6,745,000,000.",
           "timestamp": "2026-02-15T16:06:58.722265Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 39241,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "TechVision Inc's total revenue across all quarters in 2023 was $6,745,000,000.",
+          "timestamp": "2026-02-15T19:16:33.042815Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:06:58.722265Z",
+      "last_tested": "2026-02-15T19:16:33.042815Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -14326,13 +15446,25 @@
           "error_type": null,
           "answer": "The accounts receivable for TechVision Inc at the end of 2022 was $1,173,000,000.",
           "timestamp": "2026-02-15T16:08:09.748899Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 65752,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The accounts receivable for TechVision Inc at the end of 2022 was $1,173,000,000.",
+          "timestamp": "2026-02-15T19:17:44.046337Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:08:09.748899Z",
+      "last_tested": "2026-02-15T19:17:44.046337Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -14503,13 +15635,25 @@
           "error_type": null,
           "answer": "There are 21 employees in the Sales department across all companies.",
           "timestamp": "2026-02-15T16:08:52.482346Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 34757,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "There are 21 employees in the Sales department across all companies.",
+          "timestamp": "2026-02-15T19:18:22.545184Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:08:52.482346Z",
+      "last_tested": "2026-02-15T19:18:22.545184Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -14613,13 +15757,25 @@
           "error_type": null,
           "answer": "GreenEnergy Corp's revenue in 2021 was $2,160,000,000.",
           "timestamp": "2026-02-15T16:09:23.236130Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 28988,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "GreenEnergy Corp's revenue in 2021 was $2,160,000,000.",
+          "timestamp": "2026-02-15T19:18:55.046636Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:09:23.236130Z",
+      "last_tested": "2026-02-15T19:18:55.046636Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -14723,13 +15879,25 @@
           "error_type": null,
           "answer": "The interest expense for TechVision Inc in FY 2023 was $35,000,000.",
           "timestamp": "2026-02-15T16:10:34.726750Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 27502,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The interest expense for TechVision Inc in FY 2023 was $35,000,000.",
+          "timestamp": "2026-02-15T19:19:26.303003Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:10:34.726750Z",
+      "last_tested": "2026-02-15T19:19:26.303003Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -14845,13 +16013,25 @@
           "error_type": null,
           "answer": "TechVision Inc had the highest net income growth from 2020 to 2023, with a growth of $796,600,000.",
           "timestamp": "2026-02-15T16:11:07.468220Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 48744,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the SQL query results, TechVision Inc had the highest net income growth from 2020 to 2023, with a growth of $796,600,000.",
+          "timestamp": "2026-02-15T19:20:18.314872Z"
         }
       ],
-      "total_runs": 3,
+      "total_runs": 4,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-15T16:11:07.468220Z",
+      "last_tested": "2026-02-15T19:20:18.314872Z",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -14955,13 +16135,25 @@
           "error_type": null,
           "answer": "The total current assets for GreenEnergy Corp at the end of 2023 were $2,160,000,000.",
           "timestamp": "2026-02-15T16:11:40.742742Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 46751,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The total current assets for GreenEnergy Corp at the end of 2023 was $2,160,000,000.",
+          "timestamp": "2026-02-15T19:21:10.291530Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:11:40.742742Z",
+      "last_tested": "2026-02-15T19:21:10.291530Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -15077,13 +16269,25 @@
           "error_type": null,
           "answer": "HealthPlus Labs' operating income in Q2 2023 was $52,532,000.",
           "timestamp": "2026-02-15T16:12:17.973269Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 27744,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "HealthPlus Labs' operating income in Q2 2023 was $52,532,000.",
+          "timestamp": "2026-02-15T19:21:41.304742Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:12:17.973269Z",
+      "last_tested": "2026-02-15T19:21:41.304742Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -15187,13 +16391,25 @@
           "error_type": null,
           "answer": "The selling, general and administrative expense for TechVision Inc in 2023 was $1,214,000,000.",
           "timestamp": "2026-02-15T16:13:47.476262Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 59250,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The selling, general and administrative expense for TechVision Inc in 2023 was $1,214,000,000.",
+          "timestamp": "2026-02-15T19:22:49.047236Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:13:47.476262Z",
+      "last_tested": "2026-02-15T19:22:49.047236Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -15364,15 +16580,27 @@
           "error_type": null,
           "answer": "GreenEnergy Corp has 50,000,000 shares outstanding.",
           "timestamp": "2026-02-15T16:14:22.244606Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 49017,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the executed SQL query, there are no results returned for GreenEnergy Corp's shares outstanding. This could be due to several reasons:\n\n1. The company name might be slightly different in the database (e.g., \"Green Energy Corp\" instead of \"GreenEnergy Corp\").\n2. The company might not have any balance sheet data in the database.\n3. The data might not be available for the most recent fiscal year.\n\nTo get the correct information, you may need to:\n\n1. Verify the exact company name in the dat",
+          "timestamp": "2026-02-15T19:23:43.311983Z"
         }
       ],
-      "total_runs": 3,
+      "total_runs": 4,
       "pass_count": 2,
-      "pass_rate": 0.667,
-      "current_status": "pass",
-      "last_tested": "2026-02-15T16:14:22.244606Z",
+      "pass_rate": 0.5,
+      "current_status": "fail",
+      "last_tested": "2026-02-15T19:23:43.311983Z",
       "best_f1": 0.9,
-      "trend": "improving"
+      "trend": "stable"
     },
     "graph-21": {
       "id": "graph-21",
@@ -15541,15 +16769,27 @@
           "error_type": null,
           "answer": "Based on the executed SQL query, there are no products listed for HealthPlus Labs in the Diagnostics category. This could be due to several reasons:\n\n1. HealthPlus Labs may not have any products in the Diagnostics category.\n2. The data might not be available in the database.\n3. There could be a discrepancy in the naming or categorization of the products.\n\nTo further investigate, you might want to check if HealthPlus Labs has products in other categories or if there are any data entry issues.",
           "timestamp": "2026-02-15T16:14:53.240948Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.4444,
+          "latency_ms": 58014,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "HealthPlus Labs sells two products in the Diagnostics category: GenomeScan 1.0 and GenomeScan 2.0.",
+          "timestamp": "2026-02-15T19:24:45.068102Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T16:14:53.240948Z",
-      "best_f1": 0.0714,
-      "trend": "stable"
+      "total_runs": 4,
+      "pass_count": 1,
+      "pass_rate": 0.25,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T19:24:45.068102Z",
+      "best_f1": 0.4444,
+      "trend": "improving"
     },
     "quant-34": {
       "id": "quant-34",
@@ -15596,13 +16836,25 @@
           "error_type": null,
           "answer": "TechVision Inc's gross profit margin in FY 2023 was 68%.",
           "timestamp": "2026-02-15T16:15:24.726350Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 25988,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "TechVision Inc's gross profit margin in FY 2023 was 68%.",
+          "timestamp": "2026-02-15T19:25:15.047175Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:15:24.726350Z",
+      "last_tested": "2026-02-15T19:25:15.047175Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -15773,13 +17025,25 @@
           "error_type": null,
           "answer": "The total revenue for all companies combined in fiscal year 2023 was $11,547,000,000.",
           "timestamp": "2026-02-15T16:16:43.722838Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 28753,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The total revenue for all companies combined in fiscal year 2023 was $11,547,000,000.",
+          "timestamp": "2026-02-15T19:25:46.300451Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:16:43.722838Z",
+      "last_tested": "2026-02-15T19:25:46.300451Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -15950,13 +17214,25 @@
           "error_type": null,
           "answer": "The goodwill on TechVision Inc's balance sheet at the end of 2023 is $950,000,000.",
           "timestamp": "2026-02-15T16:17:17.239055Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 19752,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The goodwill on TechVision Inc's balance sheet at the end of 2023 is $950,000,000.",
+          "timestamp": "2026-02-15T19:26:08.801798Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:17:17.239055Z",
+      "last_tested": "2026-02-15T19:26:08.801798Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -16060,13 +17336,25 @@
           "error_type": null,
           "answer": "GreenEnergy Corp's Q1 2023 revenue was $803,000,000.",
           "timestamp": "2026-02-15T16:17:47.745189Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 38490,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "GreenEnergy Corp's Q1 2023 revenue was $803,000,000.",
+          "timestamp": "2026-02-15T19:26:50.545700Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:17:47.745189Z",
+      "last_tested": "2026-02-15T19:26:50.545700Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -16237,13 +17525,25 @@
           "error_type": null,
           "answer": "Q4 had the highest revenue for TechVision Inc in 2023, with a revenue of $1,851,500,000.",
           "timestamp": "2026-02-15T16:18:20.489567Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 53006,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the SQL query results, Q4 had the highest revenue for TechVision Inc in 2023, with a revenue of $1,851,500,000.",
+          "timestamp": "2026-02-15T19:27:52.294200Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:18:20.489567Z",
+      "last_tested": "2026-02-15T19:27:52.294200Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -16347,13 +17647,25 @@
           "error_type": null,
           "answer": "HealthPlus Labs' income before tax in FY 2023 was $220,840,000.",
           "timestamp": "2026-02-15T16:19:25.971527Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 28005,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "HealthPlus Labs' income before tax in FY 2023 was $220,840,000.",
+          "timestamp": "2026-02-15T19:28:23.040585Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:19:25.971527Z",
+      "last_tested": "2026-02-15T19:28:23.040585Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -16469,13 +17781,25 @@
           "error_type": null,
           "answer": "The retained earnings for TechVision Inc at the end of 2023 was $5,149,000,000.",
           "timestamp": "2026-02-15T16:19:51.743783Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 25276,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The retained earnings for TechVision Inc at the end of 2023 was $5,149,000,000.",
+          "timestamp": "2026-02-15T19:28:51.301745Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:19:51.743783Z",
+      "last_tested": "2026-02-15T19:28:51.301745Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -16579,15 +17903,27 @@
           "error_type": null,
           "answer": "Based on the executed SQL query and the results provided, there are no departments at TechVision. The query returned 0 rows, indicating that there are no employees in the database associated with TechVision. This could mean that TechVision is a new company that hasn't been added to the database yet, or there might be an issue with the data entry or the query itself. To get a more accurate count, you might want to check the data entry for TechVision or verify the query parameters.",
           "timestamp": "2026-02-15T16:20:31.240193Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 32525,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "There are 8 departments at TechVision.",
+          "timestamp": "2026-02-15T19:29:26.047954Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T16:20:31.240193Z",
-      "best_f1": 0.0,
-      "trend": "stable"
+      "total_runs": 4,
+      "pass_count": 1,
+      "pass_rate": 0.25,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T19:29:26.047954Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "graph-26": {
       "id": "graph-26",
@@ -16756,13 +18092,25 @@
           "error_type": null,
           "answer": "GreenEnergy Corp's operating income in 2022 was $561,600,000.",
           "timestamp": "2026-02-15T16:21:49.997964Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 54995,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "GreenEnergy Corp's operating income in 2022 was $561,600,000.",
+          "timestamp": "2026-02-15T19:30:25.042192Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:21:49.997964Z",
+      "last_tested": "2026-02-15T19:30:25.042192Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -16866,13 +18214,25 @@
           "error_type": "TIMEOUT",
           "answer": "",
           "timestamp": "2026-02-15T16:22:30.986218Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 18260,
+          "match_type": "NO_ANSWER",
+          "error": "Expecting value: line 1 column 1 (char 0)",
+          "error_type": "UNKNOWN",
+          "answer": "",
+          "timestamp": "2026-02-15T19:30:45.547405Z"
         }
       ],
-      "total_runs": 3,
+      "total_runs": 4,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "error",
-      "last_tested": "2026-02-15T16:22:30.986218Z",
+      "last_tested": "2026-02-15T19:30:45.547405Z",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -17055,13 +18415,25 @@
           "error_type": null,
           "answer": "The total liabilities for HealthPlus Labs at the end of 2022 were $305,000,000.",
           "timestamp": "2026-02-15T16:23:25.718333Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 21740,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The total liabilities for HealthPlus Labs at the end of 2022 were $305,000,000.",
+          "timestamp": "2026-02-15T19:31:11.805813Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:23:25.718333Z",
+      "last_tested": "2026-02-15T19:31:11.805813Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -17232,13 +18604,25 @@
           "error_type": null,
           "answer": "TechVision Inc's revenue per quarter in 2023 showed a consistent upward trend:\n\n- Q1: $1,552,350,000\n- Q2: $1,619,400,000\n- Q3: $1,721,750,000\n- Q4: $1,851,500,000\n\nThe company experienced steady revenue growth throughout the year, with each quarter outperforming the previous one. The total annual revenue for 2023 was $6,744,000,000.",
           "timestamp": "2026-02-15T16:24:09.504478Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 34765,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "TechVision Inc's revenue per quarter in 2023 showed a consistent upward trend:\n\n- Q1: $1,552,350,000\n- Q2: $1,619,400,000\n- Q3: $1,721,750,000\n- Q4: $1,851,500,000\n\nThe company experienced steady growth throughout the year, with each quarter showing an increase in revenue compared to the previous quarter. The growth rate accelerated in the latter half of the year, with Q4 revenue being approximately 19.3% higher than Q1 revenue.",
+          "timestamp": "2026-02-15T19:31:51.299646Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:24:09.504478Z",
+      "last_tested": "2026-02-15T19:31:51.299646Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -17409,15 +18793,27 @@
           "error_type": null,
           "answer": "The SQL query returned no results, indicating that there is no data available for HealthPlus Labs' revenue in either 2022 or 2023. This could be due to several reasons:\n\n1. HealthPlus Labs may not have reported financial data for these years.\n2. The company name might be misspelled or formatted differently in the database.\n3. The data might not be available in the 'financials' table for the specified tenant_id and period.\n\nWithout any data, it's impossible to calculate the revenue growth rate fo",
           "timestamp": "2026-02-15T16:25:15.239714Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 62507,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "HealthPlus Labs' revenue growth rate from 2022 to 2023 was 50%.",
+          "timestamp": "2026-02-15T19:32:59.060185Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 1,
-      "pass_rate": 0.333,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T16:25:15.239714Z",
+      "total_runs": 4,
+      "pass_count": 2,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T19:32:59.060185Z",
       "best_f1": 0.9,
-      "trend": "stable"
+      "trend": "improving"
     },
     "std-38": {
       "id": "std-38",
@@ -17586,13 +18982,25 @@
           "error_type": null,
           "answer": "The property, plant and equipment value for GreenEnergy Corp at the end of 2023 was $1,950,000,000.",
           "timestamp": "2026-02-15T16:25:57.736688Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 86221,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The property, plant and equipment value for GreenEnergy Corp at the end of 2023 was $1,950,000,000.",
+          "timestamp": "2026-02-15T19:34:31.541248Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:25:57.736688Z",
+      "last_tested": "2026-02-15T19:34:31.541248Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -17696,13 +19104,25 @@
           "error_type": null,
           "answer": "TechVision Inc spent the most on research and development in 2023, with a total expenditure of $1,349,000,000.",
           "timestamp": "2026-02-15T16:26:24.977916Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 35756,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the SQL query results, TechVision Inc spent the most on research and development in 2023, with a total expenditure of $1,349,000,000.",
+          "timestamp": "2026-02-15T19:35:10.062576Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:26:24.977916Z",
+      "last_tested": "2026-02-15T19:35:10.062576Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -17806,13 +19226,25 @@
           "error_type": null,
           "answer": "GreenEnergy Corp's basic EPS in fiscal year 2022 was 8.75.",
           "timestamp": "2026-02-15T16:26:54.752500Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 23500,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "GreenEnergy Corp's basic EPS in fiscal year 2022 was 8.75.",
+          "timestamp": "2026-02-15T19:35:36.039033Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:26:54.752500Z",
+      "last_tested": "2026-02-15T19:35:36.039033Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -17983,13 +19415,25 @@
           "error_type": null,
           "answer": "The total short-term debt across all companies at the end of 2023 was $220,000,000.",
           "timestamp": "2026-02-15T16:28:17.226633Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T18-58-32",
+          "iteration_number": 16,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 24256,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The total short-term debt across all companies at the end of 2023 was $220,000,000.",
+          "timestamp": "2026-02-15T19:36:02.541919Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:28:17.226633Z",
+      "last_tested": "2026-02-15T19:36:02.541919Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -18758,15 +20202,27 @@
           "error_type": "TIMEOUT",
           "answer": "",
           "timestamp": "2026-02-15T16:42:53.732939Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T17-48-03",
+          "iteration_number": 15,
+          "correct": true,
+          "f1": 0.5,
+          "latency_ms": 83231,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Allies during World War II",
+          "timestamp": "2026-02-15T18:37:03.289884Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "error",
-      "last_tested": "2026-02-15T16:42:53.732939Z",
-      "best_f1": 0.1667,
-      "trend": "stable"
+      "total_runs": 4,
+      "pass_count": 1,
+      "pass_rate": 0.25,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T18:37:03.289884Z",
+      "best_f1": 0.5,
+      "trend": "improving"
     },
     "std-49": {
       "id": "std-49",
@@ -18868,15 +20324,27 @@
           "error_type": null,
           "answer": "Cleopatra has no direct connection to Cairo as it was founded over 1000 years after her death.",
           "timestamp": "2026-02-15T16:43:56.499972Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T17-48-03",
+          "iteration_number": 15,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 57742,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "None.",
+          "timestamp": "2026-02-15T18:38:03.294183Z"
         }
       ],
-      "total_runs": 3,
+      "total_runs": 4,
       "pass_count": 1,
-      "pass_rate": 0.333,
-      "current_status": "pass",
-      "last_tested": "2026-02-15T16:43:56.499972Z",
+      "pass_rate": 0.25,
+      "current_status": "fail",
+      "last_tested": "2026-02-15T18:38:03.294183Z",
       "best_f1": 0.3,
-      "trend": "improving"
+      "trend": "stable"
     },
     "std-50": {
       "id": "std-50",
@@ -18978,15 +20446,27 @@
           "error_type": null,
           "answer": "Diphtheria, Hepatitis A and B, HPV, Influenza, Measles, Meningococcal Disease, Mumps, Pertussis, Pneumococcal Disease, Polio, Rotavirus, Rubella, Tetanus, Varicella, Zoster.",
           "timestamp": "2026-02-15T16:45:05.240651Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T17-48-03",
+          "iteration_number": 15,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 60262,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Measles, mumps, rubella, polio, tetanus, diphtheria, pertussis, influenza.",
+          "timestamp": "2026-02-15T18:39:05.790921Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T16:45:05.240651Z",
-      "best_f1": 0.125,
-      "trend": "stable"
+      "total_runs": 4,
+      "pass_count": 1,
+      "pass_rate": 0.25,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T18:39:05.790921Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "graph-41": {
       "id": "graph-41",
@@ -19033,14 +20513,26 @@
           "error_type": null,
           "answer": "Catalyst for Industrial Revolution, enabling mass production and mechanizing labor.",
           "timestamp": "2026-02-15T16:45:59.760216Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T17-48-03",
+          "iteration_number": 15,
+          "correct": false,
+          "f1": 0.2857,
+          "latency_ms": 59494,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Steam engine catalyzed Industrial Revolution, enabling mass production, revolutionizing transportation, and influencing electricity generation.",
+          "timestamp": "2026-02-15T18:40:07.298429Z"
         }
       ],
-      "total_runs": 3,
+      "total_runs": 4,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-15T16:45:59.760216Z",
-      "best_f1": 0.2,
+      "last_tested": "2026-02-15T18:40:07.298429Z",
+      "best_f1": 0.2857,
       "trend": "stable"
     },
     "graph-42": {
@@ -19088,13 +20580,25 @@
           "error_type": null,
           "answer": "Leonardo da Vinci",
           "timestamp": "2026-02-15T16:46:50.509882Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T17-48-03",
+          "iteration_number": 15,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 53737,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Leonardo da Vinci",
+          "timestamp": "2026-02-15T18:41:03.052152Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 3,
+      "total_runs": 4,
+      "pass_count": 4,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:46:50.509882Z",
+      "last_tested": "2026-02-15T18:41:03.052152Z",
       "best_f1": 1.0,
       "trend": "stable"
     },
@@ -19143,13 +20647,25 @@
           "error_type": null,
           "answer": "Isaac Newton was a Fellow, Council member, and President of the Royal Society.",
           "timestamp": "2026-02-15T16:47:57.998621Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T17-48-03",
+          "iteration_number": 15,
+          "correct": true,
+          "f1": 0.2727,
+          "latency_ms": 69770,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Isaac Newton was president of the Royal Society for nearly 24 years, from 1703 until his death in 1727.",
+          "timestamp": "2026-02-15T18:42:15.562531Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:47:57.998621Z",
+      "last_tested": "2026-02-15T18:42:15.562531Z",
       "best_f1": 0.5,
       "trend": "stable"
     },
@@ -19198,13 +20714,25 @@
           "error_type": null,
           "answer": "Washington, D. C., United States.",
           "timestamp": "2026-02-15T16:48:49.731034Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T17-48-03",
+          "iteration_number": 15,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 57241,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Washington, D.C., United States.",
+          "timestamp": "2026-02-15T18:43:18.035143Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 3,
+      "total_runs": 4,
+      "pass_count": 4,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:48:49.731034Z",
+      "last_tested": "2026-02-15T18:43:18.035143Z",
       "best_f1": 1.0,
       "trend": "stable"
     },
@@ -19253,13 +20781,25 @@
           "error_type": null,
           "answer": "Nuclear energy generates electricity through controlled nuclear fission reactions.",
           "timestamp": "2026-02-15T16:50:00.494479Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T17-48-03",
+          "iteration_number": 15,
+          "correct": true,
+          "f1": 0.4615,
+          "latency_ms": 60764,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Nuclear energy generates electricity through fission-powered steam turbines.",
+          "timestamp": "2026-02-15T18:44:21.794860Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 3,
+      "total_runs": 4,
+      "pass_count": 4,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-15T16:50:00.494479Z",
+      "last_tested": "2026-02-15T18:44:21.794860Z",
       "best_f1": 0.5,
       "trend": "stable"
     },
@@ -19308,15 +20848,27 @@
           "error_type": null,
           "answer": "Claude Monet, Pierre-Auguste Renoir, Camille Pissarro, Edgar Degas, Paul Cézanne, Paul Gauguin, Vincent van Gogh, Pablo Picasso, Georges Braque, Amedeo Modigliani, Marc Chagall, Chaim Soutine",
           "timestamp": "2026-02-15T16:51:28.990428Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T17-48-03",
+          "iteration_number": 15,
+          "correct": false,
+          "f1": 0.129,
+          "latency_ms": 60990,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Claude Monet, Pierre-Auguste Renoir, Camille Pissarro, Paul Cézanne, Paul Gauguin, Pablo Picasso, Georges Braque, Henri Matisse, Salvador Dalí, René Magritte, Joan Miró, Man Ray, Alexander Calder",
+          "timestamp": "2026-02-15T18:45:25.292944Z"
         }
       ],
-      "total_runs": 3,
+      "total_runs": 4,
       "pass_count": 2,
-      "pass_rate": 0.667,
-      "current_status": "pass",
-      "last_tested": "2026-02-15T16:51:28.990428Z",
+      "pass_rate": 0.5,
+      "current_status": "fail",
+      "last_tested": "2026-02-15T18:45:25.292944Z",
       "best_f1": 0.9,
-      "trend": "improving"
+      "trend": "stable"
     },
     "graph-47": {
       "id": "graph-47",
@@ -19363,15 +20915,27 @@
           "error_type": "TIMEOUT",
           "answer": "",
           "timestamp": "2026-02-15T16:53:38.253426Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T17-48-03",
+          "iteration_number": 15,
+          "correct": true,
+          "f1": 0.0577,
+          "latency_ms": 82484,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Pablo Picasso had a profound connection to the Museo del Prado in Madrid, which significantly influenced his artistic development. As a young artist, Picasso made several trips to the Prado, where he studied and copied works by Spanish masters such as Diego Velázquez, Francisco Goya, and El Greco. This early exposure to the Prado's collection played a crucial role in shaping Picasso's artistic style and understanding of Spanish art history.\n\nOne of the most notable connections between Picasso an",
+          "timestamp": "2026-02-15T18:46:51.800783Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "error",
-      "last_tested": "2026-02-15T16:53:38.253426Z",
+      "total_runs": 4,
+      "pass_count": 1,
+      "pass_rate": 0.25,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T18:46:51.800783Z",
       "best_f1": 0.4,
-      "trend": "stable"
+      "trend": "improving"
     },
     "graph-48": {
       "id": "graph-48",
@@ -19418,15 +20982,27 @@
           "error_type": "UNKNOWN",
           "answer": "",
           "timestamp": "2026-02-15T16:53:50.488287Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T17-48-03",
+          "iteration_number": 15,
+          "correct": true,
+          "f1": 0.3333,
+          "latency_ms": 65244,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Louis Pasteur's germ theory and vaccination work laid the foundation for Alexander Fleming's 1928 discovery of penicillin, the first antibiotic.",
+          "timestamp": "2026-02-15T18:48:03.306459Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "error",
-      "last_tested": "2026-02-15T16:53:50.488287Z",
-      "best_f1": 0.2105,
-      "trend": "stable"
+      "total_runs": 4,
+      "pass_count": 1,
+      "pass_rate": 0.25,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T18:48:03.306459Z",
+      "best_f1": 0.3333,
+      "trend": "improving"
     },
     "graph-49": {
       "id": "graph-49",
@@ -19461,15 +21037,27 @@
           "error_type": "UNKNOWN",
           "answer": "",
           "timestamp": "2026-02-15T16:53:54.738041Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T17-48-03",
+          "iteration_number": 15,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 74991,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Alfred Hitchcock, Stanley Kubrick, Ridley Scott, Christopher Nolan",
+          "timestamp": "2026-02-15T18:49:26.050334Z"
         }
       ],
-      "total_runs": 2,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "error",
-      "last_tested": "2026-02-15T16:53:54.738041Z",
-      "best_f1": 0.25,
-      "trend": "stable"
+      "total_runs": 3,
+      "pass_count": 1,
+      "pass_rate": 0.333,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T18:49:26.050334Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "graph-50": {
       "id": "graph-50",
@@ -19504,15 +21092,27 @@
           "error_type": "UNKNOWN",
           "answer": "",
           "timestamp": "2026-02-15T16:53:57.993800Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T17-48-03",
+          "iteration_number": 15,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 66258,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Paris, France",
+          "timestamp": "2026-02-15T18:50:38.809846Z"
         }
       ],
-      "total_runs": 2,
-      "pass_count": 1,
-      "pass_rate": 0.5,
-      "current_status": "error",
-      "last_tested": "2026-02-15T16:53:57.993800Z",
+      "total_runs": 3,
+      "pass_count": 2,
+      "pass_rate": 0.667,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T18:50:38.809846Z",
       "best_f1": 0.9,
-      "trend": "regressing"
+      "trend": "stable"
     }
   },
   "quick_tests": [
@@ -20018,1116 +21618,6 @@
     }
   ],
   "execution_logs": [
-    {
-      "timestamp": "2026-02-15T15:24:58.236456Z",
-      "question_id": "graph-38",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 53018,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Complex and pivotal wartime partnership.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:25:24.985265Z",
-      "question_id": "std-50",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 57009,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Albert Einstein was a German‑born theoretical physicist who developed the theory of relativity and i",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:26:09.731309Z",
-      "question_id": "graph-39",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 69762,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "No direct connection.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:26:58.481464Z",
-      "question_id": "graph-40",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.125,
-      "latency_ms": 47248,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Diphtheria, hepatitis A and B, Hib, HPV, influenza, measles, mumps, rubella, meningococcal disease.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:28:12.984033Z",
-      "question_id": "graph-41",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.129,
-      "latency_ms": 73008,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The steam engine laid the foundation for modern technology by converting thermal energy into mechani",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:29:27.990114Z",
-      "question_id": "graph-42",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 73246,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Leonardo da Vinci",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:30:31.981761Z",
-      "question_id": "graph-43",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.3636,
-      "latency_ms": 62259,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Newton was a Fellow and later President of the Royal Society, presenting groundbreaking work and inf",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:32:18.240290Z",
-      "question_id": "graph-44",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 102990,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Washington, D.C.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:33:23.736608Z",
-      "question_id": "graph-45",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.4,
-      "latency_ms": 62752,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Nuclear energy generates electricity through fission, producing heat to create steam that drives tur",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:34:17.233643Z",
-      "question_id": "graph-46",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 51732,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Pablo Picasso, Vincent van Gogh, Henri Matisse, Salvador Dalí, Marc Chagall",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:35:28.739957Z",
-      "question_id": "graph-47",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.2353,
-      "latency_ms": 65239,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Pablo Picasso had a deep and enduring connection to the Museo del Prado in Madrid, Spain. The Prado ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:36:37.220032Z",
-      "question_id": "graph-48",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.2105,
-      "latency_ms": 65761,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The path between penicillin and Louis Pasteur spans over 75 years, connecting Pasteur's 19th-century",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:38:38.717212Z",
-      "question_id": "graph-49",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.25,
-      "latency_ms": 114276,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Alfred Hitchcock, David Lean, Ridley Scott, Christopher Nolan, Danny Boyle, Guy Ritchie",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:39:50.741782Z",
-      "question_id": "graph-50",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 69012,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Paris, France",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:50:05.719516Z",
-      "question_id": "quant-01",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 109992,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc's total revenue in fiscal year 2023 was $6,745,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:50:10.492382Z",
-      "question_id": "std-01",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 117751,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Normandy is located in France.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:50:13.236777Z",
-      "question_id": "graph-01",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 120252,
-      "error_type": "TIMEOUT",
-      "error_preview": "timed out",
-      "answer_preview": "",
-      "confidence": null,
-      "pipeline_details_summary": null
-    },
-    {
-      "timestamp": "2026-02-15T15:50:34.973483Z",
-      "question_id": "quant-02",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 25763,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "GreenEnergy Corp's net income in 2023 was $664,400,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:51:00.730318Z",
-      "question_id": "std-02",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 47487,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "\nThe first season of *SpongeBob SquarePants* premiered on May 1, 1999 and aired its final episode on",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:51:06.475625Z",
-      "question_id": "quant-03",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 29740,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The revenue of HealthPlus Labs in Q4 2023 was $322,560,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:51:32.491822Z",
-      "question_id": "graph-02",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 75492,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Albert Einstein",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:51:45.726934Z",
-      "question_id": "quant-04",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 37007,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc had a gross profit of $4,586,600,000 in FY 2023, while GreenEnergy Corp had a gross p",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:52:47.477716Z",
-      "question_id": "std-03",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 102246,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The capital of Japan is Tokyo.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:53:23.492227Z",
-      "question_id": "quant-05",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 94515,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc's R&D spending in 2023 was $1,349,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:53:36.490836Z",
-      "question_id": "graph-03",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 120245,
-      "error_type": "TIMEOUT",
-      "error_preview": "timed out",
-      "answer_preview": "",
-      "confidence": null,
-      "pipeline_details_summary": null
-    },
-    {
-      "timestamp": "2026-02-15T15:54:02.497234Z",
-      "question_id": "quant-06",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 36736,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The diluted EPS for HealthPlus Labs in fiscal year 2023 was 6.71.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:54:09.975982Z",
-      "question_id": "std-04",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 79748,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "William Shakespeare wrote *Romeo and Juliet*.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:54:37.232752Z",
-      "question_id": "graph-04",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 59243,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Bacterial infections",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:54:39.985636Z",
-      "question_id": "quant-07",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 34492,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc had $2,200,000,000 in cash and equivalents at the end of 2023.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:55:08.719695Z",
-      "question_id": "std-05",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.1212,
-      "latency_ms": 56487,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Penicillin is a β‑lactam antibiotic derived from the mold *Penicillium* that kills or inhibits the g",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:55:12.497392Z",
-      "question_id": "quant-08",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 30513,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "GreenEnergy Corp's total assets at the end of fiscal year 2023 were $4,460,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:56:17.975865Z",
-      "question_id": "quant-09",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 60491,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The total stockholders equity for HealthPlus Labs at the end of 2023 was $795,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:56:19.241421Z",
-      "question_id": "graph-05",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 98755,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Sherborne School, King's College Cambridge, Princeton University",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:56:33.979347Z",
-      "question_id": "std-06",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.1633,
-      "latency_ms": 82269,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The theory of relativity, developed by Albert Einstein, comprises two interrelated parts: special re",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:56:57.742018Z",
-      "question_id": "quant-10",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 30000,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc's operating income in Q3 2023 was $516,525,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:57:23.219275Z",
-      "question_id": "std-07",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 47252,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The largest ocean on Earth is the Pacific Ocean.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:57:28.969792Z",
-      "question_id": "graph-06",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 59487,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "They were professional rivals in the \"War of the Currents\" over electrical systems.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:57:41.231983Z",
-      "question_id": "quant-11",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.2703,
-      "latency_ms": 41753,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Based on the SQL results, TechVision Inc's revenue growth from 2020 to 2023 was as follows:\n\n- 2020 ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:58:35.220772Z",
-      "question_id": "quant-12",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 50510,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc had the highest revenue in fiscal year 2023, with a revenue of $6,745,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:58:54.492268Z",
-      "question_id": "std-08",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 87749,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Leonardo da Vinci painted the Mona Lisa.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:59:11.468838Z",
-      "question_id": "graph-07",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.2667,
-      "latency_ms": 99248,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Stephen Hawking, Charles Darwin, Isaac Newton, Rosalind Franklin, James Watson, Francis Crick",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:59:25.497688Z",
-      "question_id": "quant-13",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 47520,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The total long-term debt for GreenEnergy Corp at the end of 2023 was $300,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:59:49.985635Z",
-      "question_id": "std-09",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.3889,
-      "latency_ms": 52264,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Photosynthesis is the process by which green plants, algae, and certain bacteria convert light energ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T15:59:49.470446Z",
-      "question_id": "quant-14",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 21750,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Based on the executed SQL query and the results, TechVision has 0 active employees. The query search",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:00:11.242412Z",
-      "question_id": "graph-08",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 58257,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The World Wide Web is a global information system created at CERN in Geneva, Switzerland.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:00:30.228190Z",
-      "question_id": "quant-15",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 35982,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Based on the executed SQL query and the results, there are no Engineering employees at TechVision in",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:00:44.989457Z",
-      "question_id": "std-10",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.375,
-      "latency_ms": 51983,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The speed of light in a vacuum is approximately 299,792,458 meters per second.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:01:22.227450Z",
-      "question_id": "quant-16",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 47999,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Based on the executed SQL query and the results provided, it appears that there are no products in t",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:02:14.971936Z",
-      "question_id": "graph-09",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 119251,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Tech giants, financial institutions, healthcare organizations, automotive industry, e-commerce platf",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:02:24.984061Z",
-      "question_id": "quant-17",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 59017,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The cost of goods sold for TechVision Inc in FY 2022 was $1,935,450,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:02:43.748334Z",
-      "question_id": "std-11",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 114505,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Isaac Newton discovered the law of universal gravitation.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:03:24.234916Z",
-      "question_id": "quant-18",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 56765,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The tax expense for GreenEnergy Corp in Q2 2023 was $42,440,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:03:44.738761Z",
-      "question_id": "graph-10",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 86737,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Paris",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:03:52.485854Z",
-      "question_id": "quant-19",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 25481,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "HealthPlus Labs' revenue in 2020 was $320,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:03:54.978366Z",
-      "question_id": "std-12",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.2941,
-      "latency_ms": 65492,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "DNA (deoxyribonucleic acid) is a double‑stranded molecule that stores genetic information in cells, ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:05:10.718885Z",
-      "question_id": "quant-20",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.2791,
-      "latency_ms": 71987,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Based on the SQL query results, here's a comparison of the operating expenses for the three companie",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:05:33.493247Z",
-      "question_id": "std-13",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 92247,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "World War II ended on September 2, 1945, when Japan formally surrendered aboard the USS Missouri.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:05:43.488623Z",
-      "question_id": "graph-11",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 116264,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Edward Jenner",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:05:48.229666Z",
-      "question_id": "quant-21",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 35254,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc's basic EPS in Q1 2023 was 3.71.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:06:24.992127Z",
-      "question_id": "std-14",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 49504,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The chemical formula for water is H₂O.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:06:26.984281Z",
-      "question_id": "quant-22",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 34245,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The list price of the VisionAI Platform product is $299.99.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:06:43.973956Z",
-      "question_id": "graph-12",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 57480,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Communicable diseases, non-communicable diseases, vaccine-preventable diseases, maternal and child h",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:06:59.992375Z",
-      "question_id": "quant-23",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 28758,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc's total revenue across all quarters in 2023 was $6,745,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:07:55.722661Z",
-      "question_id": "std-15",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 83766,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Neil Armstrong was the first person to walk on the Moon.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
     {
       "timestamp": "2026-02-15T16:08:10.495699Z",
       "question_id": "quant-24",
@@ -23447,6 +23937,1153 @@
       "answer_preview": "",
       "confidence": null,
       "pipeline_details_summary": null
+    },
+    {
+      "timestamp": "2026-02-15T18:35:35.813741Z",
+      "question_id": "graph-37",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 119756,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Computer science, artificial intelligence, cryptography",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T18:37:04.300812Z",
+      "question_id": "graph-38",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.5,
+      "latency_ms": 83231,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Allies during World War II",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T18:38:03.807174Z",
+      "question_id": "graph-39",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 57742,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "None.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T18:39:06.308246Z",
+      "question_id": "graph-40",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 60262,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Measles, mumps, rubella, polio, tetanus, diphtheria, pertussis, influenza.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T18:40:08.050608Z",
+      "question_id": "graph-41",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.2857,
+      "latency_ms": 59494,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Steam engine catalyzed Industrial Revolution, enabling mass production, revolutionizing transportati",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T18:41:03.785441Z",
+      "question_id": "graph-42",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 53737,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Leonardo da Vinci",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T18:42:16.796866Z",
+      "question_id": "graph-43",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.2727,
+      "latency_ms": 69770,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Isaac Newton was president of the Royal Society for nearly 24 years, from 1703 until his death in 17",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T18:43:18.813776Z",
+      "question_id": "graph-44",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 57241,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Washington, D.C., United States.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T18:44:22.551751Z",
+      "question_id": "graph-45",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.4615,
+      "latency_ms": 60764,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Nuclear energy generates electricity through fission-powered steam turbines.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T18:45:26.043310Z",
+      "question_id": "graph-46",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.129,
+      "latency_ms": 60990,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Claude Monet, Pierre-Auguste Renoir, Camille Pissarro, Paul Cézanne, Paul Gauguin, Pablo Picasso, Ge",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T18:46:53.066718Z",
+      "question_id": "graph-47",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.0577,
+      "latency_ms": 82484,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Pablo Picasso had a profound connection to the Museo del Prado in Madrid, which significantly influe",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T18:48:06.314858Z",
+      "question_id": "graph-48",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.3333,
+      "latency_ms": 65244,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Louis Pasteur's germ theory and vaccination work laid the foundation for Alexander Fleming's 1928 di",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T18:49:28.035997Z",
+      "question_id": "graph-49",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 74991,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Alfred Hitchcock, Stanley Kubrick, Ridley Scott, Christopher Nolan",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T18:50:39.567952Z",
+      "question_id": "graph-50",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 66258,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Paris, France",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T18:59:44.043473Z",
+      "question_id": "quant-01",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 36237,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "TechVision Inc's total revenue in fiscal year 2023 was $6,745,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:00:38.793239Z",
+      "question_id": "quant-02",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 52750,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "GreenEnergy Corp's net income in 2023 was $664,400,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:01:08.046742Z",
+      "question_id": "quant-03",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 27238,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The revenue of HealthPlus Labs in Q4 2023 was $322,560,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:01:50.294435Z",
+      "question_id": "quant-04",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 39495,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "In FY 2023, TechVision Inc had a gross profit of $4,586,600,000, while GreenEnergy Corp had a gross ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:02:44.037768Z",
+      "question_id": "quant-05",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 50243,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "TechVision Inc's R&D spending in 2023 was $1,349,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:04:03.802498Z",
+      "question_id": "quant-06",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 76250,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The diluted EPS for HealthPlus Labs in fiscal year 2023 was 6.71.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:04:32.811581Z",
+      "question_id": "quant-07",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 27258,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "TechVision Inc had $2,200,000,000 in cash and equivalents at the end of 2023.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:05:02.043501Z",
+      "question_id": "quant-08",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 26979,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "GreenEnergy Corp's total assets at the end of fiscal year 2023 were $4,460,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:05:38.537607Z",
+      "question_id": "quant-09",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 33737,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The total stockholders equity for HealthPlus Labs at the end of 2023 was $795,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:06:01.564423Z",
+      "question_id": "quant-10",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 21253,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "TechVision Inc's operating income in Q3 2023 was $516,525,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:07:26.058464Z",
+      "question_id": "quant-11",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.2857,
+      "latency_ms": 78505,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "TechVision Inc's revenue growth from 2020 to 2023 was as follows:\n\n- 2020 to 2021: 20% growth\n- 2021",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:08:29.564747Z",
+      "question_id": "quant-12",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 58233,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "TechVision Inc had the highest revenue in fiscal year 2023, with a revenue of $6,745,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:09:24.038218Z",
+      "question_id": "quant-13",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 50990,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The total long-term debt for GreenEnergy Corp at the end of 2023 was $300,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:09:53.799784Z",
+      "question_id": "quant-14",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 27003,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "TechVision has 47 active employees.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:11:01.036245Z",
+      "question_id": "quant-15",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 62000,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The average salary of Engineering employees at TechVision is $172,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:11:32.565531Z",
+      "question_id": "quant-16",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 25024,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "GreenEnergy Corp has 6 products in its catalog.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:12:21.288708Z",
+      "question_id": "quant-17",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 45003,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The cost of goods sold for TechVision Inc in FY 2022 was $1,935,450,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:13:08.306138Z",
+      "question_id": "quant-18",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 41773,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The tax expense for GreenEnergy Corp in Q2 2023 was $42,440,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:14:06.045415Z",
+      "question_id": "quant-19",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 53255,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "HealthPlus Labs' revenue in 2020 was $320,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:14:59.550727Z",
+      "question_id": "quant-20",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.2609,
+      "latency_ms": 48749,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the SQL query results, here's a comparison of the operating expenses for all three companie",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:15:28.307668Z",
+      "question_id": "quant-21",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 26747,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "TechVision Inc's basic EPS in Q1 2023 was 3.71.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:15:52.304157Z",
+      "question_id": "quant-22",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 21499,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The list price of the VisionAI Platform product is $299.99.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:16:33.564629Z",
+      "question_id": "quant-23",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 39241,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "TechVision Inc's total revenue across all quarters in 2023 was $6,745,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:17:45.063954Z",
+      "question_id": "quant-24",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 65752,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The accounts receivable for TechVision Inc at the end of 2022 was $1,173,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:18:24.048473Z",
+      "question_id": "quant-25",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 34757,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "There are 21 employees in the Sales department across all companies.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:18:56.813610Z",
+      "question_id": "quant-26",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 28988,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "GreenEnergy Corp's revenue in 2021 was $2,160,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:19:27.292057Z",
+      "question_id": "quant-27",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 27502,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The interest expense for TechVision Inc in FY 2023 was $35,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:20:20.305905Z",
+      "question_id": "quant-28",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 48744,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the SQL query results, TechVision Inc had the highest net income growth from 2020 to 2023, ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:21:11.054600Z",
+      "question_id": "quant-29",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 46751,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The total current assets for GreenEnergy Corp at the end of 2023 was $2,160,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:21:44.310494Z",
+      "question_id": "quant-30",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 27744,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "HealthPlus Labs' operating income in Q2 2023 was $52,532,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:22:51.294129Z",
+      "question_id": "quant-31",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 59250,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The selling, general and administrative expense for TechVision Inc in 2023 was $1,214,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:23:44.040141Z",
+      "question_id": "quant-32",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 49017,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the executed SQL query, there are no results returned for GreenEnergy Corp's shares outstan",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:24:46.814654Z",
+      "question_id": "quant-33",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.4444,
+      "latency_ms": 58014,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "HealthPlus Labs sells two products in the Diagnostics category: GenomeScan 1.0 and GenomeScan 2.0.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:25:15.787199Z",
+      "question_id": "quant-34",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 25988,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "TechVision Inc's gross profit margin in FY 2023 was 68%.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:25:47.300329Z",
+      "question_id": "quant-35",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 28753,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The total revenue for all companies combined in fiscal year 2023 was $11,547,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:26:09.807977Z",
+      "question_id": "quant-36",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 19752,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The goodwill on TechVision Inc's balance sheet at the end of 2023 is $950,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:26:51.550528Z",
+      "question_id": "quant-37",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 38490,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "GreenEnergy Corp's Q1 2023 revenue was $803,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:27:52.809418Z",
+      "question_id": "quant-38",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 53006,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the SQL query results, Q4 had the highest revenue for TechVision Inc in 2023, with a revenu",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:28:23.813250Z",
+      "question_id": "quant-39",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 28005,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "HealthPlus Labs' income before tax in FY 2023 was $220,840,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:28:52.046964Z",
+      "question_id": "quant-40",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 25276,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The retained earnings for TechVision Inc at the end of 2023 was $5,149,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:29:27.046966Z",
+      "question_id": "quant-41",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 32525,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "There are 8 departments at TechVision.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:30:25.809939Z",
+      "question_id": "quant-42",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 54995,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "GreenEnergy Corp's operating income in 2022 was $561,600,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:30:46.560459Z",
+      "question_id": "quant-43",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 18260,
+      "error_type": "UNKNOWN",
+      "error_preview": "Expecting value: line 1 column 1 (char 0)",
+      "answer_preview": "",
+      "confidence": null,
+      "pipeline_details_summary": null
+    },
+    {
+      "timestamp": "2026-02-15T19:31:13.805542Z",
+      "question_id": "quant-44",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 21740,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The total liabilities for HealthPlus Labs at the end of 2022 were $305,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:31:52.307546Z",
+      "question_id": "quant-45",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 34765,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "TechVision Inc's revenue per quarter in 2023 showed a consistent upward trend:\n\n- Q1: $1,552,350,000",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:33:00.300882Z",
+      "question_id": "quant-46",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 62507,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "HealthPlus Labs' revenue growth rate from 2022 to 2023 was 50%.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:34:32.809114Z",
+      "question_id": "quant-47",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 86221,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The property, plant and equipment value for GreenEnergy Corp at the end of 2023 was $1,950,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:35:10.802937Z",
+      "question_id": "quant-48",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 35756,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the SQL query results, TechVision Inc spent the most on research and development in 2023, w",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:35:36.551350Z",
+      "question_id": "quant-49",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 23500,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "GreenEnergy Corp's basic EPS in fiscal year 2022 was 8.75.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:36:03.538288Z",
+      "question_id": "quant-50",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 24256,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The total short-term debt across all companies at the end of 2023 was $220,000,000.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
     }
   ],
   "history": [
@@ -23480,6 +25117,18 @@
       "quantitative": 84.0,
       "standard": 92.0,
       "graph": 58.0
+    },
+    {
+      "timestamp": "2026-02-15T18:51:17.063116Z",
+      "event": "eval_complete",
+      "total_tested": 651,
+      "graph": 66.0
+    },
+    {
+      "timestamp": "2026-02-15T19:36:45.801499Z",
+      "event": "eval_complete",
+      "total_tested": 701,
+      "quantitative": 92.0
     }
   ],
   "workflow_versions": {
