@@ -1,8 +1,8 @@
 {
-  "error_id": "err-2026-02-14-graph-03-timeout",
-  "timestamp": "2026-02-14T08:53:00.283430Z",
+  "error_id": "err-2026-02-14-graph-06-timeout",
+  "timestamp": "2026-02-14T08:15:00.042305Z",
   "session_id": null,
-  "question_id": "graph-03",
+  "question_id": "graph-06",
   "rag_type": "graph",
   "error_type": "TIMEOUT",
   "error_message": "timed out",
@@ -11,11 +11,11 @@
   "partial_response": null,
   "pipeline_details": {},
   "performance": {
-    "total_latency_ms": 60254,
+    "total_latency_ms": 60991,
     "http_status": null,
     "response_size_bytes": 0,
     "cost_usd": 0
   },
-  "question": "What did Alexander Fleming discover?",
-  "expected": "Penicillin"
+  "question": "What is the connection between Nikola Tesla and Thomas Edison?",
+  "expected": "rival electricity"
 }

@@ -1,9 +1,9 @@
 {
-  "error_id": "err-2026-02-14-graph-03-timeout",
-  "timestamp": "2026-02-14T08:53:00.283430Z",
+  "error_id": "err-2026-02-14-orch-06-timeout",
+  "timestamp": "2026-02-14T08:18:51.283833Z",
   "session_id": null,
-  "question_id": "graph-03",
-  "rag_type": "graph",
+  "question_id": "orch-06",
+  "rag_type": "orchestrator",
   "error_type": "TIMEOUT",
   "error_message": "timed out",
   "http_status": null,
@@ -11,11 +11,11 @@
   "partial_response": null,
   "pipeline_details": {},
   "performance": {
-    "total_latency_ms": 60254,
+    "total_latency_ms": 122013,
     "http_status": null,
     "response_size_bytes": 0,
     "cost_usd": 0
   },
-  "question": "What did Alexander Fleming discover?",
-  "expected": "Penicillin"
+  "question": "What is the capital of France?",
+  "expected": "Paris"
 }

@@ -1,17 +1,14 @@
 {
-  "standard": [],
-  "graph": [],
-  "quantitative": [
-    "quant-05",
-    "quant-03",
-    "quant-02",
-    "quant-06",
-    "quant-07",
-    "quant-09",
-    "quant-10",
-    "quant-01",
-    "quant-04",
-    "quant-08"
-  ],
-  "orchestrator": []
+  "orchestrator": [
+    "orch-08",
+    "orch-10",
+    "orch-05",
+    "orch-02",
+    "orch-04",
+    "orch-09",
+    "orch-06",
+    "orch-07",
+    "orch-03",
+    "orch-01"
+  ]
 }

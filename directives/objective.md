@@ -56,15 +56,15 @@ Details complets : `technicals/phases-overview.md`
 
 | Workflow | Role | Docker ID |
 |----------|------|-----------|
-| **Ingestion V3.1** | Ingestion de documents | `6lPMHEYyWh1v34ro` |
-| **Enrichissement V3.1** | Enrichissement donnees | `KXnQKuKw8ZUbyZUl` |
-| **Feedback V3.1** | Boucle de feedback | `cMlr32Qq7Sgy6Xq8` |
-| **Benchmark V3.0** | Benchmark automatise | `tygzgU4i67FU6vm2` |
-| **Dataset Ingestion** | Ingestion datasets HF | `S4FFbvx9Mn7DRkgk` |
-| **Monitoring** | Monitoring workflows | `xFAcxnFS5ISnlytH` |
-| **Orchestrator Tester** | Tests orchestrateur | `R0HRiLQmL3FoCNKg` |
-| **RAG Batch Tester** | Tests batch RAG | `k7jHXRTypXAQOreJ` |
-| **SQL Executor** | Execution SQL | `Dq83aCiXCfymsgCV` |
+| **Ingestion V3.1** | Ingestion de documents | `15sUKy5lGL4rYW0L` |
+| **Enrichissement V3.1** | Enrichissement donnees | `9V2UTVRbf4OJXPto` |
+| **Feedback V3.1** | Boucle de feedback | `F70g14jMxIGCZnFz` |
+| **Benchmark V3.0** | Benchmark automatise | `LKZO1QQY9jvBltP0` |
+| **Dataset Ingestion** | Ingestion datasets HF | `YaHS9rVb1osRUJpE` |
+| **Monitoring** | Monitoring & Alerting | `tLNh3wTty7sEprLj` |
+| **Orchestrator Tester** | Tests orchestrateur | `m9jaYzWMSVbBFeSf` |
+| **RAG Batch Tester** | Tests batch RAG | `y2FUkI5SZfau67dN` |
+| **SQL Executor** | Execution SQL | `22k9541l9mHENlLD` |
 
 ---
 
@@ -72,32 +72,37 @@ Details complets : `technicals/phases-overview.md`
 
 > **Lire `docs/status.json` pour les metriques live.**
 
-### Clean reset (13 fev 2026)
-- Migration Docker terminee (12 fev)
-- Repo nettoye et reorganise
-- 4 executions cloud de reference conservees : #19404, #19326, #19323, #19305
-- Tests Docker a recommencer de zero
+### Session 15 fev 2026
+- Migration Docker terminee (12 fev), repo reorganise (13 fev)
+- **Tous les gates 10/10 passes** (14 fev) : Standard 8/10, Graph 8/10, Quant 10/10, Orch 10/10
+- **Credentials Docker recrees** (15 fev) : Postgres Supabase Pooler + Redis Upstash
+- 12/13 workflows mis a jour avec les nouveaux IDs credentials
+- n8n Docker login corrige : `admin@mon-ipad.com` / `SotaRAG2026!`
 
 ### Prochaine action prioritaire
-**Tester chaque pipeline 1/1 sur Docker**, analyser avec les deux outils, puis iterer.
+**Tests 50/50** pour chaque pipeline (iterative-eval.py), puis Phase 2 (hf-1000.json).
 Suivre le processus : `directives/workflow-process.md`
 
 ---
 
-## Etat des BDD (verifie le 2026-02-10)
+## Etat des BDD (verifie le 2026-02-15)
 
 ### Pinecone
-- 10,411 vecteurs, 12 namespaces, dimension 1536
-- Index Docker : `sota-rag-cohere-1024` (Cohere 1024-dim)
-- **Attention** : verifier coherence dimension embedding vs index
+- **10,411 vecteurs**, 12 namespaces, dimension **1024** (Cohere embed-english-v3.0)
+- Index : `sota-rag-cohere-1024` (host: `sota-rag-cohere-1024-a4mkzmz.svc.aped-4627-b74a.pinecone.io`)
+- Namespaces : benchmark-msmarco (1000), benchmark-frames (824), benchmark-asqa (948), benchmark-squad_v2 (1000), benchmark-triviaqa (1000), default (639), benchmark-popqa (1000), benchmark-narrativeqa (1000), benchmark-natural_questions (1000), benchmark-finqa (500), benchmark-hotpotqa (1000), benchmark-pubmedqa (500)
 
 ### Neo4j
-- 110 entites, 151 relations
-- Acces : via n8n Docker (bolt://localhost:7687 sur la VM)
+- **19,788 noeuds**, **76,532 relations**
+- Top types : Person (8,531), Entity (8,218), Organization (1,775), City (840), Technology (139)
+- Top relations : CONNECTE (75,205), SOUS_ENSEMBLE_DE (554), A_CREE (497)
+- Acces : HTTPS API `https://38c949a2.databases.neo4j.io/db/neo4j/query/v2`
 
 ### Supabase
-- 88 lignes, 5 tables
-- Acces : direct via n8n Docker
+- **40 tables**, **~17,000+ lignes**
+- Tables principales : benchmark_datasets (9,772), rag_task_executions (1,596), transactions (1,515), sales_data (1,152), financials (24), quarterly_revenue (12), community_summaries (9)
+- Acces : PostgreSQL pooler `aws-1-eu-west-1.pooler.supabase.com:6543`
+- Credential n8n Docker : `Supabase Postgres (Pooler)` (ID: `USU8ngVzsUbED3mn`)
 
 ---
 

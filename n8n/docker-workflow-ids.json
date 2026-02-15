@@ -3,61 +3,74 @@
   "api_key_ref": ".env.local:N8N_API_KEY",
   "migrated_from": "amoret.app.n8n.cloud",
   "migration_date": "2026-02-12",
+  "last_verified": "2026-02-15",
+  "credentials": {
+    "postgres": {
+      "id": "USU8ngVzsUbED3mn",
+      "name": "Supabase Postgres (Pooler)",
+      "created": "2026-02-15"
+    },
+    "redis": {
+      "id": "CWih07lwPxfwFeY6",
+      "name": "Redis Upstash",
+      "created": "2026-02-15"
+    }
+  },
   "workflows": {
     "standard": {
-      "id": "M12n4cmiVBoBusUe",
+      "id": "TmgyRP20N4JFd9CB",
       "name": "TEST - SOTA 2026 - WF5 Standard RAG V3.4 - CORRECTED",
       "webhook": "/webhook/rag-multi-index-v3"
     },
     "graph": {
-      "id": "Vxm4TDdOLdb7j3Jy",
+      "id": "6257AfT1l4FMC6lY",
       "name": "TEST - SOTA 2026 - WF2 Graph RAG V3.3 - CORRECTED",
       "webhook": "/webhook/ff622742-6d71-4e91-af71-b5c666088717"
     },
     "quantitative": {
-      "id": "nQnAJyT06NTbEQ3y",
+      "id": "e465W7V9Q8uK6zJE",
       "name": "TEST - SOTA 2026 - WF4 Quantitative V2.0",
       "webhook": "/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9"
     },
     "orchestrator": {
-      "id": "P1no6VZkNtnRdlBi",
+      "id": "aGsYnJY9nNCaTM82",
       "name": "V10.1 orchestrator copy",
       "webhook": "/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0"
     },
     "ingestion": {
-      "id": "6lPMHEYyWh1v34ro",
+      "id": "15sUKy5lGL4rYW0L",
       "name": "TEST - SOTA 2026 - Ingestion V3.1"
     },
     "enrichment": {
-      "id": "KXnQKuKw8ZUbyZUl",
+      "id": "9V2UTVRbf4OJXPto",
       "name": "TEST - SOTA 2026 - Enrichissement V3.1"
     },
     "feedback": {
-      "id": "cMlr32Qq7Sgy6Xq8",
+      "id": "F70g14jMxIGCZnFz",
       "name": "TEST - SOTA 2026 - Feedback V3.1"
     },
     "benchmark": {
-      "id": "tygzgU4i67FU6vm2",
+      "id": "LKZO1QQY9jvBltP0",
       "name": "TEST - SOTA 2026 - Benchmark V3.0"
     },
     "dataset_ingestion": {
-      "id": "S4FFbvx9Mn7DRkgk",
+      "id": "YaHS9rVb1osRUJpE",
       "name": "BENCHMARK - Dataset Ingestion Pipeline"
     },
     "monitoring": {
-      "id": "xFAcxnFS5ISnlytH",
+      "id": "tLNh3wTty7sEprLj",
       "name": "BENCHMARK - Monitoring & Alerting Dashboard"
     },
     "orchestrator_tester": {
-      "id": "R0HRiLQmL3FoCNKg",
+      "id": "m9jaYzWMSVbBFeSf",
       "name": "BENCHMARK - Orchestrator Tester"
     },
     "rag_batch_tester": {
-      "id": "k7jHXRTypXAQOreJ",
+      "id": "y2FUkI5SZfau67dN",
       "name": "BENCHMARK - RAG Batch Tester"
     },
     "sql_executor": {
-      "id": "Dq83aCiXCfymsgCV",
+      "id": "22k9541l9mHENlLD",
       "name": "BENCHMARK - SQL Executor Utility"
     }
   }

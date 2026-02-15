@@ -2,7 +2,7 @@
 
 > **Ce fichier est la reference unique** pour les scripts Python de test.
 > Les scripts doivent s'y referer pour formater les requetes et utiliser les bons points d'entree.
-> Derniere mise a jour : 2026-02-14 (session Docker fixes + workflow IDs corriges)
+> Derniere mise a jour : 2026-02-15 (credentials Docker creees, API key reference corrigee)
 
 ---
 
@@ -10,8 +10,11 @@
 
 ```bash
 export N8N_HOST="http://34.136.180.66:5678"
-export N8N_API_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2ZhN2FjNS1lOTJkLTQ2MjAtOGZkYS05Zjg0MWI1Y2VjZjYiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwianRpIjoiNzc0NzYyNmItNTNjYi00ZDU0LTkxYmItYjZkYmE1NjdmZGVmIiwiaWF0IjoxNzcwOTM4NDExfQ.77sRd0mK_ShypXUibu4GpKbyKFXTzCE9mLa7940nUAw"
+# API Key dans .env.local (ne PAS la mettre en clair dans le repo)
+source .env.local  # charge N8N_API_KEY
 ```
+
+> **IMPORTANT** : L'ancienne API key hardcodee ici etait INVALIDE (401). Toujours utiliser `.env.local`.
 
 ---
 
@@ -193,7 +196,7 @@ n8n_api("POST", f"/api/v1/workflows/{WF_ID}/activate")
 | Variables n8n pas visibles dans le code | Utiliser `$vars.NOM_VARIABLE` dans les expressions |
 | Exécution sans données | Ajouter `?includeData=true` au GET execution |
 | `$env.X` bloqué en Docker self-hosted | Remplacer par valeurs hardcodées dans les nœuds |
-| Credentials n8n inexistantes après migration | Mettre `authentication: "none"` + headers manuels |
+| Credentials n8n inexistantes après migration | **RESOLU 15-fev** : Postgres `USU8ngVzsUbED3mn` + Redis `CWih07lwPxfwFeY6` creees, 12/13 workflows remappes |
 | `require('crypto')` bloqué dans Code nodes | Utiliser fonction hash custom (bitwise) |
 | Pinecone dim 1024 (Cohere) vs 1536 (ancien) | Utiliser index `sota-rag-cohere-1024` |
 | Cohere Reranker v2 échoue | Utiliser `https://api.cohere.ai/v1/rerank` |
