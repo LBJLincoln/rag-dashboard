@@ -1,14 +1,14 @@
 {
   "meta": {
-    "generated_at": "2026-02-15T19:36:45.810762Z",
+    "generated_at": "2026-02-15T21:00:38.281270Z",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
     "total_unique_questions": 160,
-    "total_test_runs": 701,
-    "total_iterations": 16,
+    "total_test_runs": 766,
+    "total_iterations": 20,
     "status": "complete",
-    "current_session": "2026-02-15T18-58-32"
+    "current_session": "2026-02-15T20-09-28"
   },
   "reference_cloud_executions": {
     "note": "Executions reussies sur n8n Cloud (avant migration Docker). Servent de reference uniquement.",
@@ -9659,6 +9659,929 @@
           "timestamp": "2026-02-15T19:36:02.541736Z"
         }
       ]
+    },
+    {
+      "id": "iter-2026-02-15T19-55-57",
+      "number": 17,
+      "timestamp_start": "2026-02-15T19:55:57.543353Z",
+      "timestamp_end": "2026-02-15T19:55:57.615432Z",
+      "label": "15fev-s4-graph-expected-fix-5",
+      "description": "Iterative evaluation: stages 1-3, pipelines: graph",
+      "changes_applied": [],
+      "results_summary": {},
+      "total_tested": 0,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0,
+      "questions": []
+    },
+    {
+      "id": "iter-2026-02-15T19-56-32",
+      "number": 18,
+      "timestamp_start": "2026-02-15T19:56:32.271027Z",
+      "timestamp_end": "2026-02-15T19:56:32.334832Z",
+      "label": "15fev-s4-graph-expected-fix-5",
+      "description": "Iterative evaluation: stages 1-3, pipelines: graph",
+      "changes_applied": [],
+      "results_summary": {},
+      "total_tested": 0,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0,
+      "questions": []
+    },
+    {
+      "id": "iter-2026-02-15T19-57-32",
+      "number": 19,
+      "timestamp_start": "2026-02-15T19:57:32.931414Z",
+      "timestamp_end": "2026-02-15T20:08:51.093918Z",
+      "label": "15fev-s4-graph-expected-fix-5",
+      "description": "Iterative evaluation: stages 1-3, pipelines: graph",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 15,
+          "correct": 8,
+          "errors": 0,
+          "accuracy_pct": 53.3,
+          "avg_latency_ms": 44933,
+          "p95_latency_ms": 58562,
+          "avg_f1": 0.7395
+        }
+      },
+      "total_tested": 15,
+      "total_correct": 8,
+      "overall_accuracy_pct": 53.3,
+      "questions": [
+        {
+          "id": "graph-01",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 41649,
+          "answer": "Marie Curie won two Nobel Prizes: Physics in 1903 and Chemistry in 1911.",
+          "expected": "Nobel Prize",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:58:14.661392Z"
+        },
+        {
+          "id": "graph-03",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 35527,
+          "answer": "Penicillin",
+          "expected": "Penicillin",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:58:50.361798Z"
+        },
+        {
+          "id": "graph-12",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 34188,
+          "answer": "Infectious diseases, non-communicable diseases, neglected tropical diseases, vaccine-preventable diseases, antimicrobial resistance, environmental health issues",
+          "expected": "COVID-19, Malaria",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T19:59:24.705476Z"
+        },
+        {
+          "id": "graph-02",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 42556,
+          "answer": "Albert Einstein",
+          "expected": "Albert Einstein",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:00:07.423018Z"
+        },
+        {
+          "id": "graph-04",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 47551,
+          "answer": "Bacterial infections",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:00:55.116017Z"
+        },
+        {
+          "id": "graph-12",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 41225,
+          "answer": "Infectious diseases, non-communicable diseases, mental health, neglected tropical diseases",
+          "expected": "COVID-19, Malaria",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:01:36.892515Z"
+        },
+        {
+          "id": "graph-13",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.5455,
+          "latency_ms": 58562,
+          "answer": "NASA uses nuclear energy for space missions.",
+          "expected": "NASA utilizes Nuclear Energy",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:02:35.693628Z"
+        },
+        {
+          "id": "graph-18",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 34484,
+          "answer": "Nobel Prize laureates",
+          "expected": "Albert Einstein, Marie Curie, Nelson Mandela",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:03:10.321248Z"
+        },
+        {
+          "id": "graph-22",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 52798,
+          "answer": "President, Congress members, Supreme Court justices, political appointees, advisors, staff, think tank experts, lobbyists, foreign diplomats, local leaders",
+          "expected": "Franklin D. Roosevelt, Abraham Lincoln",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:04:03.348012Z"
+        },
+        {
+          "id": "graph-23",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 45514,
+          "answer": "Darwin studied geology, zoology, and botany during his voyage on the HMS Beagle to South America, Galápagos Islands, and Australia.",
+          "expected": "University of Cambridge",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:04:49.076553Z"
+        },
+        {
+          "id": "graph-27",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 33500,
+          "answer": "ARPANET",
+          "expected": "Electricity, Telephone",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:05:22.741643Z"
+        },
+        {
+          "id": "graph-28",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.16,
+          "latency_ms": 53253,
+          "answer": "Gandhi's relationship with London was complex and multifaceted, spanning several decades and profoundly influencing both his personal development and the course of Indian independence.",
+          "expected": "Gandhi London",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:06:16.185070Z"
+        },
+        {
+          "id": "graph-30",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 39719,
+          "answer": "The WHO is a specialized agency of the UN focused on international public health.",
+          "expected": "specialized agency",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:06:56.561533Z"
+        },
+        {
+          "id": "graph-31",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 57273,
+          "answer": "Radioactivity, uranium, thorium, polonium, radium",
+          "expected": "radioactivity",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:07:53.980121Z"
+        },
+        {
+          "id": "graph-32",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.25,
+          "latency_ms": 56207,
+          "answer": "UNESCO, OECD, French Revolution, Louvre Museum, Eiffel Tower, Monet, Picasso, Van Gogh, Victor Hugo, Ernest Hemingway, Chanel, Louis Vuitton, haute cuisine, patisseries, Paris Stock Exchange, Charles de Gaulle Airport, Paris Métro, Stade de France",
+          "expected": "Marie Curie, Louis Pasteur, Napoleon Bonaparte, European Space Agency, Pablo Picasso, Vincent van Gogh, Louvre Museum",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:08:50.366257Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-15T20-09-28",
+      "number": 20,
+      "timestamp_start": "2026-02-15T20:09:28.726575Z",
+      "timestamp_end": "2026-02-15T21:00:38.279566Z",
+      "label": "15fev-s4-graph-full-50",
+      "description": "Dataset: phase-1, Parallel: graph, Max: None, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 50,
+          "correct": 39,
+          "errors": 0,
+          "accuracy_pct": 78.0,
+          "avg_latency_ms": 58358,
+          "p95_latency_ms": 86990,
+          "avg_f1": 0.6426
+        }
+      },
+      "total_tested": 50,
+      "total_correct": 39,
+      "overall_accuracy_pct": 78.0,
+      "questions": [
+        {
+          "id": "graph-01",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 35343,
+          "answer": "Marie Curie won two Nobel Prizes in different scientific fields.",
+          "expected": "Nobel Prize",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:10:14.753626Z"
+        },
+        {
+          "id": "graph-02",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 46650,
+          "answer": "Albert Einstein",
+          "expected": "Albert Einstein",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:11:01.601069Z"
+        },
+        {
+          "id": "graph-03",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 67232,
+          "answer": "Penicillin",
+          "expected": "Penicillin",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:12:10.047690Z"
+        },
+        {
+          "id": "graph-04",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 53013,
+          "answer": "Bacterial infections",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:13:05.030109Z"
+        },
+        {
+          "id": "graph-05",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 43254,
+          "answer": "Sherborne School, King's College Cambridge, Princeton University",
+          "expected": "Cambridge",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:13:50.286799Z"
+        },
+        {
+          "id": "graph-06",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 49763,
+          "answer": "They were rivals in the \"War of the Currents\" over AC vs DC electrical systems.",
+          "expected": "rival",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:14:42.041351Z"
+        },
+        {
+          "id": "graph-07",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.4615,
+          "latency_ms": 43021,
+          "answer": "Isaac Newton, Charles Darwin, Stephen Hawking, Rosalind Franklin, Alan Turing",
+          "expected": "Newton Darwin Turing",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:15:27.047949Z"
+        },
+        {
+          "id": "graph-08",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 57508,
+          "answer": "The World Wide Web is an information system for content sharing over the Internet, created at CERN.",
+          "expected": "CERN",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:16:27.032424Z"
+        },
+        {
+          "id": "graph-09",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 51489,
+          "answer": "Tech companies, healthcare, finance, automotive, retail organizations use AI.",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:17:20.788374Z"
+        },
+        {
+          "id": "graph-10",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 53017,
+          "answer": "Paris",
+          "expected": "Paris",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:18:16.028182Z"
+        },
+        {
+          "id": "graph-11",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 45014,
+          "answer": "Edward Jenner",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:19:03.046167Z"
+        },
+        {
+          "id": "graph-12",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 56268,
+          "answer": "Infectious diseases, non-communicable diseases, neglected tropical diseases, vaccine-preventable diseases, emerging and re-emerging diseases",
+          "expected": "COVID-19, Malaria",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:20:01.278105Z"
+        },
+        {
+          "id": "graph-13",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.375,
+          "latency_ms": 52525,
+          "answer": "NASA uses nuclear energy for power generation and propulsion in space missions.",
+          "expected": "NASA utilizes Nuclear Energy",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:20:55.799625Z"
+        },
+        {
+          "id": "graph-14",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 96519,
+          "answer": "Paris",
+          "expected": "Paris",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:22:36.042732Z"
+        },
+        {
+          "id": "graph-15",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.2,
+          "latency_ms": 44500,
+          "answer": "Google was founded by Stanford Ph.D. students Larry Page and Sergey Brin as a research project at Stanford.",
+          "expected": "Google Stanford",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:23:23.789693Z"
+        },
+        {
+          "id": "graph-16",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 52511,
+          "answer": "Salzburg, Austria",
+          "expected": "Salzburg",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:24:19.793338Z"
+        },
+        {
+          "id": "graph-17",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.3333,
+          "latency_ms": 47760,
+          "answer": "Vaccination prevents and mitigates COVID-19 by stimulating immune response to SARS-CoV-2 virus.",
+          "expected": "Vaccination COVID-19",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:25:09.552966Z"
+        },
+        {
+          "id": "graph-18",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 45502,
+          "answer": "Nobel Prize laureates are entities with the type \"Nobel laureate\" in the knowledge graph.",
+          "expected": "Albert Einstein, Marie Curie, Nelson Mandela",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:25:57.549752Z"
+        },
+        {
+          "id": "graph-19",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.2581,
+          "latency_ms": 58739,
+          "answer": "Ada Lovelace is known for her work on Charles Babbage's Analytical Engine and is considered the first computer programmer. She was based in England throughout her life.",
+          "expected": "First computer programmer, based in London",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:26:58.054434Z"
+        },
+        {
+          "id": "graph-20",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 55001,
+          "answer": "British Museum, National Gallery, Victoria and Albert Museum, Natural History Museum, Science Museum",
+          "expected": "British Museum",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:27:55.796443Z"
+        },
+        {
+          "id": "graph-21",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.3158,
+          "latency_ms": 56748,
+          "answer": "CERN focuses on fundamental particle physics research, while nuclear energy harnesses nuclear reactions for power generation.",
+          "expected": "CERN studies Nuclear Energy",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:28:54.288539Z"
+        },
+        {
+          "id": "graph-22",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 54493,
+          "answer": "President, Senators, Representatives, cabinet members, Supreme Court Justices",
+          "expected": "Franklin D. Roosevelt, Abraham Lincoln",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:29:50.553770Z"
+        },
+        {
+          "id": "graph-23",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 53001,
+          "answer": "Charles Darwin studied natural world, origins and evolution of species, particularly during his voyage on HMS Beagle to South America, Galápagos Islands, Australia, and Africa.",
+          "expected": "University of Cambridge",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:30:45.555652Z"
+        },
+        {
+          "id": "graph-24",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.6,
+          "latency_ms": 51257,
+          "answer": "Leonardo da Vinci's works, including the Mona Lisa, are housed in the Louvre Museum.",
+          "expected": "Leonardo da Vinci's works are at the Louvre Museum",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:31:42.791184Z"
+        },
+        {
+          "id": "graph-25",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.3158,
+          "latency_ms": 66229,
+          "answer": "Stanford University, MIT, Carnegie Mellon University, UC Berkeley, University of Toronto, University of Oxford, University of Cambridge, ETH Zurich, Tsinghua University, National University of Singapore.",
+          "expected": "MIT, Stanford University",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:32:52.558961Z"
+        },
+        {
+          "id": "graph-26",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 58270,
+          "answer": "Woodrow Wilson, Albert Einstein, John von Neumann, F. Scott Fitzgerald, Toni Morrison, Joyce Carol Oates, Michelle Obama, Ralph Nader",
+          "expected": "Albert Einstein",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:33:53.035799Z"
+        },
+        {
+          "id": "graph-27",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 69728,
+          "answer": "The telegraph system.",
+          "expected": "Electricity, Telephone",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:35:04.064108Z"
+        },
+        {
+          "id": "graph-28",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.2105,
+          "latency_ms": 65981,
+          "answer": "Gandhi studied law in London, attended conferences there, and developed his ideologies influenced by his experiences in the city.",
+          "expected": "Gandhi London",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:36:12.035368Z"
+        },
+        {
+          "id": "graph-29",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 72241,
+          "answer": "Martin Scorsese, Woody Allen, Spike Lee, Sidney Lumet, Francis Ford Coppola, Joel and Ethan Coen, Noah Baumbach",
+          "expected": "Scorsese",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:37:26.047603Z"
+        },
+        {
+          "id": "graph-30",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 54259,
+          "answer": "WHO is a specialized agency of the UN that coordinates international health matters.",
+          "expected": "specialized agency",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:38:22.056921Z"
+        },
+        {
+          "id": "graph-31",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 53521,
+          "answer": "Radioactivity, radioactive elements, and their applications in medicine.",
+          "expected": "radioactivity",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:39:17.560970Z"
+        },
+        {
+          "id": "graph-32",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.1739,
+          "latency_ms": 86990,
+          "answer": "Eiffel Tower, Louvre Museum, Notre-Dame Cathedral, French government, Victor Hugo, Claude Monet, Pablo Picasso, Impressionism, Surrealism, Paris Fashion Week, Sorbonne University, Collège de France, philosophers, writers, scientists, sports events",
+          "expected": "Marie Curie, Louis Pasteur, Napoleon Bonaparte, European Space Agency, Pablo Picasso, Vincent van Gogh, Louvre Museum",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:40:46.538777Z"
+        },
+        {
+          "id": "graph-33",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0571,
+          "latency_ms": 60284,
+          "answer": "Einstein visited Cambridge in 1921, became visiting Fellow at Christ's College 1930-1931, worked on unified field theory, maintained correspondence with Cambridge scientists.",
+          "expected": "Einstein → Princeton/Nobel Foundation, connected via Royal Society or other intermediate nodes",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:41:48.587276Z"
+        },
+        {
+          "id": "graph-34",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.1481,
+          "latency_ms": 80497,
+          "answer": "Thomas Edison invented the practical incandescent light bulb, developed electrical distribution systems, opened the first commercial power plant, and held over 1,000 patents related to electricity.",
+          "expected": "Edison electricity",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:43:12.593073Z"
+        },
+        {
+          "id": "graph-35",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 49004,
+          "answer": "Nikola Tesla, Jonas Salk, Barbara McClintock, Edwin H. Armstrong",
+          "expected": "Nikola Tesla",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:44:03.332917Z"
+        },
+        {
+          "id": "graph-36",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.1212,
+          "latency_ms": 77002,
+          "answer": "William Shakespeare moved to London in the late 1580s to pursue theater opportunities. He wrote and acted for the Lord Chamberlain's Men, co-owned the Globe Theatre, and lived in various London locations throughout his career.",
+          "expected": "Shakespeare London",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:45:22.581772Z"
+        },
+        {
+          "id": "graph-37",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 48505,
+          "answer": "Computer science, artificial intelligence, cryptography, computing machines",
+          "expected": "Artificial Intelligence",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:46:13.095496Z"
+        },
+        {
+          "id": "graph-38",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.1667,
+          "latency_ms": 56748,
+          "answer": "Close personal and political relationship during World War II.",
+          "expected": "wartime partnership allies",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:47:15.348966Z"
+        },
+        {
+          "id": "graph-39",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.25,
+          "latency_ms": 64733,
+          "answer": "No direct connection; Cairo founded 969 CE, over 1000 years after her death.",
+          "expected": "Cleopatra is connected to Cairo",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:48:22.339321Z"
+        },
+        {
+          "id": "graph-40",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 59263,
+          "answer": "Measles, mumps, rubella, polio, diphtheria, tetanus, pertussis, hepatitis B.",
+          "expected": "Influenza",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:49:25.087788Z"
+        },
+        {
+          "id": "graph-41",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.3077,
+          "latency_ms": 45499,
+          "answer": "Steam engine principles influenced modern engines, transportation, and industrial automation.",
+          "expected": "Steam Engine Electricity",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:50:12.347229Z"
+        },
+        {
+          "id": "graph-42",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 57951,
+          "answer": "Leonardo da Vinci",
+          "expected": "Leonardo da Vinci",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:51:11.803413Z"
+        },
+        {
+          "id": "graph-43",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 86584,
+          "answer": "Complex and multifaceted, spanning decades.",
+          "expected": "Newton Royal Society",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:52:39.041723Z"
+        },
+        {
+          "id": "graph-44",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 51008,
+          "answer": "Washington, D.C., United States",
+          "expected": "Washington D.C.",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:53:32.043911Z"
+        },
+        {
+          "id": "graph-45",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.4,
+          "latency_ms": 100238,
+          "answer": "Nuclear energy generates electricity through fission, producing heat to create steam that drives turbines connected to generators.",
+          "expected": "Nuclear Energy is connected to Electricity",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:55:14.274108Z"
+        },
+        {
+          "id": "graph-46",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 52741,
+          "answer": "Pablo Picasso, Vincent van Gogh, Henri Matisse, Salvador Dalí, Marc Chagall, Joan Miró, Amedeo Modigliani",
+          "expected": "Picasso",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:56:09.280378Z"
+        },
+        {
+          "id": "graph-47",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.25,
+          "latency_ms": 61759,
+          "answer": "Pablo Picasso had a profound connection to the Museo del Prado in Madrid, which significantly influenced his artistic development and career.",
+          "expected": "Picasso Museo Prado",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:57:13.275863Z"
+        },
+        {
+          "id": "graph-48",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.2857,
+          "latency_ms": 76005,
+          "answer": "Germ theory and antibiosis research by Pasteur influenced penicillin discovery.",
+          "expected": "Pasteur Fleming Penicillin vaccination",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:58:31.543627Z"
+        },
+        {
+          "id": "graph-49",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 50005,
+          "answer": "Alfred Hitchcock, Stanley Kubrick, Ridley Scott, Christopher Nolan, Danny Boyle, Guy Ritchie",
+          "expected": "Alfred Hitchcock",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T20:59:23.526484Z"
+        },
+        {
+          "id": "graph-50",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 42750,
+          "answer": "Paris, France",
+          "expected": "Paris",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-15T21:00:08.027163Z"
+        }
+      ]
     }
   ],
   "question_registry": {
@@ -10665,15 +11588,39 @@
           "error_type": "TIMEOUT",
           "answer": "",
           "timestamp": "2026-02-15T17:50:41.908464Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T19-57-32",
+          "iteration_number": 19,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 41649,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Marie Curie won two Nobel Prizes: Physics in 1903 and Chemistry in 1911.",
+          "timestamp": "2026-02-15T19:58:14.661475Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 35343,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Marie Curie won two Nobel Prizes in different scientific fields.",
+          "timestamp": "2026-02-15T20:10:14.753689Z"
         }
       ],
-      "total_runs": 10,
-      "pass_count": 4,
-      "pass_rate": 0.4,
-      "current_status": "error",
-      "last_tested": "2026-02-15T17:50:41.908464Z",
+      "total_runs": 12,
+      "pass_count": 6,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T20:10:14.753689Z",
       "best_f1": 0.9,
-      "trend": "regressing"
+      "trend": "stable"
     },
     "graph-02": {
       "id": "graph-02",
@@ -10792,13 +11739,37 @@
           "error_type": null,
           "answer": "Albert Einstein",
           "timestamp": "2026-02-15T17:52:02.893384Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T19-57-32",
+          "iteration_number": 19,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 42556,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Albert Einstein",
+          "timestamp": "2026-02-15T20:00:07.423994Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 46650,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Albert Einstein",
+          "timestamp": "2026-02-15T20:11:01.601166Z"
         }
       ],
-      "total_runs": 9,
-      "pass_count": 8,
-      "pass_rate": 0.889,
+      "total_runs": 11,
+      "pass_count": 10,
+      "pass_rate": 0.909,
       "current_status": "pass",
-      "last_tested": "2026-02-15T17:52:02.893384Z",
+      "last_tested": "2026-02-15T20:11:01.601166Z",
       "best_f1": 1.0,
       "trend": "stable"
     },
@@ -10919,15 +11890,39 @@
           "error_type": "TIMEOUT",
           "answer": "",
           "timestamp": "2026-02-15T17:54:13.905686Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T19-57-32",
+          "iteration_number": 19,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 35527,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Penicillin",
+          "timestamp": "2026-02-15T19:58:50.361901Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 67232,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Penicillin",
+          "timestamp": "2026-02-15T20:12:10.052938Z"
         }
       ],
-      "total_runs": 9,
-      "pass_count": 3,
-      "pass_rate": 0.333,
-      "current_status": "error",
-      "last_tested": "2026-02-15T17:54:13.905686Z",
+      "total_runs": 11,
+      "pass_count": 5,
+      "pass_rate": 0.455,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T20:12:10.052938Z",
       "best_f1": 1.0,
-      "trend": "stable"
+      "trend": "improving"
     },
     "graph-04": {
       "id": "graph-04",
@@ -11046,13 +12041,37 @@
           "error_type": null,
           "answer": "Bacterial infections",
           "timestamp": "2026-02-15T17:55:33.889401Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T19-57-32",
+          "iteration_number": 19,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 47551,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "Bacterial infections",
+          "timestamp": "2026-02-15T20:00:55.116116Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 53013,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "Bacterial infections",
+          "timestamp": "2026-02-15T20:13:05.030182Z"
         }
       ],
-      "total_runs": 9,
-      "pass_count": 6,
-      "pass_rate": 0.667,
+      "total_runs": 11,
+      "pass_count": 8,
+      "pass_rate": 0.727,
       "current_status": "pass",
-      "last_tested": "2026-02-15T17:55:33.889401Z",
+      "last_tested": "2026-02-15T20:13:05.030182Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -11173,13 +12192,25 @@
           "error_type": null,
           "answer": "Sherborne School, King's College Cambridge, Princeton University",
           "timestamp": "2026-02-15T17:56:16.842214Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 43254,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Sherborne School, King's College Cambridge, Princeton University",
+          "timestamp": "2026-02-15T20:13:50.286895Z"
         }
       ],
-      "total_runs": 9,
-      "pass_count": 7,
-      "pass_rate": 0.778,
+      "total_runs": 10,
+      "pass_count": 8,
+      "pass_rate": 0.8,
       "current_status": "pass",
-      "last_tested": "2026-02-15T17:56:16.842214Z",
+      "last_tested": "2026-02-15T20:13:50.286895Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -11300,13 +12331,25 @@
           "error_type": null,
           "answer": "Tesla worked for Edison's company in 1882-1884 before their rivalry in the \"War of the Currents\" over AC vs DC power systems.",
           "timestamp": "2026-02-15T17:56:59.564090Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 49763,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "They were rivals in the \"War of the Currents\" over AC vs DC electrical systems.",
+          "timestamp": "2026-02-15T20:14:42.041440Z"
         }
       ],
-      "total_runs": 9,
-      "pass_count": 6,
-      "pass_rate": 0.667,
+      "total_runs": 10,
+      "pass_count": 7,
+      "pass_rate": 0.7,
       "current_status": "pass",
-      "last_tested": "2026-02-15T17:56:59.564090Z",
+      "last_tested": "2026-02-15T20:14:42.041440Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -11415,13 +12458,25 @@
           "error_type": null,
           "answer": "Isaac Newton, Charles Darwin, Stephen Hawking, Rosalind Franklin, James Watson, Francis Crick",
           "timestamp": "2026-02-15T17:57:39.506993Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.4615,
+          "latency_ms": 43021,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Isaac Newton, Charles Darwin, Stephen Hawking, Rosalind Franklin, Alan Turing",
+          "timestamp": "2026-02-15T20:15:27.048027Z"
         }
       ],
-      "total_runs": 8,
-      "pass_count": 5,
-      "pass_rate": 0.625,
+      "total_runs": 9,
+      "pass_count": 6,
+      "pass_rate": 0.667,
       "current_status": "pass",
-      "last_tested": "2026-02-15T17:57:39.506993Z",
+      "last_tested": "2026-02-15T20:15:27.048027Z",
       "best_f1": 0.4762,
       "trend": "improving"
     },
@@ -11530,13 +12585,25 @@
           "error_type": null,
           "answer": "The World Wide Web is an information system for accessing documents over the internet. It was created at CERN in Switzerland.",
           "timestamp": "2026-02-15T17:58:35.101114Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 57508,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The World Wide Web is an information system for content sharing over the Internet, created at CERN.",
+          "timestamp": "2026-02-15T20:16:27.032572Z"
         }
       ],
-      "total_runs": 8,
-      "pass_count": 6,
-      "pass_rate": 0.75,
+      "total_runs": 9,
+      "pass_count": 7,
+      "pass_rate": 0.778,
       "current_status": "pass",
-      "last_tested": "2026-02-15T17:58:35.101114Z",
+      "last_tested": "2026-02-15T20:16:27.032572Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -11645,13 +12712,25 @@
           "error_type": null,
           "answer": "Google, Amazon, Microsoft, IBM, Tesla, Waymo, JPMorgan Chase, Goldman Sachs, Mayo Clinic, IBM Watson Health, Walmart, Facebook, Twitter",
           "timestamp": "2026-02-15T17:59:42.383757Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 51489,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "Tech companies, healthcare, finance, automotive, retail organizations use AI.",
+          "timestamp": "2026-02-15T20:17:20.790087Z"
         }
       ],
-      "total_runs": 8,
-      "pass_count": 6,
-      "pass_rate": 0.75,
+      "total_runs": 9,
+      "pass_count": 7,
+      "pass_rate": 0.778,
       "current_status": "pass",
-      "last_tested": "2026-02-15T17:59:42.383757Z",
+      "last_tested": "2026-02-15T20:17:20.790087Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -11760,13 +12839,25 @@
           "error_type": null,
           "answer": "Paris",
           "timestamp": "2026-02-15T18:00:55.872767Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 53017,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Paris",
+          "timestamp": "2026-02-15T20:18:16.030918Z"
         }
       ],
-      "total_runs": 8,
-      "pass_count": 8,
+      "total_runs": 9,
+      "pass_count": 9,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:00:55.872767Z",
+      "last_tested": "2026-02-15T20:18:16.030918Z",
       "best_f1": 1.0,
       "trend": "stable"
     },
@@ -14190,13 +15281,25 @@
           "error_type": null,
           "answer": "Edward Jenner",
           "timestamp": "2026-02-15T18:01:52.139316Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 45014,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "Edward Jenner",
+          "timestamp": "2026-02-15T20:19:03.046250Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 1,
-      "pass_rate": 0.25,
+      "total_runs": 5,
+      "pass_count": 2,
+      "pass_rate": 0.4,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:01:52.139316Z",
+      "last_tested": "2026-02-15T20:19:03.046250Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -14446,13 +15549,49 @@
           "error_type": null,
           "answer": "Communicable diseases, non-communicable diseases, mental health issues, maternal and child health concerns.",
           "timestamp": "2026-02-15T18:03:14.625701Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T19-57-32",
+          "iteration_number": 19,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 34188,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Infectious diseases, non-communicable diseases, neglected tropical diseases, vaccine-preventable diseases, antimicrobial resistance, environmental health issues",
+          "timestamp": "2026-02-15T19:59:24.705591Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T19-57-32",
+          "iteration_number": 19,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 41225,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Infectious diseases, non-communicable diseases, mental health, neglected tropical diseases",
+          "timestamp": "2026-02-15T20:01:36.895917Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 56268,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Infectious diseases, non-communicable diseases, neglected tropical diseases, vaccine-preventable diseases, emerging and re-emerging diseases",
+          "timestamp": "2026-02-15T20:20:01.278202Z"
         }
       ],
-      "total_runs": 4,
+      "total_runs": 7,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-15T18:03:14.625701Z",
+      "last_tested": "2026-02-15T20:20:01.278202Z",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -14702,15 +15841,39 @@
           "error_type": null,
           "answer": "Crucial for space exploration.",
           "timestamp": "2026-02-15T18:04:05.655207Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T19-57-32",
+          "iteration_number": 19,
+          "correct": true,
+          "f1": 0.5455,
+          "latency_ms": 58562,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "NASA uses nuclear energy for space missions.",
+          "timestamp": "2026-02-15T20:02:35.694609Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.375,
+          "latency_ms": 52525,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "NASA uses nuclear energy for power generation and propulsion in space missions.",
+          "timestamp": "2026-02-15T20:20:55.799730Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 1,
-      "pass_rate": 0.25,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T18:04:05.655207Z",
-      "best_f1": 0.4615,
-      "trend": "stable"
+      "total_runs": 6,
+      "pass_count": 3,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T20:20:55.799730Z",
+      "best_f1": 0.5455,
+      "trend": "improving"
     },
     "std-17": {
       "id": "std-17",
@@ -14946,13 +16109,25 @@
           "error_type": null,
           "answer": "Paris",
           "timestamp": "2026-02-15T18:05:09.174929Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 96519,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Paris",
+          "timestamp": "2026-02-15T20:22:36.044430Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 2,
-      "pass_rate": 0.5,
+      "total_runs": 5,
+      "pass_count": 3,
+      "pass_rate": 0.6,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:05:09.174929Z",
+      "last_tested": "2026-02-15T20:22:36.044430Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -15135,14 +16310,26 @@
           "error_type": null,
           "answer": "Google's founders, Larry Page and Sergey Brin, developed the search engine as a Stanford research project called \"Backrub\" in 1996.",
           "timestamp": "2026-02-15T18:07:08.564109Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.2,
+          "latency_ms": 44500,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Google was founded by Stanford Ph.D. students Larry Page and Sergey Brin as a research project at Stanford.",
+          "timestamp": "2026-02-15T20:23:23.789804Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 1,
-      "pass_rate": 0.25,
+      "total_runs": 5,
+      "pass_count": 2,
+      "pass_rate": 0.4,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:07:08.564109Z",
-      "best_f1": 0.1818,
+      "last_tested": "2026-02-15T20:23:23.789804Z",
+      "best_f1": 0.2,
       "trend": "improving"
     },
     "quant-22": {
@@ -15391,13 +16578,25 @@
           "error_type": null,
           "answer": "Salzburg, Austria",
           "timestamp": "2026-02-15T18:08:14.393193Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 52511,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Salzburg, Austria",
+          "timestamp": "2026-02-15T20:24:19.793443Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 4,
+      "total_runs": 5,
+      "pass_count": 5,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:08:14.393193Z",
+      "last_tested": "2026-02-15T20:24:19.793443Z",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -15580,13 +16779,25 @@
           "error_type": null,
           "answer": "Vaccination stimulates immune response against SARS-CoV-2 virus.",
           "timestamp": "2026-02-15T18:09:04.860610Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.3333,
+          "latency_ms": 47760,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Vaccination prevents and mitigates COVID-19 by stimulating immune response to SARS-CoV-2 virus.",
+          "timestamp": "2026-02-15T20:25:09.553073Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 2,
-      "pass_rate": 0.5,
+      "total_runs": 5,
+      "pass_count": 3,
+      "pass_rate": 0.6,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:09:04.860610Z",
+      "last_tested": "2026-02-15T20:25:09.553073Z",
       "best_f1": 0.4615,
       "trend": "improving"
     },
@@ -15958,13 +17169,37 @@
           "error_type": null,
           "answer": "Nobel Prize laureates",
           "timestamp": "2026-02-15T18:09:55.611075Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T19-57-32",
+          "iteration_number": 19,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 34484,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Nobel Prize laureates",
+          "timestamp": "2026-02-15T20:03:10.321326Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 45502,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Nobel Prize laureates are entities with the type \"Nobel laureate\" in the knowledge graph.",
+          "timestamp": "2026-02-15T20:25:57.549968Z"
         }
       ],
-      "total_runs": 4,
+      "total_runs": 6,
       "pass_count": 2,
-      "pass_rate": 0.5,
+      "pass_rate": 0.333,
       "current_status": "fail",
-      "last_tested": "2026-02-15T18:09:55.611075Z",
+      "last_tested": "2026-02-15T20:25:57.549968Z",
       "best_f1": 0.6154,
       "trend": "stable"
     },
@@ -16214,13 +17449,25 @@
           "error_type": null,
           "answer": "Ada Lovelace is known for her work on Charles Babbage's Analytical Engine and is considered the first computer programmer. She was based in England, specifically in London and Surrey.",
           "timestamp": "2026-02-15T18:11:29.513354Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.2581,
+          "latency_ms": 58739,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Ada Lovelace is known for her work on Charles Babbage's Analytical Engine and is considered the first computer programmer. She was based in England throughout her life.",
+          "timestamp": "2026-02-15T20:26:58.054560Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 4,
+      "total_runs": 5,
+      "pass_count": 5,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:11:29.513354Z",
+      "last_tested": "2026-02-15T20:26:58.054560Z",
       "best_f1": 0.4348,
       "trend": "stable"
     },
@@ -16470,13 +17717,25 @@
           "error_type": null,
           "answer": "British Museum, Natural History Museum, Science Museum, Victoria and Albert Museum, Tate Modern, Tate Britain, National Gallery, National Portrait Gallery, Imperial War Museum",
           "timestamp": "2026-02-15T18:13:33.749407Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 55001,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "British Museum, National Gallery, Victoria and Albert Museum, Natural History Museum, Science Museum",
+          "timestamp": "2026-02-15T20:27:55.796558Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 3,
-      "pass_rate": 0.75,
+      "total_runs": 5,
+      "pass_count": 4,
+      "pass_rate": 0.8,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:13:33.749407Z",
+      "last_tested": "2026-02-15T20:27:55.796558Z",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -16659,13 +17918,25 @@
           "error_type": null,
           "answer": "CERN is not involved in nuclear energy research or applications.",
           "timestamp": "2026-02-15T18:14:34.248991Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.3158,
+          "latency_ms": 56748,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "CERN focuses on fundamental particle physics research, while nuclear energy harnesses nuclear reactions for power generation.",
+          "timestamp": "2026-02-15T20:28:54.288656Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 2,
-      "pass_rate": 0.5,
+      "total_runs": 5,
+      "pass_count": 3,
+      "pass_rate": 0.6,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:14:34.248991Z",
+      "last_tested": "2026-02-15T20:28:54.288656Z",
       "best_f1": 0.4286,
       "trend": "improving"
     },
@@ -16970,13 +18241,37 @@
           "error_type": null,
           "answer": "Presidents, Congress members, Supreme Court Justices",
           "timestamp": "2026-02-15T18:15:37.247952Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T19-57-32",
+          "iteration_number": 19,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 52798,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "President, Congress members, Supreme Court justices, political appointees, advisors, staff, think tank experts, lobbyists, foreign diplomats, local leaders",
+          "timestamp": "2026-02-15T20:04:03.354816Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 54493,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "President, Senators, Representatives, cabinet members, Supreme Court Justices",
+          "timestamp": "2026-02-15T20:29:50.554125Z"
         }
       ],
-      "total_runs": 4,
+      "total_runs": 6,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-15T18:15:37.247952Z",
+      "last_tested": "2026-02-15T20:29:50.554125Z",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -17159,13 +18454,37 @@
           "error_type": null,
           "answer": "Natural history and geology at University of Edinburgh and Christ's College, Cambridge.",
           "timestamp": "2026-02-15T18:17:05.281583Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T19-57-32",
+          "iteration_number": 19,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 45514,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Darwin studied geology, zoology, and botany during his voyage on the HMS Beagle to South America, Galápagos Islands, and Australia.",
+          "timestamp": "2026-02-15T20:04:49.076651Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 53001,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Charles Darwin studied natural world, origins and evolution of species, particularly during his voyage on HMS Beagle to South America, Galápagos Islands, Australia, and Africa.",
+          "timestamp": "2026-02-15T20:30:45.555787Z"
         }
       ],
-      "total_runs": 4,
+      "total_runs": 6,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-15T18:17:05.281583Z",
+      "last_tested": "2026-02-15T20:30:45.555787Z",
       "best_f1": 0.2222,
       "trend": "stable"
     },
@@ -17470,13 +18789,25 @@
           "error_type": null,
           "answer": "Leonardo da Vinci's works are in the Louvre Museum.",
           "timestamp": "2026-02-15T18:18:47.800440Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.6,
+          "latency_ms": 51257,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Leonardo da Vinci's works, including the Mona Lisa, are housed in the Louvre Museum.",
+          "timestamp": "2026-02-15T20:31:42.795715Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 3,
-      "pass_rate": 0.75,
+      "total_runs": 5,
+      "pass_count": 4,
+      "pass_rate": 0.8,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:18:47.800440Z",
+      "last_tested": "2026-02-15T20:31:42.795715Z",
       "best_f1": 0.75,
       "trend": "improving"
     },
@@ -17726,13 +19057,25 @@
           "error_type": null,
           "answer": "MIT, Stanford, Carnegie Mellon, UC Berkeley, University of Toronto, University of Oxford, University of Cambridge",
           "timestamp": "2026-02-15T18:20:49.812358Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.3158,
+          "latency_ms": 66229,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Stanford University, MIT, Carnegie Mellon University, UC Berkeley, University of Toronto, University of Oxford, University of Cambridge, ETH Zurich, Tsinghua University, National University of Singapore.",
+          "timestamp": "2026-02-15T20:32:52.559102Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 3,
-      "pass_rate": 0.75,
+      "total_runs": 5,
+      "pass_count": 4,
+      "pass_rate": 0.8,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:20:49.812358Z",
+      "last_tested": "2026-02-15T20:32:52.559102Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -17982,13 +19325,25 @@
           "error_type": null,
           "answer": "Woodrow Wilson, Michelle Obama, Chris Christie, F. Scott Fitzgerald, John McPhee, Joyce Carol Oates, Toni Morrison, Albert Einstein",
           "timestamp": "2026-02-15T18:22:36.036254Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 58270,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Woodrow Wilson, Albert Einstein, John von Neumann, F. Scott Fitzgerald, Toni Morrison, Joyce Carol Oates, Michelle Obama, Ralph Nader",
+          "timestamp": "2026-02-15T20:33:53.035899Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 4,
+      "total_runs": 5,
+      "pass_count": 5,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:22:36.036254Z",
+      "last_tested": "2026-02-15T20:33:53.035899Z",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -18293,13 +19648,37 @@
           "error_type": null,
           "answer": "ARPANET",
           "timestamp": "2026-02-15T18:23:42.049970Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T19-57-32",
+          "iteration_number": 19,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 33500,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "ARPANET",
+          "timestamp": "2026-02-15T20:05:22.741734Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 69728,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The telegraph system.",
+          "timestamp": "2026-02-15T20:35:04.064240Z"
         }
       ],
-      "total_runs": 4,
+      "total_runs": 6,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-15T18:23:42.049970Z",
+      "last_tested": "2026-02-15T20:35:04.064240Z",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -18360,15 +19739,39 @@
           "error_type": null,
           "answer": "Complex and multifaceted, spanning decades.",
           "timestamp": "2026-02-15T18:24:38.563657Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T19-57-32",
+          "iteration_number": 19,
+          "correct": true,
+          "f1": 0.16,
+          "latency_ms": 53253,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Gandhi's relationship with London was complex and multifaceted, spanning several decades and profoundly influencing both his personal development and the course of Indian independence.",
+          "timestamp": "2026-02-15T20:06:16.185166Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.2105,
+          "latency_ms": 65981,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Gandhi studied law in London, attended conferences there, and developed his ideologies influenced by his experiences in the city.",
+          "timestamp": "2026-02-15T20:36:12.035456Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 1,
-      "pass_rate": 0.25,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T18:24:38.563657Z",
+      "total_runs": 6,
+      "pass_count": 3,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T20:36:12.035456Z",
       "best_f1": 0.2857,
-      "trend": "stable"
+      "trend": "improving"
     },
     "quant-44": {
       "id": "quant-44",
@@ -18549,13 +19952,25 @@
           "error_type": null,
           "answer": "Martin Scorsese, Woody Allen, Spike Lee, Sidney Lumet, Joel and Ethan Coen, Noah Baumbach",
           "timestamp": "2026-02-15T18:25:33.556178Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 72241,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Martin Scorsese, Woody Allen, Spike Lee, Sidney Lumet, Francis Ford Coppola, Joel and Ethan Coen, Noah Baumbach",
+          "timestamp": "2026-02-15T20:37:26.047738Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 1,
-      "pass_rate": 0.25,
+      "total_runs": 5,
+      "pass_count": 2,
+      "pass_rate": 0.4,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:25:33.556178Z",
+      "last_tested": "2026-02-15T20:37:26.047738Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -18738,15 +20153,39 @@
           "error_type": null,
           "answer": "The WHO is a specialized agency of the UN, established in 1948, operating under UN administrative framework.",
           "timestamp": "2026-02-15T18:26:21.537092Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T19-57-32",
+          "iteration_number": 19,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 39719,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The WHO is a specialized agency of the UN focused on international public health.",
+          "timestamp": "2026-02-15T20:06:56.561603Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 54259,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "WHO is a specialized agency of the UN that coordinates international health matters.",
+          "timestamp": "2026-02-15T20:38:22.057016Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T18:26:21.537092Z",
-      "best_f1": 0.1667,
-      "trend": "stable"
+      "total_runs": 6,
+      "pass_count": 2,
+      "pass_rate": 0.333,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T20:38:22.057016Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "quant-46": {
       "id": "quant-46",
@@ -18927,15 +20366,39 @@
           "error_type": null,
           "answer": "Radioactive elements, particularly uranium and thorium.",
           "timestamp": "2026-02-15T18:27:13.556306Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T19-57-32",
+          "iteration_number": 19,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 57273,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Radioactivity, uranium, thorium, polonium, radium",
+          "timestamp": "2026-02-15T20:07:53.980200Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 53521,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Radioactivity, radioactive elements, and their applications in medicine.",
+          "timestamp": "2026-02-15T20:39:17.561121Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 1,
-      "pass_rate": 0.25,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T18:27:13.556306Z",
-      "best_f1": 0.4444,
-      "trend": "stable"
+      "total_runs": 6,
+      "pass_count": 3,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T20:39:17.561121Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "quant-47": {
       "id": "quant-47",
@@ -19305,14 +20768,38 @@
           "error_type": null,
           "answer": "Eiffel Tower, Louvre Museum, Notre-Dame Cathedral, Seine River, Champs-\\u00c9lys\\u00e9es, Palace of Versailles, Sorbonne University, Paris Saint-Germain, Charles de Gaulle Airport",
           "timestamp": "2026-02-15T18:28:28.291216Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T19-57-32",
+          "iteration_number": 19,
+          "correct": false,
+          "f1": 0.25,
+          "latency_ms": 56207,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "UNESCO, OECD, French Revolution, Louvre Museum, Eiffel Tower, Monet, Picasso, Van Gogh, Victor Hugo, Ernest Hemingway, Chanel, Louis Vuitton, haute cuisine, patisseries, Paris Stock Exchange, Charles de Gaulle Airport, Paris Métro, Stade de France",
+          "timestamp": "2026-02-15T20:08:50.366369Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": false,
+          "f1": 0.1739,
+          "latency_ms": 86990,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Eiffel Tower, Louvre Museum, Notre-Dame Cathedral, French government, Victor Hugo, Claude Monet, Pablo Picasso, Impressionism, Surrealism, Paris Fashion Week, Sorbonne University, Collège de France, philosophers, writers, scientists, sports events",
+          "timestamp": "2026-02-15T20:40:46.541563Z"
         }
       ],
-      "total_runs": 4,
+      "total_runs": 6,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-15T18:28:28.291216Z",
-      "best_f1": 0.1538,
+      "last_tested": "2026-02-15T20:40:46.541563Z",
+      "best_f1": 0.25,
       "trend": "stable"
     },
     "std-41": {
@@ -19494,13 +20981,25 @@
           "error_type": null,
           "answer": "Einstein's theories influenced Cambridge physicists.",
           "timestamp": "2026-02-15T18:29:25.536883Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": false,
+          "f1": 0.0571,
+          "latency_ms": 60284,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Einstein visited Cambridge in 1921, became visiting Fellow at Christ's College 1930-1931, worked on unified field theory, maintained correspondence with Cambridge scientists.",
+          "timestamp": "2026-02-15T20:41:48.588519Z"
         }
       ],
-      "total_runs": 4,
+      "total_runs": 5,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-15T18:29:25.536883Z",
+      "last_tested": "2026-02-15T20:41:48.588519Z",
       "best_f1": 0.1538,
       "trend": "stable"
     },
@@ -19671,13 +21170,25 @@
           "error_type": null,
           "answer": "Thomas Edison invented the practical incandescent light bulb, developed the first electrical distribution system, created the first commercially practical electric motor, and improved the telegraph system.",
           "timestamp": "2026-02-15T18:30:17.039215Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.1481,
+          "latency_ms": 80497,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Thomas Edison invented the practical incandescent light bulb, developed electrical distribution systems, opened the first commercial power plant, and held over 1,000 patents related to electricity.",
+          "timestamp": "2026-02-15T20:43:12.594534Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 2,
-      "pass_rate": 0.5,
+      "total_runs": 5,
+      "pass_count": 3,
+      "pass_rate": 0.6,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:30:17.039215Z",
+      "last_tested": "2026-02-15T20:43:12.594534Z",
       "best_f1": 0.2353,
       "trend": "improving"
     },
@@ -19793,13 +21304,25 @@
           "error_type": null,
           "answer": "Nikola Tesla, Jonas Salk, Barbara McClintock, Edwin Hubble, Robert Goddard, Richard Feynman",
           "timestamp": "2026-02-15T18:31:18.793030Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 49004,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Nikola Tesla, Jonas Salk, Barbara McClintock, Edwin H. Armstrong",
+          "timestamp": "2026-02-15T20:44:03.333058Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 2,
-      "pass_rate": 0.5,
+      "total_runs": 5,
+      "pass_count": 3,
+      "pass_rate": 0.6,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:31:18.793030Z",
+      "last_tested": "2026-02-15T20:44:03.333058Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -19915,15 +21438,27 @@
           "error_type": "TIMEOUT",
           "answer": "",
           "timestamp": "2026-02-15T18:33:26.795716Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.1212,
+          "latency_ms": 77002,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "William Shakespeare moved to London in the late 1580s to pursue theater opportunities. He wrote and acted for the Lord Chamberlain's Men, co-owned the Globe Theatre, and lived in various London locations throughout his career.",
+          "timestamp": "2026-02-15T20:45:22.581929Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "error",
-      "last_tested": "2026-02-15T18:33:26.795716Z",
+      "total_runs": 5,
+      "pass_count": 1,
+      "pass_rate": 0.2,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T20:45:22.581929Z",
       "best_f1": 0.2,
-      "trend": "stable"
+      "trend": "improving"
     },
     "std-46": {
       "id": "std-46",
@@ -20092,13 +21627,25 @@
           "error_type": null,
           "answer": "Computer science, artificial intelligence, cryptography",
           "timestamp": "2026-02-15T18:35:34.559278Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 48505,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Computer science, artificial intelligence, cryptography, computing machines",
+          "timestamp": "2026-02-15T20:46:13.095637Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 4,
+      "total_runs": 5,
+      "pass_count": 5,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:35:34.559278Z",
+      "last_tested": "2026-02-15T20:46:13.095637Z",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -20214,15 +21761,27 @@
           "error_type": null,
           "answer": "Allies during World War II",
           "timestamp": "2026-02-15T18:37:03.289884Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": false,
+          "f1": 0.1667,
+          "latency_ms": 56748,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Close personal and political relationship during World War II.",
+          "timestamp": "2026-02-15T20:47:15.349112Z"
         }
       ],
-      "total_runs": 4,
+      "total_runs": 5,
       "pass_count": 1,
-      "pass_rate": 0.25,
-      "current_status": "pass",
-      "last_tested": "2026-02-15T18:37:03.289884Z",
+      "pass_rate": 0.2,
+      "current_status": "fail",
+      "last_tested": "2026-02-15T20:47:15.349112Z",
       "best_f1": 0.5,
-      "trend": "improving"
+      "trend": "stable"
     },
     "std-49": {
       "id": "std-49",
@@ -20336,15 +21895,27 @@
           "error_type": null,
           "answer": "None.",
           "timestamp": "2026-02-15T18:38:03.294183Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.25,
+          "latency_ms": 64733,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "No direct connection; Cairo founded 969 CE, over 1000 years after her death.",
+          "timestamp": "2026-02-15T20:48:22.341023Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 1,
-      "pass_rate": 0.25,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T18:38:03.294183Z",
+      "total_runs": 5,
+      "pass_count": 2,
+      "pass_rate": 0.4,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T20:48:22.341023Z",
       "best_f1": 0.3,
-      "trend": "stable"
+      "trend": "improving"
     },
     "std-50": {
       "id": "std-50",
@@ -20458,15 +22029,27 @@
           "error_type": null,
           "answer": "Measles, mumps, rubella, polio, tetanus, diphtheria, pertussis, influenza.",
           "timestamp": "2026-02-15T18:39:05.790921Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 59263,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Measles, mumps, rubella, polio, diphtheria, tetanus, pertussis, hepatitis B.",
+          "timestamp": "2026-02-15T20:49:25.087962Z"
         }
       ],
-      "total_runs": 4,
+      "total_runs": 5,
       "pass_count": 1,
-      "pass_rate": 0.25,
-      "current_status": "pass",
-      "last_tested": "2026-02-15T18:39:05.790921Z",
+      "pass_rate": 0.2,
+      "current_status": "fail",
+      "last_tested": "2026-02-15T20:49:25.087962Z",
       "best_f1": 0.9,
-      "trend": "improving"
+      "trend": "stable"
     },
     "graph-41": {
       "id": "graph-41",
@@ -20525,15 +22108,27 @@
           "error_type": null,
           "answer": "Steam engine catalyzed Industrial Revolution, enabling mass production, revolutionizing transportation, and influencing electricity generation.",
           "timestamp": "2026-02-15T18:40:07.298429Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.3077,
+          "latency_ms": 45499,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Steam engine principles influenced modern engines, transportation, and industrial automation.",
+          "timestamp": "2026-02-15T20:50:12.347345Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T18:40:07.298429Z",
-      "best_f1": 0.2857,
-      "trend": "stable"
+      "total_runs": 5,
+      "pass_count": 1,
+      "pass_rate": 0.2,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T20:50:12.347345Z",
+      "best_f1": 0.3077,
+      "trend": "improving"
     },
     "graph-42": {
       "id": "graph-42",
@@ -20592,13 +22187,25 @@
           "error_type": null,
           "answer": "Leonardo da Vinci",
           "timestamp": "2026-02-15T18:41:03.052152Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 57951,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Leonardo da Vinci",
+          "timestamp": "2026-02-15T20:51:11.803565Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 4,
+      "total_runs": 5,
+      "pass_count": 5,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:41:03.052152Z",
+      "last_tested": "2026-02-15T20:51:11.803565Z",
       "best_f1": 1.0,
       "trend": "stable"
     },
@@ -20659,15 +22266,27 @@
           "error_type": null,
           "answer": "Isaac Newton was president of the Royal Society for nearly 24 years, from 1703 until his death in 1727.",
           "timestamp": "2026-02-15T18:42:15.562531Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 86584,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Complex and multifaceted, spanning decades.",
+          "timestamp": "2026-02-15T20:52:39.042365Z"
         }
       ],
-      "total_runs": 4,
+      "total_runs": 5,
       "pass_count": 3,
-      "pass_rate": 0.75,
-      "current_status": "pass",
-      "last_tested": "2026-02-15T18:42:15.562531Z",
+      "pass_rate": 0.6,
+      "current_status": "fail",
+      "last_tested": "2026-02-15T20:52:39.042365Z",
       "best_f1": 0.5,
-      "trend": "stable"
+      "trend": "regressing"
     },
     "graph-44": {
       "id": "graph-44",
@@ -20726,13 +22345,25 @@
           "error_type": null,
           "answer": "Washington, D.C., United States.",
           "timestamp": "2026-02-15T18:43:18.035143Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 51008,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Washington, D.C., United States",
+          "timestamp": "2026-02-15T20:53:32.044097Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 4,
+      "total_runs": 5,
+      "pass_count": 5,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:43:18.035143Z",
+      "last_tested": "2026-02-15T20:53:32.044097Z",
       "best_f1": 1.0,
       "trend": "stable"
     },
@@ -20793,13 +22424,25 @@
           "error_type": null,
           "answer": "Nuclear energy generates electricity through fission-powered steam turbines.",
           "timestamp": "2026-02-15T18:44:21.794860Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.4,
+          "latency_ms": 100238,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Nuclear energy generates electricity through fission, producing heat to create steam that drives turbines connected to generators.",
+          "timestamp": "2026-02-15T20:55:14.277341Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 4,
+      "total_runs": 5,
+      "pass_count": 5,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:44:21.794860Z",
+      "last_tested": "2026-02-15T20:55:14.277341Z",
       "best_f1": 0.5,
       "trend": "stable"
     },
@@ -20860,15 +22503,27 @@
           "error_type": null,
           "answer": "Claude Monet, Pierre-Auguste Renoir, Camille Pissarro, Paul Cézanne, Paul Gauguin, Pablo Picasso, Georges Braque, Henri Matisse, Salvador Dalí, René Magritte, Joan Miró, Man Ray, Alexander Calder",
           "timestamp": "2026-02-15T18:45:25.292944Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 52741,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Pablo Picasso, Vincent van Gogh, Henri Matisse, Salvador Dalí, Marc Chagall, Joan Miró, Amedeo Modigliani",
+          "timestamp": "2026-02-15T20:56:09.280541Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 2,
-      "pass_rate": 0.5,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T18:45:25.292944Z",
+      "total_runs": 5,
+      "pass_count": 3,
+      "pass_rate": 0.6,
+      "current_status": "pass",
+      "last_tested": "2026-02-15T20:56:09.280541Z",
       "best_f1": 0.9,
-      "trend": "stable"
+      "trend": "improving"
     },
     "graph-47": {
       "id": "graph-47",
@@ -20927,13 +22582,25 @@
           "error_type": null,
           "answer": "Pablo Picasso had a profound connection to the Museo del Prado in Madrid, which significantly influenced his artistic development. As a young artist, Picasso made several trips to the Prado, where he studied and copied works by Spanish masters such as Diego Velázquez, Francisco Goya, and El Greco. This early exposure to the Prado's collection played a crucial role in shaping Picasso's artistic style and understanding of Spanish art history.\n\nOne of the most notable connections between Picasso an",
           "timestamp": "2026-02-15T18:46:51.800783Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.25,
+          "latency_ms": 61759,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Pablo Picasso had a profound connection to the Museo del Prado in Madrid, which significantly influenced his artistic development and career.",
+          "timestamp": "2026-02-15T20:57:13.276030Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 1,
-      "pass_rate": 0.25,
+      "total_runs": 5,
+      "pass_count": 2,
+      "pass_rate": 0.4,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:46:51.800783Z",
+      "last_tested": "2026-02-15T20:57:13.276030Z",
       "best_f1": 0.4,
       "trend": "improving"
     },
@@ -20994,15 +22661,27 @@
           "error_type": null,
           "answer": "Louis Pasteur's germ theory and vaccination work laid the foundation for Alexander Fleming's 1928 discovery of penicillin, the first antibiotic.",
           "timestamp": "2026-02-15T18:48:03.306459Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": false,
+          "f1": 0.2857,
+          "latency_ms": 76005,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Germ theory and antibiosis research by Pasteur influenced penicillin discovery.",
+          "timestamp": "2026-02-15T20:58:31.543809Z"
         }
       ],
-      "total_runs": 4,
+      "total_runs": 5,
       "pass_count": 1,
-      "pass_rate": 0.25,
-      "current_status": "pass",
-      "last_tested": "2026-02-15T18:48:03.306459Z",
+      "pass_rate": 0.2,
+      "current_status": "fail",
+      "last_tested": "2026-02-15T20:58:31.543809Z",
       "best_f1": 0.3333,
-      "trend": "improving"
+      "trend": "stable"
     },
     "graph-49": {
       "id": "graph-49",
@@ -21049,13 +22728,25 @@
           "error_type": null,
           "answer": "Alfred Hitchcock, Stanley Kubrick, Ridley Scott, Christopher Nolan",
           "timestamp": "2026-02-15T18:49:26.050334Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 50005,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Alfred Hitchcock, Stanley Kubrick, Ridley Scott, Christopher Nolan, Danny Boyle, Guy Ritchie",
+          "timestamp": "2026-02-15T20:59:23.526656Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 1,
-      "pass_rate": 0.333,
+      "total_runs": 4,
+      "pass_count": 2,
+      "pass_rate": 0.5,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:49:26.050334Z",
+      "last_tested": "2026-02-15T20:59:23.526656Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -21104,13 +22795,25 @@
           "error_type": null,
           "answer": "Paris, France",
           "timestamp": "2026-02-15T18:50:38.809846Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-15T20-09-28",
+          "iteration_number": 20,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 42750,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Paris, France",
+          "timestamp": "2026-02-15T21:00:08.027330Z"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 2,
-      "pass_rate": 0.667,
+      "total_runs": 4,
+      "pass_count": 3,
+      "pass_rate": 0.75,
       "current_status": "pass",
-      "last_tested": "2026-02-15T18:50:38.809846Z",
+      "last_tested": "2026-02-15T21:00:08.027330Z",
       "best_f1": 0.9,
       "trend": "stable"
     }
@@ -21618,1116 +23321,6 @@
     }
   ],
   "execution_logs": [
-    {
-      "timestamp": "2026-02-15T16:08:10.495699Z",
-      "question_id": "quant-24",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 65767,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The accounts receivable for TechVision Inc at the end of 2022 was $1,173,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:08:33.498175Z",
-      "question_id": "graph-13",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.4615,
-      "latency_ms": 107481,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "NASA uses nuclear energy for spacecraft power and propulsion.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:08:52.991156Z",
-      "question_id": "quant-25",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 40242,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "There are 21 employees in the Sales department across all companies.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:08:56.221223Z",
-      "question_id": "std-16",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.2941,
-      "latency_ms": 58006,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The Great Wall of China is a series of ancient fortifications built along northern China to defend a",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:09:24.236626Z",
-      "question_id": "quant-26",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 28242,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "GreenEnergy Corp's revenue in 2021 was $2,160,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:09:40.736037Z",
-      "question_id": "std-17",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 42526,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The currency of the United Kingdom is the pound sterling (GBP).",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:09:43.496540Z",
-      "question_id": "graph-14",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 66003,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Paris, Ajaccio, Fontainebleau, Waterloo",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:10:35.488646Z",
-      "question_id": "quant-27",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 67235,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The interest expense for TechVision Inc in FY 2023 was $35,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:11:03.246342Z",
-      "question_id": "std-18",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.2353,
-      "latency_ms": 79275,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Machine learning is a field of artificial intelligence that enables computers to learn patterns and ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:11:08.236611Z",
-      "question_id": "quant-28",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 30252,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc had the highest net income growth from 2020 to 2023, with a growth of $796,600,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:11:41.731809Z",
-      "question_id": "quant-29",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 31480,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The total current assets for GreenEnergy Corp at the end of 2023 were $2,160,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:11:47.742031Z",
-      "question_id": "graph-15",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 120232,
-      "error_type": "TIMEOUT",
-      "error_preview": "timed out",
-      "answer_preview": "",
-      "confidence": null,
-      "pipeline_details_summary": null
-    },
-    {
-      "timestamp": "2026-02-15T16:12:08.242197Z",
-      "question_id": "std-19",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 62002,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The author of the Harry Potter series is J.K. Rowling.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:12:18.494862Z",
-      "question_id": "quant-30",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 34759,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "HealthPlus Labs' operating income in Q2 2023 was $52,532,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:13:48.721620Z",
-      "question_id": "quant-31",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 84737,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The selling, general and administrative expense for TechVision Inc in 2023 was $1,214,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:13:51.979322Z",
-      "question_id": "graph-16",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 119488,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Salzburg, Austria",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:13:54.727237Z",
-      "question_id": "std-20",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.0976,
-      "latency_ms": 102476,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Earthquakes are caused by the sudden release of accumulated strain energy in the Earth’s crust, typi",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:14:22.973548Z",
-      "question_id": "quant-32",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 31993,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "GreenEnergy Corp has 50,000,000 shares outstanding.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:14:47.244061Z",
-      "question_id": "std-21",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.3636,
-      "latency_ms": 49249,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The Amazon rainforest is the world’s largest tropical rainforest, covering about 5.5 million km² acr",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:14:54.740743Z",
-      "question_id": "quant-33",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0714,
-      "latency_ms": 28997,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Based on the executed SQL query, there are no products listed for HealthPlus Labs in the Diagnostics",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:14:57.489497Z",
-      "question_id": "graph-17",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.4615,
-      "latency_ms": 60488,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Vaccination provides immunity against COVID-19 by stimulating antibody production.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:15:26.234541Z",
-      "question_id": "quant-34",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 28502,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc's gross profit margin in FY 2023 was 68%.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:16:25.477336Z",
-      "question_id": "std-22",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 92528,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Alexander Graham Bell is credited with inventing the telephone.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:16:44.477782Z",
-      "question_id": "quant-35",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 74274,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The total revenue for all companies combined in fiscal year 2023 was $11,547,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:16:47.490258Z",
-      "question_id": "graph-18",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.4,
-      "latency_ms": 107489,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Albert Einstein, Marie Curie, Martin Luther King Jr., Ernest Hemingway, Mother Teresa, Malala Yousaf",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:17:17.991070Z",
-      "question_id": "quant-36",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 31260,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The goodwill on TechVision Inc's balance sheet at the end of 2023 is $950,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:17:22.743923Z",
-      "question_id": "std-23",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.2,
-      "latency_ms": 48768,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The Pythagorean theorem states that in a right‑angled triangle, the square of the length of the hypo",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:17:48.244976Z",
-      "question_id": "quant-37",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 27745,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "GreenEnergy Corp's Q1 2023 revenue was $803,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:17:58.721001Z",
-      "question_id": "graph-19",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.4348,
-      "latency_ms": 68256,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Ada Lovelace is known for being the world's first computer programmer and was based in London, Engla",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:18:21.490102Z",
-      "question_id": "quant-38",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 30495,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Q4 had the highest revenue for TechVision Inc in 2023, with a revenue of $1,851,500,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:18:58.984341Z",
-      "question_id": "std-24",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.1463,
-      "latency_ms": 91993,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The European Union (EU) is a political and economic union of 27 member states in Europe that creates",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:19:26.732052Z",
-      "question_id": "quant-39",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 61496,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "HealthPlus Labs' income before tax in FY 2023 was $220,840,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:19:39.488545Z",
-      "question_id": "graph-20",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 98511,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "British Museum, Natural History Museum, Science Museum, National Gallery, Tate Modern, Victoria",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:19:52.480003Z",
-      "question_id": "quant-40",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 23992,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The retained earnings for TechVision Inc at the end of 2023 was $5,149,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:20:00.232052Z",
-      "question_id": "std-25",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 55241,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Cleopatra VII Philopator was the last active ruler of the Ptolemaic Kingdom of Egypt, famed for her ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:20:32.471150Z",
-      "question_id": "quant-41",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 37256,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Based on the executed SQL query and the results provided, there are no departments at TechVision. Th",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:20:36.743542Z",
-      "question_id": "graph-21",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.3158,
-      "latency_ms": 55734,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Indirect and historical, with CERN focusing on fundamental particle physics rather than nuclear ener",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:20:56.242536Z",
-      "question_id": "std-26",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.3333,
-      "latency_ms": 53742,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "A black hole is a region of spacetime where gravity is so strong that nothing—not even light—can esc",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:21:50.993528Z",
-      "question_id": "quant-42",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 75247,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "GreenEnergy Corp's operating income in 2022 was $561,600,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:22:31.737789Z",
-      "question_id": "quant-43",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 37275,
-      "error_type": "TIMEOUT",
-      "error_preview": "Expecting value: line 1 column 1 (char 0)",
-      "answer_preview": "",
-      "confidence": null,
-      "pipeline_details_summary": null
-    },
-    {
-      "timestamp": "2026-02-15T16:22:39.487281Z",
-      "question_id": "graph-22",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 120245,
-      "error_type": "TIMEOUT",
-      "error_preview": "timed out",
-      "answer_preview": "",
-      "confidence": null,
-      "pipeline_details_summary": null
-    },
-    {
-      "timestamp": "2026-02-15T16:23:01.494483Z",
-      "question_id": "std-27",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 120245,
-      "error_type": "TIMEOUT",
-      "error_preview": "timed out",
-      "answer_preview": "",
-      "confidence": null,
-      "pipeline_details_summary": null
-    },
-    {
-      "timestamp": "2026-02-15T16:23:25.997510Z",
-      "question_id": "quant-44",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 49770,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The total liabilities for HealthPlus Labs at the end of 2022 were $305,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:23:50.742804Z",
-      "question_id": "std-28",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 46521,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Antonio Vivaldi composed *The Four Seasons*.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:24:03.747751Z",
-      "question_id": "graph-23",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.125,
-      "latency_ms": 80234,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Natural history, geology, biology; Edinburgh, Cambridge, HMS Beagle, Down House",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:24:10.242295Z",
-      "question_id": "quant-45",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 42002,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc's revenue per quarter in 2023 showed a consistent upward trend:\n\n- Q1: $1,552,350,000",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:24:33.727601Z",
-      "question_id": "std-29",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.2222,
-      "latency_ms": 40277,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The boiling point of water is 100 °C (212 °F) at standard atmospheric pressure.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:25:15.986258Z",
-      "question_id": "quant-46",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 63748,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The SQL query returned no results, indicating that there is no data available for HealthPlus Labs' r",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:25:43.474817Z",
-      "question_id": "std-30",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.1395,
-      "latency_ms": 67504,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The United Nations (UN) is an intergovernmental organization founded in 1945 to promote internationa",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:25:54.493417Z",
-      "question_id": "graph-24",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.5714,
-      "latency_ms": 106740,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Da Vinci's works are in the Louvre.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:25:58.474038Z",
-      "question_id": "quant-47",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 40244,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The property, plant and equipment value for GreenEnergy Corp at the end of 2023 was $1,950,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:26:25.501082Z",
-      "question_id": "quant-48",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 24995,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc spent the most on research and development in 2023, with a total expenditure of $1,34",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:26:35.477329Z",
-      "question_id": "std-31",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.2162,
-      "latency_ms": 49986,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The Hubble Space Telescope is a large, orbiting optical telescope launched in 1990 that observes vis",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:26:56.484589Z",
-      "question_id": "quant-49",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 28234,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "GreenEnergy Corp's basic EPS in fiscal year 2022 was 8.75.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:27:32.991635Z",
-      "question_id": "graph-25",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.1714,
-      "latency_ms": 94770,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "MIT, Stanford, Carnegie Mellon, UC Berkeley, University of Toronto, University of Oxford, University",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:28:14.484085Z",
-      "question_id": "std-32",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.4242,
-      "latency_ms": 90516,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Galileo Galilei (1564–1642) was an Italian astronomer, physicist, and engineer of the Renaissance wh",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:28:17.985695Z",
-      "question_id": "quant-50",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 77483,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The total short-term debt across all companies at the end of 2023 was $220,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:29:07.499198Z",
-      "question_id": "graph-26",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 91494,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Princeton University, Albert Einstein, John von Neumann, F. Scott Fitzgerald, Woodrow Wilson, Michel",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:29:05.751448Z",
-      "question_id": "std-33",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.2222,
-      "latency_ms": 48762,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The human genome is the complete set of DNA—about 3 billion base pairs—contained in each human cell,",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:29:54.507023Z",
-      "question_id": "std-34",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.3429,
-      "latency_ms": 43756,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Blockchain technology is a decentralized, distributed ledger that records transactions across multip",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:30:10.488978Z",
-      "question_id": "graph-27",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 60980,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "ARPANET",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:30:43.736694Z",
-      "question_id": "std-35",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.1463,
-      "latency_ms": 46000,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Napoleon Bonaparte was a French military commander who rose to prominence during the French Revoluti",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:31:10.232554Z",
-      "question_id": "graph-28",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.2353,
-      "latency_ms": 56765,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Gandhi studied law in London, returned for political conferences, and maintained connections through",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:31:46.495946Z",
-      "question_id": "std-36",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.2273,
-      "latency_ms": 60990,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The International Space Station (ISS) is a habitable artificial satellite orbiting Earth at about 40",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T16:32:11.750114Z",
-      "question_id": "graph-29",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.3333,
-      "latency_ms": 59724,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Martin Scorsese, Woody Allen, Spike Lee, Sidney Lumet",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
     {
       "timestamp": "2026-02-15T16:32:47.751876Z",
       "question_id": "std-37",
@@ -25084,6 +25677,1176 @@
         "result_count": 0,
         "null_agg": false
       }
+    },
+    {
+      "timestamp": "2026-02-15T19:58:14.718121Z",
+      "question_id": "graph-01",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 41649,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Marie Curie won two Nobel Prizes: Physics in 1903 and Chemistry in 1911.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:58:50.416545Z",
+      "question_id": "graph-03",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 35527,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Penicillin",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T19:59:24.761774Z",
+      "question_id": "graph-12",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 34188,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Infectious diseases, non-communicable diseases, neglected tropical diseases, vaccine-preventable dis",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:00:07.476396Z",
+      "question_id": "graph-02",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 42556,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Albert Einstein",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:00:55.179948Z",
+      "question_id": "graph-04",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 47551,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Bacterial infections",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:01:36.972524Z",
+      "question_id": "graph-12",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 41225,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Infectious diseases, non-communicable diseases, mental health, neglected tropical diseases",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:02:35.752817Z",
+      "question_id": "graph-13",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.5455,
+      "latency_ms": 58562,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "NASA uses nuclear energy for space missions.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:03:10.384133Z",
+      "question_id": "graph-18",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 34484,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Nobel Prize laureates",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:04:03.439766Z",
+      "question_id": "graph-22",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 52798,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "President, Congress members, Supreme Court justices, political appointees, advisors, staff, think ta",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:04:49.130449Z",
+      "question_id": "graph-23",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 45514,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Darwin studied geology, zoology, and botany during his voyage on the HMS Beagle to South America, Ga",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:05:22.829306Z",
+      "question_id": "graph-27",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 33500,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "ARPANET",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:06:16.238489Z",
+      "question_id": "graph-28",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.16,
+      "latency_ms": 53253,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Gandhi's relationship with London was complex and multifaceted, spanning several decades and profoun",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:06:56.603340Z",
+      "question_id": "graph-30",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 39719,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The WHO is a specialized agency of the UN focused on international public health.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:07:54.046437Z",
+      "question_id": "graph-31",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 57273,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Radioactivity, uranium, thorium, polonium, radium",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:08:50.441064Z",
+      "question_id": "graph-32",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.25,
+      "latency_ms": 56207,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "UNESCO, OECD, French Revolution, Louvre Museum, Eiffel Tower, Monet, Picasso, Van Gogh, Victor Hugo,",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:10:14.830883Z",
+      "question_id": "graph-01",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 35343,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Marie Curie won two Nobel Prizes in different scientific fields.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:11:01.675670Z",
+      "question_id": "graph-02",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 46650,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Albert Einstein",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:12:10.563594Z",
+      "question_id": "graph-03",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 67232,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Penicillin",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:13:05.555730Z",
+      "question_id": "graph-04",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 53013,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Bacterial infections",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:13:51.030335Z",
+      "question_id": "graph-05",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 43254,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Sherborne School, King's College Cambridge, Princeton University",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:14:42.553368Z",
+      "question_id": "graph-06",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 49763,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "They were rivals in the \"War of the Currents\" over AC vs DC electrical systems.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:15:27.783595Z",
+      "question_id": "graph-07",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.4615,
+      "latency_ms": 43021,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Isaac Newton, Charles Darwin, Stephen Hawking, Rosalind Franklin, Alan Turing",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:16:27.792661Z",
+      "question_id": "graph-08",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 57508,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The World Wide Web is an information system for content sharing over the Internet, created at CERN.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:17:21.532300Z",
+      "question_id": "graph-09",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 51489,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Tech companies, healthcare, finance, automotive, retail organizations use AI.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:18:16.801081Z",
+      "question_id": "graph-10",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 53017,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Paris",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:19:03.784328Z",
+      "question_id": "graph-11",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 45014,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Edward Jenner",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:20:02.030753Z",
+      "question_id": "graph-12",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 56268,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Infectious diseases, non-communicable diseases, neglected tropical diseases, vaccine-preventable dis",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:20:57.036101Z",
+      "question_id": "graph-13",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.375,
+      "latency_ms": 52525,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "NASA uses nuclear energy for power generation and propulsion in space missions.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:22:37.051778Z",
+      "question_id": "graph-14",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 96519,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Paris",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:23:24.297059Z",
+      "question_id": "graph-15",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.2,
+      "latency_ms": 44500,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Google was founded by Stanford Ph.D. students Larry Page and Sergey Brin as a research project at St",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:24:20.537913Z",
+      "question_id": "graph-16",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 52511,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Salzburg, Austria",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:25:10.778266Z",
+      "question_id": "graph-17",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.3333,
+      "latency_ms": 47760,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Vaccination prevents and mitigates COVID-19 by stimulating immune response to SARS-CoV-2 virus.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:25:58.279979Z",
+      "question_id": "graph-18",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 45502,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Nobel Prize laureates are entities with the type \"Nobel laureate\" in the knowledge graph.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:26:59.036702Z",
+      "question_id": "graph-19",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.2581,
+      "latency_ms": 58739,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Ada Lovelace is known for her work on Charles Babbage's Analytical Engine and is considered the firs",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:27:56.532340Z",
+      "question_id": "graph-20",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 55001,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "British Museum, National Gallery, Victoria and Albert Museum, Natural History Museum, Science Museum",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:28:54.796418Z",
+      "question_id": "graph-21",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.3158,
+      "latency_ms": 56748,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "CERN focuses on fundamental particle physics research, while nuclear energy harnesses nuclear reacti",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:29:51.301933Z",
+      "question_id": "graph-22",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 54493,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "President, Senators, Representatives, cabinet members, Supreme Court Justices",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:30:47.055655Z",
+      "question_id": "graph-23",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 53001,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Charles Darwin studied natural world, origins and evolution of species, particularly during his voya",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:31:45.043406Z",
+      "question_id": "graph-24",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.6,
+      "latency_ms": 51257,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Leonardo da Vinci's works, including the Mona Lisa, are housed in the Louvre Museum.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:32:53.306674Z",
+      "question_id": "graph-25",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.3158,
+      "latency_ms": 66229,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Stanford University, MIT, Carnegie Mellon University, UC Berkeley, University of Toronto, University",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:33:53.540725Z",
+      "question_id": "graph-26",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 58270,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Woodrow Wilson, Albert Einstein, John von Neumann, F. Scott Fitzgerald, Toni Morrison, Joyce Carol O",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:35:04.805823Z",
+      "question_id": "graph-27",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 69728,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The telegraph system.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:36:12.547104Z",
+      "question_id": "graph-28",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.2105,
+      "latency_ms": 65981,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Gandhi studied law in London, attended conferences there, and developed his ideologies influenced by",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:37:26.553683Z",
+      "question_id": "graph-29",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 72241,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Martin Scorsese, Woody Allen, Spike Lee, Sidney Lumet, Francis Ford Coppola, Joel and Ethan Coen, No",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:38:22.792540Z",
+      "question_id": "graph-30",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 54259,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "WHO is a specialized agency of the UN that coordinates international health matters.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:39:18.307308Z",
+      "question_id": "graph-31",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 53521,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Radioactivity, radioactive elements, and their applications in medicine.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:40:47.054638Z",
+      "question_id": "graph-32",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.1739,
+      "latency_ms": 86990,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Eiffel Tower, Louvre Museum, Notre-Dame Cathedral, French government, Victor Hugo, Claude Monet, Pab",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:41:49.346266Z",
+      "question_id": "graph-33",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0571,
+      "latency_ms": 60284,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Einstein visited Cambridge in 1921, became visiting Fellow at Christ's College 1930-1931, worked on ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:43:13.089956Z",
+      "question_id": "graph-34",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.1481,
+      "latency_ms": 80497,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Thomas Edison invented the practical incandescent light bulb, developed electrical distribution syst",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:44:03.852213Z",
+      "question_id": "graph-35",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 49004,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Nikola Tesla, Jonas Salk, Barbara McClintock, Edwin H. Armstrong",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:45:23.336568Z",
+      "question_id": "graph-36",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.1212,
+      "latency_ms": 77002,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "William Shakespeare moved to London in the late 1580s to pursue theater opportunities. He wrote and ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:46:17.580724Z",
+      "question_id": "graph-37",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 48505,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Computer science, artificial intelligence, cryptography, computing machines",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:47:16.075007Z",
+      "question_id": "graph-38",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.1667,
+      "latency_ms": 56748,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Close personal and political relationship during World War II.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:48:24.350830Z",
+      "question_id": "graph-39",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.25,
+      "latency_ms": 64733,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No direct connection; Cairo founded 969 CE, over 1000 years after her death.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:49:25.826620Z",
+      "question_id": "graph-40",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 59263,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Measles, mumps, rubella, polio, diphtheria, tetanus, pertussis, hepatitis B.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:50:13.081780Z",
+      "question_id": "graph-41",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.3077,
+      "latency_ms": 45499,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Steam engine principles influenced modern engines, transportation, and industrial automation.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:51:11.861313Z",
+      "question_id": "graph-42",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 57951,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Leonardo da Vinci",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:52:39.779423Z",
+      "question_id": "graph-43",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 86584,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Complex and multifaceted, spanning decades.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:53:32.771765Z",
+      "question_id": "graph-44",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 51008,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Washington, D.C., United States",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:55:15.035066Z",
+      "question_id": "graph-45",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.4,
+      "latency_ms": 100238,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Nuclear energy generates electricity through fission, producing heat to create steam that drives tur",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:56:10.040480Z",
+      "question_id": "graph-46",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 52741,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Pablo Picasso, Vincent van Gogh, Henri Matisse, Salvador Dalí, Marc Chagall, Joan Miró, Amedeo Modig",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:57:14.034631Z",
+      "question_id": "graph-47",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.25,
+      "latency_ms": 61759,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Pablo Picasso had a profound connection to the Museo del Prado in Madrid, which significantly influe",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:58:32.276598Z",
+      "question_id": "graph-48",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.2857,
+      "latency_ms": 76005,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Germ theory and antibiosis research by Pasteur influenced penicillin discovery.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T20:59:24.041298Z",
+      "question_id": "graph-49",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 50005,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Alfred Hitchcock, Stanley Kubrick, Ridley Scott, Christopher Nolan, Danny Boyle, Guy Ritchie",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-15T21:00:09.517430Z",
+      "question_id": "graph-50",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 42750,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Paris, France",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
     }
   ],
   "history": [
@@ -25129,6 +26892,28 @@
       "event": "eval_complete",
       "total_tested": 701,
       "quantitative": 92.0
+    },
+    {
+      "timestamp": "2026-02-15T19:55:57.615451Z",
+      "event": "iterative_eval_complete",
+      "total_tested": 701
+    },
+    {
+      "timestamp": "2026-02-15T19:56:32.334849Z",
+      "event": "iterative_eval_complete",
+      "total_tested": 701
+    },
+    {
+      "timestamp": "2026-02-15T20:08:51.093940Z",
+      "event": "iterative_eval_complete",
+      "total_tested": 716,
+      "graph": 53.3
+    },
+    {
+      "timestamp": "2026-02-15T21:00:38.279595Z",
+      "event": "eval_complete",
+      "total_tested": 766,
+      "graph": 78.0
     }
   ],
   "workflow_versions": {

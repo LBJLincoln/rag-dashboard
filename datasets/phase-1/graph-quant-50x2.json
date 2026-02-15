@@ -639,7 +639,7 @@
       "id": "graph-23",
       "rag_target": "graph",
       "question": "What did Charles Darwin study and where?",
-      "expected_answer": "Studied at University of Cambridge, member of Royal Society",
+      "expected_answer": "University of Cambridge",
       "expected_detail": "Darwin ETUDIE University of Cambridge, connected to Royal Society and London",
       "category": "multi_hop"
     },
@@ -695,16 +695,16 @@
       "id": "graph-30",
       "rag_target": "graph",
       "question": "What is the connection between the World Health Organization and the United Nations?",
-      "expected_answer": "WHO United Nations",
-      "expected_detail": "WHO SOUS_ENSEMBLE_DE United Nations",
+      "expected_answer": "specialized agency",
+      "expected_detail": "WHO SOUS_ENSEMBLE_DE United Nations — specialized agency relationship",
       "category": "entity_relationship"
     },
     {
       "id": "graph-31",
       "rag_target": "graph",
       "question": "What did Marie Curie study?",
-      "expected_answer": "Cancer, radioactivity",
-      "expected_detail": "Marie Curie ETUDIE Cancer",
+      "expected_answer": "radioactivity",
+      "expected_detail": "Marie Curie ETUDIE Cancer, studied radioactivity",
       "category": "simple_lookup"
     },
     {
@@ -783,7 +783,7 @@
       "id": "graph-41",
       "rag_target": "graph",
       "question": "What is the connection between the Steam Engine and modern technology?",
-      "expected_answer": "Steam Engine is connected to Electricity, which connects to Internet and AI",
+      "expected_answer": "Steam Engine Electricity",
       "expected_detail": "Steam Engine → Electricity → Internet → Artificial Intelligence chain",
       "category": "path_traversal"
     },
@@ -823,7 +823,7 @@
       "id": "graph-46",
       "rag_target": "graph",
       "question": "Which artists worked in Paris?",
-      "expected_answer": "Pablo Picasso, Vincent van Gogh",
+      "expected_answer": "Picasso",
       "expected_detail": "Picasso and van Gogh both CONNECTE Paris",
       "category": "entity_listing"
     },

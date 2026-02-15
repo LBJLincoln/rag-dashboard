@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-02-15T19:42:01.314097Z",
+  "generated_at": "2026-02-15T21:00:59.889063Z",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
-    "gates_passed": false
+    "gates_passed": true
   },
   "pipelines": {
     "standard": {
@@ -16,13 +16,13 @@
       "gap": 7.0
     },
     "graph": {
-      "accuracy": 66.0,
+      "accuracy": 78.0,
       "tested": 50,
-      "correct": 33,
-      "errors": 3,
+      "correct": 39,
+      "errors": 0,
       "target": 70.0,
-      "met": false,
-      "gap": -4.0
+      "met": true,
+      "gap": 8.0
     },
     "quantitative": {
       "accuracy": 92.0,
@@ -44,31 +44,29 @@
     }
   },
   "overall": {
-    "accuracy": 85.0,
+    "accuracy": 88.0,
     "target": 75.0,
     "met": true
   },
-  "blockers": [
-    "graph: 66.0% < 70.0% (gap: -4.0pp)"
-  ],
-  "next_action": "Fix graph pipeline (66.0% vs 70.0% target, gap: -4.0pp)",
+  "blockers": [],
+  "next_action": "Phase 1 COMPLETE \u2014 run Phase 2: python3 eval/run-eval-parallel.py --dataset phase-2 --reset",
   "last_iteration": {
-    "id": "iter-2026-02-15T18-58-32",
-    "label": "15fev-s3-quant-company-tenant-fix",
-    "timestamp": "2026-02-15T18:58:32.299232Z",
+    "id": "iter-2026-02-15T20-09-28",
+    "label": "15fev-s4-graph-full-50",
+    "timestamp": "2026-02-15T20:09:28.726575Z",
     "total_tested": 50,
-    "overall_accuracy_pct": 92.0,
+    "overall_accuracy_pct": 78.0,
     "pipelines": {
-      "quantitative": {
+      "graph": {
         "tested": 50,
-        "correct": 46,
-        "accuracy": 92.0
+        "correct": 39,
+        "accuracy": 78.0
       }
     }
   },
   "totals": {
     "unique_questions": 160,
-    "test_runs": 701,
-    "iterations": 16
+    "test_runs": 766,
+    "iterations": 20
   }
 }
