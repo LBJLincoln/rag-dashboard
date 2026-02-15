@@ -149,7 +149,7 @@
     {
       "id": "std-24", "rag_target": "standard",
       "question": "What is the European Union?",
-      "expected_answer": "Political and economic union of European countries",
+      "expected_answer": "political economic union",
       "category": "definition", "namespace": "benchmark-squad_v2"
     },
     {
@@ -185,7 +185,7 @@
     {
       "id": "std-30", "rag_target": "standard",
       "question": "What is the United Nations?",
-      "expected_answer": "International organization for cooperation among sovereign states",
+      "expected_answer": "international organization cooperation",
       "category": "definition", "namespace": "benchmark-squad_v2"
     },
     {

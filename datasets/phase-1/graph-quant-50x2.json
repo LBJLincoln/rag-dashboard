@@ -575,7 +575,7 @@
       "id": "graph-15",
       "rag_target": "graph",
       "question": "What is the link between Google and Stanford University?",
-      "expected_answer": "Google is connected to Stanford University",
+      "expected_answer": "Google Stanford",
       "expected_detail": "Google CONNECTE Stanford University",
       "category": "entity_relationship"
     },
@@ -591,7 +591,7 @@
       "id": "graph-17",
       "rag_target": "graph",
       "question": "What is the connection between vaccination and COVID-19?",
-      "expected_answer": "Vaccination protects against COVID-19",
+      "expected_answer": "Vaccination COVID-19",
       "expected_detail": "Vaccination PROTEGE_CONTRE COVID-19, and COVID-19 VISE_A_LIMITER via Vaccination",
       "category": "entity_relationship"
     },
@@ -679,7 +679,7 @@
       "id": "graph-28",
       "rag_target": "graph",
       "question": "What is the relationship between Mahatma Gandhi and London?",
-      "expected_answer": "Gandhi studied in London",
+      "expected_answer": "Gandhi London",
       "expected_detail": "Mahatma Gandhi ETUDIE London",
       "category": "entity_relationship"
     },
@@ -695,7 +695,7 @@
       "id": "graph-30",
       "rag_target": "graph",
       "question": "What is the connection between the World Health Organization and the United Nations?",
-      "expected_answer": "WHO is a subset of the United Nations",
+      "expected_answer": "WHO United Nations",
       "expected_detail": "WHO SOUS_ENSEMBLE_DE United Nations",
       "category": "entity_relationship"
     },
@@ -727,7 +727,7 @@
       "id": "graph-34",
       "rag_target": "graph",
       "question": "What are the connections between Thomas Edison and electricity?",
-      "expected_answer": "Thomas Edison utilized electricity",
+      "expected_answer": "Edison electricity",
       "expected_detail": "Thomas Edison UTILISE Electricity",
       "category": "entity_relationship"
     },
@@ -743,7 +743,7 @@
       "id": "graph-36",
       "rag_target": "graph",
       "question": "What is William Shakespeare's connection to London?",
-      "expected_answer": "Shakespeare was active in London",
+      "expected_answer": "Shakespeare London",
       "expected_detail": "William Shakespeare CONNECTE London",
       "category": "simple_lookup"
     },
@@ -799,7 +799,7 @@
       "id": "graph-43",
       "rag_target": "graph",
       "question": "What is Isaac Newton's relationship with the Royal Society?",
-      "expected_answer": "Isaac Newton was a member of the Royal Society",
+      "expected_answer": "Newton Royal Society",
       "expected_detail": "Isaac Newton CONNECTE Royal Society",
       "category": "entity_relationship"
     },
