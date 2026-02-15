@@ -218,8 +218,7 @@ N8N_HOST="http://34.136.180.66:5678"
 | 4 | `scripts/` | Scripts utilitaires Python |
 | 5 | `n8n/` | Workflows n8n (live, validated, analysis, sync) |
 | 6 | `mcp/` | Serveurs MCP et documentation (7 servers) |
-| 7 | `website/` | Code source Next.js |
-| 8 | `site/` | Reference website (copies pour vision complete) |
+| 7 | `website/` | Code source Next.js + docs site (merged from site/) |
 | 9 | `datasets/` | Donnees de test (phase-1, phase-2) |
 | 10 | `db/` | Database (migrations, populate, readiness) |
 | 11 | `snapshot/` | Snapshots : `good/` (references OK), `current/` (session), `workflows/`, `db/` |

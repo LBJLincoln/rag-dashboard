@@ -1,8 +1,8 @@
 {
-  "error_id": "err-2026-02-15-graph-15-timeout",
-  "timestamp": "2026-02-15T16:11:47.742031Z",
+  "error_id": "err-2026-02-15-graph-47-timeout",
+  "timestamp": "2026-02-15T16:53:39.753003Z",
   "session_id": "2026-02-15T15-47-38",
-  "question_id": "graph-15",
+  "question_id": "graph-47",
   "rag_type": "graph",
   "error_type": "TIMEOUT",
   "error_message": "timed out",
@@ -11,11 +11,11 @@
   "partial_response": null,
   "pipeline_details": {},
   "performance": {
-    "total_latency_ms": 120232,
+    "total_latency_ms": 121479,
     "http_status": null,
     "response_size_bytes": 0,
     "cost_usd": 0
   },
-  "question": "What is the link between Google and Stanford University?",
-  "expected": "Google Stanford"
+  "question": "What is Pablo Picasso's connection to the Museo del Prado?",
+  "expected": "Picasso has works at the Museo del Prado"
 }

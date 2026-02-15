@@ -10,10 +10,10 @@
 
 | Workflow | Webhook Path | DB | Docker ID |
 |---|---|---|---|
-| Standard RAG V3.4 | `/webhook/rag-multi-index-v3` | Pinecone | `M12n4cmiVBoBusUe` |
-| Graph RAG V3.3 | `/webhook/ff622742-...` | Neo4j + Supabase | `Vxm4TDdOLdb7j3Jy` |
-| Quantitative V2.0 | `/webhook/3e0f8010-...` | Supabase SQL | `nQnAJyT06NTbEQ3y` |
-| Orchestrator V10.1 | `/webhook/92217bb8-...` | Routes to above | `P1no6VZkNtnRdlBi` |
+| Standard RAG V3.4 | `/webhook/rag-multi-index-v3` | Pinecone | `TmgyRP20N4JFd9CB` |
+| Graph RAG V3.3 | `/webhook/ff622742-...` | Neo4j + Supabase | `6257AfT1l4FMC6lY` |
+| Quantitative V2.0 | `/webhook/3e0f8010-...` | Supabase REST API (exec_sql RPC) | `e465W7V9Q8uK6zJE` |
+| Orchestrator V10.1 | `/webhook/92217bb8-...` | Routes to above | `aGsYnJY9nNCaTM82` |
 
 ### Support Workflows (9)
 
@@ -46,7 +46,7 @@
 |---|---|---|---|
 | **Pinecone** | Vector embeddings | 10,411 vectors, 12 namespaces | Configurable via n8n |
 | **Neo4j** | Entity graph | 110 nodes, 151 relationships | +4,884 entities |
-| **Supabase** | Financial tables | 88 rows, 5 tables | +450 rows |
+| **Supabase** | Financial tables + exec_sql RPC | 1,356 rows, 7 tables + exec_sql() function | +450 rows |
 
 ---
 

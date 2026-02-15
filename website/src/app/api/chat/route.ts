@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     const n8nResponse = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query, sector: sectorId }),
+      body: JSON.stringify({ query, sector: sectorId, tenant_id: 'benchmark' }),
       signal: AbortSignal.timeout(120_000),
     })
 

@@ -1,9 +1,9 @@
 {
-  "error_id": "err-2026-02-15-std-27-timeout",
-  "timestamp": "2026-02-15T16:23:01.494483Z",
+  "error_id": "err-2026-02-15-graph-03-timeout",
+  "timestamp": "2026-02-15T15:53:36.490836Z",
   "session_id": "2026-02-15T15-47-38",
-  "question_id": "std-27",
-  "rag_type": "standard",
+  "question_id": "graph-03",
+  "rag_type": "graph",
   "error_type": "TIMEOUT",
   "error_message": "timed out",
   "http_status": null,
@@ -16,6 +16,6 @@
     "response_size_bytes": 0,
     "cost_usd": 0
   },
-  "question": "What is the Sahara Desert?",
-  "expected": "Largest hot desert in the world, located in Africa"
+  "question": "What did Alexander Fleming discover?",
+  "expected": "Penicillin"
 }

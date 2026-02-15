@@ -104,18 +104,17 @@
       "diff_from_previous": null
     },
     "quantitative": {
-      "version": 1,
-      "hash": "4b83a86f36f01c95",
-      "timestamp": "2026-02-15T12:46:01.587636Z",
-      "snapshot_file": "quantitative-2026-02-15T12-45-40-4b83a86f36f01c95.json",
+      "version": 2,
+      "hash": "841b0ed570c24a32",
+      "timestamp": "2026-02-15T16:56:12.735877Z",
+      "snapshot_file": "quantitative-2026-02-15T16-55-53-841b0ed570c24a32.json",
       "name": "WF4 Quantitative V2.0",
       "webhook": "/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9",
       "summary": {
         "total_nodes": 26,
         "node_types": {
           "code": 13,
-          "postgres": 2,
-          "httpRequest": 4,
+          "httpRequest": 6,
           "errorTrigger": 1,
           "if": 1,
           "stickyNote": 1,
@@ -154,7 +153,144 @@
           "Respond to Webhook"
         ]
       },
-      "diff_from_previous": null
+      "diff_from_previous": {
+        "added_nodes": [],
+        "removed_nodes": [],
+        "modified_nodes": [
+          {
+            "node": "Schema Context Builder",
+            "changes": [
+              {
+                "param": "jsCode",
+                "old": "// Build schema context for LLM\n// Hardcoded fallback schema for Docker (Postgres credential missing)\nconst FALLBACK_SCHEMA = `Table: financials\nColumns: id integer NOT NULL, company_name text NOT NUL",
+                "new": "// Build schema context for LLM\nconst FALLBACK_SCHEMA = `Table: financials\\nColumns: id bigint NOT NULL, tenant_id text, company_id text, company_name text NOT NULL, fiscal_year integer NOT NULL, peri"
+              }
+            ]
+          },
+          {
+            "node": "SQL Executor (Postgres)",
+            "changes": [
+              {
+                "param": "options",
+                "old": "{}",
+                "new": "{'response': {'response': {'responseFormat': 'json'}}, 'timeout': 30000}"
+              },
+              {
+                "param": "query",
+                "old": "={{ $json.validated_sql }}",
+                "new": ""
+              },
+              {
+                "param": "jsonBody",
+                "old": "",
+                "new": "={{ JSON.stringify({ sql_query: $json.validated_sql }) }}"
+              },
+              {
+                "param": "authentication",
+                "old": "",
+                "new": "none"
+              },
+              {
+                "param": "sendHeaders",
+                "old": "",
+                "new": "True"
+              },
+              {
+                "param": "specifyBody",
+                "old": "",
+                "new": "json"
+              },
+              {
+                "param": "operation",
+                "old": "executeQuery",
+                "new": ""
+              },
+              {
+                "param": "method",
+                "old": "",
+                "new": "POST"
+              },
+              {
+                "param": "sendBody",
+                "old": "",
+                "new": "True"
+              },
+              {
+                "param": "url",
+                "old": "",
+                "new": "https://ayqviqmxifzmhphiqfmj.supabase.co/rest/v1/rpc/exec_sql"
+              },
+              {
+                "param": "headerParameters",
+                "old": "",
+                "new": "{'parameters': [{'name': 'apikey', 'value': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF5cXZpcW14aWZ6bWhwaGlxZm1qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkwMjM1NTgsImV4cCI6MjA4ND"
+              }
+            ]
+          },
+          {
+            "node": "Schema Introspection",
+            "changes": [
+              {
+                "param": "options",
+                "old": "{}",
+                "new": "{'response': {'response': {'responseFormat': 'json'}}, 'timeout': 15000}"
+              },
+              {
+                "param": "query",
+                "old": "SELECT table_name, column_name, data_type, is_nullable \nFROM information_schema.columns \nWHERE table_schema = 'public'\n  AND table_name IN ('financials', 'balance_sheet', 'sales_data', 'products', 'em",
+                "new": ""
+              },
+              {
+                "param": "jsonBody",
+                "old": "",
+                "new": "{\"sql_query\": \"SELECT table_name, column_name, data_type, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND table_name IN ('financials', 'balance_sheet', 'sales_data', 'pro"
+              },
+              {
+                "param": "authentication",
+                "old": "",
+                "new": "none"
+              },
+              {
+                "param": "sendHeaders",
+                "old": "",
+                "new": "True"
+              },
+              {
+                "param": "specifyBody",
+                "old": "",
+                "new": "json"
+              },
+              {
+                "param": "operation",
+                "old": "executeQuery",
+                "new": ""
+              },
+              {
+                "param": "method",
+                "old": "",
+                "new": "POST"
+              },
+              {
+                "param": "sendBody",
+                "old": "",
+                "new": "True"
+              },
+              {
+                "param": "url",
+                "old": "",
+                "new": "https://ayqviqmxifzmhphiqfmj.supabase.co/rest/v1/rpc/exec_sql"
+              },
+              {
+                "param": "headerParameters",
+                "old": "",
+                "new": "{'parameters': [{'name': 'apikey', 'value': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF5cXZpcW14aWZ6bWhwaGlxZm1qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkwMjM1NTgsImV4cCI6MjA4ND"
+              }
+            ]
+          }
+        ],
+        "has_changes": true,
+        "summary": "+0 -0 ~3 nodes"
+      }
     },
     "orchestrator": {
       "version": 1,
@@ -286,6 +422,14 @@
       "hash": "cbd5a7e4f8a3afd3",
       "diff_summary": "initial",
       "snapshot_file": "orchestrator-2026-02-15T12-45-40-cbd5a7e4f8a3afd3.json"
+    },
+    {
+      "timestamp": "2026-02-15T16:56:12.735901Z",
+      "pipeline": "quantitative",
+      "version": 2,
+      "hash": "841b0ed570c24a32",
+      "diff_summary": "+0 -0 ~3 nodes",
+      "snapshot_file": "quantitative-2026-02-15T16-55-53-841b0ed570c24a32.json"
     }
   ]
 }
