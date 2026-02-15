@@ -1,8 +1,8 @@
 {
-  "error_id": "err-2026-02-15-graph-01-timeout",
-  "timestamp": "2026-02-15T11:35:17.349413Z",
+  "error_id": "err-2026-02-15-graph-14-timeout",
+  "timestamp": "2026-02-15T11:53:12.604083Z",
   "session_id": "2026-02-15T11-33-40",
-  "question_id": "graph-01",
+  "question_id": "graph-14",
   "rag_type": "graph",
   "error_type": "TIMEOUT",
   "error_message": "timed out",
@@ -11,11 +11,11 @@
   "partial_response": null,
   "pipeline_details": {},
   "performance": {
-    "total_latency_ms": 90265,
+    "total_latency_ms": 90994,
     "http_status": null,
     "response_size_bytes": 0,
     "cost_usd": 0
   },
-  "question": "What is the relationship between Marie Curie and the Nobel Prize?",
-  "expected": "Nobel Prize"
+  "question": "Which city is connected to Napoleon Bonaparte?",
+  "expected": "Paris"
 }

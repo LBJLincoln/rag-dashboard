@@ -1,37 +1,37 @@
 {
-  "generated_at": "2026-02-15T11:31:52.076734Z",
+  "generated_at": "2026-02-15T12:56:36.408224Z",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
-    "gates_passed": true
+    "gates_passed": false
   },
   "pipelines": {
     "standard": {
-      "accuracy": 90.0,
-      "tested": 10,
-      "correct": 9,
-      "errors": 1,
+      "accuracy": 54.0,
+      "tested": 50,
+      "correct": 27,
+      "errors": 7,
       "target": 85.0,
-      "met": true,
-      "gap": 5.0
+      "met": false,
+      "gap": -31.0
     },
     "graph": {
-      "accuracy": 80.0,
-      "tested": 10,
-      "correct": 8,
-      "errors": 2,
+      "accuracy": 33.3,
+      "tested": 48,
+      "correct": 16,
+      "errors": 20,
       "target": 70.0,
-      "met": true,
-      "gap": 10.0
+      "met": false,
+      "gap": -36.7
     },
     "quantitative": {
-      "accuracy": 100.0,
-      "tested": 10,
+      "accuracy": 20.0,
+      "tested": 50,
       "correct": 10,
-      "errors": 0,
+      "errors": 3,
       "target": 85.0,
-      "met": true,
-      "gap": 15.0
+      "met": false,
+      "gap": -65.0
     },
     "orchestrator": {
       "accuracy": 90.0,
@@ -44,44 +44,44 @@
     }
   },
   "overall": {
-    "accuracy": 90.0,
+    "accuracy": 49.3,
     "target": 75.0,
-    "met": true
+    "met": false
   },
-  "blockers": [],
-  "next_action": "Phase 1 COMPLETE \u2014 run Phase 2: python3 eval/run-eval-parallel.py --dataset phase-2 --reset",
+  "blockers": [
+    "standard: 54.0% < 85.0% (gap: -31.0pp)",
+    "graph: 33.3% < 70.0% (gap: -36.7pp)",
+    "quantitative: 20.0% < 85.0% (gap: -65.0pp)",
+    "overall: 49.3% < 75.0%"
+  ],
+  "next_action": "Fix quantitative pipeline (20.0% vs 85.0% target, gap: -65.0pp)",
   "last_iteration": {
-    "id": "iter-2026-02-15T10-41-21",
-    "label": "15fev-all-10-10-gates",
-    "timestamp": "2026-02-15T10:41:21.094682Z",
-    "total_tested": 40,
-    "overall_accuracy_pct": 90.0,
+    "id": "iter-2026-02-15T11-33-40",
+    "label": "15fev-50q-all-pipelines",
+    "timestamp": "2026-02-15T11:33:40.576921Z",
+    "total_tested": 148,
+    "overall_accuracy_pct": 35.8,
     "pipelines": {
       "quantitative": {
-        "tested": 10,
+        "tested": 50,
         "correct": 10,
-        "accuracy": 100.0
+        "accuracy": 20.0
       },
       "standard": {
-        "tested": 10,
-        "correct": 9,
-        "accuracy": 90.0
+        "tested": 50,
+        "correct": 27,
+        "accuracy": 54.0
       },
       "graph": {
-        "tested": 10,
-        "correct": 8,
-        "accuracy": 80.0
-      },
-      "orchestrator": {
-        "tested": 10,
-        "correct": 9,
-        "accuracy": 90.0
+        "tested": 48,
+        "correct": 16,
+        "accuracy": 33.3
       }
     }
   },
   "totals": {
-    "unique_questions": 40,
-    "test_runs": 148,
-    "iterations": 10
+    "unique_questions": 158,
+    "test_runs": 296,
+    "iterations": 11
   }
 }

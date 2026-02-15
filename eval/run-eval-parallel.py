@@ -128,7 +128,18 @@ def save_pipeline_results(rag_type, results, label=""):
 
 def run_pipeline(rag_type, questions, tested_ids_by_type, label=""):
     """Run a single pipeline's evaluation. Designed to run in a thread.
-    Returns (rag_type, totals_dict, per_question_results)."""
+    Returns (rag_type, totals_dict, per_question_results).
+    Early-stop: halts after N consecutive failures (default 4)."""
+    # Per-pipeline timeouts (seconds) — each pipeline has different latency profiles
+    PIPELINE_TIMEOUTS = {
+        "standard": 120,       # avg ~30s, max ~90s, margin +30s
+        "graph": 120,          # avg ~50s, max ~90s, margin +30s
+        "quantitative": 120,   # avg ~40s, max ~90s, margin +30s
+        "orchestrator": 360,   # avg ~200s, max ~300s, margin +60s
+    }
+    # Early-stop: consecutive failures threshold
+    EARLY_STOP_THRESHOLD = getattr(run_pipeline, '_early_stop', 4)
+
     endpoint = RAG_ENDPOINTS[rag_type]
     already_tested = tested_ids_by_type.get(rag_type, set())
     untested = [q for q in questions if q["id"] not in already_tested]
@@ -142,10 +153,11 @@ def run_pipeline(rag_type, questions, tested_ids_by_type, label=""):
 
     totals = {"tested": 0, "correct": 0, "errors": 0}
     per_question_results = []
+    consecutive_failures = 0
 
     for i, q in enumerate(untested):
         qid = q["id"]
-        rag_timeout = 300 if rag_type == "orchestrator" else 90
+        rag_timeout = PIPELINE_TIMEOUTS.get(rag_type, 120)
         resp = call_rag(endpoint, q["question"], timeout=rag_timeout)
 
         if resp["error"]:
@@ -210,8 +222,17 @@ def run_pipeline(rag_type, questions, tested_ids_by_type, label=""):
         totals["tested"] += 1
         if is_correct:
             totals["correct"] += 1
+            consecutive_failures = 0  # Reset on success
+        else:
+            consecutive_failures += 1
         if has_error:
             totals["errors"] += 1
+
+        # Early-stop: if N consecutive failures, halt this pipeline
+        if consecutive_failures >= EARLY_STOP_THRESHOLD and totals["tested"] > EARLY_STOP_THRESHOLD:
+            tprint(f"  [{rag_type.upper()}] EARLY STOP: {consecutive_failures} consecutive failures "
+                   f"at question {i+1}/{len(untested)}. Stopping pipeline.")
+            break
 
         # Adaptive rate-limit: only delay on rate-limit errors or for orchestrator spacing
         if i < len(untested) - 1:
@@ -276,11 +297,14 @@ def main():
                         help="Delay (seconds) between questions. Default: 2s (5s for orchestrator). Use 10+ for free models.")
     parser.add_argument("--workers", type=int, default=None,
                         help="Max parallel workers. Default: number of pipeline types. Use 1 for sequential.")
+    parser.add_argument("--early-stop", type=int, default=4,
+                        help="Stop pipeline after N consecutive failures (default: 4). Use 0 to disable.")
     args = parser.parse_args()
 
-    # Pass delay to run_pipeline via function attribute
+    # Pass delay and early-stop to run_pipeline via function attributes
     if args.delay is not None:
         run_pipeline._delay = args.delay
+    run_pipeline._early_stop = args.early_stop if args.early_stop > 0 else 999
 
     # Phase gate enforcement
     if not args.force and not check_phase_gate(args.dataset):

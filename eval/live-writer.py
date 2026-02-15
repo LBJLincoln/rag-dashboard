@@ -585,7 +585,7 @@ def record_workflow_change(description, files_changed=None, before_metrics=None,
         "before_metrics": before_metrics,
         "after_metrics": after_metrics,
     }
-    data["workflow_changes"].append(change)
+    data.setdefault("workflow_changes", []).append(change)
     _save(data)
     return change
 

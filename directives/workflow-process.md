@@ -247,6 +247,19 @@ n8n Docker supporte ~2-3 requetes simultanees. Au-dela → 503 Service Unavailab
 - Rate-limit backoff automatique (3s sur 429)
 - `--workers 1` pour forcer sequentiel si necessaire
 - `--delay 10` pour espacement entre questions si free models rate-limitent
+- `--early-stop 4` : arrete un pipeline apres 4 echecs consecutifs (defaut actif)
+- `--early-stop 0` : desactive l'arret premature
+
+### Timeouts par pipeline (configures dans run-eval-parallel.py)
+| Pipeline | Timeout | Justification |
+|----------|---------|---------------|
+| **Standard** | 120s | avg ~30s, max ~90s, marge +30s |
+| **Graph** | 120s | avg ~50s, max ~90s, marge +30s |
+| **Quantitative** | 120s | avg ~40s, max ~90s, marge +30s |
+| **Orchestrator** | 360s | avg ~200s, max ~300s, marge +60s |
+
+### Early-stop (arret premature)
+Si un pipeline enchaine 4+ echecs consecutifs au-dela des 4 premieres questions, le test s'arrete automatiquement pour ce pipeline. Cela evite de perdre du temps sur des questions que le pipeline ne peut pas traiter (ex: donnees manquantes en base).
 
 ### Ce qui NE FONCTIONNE PAS
 - Lancer plusieurs instances de quick-test.py en parallele (bash background) → 503

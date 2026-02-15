@@ -1,9 +1,9 @@
 {
-  "error_id": "err-2026-02-15-graph-01-timeout",
-  "timestamp": "2026-02-15T11:35:17.349413Z",
+  "error_id": "err-2026-02-15-std-16-timeout",
+  "timestamp": "2026-02-15T11:50:33.589398Z",
   "session_id": "2026-02-15T11-33-40",
-  "question_id": "graph-01",
-  "rag_type": "graph",
+  "question_id": "std-16",
+  "rag_type": "standard",
   "error_type": "TIMEOUT",
   "error_message": "timed out",
   "http_status": null,
@@ -11,11 +11,11 @@
   "partial_response": null,
   "pipeline_details": {},
   "performance": {
-    "total_latency_ms": 90265,
+    "total_latency_ms": 90250,
     "http_status": null,
     "response_size_bytes": 0,
     "cost_usd": 0
   },
-  "question": "What is the relationship between Marie Curie and the Nobel Prize?",
-  "expected": "Nobel Prize"
+  "question": "What is the Great Wall of China?",
+  "expected": "Ancient series of walls and fortifications in China"
 }

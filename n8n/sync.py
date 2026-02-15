@@ -41,22 +41,22 @@ N8N_API_KEY = os.environ.get("N8N_API_KEY", "")
 
 WORKFLOW_IDS = {
     "standard": {
-        "id": "M12n4cmiVBoBusUe",
+        "id": "TmgyRP20N4JFd9CB",
         "name": "WF5 Standard RAG V3.4",
         "webhook": "/webhook/rag-multi-index-v3",
     },
     "graph": {
-        "id": "Vxm4TDdOLdb7j3Jy",
+        "id": "6257AfT1l4FMC6lY",
         "name": "WF2 Graph RAG V3.3",
         "webhook": "/webhook/ff622742-6d71-4e91-af71-b5c666088717",
     },
     "quantitative": {
-        "id": "nQnAJyT06NTbEQ3y",
+        "id": "e465W7V9Q8uK6zJE",
         "name": "WF4 Quantitative V2.0",
         "webhook": "/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9",
     },
     "orchestrator": {
-        "id": "P1no6VZkNtnRdlBi",
+        "id": "aGsYnJY9nNCaTM82",
         "name": "V10.1 Orchestrator",
         "webhook": "/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0",
     },
