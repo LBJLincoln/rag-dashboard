@@ -12,7 +12,7 @@
 | 2 | **jina-embeddings** | Python stdio | ACTIF (deps OK) | embed, pinecone CRUD, n8n API helpers |
 | 3 | **neo4j** | Binary stdio | ACTIF (deps OK) | get-schema, execute-read, execute-write |
 | 4 | **pinecone** | Node stdio | ACTIF (deps OK) | list-indexes, search-records, rerank-documents |
-| 5 | **supabase** | HTTP | BLOQUE (401) | list_tables, execute_sql, get_logs |
+| 5 | **supabase** | streamableHttp | ACTIF (PAT Bearer, verifie 15-fev) | list_tables, execute_sql, get_logs |
 | 6 | **cohere** | Python stdio | ACTIF (deps OK) | embed, rerank, generate |
 | 7 | **huggingface** | Python stdio | ACTIF (deps OK) | search_models, search_datasets |
 
@@ -39,18 +39,23 @@ Les MCP servers sont configures correctement mais ne se chargent pas au demarrag
 
 ---
 
-## Probleme connu : Supabase MCP 401
+## Supabase MCP — RESOLU (15-fev)
 
-Le serveur MCP Supabase a `mcp.supabase.com` necessite une authentification OAuth ou un Personal Access Token.
+Le serveur MCP Supabase necessite un Personal Access Token (PAT) via Bearer header.
 
-**Fix** : Ajouter un header Authorization ou un access_token dans l'URL :
+- Le `access_token` en query param ne fonctionne **PAS** (401).
+- Le `Authorization: Bearer sbp_...` en header **fonctionne**.
+
+**Config correcte** :
 ```json
 "supabase": {
-  "url": "https://mcp.supabase.com/mcp?project_ref=ayqviqmxifzmhphiqfmj&access_token=<PAT>"
+  "type": "streamableHttp",
+  "url": "https://mcp.supabase.com/mcp?project_ref=ayqviqmxifzmhphiqfmj",
+  "headers": { "Authorization": "Bearer <PAT_sbp_token>" }
 }
 ```
 
-Pour obtenir un PAT : Dashboard Supabase → Account → Access Tokens → Generate new token.
+PAT obtenu depuis : Dashboard Supabase > Account > Access Tokens > Generate new token (format `sbp_...`).
 
 ---
 
@@ -79,7 +84,9 @@ Pour obtenir un PAT : Dashboard Supabase → Account → Access Tokens → Gener
       "env": { "PINECONE_API_KEY": "..." }
     },
     "supabase": {
-      "url": "https://mcp.supabase.com/mcp?project_ref=ayqviqmxifzmhphiqfmj"
+      "type": "streamableHttp",
+      "url": "https://mcp.supabase.com/mcp?project_ref=ayqviqmxifzmhphiqfmj",
+      "headers": { "Authorization": "Bearer <PAT_sbp_token>" }
     },
     "cohere": {
       "command": "/home/termius/mon-ipad/.venv/bin/python3",
