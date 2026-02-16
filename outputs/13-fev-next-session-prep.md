@@ -98,11 +98,11 @@ cd /home/termius/mon-ipad
 # Export credentials (copier depuis CLAUDE.md ou credentials.md)
 export N8N_HOST="https://amoret.app.n8n.cloud"
 export N8N_API_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-export PINECONE_API_KEY="pcsk_6GzVdD_BbHsYNvpcngMqAHH5EvEa9XLnmFpEK9cx5q5xkMp72z5KFQ1q7dEjp8npWhJGBY"
+export PINECONE_API_KEY="pcsk_REDACTED"
 export PINECONE_HOST="https://sota-rag-a4mkzmz.svc.aped-4627-b74a.pinecone.io"
-export OPENROUTER_API_KEY="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"
+export OPENROUTER_API_KEY="sk-or-v1-REDACTED"
 export SUPABASE_PASSWORD="udVECdcSnkMCAPiY"
-export NEO4J_PASSWORD="jV_zGdxbu-emQZM-ZSQux19pTZ5QLKejR2IHSzsbVak"
+export NEO4J_PASSWORD="REDACTED_NEO4J_PASSWORD"
 
 # Lancer le setup de session
 python3 scripts/session-start.py

@@ -32941,8 +32941,8 @@
             "changes": [
               {
                 "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}"
               }
             ]
           },
@@ -32951,8 +32951,8 @@
             "changes": [
               {
                 "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}"
               }
             ]
           }

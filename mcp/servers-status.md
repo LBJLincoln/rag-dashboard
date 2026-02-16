@@ -79,7 +79,7 @@ rm neo4j-mcp.tar.gz
       "env": {
         "NEO4J_URI": "bolt://localhost:7687",
         "NEO4J_USERNAME": "neo4j",
-        "NEO4J_PASSWORD": "jV_zGdxbu-emQZM-ZSQux19pTZ5QLKejR2IHSzsbVak",
+        "NEO4J_PASSWORD": "REDACTED_NEO4J_PASSWORD",
         "NEO4J_DATABASE": "neo4j",
         "NEO4J_READ_ONLY": "true",
         "NEO4J_TELEMETRY": "true",
@@ -108,7 +108,7 @@ npx -y @pinecone-database/mcp --help
       "command": "npx",
       "args": ["-y", "@pinecone-database/mcp"],
       "env": {
-        "PINECONE_API_KEY": "pcsk_6GzVdD_BbHsYNvpcngMqAHH5EvEa9XLnmFpEK9cx5q5xkMp72z5KFQ1q7dEjp8npWhJGBY"
+        "PINECONE_API_KEY": "pcsk_REDACTED"
       }
     }
   }
@@ -130,7 +130,7 @@ npm install -g @leonardsellem/n8n-mcp-server
       "command": "n8n-mcp-server",
       "env": {
         "N8N_API_URL": "https://amoret.app.n8n.cloud/api/v1",
-        "N8N_API_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMTU3NjdlMC05NThhLTRjNzQtYTY3YS1lMzM1ODA3ZWJhNjQiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzY5MDQ2NTExLCJleHAiOjE3NzE2Mjg0MDB9.fyOBVwb32HlzwQhSxCxoKsmMlYcxppTFGbj6S01AX2A",
+        "N8N_API_KEY": "JWT_REDACTED",
         "N8N_WEBHOOK_USERNAME": "",
         "N8N_WEBHOOK_PASSWORD": "",
         "DEBUG": "false"

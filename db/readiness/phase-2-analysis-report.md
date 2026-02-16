@@ -181,7 +181,7 @@ python3 db/populate/phase2_supabase.py --dataset finqa
 
 ```bash
 # Extraction heuristique (rapide, recommandé)
-export NEO4J_PASSWORD="jV_zGdxbu-emQZM-ZSQux19pTZ5QLKejR2IHSzsbVak"
+export NEO4J_PASSWORD="REDACTED_NEO4J_PASSWORD"
 python3 db/populate/phase2_neo4j.py
 
 # Extraction LLM (lente, meilleure qualité)

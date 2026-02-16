@@ -477,7 +477,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "Bearer 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"
+              "value": "Bearer sk-or-v1-REDACTED"
             }
           ]
         }
@@ -531,7 +531,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "Bearer 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"
+              "value": "Bearer sk-or-v1-REDACTED"
             }
           ]
         }
@@ -1257,7 +1257,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "Bearer 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"
+              "value": "Bearer sk-or-v1-REDACTED"
             }
           ]
         }
@@ -1429,7 +1429,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "Bearer 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"
+              "value": "Bearer sk-or-v1-REDACTED"
             }
           ]
         }
@@ -14052,7 +14052,7 @@
             "parameters": [
               {
                 "name": "Authorization",
-                "value": "Bearer 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"
+                "value": "Bearer sk-or-v1-REDACTED"
               }
             ]
           }
@@ -14106,7 +14106,7 @@
             "parameters": [
               {
                 "name": "Authorization",
-                "value": "Bearer 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"
+                "value": "Bearer sk-or-v1-REDACTED"
               }
             ]
           }
@@ -14832,7 +14832,7 @@
             "parameters": [
               {
                 "name": "Authorization",
-                "value": "Bearer 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"
+                "value": "Bearer sk-or-v1-REDACTED"
               }
             ]
           }
@@ -15004,7 +15004,7 @@
             "parameters": [
               {
                 "name": "Authorization",
-                "value": "Bearer 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"
+                "value": "Bearer sk-or-v1-REDACTED"
               }
             ]
           }
