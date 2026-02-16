@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-02-16T11:56:45.477488Z",
+    "generated_at": "2026-02-16T16:10:34.886886Z",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
@@ -28877,46 +28877,6 @@
   },
   "quick_tests": [
     {
-      "timestamp": "2026-02-15T10:13:03.396631Z",
-      "pipeline": "standard",
-      "query": "What year did World War II end?",
-      "status": "pass",
-      "latency_ms": 20529,
-      "response_preview": "World War II ended in 1945.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-15T13:51:25.008403Z",
-      "pipeline": "standard",
-      "query": "What is the capital of Japan?",
-      "status": "pass",
-      "latency_ms": 29001,
-      "response_preview": "The capital of Japan is Tokyo.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-15T13:52:26.057165Z",
-      "pipeline": "standard",
-      "query": "Where is Normandy located?",
-      "status": "pass",
-      "latency_ms": 60997,
-      "response_preview": "Normandy is a region in northern France that borders the English Channel.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-15T13:53:00.971482Z",
-      "pipeline": "standard",
-      "query": "Who painted the Mona Lisa?",
-      "status": "pass",
-      "latency_ms": 34428,
-      "response_preview": "Leonardo da Vinci painted the Mona Lisa.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
       "timestamp": "2026-02-15T13:53:28.628313Z",
       "pipeline": "standard",
       "query": "What is the largest ocean?",
@@ -29375,6 +29335,46 @@
       "response_preview": "Normandy is a region in the northwest of France, bordering the English Channel.",
       "trigger": "manual",
       "error": null
+    },
+    {
+      "timestamp": "2026-02-16T15:49:49.628571Z",
+      "pipeline": "standard",
+      "query": "What is the capital of Japan?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "timestamp": "2026-02-16T15:58:33.622698Z",
+      "pipeline": "standard",
+      "query": "What is the capital of Japan?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "timed out"
+    },
+    {
+      "timestamp": "2026-02-16T16:08:05.618663Z",
+      "pipeline": "standard",
+      "query": "What is the capital of Japan?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP Error 503: Service Unavailable"
+    },
+    {
+      "timestamp": "2026-02-16T16:10:34.640456Z",
+      "pipeline": "standard",
+      "query": "What is the capital of Japan?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "timed out"
     }
   ],
   "execution_logs": [
