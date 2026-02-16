@@ -1,37 +1,37 @@
 {
-  "generated_at": "2026-02-16T03:49:27.927667Z",
+  "generated_at": "2026-02-16T11:56:53.480980Z",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
-    "gates_passed": true
+    "gates_passed": false
   },
   "pipelines": {
     "standard": {
-      "accuracy": 92.0,
-      "tested": 50,
-      "correct": 46,
+      "accuracy": 85.5,
+      "tested": 55,
+      "correct": 47,
       "errors": 1,
       "target": 85.0,
       "met": true,
-      "gap": 7.0
+      "gap": 0.5
     },
     "graph": {
-      "accuracy": 78.0,
-      "tested": 50,
-      "correct": 39,
-      "errors": 0,
-      "target": 70.0,
-      "met": true,
-      "gap": 8.0
-    },
-    "quantitative": {
-      "accuracy": 92.0,
-      "tested": 50,
+      "accuracy": 68.7,
+      "tested": 67,
       "correct": 46,
       "errors": 1,
+      "target": 70.0,
+      "met": false,
+      "gap": -1.3
+    },
+    "quantitative": {
+      "accuracy": 78.3,
+      "tested": 60,
+      "correct": 47,
+      "errors": 6,
       "target": 85.0,
-      "met": true,
-      "gap": 7.0
+      "met": false,
+      "gap": -6.7
     },
     "orchestrator": {
       "accuracy": 80.0,
@@ -44,29 +44,32 @@
     }
   },
   "overall": {
-    "accuracy": 85.5,
+    "accuracy": 78.1,
     "target": 75.0,
     "met": true
   },
-  "blockers": [],
-  "next_action": "Phase 1 COMPLETE \u2014 run Phase 2: python3 eval/run-eval-parallel.py --dataset phase-2 --reset",
+  "blockers": [
+    "graph: 68.7% < 70.0% (gap: -1.3pp)",
+    "quantitative: 78.3% < 85.0% (gap: -6.7pp)"
+  ],
+  "next_action": "Fix quantitative pipeline (78.3% vs 85.0% target, gap: -6.7pp)",
   "last_iteration": {
-    "id": "iter-2026-02-16T01-30-21",
-    "label": "15fev-s5-orch-50q-simplified-expected",
-    "timestamp": "2026-02-16T01:30:22.349955Z",
-    "total_tested": 50,
-    "overall_accuracy_pct": 80.0,
+    "id": "iter-2026-02-16T11-28-16",
+    "label": "Phase2-quant-5q-v6e-gemma27b",
+    "timestamp": "2026-02-16T11:28:16.903945Z",
+    "total_tested": 5,
+    "overall_accuracy_pct": 0.0,
     "pipelines": {
-      "orchestrator": {
-        "tested": 50,
-        "correct": 40,
-        "accuracy": 80.0
+      "quantitative": {
+        "tested": 5,
+        "correct": 0,
+        "accuracy": 0.0
       }
     }
   },
   "totals": {
-    "unique_questions": 200,
-    "test_runs": 868,
-    "iterations": 24
+    "unique_questions": 232,
+    "test_runs": 932,
+    "iterations": 42
   }
 }

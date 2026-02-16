@@ -195,20 +195,25 @@ def load_questions(include_1000=False, dataset="phase-1"):
                 print(f"Warning: Dataset file not found: {pf}")
 
     elif dataset == "phase-2":
-        phase2_file = os.path.join(DATASETS_DIR, "phase-2", "hf-1000.json")
-        if os.path.exists(phase2_file):
-            with open(phase2_file) as f:
-                data = json.load(f)
-                for q in data.get("questions", []):
-                    rag_target = q.get("rag_target", "unknown")
-                    questions[rag_target].append({
-                        "id": q["id"],
-                        "question": q["question"],
-                        "expected": q["expected_answer"],
-                        "rag_type": rag_target
-                    })
-        else:
-            print(f"Warning: Dataset file not found: {phase2_file}")
+        phase2_files = [
+            os.path.join(DATASETS_DIR, "phase-2", "hf-1000.json"),
+            os.path.join(DATASETS_DIR, "phase-2", "standard-orch-1000x2.json"),
+        ]
+        for phase2_file in phase2_files:
+            if os.path.exists(phase2_file):
+                with open(phase2_file) as f:
+                    data = json.load(f)
+                    for q in data.get("questions", []):
+                        rag_target = q.get("rag_target", "unknown")
+                        questions[rag_target].append({
+                            "id": q["id"],
+                            "question": q["question"],
+                            "expected": q["expected_answer"],
+                            "rag_type": rag_target
+                        })
+                print(f"  Loaded {len(data.get('questions', []))} questions from {os.path.basename(phase2_file)}")
+            else:
+                print(f"Warning: Dataset file not found: {phase2_file}")
     
     # Handle "all" dataset explicitly
     if dataset == "all":

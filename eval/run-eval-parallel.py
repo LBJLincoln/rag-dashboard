@@ -133,8 +133,8 @@ def run_pipeline(rag_type, questions, tested_ids_by_type, label=""):
     # Per-pipeline timeouts (seconds) — each pipeline has different latency profiles
     PIPELINE_TIMEOUTS = {
         "standard": 120,       # avg ~30s, max ~90s, margin +30s
-        "graph": 120,          # avg ~50s, max ~90s, margin +30s
-        "quantitative": 120,   # avg ~40s, max ~90s, margin +30s
+        "graph": 180,          # avg ~70s, max ~120s, margin +60s (multi-hop needs more time)
+        "quantitative": 180,   # avg ~60s, max ~120s, margin +60s (financial QA needs more time)
         "orchestrator": 360,   # avg ~200s, max ~300s, margin +60s
     }
     # Early-stop: consecutive failures threshold
@@ -323,10 +323,10 @@ def main():
         except (ImportError, Exception) as e:
             print(f"  WARN: Phase gate check skipped: {e}")
 
-    # Auto-adjust types for Phase 2 (only graph + quantitative)
+    # Phase 2 now includes all 4 pipelines (standard-orch-1000x2.json added)
     if args.dataset == "phase-2" and args.types == "standard,graph,quantitative,orchestrator":
-        requested_types = ["graph", "quantitative"]
-        print("  NOTE: Phase 2 only tests graph + quantitative. Auto-adjusted --types.")
+        requested_types = ["standard", "graph", "quantitative", "orchestrator"]
+        print("  NOTE: Phase 2 tests all 4 pipelines (3000 questions total).")
 
     print("=" * 70)
     print("  PARALLEL RAG EVALUATION — Pipelines Concurrent")

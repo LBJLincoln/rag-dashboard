@@ -1,10 +1,10 @@
 {
   "versions": {
     "standard": {
-      "version": 2,
-      "hash": "1272d0dbe69a06c9",
-      "timestamp": "2026-02-16T03:49:14.169978Z",
-      "snapshot_file": "standard-2026-02-16T03-49-07-1272d0dbe69a06c9.json",
+      "version": 4,
+      "hash": "7adc29125ede373b",
+      "timestamp": "2026-02-16T11:56:16.988979Z",
+      "snapshot_file": "standard-2026-02-16T11-56-12-7adc29125ede373b.json",
       "name": "WF5 Standard RAG V3.4",
       "webhook": "/webhook/rag-multi-index-v3",
       "summary": {
@@ -54,45 +54,25 @@
         "removed_nodes": [],
         "modified_nodes": [
           {
-            "node": "Query Decomposer (V.3.4)",
-            "changes": [
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
-              }
-            ]
-          },
-          {
             "node": "LLM Generation",
             "changes": [
               {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
-              }
-            ]
-          },
-          {
-            "node": "HyDE Generator",
-            "changes": [
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+                "param": "jsonBody",
+                "old": "={\n  \"model\": \"nvidia/nemotron-3-nano-30b-a3b:free\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are an expert assistant. Answer the question CONCISELY in 1-2 sentences. Be dir",
+                "new": "={\n  \"model\": \"arcee-ai/trinity-large-preview:free\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are an expert assistant. Answer the question CONCISELY in 1-2 sentences. Be dir"
               }
             ]
           }
         ],
         "has_changes": true,
-        "summary": "+0 -0 ~3 nodes"
+        "summary": "+0 -0 ~1 nodes"
       }
     },
     "graph": {
-      "version": 2,
-      "hash": "fdd404d5c3735134",
-      "timestamp": "2026-02-16T03:49:16.427265Z",
-      "snapshot_file": "graph-2026-02-16T03-49-07-fdd404d5c3735134.json",
+      "version": 3,
+      "hash": "ab2c4feeacc84cb6",
+      "timestamp": "2026-02-16T10:38:44.134072Z",
+      "snapshot_file": "graph-2026-02-16T10-38-35-ab2c4feeacc84cb6.json",
       "name": "WF2 Graph RAG V3.3",
       "webhook": "/webhook/ff622742-6d71-4e91-af71-b5c666088717",
       "summary": {
@@ -143,22 +123,22 @@
         "removed_nodes": [],
         "modified_nodes": [
           {
-            "node": "LLM Answer Synthesis",
-            "changes": [
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
-              }
-            ]
-          },
-          {
             "node": "WF3: HyDE & Entity Extraction",
             "changes": [
               {
                 "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+              }
+            ]
+          },
+          {
+            "node": "LLM Answer Synthesis",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
               }
             ]
           }
@@ -168,10 +148,10 @@
       }
     },
     "quantitative": {
-      "version": 5,
-      "hash": "09e9a012e3a7a6c0",
-      "timestamp": "2026-02-16T03:49:20.917638Z",
-      "snapshot_file": "quantitative-2026-02-16T03-49-07-09e9a012e3a7a6c0.json",
+      "version": 7,
+      "hash": "0aa6f3bd9bdb608f",
+      "timestamp": "2026-02-16T11:56:27.732716Z",
+      "snapshot_file": "quantitative-2026-02-16T11-56-12-0aa6f3bd9bdb608f.json",
       "name": "WF4 Quantitative V2.0",
       "webhook": "/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9",
       "summary": {
@@ -222,45 +202,25 @@
         "removed_nodes": [],
         "modified_nodes": [
           {
-            "node": "Text-to-SQL Generator (CoT Enhanced)",
+            "node": "Prepare Interpretation Request",
             "changes": [
               {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
-              }
-            ]
-          },
-          {
-            "node": "Interpretation Layer (LLM Analyst)",
-            "changes": [
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
-              }
-            ]
-          },
-          {
-            "node": "SQL Repair LLM",
-            "changes": [
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+                "param": "jsCode",
+                "old": "// Prepare Interpretation Request v2 - Improved for Phase 2 financial QA\nconst aggregatorData = $node['Result Aggregator'].json;\n\n// Detect if this is a Phase 2 bypass (context_text/table_string from ",
+                "new": "// Prepare Interpretation Request v5 - Gemma 3 27b + clean text\nconst aggregatorData = $node['Result Aggregator'].json;\nconst isBypass = (aggregatorData.validation_status === 'BYPASSED');\n\nlet userCon"
               }
             ]
           }
         ],
         "has_changes": true,
-        "summary": "+0 -0 ~3 nodes"
+        "summary": "+0 -0 ~1 nodes"
       }
     },
     "orchestrator": {
-      "version": 2,
-      "hash": "05298c263b1d3833",
-      "timestamp": "2026-02-16T03:49:25.920252Z",
-      "snapshot_file": "orchestrator-2026-02-16T03-49-07-05298c263b1d3833.json",
+      "version": 4,
+      "hash": "317d4a7291ebd021",
+      "timestamp": "2026-02-16T11:56:42.748277Z",
+      "snapshot_file": "orchestrator-2026-02-16T11-56-12-317d4a7291ebd021.json",
       "name": "V10.1 Orchestrator",
       "webhook": "/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0",
       "summary": {
@@ -356,48 +316,18 @@
         "removed_nodes": [],
         "modified_nodes": [
           {
-            "node": "🧠 LLM 1: Intent Analyzer",
-            "changes": [
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
-              }
-            ]
-          },
-          {
-            "node": "HTTP Request",
-            "changes": [
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
-              }
-            ]
-          },
-          {
             "node": "🎯 LLM 2: Task Planner",
             "changes": [
               {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
-              }
-            ]
-          },
-          {
-            "node": "🎯 LLM 3: Agent Harness (Opus 4.5)",
-            "changes": [
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+                "param": "jsonBody",
+                "old": "={\n  \"model\": \"nvidia/nemotron-3-nano-30b-a3b:free\",\n  \"temperature\": 0.2,\n  \"max_tokens\": 500,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": {{ JSON.stringify(`You are the TASK PLANNER",
+                "new": "={\n  \"model\": \"arcee-ai/trinity-large-preview:free\",\n  \"temperature\": 0.2,\n  \"max_tokens\": 500,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": {{ JSON.stringify(`You are the TASK PLANNER"
               }
             ]
           }
         ],
         "has_changes": true,
-        "summary": "+0 -0 ~4 nodes"
+        "summary": "+0 -0 ~1 nodes"
       }
     }
   },
@@ -489,6 +419,62 @@
       "hash": "05298c263b1d3833",
       "diff_summary": "+0 -0 ~4 nodes",
       "snapshot_file": "orchestrator-2026-02-16T03-49-07-05298c263b1d3833.json"
+    },
+    {
+      "timestamp": "2026-02-16T10:38:38.888830Z",
+      "pipeline": "standard",
+      "version": 3,
+      "hash": "5c8db06afe8afba0",
+      "diff_summary": "+0 -0 ~3 nodes",
+      "snapshot_file": "standard-2026-02-16T10-38-35-5c8db06afe8afba0.json"
+    },
+    {
+      "timestamp": "2026-02-16T10:38:44.134100Z",
+      "pipeline": "graph",
+      "version": 3,
+      "hash": "ab2c4feeacc84cb6",
+      "diff_summary": "+0 -0 ~2 nodes",
+      "snapshot_file": "graph-2026-02-16T10-38-35-ab2c4feeacc84cb6.json"
+    },
+    {
+      "timestamp": "2026-02-16T10:38:48.129528Z",
+      "pipeline": "quantitative",
+      "version": 6,
+      "hash": "c93d4537f6a5d59f",
+      "diff_summary": "+0 -0 ~7 nodes",
+      "snapshot_file": "quantitative-2026-02-16T10-38-35-c93d4537f6a5d59f.json"
+    },
+    {
+      "timestamp": "2026-02-16T10:38:54.893490Z",
+      "pipeline": "orchestrator",
+      "version": 3,
+      "hash": "a5d16c8597712342",
+      "diff_summary": "+0 -0 ~4 nodes",
+      "snapshot_file": "orchestrator-2026-02-16T10-38-35-a5d16c8597712342.json"
+    },
+    {
+      "timestamp": "2026-02-16T11:56:16.989014Z",
+      "pipeline": "standard",
+      "version": 4,
+      "hash": "7adc29125ede373b",
+      "diff_summary": "+0 -0 ~1 nodes",
+      "snapshot_file": "standard-2026-02-16T11-56-12-7adc29125ede373b.json"
+    },
+    {
+      "timestamp": "2026-02-16T11:56:27.732742Z",
+      "pipeline": "quantitative",
+      "version": 7,
+      "hash": "0aa6f3bd9bdb608f",
+      "diff_summary": "+0 -0 ~1 nodes",
+      "snapshot_file": "quantitative-2026-02-16T11-56-12-0aa6f3bd9bdb608f.json"
+    },
+    {
+      "timestamp": "2026-02-16T11:56:42.748313Z",
+      "pipeline": "orchestrator",
+      "version": 4,
+      "hash": "317d4a7291ebd021",
+      "diff_summary": "+0 -0 ~1 nodes",
+      "snapshot_file": "orchestrator-2026-02-16T11-56-12-317d4a7291ebd021.json"
     }
   ]
 }

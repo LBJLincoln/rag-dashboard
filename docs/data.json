@@ -1,14 +1,14 @@
 {
   "meta": {
-    "generated_at": "2026-02-16T03:49:26.188121Z",
+    "generated_at": "2026-02-16T11:56:45.477488Z",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
-    "total_unique_questions": 200,
-    "total_test_runs": 868,
-    "total_iterations": 24,
+    "total_unique_questions": 232,
+    "total_test_runs": 932,
+    "total_iterations": 42,
     "status": "complete",
-    "current_session": "2026-02-16T01-30-21"
+    "current_session": "2026-02-16T11-28-16"
   },
   "reference_cloud_executions": {
     "note": "Executions reussies sur n8n Cloud (avant migration Docker). Servent de reference uniquement.",
@@ -11995,6 +11995,1288 @@
           "error": null,
           "error_type": null,
           "timestamp": "2026-02-16T03:47:13.874123Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-16T08-08-12",
+      "number": 25,
+      "timestamp_start": "2026-02-16T08:08:13.051579Z",
+      "timestamp_end": "2026-02-16T08:15:43.051658Z",
+      "label": "Phase2-std-10q-smoke",
+      "description": "Dataset: phase-2, Parallel: standard, Max: 10, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 5,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 20.0,
+          "avg_latency_ms": 66200,
+          "p95_latency_ms": 74519,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 5,
+      "total_correct": 1,
+      "overall_accuracy_pct": 20.0,
+      "questions": [
+        {
+          "id": "std-0",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 64255,
+          "answer": "Brandon Lee died while filming the movie **The Crow**.",
+          "expected": "The Crow",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:10:02.544483Z"
+        },
+        {
+          "id": "std-1",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 56753,
+          "answer": "Unable to generate answer",
+          "expected": "The Staple Singers",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:11:06.551132Z"
+        },
+        {
+          "id": "std-2",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 69739,
+          "answer": "Unable to generate answer",
+          "expected": "MC Hammer",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:12:29.066070Z"
+        },
+        {
+          "id": "std-3",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 74519,
+          "answer": "Unable to generate answer",
+          "expected": "Triumph and Disaster",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:13:54.295330Z"
+        },
+        {
+          "id": "std-4",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 65736,
+          "answer": "Unable to generate answer",
+          "expected": "The Full Monty",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:15:04.810933Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-16T08-26-24",
+      "number": 26,
+      "timestamp_start": "2026-02-16T08:26:24.598835Z",
+      "timestamp_end": "2026-02-16T08:29:04.114805Z",
+      "label": "Phase2-graph-1q-iter",
+      "description": "Dataset: phase-2, Parallel: graph, Max: 1, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 83011,
+          "p95_latency_ms": 83011,
+          "avg_f1": 0.5
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "graph-musique-0",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.5,
+          "latency_ms": 83011,
+          "answer": "Doug Lawrence",
+          "expected": "Mr. Lawrence",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:28:25.357148Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-16T08-30-10",
+      "number": 27,
+      "timestamp_start": "2026-02-16T08:30:10.613977Z",
+      "timestamp_end": "2026-02-16T08:37:31.098650Z",
+      "label": "Phase2-graph-5q-iter",
+      "description": "Dataset: phase-2, Parallel: graph, Max: 5, Reset: False",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 4,
+          "correct": 3,
+          "errors": 0,
+          "accuracy_pct": 75.0,
+          "avg_latency_ms": 79062,
+          "p95_latency_ms": 91743,
+          "avg_f1": 1.0
+        }
+      },
+      "total_tested": 4,
+      "total_correct": 3,
+      "overall_accuracy_pct": 75.0,
+      "questions": [
+        {
+          "id": "graph-musique-1",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 77265,
+          "answer": "Styria, Austria",
+          "expected": "Senica District",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:32:05.120951Z"
+        },
+        {
+          "id": "graph-musique-2",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 91743,
+          "answer": "1572",
+          "expected": "1572",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:33:48.358019Z"
+        },
+        {
+          "id": "graph-musique-3",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 59742,
+          "answer": "1572",
+          "expected": "1572",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:35:01.365162Z"
+        },
+        {
+          "id": "graph-musique-4",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 87501,
+          "answer": "1572",
+          "expected": "1572",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:36:44.355993Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-16T08-38-42",
+      "number": 28,
+      "timestamp_start": "2026-02-16T08:38:42.872229Z",
+      "timestamp_end": "2026-02-16T08:47:55.372482Z",
+      "label": "Phase2-graph-10q-iter",
+      "description": "Dataset: phase-2, Parallel: graph, Max: 10, Reset: False",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 5,
+          "correct": 1,
+          "errors": 1,
+          "accuracy_pct": 20.0,
+          "avg_latency_ms": 84650,
+          "p95_latency_ms": 120500,
+          "avg_f1": 0.5429
+        }
+      },
+      "total_tested": 5,
+      "total_correct": 1,
+      "overall_accuracy_pct": 20.0,
+      "questions": [
+        {
+          "id": "graph-musique-5",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 120500,
+          "answer": "",
+          "expected": "October",
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "timestamp": "2026-02-16T08:41:22.360865Z"
+        },
+        {
+          "id": "graph-musique-6",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 85996,
+          "answer": "1586",
+          "expected": "1572",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:43:02.122244Z"
+        },
+        {
+          "id": "graph-musique-7",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 84752,
+          "answer": "1156",
+          "expected": "1191",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:44:41.854005Z"
+        },
+        {
+          "id": "graph-musique-8",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.8,
+          "latency_ms": 71247,
+          "answer": "Rooster Cogburn",
+          "expected": "U.S. Marshal Rooster Cogburn",
+          "match_type": "SUBSET_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:46:02.598123Z"
+        },
+        {
+          "id": "graph-musique-9",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.2857,
+          "latency_ms": 60758,
+          "answer": "John Wayne played Reuben J. \"Rooster\" Cogburn in True Grit.",
+          "expected": "U.S. Marshal Rooster Cogburn",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:47:14.114882Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-16T08-50-07",
+      "number": 29,
+      "timestamp_start": "2026-02-16T08:50:07.365626Z",
+      "timestamp_end": "2026-02-16T09:02:06.355625Z",
+      "label": "Phase2-graph-50q-iter",
+      "description": "Dataset: phase-2, Parallel: graph, Max: 50, Reset: False",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 7,
+          "correct": 2,
+          "errors": 0,
+          "accuracy_pct": 28.6,
+          "avg_latency_ms": 80670,
+          "p95_latency_ms": 104486,
+          "avg_f1": 0.5444
+        }
+      },
+      "total_tested": 7,
+      "total_correct": 2,
+      "overall_accuracy_pct": 28.6,
+      "questions": [
+        {
+          "id": "graph-musique-10",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.3333,
+          "latency_ms": 104486,
+          "answer": "John Wayne played Rooster Cogburn in True Grit.",
+          "expected": "U.S. Marshal Rooster Cogburn",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:52:31.346249Z"
+        },
+        {
+          "id": "graph-musique-11",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.8,
+          "latency_ms": 61499,
+          "answer": "Rooster Cogburn",
+          "expected": "U.S. Marshal Rooster Cogburn",
+          "match_type": "SUBSET_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:53:41.361964Z"
+        },
+        {
+          "id": "graph-musique-12",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.5,
+          "latency_ms": 73251,
+          "answer": "Mississippi River",
+          "expected": "River Thames",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:55:01.869590Z"
+        },
+        {
+          "id": "graph-musique-13",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 65490,
+          "answer": "Information not available in the knowledge graph.",
+          "expected": "River Thames",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:56:15.347761Z"
+        },
+        {
+          "id": "graph-musique-14",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 103750,
+          "answer": "Information not available in the knowledge graph.",
+          "expected": "River Thames",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:58:11.346438Z"
+        },
+        {
+          "id": "graph-musique-15",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 73483,
+          "answer": "Information not available in the knowledge graph.",
+          "expected": "River Thames",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T08:59:35.865678Z"
+        },
+        {
+          "id": "graph-musique-16",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 82734,
+          "answer": "Information not available in the knowledge graph.",
+          "expected": "as early as the 3rd century BC",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T09:01:10.866131Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-16T09-11-41",
+      "number": 30,
+      "timestamp_start": "2026-02-16T09:11:41.601140Z",
+      "timestamp_end": "2026-02-16T09:15:29.357485Z",
+      "label": "Phase2-quant-1q-iter",
+      "description": "Dataset: phase-2, Parallel: quantitative, Max: 1, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "quantitative": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 1,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 121517,
+          "p95_latency_ms": 121517,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "quantitative-finqa-0",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 121517,
+          "answer": "",
+          "expected": "6%",
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "timestamp": "2026-02-16T09:14:43.363444Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-16T09-17-41",
+      "number": 31,
+      "timestamp_start": "2026-02-16T09:17:42.363320Z",
+      "timestamp_end": "2026-02-16T09:28:03.607154Z",
+      "label": "Phase2-quant-5q-iter",
+      "description": "Dataset: phase-2, Parallel: quantitative, Max: 5, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "quantitative": {
+          "tested": 5,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 93598,
+          "p95_latency_ms": 128008,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 5,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "quantitative-finqa-0",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 117505,
+          "answer": "Based on the SQL query results, there is no data available to answer the question about Brazilian paper sales representing what percentage of printing papers in 2005. The query returned 0 rows, indicating that no matching data was found for the specified criteria.\n\nThe probable cause, as indicated in the warning message, is that the WHERE filter with the inexact entity name did not match any rows. This could be due to several reasons:\n\n1. There might be no data for Brazil in the sales_data table",
+          "expected": "6%",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T09:20:26.862458Z"
+        },
+        {
+          "id": "quantitative-finqa-1",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 48242,
+          "answer": "The SQL query executed returned an error message indicating that the query must start with \"SELECT\". This suggests that the query was not properly formatted or executed. As a result, there are no results to analyze or provide a ratio for the company contributions in 2011 and 2013 to the US pension contributions. To obtain the desired information, the SQL query needs to be corrected and executed properly.",
+          "expected": "1.08",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T09:21:24.345603Z"
+        },
+        {
+          "id": "quantitative-finqa-2",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 128008,
+          "answer": "The SQL query executed to calculate the percentage of Americans labor-related claims as part of total claims and other bankruptcy settlement obligations as of December 2013 returned no results. The query attempted to find data for companies with \"Americans\" in their name from the balance sheet, but no matching rows were found. This could be due to an inexact entity name in the WHERE filter or the absence of relevant data for the specified criteria. Therefore, it's not possible to provide the req",
+          "expected": "15.7%",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T09:23:45.606725Z"
+        },
+        {
+          "id": "quantitative-finqa-3",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 75497,
+          "answer": "The SQL query executed to determine the growth rate in the price of shares purchased by employees from 2006 to 2007 returned no results. This means there is no data available for the specified fiscal years (2006 and 2007) in the 'employees' table for the 'benchmark' tenant. Therefore, it is not possible to calculate the growth rate in the price of shares purchased by employees for those years based on the available data.",
+          "expected": "35.8%",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T09:25:19.868429Z"
+        },
+        {
+          "id": "quantitative-finqa-4",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 98739,
+          "answer": "The SQL query executed to determine the reduction in shares outstanding due to the stock repurchase program returned no results. This indicates that there is no data available for the specified conditions in the database. Specifically, the query was looking for the difference in shares outstanding between fiscal years 2023 and 2022 for companies with the tenant ID 'benchmark'. Since no rows were returned, it suggests that either:\n\n1. There is no data for the fiscal year 2023 in the database.\n2. ",
+          "expected": "78",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T09:27:12.594526Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-16T09-35-53",
+      "number": 32,
+      "timestamp_start": "2026-02-16T09:35:53.363127Z",
+      "timestamp_end": "2026-02-16T09:38:13.121083Z",
+      "label": "Phase2-quant-1q-v2",
+      "description": "Dataset: phase-2, Parallel: quantitative, Max: 1, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "quantitative": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 59494,
+          "p95_latency_ms": 59494,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "quantitative-finqa-0",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 59494,
+          "answer": "Based on the SQL query results, there is no data available to calculate the percentage of Brazilian paper sales in the printing papers category for 2005. The query returned 0 rows, indicating that no matching records were found in the database for the specified criteria (country = 'Brazil', category = 'printing papers', fiscal_year = 2005, and tenant_id = 'benchmark').\n\nThis could be due to several reasons:\n1. There might be no sales data for Brazil in the printing papers category for 2005 in th",
+          "expected": "6%",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T09:37:32.103846Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-16T09-43-45",
+      "number": 33,
+      "timestamp_start": "2026-02-16T09:43:45.870331Z",
+      "timestamp_end": "2026-02-16T09:46:24.358648Z",
+      "label": "Phase2-quant-1q-v3-finqa-aware",
+      "description": "Dataset: phase-2, Parallel: quantitative, Max: 1, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "quantitative": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 73736,
+          "p95_latency_ms": 73736,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "quantitative-finqa-0",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 73736,
+          "answer": "0%",
+          "expected": "6%",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T09:45:40.864868Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-16T09-51-16",
+      "number": 34,
+      "timestamp_start": "2026-02-16T09:51:17.114920Z",
+      "timestamp_end": "2026-02-16T09:55:50.392850Z",
+      "label": "Phase2-quant-1q-v4-finqa-routing",
+      "description": "Dataset: phase-2, Parallel: quantitative, Max: 1, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "quantitative": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 178278,
+          "p95_latency_ms": 178278,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "quantitative-finqa-0",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 178278,
+          "answer": "The SQL query failed due to a detected SQL injection attempt, resulting in no data being returned. Therefore, I cannot calculate the percentage of Brazilian paper sales represented in the printing papers for 2005.",
+          "expected": "6%",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T09:55:04.629732Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-16T09-59-15",
+      "number": 35,
+      "timestamp_start": "2026-02-16T09:59:15.869052Z",
+      "timestamp_end": "2026-02-16T10:04:00.624202Z",
+      "label": "Phase2-quant-1q-v5",
+      "description": "Dataset: phase-2, Parallel: quantitative, Max: 1, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "quantitative": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 1,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 181271,
+          "p95_latency_ms": 181271,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "quantitative-finqa-0",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 181271,
+          "answer": "",
+          "expected": "6%",
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "timestamp": "2026-02-16T10:03:00.386180Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-16T10-18-16",
+      "number": 36,
+      "timestamp_start": "2026-02-16T10:18:17.372980Z",
+      "timestamp_end": "2026-02-16T10:20:31.869823Z",
+      "label": "Phase2-quant-1q-v6-bypass",
+      "description": "Dataset: phase-2, Parallel: quantitative, Max: 1, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "quantitative": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 1,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 34527,
+          "p95_latency_ms": 34527,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "quantitative-finqa-0",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 34527,
+          "answer": "",
+          "expected": "6%",
+          "match_type": "NO_ANSWER",
+          "error": "Expecting value: line 1 column 1 (char 0)",
+          "error_type": "TIMEOUT",
+          "timestamp": "2026-02-16T10:19:40.120287Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-16T10-23-20",
+      "number": 37,
+      "timestamp_start": "2026-02-16T10:23:21.113472Z",
+      "timestamp_end": "2026-02-16T10:26:38.631617Z",
+      "label": "Phase2-quant-1q-v6b",
+      "description": "Dataset: phase-2, Parallel: quantitative, Max: 1, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "quantitative": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 104523,
+          "p95_latency_ms": 104523,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "quantitative-finqa-0",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 104523,
+          "answer": "The SQL results do not contain the specific data needed to calculate the percentage of Brazilian paper sales in 2005. The provided table only shows total printing paper sales for 2004, 2005, and 2006, without breaking down the sales by country or region. Therefore, it is not possible to determine the percentage of Brazilian paper sales from the given information.",
+          "expected": "6%",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T10:25:52.879348Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-16T10-27-46",
+      "number": 38,
+      "timestamp_start": "2026-02-16T10:27:46.615729Z",
+      "timestamp_end": "2026-02-16T10:34:46.895925Z",
+      "label": "Phase2-quant-5q-v6b",
+      "description": "Dataset: phase-2, Parallel: quantitative, Max: 5, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "quantitative": {
+          "tested": 5,
+          "correct": 2,
+          "errors": 0,
+          "accuracy_pct": 40.0,
+          "avg_latency_ms": 57798,
+          "p95_latency_ms": 122486,
+          "avg_f1": 0.95
+        }
+      },
+      "total_tested": 5,
+      "total_correct": 2,
+      "overall_accuracy_pct": 40.0,
+      "questions": [
+        {
+          "id": "quantitative-finqa-0",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 60010,
+          "answer": "The SQL results do not contain the specific data needed to calculate the percentage of Brazilian paper sales in 2005. The provided table only shows total sales figures for 2004, 2005, and 2006, without breaking down the sales by country or region. Therefore, it's not possible to determine the percentage of Brazilian paper sales from the given information.",
+          "expected": "6%",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T10:29:28.360169Z"
+        },
+        {
+          "id": "quantitative-finqa-1",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 31260,
+          "answer": "The SQL query did not find the specific pension contribution data needed to calculate the ratio. The table provided contains tax rate information but no pension contribution amounts for 2011 or 2013.",
+          "expected": "1.08",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T10:30:04.134868Z"
+        },
+        {
+          "id": "quantitative-finqa-2",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 26006,
+          "answer": "15.7%",
+          "expected": "15.7%",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T10:30:36.113998Z"
+        },
+        {
+          "id": "quantitative-finqa-3",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 49232,
+          "answer": "The SQL results do not contain the specific data needed to calculate the growth rate in the price of shares purchased by employees from 2006 to 2007. The provided table includes financial metrics such as risk-free interest rates, expected volatility, and expected life of shares, but it does not provide the actual share prices or the number of shares purchased by employees for those years. Therefore, it is not possible to determine the growth rate based on the given information.",
+          "expected": "35.8%",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T10:31:37.621522Z"
+        },
+        {
+          "id": "quantitative-finqa-4",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 122486,
+          "answer": "27 million shares",
+          "expected": "78",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T10:33:58.875919Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-16T10-38-09",
+      "number": 39,
+      "timestamp_start": "2026-02-16T10:38:09.646536Z",
+      "timestamp_end": "2026-02-16T10:49:52.422632Z",
+      "label": "Phase2-quant-10q-v6c",
+      "description": "Dataset: phase-2, Parallel: quantitative, Max: 10, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "quantitative": {
+          "tested": 10,
+          "correct": 2,
+          "errors": 1,
+          "accuracy_pct": 20.0,
+          "avg_latency_ms": 53574,
+          "p95_latency_ms": 128250,
+          "avg_f1": 0.7
+        }
+      },
+      "total_tested": 10,
+      "total_correct": 2,
+      "overall_accuracy_pct": 20.0,
+      "questions": [
+        {
+          "id": "quantitative-finqa-0",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 43516,
+          "answer": "7170",
+          "expected": "6%",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T10:39:43.899885Z"
+        },
+        {
+          "id": "quantitative-finqa-1",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 26504,
+          "answer": "The table does not contain any data about company contributions or US pension contributions for 2011 or 2013. The table only shows tax-related information for those years. Therefore, I cannot calculate the requested ratio from the provided data.",
+          "expected": "1.08",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T10:40:13.142486Z"
+        },
+        {
+          "id": "quantitative-finqa-2",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.5,
+          "latency_ms": 24258,
+          "answer": "19.7%",
+          "expected": "15.7%",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T10:40:41.150812Z"
+        },
+        {
+          "id": "quantitative-finqa-3",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 128250,
+          "answer": "The table does not provide the price of shares purchased by employees for 2006 and 2007. It only shows financial metrics like risk-free interest rates, expected volatility, and expected life of shares. Without the actual share prices, the growth rate cannot be calculated.",
+          "expected": "35.8%",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T10:42:57.380967Z"
+        },
+        {
+          "id": "quantitative-finqa-4",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 84250,
+          "answer": "27",
+          "expected": "78",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T10:44:31.155568Z"
+        },
+        {
+          "id": "quantitative-finqa-5",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 69249,
+          "answer": "11.24 - 10.79 = 0.45\n0.45 / 10.79 = 0.0417\n0.0417 * 100 = 4.17%\n\n4.17",
+          "expected": "4%",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T10:45:47.658784Z"
+        },
+        {
+          "id": "quantitative-finqa-6",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 49499,
+          "answer": "The table provided does not contain rental expense data for 2000-2002. It only shows data from 2003 onwards. Therefore, I cannot calculate the average rental expense for 2000-2002 based on the given information.",
+          "expected": "55.3",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T10:46:44.159874Z"
+        },
+        {
+          "id": "quantitative-finqa-7",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 65239,
+          "answer": "9.2%",
+          "expected": "32%",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T10:48:03.919088Z"
+        },
+        {
+          "id": "quantitative-finqa-8",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 4481,
+          "answer": "",
+          "expected": "67",
+          "match_type": "NO_ANSWER",
+          "error": "HTTP Error 503: Service Unavailable",
+          "error_type": "UNKNOWN",
+          "timestamp": "2026-02-16T10:48:12.658973Z"
+        },
+        {
+          "id": "quantitative-finqa-9",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 40498,
+          "answer": "The ratio of loans with maturity in 2037 to loans with maturity in 2033 is 110000:65000, which simplifies to 22:13. Therefore, the answer is 22:13.",
+          "expected": "1.69",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T10:49:00.150200Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-16T10-57-59",
+      "number": 40,
+      "timestamp_start": "2026-02-16T10:57:59.414390Z",
+      "timestamp_end": "2026-02-16T11:06:49.403401Z",
+      "label": "Phase2-quant-5q-v6d-cleantext",
+      "description": "Dataset: phase-2, Parallel: quantitative, Max: 5, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "quantitative": {
+          "tested": 5,
+          "correct": 2,
+          "errors": 0,
+          "accuracy_pct": 40.0,
+          "avg_latency_ms": 80250,
+          "p95_latency_ms": 147515,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 5,
+      "total_correct": 2,
+      "overall_accuracy_pct": 40.0,
+      "questions": [
+        {
+          "id": "quantitative-finqa-0",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 76994,
+          "answer": "48%",
+          "expected": "6%",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T10:59:58.141983Z"
+        },
+        {
+          "id": "quantitative-finqa-1",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 69729,
+          "answer": "The table provided does not contain information about company contributions or US pension contributions for the years 2011 and 2013. Therefore, I cannot calculate the requested ratio based on the given data.",
+          "expected": "1.08",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T11:01:19.162475Z"
+        },
+        {
+          "id": "quantitative-finqa-2",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 73013,
+          "answer": "15.7%",
+          "expected": "15.7%",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T11:02:39.404541Z"
+        },
+        {
+          "id": "quantitative-finqa-3",
+          "rag_type": "quantitative",
+          "correct": true,
+          "f1": 0.8,
+          "latency_ms": 147515,
+          "answer": "-",
+          "expected": "35.8%",
+          "match_type": "SUBSET_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T11:05:18.888605Z"
+        },
+        {
+          "id": "quantitative-finqa-4",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 34002,
+          "answer": "27",
+          "expected": "78",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T11:05:56.667416Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-16T11-11-08",
+      "number": 41,
+      "timestamp_start": "2026-02-16T11:11:09.156942Z",
+      "timestamp_end": "2026-02-16T11:19:16.648617Z",
+      "label": "Phase2-quant-5q-v6d-llama70b",
+      "description": "Dataset: phase-2, Parallel: quantitative, Max: 5, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "quantitative": {
+          "tested": 5,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 72447,
+          "p95_latency_ms": 130749,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 5,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "quantitative-finqa-0",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 114775,
+          "answer": "Unable to generate SQL query for this question. Error: [object Object]",
+          "expected": "6%",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T11:13:53.672743Z"
+        },
+        {
+          "id": "quantitative-finqa-1",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 130749,
+          "answer": "Unable to generate SQL query for this question. Error: [object Object]",
+          "expected": "1.08",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T11:16:10.416114Z"
+        },
+        {
+          "id": "quantitative-finqa-2",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 35486,
+          "answer": "Unable to generate SQL query for this question. Error: [object Object]",
+          "expected": "15.7%",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T11:16:49.417696Z"
+        },
+        {
+          "id": "quantitative-finqa-3",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 34502,
+          "answer": "Unable to generate SQL query for this question. Error: [object Object]",
+          "expected": "35.8%",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T11:17:32.663813Z"
+        },
+        {
+          "id": "quantitative-finqa-4",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 46723,
+          "answer": "Unable to generate SQL query for this question. Error: [object Object]",
+          "expected": "78",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T11:18:24.919736Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-16T11-28-16",
+      "number": 42,
+      "timestamp_start": "2026-02-16T11:28:16.903945Z",
+      "timestamp_end": "2026-02-16T11:41:09.914105Z",
+      "label": "Phase2-quant-5q-v6e-gemma27b",
+      "description": "Dataset: phase-2, Parallel: quantitative, Max: 5, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "quantitative": {
+          "tested": 5,
+          "correct": 0,
+          "errors": 4,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 116506,
+          "p95_latency_ms": 180781,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 5,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "quantitative-finqa-0",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 117743,
+          "answer": "Unable to generate SQL query for this question. Error: [object Object]",
+          "expected": "6%",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T11:30:44.911060Z"
+        },
+        {
+          "id": "quantitative-finqa-1",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 180483,
+          "answer": "",
+          "expected": "1.08",
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "timestamp": "2026-02-16T11:33:51.138102Z"
+        },
+        {
+          "id": "quantitative-finqa-2",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 13175,
+          "answer": "",
+          "expected": "15.7%",
+          "match_type": "NO_ANSWER",
+          "error": "HTTP Error 503: Service Unavailable",
+          "error_type": "UNKNOWN",
+          "timestamp": "2026-02-16T11:34:10.083267Z"
+        },
+        {
+          "id": "quantitative-finqa-3",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 180781,
+          "answer": "",
+          "expected": "35.8%",
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "timestamp": "2026-02-16T11:37:28.895116Z"
+        },
+        {
+          "id": "quantitative-finqa-4",
+          "rag_type": "quantitative",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 90350,
+          "answer": "",
+          "expected": "78",
+          "match_type": "NO_ANSWER",
+          "error": "HTTP Error 408: Request Timeout",
+          "error_type": "TIMEOUT",
+          "timestamp": "2026-02-16T11:39:39.899867Z"
         }
       ]
     }
@@ -26215,49 +27497,1385 @@
       "last_tested": "2026-02-16T02:51:52.871697Z",
       "best_f1": 0.2553,
       "trend": "stable"
+    },
+    "std-0": {
+      "id": "std-0",
+      "question": "Brandon Lee died during the making of which movie?",
+      "expected": "The Crow",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-08-12",
+          "iteration_number": 25,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 64255,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Brandon Lee died while filming the movie **The Crow**.",
+          "timestamp": "2026-02-16T08:10:02.547549Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T08:10:02.547549Z",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-1": {
+      "id": "std-1",
+      "question": "Who had a 70s No 1 hit with Let's Do It Again?",
+      "expected": "The Staple Singers",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-08-12",
+          "iteration_number": 25,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 56753,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Unable to generate answer",
+          "timestamp": "2026-02-16T08:11:06.555432Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-16T08:11:06.555432Z",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-2": {
+      "id": "std-2",
+      "question": "Who had a Too Legit To Quit Tour?",
+      "expected": "MC Hammer",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-08-12",
+          "iteration_number": 25,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 69739,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Unable to generate answer",
+          "timestamp": "2026-02-16T08:12:29.307590Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-16T08:12:29.307590Z",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-3": {
+      "id": "std-3",
+      "question": "\"According to Rudyard Kipling what were the \"\"two imposters\"\" to meet and treat the same day?\"",
+      "expected": "Triumph and Disaster",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-08-12",
+          "iteration_number": 25,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 74519,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Unable to generate answer",
+          "timestamp": "2026-02-16T08:13:54.295991Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-16T08:13:54.295991Z",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-4": {
+      "id": "std-4",
+      "question": "Which Oscar-nominated film had You Sexy Thing as its theme song?",
+      "expected": "The Full Monty",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-08-12",
+          "iteration_number": 25,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 65736,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Unable to generate answer",
+          "timestamp": "2026-02-16T08:15:04.811030Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-16T08:15:04.811030Z",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-0": {
+      "id": "graph-musique-0",
+      "question": "Who voices the character in Spongebob Squarepants who is named after a glowing species found in some beaches in Portugal?",
+      "expected": "Mr. Lawrence",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-26-24",
+          "iteration_number": 26,
+          "correct": true,
+          "f1": 0.5,
+          "latency_ms": 83011,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Doug Lawrence",
+          "timestamp": "2026-02-16T08:28:25.367317Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T08:28:25.367317Z",
+      "best_f1": 0.5,
+      "trend": "stable"
+    },
+    "graph-musique-1": {
+      "id": "graph-musique-1",
+      "question": "What administrative territorial entity does Heinrich Gross's birth place located?",
+      "expected": "Senica District",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-30-10",
+          "iteration_number": 27,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 77265,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Styria, Austria",
+          "timestamp": "2026-02-16T08:32:05.344470Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-16T08:32:05.344470Z",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-2": {
+      "id": "graph-musique-2",
+      "question": "In what year did the founder of the Presbyterian Church die?",
+      "expected": "1572",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-30-10",
+          "iteration_number": 27,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 91743,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1572",
+          "timestamp": "2026-02-16T08:33:48.363559Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T08:33:48.363559Z",
+      "best_f1": 1.0,
+      "trend": "stable"
+    },
+    "graph-musique-3": {
+      "id": "graph-musique-3",
+      "question": "What year did the author of History of the Reformation in Scotland die?",
+      "expected": "1572",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-30-10",
+          "iteration_number": 27,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 59742,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1572",
+          "timestamp": "2026-02-16T08:35:01.614355Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T08:35:01.614355Z",
+      "best_f1": 1.0,
+      "trend": "stable"
+    },
+    "graph-musique-4": {
+      "id": "graph-musique-4",
+      "question": "What year did the author of The First Blast of the Trumpet Against the Monstruous Regiment of Women die?",
+      "expected": "1572",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-30-10",
+          "iteration_number": 27,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 87501,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1572",
+          "timestamp": "2026-02-16T08:36:44.365238Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T08:36:44.365238Z",
+      "best_f1": 1.0,
+      "trend": "stable"
+    },
+    "graph-musique-5": {
+      "id": "graph-musique-5",
+      "question": "What month did the person with whom Henry fought a short war in 1183 go away from the holy land?",
+      "expected": "October",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-38-42",
+          "iteration_number": 28,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 120500,
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "answer": "",
+          "timestamp": "2026-02-16T08:41:22.369077Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "error",
+      "last_tested": "2026-02-16T08:41:22.369077Z",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-6": {
+      "id": "graph-musique-6",
+      "question": "In what year did Margaret Knox's spouse pass away?",
+      "expected": "1572",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-38-42",
+          "iteration_number": 28,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 85996,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1586",
+          "timestamp": "2026-02-16T08:43:02.348337Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-16T08:43:02.348337Z",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-7": {
+      "id": "graph-musique-7",
+      "question": "What year did the storm hit the fleet of the person that Henry fought a short war with in 1183?",
+      "expected": "1191",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-38-42",
+          "iteration_number": 28,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 84752,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1156",
+          "timestamp": "2026-02-16T08:44:41.861669Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-16T08:44:41.861669Z",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-8": {
+      "id": "graph-musique-8",
+      "question": "In True Grit, who did the star play?",
+      "expected": "U.S. Marshal Rooster Cogburn",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-38-42",
+          "iteration_number": 28,
+          "correct": true,
+          "f1": 0.8,
+          "latency_ms": 71247,
+          "match_type": "SUBSET_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Rooster Cogburn",
+          "timestamp": "2026-02-16T08:46:02.599440Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T08:46:02.599440Z",
+      "best_f1": 0.8,
+      "trend": "stable"
+    },
+    "graph-musique-9": {
+      "id": "graph-musique-9",
+      "question": "Who did the producer of Big Jim McLain play in True Grit?",
+      "expected": "U.S. Marshal Rooster Cogburn",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-38-42",
+          "iteration_number": 28,
+          "correct": false,
+          "f1": 0.2857,
+          "latency_ms": 60758,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "John Wayne played Reuben J. \"Rooster\" Cogburn in True Grit.",
+          "timestamp": "2026-02-16T08:47:14.117071Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-16T08:47:14.117071Z",
+      "best_f1": 0.2857,
+      "trend": "stable"
+    },
+    "graph-musique-10": {
+      "id": "graph-musique-10",
+      "question": "Who did the cast member of Rooster Cogburn play in True Grit?",
+      "expected": "U.S. Marshal Rooster Cogburn",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-50-07",
+          "iteration_number": 29,
+          "correct": false,
+          "f1": 0.3333,
+          "latency_ms": 104486,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "John Wayne played Rooster Cogburn in True Grit.",
+          "timestamp": "2026-02-16T08:52:31.354778Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-16T08:52:31.354778Z",
+      "best_f1": 0.3333,
+      "trend": "stable"
+    },
+    "graph-musique-11": {
+      "id": "graph-musique-11",
+      "question": "Who did the actor in Advernture's End play in True Grit?",
+      "expected": "U.S. Marshal Rooster Cogburn",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-50-07",
+          "iteration_number": 29,
+          "correct": true,
+          "f1": 0.8,
+          "latency_ms": 61499,
+          "match_type": "SUBSET_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Rooster Cogburn",
+          "timestamp": "2026-02-16T08:53:41.362053Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T08:53:41.362053Z",
+      "best_f1": 0.8,
+      "trend": "stable"
+    },
+    "graph-musique-12": {
+      "id": "graph-musique-12",
+      "question": "Which is the body of water by Leo Bennett's place of death?",
+      "expected": "River Thames",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-50-07",
+          "iteration_number": 29,
+          "correct": true,
+          "f1": 0.5,
+          "latency_ms": 73251,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Mississippi River",
+          "timestamp": "2026-02-16T08:55:01.869675Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T08:55:01.869675Z",
+      "best_f1": 0.5,
+      "trend": "stable"
+    },
+    "graph-musique-13": {
+      "id": "graph-musique-13",
+      "question": "What is the body of water by the area where Athlete was formed?",
+      "expected": "River Thames",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-50-07",
+          "iteration_number": 29,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 65490,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Information not available in the knowledge graph.",
+          "timestamp": "2026-02-16T08:56:15.356304Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-16T08:56:15.356304Z",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-14": {
+      "id": "graph-musique-14",
+      "question": "Which is the body of water by the village which borders Long Ditton?",
+      "expected": "River Thames",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-50-07",
+          "iteration_number": 29,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 103750,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Information not available in the knowledge graph.",
+          "timestamp": "2026-02-16T08:58:11.355233Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-16T08:58:11.355233Z",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-15": {
+      "id": "graph-musique-15",
+      "question": "Which is the body of water near George Mills' place of birth?",
+      "expected": "River Thames",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-50-07",
+          "iteration_number": 29,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 73483,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Information not available in the knowledge graph.",
+          "timestamp": "2026-02-16T08:59:35.873177Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-16T08:59:35.873177Z",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-16": {
+      "id": "graph-musique-16",
+      "question": "When was the celestial body that transforms nuclear potential energy to other forms of energy discovered to be the center of the solar system?",
+      "expected": "as early as the 3rd century BC",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T08-50-07",
+          "iteration_number": 29,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 82734,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Information not available in the knowledge graph.",
+          "timestamp": "2026-02-16T09:01:10.873713Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-16T09:01:10.873713Z",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "quantitative-finqa-0": {
+      "id": "quantitative-finqa-0",
+      "question": "brazilian paper sales represented what percentage of printing papers in 2005?",
+      "expected": "6%",
+      "expected_detail": "",
+      "rag_type": "quantitative",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T09-11-41",
+          "iteration_number": 30,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 121517,
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "answer": "",
+          "timestamp": "2026-02-16T09:14:43.370404Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T09-17-41",
+          "iteration_number": 31,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 117505,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the SQL query results, there is no data available to answer the question about Brazilian paper sales representing what percentage of printing papers in 2005. The query returned 0 rows, indicating that no matching data was found for the specified criteria.\n\nThe probable cause, as indicated in the warning message, is that the WHERE filter with the inexact entity name did not match any rows. This could be due to several reasons:\n\n1. There might be no data for Brazil in the sales_data table",
+          "timestamp": "2026-02-16T09:20:26.868647Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T09-35-53",
+          "iteration_number": 32,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 59494,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the SQL query results, there is no data available to calculate the percentage of Brazilian paper sales in the printing papers category for 2005. The query returned 0 rows, indicating that no matching records were found in the database for the specified criteria (country = 'Brazil', category = 'printing papers', fiscal_year = 2005, and tenant_id = 'benchmark').\n\nThis could be due to several reasons:\n1. There might be no sales data for Brazil in the printing papers category for 2005 in th",
+          "timestamp": "2026-02-16T09:37:32.107209Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T09-43-45",
+          "iteration_number": 33,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 73736,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "0%",
+          "timestamp": "2026-02-16T09:45:40.867621Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T09-51-16",
+          "iteration_number": 34,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 178278,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL query failed due to a detected SQL injection attempt, resulting in no data being returned. Therefore, I cannot calculate the percentage of Brazilian paper sales represented in the printing papers for 2005.",
+          "timestamp": "2026-02-16T09:55:04.634102Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T09-59-15",
+          "iteration_number": 35,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 181271,
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "answer": "",
+          "timestamp": "2026-02-16T10:03:00.392773Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T10-18-16",
+          "iteration_number": 36,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 34527,
+          "match_type": "NO_ANSWER",
+          "error": "Expecting value: line 1 column 1 (char 0)",
+          "error_type": "TIMEOUT",
+          "answer": "",
+          "timestamp": "2026-02-16T10:19:40.123718Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T10-23-20",
+          "iteration_number": 37,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 104523,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL results do not contain the specific data needed to calculate the percentage of Brazilian paper sales in 2005. The provided table only shows total printing paper sales for 2004, 2005, and 2006, without breaking down the sales by country or region. Therefore, it is not possible to determine the percentage of Brazilian paper sales from the given information.",
+          "timestamp": "2026-02-16T10:25:53.104442Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T10-27-46",
+          "iteration_number": 38,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 60010,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL results do not contain the specific data needed to calculate the percentage of Brazilian paper sales in 2005. The provided table only shows total sales figures for 2004, 2005, and 2006, without breaking down the sales by country or region. Therefore, it's not possible to determine the percentage of Brazilian paper sales from the given information.",
+          "timestamp": "2026-02-16T10:29:28.370647Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T10-38-09",
+          "iteration_number": 39,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 43516,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "7170",
+          "timestamp": "2026-02-16T10:39:43.906844Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T10-57-59",
+          "iteration_number": 40,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 76994,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "48%",
+          "timestamp": "2026-02-16T10:59:58.151992Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T11-11-08",
+          "iteration_number": 41,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 114775,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Unable to generate SQL query for this question. Error: [object Object]",
+          "timestamp": "2026-02-16T11:13:53.677653Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T11-28-16",
+          "iteration_number": 42,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 117743,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Unable to generate SQL query for this question. Error: [object Object]",
+          "timestamp": "2026-02-16T11:30:44.912493Z"
+        }
+      ],
+      "total_runs": 13,
+      "pass_count": 2,
+      "pass_rate": 0.154,
+      "current_status": "fail",
+      "last_tested": "2026-02-16T11:30:44.912493Z",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "quantitative-finqa-1": {
+      "id": "quantitative-finqa-1",
+      "question": "what was the ratio of the company contribution in 2011 to the amount in 2013 to the us pension contributions",
+      "expected": "1.08",
+      "expected_detail": "",
+      "rag_type": "quantitative",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T09-17-41",
+          "iteration_number": 31,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 48242,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL query executed returned an error message indicating that the query must start with \"SELECT\". This suggests that the query was not properly formatted or executed. As a result, there are no results to analyze or provide a ratio for the company contributions in 2011 and 2013 to the US pension contributions. To obtain the desired information, the SQL query needs to be corrected and executed properly.",
+          "timestamp": "2026-02-16T09:21:24.348575Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T10-27-46",
+          "iteration_number": 38,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 31260,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL query did not find the specific pension contribution data needed to calculate the ratio. The table provided contains tax rate information but no pension contribution amounts for 2011 or 2013.",
+          "timestamp": "2026-02-16T10:30:04.134954Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T10-38-09",
+          "iteration_number": 39,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 26504,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The table does not contain any data about company contributions or US pension contributions for 2011 or 2013. The table only shows tax-related information for those years. Therefore, I cannot calculate the requested ratio from the provided data.",
+          "timestamp": "2026-02-16T10:40:13.142577Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T10-57-59",
+          "iteration_number": 40,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 69729,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The table provided does not contain information about company contributions or US pension contributions for the years 2011 and 2013. Therefore, I cannot calculate the requested ratio based on the given data.",
+          "timestamp": "2026-02-16T11:01:19.387320Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T11-11-08",
+          "iteration_number": 41,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 130749,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Unable to generate SQL query for this question. Error: [object Object]",
+          "timestamp": "2026-02-16T11:16:10.420499Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T11-28-16",
+          "iteration_number": 42,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 180483,
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "answer": "",
+          "timestamp": "2026-02-16T11:33:51.140560Z"
+        }
+      ],
+      "total_runs": 6,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "error",
+      "last_tested": "2026-02-16T11:33:51.140560Z",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "quantitative-finqa-2": {
+      "id": "quantitative-finqa-2",
+      "question": "what is the percent of americans labor-related deemed claim as a part of the total claims and other bankruptcy settlement obligations as of december2013",
+      "expected": "15.7%",
+      "expected_detail": "",
+      "rag_type": "quantitative",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T09-17-41",
+          "iteration_number": 31,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 128008,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL query executed to calculate the percentage of Americans labor-related claims as part of total claims and other bankruptcy settlement obligations as of December 2013 returned no results. The query attempted to find data for companies with \"Americans\" in their name from the balance sheet, but no matching rows were found. This could be due to an inexact entity name in the WHERE filter or the absence of relevant data for the specified criteria. Therefore, it's not possible to provide the req",
+          "timestamp": "2026-02-16T09:23:45.613649Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T10-27-46",
+          "iteration_number": 38,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 26006,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "15.7%",
+          "timestamp": "2026-02-16T10:30:36.114098Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T10-38-09",
+          "iteration_number": 39,
+          "correct": true,
+          "f1": 0.5,
+          "latency_ms": 24258,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "19.7%",
+          "timestamp": "2026-02-16T10:40:41.150915Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T10-57-59",
+          "iteration_number": 40,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 73013,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "15.7%",
+          "timestamp": "2026-02-16T11:02:39.412605Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T11-11-08",
+          "iteration_number": 41,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 35486,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Unable to generate SQL query for this question. Error: [object Object]",
+          "timestamp": "2026-02-16T11:16:49.419722Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T11-28-16",
+          "iteration_number": 42,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 13175,
+          "match_type": "NO_ANSWER",
+          "error": "HTTP Error 503: Service Unavailable",
+          "error_type": "UNKNOWN",
+          "answer": "",
+          "timestamp": "2026-02-16T11:34:10.084269Z"
+        }
+      ],
+      "total_runs": 6,
+      "pass_count": 3,
+      "pass_rate": 0.5,
+      "current_status": "error",
+      "last_tested": "2026-02-16T11:34:10.084269Z",
+      "best_f1": 1.0,
+      "trend": "stable"
+    },
+    "quantitative-finqa-3": {
+      "id": "quantitative-finqa-3",
+      "question": "what is the growth rate in the price of shares purchased by employees from 2006 to 2007?",
+      "expected": "35.8%",
+      "expected_detail": "",
+      "rag_type": "quantitative",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T09-17-41",
+          "iteration_number": 31,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 75497,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL query executed to determine the growth rate in the price of shares purchased by employees from 2006 to 2007 returned no results. This means there is no data available for the specified fiscal years (2006 and 2007) in the 'employees' table for the 'benchmark' tenant. Therefore, it is not possible to calculate the growth rate in the price of shares purchased by employees for those years based on the available data.",
+          "timestamp": "2026-02-16T09:25:20.093952Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T10-27-46",
+          "iteration_number": 38,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 49232,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL results do not contain the specific data needed to calculate the growth rate in the price of shares purchased by employees from 2006 to 2007. The provided table includes financial metrics such as risk-free interest rates, expected volatility, and expected life of shares, but it does not provide the actual share prices or the number of shares purchased by employees for those years. Therefore, it is not possible to determine the growth rate based on the given information.",
+          "timestamp": "2026-02-16T10:31:37.631613Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T10-38-09",
+          "iteration_number": 39,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 128250,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The table does not provide the price of shares purchased by employees for 2006 and 2007. It only shows financial metrics like risk-free interest rates, expected volatility, and expected life of shares. Without the actual share prices, the growth rate cannot be calculated.",
+          "timestamp": "2026-02-16T10:42:57.387063Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T10-57-59",
+          "iteration_number": 40,
+          "correct": true,
+          "f1": 0.8,
+          "latency_ms": 147515,
+          "match_type": "SUBSET_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "-",
+          "timestamp": "2026-02-16T11:05:18.894155Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T11-11-08",
+          "iteration_number": 41,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 34502,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Unable to generate SQL query for this question. Error: [object Object]",
+          "timestamp": "2026-02-16T11:17:32.664955Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T11-28-16",
+          "iteration_number": 42,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 180781,
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "answer": "",
+          "timestamp": "2026-02-16T11:37:29.147795Z"
+        }
+      ],
+      "total_runs": 6,
+      "pass_count": 1,
+      "pass_rate": 0.167,
+      "current_status": "error",
+      "last_tested": "2026-02-16T11:37:29.147795Z",
+      "best_f1": 0.8,
+      "trend": "stable"
+    },
+    "quantitative-finqa-4": {
+      "id": "quantitative-finqa-4",
+      "question": "the stock repurchase program reduced shares outstanding by how many million shares in the period?",
+      "expected": "78",
+      "expected_detail": "",
+      "rag_type": "quantitative",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T09-17-41",
+          "iteration_number": 31,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 98739,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL query executed to determine the reduction in shares outstanding due to the stock repurchase program returned no results. This indicates that there is no data available for the specified conditions in the database. Specifically, the query was looking for the difference in shares outstanding between fiscal years 2023 and 2022 for companies with the tenant ID 'benchmark'. Since no rows were returned, it suggests that either:\n\n1. There is no data for the fiscal year 2023 in the database.\n2. ",
+          "timestamp": "2026-02-16T09:27:12.604216Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T10-27-46",
+          "iteration_number": 38,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 122486,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "27 million shares",
+          "timestamp": "2026-02-16T10:33:58.883004Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T10-38-09",
+          "iteration_number": 39,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 84250,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "27",
+          "timestamp": "2026-02-16T10:44:31.401061Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T10-57-59",
+          "iteration_number": 40,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 34002,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "27",
+          "timestamp": "2026-02-16T11:05:56.888418Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T11-11-08",
+          "iteration_number": 41,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 46723,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Unable to generate SQL query for this question. Error: [object Object]",
+          "timestamp": "2026-02-16T11:18:24.920813Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T11-28-16",
+          "iteration_number": 42,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 90350,
+          "match_type": "NO_ANSWER",
+          "error": "HTTP Error 408: Request Timeout",
+          "error_type": "TIMEOUT",
+          "answer": "",
+          "timestamp": "2026-02-16T11:39:40.134147Z"
+        }
+      ],
+      "total_runs": 6,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "error",
+      "last_tested": "2026-02-16T11:39:40.134147Z",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "quantitative-finqa-5": {
+      "id": "quantitative-finqa-5",
+      "question": "what was the percentage change in diluted earnings per common share from continuing operations from 2014 to 2015?",
+      "expected": "4%",
+      "expected_detail": "",
+      "rag_type": "quantitative",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T10-38-09",
+          "iteration_number": 39,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 69249,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "11.24 - 10.79 = 0.45\n0.45 / 10.79 = 0.0417\n0.0417 * 100 = 4.17%\n\n4.17",
+          "timestamp": "2026-02-16T10:45:47.888618Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T10:45:47.888618Z",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "quantitative-finqa-6": {
+      "id": "quantitative-finqa-6",
+      "question": "what was the average rental expense in millions for 2000 through 2002?",
+      "expected": "55.3",
+      "expected_detail": "",
+      "rag_type": "quantitative",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T10-38-09",
+          "iteration_number": 39,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 49499,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The table provided does not contain rental expense data for 2000-2002. It only shows data from 2003 onwards. Therefore, I cannot calculate the average rental expense for 2000-2002 based on the given information.",
+          "timestamp": "2026-02-16T10:46:44.161584Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-16T10:46:44.161584Z",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "quantitative-finqa-7": {
+      "id": "quantitative-finqa-7",
+      "question": "what percent of the gross total property and equipment values in 2006 are related to computers?",
+      "expected": "32%",
+      "expected_detail": "",
+      "rag_type": "quantitative",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T10-38-09",
+          "iteration_number": 39,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 65239,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "9.2%",
+          "timestamp": "2026-02-16T10:48:03.924689Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-16T10:48:03.924689Z",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "quantitative-finqa-8": {
+      "id": "quantitative-finqa-8",
+      "question": "what are the average net unrealized investment gains for the period?",
+      "expected": "67",
+      "expected_detail": "",
+      "rag_type": "quantitative",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T10-38-09",
+          "iteration_number": 39,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 4481,
+          "match_type": "NO_ANSWER",
+          "error": "HTTP Error 503: Service Unavailable",
+          "error_type": "UNKNOWN",
+          "answer": "",
+          "timestamp": "2026-02-16T10:48:12.659083Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "error",
+      "last_tested": "2026-02-16T10:48:12.659083Z",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "quantitative-finqa-9": {
+      "id": "quantitative-finqa-9",
+      "question": "as of december 312011 what was the ratio of the loans with a maturity in 2037 to the loans with a maturity in 2033",
+      "expected": "1.69",
+      "expected_detail": "",
+      "rag_type": "quantitative",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-16T10-38-09",
+          "iteration_number": 39,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 40498,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The ratio of loans with maturity in 2037 to loans with maturity in 2033 is 110000:65000, which simplifies to 22:13. Therefore, the answer is 22:13.",
+          "timestamp": "2026-02-16T10:49:00.152655Z"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-16T10:49:00.152655Z",
+      "best_f1": 0.0,
+      "trend": "stable"
     }
   },
   "quick_tests": [
-    {
-      "timestamp": "2026-02-15T10:11:38.598258Z",
-      "pipeline": "standard",
-      "query": "What is the capital of Japan?",
-      "status": "pass",
-      "latency_ms": 16377,
-      "response_preview": "The capital of Japan is Tokyo.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-15T10:11:56.459559Z",
-      "pipeline": "standard",
-      "query": "Where is Normandy located?",
-      "status": "pass",
-      "latency_ms": 17841,
-      "response_preview": "Normandy is a region in the northern part of France.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-15T10:12:21.641445Z",
-      "pipeline": "standard",
-      "query": "Who painted the Mona Lisa?",
-      "status": "pass",
-      "latency_ms": 25164,
-      "response_preview": "Leonardo da Vinci painted the Mona Lisa.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-15T10:12:42.412293Z",
-      "pipeline": "standard",
-      "query": "What is the largest ocean?",
-      "status": "pass",
-      "latency_ms": 20513,
-      "response_preview": "The largest ocean is the Pacific Ocean.",
-      "trigger": "manual",
-      "error": null
-    },
     {
       "timestamp": "2026-02-15T10:13:03.396631Z",
       "pipeline": "standard",
@@ -26717,1156 +29335,49 @@
       "response_preview": "The capital city of Japan is Tokyo.",
       "trigger": "manual",
       "error": null
+    },
+    {
+      "timestamp": "2026-02-16T07:53:00.463922Z",
+      "pipeline": "graph",
+      "query": "What did Marie Curie win Nobel Prizes for?",
+      "status": "pass",
+      "latency_ms": 45205,
+      "response_preview": "Physics (1903) and Chemistry (1911)",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-16T07:54:34.039039Z",
+      "pipeline": "graph",
+      "query": "What did Alexander Fleming discover?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "timed out"
+    },
+    {
+      "timestamp": "2026-02-16T08:06:29.314920Z",
+      "pipeline": "standard",
+      "query": "What is the capital of Japan?",
+      "status": "pass",
+      "latency_ms": 70998,
+      "response_preview": "The capital of Japan is Tokyo.",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-16T08:07:33.068820Z",
+      "pipeline": "standard",
+      "query": "Where is Normandy located?",
+      "status": "pass",
+      "latency_ms": 61016,
+      "response_preview": "Normandy is a region in the northwest of France, bordering the English Channel.",
+      "trigger": "manual",
+      "error": null
     }
   ],
   "execution_logs": [
-    {
-      "timestamp": "2026-02-15T19:13:08.306138Z",
-      "question_id": "quant-18",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 41773,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The tax expense for GreenEnergy Corp in Q2 2023 was $42,440,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:14:06.045415Z",
-      "question_id": "quant-19",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 53255,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "HealthPlus Labs' revenue in 2020 was $320,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:14:59.550727Z",
-      "question_id": "quant-20",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.2609,
-      "latency_ms": 48749,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Based on the SQL query results, here's a comparison of the operating expenses for all three companie",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:15:28.307668Z",
-      "question_id": "quant-21",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 26747,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc's basic EPS in Q1 2023 was 3.71.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:15:52.304157Z",
-      "question_id": "quant-22",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 21499,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The list price of the VisionAI Platform product is $299.99.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:16:33.564629Z",
-      "question_id": "quant-23",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 39241,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc's total revenue across all quarters in 2023 was $6,745,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:17:45.063954Z",
-      "question_id": "quant-24",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 65752,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The accounts receivable for TechVision Inc at the end of 2022 was $1,173,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:18:24.048473Z",
-      "question_id": "quant-25",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 34757,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "There are 21 employees in the Sales department across all companies.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:18:56.813610Z",
-      "question_id": "quant-26",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 28988,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "GreenEnergy Corp's revenue in 2021 was $2,160,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:19:27.292057Z",
-      "question_id": "quant-27",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 27502,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The interest expense for TechVision Inc in FY 2023 was $35,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:20:20.305905Z",
-      "question_id": "quant-28",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 48744,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Based on the SQL query results, TechVision Inc had the highest net income growth from 2020 to 2023, ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:21:11.054600Z",
-      "question_id": "quant-29",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 46751,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The total current assets for GreenEnergy Corp at the end of 2023 was $2,160,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:21:44.310494Z",
-      "question_id": "quant-30",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 27744,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "HealthPlus Labs' operating income in Q2 2023 was $52,532,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:22:51.294129Z",
-      "question_id": "quant-31",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 59250,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The selling, general and administrative expense for TechVision Inc in 2023 was $1,214,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:23:44.040141Z",
-      "question_id": "quant-32",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 49017,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Based on the executed SQL query, there are no results returned for GreenEnergy Corp's shares outstan",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:24:46.814654Z",
-      "question_id": "quant-33",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.4444,
-      "latency_ms": 58014,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "HealthPlus Labs sells two products in the Diagnostics category: GenomeScan 1.0 and GenomeScan 2.0.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:25:15.787199Z",
-      "question_id": "quant-34",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 25988,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc's gross profit margin in FY 2023 was 68%.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:25:47.300329Z",
-      "question_id": "quant-35",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 28753,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The total revenue for all companies combined in fiscal year 2023 was $11,547,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:26:09.807977Z",
-      "question_id": "quant-36",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 19752,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The goodwill on TechVision Inc's balance sheet at the end of 2023 is $950,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:26:51.550528Z",
-      "question_id": "quant-37",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 38490,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "GreenEnergy Corp's Q1 2023 revenue was $803,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:27:52.809418Z",
-      "question_id": "quant-38",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 53006,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Based on the SQL query results, Q4 had the highest revenue for TechVision Inc in 2023, with a revenu",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:28:23.813250Z",
-      "question_id": "quant-39",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 28005,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "HealthPlus Labs' income before tax in FY 2023 was $220,840,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:28:52.046964Z",
-      "question_id": "quant-40",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 25276,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The retained earnings for TechVision Inc at the end of 2023 was $5,149,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:29:27.046966Z",
-      "question_id": "quant-41",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 32525,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "There are 8 departments at TechVision.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:30:25.809939Z",
-      "question_id": "quant-42",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 54995,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "GreenEnergy Corp's operating income in 2022 was $561,600,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:30:46.560459Z",
-      "question_id": "quant-43",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 18260,
-      "error_type": "UNKNOWN",
-      "error_preview": "Expecting value: line 1 column 1 (char 0)",
-      "answer_preview": "",
-      "confidence": null,
-      "pipeline_details_summary": null
-    },
-    {
-      "timestamp": "2026-02-15T19:31:13.805542Z",
-      "question_id": "quant-44",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 21740,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The total liabilities for HealthPlus Labs at the end of 2022 were $305,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:31:52.307546Z",
-      "question_id": "quant-45",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 34765,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc's revenue per quarter in 2023 showed a consistent upward trend:\n\n- Q1: $1,552,350,000",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:33:00.300882Z",
-      "question_id": "quant-46",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 62507,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "HealthPlus Labs' revenue growth rate from 2022 to 2023 was 50%.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:34:32.809114Z",
-      "question_id": "quant-47",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 86221,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The property, plant and equipment value for GreenEnergy Corp at the end of 2023 was $1,950,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:35:10.802937Z",
-      "question_id": "quant-48",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 35756,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Based on the SQL query results, TechVision Inc spent the most on research and development in 2023, w",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:35:36.551350Z",
-      "question_id": "quant-49",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 23500,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "GreenEnergy Corp's basic EPS in fiscal year 2022 was 8.75.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:36:03.538288Z",
-      "question_id": "quant-50",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 24256,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The total short-term debt across all companies at the end of 2023 was $220,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:58:14.718121Z",
-      "question_id": "graph-01",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 41649,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Marie Curie won two Nobel Prizes: Physics in 1903 and Chemistry in 1911.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:58:50.416545Z",
-      "question_id": "graph-03",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 35527,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Penicillin",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:59:24.761774Z",
-      "question_id": "graph-12",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 34188,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Infectious diseases, non-communicable diseases, neglected tropical diseases, vaccine-preventable dis",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:00:07.476396Z",
-      "question_id": "graph-02",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 42556,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Albert Einstein",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:00:55.179948Z",
-      "question_id": "graph-04",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 47551,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Bacterial infections",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:01:36.972524Z",
-      "question_id": "graph-12",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 41225,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Infectious diseases, non-communicable diseases, mental health, neglected tropical diseases",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:02:35.752817Z",
-      "question_id": "graph-13",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.5455,
-      "latency_ms": 58562,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "NASA uses nuclear energy for space missions.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:03:10.384133Z",
-      "question_id": "graph-18",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 34484,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Nobel Prize laureates",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:04:03.439766Z",
-      "question_id": "graph-22",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 52798,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "President, Congress members, Supreme Court justices, political appointees, advisors, staff, think ta",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:04:49.130449Z",
-      "question_id": "graph-23",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 45514,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Darwin studied geology, zoology, and botany during his voyage on the HMS Beagle to South America, Ga",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:05:22.829306Z",
-      "question_id": "graph-27",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 33500,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "ARPANET",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:06:16.238489Z",
-      "question_id": "graph-28",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.16,
-      "latency_ms": 53253,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Gandhi's relationship with London was complex and multifaceted, spanning several decades and profoun",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:06:56.603340Z",
-      "question_id": "graph-30",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 39719,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The WHO is a specialized agency of the UN focused on international public health.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:07:54.046437Z",
-      "question_id": "graph-31",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 57273,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Radioactivity, uranium, thorium, polonium, radium",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:08:50.441064Z",
-      "question_id": "graph-32",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.25,
-      "latency_ms": 56207,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "UNESCO, OECD, French Revolution, Louvre Museum, Eiffel Tower, Monet, Picasso, Van Gogh, Victor Hugo,",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:10:14.830883Z",
-      "question_id": "graph-01",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 35343,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Marie Curie won two Nobel Prizes in different scientific fields.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:11:01.675670Z",
-      "question_id": "graph-02",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 46650,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Albert Einstein",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:12:10.563594Z",
-      "question_id": "graph-03",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 67232,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Penicillin",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:13:05.555730Z",
-      "question_id": "graph-04",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 53013,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Bacterial infections",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:13:51.030335Z",
-      "question_id": "graph-05",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 43254,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Sherborne School, King's College Cambridge, Princeton University",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:14:42.553368Z",
-      "question_id": "graph-06",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 49763,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "They were rivals in the \"War of the Currents\" over AC vs DC electrical systems.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:15:27.783595Z",
-      "question_id": "graph-07",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.4615,
-      "latency_ms": 43021,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Isaac Newton, Charles Darwin, Stephen Hawking, Rosalind Franklin, Alan Turing",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:16:27.792661Z",
-      "question_id": "graph-08",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 57508,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The World Wide Web is an information system for content sharing over the Internet, created at CERN.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:17:21.532300Z",
-      "question_id": "graph-09",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 51489,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Tech companies, healthcare, finance, automotive, retail organizations use AI.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:18:16.801081Z",
-      "question_id": "graph-10",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 53017,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Paris",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:19:03.784328Z",
-      "question_id": "graph-11",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 45014,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Edward Jenner",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:20:02.030753Z",
-      "question_id": "graph-12",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 56268,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Infectious diseases, non-communicable diseases, neglected tropical diseases, vaccine-preventable dis",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:20:57.036101Z",
-      "question_id": "graph-13",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.375,
-      "latency_ms": 52525,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "NASA uses nuclear energy for power generation and propulsion in space missions.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:22:37.051778Z",
-      "question_id": "graph-14",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 96519,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Paris",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:23:24.297059Z",
-      "question_id": "graph-15",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.2,
-      "latency_ms": 44500,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Google was founded by Stanford Ph.D. students Larry Page and Sergey Brin as a research project at St",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:24:20.537913Z",
-      "question_id": "graph-16",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 52511,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Salzburg, Austria",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
     {
       "timestamp": "2026-02-15T20:25:10.778266Z",
       "question_id": "graph-17",
@@ -30092,6 +31603,1103 @@
         "sub_pipelines": [],
         "routing": null
       }
+    },
+    {
+      "timestamp": "2026-02-16T08:10:03.803912Z",
+      "question_id": "std-0",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 64255,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Brandon Lee died while filming the movie **The Crow**.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T08:11:08.802195Z",
+      "question_id": "std-1",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 56753,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Unable to generate answer",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T08:12:34.539019Z",
+      "question_id": "std-2",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 69739,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Unable to generate answer",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T08:13:54.817611Z",
+      "question_id": "std-3",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 74519,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Unable to generate answer",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T08:15:05.566466Z",
+      "question_id": "std-4",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 65736,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Unable to generate answer",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T08:28:26.598295Z",
+      "question_id": "graph-musique-0",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.5,
+      "latency_ms": 83011,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Doug Lawrence",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T08:32:07.106794Z",
+      "question_id": "graph-musique-1",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 77265,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Styria, Austria",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T08:33:50.368007Z",
+      "question_id": "graph-musique-2",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 91743,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1572",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T08:35:04.621346Z",
+      "question_id": "graph-musique-3",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 59742,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1572",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T08:36:45.850576Z",
+      "question_id": "graph-musique-4",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 87501,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1572",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T08:41:24.351618Z",
+      "question_id": "graph-musique-5",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 120500,
+      "error_type": "TIMEOUT",
+      "error_preview": "timed out",
+      "answer_preview": "",
+      "confidence": null,
+      "pipeline_details_summary": null
+    },
+    {
+      "timestamp": "2026-02-16T08:43:05.344765Z",
+      "question_id": "graph-musique-6",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 85996,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1586",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T08:44:43.856053Z",
+      "question_id": "graph-musique-7",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 84752,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1156",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T08:46:04.347489Z",
+      "question_id": "graph-musique-8",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.8,
+      "latency_ms": 71247,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Rooster Cogburn",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T08:47:15.352178Z",
+      "question_id": "graph-musique-9",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.2857,
+      "latency_ms": 60758,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "John Wayne played Reuben J. \"Rooster\" Cogburn in True Grit.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T08:52:33.097337Z",
+      "question_id": "graph-musique-10",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.3333,
+      "latency_ms": 104486,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "John Wayne played Rooster Cogburn in True Grit.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T08:53:42.850244Z",
+      "question_id": "graph-musique-11",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.8,
+      "latency_ms": 61499,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Rooster Cogburn",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T08:55:02.869062Z",
+      "question_id": "graph-musique-12",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.5,
+      "latency_ms": 73251,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Mississippi River",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T08:56:18.115408Z",
+      "question_id": "graph-musique-13",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 65490,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Information not available in the knowledge graph.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T08:58:13.601594Z",
+      "question_id": "graph-musique-14",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 103750,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Information not available in the knowledge graph.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T08:59:38.344223Z",
+      "question_id": "graph-musique-15",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 73483,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Information not available in the knowledge graph.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T09:01:13.359212Z",
+      "question_id": "graph-musique-16",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 82734,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Information not available in the knowledge graph.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-16T09:14:44.593731Z",
+      "question_id": "quantitative-finqa-0",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 121517,
+      "error_type": "TIMEOUT",
+      "error_preview": "timed out",
+      "answer_preview": "",
+      "confidence": null,
+      "pipeline_details_summary": null
+    },
+    {
+      "timestamp": "2026-02-16T09:20:28.113777Z",
+      "question_id": "quantitative-finqa-0",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 117505,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the SQL query results, there is no data available to answer the question about Brazilian pa",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T09:21:26.119749Z",
+      "question_id": "quantitative-finqa-1",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 48242,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL query executed returned an error message indicating that the query must start with \"SELECT\".",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T09:23:47.846916Z",
+      "question_id": "quantitative-finqa-2",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 128008,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL query executed to calculate the percentage of Americans labor-related claims as part of tota",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T09:25:21.365268Z",
+      "question_id": "quantitative-finqa-3",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 75497,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL query executed to determine the growth rate in the price of shares purchased by employees fr",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T09:27:14.611172Z",
+      "question_id": "quantitative-finqa-4",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 98739,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL query executed to determine the reduction in shares outstanding due to the stock repurchase ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T09:37:33.365940Z",
+      "question_id": "quantitative-finqa-0",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 59494,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the SQL query results, there is no data available to calculate the percentage of Brazilian ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T09:45:41.854783Z",
+      "question_id": "quantitative-finqa-0",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 73736,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "0%",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T09:55:05.638406Z",
+      "question_id": "quantitative-finqa-0",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 178278,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL query failed due to a detected SQL injection attempt, resulting in no data being returned. T",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T10:03:02.144370Z",
+      "question_id": "quantitative-finqa-0",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 181271,
+      "error_type": "TIMEOUT",
+      "error_preview": "timed out",
+      "answer_preview": "",
+      "confidence": null,
+      "pipeline_details_summary": null
+    },
+    {
+      "timestamp": "2026-02-16T10:19:42.132765Z",
+      "question_id": "quantitative-finqa-0",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 34527,
+      "error_type": "TIMEOUT",
+      "error_preview": "Expecting value: line 1 column 1 (char 0)",
+      "answer_preview": "",
+      "confidence": null,
+      "pipeline_details_summary": null
+    },
+    {
+      "timestamp": "2026-02-16T10:25:54.858350Z",
+      "question_id": "quantitative-finqa-0",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 104523,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL results do not contain the specific data needed to calculate the percentage of Brazilian pap",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T10:29:30.619336Z",
+      "question_id": "quantitative-finqa-0",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 60010,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL results do not contain the specific data needed to calculate the percentage of Brazilian pap",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T10:30:05.891401Z",
+      "question_id": "quantitative-finqa-1",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 31260,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL query did not find the specific pension contribution data needed to calculate the ratio. The",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T10:30:36.887385Z",
+      "question_id": "quantitative-finqa-2",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 26006,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "15.7%",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T10:31:42.617883Z",
+      "question_id": "quantitative-finqa-3",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 49232,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL results do not contain the specific data needed to calculate the growth rate in the price of",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T10:34:00.640853Z",
+      "question_id": "quantitative-finqa-4",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 122486,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "27 million shares",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T10:39:45.131122Z",
+      "question_id": "quantitative-finqa-0",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 43516,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "7170",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T10:40:14.409056Z",
+      "question_id": "quantitative-finqa-1",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 26504,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The table does not contain any data about company contributions or US pension contributions for 2011",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T10:40:42.141098Z",
+      "question_id": "quantitative-finqa-2",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.5,
+      "latency_ms": 24258,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "19.7%",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T10:42:59.889919Z",
+      "question_id": "quantitative-finqa-3",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 128250,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The table does not provide the price of shares purchased by employees for 2006 and 2007. It only sho",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T10:44:32.887060Z",
+      "question_id": "quantitative-finqa-4",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 84250,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "27",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T10:45:49.400564Z",
+      "question_id": "quantitative-finqa-5",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 69249,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "11.24 - 10.79 = 0.45\n0.45 / 10.79 = 0.0417\n0.0417 * 100 = 4.17%\n\n4.17",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T10:46:45.414130Z",
+      "question_id": "quantitative-finqa-6",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 49499,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The table provided does not contain rental expense data for 2000-2002. It only shows data from 2003 ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T10:48:05.650245Z",
+      "question_id": "quantitative-finqa-7",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 65239,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "9.2%",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T10:48:13.673154Z",
+      "question_id": "quantitative-finqa-8",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 4481,
+      "error_type": "SERVER_ERROR",
+      "error_preview": "HTTP Error 503: Service Unavailable",
+      "answer_preview": "",
+      "confidence": null,
+      "pipeline_details_summary": null
+    },
+    {
+      "timestamp": "2026-02-16T10:49:01.916296Z",
+      "question_id": "quantitative-finqa-9",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 40498,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The ratio of loans with maturity in 2037 to loans with maturity in 2033 is 110000:65000, which simpl",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T11:00:01.165716Z",
+      "question_id": "quantitative-finqa-0",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 76994,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "48%",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T11:01:21.408659Z",
+      "question_id": "quantitative-finqa-1",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 69729,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The table provided does not contain information about company contributions or US pension contributi",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T11:02:41.893367Z",
+      "question_id": "quantitative-finqa-2",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 73013,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "15.7%",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T11:05:20.655717Z",
+      "question_id": "quantitative-finqa-3",
+      "rag_type": "quantitative",
+      "correct": true,
+      "f1": 0.8,
+      "latency_ms": 147515,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "-",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T11:05:57.409527Z",
+      "question_id": "quantitative-finqa-4",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 34002,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "27",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T11:13:54.666481Z",
+      "question_id": "quantitative-finqa-0",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 114775,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Unable to generate SQL query for this question. Error: [object Object]",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T11:16:11.655326Z",
+      "question_id": "quantitative-finqa-1",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 130749,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Unable to generate SQL query for this question. Error: [object Object]",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T11:16:52.406667Z",
+      "question_id": "quantitative-finqa-2",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 35486,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Unable to generate SQL query for this question. Error: [object Object]",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T11:17:34.152838Z",
+      "question_id": "quantitative-finqa-3",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 34502,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Unable to generate SQL query for this question. Error: [object Object]",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T11:18:27.910101Z",
+      "question_id": "quantitative-finqa-4",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 46723,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Unable to generate SQL query for this question. Error: [object Object]",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T11:30:45.921528Z",
+      "question_id": "quantitative-finqa-0",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 117743,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Unable to generate SQL query for this question. Error: [object Object]",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sql": null,
+        "sql_status": null,
+        "result_count": 0,
+        "null_agg": false
+      }
+    },
+    {
+      "timestamp": "2026-02-16T11:33:52.910148Z",
+      "question_id": "quantitative-finqa-1",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 180483,
+      "error_type": "TIMEOUT",
+      "error_preview": "timed out",
+      "answer_preview": "",
+      "confidence": null,
+      "pipeline_details_summary": null
+    },
+    {
+      "timestamp": "2026-02-16T11:34:11.344435Z",
+      "question_id": "quantitative-finqa-2",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 13175,
+      "error_type": "SERVER_ERROR",
+      "error_preview": "HTTP Error 503: Service Unavailable",
+      "answer_preview": "",
+      "confidence": null,
+      "pipeline_details_summary": null
+    },
+    {
+      "timestamp": "2026-02-16T11:37:43.622751Z",
+      "question_id": "quantitative-finqa-3",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 180781,
+      "error_type": "TIMEOUT",
+      "error_preview": "timed out",
+      "answer_preview": "",
+      "confidence": null,
+      "pipeline_details_summary": null
+    },
+    {
+      "timestamp": "2026-02-16T11:39:43.143224Z",
+      "question_id": "quantitative-finqa-4",
+      "rag_type": "quantitative",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 90350,
+      "error_type": "TIMEOUT",
+      "error_preview": "HTTP Error 408: Request Timeout",
+      "answer_preview": "",
+      "confidence": null,
+      "pipeline_details_summary": null
     }
   ],
   "history": [
@@ -30176,87 +32784,175 @@
       "event": "iterative_eval_complete",
       "total_tested": 868,
       "orchestrator": 80.0
+    },
+    {
+      "timestamp": "2026-02-16T08:15:43.051687Z",
+      "event": "eval_complete",
+      "total_tested": 873,
+      "standard": 20.0
+    },
+    {
+      "timestamp": "2026-02-16T08:29:04.117414Z",
+      "event": "eval_complete",
+      "total_tested": 874,
+      "graph": 100.0
+    },
+    {
+      "timestamp": "2026-02-16T08:37:31.101147Z",
+      "event": "eval_complete",
+      "total_tested": 878,
+      "graph": 75.0
+    },
+    {
+      "timestamp": "2026-02-16T08:47:55.373291Z",
+      "event": "eval_complete",
+      "total_tested": 883,
+      "graph": 20.0
+    },
+    {
+      "timestamp": "2026-02-16T09:02:06.355815Z",
+      "event": "eval_complete",
+      "total_tested": 890,
+      "graph": 28.6
+    },
+    {
+      "timestamp": "2026-02-16T09:15:29.359228Z",
+      "event": "eval_complete",
+      "total_tested": 891,
+      "quantitative": 0.0
+    },
+    {
+      "timestamp": "2026-02-16T09:28:03.609434Z",
+      "event": "eval_complete",
+      "total_tested": 896,
+      "quantitative": 0.0
+    },
+    {
+      "timestamp": "2026-02-16T09:38:13.346770Z",
+      "event": "eval_complete",
+      "total_tested": 897,
+      "quantitative": 0.0
+    },
+    {
+      "timestamp": "2026-02-16T09:46:24.358682Z",
+      "event": "eval_complete",
+      "total_tested": 898,
+      "quantitative": 0.0
+    },
+    {
+      "timestamp": "2026-02-16T09:55:50.393460Z",
+      "event": "eval_complete",
+      "total_tested": 899,
+      "quantitative": 0.0
+    },
+    {
+      "timestamp": "2026-02-16T10:04:00.625495Z",
+      "event": "eval_complete",
+      "total_tested": 900,
+      "quantitative": 0.0
+    },
+    {
+      "timestamp": "2026-02-16T10:20:31.871944Z",
+      "event": "eval_complete",
+      "total_tested": 901,
+      "quantitative": 0.0
+    },
+    {
+      "timestamp": "2026-02-16T10:26:38.634806Z",
+      "event": "eval_complete",
+      "total_tested": 902,
+      "quantitative": 100.0
+    },
+    {
+      "timestamp": "2026-02-16T10:34:46.896607Z",
+      "event": "eval_complete",
+      "total_tested": 907,
+      "quantitative": 40.0
+    },
+    {
+      "timestamp": "2026-02-16T10:49:52.424289Z",
+      "event": "eval_complete",
+      "total_tested": 917,
+      "quantitative": 20.0
+    },
+    {
+      "timestamp": "2026-02-16T11:06:49.406006Z",
+      "event": "eval_complete",
+      "total_tested": 922,
+      "quantitative": 40.0
+    },
+    {
+      "timestamp": "2026-02-16T11:19:16.649559Z",
+      "event": "eval_complete",
+      "total_tested": 927,
+      "quantitative": 0.0
+    },
+    {
+      "timestamp": "2026-02-16T11:41:10.143189Z",
+      "event": "eval_complete",
+      "total_tested": 932,
+      "quantitative": 0.0
     }
   ],
   "workflow_versions": {
     "standard": {
-      "version": 2,
-      "hash": "1272d0dbe69a06c9",
-      "timestamp": "2026-02-16T03:49:14.169978Z",
+      "version": 4,
+      "hash": "7adc29125ede373b",
+      "timestamp": "2026-02-16T11:56:16.988979Z",
       "name": "WF5 Standard RAG V3.4",
       "webhook": "/webhook/rag-multi-index-v3",
       "total_nodes": 24,
       "models_used": [],
-      "snapshot_file": "standard-2026-02-16T03-49-07-1272d0dbe69a06c9.json",
+      "snapshot_file": "standard-2026-02-16T11-56-12-7adc29125ede373b.json",
       "diff_from_previous": {
         "added_nodes": [],
         "removed_nodes": [],
         "modified_nodes": [
           {
-            "node": "Query Decomposer (V.3.4)",
-            "changes": [
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
-              }
-            ]
-          },
-          {
             "node": "LLM Generation",
             "changes": [
               {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
-              }
-            ]
-          },
-          {
-            "node": "HyDE Generator",
-            "changes": [
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+                "param": "jsonBody",
+                "old": "={\n  \"model\": \"nvidia/nemotron-3-nano-30b-a3b:free\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are an expert assistant. Answer the question CONCISELY in 1-2 sentences. Be dir",
+                "new": "={\n  \"model\": \"arcee-ai/trinity-large-preview:free\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are an expert assistant. Answer the question CONCISELY in 1-2 sentences. Be dir"
               }
             ]
           }
         ],
         "has_changes": true,
-        "summary": "+0 -0 ~3 nodes"
+        "summary": "+0 -0 ~1 nodes"
       }
     },
     "graph": {
-      "version": 2,
-      "hash": "fdd404d5c3735134",
-      "timestamp": "2026-02-16T03:49:16.427265Z",
+      "version": 3,
+      "hash": "ab2c4feeacc84cb6",
+      "timestamp": "2026-02-16T10:38:44.134072Z",
       "name": "WF2 Graph RAG V3.3",
       "webhook": "/webhook/ff622742-6d71-4e91-af71-b5c666088717",
       "total_nodes": 26,
       "models_used": [],
-      "snapshot_file": "graph-2026-02-16T03-49-07-fdd404d5c3735134.json",
+      "snapshot_file": "graph-2026-02-16T10-38-35-ab2c4feeacc84cb6.json",
       "diff_from_previous": {
         "added_nodes": [],
         "removed_nodes": [],
         "modified_nodes": [
           {
-            "node": "LLM Answer Synthesis",
-            "changes": [
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
-              }
-            ]
-          },
-          {
             "node": "WF3: HyDE & Entity Extraction",
             "changes": [
               {
                 "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+              }
+            ]
+          },
+          {
+            "node": "LLM Answer Synthesis",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
               }
             ]
           }
@@ -30266,109 +32962,59 @@
       }
     },
     "quantitative": {
-      "version": 5,
-      "hash": "09e9a012e3a7a6c0",
-      "timestamp": "2026-02-16T03:49:20.917638Z",
+      "version": 7,
+      "hash": "0aa6f3bd9bdb608f",
+      "timestamp": "2026-02-16T11:56:27.732716Z",
       "name": "WF4 Quantitative V2.0",
       "webhook": "/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9",
       "total_nodes": 26,
       "models_used": [],
-      "snapshot_file": "quantitative-2026-02-16T03-49-07-09e9a012e3a7a6c0.json",
+      "snapshot_file": "quantitative-2026-02-16T11-56-12-0aa6f3bd9bdb608f.json",
       "diff_from_previous": {
         "added_nodes": [],
         "removed_nodes": [],
         "modified_nodes": [
           {
-            "node": "Text-to-SQL Generator (CoT Enhanced)",
+            "node": "Prepare Interpretation Request",
             "changes": [
               {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
-              }
-            ]
-          },
-          {
-            "node": "Interpretation Layer (LLM Analyst)",
-            "changes": [
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
-              }
-            ]
-          },
-          {
-            "node": "SQL Repair LLM",
-            "changes": [
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+                "param": "jsCode",
+                "old": "// Prepare Interpretation Request v2 - Improved for Phase 2 financial QA\nconst aggregatorData = $node['Result Aggregator'].json;\n\n// Detect if this is a Phase 2 bypass (context_text/table_string from ",
+                "new": "// Prepare Interpretation Request v5 - Gemma 3 27b + clean text\nconst aggregatorData = $node['Result Aggregator'].json;\nconst isBypass = (aggregatorData.validation_status === 'BYPASSED');\n\nlet userCon"
               }
             ]
           }
         ],
         "has_changes": true,
-        "summary": "+0 -0 ~3 nodes"
+        "summary": "+0 -0 ~1 nodes"
       }
     },
     "orchestrator": {
-      "version": 2,
-      "hash": "05298c263b1d3833",
-      "timestamp": "2026-02-16T03:49:25.920252Z",
+      "version": 4,
+      "hash": "317d4a7291ebd021",
+      "timestamp": "2026-02-16T11:56:42.748277Z",
       "name": "V10.1 Orchestrator",
       "webhook": "/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0",
       "total_nodes": 68,
       "models_used": [],
-      "snapshot_file": "orchestrator-2026-02-16T03-49-07-05298c263b1d3833.json",
+      "snapshot_file": "orchestrator-2026-02-16T11-56-12-317d4a7291ebd021.json",
       "diff_from_previous": {
         "added_nodes": [],
         "removed_nodes": [],
         "modified_nodes": [
           {
-            "node": "🧠 LLM 1: Intent Analyzer",
-            "changes": [
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
-              }
-            ]
-          },
-          {
-            "node": "HTTP Request",
-            "changes": [
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
-              }
-            ]
-          },
-          {
             "node": "🎯 LLM 2: Task Planner",
             "changes": [
               {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
-              }
-            ]
-          },
-          {
-            "node": "🎯 LLM 3: Agent Harness (Opus 4.5)",
-            "changes": [
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+                "param": "jsonBody",
+                "old": "={\n  \"model\": \"nvidia/nemotron-3-nano-30b-a3b:free\",\n  \"temperature\": 0.2,\n  \"max_tokens\": 500,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": {{ JSON.stringify(`You are the TASK PLANNER",
+                "new": "={\n  \"model\": \"arcee-ai/trinity-large-preview:free\",\n  \"temperature\": 0.2,\n  \"max_tokens\": 500,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": {{ JSON.stringify(`You are the TASK PLANNER"
               }
             ]
           }
         ],
         "has_changes": true,
-        "summary": "+0 -0 ~4 nodes"
+        "summary": "+0 -0 ~1 nodes"
       }
     }
   },
@@ -30460,6 +33106,62 @@
       "hash": "05298c263b1d3833",
       "diff_summary": "+0 -0 ~4 nodes",
       "snapshot_file": "orchestrator-2026-02-16T03-49-07-05298c263b1d3833.json"
+    },
+    {
+      "timestamp": "2026-02-16T10:38:38.888830Z",
+      "pipeline": "standard",
+      "version": 3,
+      "hash": "5c8db06afe8afba0",
+      "diff_summary": "+0 -0 ~3 nodes",
+      "snapshot_file": "standard-2026-02-16T10-38-35-5c8db06afe8afba0.json"
+    },
+    {
+      "timestamp": "2026-02-16T10:38:44.134100Z",
+      "pipeline": "graph",
+      "version": 3,
+      "hash": "ab2c4feeacc84cb6",
+      "diff_summary": "+0 -0 ~2 nodes",
+      "snapshot_file": "graph-2026-02-16T10-38-35-ab2c4feeacc84cb6.json"
+    },
+    {
+      "timestamp": "2026-02-16T10:38:48.129528Z",
+      "pipeline": "quantitative",
+      "version": 6,
+      "hash": "c93d4537f6a5d59f",
+      "diff_summary": "+0 -0 ~7 nodes",
+      "snapshot_file": "quantitative-2026-02-16T10-38-35-c93d4537f6a5d59f.json"
+    },
+    {
+      "timestamp": "2026-02-16T10:38:54.893490Z",
+      "pipeline": "orchestrator",
+      "version": 3,
+      "hash": "a5d16c8597712342",
+      "diff_summary": "+0 -0 ~4 nodes",
+      "snapshot_file": "orchestrator-2026-02-16T10-38-35-a5d16c8597712342.json"
+    },
+    {
+      "timestamp": "2026-02-16T11:56:16.989014Z",
+      "pipeline": "standard",
+      "version": 4,
+      "hash": "7adc29125ede373b",
+      "diff_summary": "+0 -0 ~1 nodes",
+      "snapshot_file": "standard-2026-02-16T11-56-12-7adc29125ede373b.json"
+    },
+    {
+      "timestamp": "2026-02-16T11:56:27.732742Z",
+      "pipeline": "quantitative",
+      "version": 7,
+      "hash": "0aa6f3bd9bdb608f",
+      "diff_summary": "+0 -0 ~1 nodes",
+      "snapshot_file": "quantitative-2026-02-16T11-56-12-0aa6f3bd9bdb608f.json"
+    },
+    {
+      "timestamp": "2026-02-16T11:56:42.748313Z",
+      "pipeline": "orchestrator",
+      "version": 4,
+      "hash": "317d4a7291ebd021",
+      "diff_summary": "+0 -0 ~1 nodes",
+      "snapshot_file": "orchestrator-2026-02-16T11-56-12-317d4a7291ebd021.json"
     }
   ],
   "workflow_changes": [
@@ -30599,6 +33301,97 @@
       "change_type": "workflow-sync",
       "files_changed": [
         "orchestrator-2026-02-16T03-49-07-05298c263b1d3833.json"
+      ],
+      "affected_pipelines": [
+        "orchestrator"
+      ],
+      "before_metrics": null,
+      "after_metrics": null
+    },
+    {
+      "timestamp": "2026-02-16T10:38:39.643913Z",
+      "description": "standard workflow updated (v3, hash 5c8db06afe8afba0) — +0 -0 ~3 nodes",
+      "change_type": "workflow-sync",
+      "files_changed": [
+        "standard-2026-02-16T10-38-35-5c8db06afe8afba0.json"
+      ],
+      "affected_pipelines": [
+        "standard"
+      ],
+      "before_metrics": null,
+      "after_metrics": null
+    },
+    {
+      "timestamp": "2026-02-16T10:38:44.387739Z",
+      "description": "graph workflow updated (v3, hash ab2c4feeacc84cb6) — +0 -0 ~2 nodes",
+      "change_type": "workflow-sync",
+      "files_changed": [
+        "graph-2026-02-16T10-38-35-ab2c4feeacc84cb6.json"
+      ],
+      "affected_pipelines": [
+        "graph"
+      ],
+      "before_metrics": null,
+      "after_metrics": null
+    },
+    {
+      "timestamp": "2026-02-16T10:38:48.627626Z",
+      "description": "quantitative workflow updated (v6, hash c93d4537f6a5d59f) — +0 -0 ~7 nodes",
+      "change_type": "workflow-sync",
+      "files_changed": [
+        "quantitative-2026-02-16T10-38-35-c93d4537f6a5d59f.json"
+      ],
+      "affected_pipelines": [
+        "quantitative"
+      ],
+      "before_metrics": null,
+      "after_metrics": null
+    },
+    {
+      "timestamp": "2026-02-16T10:38:55.892832Z",
+      "description": "orchestrator workflow updated (v3, hash a5d16c8597712342) — +0 -0 ~4 nodes",
+      "change_type": "workflow-sync",
+      "files_changed": [
+        "orchestrator-2026-02-16T10-38-35-a5d16c8597712342.json"
+      ],
+      "affected_pipelines": [
+        "orchestrator"
+      ],
+      "before_metrics": null,
+      "after_metrics": null
+    },
+    {
+      "timestamp": "2026-02-16T11:56:17.245520Z",
+      "description": "standard workflow updated (v4, hash 7adc29125ede373b) — +0 -0 ~1 nodes",
+      "change_type": "workflow-sync",
+      "files_changed": [
+        "standard-2026-02-16T11-56-12-7adc29125ede373b.json"
+      ],
+      "affected_pipelines": [
+        "standard"
+      ],
+      "before_metrics": null,
+      "after_metrics": null
+    },
+    {
+      "timestamp": "2026-02-16T11:56:28.232252Z",
+      "description": "quantitative workflow updated (v7, hash 0aa6f3bd9bdb608f) — +0 -0 ~1 nodes",
+      "change_type": "workflow-sync",
+      "files_changed": [
+        "quantitative-2026-02-16T11-56-12-0aa6f3bd9bdb608f.json"
+      ],
+      "affected_pipelines": [
+        "quantitative"
+      ],
+      "before_metrics": null,
+      "after_metrics": null
+    },
+    {
+      "timestamp": "2026-02-16T11:56:45.477447Z",
+      "description": "orchestrator workflow updated (v4, hash 317d4a7291ebd021) — +0 -0 ~1 nodes",
+      "change_type": "workflow-sync",
+      "files_changed": [
+        "orchestrator-2026-02-16T11-56-12-317d4a7291ebd021.json"
       ],
       "affected_pipelines": [
         "orchestrator"

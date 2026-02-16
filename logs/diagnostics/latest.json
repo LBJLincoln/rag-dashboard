@@ -1,45 +1,943 @@
 {
   "standard": {
-    "timestamp": "2026-02-14T05:33:17.192001Z",
+    "timestamp": "2026-02-16T08:18:06.294114Z",
     "pipeline": "standard",
     "stage": "manual-analysis",
     "label": "",
-    "questions_tested": 1,
-    "executions_analyzed": 0,
-    "success_rate_pct": 0.0,
-    "total_issues": 0,
+    "questions_tested": 3,
+    "executions_analyzed": 3,
+    "success_rate_pct": 100.0,
+    "total_issues": 40,
     "issues_by_severity": {
-      "critical": 0,
-      "high": 0,
-      "medium": 0,
-      "low": 0
+      "critical": 9,
+      "high": 10,
+      "medium": 2,
+      "low": 19
     },
-    "execution_timeline": {},
+    "execution_timeline": {
+      "avg_total_ms": 82910,
+      "min_total_ms": 75733,
+      "max_total_ms": 94498,
+      "avg_time_by_category": {
+        "http": 420,
+        "transform": 1503,
+        "routing": 1515,
+        "llm": 41071,
+        "retrieval": 29984,
+        "other": 835
+      },
+      "avg_time_by_category_pct": {
+        "http": 0.5,
+        "transform": 1.8,
+        "routing": 1.8,
+        "llm": 49.5,
+        "retrieval": 36.2,
+        "other": 1.0
+      },
+      "critical_path_nodes": [
+        [
+          "LLM Generation",
+          3
+        ],
+        [
+          "HTTP Pinecone Query Original",
+          3
+        ],
+        [
+          "HTTP Pinecone Query HyDE",
+          3
+        ],
+        [
+          "Cohere Reranker",
+          3
+        ],
+        [
+          "Original Embedding",
+          3
+        ]
+      ],
+      "slowest_nodes": [
+        {
+          "node": "LLM Generation",
+          "avg_ms": 15081,
+          "max_ms": 26976,
+          "samples": 3
+        },
+        {
+          "node": "HTTP Pinecone Query Original",
+          "avg_ms": 10078,
+          "max_ms": 13748,
+          "samples": 3
+        },
+        {
+          "node": "Original Embedding",
+          "avg_ms": 8659,
+          "max_ms": 9234,
+          "samples": 3
+        },
+        {
+          "node": "HTTP Pinecone Query HyDE",
+          "avg_ms": 8504,
+          "max_ms": 9256,
+          "samples": 3
+        },
+        {
+          "node": "Cohere Reranker",
+          "avg_ms": 8240,
+          "max_ms": 8982,
+          "samples": 3
+        },
+        {
+          "node": "HyDE Embedding",
+          "avg_ms": 7900,
+          "max_ms": 8988,
+          "samples": 3
+        },
+        {
+          "node": "Query Decomposer (V.3.4)",
+          "avg_ms": 7175,
+          "max_ms": 10523,
+          "samples": 3
+        },
+        {
+          "node": "HyDE Generator",
+          "avg_ms": 2327,
+          "max_ms": 3498,
+          "samples": 3
+        },
+        {
+          "node": "Init & ACL Pre-Filter V3.4",
+          "avg_ms": 1503,
+          "max_ms": 3750,
+          "samples": 3
+        },
+        {
+          "node": "RRF Merge & Rank V3.4",
+          "avg_ms": 1419,
+          "max_ms": 2752,
+          "samples": 3
+        }
+      ],
+      "executions_analyzed": 3
+    },
     "error_chain_analysis": {
       "total_with_errors": 0,
       "root_causes": [],
       "cascade_patterns": []
     },
-    "data_flow_analysis": {},
+    "data_flow_analysis": {
+      "avg_items_created": 19.0,
+      "avg_items_lost": 0.0,
+      "consistent_bottlenecks": [],
+      "executions_analyzed": 3
+    },
     "success_vs_failure": {
-      "total_success": 0,
+      "total_success": 3,
       "total_failed": 0,
-      "success_rate_pct": 0.0,
+      "success_rate_pct": 100.0,
       "differentiators": [],
       "note": "Need both successful and failed executions to compare"
     },
-    "node_analysis": {},
-    "cross_execution_patterns": {
-      "node_health": {},
-      "latency_bottlenecks": [],
-      "verbosity_report": {},
-      "routing_summary": {}
+    "node_analysis": {
+      "Webhook": {
+        "name": "Webhook",
+        "executions": 3,
+        "errors": 0,
+        "avg_duration_ms": 74,
+        "total_duration_ms": 222,
+        "is_llm": false,
+        "is_retrieval": false,
+        "is_routing": false,
+        "issues": [],
+        "llm_avg_output_chars": 0,
+        "llm_avg_tokens": 0
+      },
+      "Init & ACL Pre-Filter V3.4": {
+        "name": "Init & ACL Pre-Filter V3.4",
+        "executions": 3,
+        "errors": 0,
+        "avg_duration_ms": 1503,
+        "total_duration_ms": 4511,
+        "is_llm": false,
+        "is_retrieval": false,
+        "is_routing": false,
+        "issues": [],
+        "llm_avg_output_chars": 0,
+        "llm_avg_tokens": 0
+      },
+      "Needs Decomposition?": {
+        "name": "Needs Decomposition?",
+        "executions": 3,
+        "errors": 0,
+        "avg_duration_ms": 4,
+        "total_duration_ms": 14,
+        "is_llm": false,
+        "is_retrieval": false,
+        "is_routing": true,
+        "issues": [],
+        "llm_avg_output_chars": 0,
+        "llm_avg_tokens": 0
+      },
+      "Query Decomposer (V.3.4)": {
+        "name": "Query Decomposer (V.3.4)",
+        "executions": 3,
+        "errors": 0,
+        "avg_duration_ms": 7175,
+        "total_duration_ms": 21527,
+        "is_llm": true,
+        "is_retrieval": true,
+        "is_routing": false,
+        "issues": [
+          {
+            "type": "VERBOSE_LLM",
+            "severity": "medium",
+            "node": "Query Decomposer (V.3.4)",
+            "detail": "LLM output is 645 chars — may be overly detailed for an intermediate step",
+            "metric": {
+              "output_chars": 645
+            },
+            "suggestion": "Consider adding max_tokens constraint or simplifying the prompt."
+          },
+          {
+            "type": "SLOW_NODE",
+            "severity": "low",
+            "node": "Query Decomposer (V.3.4)",
+            "detail": "Node took 6021ms (>5000ms threshold)",
+            "metric": {
+              "duration_ms": 6021
+            },
+            "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+          }
+        ],
+        "llm_avg_output_chars": 596,
+        "llm_avg_tokens": 76
+      },
+      "Query Merger V3.4": {
+        "name": "Query Merger V3.4",
+        "executions": 3,
+        "errors": 0,
+        "avg_duration_ms": 914,
+        "total_duration_ms": 2744,
+        "is_llm": false,
+        "is_retrieval": true,
+        "is_routing": true,
+        "issues": [],
+        "llm_avg_output_chars": 0,
+        "llm_avg_tokens": 0
+      },
+      "HyDE Generator": {
+        "name": "HyDE Generator",
+        "executions": 3,
+        "errors": 0,
+        "avg_duration_ms": 2327,
+        "total_duration_ms": 6981,
+        "is_llm": true,
+        "is_retrieval": false,
+        "is_routing": false,
+        "issues": [],
+        "llm_avg_output_chars": 183,
+        "llm_avg_tokens": 48
+      },
+      "HyDE Embedding": {
+        "name": "HyDE Embedding",
+        "executions": 3,
+        "errors": 0,
+        "avg_duration_ms": 7900,
+        "total_duration_ms": 23701,
+        "is_llm": true,
+        "is_retrieval": true,
+        "is_routing": false,
+        "issues": [
+          {
+            "type": "SLOW_NODE",
+            "severity": "low",
+            "node": "HyDE Embedding",
+            "detail": "Node took 7232ms (>5000ms threshold)",
+            "metric": {
+              "duration_ms": 7232
+            },
+            "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+          }
+        ],
+        "llm_avg_output_chars": 0,
+        "llm_avg_tokens": 0
+      },
+      "HTTP Pinecone Query HyDE": {
+        "name": "HTTP Pinecone Query HyDE",
+        "executions": 3,
+        "errors": 0,
+        "avg_duration_ms": 8504,
+        "total_duration_ms": 25512,
+        "is_llm": true,
+        "is_retrieval": true,
+        "is_routing": false,
+        "issues": [
+          {
+            "type": "SLOW_NODE",
+            "severity": "low",
+            "node": "HTTP Pinecone Query HyDE",
+            "detail": "Node took 7978ms (>5000ms threshold)",
+            "metric": {
+              "duration_ms": 7978
+            },
+            "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+          }
+        ],
+        "llm_avg_output_chars": 0,
+        "llm_avg_tokens": 0
+      },
+      "BM25 Search Postgres": {
+        "name": "BM25 Search Postgres",
+        "executions": 3,
+        "errors": 0,
+        "avg_duration_ms": 1327,
+        "total_duration_ms": 3983,
+        "is_llm": false,
+        "is_retrieval": true,
+        "is_routing": false,
+        "issues": [],
+        "llm_avg_output_chars": 0,
+        "llm_avg_tokens": 0
+      },
+      "Wait All Branches": {
+        "name": "Wait All Branches",
+        "executions": 6,
+        "errors": 0,
+        "avg_duration_ms": 45,
+        "total_duration_ms": 274,
+        "is_llm": false,
+        "is_retrieval": false,
+        "is_routing": true,
+        "issues": [],
+        "llm_avg_output_chars": 0,
+        "llm_avg_tokens": 0
+      },
+      "RRF Merge & Rank V3.4": {
+        "name": "RRF Merge & Rank V3.4",
+        "executions": 3,
+        "errors": 0,
+        "avg_duration_ms": 1419,
+        "total_duration_ms": 4257,
+        "is_llm": false,
+        "is_retrieval": false,
+        "is_routing": true,
+        "issues": [
+          {
+            "type": "ZERO_RETRIEVAL",
+            "severity": "critical",
+            "node": "RRF Merge & Rank V3.4",
+            "detail": "0 documents retrieved. Warnings: ['HyDE: 0 results', 'Original: 0 results', 'BM25 error: Postgres error']",
+            "suggestion": "Check embedding generation, vector index, and query formation."
+          },
+          {
+            "type": "EMPTY_CRITICAL_FIELDS",
+            "severity": "high",
+            "node": "RRF Merge & Rank V3.4",
+            "detail": "Critical output fields mostly empty: ['results']",
+            "suggestion": "Check node logic — key fields are not being populated."
+          }
+        ],
+        "llm_avg_output_chars": 0,
+        "llm_avg_tokens": 0
+      },
+      "Cohere Reranker": {
+        "name": "Cohere Reranker",
+        "executions": 3,
+        "errors": 0,
+        "avg_duration_ms": 8240,
+        "total_duration_ms": 24721,
+        "is_llm": false,
+        "is_retrieval": true,
+        "is_routing": false,
+        "issues": [
+          {
+            "type": "SLOW_NODE",
+            "severity": "low",
+            "node": "Cohere Reranker",
+            "detail": "Node took 7748ms (>5000ms threshold)",
+            "metric": {
+              "duration_ms": 7748
+            },
+            "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+          }
+        ],
+        "llm_avg_output_chars": 0,
+        "llm_avg_tokens": 0
+      },
+      "Rerank Merger": {
+        "name": "Rerank Merger",
+        "executions": 3,
+        "errors": 0,
+        "avg_duration_ms": 764,
+        "total_duration_ms": 2292,
+        "is_llm": false,
+        "is_retrieval": true,
+        "is_routing": true,
+        "issues": [
+          {
+            "type": "ZERO_RETRIEVAL",
+            "severity": "critical",
+            "node": "Rerank Merger",
+            "detail": "0 documents retrieved. Warnings: ['HyDE: 0 results', 'Original: 0 results', 'BM25 error: Postgres error']",
+            "suggestion": "Check embedding generation, vector index, and query formation."
+          },
+          {
+            "type": "EMPTY_CRITICAL_FIELDS",
+            "severity": "high",
+            "node": "Rerank Merger",
+            "detail": "Critical output fields mostly empty: ['results']",
+            "suggestion": "Check node logic — key fields are not being populated."
+          }
+        ],
+        "llm_avg_output_chars": 0,
+        "llm_avg_tokens": 0
+      },
+      "Skip LLM?": {
+        "name": "Skip LLM?",
+        "executions": 3,
+        "errors": 0,
+        "avg_duration_ms": 83,
+        "total_duration_ms": 250,
+        "is_llm": true,
+        "is_retrieval": false,
+        "is_routing": false,
+        "issues": [
+          {
+            "type": "ZERO_RETRIEVAL",
+            "severity": "critical",
+            "node": "Skip LLM?",
+            "detail": "0 documents retrieved. Warnings: ['HyDE: 0 results', 'Original: 0 results', 'BM25 error: Postgres error']",
+            "suggestion": "Check embedding generation, vector index, and query formation."
+          },
+          {
+            "type": "EMPTY_CRITICAL_FIELDS",
+            "severity": "high",
+            "node": "Skip LLM?",
+            "detail": "Critical output fields mostly empty: ['results']",
+            "suggestion": "Check node logic — key fields are not being populated."
+          }
+        ],
+        "llm_avg_output_chars": 0,
+        "llm_avg_tokens": 0
+      },
+      "LLM Generation": {
+        "name": "LLM Generation",
+        "executions": 3,
+        "errors": 0,
+        "avg_duration_ms": 15081,
+        "total_duration_ms": 45244,
+        "is_llm": true,
+        "is_retrieval": false,
+        "is_routing": false,
+        "issues": [
+          {
+            "type": "VERY_SLOW_NODE",
+            "severity": "high",
+            "node": "LLM Generation",
+            "detail": "Node took 26976ms (>15000ms threshold)",
+            "metric": {
+              "duration_ms": 26976
+            },
+            "suggestion": "Check if this node is making external API calls that could be cached or parallelized."
+          },
+          {
+            "type": "SLOW_NODE",
+            "severity": "low",
+            "node": "LLM Generation",
+            "detail": "Node took 11761ms (>5000ms threshold)",
+            "metric": {
+              "duration_ms": 11761
+            },
+            "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+          }
+        ],
+        "llm_avg_output_chars": 0,
+        "llm_avg_tokens": 300
+      },
+      "Response Formatter": {
+        "name": "Response Formatter",
+        "executions": 3,
+        "errors": 0,
+        "avg_duration_ms": 835,
+        "total_duration_ms": 2505,
+        "is_llm": false,
+        "is_retrieval": false,
+        "is_routing": false,
+        "issues": [],
+        "llm_avg_output_chars": 0,
+        "llm_avg_tokens": 0
+      },
+      "Respond to Webhook": {
+        "name": "Respond to Webhook",
+        "executions": 3,
+        "errors": 0,
+        "avg_duration_ms": 346,
+        "total_duration_ms": 1038,
+        "is_llm": false,
+        "is_retrieval": false,
+        "is_routing": false,
+        "issues": [],
+        "llm_avg_output_chars": 0,
+        "llm_avg_tokens": 0
+      },
+      "Original Embedding": {
+        "name": "Original Embedding",
+        "executions": 3,
+        "errors": 0,
+        "avg_duration_ms": 8659,
+        "total_duration_ms": 25978,
+        "is_llm": false,
+        "is_retrieval": true,
+        "is_routing": false,
+        "issues": [
+          {
+            "type": "SLOW_NODE",
+            "severity": "low",
+            "node": "Original Embedding",
+            "detail": "Node took 7516ms (>5000ms threshold)",
+            "metric": {
+              "duration_ms": 7516
+            },
+            "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+          }
+        ],
+        "llm_avg_output_chars": 0,
+        "llm_avg_tokens": 0
+      },
+      "HTTP Pinecone Query Original": {
+        "name": "HTTP Pinecone Query Original",
+        "executions": 3,
+        "errors": 0,
+        "avg_duration_ms": 10078,
+        "total_duration_ms": 30235,
+        "is_llm": false,
+        "is_retrieval": true,
+        "is_routing": false,
+        "issues": [
+          {
+            "type": "SLOW_NODE",
+            "severity": "low",
+            "node": "HTTP Pinecone Query Original",
+            "detail": "Node took 8010ms (>5000ms threshold)",
+            "metric": {
+              "duration_ms": 8010
+            },
+            "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+          }
+        ],
+        "llm_avg_output_chars": 0,
+        "llm_avg_tokens": 0
+      }
     },
-    "top_issues": [],
-    "recommendations": [],
-    "execution_ids": []
+    "cross_execution_patterns": {
+      "node_health": {
+        "Webhook": {
+          "total_runs": 3,
+          "errors": 0,
+          "error_rate_pct": 0.0,
+          "health": "healthy"
+        },
+        "Init & ACL Pre-Filter V3.4": {
+          "total_runs": 3,
+          "errors": 0,
+          "error_rate_pct": 0.0,
+          "health": "healthy"
+        },
+        "Needs Decomposition?": {
+          "total_runs": 3,
+          "errors": 0,
+          "error_rate_pct": 0.0,
+          "health": "healthy"
+        },
+        "Query Decomposer (V.3.4)": {
+          "total_runs": 3,
+          "errors": 0,
+          "error_rate_pct": 0.0,
+          "health": "healthy"
+        },
+        "Query Merger V3.4": {
+          "total_runs": 3,
+          "errors": 0,
+          "error_rate_pct": 0.0,
+          "health": "healthy"
+        },
+        "HyDE Generator": {
+          "total_runs": 3,
+          "errors": 0,
+          "error_rate_pct": 0.0,
+          "health": "healthy"
+        },
+        "HyDE Embedding": {
+          "total_runs": 3,
+          "errors": 0,
+          "error_rate_pct": 0.0,
+          "health": "healthy"
+        },
+        "HTTP Pinecone Query HyDE": {
+          "total_runs": 3,
+          "errors": 0,
+          "error_rate_pct": 0.0,
+          "health": "healthy"
+        },
+        "BM25 Search Postgres": {
+          "total_runs": 3,
+          "errors": 0,
+          "error_rate_pct": 0.0,
+          "health": "healthy"
+        },
+        "Wait All Branches": {
+          "total_runs": 6,
+          "errors": 0,
+          "error_rate_pct": 0.0,
+          "health": "healthy"
+        },
+        "RRF Merge & Rank V3.4": {
+          "total_runs": 3,
+          "errors": 0,
+          "error_rate_pct": 0.0,
+          "health": "healthy"
+        },
+        "Cohere Reranker": {
+          "total_runs": 3,
+          "errors": 0,
+          "error_rate_pct": 0.0,
+          "health": "healthy"
+        },
+        "Rerank Merger": {
+          "total_runs": 3,
+          "errors": 0,
+          "error_rate_pct": 0.0,
+          "health": "healthy"
+        },
+        "Skip LLM?": {
+          "total_runs": 3,
+          "errors": 0,
+          "error_rate_pct": 0.0,
+          "health": "healthy"
+        },
+        "LLM Generation": {
+          "total_runs": 3,
+          "errors": 0,
+          "error_rate_pct": 0.0,
+          "health": "healthy"
+        },
+        "Response Formatter": {
+          "total_runs": 3,
+          "errors": 0,
+          "error_rate_pct": 0.0,
+          "health": "healthy"
+        },
+        "Respond to Webhook": {
+          "total_runs": 3,
+          "errors": 0,
+          "error_rate_pct": 0.0,
+          "health": "healthy"
+        },
+        "Original Embedding": {
+          "total_runs": 3,
+          "errors": 0,
+          "error_rate_pct": 0.0,
+          "health": "healthy"
+        },
+        "HTTP Pinecone Query Original": {
+          "total_runs": 3,
+          "errors": 0,
+          "error_rate_pct": 0.0,
+          "health": "healthy"
+        }
+      },
+      "latency_bottlenecks": [
+        {
+          "node": "LLM Generation",
+          "avg_ms": 15081,
+          "p95_ms": 26976,
+          "max_ms": 26976,
+          "samples": 3
+        },
+        {
+          "node": "HTTP Pinecone Query Original",
+          "avg_ms": 10078,
+          "p95_ms": 13748,
+          "max_ms": 13748,
+          "samples": 3
+        },
+        {
+          "node": "Original Embedding",
+          "avg_ms": 8659,
+          "p95_ms": 9234,
+          "max_ms": 9234,
+          "samples": 3
+        },
+        {
+          "node": "HTTP Pinecone Query HyDE",
+          "avg_ms": 8504,
+          "p95_ms": 9256,
+          "max_ms": 9256,
+          "samples": 3
+        },
+        {
+          "node": "Cohere Reranker",
+          "avg_ms": 8240,
+          "p95_ms": 8982,
+          "max_ms": 8982,
+          "samples": 3
+        },
+        {
+          "node": "HyDE Embedding",
+          "avg_ms": 7900,
+          "p95_ms": 8988,
+          "max_ms": 8988,
+          "samples": 3
+        },
+        {
+          "node": "Query Decomposer (V.3.4)",
+          "avg_ms": 7175,
+          "p95_ms": 10523,
+          "max_ms": 10523,
+          "samples": 3
+        }
+      ],
+      "verbosity_report": {
+        "Query Decomposer (V.3.4)": {
+          "avg_chars": 596,
+          "max_chars": 866,
+          "min_chars": 278,
+          "samples": 3,
+          "verdict": "warning"
+        },
+        "HyDE Generator": {
+          "avg_chars": 183,
+          "max_chars": 228,
+          "min_chars": 117,
+          "samples": 3,
+          "verdict": "ok"
+        },
+        "LLM Generation": {
+          "avg_chars": 0,
+          "max_chars": 0,
+          "min_chars": 0,
+          "samples": 3,
+          "verdict": "ok"
+        }
+      },
+      "routing_summary": {
+        "Init & ACL Pre-Filter V3.4": {
+          "needs_decomposition=False": 3
+        },
+        "Needs Decomposition?": {
+          "needs_decomposition=False": 3
+        },
+        "Query Merger V3.4": {
+          "is_decomposed=False": 3
+        },
+        "RRF Merge & Rank V3.4": {
+          "skip_reranker=True": 3
+        },
+        "Rerank Merger": {
+          "skip_llm=False": 3,
+          "has_fallback_response=True": 3
+        },
+        "Skip LLM?": {
+          "skip_llm=False": 3,
+          "has_fallback_response=True": 3
+        }
+      }
+    },
+    "top_issues": [
+      {
+        "type": "ZERO_RETRIEVAL",
+        "severity": "critical",
+        "node": "RRF Merge & Rank V3.4",
+        "detail": "0 documents retrieved. Warnings: ['HyDE: 0 results', 'Original: 0 results', 'BM25 error: Postgres error']",
+        "suggestion": "Check embedding generation, vector index, and query formation."
+      },
+      {
+        "type": "ZERO_RETRIEVAL",
+        "severity": "critical",
+        "node": "Rerank Merger",
+        "detail": "0 documents retrieved. Warnings: ['HyDE: 0 results', 'Original: 0 results', 'BM25 error: Postgres error']",
+        "suggestion": "Check embedding generation, vector index, and query formation."
+      },
+      {
+        "type": "ZERO_RETRIEVAL",
+        "severity": "critical",
+        "node": "Skip LLM?",
+        "detail": "0 documents retrieved. Warnings: ['HyDE: 0 results', 'Original: 0 results', 'BM25 error: Postgres error']",
+        "suggestion": "Check embedding generation, vector index, and query formation."
+      },
+      {
+        "type": "EMPTY_CRITICAL_FIELDS",
+        "severity": "high",
+        "node": "RRF Merge & Rank V3.4",
+        "detail": "Critical output fields mostly empty: ['results']",
+        "suggestion": "Check node logic — key fields are not being populated."
+      },
+      {
+        "type": "EMPTY_CRITICAL_FIELDS",
+        "severity": "high",
+        "node": "Rerank Merger",
+        "detail": "Critical output fields mostly empty: ['results']",
+        "suggestion": "Check node logic — key fields are not being populated."
+      },
+      {
+        "type": "EMPTY_CRITICAL_FIELDS",
+        "severity": "high",
+        "node": "Skip LLM?",
+        "detail": "Critical output fields mostly empty: ['results']",
+        "suggestion": "Check node logic — key fields are not being populated."
+      },
+      {
+        "type": "VERY_SLOW_NODE",
+        "severity": "high",
+        "node": "LLM Generation",
+        "detail": "Node took 26976ms (>15000ms threshold)",
+        "metric": {
+          "duration_ms": 26976
+        },
+        "suggestion": "Check if this node is making external API calls that could be cached or parallelized."
+      },
+      {
+        "type": "VERBOSE_LLM",
+        "severity": "medium",
+        "node": "Query Decomposer (V.3.4)",
+        "detail": "LLM output is 645 chars — may be overly detailed for an intermediate step",
+        "metric": {
+          "output_chars": 645
+        },
+        "suggestion": "Consider adding max_tokens constraint or simplifying the prompt."
+      },
+      {
+        "type": "SLOW_NODE",
+        "severity": "low",
+        "node": "HyDE Embedding",
+        "detail": "Node took 7232ms (>5000ms threshold)",
+        "metric": {
+          "duration_ms": 7232
+        },
+        "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+      },
+      {
+        "type": "SLOW_NODE",
+        "severity": "low",
+        "node": "HTTP Pinecone Query HyDE",
+        "detail": "Node took 7978ms (>5000ms threshold)",
+        "metric": {
+          "duration_ms": 7978
+        },
+        "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+      },
+      {
+        "type": "SLOW_NODE",
+        "severity": "low",
+        "node": "Cohere Reranker",
+        "detail": "Node took 7748ms (>5000ms threshold)",
+        "metric": {
+          "duration_ms": 7748
+        },
+        "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+      },
+      {
+        "type": "SLOW_NODE",
+        "severity": "low",
+        "node": "Original Embedding",
+        "detail": "Node took 7516ms (>5000ms threshold)",
+        "metric": {
+          "duration_ms": 7516
+        },
+        "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+      },
+      {
+        "type": "SLOW_NODE",
+        "severity": "low",
+        "node": "HTTP Pinecone Query Original",
+        "detail": "Node took 8010ms (>5000ms threshold)",
+        "metric": {
+          "duration_ms": 8010
+        },
+        "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+      },
+      {
+        "type": "SLOW_NODE",
+        "severity": "low",
+        "node": "Query Decomposer (V.3.4)",
+        "detail": "Node took 6021ms (>5000ms threshold)",
+        "metric": {
+          "duration_ms": 6021
+        },
+        "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+      },
+      {
+        "type": "SLOW_NODE",
+        "severity": "low",
+        "node": "LLM Generation",
+        "detail": "Node took 11761ms (>5000ms threshold)",
+        "metric": {
+          "duration_ms": 11761
+        },
+        "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+      }
+    ],
+    "recommendations": [
+      {
+        "priority": "CRITICAL",
+        "type": "ZERO_RETRIEVAL",
+        "affected_nodes": [
+          "RRF Merge & Rank V3.4",
+          "Rerank Merger",
+          "Skip LLM?"
+        ],
+        "description": "0 documents retrieved. Warnings: ['HyDE: 0 results', 'Original: 0 results', 'BM25 error: Postgres error']",
+        "action": "Check embedding generation, vector index, and query formation.",
+        "occurrences": 9
+      },
+      {
+        "priority": "HIGH",
+        "type": "TIME_BOTTLENECK",
+        "affected_nodes": [
+          "LLM Generation"
+        ],
+        "description": "'LLM Generation' takes 15081ms avg (18.0% of total). Max: 26976ms",
+        "action": "This is the #1 time sink. Optimize: cache results, reduce context, switch to faster model, or parallelize.",
+        "occurrences": 3
+      },
+      {
+        "priority": "HIGH",
+        "type": "TIME_BOTTLENECK",
+        "affected_nodes": [
+          "HTTP Pinecone Query Original"
+        ],
+        "description": "'HTTP Pinecone Query Original' takes 10078ms avg (12.0% of total). Max: 13748ms",
+        "action": "This is the #1 time sink. Optimize: cache results, reduce context, switch to faster model, or parallelize.",
+        "occurrences": 3
+      },
+      {
+        "priority": "HIGH",
+        "type": "TIME_BOTTLENECK",
+        "affected_nodes": [
+          "Original Embedding"
+        ],
+        "description": "'Original Embedding' takes 8659ms avg (10.0% of total). Max: 9234ms",
+        "action": "This is the #1 time sink. Optimize: cache results, reduce context, switch to faster model, or parallelize.",
+        "occurrences": 3
+      },
+      {
+        "priority": "MEDIUM",
+        "type": "VERBOSE_LLM",
+        "affected_nodes": [
+          "Query Decomposer (V.3.4)"
+        ],
+        "description": "LLM node 'Query Decomposer (V.3.4)' avg output: 596 chars (max: 866)",
+        "action": "Constrain system prompt to output only required intermediate data. Add max_tokens parameter.",
+        "occurrences": 3
+      }
+    ],
+    "execution_ids": [
+      "1561",
+      "1560",
+      "1559"
+    ]
   },
-  "_updated_at": "2026-02-15T21:53:50.438812Z",
+  "_updated_at": "2026-02-16T08:38:20.117757Z",
   "orchestrator": {
     "timestamp": "2026-02-15T21:53:50.433715Z",
     "pipeline": "orchestrator",
@@ -121,125 +1019,125 @@
     "execution_ids": []
   },
   "graph": {
-    "timestamp": "2026-02-15T20:08:51.058439Z",
+    "timestamp": "2026-02-16T08:38:20.103285Z",
     "pipeline": "graph",
-    "stage": "Stage 2: Quick (10q)",
-    "label": "15fev-s4-graph-expected-fix-5",
-    "questions_tested": 10,
-    "executions_analyzed": 10,
+    "stage": "manual-analysis",
+    "label": "",
+    "questions_tested": 4,
+    "executions_analyzed": 4,
     "success_rate_pct": 100.0,
-    "total_issues": 109,
+    "total_issues": 47,
     "issues_by_severity": {
-      "critical": 30,
-      "high": 15,
-      "medium": 20,
-      "low": 44
+      "critical": 12,
+      "high": 6,
+      "medium": 12,
+      "low": 17
     },
     "execution_timeline": {
-      "avg_total_ms": 47104,
-      "min_total_ms": 33488,
-      "max_total_ms": 58318,
+      "avg_total_ms": 74999,
+      "min_total_ms": 59243,
+      "max_total_ms": 86274,
       "avg_time_by_category": {
-        "http": 399,
-        "other": 51,
-        "llm": 33830,
-        "retrieval": 12331,
-        "routing": 5,
-        "transform": 17
+        "http": 2383,
+        "other": 2268,
+        "llm": 44361,
+        "retrieval": 18885,
+        "routing": 192,
+        "transform": 439
       },
       "avg_time_by_category_pct": {
-        "http": 0.8,
-        "other": 0.1,
-        "llm": 71.8,
-        "retrieval": 26.2,
-        "routing": 0.0,
-        "transform": 0.0
+        "http": 3.2,
+        "other": 3.0,
+        "llm": 59.1,
+        "retrieval": 25.2,
+        "routing": 0.3,
+        "transform": 0.6
       },
       "critical_path_nodes": [
         [
           "WF3: HyDE & Entity Extraction",
-          10
+          4
         ],
         [
           "WF3: Pinecone HyDE Search",
-          10
+          4
         ],
         [
           "Generate HyDE Embedding",
-          10
+          4
         ],
         [
           "WF3: Cohere Reranker",
-          10
+          4
         ],
         [
           "Shield #4: Neo4j Guardian Traversal",
-          3
+          4
         ]
       ],
       "slowest_nodes": [
         {
           "node": "WF3: HyDE & Entity Extraction",
-          "avg_ms": 20039,
-          "max_ms": 31905,
-          "samples": 10
-        },
-        {
-          "node": "WF3: Pinecone HyDE Search",
-          "avg_ms": 6413,
-          "max_ms": 6444,
-          "samples": 10
+          "avg_ms": 17752,
+          "max_ms": 32977,
+          "samples": 4
         },
         {
           "node": "Generate HyDE Embedding",
-          "avg_ms": 6202,
-          "max_ms": 6289,
-          "samples": 10
+          "avg_ms": 12068,
+          "max_ms": 22746,
+          "samples": 4
+        },
+        {
+          "node": "WF3: Pinecone HyDE Search",
+          "avg_ms": 11681,
+          "max_ms": 18266,
+          "samples": 4
         },
         {
           "node": "WF3: Cohere Reranker",
-          "avg_ms": 6187,
-          "max_ms": 6308,
-          "samples": 10
+          "avg_ms": 7865,
+          "max_ms": 8989,
+          "samples": 4
         },
         {
           "node": "Shield #4: Neo4j Guardian Traversal",
-          "avg_ms": 6005,
-          "max_ms": 6022,
-          "samples": 10
-        },
-        {
-          "node": "LLM Answer Synthesis",
-          "avg_ms": 1122,
-          "max_ms": 2652,
-          "samples": 10
+          "avg_ms": 6065,
+          "max_ms": 6227,
+          "samples": 4
         },
         {
           "node": "Community Summaries Fetch",
-          "avg_ms": 393,
-          "max_ms": 543,
-          "samples": 10
+          "avg_ms": 2133,
+          "max_ms": 3510,
+          "samples": 4
         },
         {
-          "node": "Reranker Fallback Handler",
-          "avg_ms": 56,
-          "max_ms": 382,
-          "samples": 10
+          "node": "Validate Embedding",
+          "avg_ms": 1876,
+          "max_ms": 6248,
+          "samples": 4
         },
         {
-          "node": "Answer Formatter",
-          "avg_ms": 31,
-          "max_ms": 82,
-          "samples": 10
+          "node": "OTEL Init",
+          "avg_ms": 1758,
+          "max_ms": 5522,
+          "samples": 4
         },
         {
-          "node": "Response Formatter",
-          "avg_ms": 29,
-          "max_ms": 74,
-          "samples": 10
+          "node": "LLM Answer Synthesis",
+          "avg_ms": 1239,
+          "max_ms": 1739,
+          "samples": 4
+        },
+        {
+          "node": "Merge Graph + Vector + Community (Deep)",
+          "avg_ms": 1002,
+          "max_ms": 1764,
+          "samples": 4
         }
       ],
-      "executions_analyzed": 10
+      "executions_analyzed": 4
     },
     "error_chain_analysis": {
       "total_with_errors": 0,
@@ -250,10 +1148,10 @@
       "avg_items_created": 21.0,
       "avg_items_lost": 0.0,
       "consistent_bottlenecks": [],
-      "executions_analyzed": 10
+      "executions_analyzed": 4
     },
     "success_vs_failure": {
-      "total_success": 10,
+      "total_success": 4,
       "total_failed": 0,
       "success_rate_pct": 100.0,
       "differentiators": [],
@@ -262,10 +1160,10 @@
     "node_analysis": {
       "Webhook": {
         "name": "Webhook",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 0,
-        "total_duration_ms": 4,
+        "avg_duration_ms": 56,
+        "total_duration_ms": 225,
         "is_llm": false,
         "is_retrieval": false,
         "is_routing": false,
@@ -275,23 +1173,34 @@
       },
       "OTEL Init": {
         "name": "OTEL Init",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 21,
-        "total_duration_ms": 215,
+        "avg_duration_ms": 1758,
+        "total_duration_ms": 7032,
         "is_llm": false,
         "is_retrieval": false,
         "is_routing": false,
-        "issues": [],
+        "issues": [
+          {
+            "type": "SLOW_NODE",
+            "severity": "low",
+            "node": "OTEL Init",
+            "detail": "Node took 5522ms (>5000ms threshold)",
+            "metric": {
+              "duration_ms": 5522
+            },
+            "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+          }
+        ],
         "llm_avg_output_chars": 0,
         "llm_avg_tokens": 0
       },
       "WF3: HyDE & Entity Extraction": {
         "name": "WF3: HyDE & Entity Extraction",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 20039,
-        "total_duration_ms": 200392,
+        "avg_duration_ms": 17752,
+        "total_duration_ms": 71008,
         "is_llm": true,
         "is_retrieval": false,
         "is_routing": false,
@@ -300,9 +1209,9 @@
             "type": "VERBOSE_LLM_CRITICAL",
             "severity": "high",
             "node": "WF3: HyDE & Entity Extraction",
-            "detail": "LLM output is 3951 chars — likely producing near-final answers instead of intermediate results",
+            "detail": "LLM output is 2477 chars — likely producing near-final answers instead of intermediate results",
             "metric": {
-              "output_chars": 3951
+              "output_chars": 2477
             },
             "suggestion": "Constrain the system prompt to output ONLY the required intermediate data (entities, SQL, routing decision). Add max_tokens limit."
           },
@@ -310,10 +1219,10 @@
             "type": "HIGH_TOKEN_USAGE",
             "severity": "medium",
             "node": "WF3: HyDE & Entity Extraction",
-            "detail": "Completion tokens: 800 (threshold: 500)",
+            "detail": "Completion tokens: 531 (threshold: 500)",
             "metric": {
-              "completion_tokens": 800,
-              "prompt_tokens": 84
+              "completion_tokens": 531,
+              "prompt_tokens": 96
             },
             "suggestion": "Reduce completion length via max_tokens parameter or streamline the prompt."
           },
@@ -321,42 +1230,42 @@
             "type": "VERY_SLOW_NODE",
             "severity": "high",
             "node": "WF3: HyDE & Entity Extraction",
-            "detail": "Node took 27888ms (>15000ms threshold)",
+            "detail": "Node took 32977ms (>15000ms threshold)",
             "metric": {
-              "duration_ms": 27888
+              "duration_ms": 32977
             },
             "suggestion": "Check if this node is making external API calls that could be cached or parallelized."
-          },
-          {
-            "type": "SLOW_NODE",
-            "severity": "low",
-            "node": "WF3: HyDE & Entity Extraction",
-            "detail": "Node took 13113ms (>5000ms threshold)",
-            "metric": {
-              "duration_ms": 13113
-            },
-            "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
           },
           {
             "type": "VERBOSE_LLM",
             "severity": "medium",
             "node": "WF3: HyDE & Entity Extraction",
-            "detail": "LLM output is 741 chars — may be overly detailed for an intermediate step",
+            "detail": "LLM output is 1415 chars — may be overly detailed for an intermediate step",
             "metric": {
-              "output_chars": 741
+              "output_chars": 1415
             },
             "suggestion": "Consider adding max_tokens constraint or simplifying the prompt."
+          },
+          {
+            "type": "SLOW_NODE",
+            "severity": "low",
+            "node": "WF3: HyDE & Entity Extraction",
+            "detail": "Node took 7271ms (>5000ms threshold)",
+            "metric": {
+              "duration_ms": 7271
+            },
+            "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
           }
         ],
-        "llm_avg_output_chars": 2643,
-        "llm_avg_tokens": 291
+        "llm_avg_output_chars": 1394,
+        "llm_avg_tokens": 185
       },
       "Neo4j Query Builder (Deep Traversal V2)": {
         "name": "Neo4j Query Builder (Deep Traversal V2)",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 28,
-        "total_duration_ms": 286,
+        "avg_duration_ms": 821,
+        "total_duration_ms": 3285,
         "is_llm": false,
         "is_retrieval": true,
         "is_routing": false,
@@ -366,10 +1275,10 @@
       },
       "Shield #4: Neo4j Guardian Traversal": {
         "name": "Shield #4: Neo4j Guardian Traversal",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 6005,
-        "total_duration_ms": 60053,
+        "avg_duration_ms": 6065,
+        "total_duration_ms": 24263,
         "is_llm": false,
         "is_retrieval": true,
         "is_routing": false,
@@ -378,9 +1287,9 @@
             "type": "SLOW_NODE",
             "severity": "low",
             "node": "Shield #4: Neo4j Guardian Traversal",
-            "detail": "Node took 6001ms (>5000ms threshold)",
+            "detail": "Node took 6227ms (>5000ms threshold)",
             "metric": {
-              "duration_ms": 6001
+              "duration_ms": 6227
             },
             "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
           }
@@ -390,10 +1299,10 @@
       },
       "Validate Neo4j Results": {
         "name": "Validate Neo4j Results",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 16,
-        "total_duration_ms": 167,
+        "avg_duration_ms": 688,
+        "total_duration_ms": 2755,
         "is_llm": false,
         "is_retrieval": true,
         "is_routing": false,
@@ -403,10 +1312,10 @@
       },
       "Community Summaries Fetch": {
         "name": "Community Summaries Fetch",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 393,
-        "total_duration_ms": 3932,
+        "avg_duration_ms": 2133,
+        "total_duration_ms": 8534,
         "is_llm": false,
         "is_retrieval": false,
         "is_routing": false,
@@ -416,10 +1325,10 @@
       },
       "Extract HyDE Document": {
         "name": "Extract HyDE Document",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 21,
-        "total_duration_ms": 219,
+        "avg_duration_ms": 872,
+        "total_duration_ms": 3488,
         "is_llm": true,
         "is_retrieval": false,
         "is_routing": false,
@@ -429,10 +1338,10 @@
       },
       "Generate HyDE Embedding": {
         "name": "Generate HyDE Embedding",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 6202,
-        "total_duration_ms": 62025,
+        "avg_duration_ms": 12068,
+        "total_duration_ms": 48272,
         "is_llm": true,
         "is_retrieval": true,
         "is_routing": false,
@@ -441,11 +1350,21 @@
             "type": "SLOW_NODE",
             "severity": "low",
             "node": "Generate HyDE Embedding",
-            "detail": "Node took 6202ms (>5000ms threshold)",
+            "detail": "Node took 8493ms (>5000ms threshold)",
             "metric": {
-              "duration_ms": 6202
+              "duration_ms": 8493
             },
             "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+          },
+          {
+            "type": "VERY_SLOW_NODE",
+            "severity": "high",
+            "node": "Generate HyDE Embedding",
+            "detail": "Node took 22746ms (>15000ms threshold)",
+            "metric": {
+              "duration_ms": 22746
+            },
+            "suggestion": "Check if this node is making external API calls that could be cached or parallelized."
           }
         ],
         "llm_avg_output_chars": 0,
@@ -453,23 +1372,34 @@
       },
       "Validate Embedding": {
         "name": "Validate Embedding",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 14,
-        "total_duration_ms": 145,
+        "avg_duration_ms": 1876,
+        "total_duration_ms": 7507,
         "is_llm": false,
         "is_retrieval": true,
         "is_routing": false,
-        "issues": [],
+        "issues": [
+          {
+            "type": "SLOW_NODE",
+            "severity": "low",
+            "node": "Validate Embedding",
+            "detail": "Node took 6248ms (>5000ms threshold)",
+            "metric": {
+              "duration_ms": 6248
+            },
+            "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+          }
+        ],
         "llm_avg_output_chars": 0,
         "llm_avg_tokens": 0
       },
       "WF3: Pinecone HyDE Search": {
         "name": "WF3: Pinecone HyDE Search",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 6413,
-        "total_duration_ms": 64133,
+        "avg_duration_ms": 11681,
+        "total_duration_ms": 46726,
         "is_llm": true,
         "is_retrieval": true,
         "is_routing": false,
@@ -478,11 +1408,21 @@
             "type": "SLOW_NODE",
             "severity": "low",
             "node": "WF3: Pinecone HyDE Search",
-            "detail": "Node took 6396ms (>5000ms threshold)",
+            "detail": "Node took 9487ms (>5000ms threshold)",
             "metric": {
-              "duration_ms": 6396
+              "duration_ms": 9487
             },
             "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+          },
+          {
+            "type": "VERY_SLOW_NODE",
+            "severity": "high",
+            "node": "WF3: Pinecone HyDE Search",
+            "detail": "Node took 18266ms (>15000ms threshold)",
+            "metric": {
+              "duration_ms": 18266
+            },
+            "suggestion": "Check if this node is making external API calls that could be cached or parallelized."
           }
         ],
         "llm_avg_output_chars": 0,
@@ -490,10 +1430,10 @@
       },
       "Merge": {
         "name": "Merge",
-        "executions": 20,
+        "executions": 8,
         "errors": 0,
-        "avg_duration_ms": 2,
-        "total_duration_ms": 50,
+        "avg_duration_ms": 96,
+        "total_duration_ms": 771,
         "is_llm": false,
         "is_retrieval": false,
         "is_routing": true,
@@ -503,10 +1443,10 @@
       },
       "Merge Graph + Vector + Community (Deep)": {
         "name": "Merge Graph + Vector + Community (Deep)",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 22,
-        "total_duration_ms": 223,
+        "avg_duration_ms": 1002,
+        "total_duration_ms": 4009,
         "is_llm": false,
         "is_retrieval": true,
         "is_routing": true,
@@ -516,10 +1456,10 @@
       },
       "WF3: Cohere Reranker": {
         "name": "WF3: Cohere Reranker",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 6187,
-        "total_duration_ms": 61875,
+        "avg_duration_ms": 7865,
+        "total_duration_ms": 31462,
         "is_llm": false,
         "is_retrieval": true,
         "is_routing": false,
@@ -528,9 +1468,9 @@
             "type": "SLOW_NODE",
             "severity": "low",
             "node": "WF3: Cohere Reranker",
-            "detail": "Node took 6170ms (>5000ms threshold)",
+            "detail": "Node took 7744ms (>5000ms threshold)",
             "metric": {
-              "duration_ms": 6170
+              "duration_ms": 7744
             },
             "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
           }
@@ -540,10 +1480,10 @@
       },
       "Reranker Fallback Handler": {
         "name": "Reranker Fallback Handler",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 56,
-        "total_duration_ms": 564,
+        "avg_duration_ms": 564,
+        "total_duration_ms": 2259,
         "is_llm": false,
         "is_retrieval": true,
         "is_routing": false,
@@ -553,10 +1493,10 @@
       },
       "JS: Token Budgeting & Map-Reduce": {
         "name": "JS: Token Budgeting & Map-Reduce",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 17,
-        "total_duration_ms": 173,
+        "avg_duration_ms": 439,
+        "total_duration_ms": 1757,
         "is_llm": false,
         "is_retrieval": false,
         "is_routing": false,
@@ -566,10 +1506,10 @@
       },
       "Response Formatter": {
         "name": "Response Formatter",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 29,
-        "total_duration_ms": 297,
+        "avg_duration_ms": 508,
+        "total_duration_ms": 2033,
         "is_llm": false,
         "is_retrieval": false,
         "is_routing": false,
@@ -587,10 +1527,10 @@
       },
       "LLM Answer Synthesis": {
         "name": "LLM Answer Synthesis",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 1122,
-        "total_duration_ms": 11220,
+        "avg_duration_ms": 1239,
+        "total_duration_ms": 4959,
         "is_llm": true,
         "is_retrieval": false,
         "is_routing": false,
@@ -599,24 +1539,24 @@
             "type": "WASTEFUL_CONTEXT",
             "severity": "medium",
             "node": "LLM Answer Synthesis",
-            "detail": "Prompt/completion ratio: 25x (273 prompt / 11 completion tokens). Huge context for tiny output.",
+            "detail": "Prompt/completion ratio: 108x (323 prompt / 3 completion tokens). Huge context for tiny output.",
             "metric": {
-              "prompt_tokens": 273,
-              "completion_tokens": 11,
-              "ratio": 24.8
+              "prompt_tokens": 323,
+              "completion_tokens": 3,
+              "ratio": 107.7
             },
             "suggestion": "Reduce context size — trim irrelevant docs, use summarization, or increase max_tokens."
           }
         ],
-        "llm_avg_output_chars": 100,
-        "llm_avg_tokens": 14
+        "llm_avg_output_chars": 6,
+        "llm_avg_tokens": 5
       },
       "Answer Formatter": {
         "name": "Answer Formatter",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 31,
-        "total_duration_ms": 315,
+        "avg_duration_ms": 748,
+        "total_duration_ms": 2993,
         "is_llm": true,
         "is_retrieval": false,
         "is_routing": false,
@@ -634,10 +1574,10 @@
       },
       "Shield #9: Export Trace": {
         "name": "Shield #9: Export Trace",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 0,
-        "total_duration_ms": 3,
+        "avg_duration_ms": 2,
+        "total_duration_ms": 9,
         "is_llm": false,
         "is_retrieval": false,
         "is_routing": false,
@@ -655,10 +1595,10 @@
       },
       "Respond to Webhook": {
         "name": "Respond to Webhook",
-        "executions": 10,
+        "executions": 4,
         "errors": 0,
-        "avg_duration_ms": 6,
-        "total_duration_ms": 61,
+        "avg_duration_ms": 193,
+        "total_duration_ms": 773,
         "is_llm": false,
         "is_retrieval": false,
         "is_routing": false,
@@ -678,127 +1618,127 @@
     "cross_execution_patterns": {
       "node_health": {
         "Webhook": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "OTEL Init": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "WF3: HyDE & Entity Extraction": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "Neo4j Query Builder (Deep Traversal V2)": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "Shield #4: Neo4j Guardian Traversal": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "Validate Neo4j Results": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "Community Summaries Fetch": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "Extract HyDE Document": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "Generate HyDE Embedding": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "Validate Embedding": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "WF3: Pinecone HyDE Search": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "Merge": {
-          "total_runs": 20,
+          "total_runs": 8,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "Merge Graph + Vector + Community (Deep)": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "WF3: Cohere Reranker": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "Reranker Fallback Handler": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "JS: Token Budgeting & Map-Reduce": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "Response Formatter": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "LLM Answer Synthesis": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "Answer Formatter": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "Shield #9: Export Trace": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
         },
         "Respond to Webhook": {
-          "total_runs": 10,
+          "total_runs": 4,
           "errors": 0,
           "error_rate_pct": 0.0,
           "health": "healthy"
@@ -807,80 +1747,80 @@
       "latency_bottlenecks": [
         {
           "node": "WF3: HyDE & Entity Extraction",
-          "avg_ms": 20039,
-          "p95_ms": 31905,
-          "max_ms": 31905,
-          "samples": 10
-        },
-        {
-          "node": "WF3: Pinecone HyDE Search",
-          "avg_ms": 6413,
-          "p95_ms": 6444,
-          "max_ms": 6444,
-          "samples": 10
+          "avg_ms": 17752,
+          "p95_ms": 32977,
+          "max_ms": 32977,
+          "samples": 4
         },
         {
           "node": "Generate HyDE Embedding",
-          "avg_ms": 6202,
-          "p95_ms": 6289,
-          "max_ms": 6289,
-          "samples": 10
+          "avg_ms": 12068,
+          "p95_ms": 22746,
+          "max_ms": 22746,
+          "samples": 4
+        },
+        {
+          "node": "WF3: Pinecone HyDE Search",
+          "avg_ms": 11681,
+          "p95_ms": 18266,
+          "max_ms": 18266,
+          "samples": 4
         },
         {
           "node": "WF3: Cohere Reranker",
-          "avg_ms": 6187,
-          "p95_ms": 6308,
-          "max_ms": 6308,
-          "samples": 10
+          "avg_ms": 7865,
+          "p95_ms": 8989,
+          "max_ms": 8989,
+          "samples": 4
         },
         {
           "node": "Shield #4: Neo4j Guardian Traversal",
-          "avg_ms": 6005,
-          "p95_ms": 6022,
-          "max_ms": 6022,
-          "samples": 10
+          "avg_ms": 6065,
+          "p95_ms": 6227,
+          "max_ms": 6227,
+          "samples": 4
         }
       ],
       "verbosity_report": {
         "WF3: HyDE & Entity Extraction": {
-          "avg_chars": 2643,
-          "max_chars": 4351,
-          "min_chars": 741,
-          "samples": 10,
-          "verdict": "critical"
+          "avg_chars": 1394,
+          "max_chars": 2477,
+          "min_chars": 764,
+          "samples": 4,
+          "verdict": "warning"
         },
         "LLM Answer Synthesis": {
-          "avg_chars": 100,
-          "max_chars": 247,
-          "min_chars": 7,
-          "samples": 10,
+          "avg_chars": 6,
+          "max_chars": 15,
+          "min_chars": 4,
+          "samples": 4,
           "verdict": "ok"
         }
       },
       "routing_summary": {
         "Neo4j Query Builder (Deep Traversal V2)": {
-          "skip_neo4j=False": 10
+          "skip_neo4j=False": 4
         },
         "Validate Neo4j Results": {
-          "skip_graph=True": 10
+          "skip_graph=True": 4
         },
         "Extract HyDE Document": {
-          "hyde_success=True": 10
+          "hyde_success=True": 4
         },
         "Validate Embedding": {
-          "fallback=True": 10
+          "fallback=True": 4
         },
         "Merge": {
-          "skip_graph=True": 10
+          "skip_graph=True": 4
         },
         "Reranker Fallback Handler": {
-          "fallback=True": 10
+          "fallback=True": 4
         },
         "JS: Token Budgeting & Map-Reduce": {
-          "fallback=True": 10
+          "fallback=True": 4
         },
         "Response Formatter": {
-          "embedding_fallback=True": 10
+          "embedding_fallback=True": 4
         }
       }
     },
@@ -910,9 +1850,9 @@
         "type": "VERBOSE_LLM_CRITICAL",
         "severity": "high",
         "node": "WF3: HyDE & Entity Extraction",
-        "detail": "LLM output is 3951 chars — likely producing near-final answers instead of intermediate results",
+        "detail": "LLM output is 2477 chars — likely producing near-final answers instead of intermediate results",
         "metric": {
-          "output_chars": 3951
+          "output_chars": 2477
         },
         "suggestion": "Constrain the system prompt to output ONLY the required intermediate data (entities, SQL, routing decision). Add max_tokens limit."
       },
@@ -920,9 +1860,29 @@
         "type": "VERY_SLOW_NODE",
         "severity": "high",
         "node": "WF3: HyDE & Entity Extraction",
-        "detail": "Node took 27888ms (>15000ms threshold)",
+        "detail": "Node took 32977ms (>15000ms threshold)",
         "metric": {
-          "duration_ms": 27888
+          "duration_ms": 32977
+        },
+        "suggestion": "Check if this node is making external API calls that could be cached or parallelized."
+      },
+      {
+        "type": "VERY_SLOW_NODE",
+        "severity": "high",
+        "node": "Generate HyDE Embedding",
+        "detail": "Node took 22746ms (>15000ms threshold)",
+        "metric": {
+          "duration_ms": 22746
+        },
+        "suggestion": "Check if this node is making external API calls that could be cached or parallelized."
+      },
+      {
+        "type": "VERY_SLOW_NODE",
+        "severity": "high",
+        "node": "WF3: Pinecone HyDE Search",
+        "detail": "Node took 18266ms (>15000ms threshold)",
+        "metric": {
+          "duration_ms": 18266
         },
         "suggestion": "Check if this node is making external API calls that could be cached or parallelized."
       },
@@ -930,10 +1890,10 @@
         "type": "HIGH_TOKEN_USAGE",
         "severity": "medium",
         "node": "WF3: HyDE & Entity Extraction",
-        "detail": "Completion tokens: 800 (threshold: 500)",
+        "detail": "Completion tokens: 531 (threshold: 500)",
         "metric": {
-          "completion_tokens": 800,
-          "prompt_tokens": 84
+          "completion_tokens": 531,
+          "prompt_tokens": 96
         },
         "suggestion": "Reduce completion length via max_tokens parameter or streamline the prompt."
       },
@@ -948,11 +1908,11 @@
         "type": "WASTEFUL_CONTEXT",
         "severity": "medium",
         "node": "LLM Answer Synthesis",
-        "detail": "Prompt/completion ratio: 25x (273 prompt / 11 completion tokens). Huge context for tiny output.",
+        "detail": "Prompt/completion ratio: 108x (323 prompt / 3 completion tokens). Huge context for tiny output.",
         "metric": {
-          "prompt_tokens": 273,
-          "completion_tokens": 11,
-          "ratio": 24.8
+          "prompt_tokens": 323,
+          "completion_tokens": 3,
+          "ratio": 107.7
         },
         "suggestion": "Reduce context size — trim irrelevant docs, use summarization, or increase max_tokens."
       },
@@ -960,9 +1920,9 @@
         "type": "VERBOSE_LLM",
         "severity": "medium",
         "node": "WF3: HyDE & Entity Extraction",
-        "detail": "LLM output is 741 chars — may be overly detailed for an intermediate step",
+        "detail": "LLM output is 1415 chars — may be overly detailed for an intermediate step",
         "metric": {
-          "output_chars": 741
+          "output_chars": 1415
         },
         "suggestion": "Consider adding max_tokens constraint or simplifying the prompt."
       },
@@ -970,9 +1930,9 @@
         "type": "SLOW_NODE",
         "severity": "low",
         "node": "Shield #4: Neo4j Guardian Traversal",
-        "detail": "Node took 6001ms (>5000ms threshold)",
+        "detail": "Node took 6227ms (>5000ms threshold)",
         "metric": {
-          "duration_ms": 6001
+          "duration_ms": 6227
         },
         "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
       },
@@ -980,9 +1940,9 @@
         "type": "SLOW_NODE",
         "severity": "low",
         "node": "Generate HyDE Embedding",
-        "detail": "Node took 6202ms (>5000ms threshold)",
+        "detail": "Node took 8493ms (>5000ms threshold)",
         "metric": {
-          "duration_ms": 6202
+          "duration_ms": 8493
         },
         "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
       },
@@ -990,9 +1950,9 @@
         "type": "SLOW_NODE",
         "severity": "low",
         "node": "WF3: Pinecone HyDE Search",
-        "detail": "Node took 6396ms (>5000ms threshold)",
+        "detail": "Node took 9487ms (>5000ms threshold)",
         "metric": {
-          "duration_ms": 6396
+          "duration_ms": 9487
         },
         "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
       },
@@ -1000,9 +1960,9 @@
         "type": "SLOW_NODE",
         "severity": "low",
         "node": "WF3: Cohere Reranker",
-        "detail": "Node took 6170ms (>5000ms threshold)",
+        "detail": "Node took 7744ms (>5000ms threshold)",
         "metric": {
-          "duration_ms": 6170
+          "duration_ms": 7744
         },
         "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
       },
@@ -1010,9 +1970,29 @@
         "type": "SLOW_NODE",
         "severity": "low",
         "node": "WF3: HyDE & Entity Extraction",
-        "detail": "Node took 13113ms (>5000ms threshold)",
+        "detail": "Node took 7271ms (>5000ms threshold)",
         "metric": {
-          "duration_ms": 13113
+          "duration_ms": 7271
+        },
+        "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+      },
+      {
+        "type": "SLOW_NODE",
+        "severity": "low",
+        "node": "Validate Embedding",
+        "detail": "Node took 6248ms (>5000ms threshold)",
+        "metric": {
+          "duration_ms": 6248
+        },
+        "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
+      },
+      {
+        "type": "SLOW_NODE",
+        "severity": "low",
+        "node": "OTEL Init",
+        "detail": "Node took 5522ms (>5000ms threshold)",
+        "metric": {
+          "duration_ms": 5522
         },
         "suggestion": "Monitor — may be acceptable for LLM/embedding calls."
       }
@@ -1022,13 +2002,13 @@
         "priority": "CRITICAL",
         "type": "ZERO_RETRIEVAL",
         "affected_nodes": [
-          "Answer Formatter",
           "Respond to Webhook",
-          "Shield #9: Export Trace"
+          "Shield #9: Export Trace",
+          "Answer Formatter"
         ],
         "description": "0 documents retrieved. Warnings: []",
         "action": "Check embedding generation, vector index, and query formation.",
-        "occurrences": 30
+        "occurrences": 12
       },
       {
         "priority": "HIGH",
@@ -1036,19 +2016,9 @@
         "affected_nodes": [
           "WF3: HyDE & Entity Extraction"
         ],
-        "description": "'WF3: HyDE & Entity Extraction' takes 20039ms avg (43.0% of total). Max: 31905ms",
+        "description": "'WF3: HyDE & Entity Extraction' takes 17752ms avg (24.0% of total). Max: 32977ms",
         "action": "This is the #1 time sink. Optimize: cache results, reduce context, switch to faster model, or parallelize.",
-        "occurrences": 10
-      },
-      {
-        "priority": "HIGH",
-        "type": "TIME_BOTTLENECK",
-        "affected_nodes": [
-          "WF3: Pinecone HyDE Search"
-        ],
-        "description": "'WF3: Pinecone HyDE Search' takes 6413ms avg (14.0% of total). Max: 6444ms",
-        "action": "This is the #1 time sink. Optimize: cache results, reduce context, switch to faster model, or parallelize.",
-        "occurrences": 10
+        "occurrences": 4
       },
       {
         "priority": "HIGH",
@@ -1056,32 +2026,36 @@
         "affected_nodes": [
           "Generate HyDE Embedding"
         ],
-        "description": "'Generate HyDE Embedding' takes 6202ms avg (13.0% of total). Max: 6289ms",
+        "description": "'Generate HyDE Embedding' takes 12068ms avg (16.0% of total). Max: 22746ms",
         "action": "This is the #1 time sink. Optimize: cache results, reduce context, switch to faster model, or parallelize.",
-        "occurrences": 10
+        "occurrences": 4
       },
       {
         "priority": "HIGH",
+        "type": "TIME_BOTTLENECK",
+        "affected_nodes": [
+          "WF3: Pinecone HyDE Search"
+        ],
+        "description": "'WF3: Pinecone HyDE Search' takes 11681ms avg (16.0% of total). Max: 18266ms",
+        "action": "This is the #1 time sink. Optimize: cache results, reduce context, switch to faster model, or parallelize.",
+        "occurrences": 4
+      },
+      {
+        "priority": "MEDIUM",
         "type": "VERBOSE_LLM",
         "affected_nodes": [
           "WF3: HyDE & Entity Extraction"
         ],
-        "description": "LLM node 'WF3: HyDE & Entity Extraction' avg output: 2643 chars (max: 4351)",
+        "description": "LLM node 'WF3: HyDE & Entity Extraction' avg output: 1394 chars (max: 2477)",
         "action": "Constrain system prompt to output only required intermediate data. Add max_tokens parameter.",
-        "occurrences": 10
+        "occurrences": 4
       }
     ],
     "execution_ids": [
-      "1145",
-      "1144",
-      "1143",
-      "1142",
-      "1141",
-      "1140",
-      "1139",
-      "1138",
-      "1137",
-      "1136"
+      "1566",
+      "1565",
+      "1564",
+      "1563"
     ]
   }
 }
