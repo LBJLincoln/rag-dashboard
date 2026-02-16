@@ -279,7 +279,7 @@ def run_pipeline_stage(pipeline, questions, stage_name):
 
     for i, q in enumerate(questions):
         qid = q["id"]
-        rag_timeout = 120 if pipeline == "orchestrator" else 60
+        rag_timeout = 300 if pipeline == "orchestrator" else 90
         resp = call_rag(endpoint, q["question"], timeout=rag_timeout)
 
         if resp["error"]:

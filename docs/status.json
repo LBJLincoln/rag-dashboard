@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-02-15T21:41:21.418192Z",
+  "generated_at": "2026-02-16T01:30:24.620339Z",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
-    "gates_passed": true
+    "gates_passed": false
   },
   "pipelines": {
     "standard": {
@@ -34,39 +34,35 @@
       "gap": 7.0
     },
     "orchestrator": {
-      "accuracy": 90.0,
-      "tested": 10,
-      "correct": 9,
-      "errors": 1,
+      "accuracy": 42.0,
+      "tested": 50,
+      "correct": 21,
+      "errors": 4,
       "target": 70.0,
-      "met": true,
-      "gap": 20.0
+      "met": false,
+      "gap": -28.0
     }
   },
   "overall": {
-    "accuracy": 88.0,
+    "accuracy": 76.0,
     "target": 75.0,
     "met": true
   },
-  "blockers": [],
-  "next_action": "Phase 1 COMPLETE \u2014 run Phase 2: python3 eval/run-eval-parallel.py --dataset phase-2 --reset",
+  "blockers": [
+    "orchestrator: 42.0% < 70.0% (gap: -28.0pp)"
+  ],
+  "next_action": "Fix orchestrator pipeline (42.0% vs 70.0% target, gap: -28.0pp)",
   "last_iteration": {
-    "id": "iter-2026-02-15T20-09-28",
-    "label": "15fev-s4-graph-full-50",
-    "timestamp": "2026-02-15T20:09:28.726575Z",
-    "total_tested": 50,
-    "overall_accuracy_pct": 78.0,
-    "pipelines": {
-      "graph": {
-        "tested": 50,
-        "correct": 39,
-        "accuracy": 78.0
-      }
-    }
+    "id": "iter-2026-02-16T01-30-21",
+    "label": "15fev-s5-orch-50q-simplified-expected",
+    "timestamp": "2026-02-16T01:30:22.349955Z",
+    "total_tested": 0,
+    "overall_accuracy_pct": 0,
+    "pipelines": {}
   },
   "totals": {
-    "unique_questions": 160,
-    "test_runs": 766,
-    "iterations": 20
+    "unique_questions": 200,
+    "test_runs": 818,
+    "iterations": 23
   }
 }
