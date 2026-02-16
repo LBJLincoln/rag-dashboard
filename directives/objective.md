@@ -8,17 +8,40 @@ Construire un **Multi-RAG Orchestrator SOTA** capable de router intelligemment d
 
 ---
 
-## Plan global en 3 phases
+## Architecture Multi-Repo (Session 9+)
+
+Le projet est distribue sur **5 repos prives** pilotes depuis la VM Google Cloud :
+
+| Repo | Role | Execution |
+|------|------|-----------|
+| `mon-ipad` | Tour de controle centrale | VM (permanent) |
+| `rag-tests` | Tests des 4 pipelines RAG | Codespaces |
+| `rag-website` | Site business 4 secteurs | Vercel |
+| `rag-dashboard` | Dashboard live technique | Vercel/GH Pages |
+| `rag-data-ingestion` | Ingestion + enrichissement BDD | Codespaces |
+
+Architecture detaillee : `propositions` (fichier racine)
+
+---
+
+## Plan global en 4 phases
 
 ```
 PHASE A : RAG Pipeline Iteration (prioritaire)
   1/1 -> 5/5 -> 10/10 -> 200q -> 1000q -> 10Kq -> 100Kq -> 1M+q
+  Repo : rag-tests (Codespaces pour 500q+)
 
 PHASE B : Analyse SOTA 2026 (recherche academique)
   Papiers recents -> Techniques SOTA -> Design optimise
+  Repo : mon-ipad (controle)
 
 PHASE C : Ingestion & Enrichment (post-analyse SOTA)
   Analyse des workflows existants -> Nouvelles BDD -> Tests iteratifs
+  Repo : rag-data-ingestion (Codespaces)
+
+PHASE D : Production & Deploiement
+  Site business + Dashboard live + Monitoring
+  Repos : rag-website + rag-dashboard (Vercel)
 ```
 
 Details complets : `technicals/phases-overview.md`

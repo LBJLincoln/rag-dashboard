@@ -1,21 +1,25 @@
 # PROPOSITIONS — Architecture Multi-Repo + n8n Distribue
 
-> Version amelioree integrant : sessions 8-9, CLAUDE.md, objective.md,
-> contraintes free tier, et vision 5 repos.
+> Version 3 — corrigee par recherche 2026 (n8n docs, Codespaces, RAGOps papers).
+> Integre sessions 8-9, CLAUDE.md, objective.md, contraintes free tier.
 > Date : 16 fevrier 2026
 
 ---
 
 ## 1. ETAT ACTUEL
 
-### 1.1 Repos GitHub existants
-| Repo | Taille | Status | Action |
-|------|--------|--------|--------|
-| `mon-ipad` | 12 MB | ACTIF — tour de controle | CONSERVER + restructurer |
-| `PROJET_N8N_ULTIMATE` | 175 KB | Obsolete | SUPPRIMER |
-| `PROJET_N8N_ULTIMATE_PERSO` | 91 KB | Obsolete (prive) | SUPPRIMER |
-| `ApophisFIN` | 68 KB | Obsolete | SUPPRIMER |
-| `almost-done` | 0 KB | Vide | SUPPRIMER |
+### 1.1 Repos GitHub (etat post-migration session 9)
+| Repo | Status | Visibilite |
+|------|--------|------------|
+| `mon-ipad` | ACTIF — tour de controle | PRIVE |
+| `rag-tests` | CREE — tests 4 pipelines | PRIVE |
+| `rag-website` | CREE — site business | PRIVE |
+| `rag-dashboard` | CREE — dashboard live | PRIVE |
+| `rag-data-ingestion` | CREE — ingestion + enrichissement | PRIVE |
+| `PROJET_N8N_ULTIMATE` | A SUPPRIMER (token manque delete_repo) | Public |
+| `PROJET_N8N_ULTIMATE_PERSO` | A SUPPRIMER | Prive |
+| `ApophisFIN` | A SUPPRIMER | Public |
+| `almost-done` | A SUPPRIMER | Public |
 
 ### 1.2 Infrastructure actuelle
 - **VM Google Cloud** : e2-micro (1 vCPU partage, 970 MB RAM), Debian
@@ -279,15 +283,42 @@ Codespace 2 (data-ingestion, 2 vCPU, 8 GB)
 └── Scripts Python ingestion
 ```
 
-### 3.3 Capacite estimee
+### 3.3 Capacite estimee (CORRIGE par recherche 2026)
 
-| Config | Workers | Concurrency | Capacite max |
-|--------|---------|-------------|-------------|
-| VM seule (actuel) | 1 | 1 | ~1 exec/s |
-| VM + queue mode | 1 | 5 | ~5 exec/s |
-| VM + 1 Codespace | 3 | 10 | ~30 exec/s |
-| VM + 2 Codespaces | 5 | 10 | ~50 exec/s |
-| VM + Cloud Run burst | 5+auto | 10 | ~200 exec/s |
+**ATTENTION** : La recherche revele que la VM e2-micro (970 MB RAM) ne peut PAS
+executer de workers locaux. Budget RAM :
+- n8n main : ~300-400 MB
+- Redis : ~30-50 MB
+- PostgreSQL : ~100-150 MB
+- OS + Docker : ~150-200 MB
+- **Total : ~580-800 MB → reste 170-390 MB libre, insuffisant pour un worker**
+
+La VM doit etre configuree avec `N8N_CONCURRENCY_PRODUCTION_LIMIT=2` (juste pour
+les quick-tests 1q/5q/10q) et deleguer tout le reste aux Codespaces.
+
+| Config | Workers | Concurrency/worker | Capacite max | Cout |
+|--------|---------|-------------------|-------------|------|
+| VM seule (actuel, sans queue) | 0 | 1 sequentiel | ~1 exec/s | $0 |
+| VM queue + quick-test local | 0 | 2 (main seulement) | ~2 exec/s | $0 |
+| VM + 1 Codespace worker (2 vCPU) | 1 | 5 | ~5 exec/s | $0 |
+| VM + 2 Codespace workers | 2 | 5 | ~10 exec/s | $0 |
+| VM + 3 Codespace workers (max free) | 3 | 5 | ~15 exec/s | $0 |
+| VM + Cloud Run burst (payant) | 5+auto | 10 | ~50+ exec/s | $$$ |
+
+**Realiste free tier max : ~15-20 exec/s** (3 Codespace workers a concurrency 5).
+Budget Codespaces : 60h/mois (2-core). A concurrency 5, 5s/exec → ~108K executions/mois.
+
+### 3.4 Sizing memoire par worker (recherche n8n docs 2026)
+
+| Composant | RAM minimum | RAM recommande |
+|-----------|------------|----------------|
+| Worker n8n (par process) | 512 MB | 1-2 GB |
+| Node.js heap (`--max-old-space-size`) | 384 MB (VM) | 2048 MB (Codespace) |
+| Redis (queue metadata) | 30-50 MB | 64 MB max |
+| Worker concurrency conservative | 5 | Pour workflows lourds (30+ noeuds) |
+| Worker concurrency aggressive | 20 | Pour workflows legers I/O-bound |
+
+**Regle** : Si memoire limitee → reduire concurrency et ajouter plus de workers.
 
 ---
 
@@ -307,56 +338,100 @@ Le tunnel SSH permet aux Codespaces d'acceder aux services de la VM (Redis, n8n 
 └──────────────────┘                                └────────────────────┘
 ```
 
-### 4.2 Configuration SSH
+### 4.2 Methode recommandee : Reverse SSH Tunnel (recherche 2026)
 
+La methode `gh codespace ssh` ne permet que des tunnels VERS le local.
+Pour que le Codespace accede au Redis/n8n de la VM, il faut un **reverse tunnel**.
+
+**Option A — Reverse tunnel depuis la VM vers le Codespace (RECOMMANDE)**
 ```bash
-# Depuis Codespace → VM
-# Etape 1 : Ajouter la cle SSH du Codespace a la VM
-ssh-keygen -t ed25519 -C "codespace-tests" -f ~/.ssh/id_codespace -N ""
-# Copier la cle publique vers la VM (authorized_keys)
+# Depuis la VM, ouvrir un reverse tunnel vers le Codespace
+gh codespace ssh -c <codespace-name> -- \
+  -R 6379:localhost:6379 \
+  -R 5678:localhost:5678 \
+  -R 5432:localhost:5432
 
-# Etape 2 : Tunnel persistant
-ssh -N -L 6379:localhost:6379 \
-       -L 5678:localhost:5678 \
-       -L 5432:localhost:5432 \
-       termius@34.136.180.66 &
-
-# Etape 3 : Le worker Codespace se connecte a Redis via localhost:6379
-# (qui est tunnele vers la VM)
-docker run -d n8nio/n8n:latest worker \
-  --concurrency 10 \
-  -e QUEUE_BULL_REDIS_HOST=localhost \
-  -e QUEUE_BULL_REDIS_PORT=6379
+# Dans le Codespace, Redis est maintenant accessible sur localhost:6379
+# n8n API sur localhost:5678, PostgreSQL sur localhost:5432
 ```
 
-### 4.3 Script d'automatisation (`scripts/tunnel-codespace.sh`)
+**Option B — gh-net bridge (alternative)**
+```bash
+# Installer gh-net : pont reseau complet Codespace ↔ local
+gh extension install github/gh-net
+gh net -c <codespace-name>
+# Le Codespace peut acceder a TOUT ce qui est accessible depuis la VM
+```
+
+**Option C — Redis expose sur IP publique (plus simple, moins securise)**
+```bash
+# Dans docker-compose.yml, exposer Redis avec password
+redis:
+  image: redis:7-alpine
+  command: redis-server --requirepass ${REDIS_PASSWORD} --maxmemory 64mb
+  ports:
+    - "6379:6379"  # Accessible depuis 34.136.180.66:6379
+```
+
+### 4.3 devcontainer.json pour Codespace worker
+
+```json
+{
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": { "version": "20" },
+    "ghcr.io/devcontainers/features/python:1": { "version": "3.11" },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "postCreateCommand": "npm install -g n8n && pip install requests",
+  "forwardPorts": [6379, 5678, 5432]
+}
+```
+
+### 4.4 Script d'automatisation (`scripts/codespace-worker.sh`)
 
 ```bash
 #!/bin/bash
-# Lance le tunnel SSH + worker n8n dans un Codespace
-VM_IP="34.136.180.66"
-VM_USER="termius"
+# Lance un worker n8n dans un Codespace connecte a la VM
+# Pre-requis : reverse tunnel actif (voir 4.2 Option A)
 
-echo "Establishing SSH tunnel to VM..."
-ssh -fN -L 6379:localhost:6379 -L 5678:localhost:5678 ${VM_USER}@${VM_IP}
+echo "Starting n8n worker (concurrency=5)..."
+n8n worker --concurrency 5 &
 
-echo "Starting n8n worker..."
-docker-compose -f docker-compose.worker.yml up -d
-
-echo "Worker connected to Redis via tunnel. Ready."
+echo "Worker PID: $!"
+echo "Connected to Redis at localhost:6379 (tunneled to VM)"
+echo "Ready to process queue jobs."
 ```
 
-### 4.4 Annulation depuis Termius
+### 4.5 Claude Code headless dans Codespace
 
 ```bash
-# Depuis la VM (Termius), lister et tuer les workers distants
-# Les Codespaces sont accessibles via GitHub CLI
-gh codespace list
-gh codespace stop --codespace <name>
+# Lancer Claude Code en mode non-interactif pour piloter les tests
+export ANTHROPIC_API_KEY="..."
 
-# Ou directement fermer les connexions SSH
-ss -tnp | grep 6379  # Voir les tunnels actifs
-kill <pid>            # Tuer un tunnel specifique
+# Lancer un eval batch
+claude -p "source .env.local && python3 eval/run-eval-parallel.py --reset --label 'codespace-1000q'"
+
+# Analyser les resultats
+claude -p "python3 eval/generate_status.py && cat docs/status.json" --output-format json
+```
+
+### 4.6 Controle depuis la VM (Termius)
+
+```bash
+# Lister les Codespaces actifs (necessite gh CLI)
+TOKEN=$(git remote get-url origin | sed 's|https://[^:]*:\([^@]*\)@.*|\1|')
+curl -s -H "Authorization: token $TOKEN" \
+  "https://api.github.com/user/codespaces" | \
+  python3 -c "import json,sys; [print(c['name'], c['state']) for c in json.load(sys.stdin)['codespaces']]"
+
+# Arreter un Codespace (annuler un test en cours)
+curl -s -X POST -H "Authorization: token $TOKEN" \
+  "https://api.github.com/user/codespaces/<name>/stop"
+
+# Ou via gh CLI si installe
+gh codespace list
+gh codespace stop -c <name>
 ```
 
 ---
@@ -422,13 +497,15 @@ qu'on ne depasse pas les quotas Cloud Run.
 
 | Aspect | Avant | Apres |
 |--------|-------|-------|
-| Tests paralleles | Sequentiels (503 n8n) | Queue mode, multi-workers |
-| Capacite max | ~1 exec/s | ~50 exec/s (Codespace) |
-| Temps 200q eval | ~45 min | ~10 min (4 workers) |
-| Isolation | Monorepo (tout melange) | 1 repo = 1 responsabilite |
-| Annulation tests | kill process | `gh codespace stop` |
-| Docker poids | 1 gros container | Containers specialises |
-| Scalabilite | Limitee a la VM | VM + Codespaces + Cloud Run |
+| Tests paralleles | Sequentiels (503 n8n) | Queue mode + Codespace workers |
+| Capacite max | ~1 exec/s | ~15 exec/s (3 Codespace workers) |
+| Temps 200q eval | ~45 min | ~15 min (3 workers x concurrency 5) |
+| Isolation | Monorepo (tout melange) | 5 repos = 5 responsabilites |
+| Annulation tests | kill process sur VM | `gh codespace stop` depuis VM |
+| VM utilisation | Tests + execution (surcharge) | Controle seul (1q/5q/10q/50q max) |
+| Tests lourds (500q+) | Impossible (503/OOM) | Codespace (2 vCPU, 8 GB RAM) |
+| Docker poids VM | Tout sur 970 MB | Main + Redis + PG uniquement |
+| Scalabilite | Limitee a la VM | VM (controle) + Codespaces (execution) |
 
 ### 7.2 Benefices architecturaux
 - **Separation des preoccupations** : tests ≠ production ≠ ingestion
