@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-02-10T12:08:29.664Z",
-  "createdAt": "2026-01-30T16:54:29.973Z",
-  "id": "95x2BBAbJlLWZtWEJn6rb",
+  "updatedAt": "2026-02-16T15:45:55.635Z",
+  "createdAt": "2026-02-14T01:10:15.711Z",
+  "id": "6257AfT1l4FMC6lY",
   "name": "TEST - SOTA 2026 - WF2 Graph RAG V3.3 - CORRECTED",
   "description": null,
   "active": true,
@@ -9,7 +9,7 @@
   "nodes": [
     {
       "parameters": {
-        "jsCode": "// ============================================\n// PATCH #1: INIT & ACL - ORCHESTRATOR SUPPORT\n// ============================================\n// Pour: WF4 Quantitative & WF2 Graph\n// Bug: Workflows \u00e9chouent quand appel\u00e9s par orchestrateur\n// Fix: Support multi-format d'entr\u00e9e\n\n// Init & ACL for RAG - HARDENED V2.2 (ORCHESTRATOR FIX)\nconst rawInput = $input.first().json;\nconst input = rawInput.body || rawInput;\n\n// === EXTRACTION ROBUSTE DE LA QUERY ===\n// Supporte: webhook, chat trigger, sub-workflow, ET orchestrator\nlet queryStr = '';\n\n// Priorit\u00e9 1: Direct query field (webhook/chat)\nif (typeof input.query === 'string') {\n  queryStr = input.query;\n}\n// Priorit\u00e9 2: Chat input\nelse if (input.chatInput) {\n  queryStr = input.chatInput;\n}\n// Priorit\u00e9 3: Orchestrator format - task_query\nelse if (input.task_query) {\n  queryStr = input.task_query;\n}\n// Priorit\u00e9 4: Orchestrator format - current_task.query\nelse if (input.current_task && typeof input.current_task.query === 'string') {\n  queryStr = input.current_task.query;\n}\n// Priorit\u00e9 5: Query as object (stringify)\nelse if (input.query && typeof input.query === 'object') {\n  queryStr = JSON.stringify(input.query);\n}\n\n// Accept both query and question fields\n// Accept both query and question fields\n// Accept both query and question fields\nconst query = queryStr.trim();\n\n// === VALIDATION ===\nif (!query || query.length < 2) {\n  throw new Error('VALIDATION_ERROR: query is required and must be at least 2 characters');\n}\n\n// === EXTRACTION DU USER CONTEXT ===\n// Parse user_context (peut \u00eatre string JSON ou objet)\nlet userContext = {};\n\nif (typeof input.user_context === 'string') {\n  try {\n    userContext = JSON.parse(input.user_context);\n  } catch (e) {\n    userContext = {};\n  }\n} else if (input.user_context && typeof input.user_context === 'object') {\n  userContext = input.user_context;\n}\n\n// === EXTRACTION DU TRACE_ID ===\n// Support multiple sources\nconst traceId = input.trace_id || \n                input.current_task?.trace_id || \n                `tr-rag-${Date.now()}-${Math.random().toString(36).substring(2, 10)}`;\n\n// === OUTPUT ===\nreturn [{\n  json: {\n    trace_id: traceId,\n    query: query.substring(0, 2000),\n    user_context: {\n      tenant_id: userContext.tenant_id || input.tenant_id || 'default',\n      groups: Array.isArray(userContext.groups) ? userContext.groups : ['guest']\n    },\n    timestamp: new Date().toISOString(),\n    source: rawInput.body ? 'webhook' : \n            (rawInput.chatInput ? 'chat' : \n            (input.task_query ? 'orchestrator' : 'subworkflow')),\n    \n    // Metadata pour debugging\n    _debug: {\n      original_input_keys: Object.keys(input),\n      query_source: input.task_query ? 'task_query' : \n                    (input.current_task ? 'current_task.query' : \n                    (input.chatInput ? 'chatInput' : 'query'))\n    }\n  }\n}];\n"
+        "jsCode": "// ============================================\n// PATCH #1: INIT & ACL - ORCHESTRATOR SUPPORT\n// ============================================\n// Pour: WF4 Quantitative & WF2 Graph\n// Bug: Workflows échouent quand appelés par orchestrateur\n// Fix: Support multi-format d'entrée\n\n// Init & ACL for RAG - HARDENED V2.2 (ORCHESTRATOR FIX)\nconst rawInput = $input.first().json;\nconst input = rawInput.body || rawInput;\n\n// === EXTRACTION ROBUSTE DE LA QUERY ===\n// Supporte: webhook, chat trigger, sub-workflow, ET orchestrator\nlet queryStr = '';\n\n// Priorité 1: Direct query field (webhook/chat)\nif (typeof input.query === 'string') {\n  queryStr = input.query;\n}\n// Priorité 2: Chat input\nelse if (input.chatInput) {\n  queryStr = input.chatInput;\n}\n// Priorité 3: Orchestrator format - task_query\nelse if (input.task_query) {\n  queryStr = input.task_query;\n}\n// Priorité 4: Orchestrator format - current_task.query\nelse if (input.current_task && typeof input.current_task.query === 'string') {\n  queryStr = input.current_task.query;\n}\n// Priorité 5: Query as object (stringify)\nelse if (input.query && typeof input.query === 'object') {\n  queryStr = JSON.stringify(input.query);\n}\n\n// Accept both query and question fields\n// Accept both query and question fields\n// Accept both query and question fields\nconst query = queryStr.trim();\n\n// === VALIDATION ===\nif (!query || query.length < 2) {\n  throw new Error('VALIDATION_ERROR: query is required and must be at least 2 characters');\n}\n\n// === EXTRACTION DU USER CONTEXT ===\n// Parse user_context (peut être string JSON ou objet)\nlet userContext = {};\n\nif (typeof input.user_context === 'string') {\n  try {\n    userContext = JSON.parse(input.user_context);\n  } catch (e) {\n    userContext = {};\n  }\n} else if (input.user_context && typeof input.user_context === 'object') {\n  userContext = input.user_context;\n}\n\n// === EXTRACTION DU TRACE_ID ===\n// Support multiple sources\nconst traceId = input.trace_id || \n                input.current_task?.trace_id || \n                `tr-rag-${Date.now()}-${Math.random().toString(36).substring(2, 10)}`;\n\n// === OUTPUT ===\nreturn [{\n  json: {\n    trace_id: traceId,\n    query: query.substring(0, 2000),\n    user_context: {\n      tenant_id: userContext.tenant_id || input.tenant_id || 'default',\n      groups: Array.isArray(userContext.groups) ? userContext.groups : ['guest']\n    },\n    timestamp: new Date().toISOString(),\n    source: rawInput.body ? 'webhook' : \n            (rawInput.chatInput ? 'chat' : \n            (input.task_query ? 'orchestrator' : 'subworkflow')),\n    \n    // Metadata pour debugging\n    _debug: {\n      original_input_keys: Object.keys(input),\n      query_source: input.task_query ? 'task_query' : \n                    (input.current_task ? 'current_task.query' : \n                    (input.chatInput ? 'chatInput' : 'query'))\n    }\n  }\n}];\n"
       },
       "id": "0435899c-c6f9-4688-8bec-f0052ec0ecf2",
       "name": "OTEL Init",
@@ -24,17 +24,17 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ $env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1/chat/completions' }}",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
         "authentication": "none",
         "nodeCredentialType": "openRouterApi",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"model\": \"{{ $env.LLM_HYDE_MODEL || 'google/gemma-3-27b-it:free' }}\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Generate a hypothetical document that would perfectly answer the question. This document will be used for semantic search. Format: dense, factual text, 200-300 words. Also extract key entities as JSON: {\\\"hyde_document\\\": string, \\\"entities\\\": [{\\\"name\\\": string, \\\"type\\\": string}]}\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $json.query }}\"\n    }\n  ],\n  \"temperature\": 0.7,\n  \"max_tokens\": 800\n}",
+        "jsonBody": "={\n  \"model\": \"arcee-ai/trinity-large-preview:free\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Generate a hypothetical document that would perfectly answer the question. This document will be used for semantic search. Format: dense, factual text, 200-300 words. Also extract key entities as JSON: {\\\"hyde_document\\\": string, \\\"entities\\\": [{\\\"name\\\": string, \\\"type\\\": string}]}\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $json.query }}\"\n    }\n  ],\n  \"temperature\": 0.7,\n  \"max_tokens\": 800\n}",
         "options": {
-          "timeout": 25000,
+          "timeout": 30000,
           "retry": {
             "maxTries": 3,
-            "waitBetweenTries": 2000
+            "waitBetweenTries": 3000
           }
         },
         "sendHeaders": true,
@@ -42,7 +42,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "=Bearer {{ $env.OPENROUTER_API_KEY }}"
+              "value": "Bearer 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"
             }
           ]
         }
@@ -55,8 +55,10 @@
         288,
         6400
       ],
-      "credentials": {},
-      "onError": "continueRegularOutput"
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 3000
     },
     {
       "parameters": {
@@ -78,14 +80,18 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ $env.NEO4J_URL }}",
-        "authentication": "genericCredentialType",
+        "url": "bolt://localhost:7687",
+        "authentication": "none",
         "genericAuthType": "httpBasicAuth",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ { statement: $json.query, parameters: $json.parameters ?? {} } }}",
         "options": {
-          "timeout": 15000
+          "timeout": 30000,
+          "retry": {
+            "maxTries": 3,
+            "waitBetweenTries": 3000
+          }
         }
       },
       "id": "80d46e98-cc4e-4719-9f36-9baa360839b7",
@@ -96,25 +102,39 @@
         672,
         5968
       ],
-      "credentials": {
-        "httpBasicAuth": {
-          "id": "1p9NvJFmJsjSYq1J",
-          "name": "Unnamed credential"
-        }
-      },
-      "onError": "continueRegularOutput"
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 3000
     },
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ $env.PINECONE_URL }}/query",
-        "authentication": "genericCredentialType",
+        "url": "https://sota-rag-jina-1024-a4mkzmz.svc.aped-4627-b74a.pinecone.io/query",
+        "authentication": "none",
         "genericAuthType": "httpHeaderAuth",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"vector\": {{ JSON.stringify($node['Validate Embedding'].json.embedding || $node['Generate HyDE Embedding'].json.embeddings?.float?.[0] || []) }},\n  \"topK\": {{ $node['OTEL Init'].json.topK || 100 }},\n  \"includeMetadata\": true\n}",
         "options": {
-          "timeout": 15000
+          "timeout": 30000,
+          "retry": {
+            "maxTries": 3,
+            "waitBetweenTries": 3000
+          }
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Api-Key",
+              "value": "pcsk_6GzVdD_BbHsYNvpcngMqAHH5EvEa9XLnmFpEK9cx5q5xkMp72z5KFQ1q7dEjp8npWhJGBY"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
         }
       },
       "id": "8714e649-b33f-412c-a880-ee3fd1e5e0f2",
@@ -125,13 +145,10 @@
         896,
         6688
       ],
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "3DEiHDwB09D65919",
-          "name": "Pinecone API Key"
-        }
-      },
-      "onError": "continueRegularOutput"
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 3000
     },
     {
       "parameters": {
@@ -149,15 +166,15 @@
       ],
       "credentials": {
         "postgres": {
-          "id": "zEr7jPswZNv6lWKu",
-          "name": "Supabase PostgreSQL"
+          "id": "USU8ngVzsUbED3mn",
+          "name": "Supabase Postgres (Pooler)"
         }
       },
       "onError": "continueRegularOutput"
     },
     {
       "parameters": {
-        "jsCode": "// Enhanced Merge for Deep Traversal Results - CONFIRM\u00c9\n// Handles paths up to 4 hops with intelligent deduplication\n\n// === COLLECT ALL SOURCES ===\nlet graphResults = [];\nlet vectorResults = [];\nlet communityResults = [];\n\n// Graph Results (from Deep Traversal)\ntry {\n  const neo4jData = $node['Shield #4: Neo4j Guardian Traversal'].json;\n  \n  let rows = [];\n  if (neo4jData.data?.values?.length > 0) {\n    // Neo4j query/v2 API format\n    rows = neo4jData.data.values;\n  } else if (neo4jData.results?.[0]?.data) {\n    rows = neo4jData.results[0].data.map(d => d.row);\n  } else if (neo4jData.body?.data?.values?.length > 0) {\n    rows = neo4jData.body.data.values;\n  } else if (neo4jData.body?.results?.[0]?.data) {\n    rows = neo4jData.body.results[0].data.map(d => d.row);\n  } else if (Array.isArray(neo4jData.body)) {\n    rows = neo4jData.body;\n  } else if (Array.isArray(neo4jData)) {\n    rows = neo4jData;\n  }\n  \n  if (rows.length > 0) {\n    graphResults = rows.map((row, idx) => {\n      const pathNodes = Array.isArray(row) ? row[1] : row.path_nodes;\n      const pathRelations = Array.isArray(row) ? row[2] : row.path_relations;\n      const pathScore = Array.isArray(row) ? row[3] : row.path_score;\n      const pathLength = Array.isArray(row) ? row[4] : row.path_length;\n      \n      return {\n        source: 'GRAPH',\n        id: `graph-${idx}`,\n        content: formatGraphPath(pathNodes, pathRelations),\n        path_nodes: pathNodes || [],\n        path_relations: pathRelations || [],\n        path_score: pathScore || 1.0,\n        path_length: pathLength || 1,\n        start_entity: Array.isArray(row) ? row[0] : row.start_entity\n      };\n    });\n  }\n} catch (e) { \n  console.log('Graph parse error:', e.message); \n}\n\n// Vector Results (Pinecone)\ntry {\n  const pineconeData = (() => {\n  try { return $node['WF3: Pinecone HyDE Search'].json; }\n  catch(e) { return { matches: [] }; }\n})();\n  const matches = pineconeData.body?.matches || pineconeData.matches || [];\n  vectorResults = matches.map((m, idx) => ({\n    source: 'VECTOR',\n    id: m.id || `vector-${idx}`,\n    content: m.metadata?.text || m.metadata?.content || '',\n    score: m.score || 0,\n    metadata: m.metadata\n  }));\n} catch (e) { \n  console.log('Vector parse error:', e.message); \n}\n\n// Community Summaries\ntry {\n  const communityData = $node['Community Summaries Fetch'].json;\n  const commArray = Array.isArray(communityData) ? communityData : \n                    (communityData ? [communityData] : []);\n  communityResults = commArray\n    .filter(c => c && c.summary)\n    .map((c, idx) => ({\n      source: 'COMMUNITY',\n      id: c.community_id || `comm-${idx}`,\n      content: c.summary || '',\n      title: c.title,\n      entity_count: c.entity_count\n    }));\n} catch (e) { \n  console.log('Community parse error:', e.message); \n}\n\n// === HELPER: Format graph path for reading ===\nfunction formatGraphPath(nodes, relations) {\n  if (!nodes || nodes.length === 0) return '';\n  \n  let pathStr = nodes[0]?.name || (typeof nodes[0] === 'string' ? nodes[0] : 'Unknown');\n  \n  for (let i = 0; i < (relations?.length || 0) && i < nodes.length - 1; i++) {\n    const nextNode = nodes[i + 1]?.name || (typeof nodes[i + 1] === 'string' ? nodes[i + 1] : 'Unknown');\n    pathStr += ` --[${relations[i]}]--> ${nextNode}`;\n  }\n  return pathStr;\n}\n\n// === DEDUPLICATION & SCORING ===\nconst allResults = [...graphResults, ...vectorResults, ...communityResults];\n\nconst maxGraphScore = Math.max(...graphResults.map(r => r.path_score || 0), 1);\nconst maxVectorScore = Math.max(...vectorResults.map(r => r.score || 0), 1);\n\nconst normalizedResults = allResults.map(r => {\n  let normalizedScore = 0;\n  if (r.source === 'GRAPH') {\n    normalizedScore = (r.path_score / maxGraphScore) * (1 / (r.path_length * 0.3 + 0.7));\n  } else if (r.source === 'VECTOR') {\n    normalizedScore = r.score / maxVectorScore;\n  } else {\n    normalizedScore = 0.5;\n  }\n  return { ...r, normalized_score: normalizedScore };\n});\n\nnormalizedResults.sort((a, b) => b.normalized_score - a.normalized_score);\n\nconst finalResults = [];\nconst sourceCounts = { GRAPH: 0, VECTOR: 0, COMMUNITY: 0 };\nconst MAX_PER_SOURCE = 15;\nconst TOTAL_MAX = 30;\n\nfor (const result of normalizedResults) {\n  if (finalResults.length >= TOTAL_MAX) break;\n  if (sourceCounts[result.source] < MAX_PER_SOURCE) {\n    finalResults.push(result);\n    sourceCounts[result.source]++;\n  }\n}\n\n// === OUTPUT ===\nreturn [{\n  json: {\n    merged_results: finalResults,\n    source_counts: sourceCounts,\n    total_count: finalResults.length,\n    traversal_depth_used: Math.max(...graphResults.map(r => r.path_length || 0), 0),\n    hyde_document: (() => {\n      try {\n        const parsed = JSON.parse($node['WF3: HyDE & Entity Extraction'].json.choices[0].message.content || '{}');\n        return parsed.hyde_document || '';\n      } catch(e) {\n        // LLM returned plain text, not JSON - use the raw text as HyDE document\n        return $node['WF3: HyDE & Entity Extraction'].json.choices?.[0]?.message?.content || $node['OTEL Init'].json.query || '';\n      }\n    })()\n  }\n}];"
+        "jsCode": "// Enhanced Merge for Deep Traversal Results - CONFIRMÉ\n// Handles paths up to 4 hops with intelligent deduplication\n\n// === COLLECT ALL SOURCES ===\nlet graphResults = [];\nlet vectorResults = [];\nlet communityResults = [];\n\n// Graph Results (from Deep Traversal)\ntry {\n  const neo4jData = $node['Shield #4: Neo4j Guardian Traversal'].json;\n  \n  let rows = [];\n  if (neo4jData.data?.values?.length > 0) {\n    // Neo4j query/v2 API format\n    rows = neo4jData.data.values;\n  } else if (neo4jData.results?.[0]?.data) {\n    rows = neo4jData.results[0].data.map(d => d.row);\n  } else if (neo4jData.body?.data?.values?.length > 0) {\n    rows = neo4jData.body.data.values;\n  } else if (neo4jData.body?.results?.[0]?.data) {\n    rows = neo4jData.body.results[0].data.map(d => d.row);\n  } else if (Array.isArray(neo4jData.body)) {\n    rows = neo4jData.body;\n  } else if (Array.isArray(neo4jData)) {\n    rows = neo4jData;\n  }\n  \n  if (rows.length > 0) {\n    graphResults = rows.map((row, idx) => {\n      const pathNodes = Array.isArray(row) ? row[1] : row.path_nodes;\n      const pathRelations = Array.isArray(row) ? row[2] : row.path_relations;\n      const pathScore = Array.isArray(row) ? row[3] : row.path_score;\n      const pathLength = Array.isArray(row) ? row[4] : row.path_length;\n      \n      return {\n        source: 'GRAPH',\n        id: `graph-${idx}`,\n        content: formatGraphPath(pathNodes, pathRelations),\n        path_nodes: pathNodes || [],\n        path_relations: pathRelations || [],\n        path_score: pathScore || 1.0,\n        path_length: pathLength || 1,\n        start_entity: Array.isArray(row) ? row[0] : row.start_entity\n      };\n    });\n  }\n} catch (e) { \n  console.log('Graph parse error:', e.message); \n}\n\n// Vector Results (Pinecone)\ntry {\n  const pineconeData = (() => {\n  try { return $node['WF3: Pinecone HyDE Search'].json; }\n  catch(e) { return { matches: [] }; }\n})();\n  const matches = pineconeData.body?.matches || pineconeData.matches || [];\n  vectorResults = matches.map((m, idx) => ({\n    source: 'VECTOR',\n    id: m.id || `vector-${idx}`,\n    content: m.metadata?.text || m.metadata?.content || '',\n    score: m.score || 0,\n    metadata: m.metadata\n  }));\n} catch (e) { \n  console.log('Vector parse error:', e.message); \n}\n\n// Community Summaries\ntry {\n  const communityData = $node['Community Summaries Fetch'].json;\n  const commArray = Array.isArray(communityData) ? communityData : \n                    (communityData ? [communityData] : []);\n  communityResults = commArray\n    .filter(c => c && c.summary)\n    .map((c, idx) => ({\n      source: 'COMMUNITY',\n      id: c.community_id || `comm-${idx}`,\n      content: c.summary || '',\n      title: c.title,\n      entity_count: c.entity_count\n    }));\n} catch (e) { \n  console.log('Community parse error:', e.message); \n}\n\n// === HELPER: Format graph path for reading ===\nfunction formatGraphPath(nodes, relations) {\n  if (!nodes || nodes.length === 0) return '';\n  \n  let pathStr = nodes[0]?.name || (typeof nodes[0] === 'string' ? nodes[0] : 'Unknown');\n  \n  for (let i = 0; i < (relations?.length || 0) && i < nodes.length - 1; i++) {\n    const nextNode = nodes[i + 1]?.name || (typeof nodes[i + 1] === 'string' ? nodes[i + 1] : 'Unknown');\n    pathStr += ` --[${relations[i]}]--> ${nextNode}`;\n  }\n  return pathStr;\n}\n\n// === DEDUPLICATION & SCORING ===\nconst allResults = [...graphResults, ...vectorResults, ...communityResults];\n\nconst maxGraphScore = Math.max(...graphResults.map(r => r.path_score || 0), 1);\nconst maxVectorScore = Math.max(...vectorResults.map(r => r.score || 0), 1);\n\nconst normalizedResults = allResults.map(r => {\n  let normalizedScore = 0;\n  if (r.source === 'GRAPH') {\n    normalizedScore = (r.path_score / maxGraphScore) * (1 / (r.path_length * 0.3 + 0.7));\n  } else if (r.source === 'VECTOR') {\n    normalizedScore = r.score / maxVectorScore;\n  } else {\n    normalizedScore = 0.5;\n  }\n  return { ...r, normalized_score: normalizedScore };\n});\n\nnormalizedResults.sort((a, b) => b.normalized_score - a.normalized_score);\n\nconst finalResults = [];\nconst sourceCounts = { GRAPH: 0, VECTOR: 0, COMMUNITY: 0 };\nconst MAX_PER_SOURCE = 15;\nconst TOTAL_MAX = 30;\n\nfor (const result of normalizedResults) {\n  if (finalResults.length >= TOTAL_MAX) break;\n  if (sourceCounts[result.source] < MAX_PER_SOURCE) {\n    finalResults.push(result);\n    sourceCounts[result.source]++;\n  }\n}\n\n// === OUTPUT ===\nreturn [{\n  json: {\n    merged_results: finalResults,\n    source_counts: sourceCounts,\n    total_count: finalResults.length,\n    traversal_depth_used: Math.max(...graphResults.map(r => r.path_length || 0), 0),\n    hyde_document: (() => {\n      try {\n        const parsed = JSON.parse($node['WF3: HyDE & Entity Extraction'].json.choices[0].message.content || '{}');\n        return parsed.hyde_document || '';\n      } catch(e) {\n        // LLM returned plain text, not JSON - use the raw text as HyDE document\n        return $node['WF3: HyDE & Entity Extraction'].json.choices?.[0]?.message?.content || $node['OTEL Init'].json.query || '';\n      }\n    })()\n  }\n}];"
       },
       "id": "bc35ece7-e92d-4106-9c9f-05518d0da52e",
       "name": "Merge Graph + Vector + Community (Deep)",
@@ -172,11 +189,11 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ $env.RERANKER_API_URL || 'https://api.cohere.ai/v1/rerank' }}",
+        "url": "https://api.jina.ai/v1/rerank",
         "authentication": "none",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"model\": \"{{ $env.RERANKER_MODEL || 'rerank-multilingual-v3.0' }}\",\n  \"query\": \"{{ $node['OTEL Init'].json.query }}\",\n  \"documents\": {{ JSON.stringify(($json.merged_results || []).map(d => d.content || '').filter(c => c.length > 0).slice(0, 25)) }},\n  \"top_n\": 10\n}",
+        "jsonBody": "={\n  \"model\": \"jina-reranker-v2-base-multilingual\",\n  \"query\": \"{{ $node['OTEL Init'].json.query }}\",\n  \"documents\": {{ JSON.stringify(($json.merged_results || []).map(d => d.content || '').filter(c => c.length > 0).slice(0, 25)) }},\n  \"top_n\": 10\n}",
         "options": {
           "batching": {
             "batch": {
@@ -184,14 +201,18 @@
               "batchInterval": 3000
             }
           },
-          "timeout": 15000
+          "timeout": 30000,
+          "retry": {
+            "maxTries": 3,
+            "waitBetweenTries": 3000
+          }
         },
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
             {
               "name": "Authorization",
-              "value": "=Bearer {{ $env.COHERE_API_KEY }}"
+              "value": "Bearer jina_f1348176dc7a4f0da9996cfa6cfa6eecasLHpAw7iEXFqU6eHi9SQBuxqT0F"
             }
           ]
         }
@@ -204,11 +225,14 @@
         1376,
         6320
       ],
-      "onError": "continueRegularOutput"
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 3000
     },
     {
       "parameters": {
-        "jsCode": "// Reranker fallback handler - CORRIG\u00c9\nconst rerankedResults = $json.results || [];\nconst mergeData = $node['Merge Graph + Vector + Community (Deep)'].json;\n\nreturn [{\n  json: {\n    reranked_results: rerankedResults,\n    merged_results: mergeData.merged_results || [],\n    source_counts: mergeData.source_counts || {},\n    traversal_depth: mergeData.traversal_depth_used || 0,\n    fallback: rerankedResults.length === 0\n  }\n}];"
+        "jsCode": "// Reranker fallback handler - CORRIGÉ\nconst rerankedResults = $json.results || [];\nconst mergeData = $node['Merge Graph + Vector + Community (Deep)'].json;\n\nreturn [{\n  json: {\n    reranked_results: rerankedResults,\n    merged_results: mergeData.merged_results || [],\n    source_counts: mergeData.source_counts || {},\n    traversal_depth: mergeData.traversal_depth_used || 0,\n    fallback: rerankedResults.length === 0\n  }\n}];"
       },
       "id": "7a948764-76a8-4062-a66c-55db8e797232",
       "name": "Reranker Fallback Handler",
@@ -222,7 +246,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// PATCH 3.4: Token Budgeting & Map-Reduce for Large Contexts - CORRIG\u00c9\nconst MAX_TOKENS = 6000;\nconst CHARS_PER_TOKEN = 4;\n\nconst mergedResults = $json.merged_results || [];\nconst rerankedResults = $json.reranked_results || [];\n\nlet budget = MAX_TOKENS;\nconst allocated = { \n  reranked: [], \n  graph: [], \n  vector: [], \n  community: [] \n};\n\n// Allocate reranked first (highest priority)\nfor (const item of rerankedResults.slice(0, 5)) {\n  const content = typeof item === 'string' ? item : (item.document || item.content || '');\n  const tokens = Math.ceil(content.length / CHARS_PER_TOKEN);\n  if (budget >= tokens) {\n    allocated.reranked.push(item);\n    budget -= tokens;\n  }\n}\n\n// Allocate remaining results by source\nfor (const result of mergedResults) {\n  const tokens = Math.ceil((result.content?.length || 0) / CHARS_PER_TOKEN);\n  if (budget < tokens) continue;\n  \n  if (result.source === 'GRAPH' && allocated.graph.length < 10) {\n    allocated.graph.push(result);\n    budget -= tokens;\n  } else if (result.source === 'VECTOR' && allocated.vector.length < 10) {\n    allocated.vector.push(result);\n    budget -= tokens;\n  } else if (result.source === 'COMMUNITY' && allocated.community.length < 5) {\n    allocated.community.push(result);\n    budget -= tokens;\n  }\n}\n\n// Build compact relationship string from graph results\nconst relationships = allocated.graph\n  .filter(g => g.path_relations && g.path_nodes)\n  .map(g => {\n    const nodes = g.path_nodes || [];\n    const rels = g.path_relations || [];\n    if (nodes.length < 2) return null;\n    return `${nodes[0]?.name || 'Unknown'}-[${rels[0] || '?'}]->${nodes[1]?.name || 'Unknown'}`;\n  })\n  .filter(r => r !== null)\n  .slice(0, 20)\n  .join('; ');\n\nreturn [{\n  json: {\n    budgeted_context: {\n      reranked: allocated.reranked,\n      graph: allocated.graph,\n      vector: allocated.vector,\n      community: allocated.community,\n      relationships: relationships\n    },\n    tokens_used: MAX_TOKENS - budget,\n    tokens_remaining: budget,\n    fallback: $json.fallback || false,\n    traversal_depth: $json.traversal_depth || 0\n  }\n}];"
+        "jsCode": "// PATCH 3.4: Token Budgeting & Map-Reduce for Large Contexts - CORRIGÉ\nconst MAX_TOKENS = 6000;\nconst CHARS_PER_TOKEN = 4;\n\nconst mergedResults = $json.merged_results || [];\nconst rerankedResults = $json.reranked_results || [];\n\nlet budget = MAX_TOKENS;\nconst allocated = { \n  reranked: [], \n  graph: [], \n  vector: [], \n  community: [] \n};\n\n// Allocate reranked first (highest priority)\nfor (const item of rerankedResults.slice(0, 5)) {\n  const content = typeof item === 'string' ? item : (item.document || item.content || '');\n  const tokens = Math.ceil(content.length / CHARS_PER_TOKEN);\n  if (budget >= tokens) {\n    allocated.reranked.push(item);\n    budget -= tokens;\n  }\n}\n\n// Allocate remaining results by source\nfor (const result of mergedResults) {\n  const tokens = Math.ceil((result.content?.length || 0) / CHARS_PER_TOKEN);\n  if (budget < tokens) continue;\n  \n  if (result.source === 'GRAPH' && allocated.graph.length < 10) {\n    allocated.graph.push(result);\n    budget -= tokens;\n  } else if (result.source === 'VECTOR' && allocated.vector.length < 10) {\n    allocated.vector.push(result);\n    budget -= tokens;\n  } else if (result.source === 'COMMUNITY' && allocated.community.length < 5) {\n    allocated.community.push(result);\n    budget -= tokens;\n  }\n}\n\n// Build compact relationship string from graph results\nconst relationships = allocated.graph\n  .filter(g => g.path_relations && g.path_nodes)\n  .map(g => {\n    const nodes = g.path_nodes || [];\n    const rels = g.path_relations || [];\n    if (nodes.length < 2) return null;\n    return `${nodes[0]?.name || 'Unknown'}-[${rels[0] || '?'}]->${nodes[1]?.name || 'Unknown'}`;\n  })\n  .filter(r => r !== null)\n  .slice(0, 20)\n  .join('; ');\n\nreturn [{\n  json: {\n    budgeted_context: {\n      reranked: allocated.reranked,\n      graph: allocated.graph,\n      vector: allocated.vector,\n      community: allocated.community,\n      relationships: relationships\n    },\n    tokens_used: MAX_TOKENS - budget,\n    tokens_remaining: budget,\n    fallback: $json.fallback || false,\n    traversal_depth: $json.traversal_depth || 0\n  }\n}];"
       },
       "id": "31aa61de-dd88-4c0b-884a-32f85142b63e",
       "name": "JS: Token Budgeting & Map-Reduce",
@@ -251,13 +275,18 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ $env.OTEL_COLLECTOR_URL || 'https://otel-collector.internal' }}/v1/traces",
+        "url": "https://disabled.otel.io/v1/traces",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"traceId\": \"={{ $json.trace_id }}\",\n  \"spanName\": \"graph_rag_complete\",\n  \"status\": \"={{ $json.status }}\"\n}",
         "options": {
-          "timeout": 5000
-        }
+          "timeout": 30000,
+          "retry": {
+            "maxTries": 3,
+            "waitBetweenTries": 3000
+          }
+        },
+        "authentication": "none"
       },
       "id": "5767bffd-b95a-4837-ae02-871f103c9944",
       "name": "Shield #9: Export Trace",
@@ -268,16 +297,19 @@
         6304
       ],
       "disabled": true,
-      "onError": "continueRegularOutput"
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 3000
     },
     {
       "parameters": {
-        "content": "# \ud83d\udd27 VARIABLES D'ENVIRONNEMENT (SOTA 2026) - CORRECTED V3.3.1\n\n## CORRECTIONS APPLIQU\u00c9ES:\n1. \u2705 OTEL Init: Fixed duplicate 'const query' declaration\n2. \u2705 WF3: Cohere Reranker: Fixed triple nested template\n3. \u2705 Model references updated for OpenRouter format\n\n## LLM APIs\n- `OPENROUTER_BASE_URL` - https://openrouter.ai/api/v1/chat/completions\n- `LLM_HYDE_MODEL` - google/gemini-2.0-flash-exp\n\n## Databases\n- `NEO4J_URL` - Neo4j HTTP API URL\n- `PINECONE_URL` - Pinecone query endpoint\n\n## Reranking\n- `RERANKER_API_URL` - https://api.cohere.ai/v1/rerank\n- `RERANKER_MODEL` - rerank-multilingual-v3.0\n",
+        "content": "# 🔧 VARIABLES D'ENVIRONNEMENT (SOTA 2026) - CORRECTED V3.3.1\n\n## CORRECTIONS APPLIQUÉES:\n1. ✅ OTEL Init: Fixed duplicate 'const query' declaration\n2. ✅ WF3: Cohere Reranker: Fixed triple nested template\n3. ✅ Model references updated for OpenRouter format\n\n## LLM APIs\n- `OPENROUTER_BASE_URL` - https://openrouter.ai/api/v1/chat/completions\n- `LLM_HYDE_MODEL` - google/gemini-2.0-flash-exp\n\n## Databases\n- `NEO4J_URL` - Neo4j HTTP API URL\n- `PINECONE_URL` - Pinecone query endpoint\n\n## Reranking\n- `RERANKER_API_URL` - https://api.jina.ai/v1/rerank\n- `RERANKER_MODEL` - jina-reranker-v2-base-multilingual\n",
         "height": 500,
         "width": 400
       },
       "id": "06eeed8a-47ad-49e4-94be-59effdb952c8",
-      "name": "\ud83d\udccb Configuration SOTA 2026",
+      "name": "📋 Configuration SOTA 2026",
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
@@ -334,24 +366,25 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ $env.EMBEDDING_API_URL || 'https://api.cohere.com/v2/embed' }}",
+        "url": "https://api.jina.ai/v1/embeddings",
         "authentication": "none",
         "nodeCredentialType": "openRouterApi",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ { \"model\": ($env.EMBEDDING_MODEL || 'embed-english-v3.0'), \"texts\": [$json.hyde_document], \"input_type\": \"search_query\", \"embedding_types\": [\"float\"] } }}",
+        "jsonBody": "={{ { \"model\": ('jina-embeddings-v3' || 'jina-embeddings-v3'), \"input\": [$json.hyde_document], \"task\": \"retrieval.query\" } }}",
         "options": {
           "retry": {
             "maxTries": 3,
-            "waitBetweenTries": 2000
-          }
+            "waitBetweenTries": 3000
+          },
+          "timeout": 30000
         },
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
             {
               "name": "Authorization",
-              "value": "=Bearer {{ $env.COHERE_API_KEY }}"
+              "value": "Bearer jina_f1348176dc7a4f0da9996cfa6cfa6eecasLHpAw7iEXFqU6eHi9SQBuxqT0F"
             }
           ]
         }
@@ -364,8 +397,10 @@
       ],
       "id": "aae84d9a-da5e-4949-a6ed-9e696d260f95",
       "name": "Generate HyDE Embedding",
-      "credentials": {},
-      "onError": "continueRegularOutput"
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 3000
     },
     {
       "parameters": {
@@ -397,7 +432,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const embeddingData = $json;\n\n// Check if we have a valid embedding - handle both Cohere and OpenRouter formats\nlet embedding = [];\n\n// Cohere v2 format: embeddings.float[0]\nif (embeddingData.embeddings?.float?.[0]) {\n  embedding = embeddingData.embeddings.float[0];\n}\n// OpenRouter/OpenAI format: data[0].embedding\nelse if (embeddingData.data?.[0]?.embedding) {\n  embedding = embeddingData.data[0].embedding;\n}\n// Body wrapper variants\nelse if (embeddingData.body?.embeddings?.float?.[0]) {\n  embedding = embeddingData.body.embeddings.float[0];\n}\nelse if (embeddingData.body?.data?.[0]?.embedding) {\n  embedding = embeddingData.body.data[0].embedding;\n}\nelse if (Array.isArray(embeddingData.embedding)) {\n  embedding = embeddingData.embedding;\n}\n\n// Validate embedding dimensions (1024 for Cohere, 1536 for OpenAI)\nconst expectedDims = parseInt($env.EMBEDDING_DIMS || '1024');\nconst isValid = embedding.length >= 384; // Accept any reasonable dimension\n\nif (!isValid) {\n  return [{\n    json: {\n      valid: false,\n      error: `Invalid embedding: got ${embedding.length}, expected ${expectedDims}`,\n      embedding: [],\n      fallback: true\n    }\n  }];\n}\n\nreturn [{\n  json: {\n    valid: true,\n    embedding: embedding,\n    dimensions: embedding.length\n  }\n}];"
+        "jsCode": "const embeddingData = $json;\n\n// Check if we have a valid embedding - handle both Cohere and OpenRouter formats\nlet embedding = [];\n\n// Cohere v2 format: embeddings.float[0]\nif (embeddingData.embeddings?.float?.[0]) {\n  embedding = embeddingData.embeddings.float[0];\n}\n// OpenRouter/OpenAI format: data[0].embedding\nelse if (embeddingData.data?.[0]?.embedding) {\n  embedding = embeddingData.data[0].embedding;\n}\n// Body wrapper variants\nelse if (embeddingData.body?.embeddings?.float?.[0]) {\n  embedding = embeddingData.body.embeddings.float[0];\n}\nelse if (embeddingData.body?.data?.[0]?.embedding) {\n  embedding = embeddingData.body.data[0].embedding;\n}\nelse if (Array.isArray(embeddingData.embedding)) {\n  embedding = embeddingData.embedding;\n}\n\n// Validate embedding dimensions (1024 for Cohere, 1536 for OpenAI)\nconst expectedDims = parseInt('1024' || '1024');\nconst isValid = embedding.length >= 384; // Accept any reasonable dimension\n\nif (!isValid) {\n  return [{\n    json: {\n      valid: false,\n      error: `Invalid embedding: got ${embedding.length}, expected ${expectedDims}`,\n      embedding: [],\n      fallback: true\n    }\n  }];\n}\n\nreturn [{\n  json: {\n    valid: true,\n    embedding: embedding,\n    dimensions: embedding.length\n  }\n}];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -428,7 +463,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "={{ $env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1/chat/completions' }}",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
         "authentication": "none",
         "nodeCredentialType": "openRouterApi",
         "sendBody": true,
@@ -437,8 +472,8 @@
         "options": {
           "timeout": 30000,
           "retry": {
-            "maxTries": 1,
-            "waitBetweenTries": 5000
+            "maxTries": 3,
+            "waitBetweenTries": 3000
           }
         },
         "sendHeaders": true,
@@ -446,7 +481,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "=Bearer {{ $env.OPENROUTER_API_KEY }}"
+              "value": "Bearer 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"
             }
           ]
         }
@@ -459,8 +494,10 @@
         2080,
         6304
       ],
-      "credentials": {},
-      "onError": "continueRegularOutput"
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 3000
     },
     {
       "parameters": {
@@ -789,64 +826,54 @@
   },
   "settings": {
     "executionOrder": "v1",
-    "availableInMCP": false,
-    "timeSavedMode": "fixed",
     "callerPolicy": "workflowsFromSameOwner",
-    "executionTimeout": 90
+    "availableInMCP": false
   },
   "staticData": null,
-  "meta": {
-    "templateCredsSetupCompleted": true
-  },
-  "pinData": {},
-  "versionId": "377c8f45-db4d-405f-a096-b7d25fd0c7ce",
-  "activeVersionId": "377c8f45-db4d-405f-a096-b7d25fd0c7ce",
-  "versionCounter": 361,
+  "meta": null,
+  "pinData": null,
+  "versionId": "f21d4e07-f0f8-4234-aa7b-76fb62664969",
+  "activeVersionId": "f21d4e07-f0f8-4234-aa7b-76fb62664969",
+  "versionCounter": 45,
   "triggerCount": 2,
   "shared": [
     {
-      "updatedAt": "2026-01-30T16:54:29.975Z",
-      "createdAt": "2026-01-30T16:54:29.975Z",
+      "updatedAt": "2026-02-14T01:10:15.711Z",
+      "createdAt": "2026-02-14T01:10:15.711Z",
       "role": "workflow:owner",
-      "workflowId": "95x2BBAbJlLWZtWEJn6rb",
-      "projectId": "JV7MbqBbWPTstXIo",
+      "workflowId": "6257AfT1l4FMC6lY",
+      "projectId": "dJumyQB5Ybedt2Yz",
       "project": {
-        "updatedAt": "2026-01-07T13:20:26.996Z",
-        "createdAt": "2026-01-07T13:20:21.870Z",
-        "id": "JV7MbqBbWPTstXIo",
-        "name": "Alexis Moret <alexis.moret6@outlook.fr>",
+        "updatedAt": "2026-02-15T09:26:56.758Z",
+        "createdAt": "2026-02-13T22:46:14.781Z",
+        "id": "dJumyQB5Ybedt2Yz",
+        "name": "Admin RAG <admin@mon-ipad.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "215767e0-958a-4c74-a67a-e335807eba64",
+        "creatorId": "5e0b7c8f-d330-43e7-ada6-31b78e20460a",
         "projectRelations": [
           {
-            "updatedAt": "2026-01-07T13:20:21.870Z",
-            "createdAt": "2026-01-07T13:20:21.870Z",
-            "userId": "215767e0-958a-4c74-a67a-e335807eba64",
-            "projectId": "JV7MbqBbWPTstXIo",
+            "updatedAt": "2026-02-13T22:46:14.781Z",
+            "createdAt": "2026-02-13T22:46:14.781Z",
+            "userId": "5e0b7c8f-d330-43e7-ada6-31b78e20460a",
+            "projectId": "dJumyQB5Ybedt2Yz",
             "user": {
-              "updatedAt": "2026-02-09T23:01:37.000Z",
-              "createdAt": "2026-01-07T13:20:20.003Z",
-              "id": "215767e0-958a-4c74-a67a-e335807eba64",
-              "email": "alexis.moret6@outlook.fr",
-              "firstName": "Alexis",
-              "lastName": "Moret",
+              "updatedAt": "2026-02-16T18:16:40.779Z",
+              "createdAt": "2026-02-13T22:45:18.287Z",
+              "id": "5e0b7c8f-d330-43e7-ada6-31b78e20460a",
+              "email": "admin@mon-ipad.com",
+              "firstName": "Admin",
+              "lastName": "RAG",
               "personalizationAnswers": null,
               "settings": {
                 "userActivated": true,
-                "userClaimedAiCredits": true,
-                "easyAIWorkflowOnboarded": true,
-                "firstSuccessfulWorkflowId": "e3_89vptJG7PPA-OHyAg3",
-                "userActivatedAt": 1767837780144,
-                "npsSurvey": {
-                  "responded": true,
-                  "lastShownAt": 1768407850905
-                }
+                "mcpEnabled": true,
+                "isOnboarded": true
               },
               "disabled": false,
               "mfaEnabled": false,
-              "lastActiveAt": "2026-02-09",
+              "lastActiveAt": "2026-02-16",
               "isPending": false
             }
           }
@@ -856,14 +883,14 @@
   ],
   "tags": [],
   "activeVersion": {
-    "updatedAt": "2026-02-10T12:08:29.666Z",
-    "createdAt": "2026-02-10T12:08:29.666Z",
-    "versionId": "377c8f45-db4d-405f-a096-b7d25fd0c7ce",
-    "workflowId": "95x2BBAbJlLWZtWEJn6rb",
+    "updatedAt": "2026-02-16T15:45:55.637Z",
+    "createdAt": "2026-02-16T15:45:55.637Z",
+    "versionId": "f21d4e07-f0f8-4234-aa7b-76fb62664969",
+    "workflowId": "6257AfT1l4FMC6lY",
     "nodes": [
       {
         "parameters": {
-          "jsCode": "// ============================================\n// PATCH #1: INIT & ACL - ORCHESTRATOR SUPPORT\n// ============================================\n// Pour: WF4 Quantitative & WF2 Graph\n// Bug: Workflows \u00e9chouent quand appel\u00e9s par orchestrateur\n// Fix: Support multi-format d'entr\u00e9e\n\n// Init & ACL for RAG - HARDENED V2.2 (ORCHESTRATOR FIX)\nconst rawInput = $input.first().json;\nconst input = rawInput.body || rawInput;\n\n// === EXTRACTION ROBUSTE DE LA QUERY ===\n// Supporte: webhook, chat trigger, sub-workflow, ET orchestrator\nlet queryStr = '';\n\n// Priorit\u00e9 1: Direct query field (webhook/chat)\nif (typeof input.query === 'string') {\n  queryStr = input.query;\n}\n// Priorit\u00e9 2: Chat input\nelse if (input.chatInput) {\n  queryStr = input.chatInput;\n}\n// Priorit\u00e9 3: Orchestrator format - task_query\nelse if (input.task_query) {\n  queryStr = input.task_query;\n}\n// Priorit\u00e9 4: Orchestrator format - current_task.query\nelse if (input.current_task && typeof input.current_task.query === 'string') {\n  queryStr = input.current_task.query;\n}\n// Priorit\u00e9 5: Query as object (stringify)\nelse if (input.query && typeof input.query === 'object') {\n  queryStr = JSON.stringify(input.query);\n}\n\n// Accept both query and question fields\n// Accept both query and question fields\n// Accept both query and question fields\nconst query = queryStr.trim();\n\n// === VALIDATION ===\nif (!query || query.length < 2) {\n  throw new Error('VALIDATION_ERROR: query is required and must be at least 2 characters');\n}\n\n// === EXTRACTION DU USER CONTEXT ===\n// Parse user_context (peut \u00eatre string JSON ou objet)\nlet userContext = {};\n\nif (typeof input.user_context === 'string') {\n  try {\n    userContext = JSON.parse(input.user_context);\n  } catch (e) {\n    userContext = {};\n  }\n} else if (input.user_context && typeof input.user_context === 'object') {\n  userContext = input.user_context;\n}\n\n// === EXTRACTION DU TRACE_ID ===\n// Support multiple sources\nconst traceId = input.trace_id || \n                input.current_task?.trace_id || \n                `tr-rag-${Date.now()}-${Math.random().toString(36).substring(2, 10)}`;\n\n// === OUTPUT ===\nreturn [{\n  json: {\n    trace_id: traceId,\n    query: query.substring(0, 2000),\n    user_context: {\n      tenant_id: userContext.tenant_id || input.tenant_id || 'default',\n      groups: Array.isArray(userContext.groups) ? userContext.groups : ['guest']\n    },\n    timestamp: new Date().toISOString(),\n    source: rawInput.body ? 'webhook' : \n            (rawInput.chatInput ? 'chat' : \n            (input.task_query ? 'orchestrator' : 'subworkflow')),\n    \n    // Metadata pour debugging\n    _debug: {\n      original_input_keys: Object.keys(input),\n      query_source: input.task_query ? 'task_query' : \n                    (input.current_task ? 'current_task.query' : \n                    (input.chatInput ? 'chatInput' : 'query'))\n    }\n  }\n}];\n"
+          "jsCode": "// ============================================\n// PATCH #1: INIT & ACL - ORCHESTRATOR SUPPORT\n// ============================================\n// Pour: WF4 Quantitative & WF2 Graph\n// Bug: Workflows échouent quand appelés par orchestrateur\n// Fix: Support multi-format d'entrée\n\n// Init & ACL for RAG - HARDENED V2.2 (ORCHESTRATOR FIX)\nconst rawInput = $input.first().json;\nconst input = rawInput.body || rawInput;\n\n// === EXTRACTION ROBUSTE DE LA QUERY ===\n// Supporte: webhook, chat trigger, sub-workflow, ET orchestrator\nlet queryStr = '';\n\n// Priorité 1: Direct query field (webhook/chat)\nif (typeof input.query === 'string') {\n  queryStr = input.query;\n}\n// Priorité 2: Chat input\nelse if (input.chatInput) {\n  queryStr = input.chatInput;\n}\n// Priorité 3: Orchestrator format - task_query\nelse if (input.task_query) {\n  queryStr = input.task_query;\n}\n// Priorité 4: Orchestrator format - current_task.query\nelse if (input.current_task && typeof input.current_task.query === 'string') {\n  queryStr = input.current_task.query;\n}\n// Priorité 5: Query as object (stringify)\nelse if (input.query && typeof input.query === 'object') {\n  queryStr = JSON.stringify(input.query);\n}\n\n// Accept both query and question fields\n// Accept both query and question fields\n// Accept both query and question fields\nconst query = queryStr.trim();\n\n// === VALIDATION ===\nif (!query || query.length < 2) {\n  throw new Error('VALIDATION_ERROR: query is required and must be at least 2 characters');\n}\n\n// === EXTRACTION DU USER CONTEXT ===\n// Parse user_context (peut être string JSON ou objet)\nlet userContext = {};\n\nif (typeof input.user_context === 'string') {\n  try {\n    userContext = JSON.parse(input.user_context);\n  } catch (e) {\n    userContext = {};\n  }\n} else if (input.user_context && typeof input.user_context === 'object') {\n  userContext = input.user_context;\n}\n\n// === EXTRACTION DU TRACE_ID ===\n// Support multiple sources\nconst traceId = input.trace_id || \n                input.current_task?.trace_id || \n                `tr-rag-${Date.now()}-${Math.random().toString(36).substring(2, 10)}`;\n\n// === OUTPUT ===\nreturn [{\n  json: {\n    trace_id: traceId,\n    query: query.substring(0, 2000),\n    user_context: {\n      tenant_id: userContext.tenant_id || input.tenant_id || 'default',\n      groups: Array.isArray(userContext.groups) ? userContext.groups : ['guest']\n    },\n    timestamp: new Date().toISOString(),\n    source: rawInput.body ? 'webhook' : \n            (rawInput.chatInput ? 'chat' : \n            (input.task_query ? 'orchestrator' : 'subworkflow')),\n    \n    // Metadata pour debugging\n    _debug: {\n      original_input_keys: Object.keys(input),\n      query_source: input.task_query ? 'task_query' : \n                    (input.current_task ? 'current_task.query' : \n                    (input.chatInput ? 'chatInput' : 'query'))\n    }\n  }\n}];\n"
         },
         "id": "0435899c-c6f9-4688-8bec-f0052ec0ecf2",
         "name": "OTEL Init",
@@ -878,17 +905,17 @@
       {
         "parameters": {
           "method": "POST",
-          "url": "={{ $env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1/chat/completions' }}",
+          "url": "https://openrouter.ai/api/v1/chat/completions",
           "authentication": "none",
           "nodeCredentialType": "openRouterApi",
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "={\n  \"model\": \"{{ $env.LLM_HYDE_MODEL || 'google/gemma-3-27b-it:free' }}\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Generate a hypothetical document that would perfectly answer the question. This document will be used for semantic search. Format: dense, factual text, 200-300 words. Also extract key entities as JSON: {\\\"hyde_document\\\": string, \\\"entities\\\": [{\\\"name\\\": string, \\\"type\\\": string}]}\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $json.query }}\"\n    }\n  ],\n  \"temperature\": 0.7,\n  \"max_tokens\": 800\n}",
+          "jsonBody": "={\n  \"model\": \"arcee-ai/trinity-large-preview:free\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Generate a hypothetical document that would perfectly answer the question. This document will be used for semantic search. Format: dense, factual text, 200-300 words. Also extract key entities as JSON: {\\\"hyde_document\\\": string, \\\"entities\\\": [{\\\"name\\\": string, \\\"type\\\": string}]}\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $json.query }}\"\n    }\n  ],\n  \"temperature\": 0.7,\n  \"max_tokens\": 800\n}",
           "options": {
-            "timeout": 25000,
+            "timeout": 30000,
             "retry": {
               "maxTries": 3,
-              "waitBetweenTries": 2000
+              "waitBetweenTries": 3000
             }
           },
           "sendHeaders": true,
@@ -896,7 +923,7 @@
             "parameters": [
               {
                 "name": "Authorization",
-                "value": "=Bearer {{ $env.OPENROUTER_API_KEY }}"
+                "value": "Bearer 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"
               }
             ]
           }
@@ -909,8 +936,10 @@
           288,
           6400
         ],
-        "credentials": {},
-        "onError": "continueRegularOutput"
+        "onError": "continueRegularOutput",
+        "retryOnFail": true,
+        "maxTries": 3,
+        "waitBetweenTries": 3000
       },
       {
         "parameters": {
@@ -932,14 +961,18 @@
       {
         "parameters": {
           "method": "POST",
-          "url": "={{ $env.NEO4J_URL }}",
-          "authentication": "genericCredentialType",
+          "url": "bolt://localhost:7687",
+          "authentication": "none",
           "genericAuthType": "httpBasicAuth",
           "sendBody": true,
           "specifyBody": "json",
           "jsonBody": "={{ { statement: $json.query, parameters: $json.parameters ?? {} } }}",
           "options": {
-            "timeout": 15000
+            "timeout": 30000,
+            "retry": {
+              "maxTries": 3,
+              "waitBetweenTries": 3000
+            }
           }
         },
         "id": "80d46e98-cc4e-4719-9f36-9baa360839b7",
@@ -950,25 +983,39 @@
           672,
           5968
         ],
-        "credentials": {
-          "httpBasicAuth": {
-            "id": "1p9NvJFmJsjSYq1J",
-            "name": "Unnamed credential"
-          }
-        },
-        "onError": "continueRegularOutput"
+        "onError": "continueRegularOutput",
+        "retryOnFail": true,
+        "maxTries": 3,
+        "waitBetweenTries": 3000
       },
       {
         "parameters": {
           "method": "POST",
-          "url": "={{ $env.PINECONE_URL }}/query",
-          "authentication": "genericCredentialType",
+          "url": "https://sota-rag-jina-1024-a4mkzmz.svc.aped-4627-b74a.pinecone.io/query",
+          "authentication": "none",
           "genericAuthType": "httpHeaderAuth",
           "sendBody": true,
           "specifyBody": "json",
           "jsonBody": "={\n  \"vector\": {{ JSON.stringify($node['Validate Embedding'].json.embedding || $node['Generate HyDE Embedding'].json.embeddings?.float?.[0] || []) }},\n  \"topK\": {{ $node['OTEL Init'].json.topK || 100 }},\n  \"includeMetadata\": true\n}",
           "options": {
-            "timeout": 15000
+            "timeout": 30000,
+            "retry": {
+              "maxTries": 3,
+              "waitBetweenTries": 3000
+            }
+          },
+          "sendHeaders": true,
+          "headerParameters": {
+            "parameters": [
+              {
+                "name": "Api-Key",
+                "value": "pcsk_6GzVdD_BbHsYNvpcngMqAHH5EvEa9XLnmFpEK9cx5q5xkMp72z5KFQ1q7dEjp8npWhJGBY"
+              },
+              {
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
           }
         },
         "id": "8714e649-b33f-412c-a880-ee3fd1e5e0f2",
@@ -979,13 +1026,10 @@
           896,
           6688
         ],
-        "credentials": {
-          "httpHeaderAuth": {
-            "id": "3DEiHDwB09D65919",
-            "name": "Pinecone API Key"
-          }
-        },
-        "onError": "continueRegularOutput"
+        "onError": "continueRegularOutput",
+        "retryOnFail": true,
+        "maxTries": 3,
+        "waitBetweenTries": 3000
       },
       {
         "parameters": {
@@ -1003,15 +1047,15 @@
         ],
         "credentials": {
           "postgres": {
-            "id": "zEr7jPswZNv6lWKu",
-            "name": "Supabase PostgreSQL"
+            "id": "USU8ngVzsUbED3mn",
+            "name": "Supabase Postgres (Pooler)"
           }
         },
         "onError": "continueRegularOutput"
       },
       {
         "parameters": {
-          "jsCode": "// Enhanced Merge for Deep Traversal Results - CONFIRM\u00c9\n// Handles paths up to 4 hops with intelligent deduplication\n\n// === COLLECT ALL SOURCES ===\nlet graphResults = [];\nlet vectorResults = [];\nlet communityResults = [];\n\n// Graph Results (from Deep Traversal)\ntry {\n  const neo4jData = $node['Shield #4: Neo4j Guardian Traversal'].json;\n  \n  let rows = [];\n  if (neo4jData.data?.values?.length > 0) {\n    // Neo4j query/v2 API format\n    rows = neo4jData.data.values;\n  } else if (neo4jData.results?.[0]?.data) {\n    rows = neo4jData.results[0].data.map(d => d.row);\n  } else if (neo4jData.body?.data?.values?.length > 0) {\n    rows = neo4jData.body.data.values;\n  } else if (neo4jData.body?.results?.[0]?.data) {\n    rows = neo4jData.body.results[0].data.map(d => d.row);\n  } else if (Array.isArray(neo4jData.body)) {\n    rows = neo4jData.body;\n  } else if (Array.isArray(neo4jData)) {\n    rows = neo4jData;\n  }\n  \n  if (rows.length > 0) {\n    graphResults = rows.map((row, idx) => {\n      const pathNodes = Array.isArray(row) ? row[1] : row.path_nodes;\n      const pathRelations = Array.isArray(row) ? row[2] : row.path_relations;\n      const pathScore = Array.isArray(row) ? row[3] : row.path_score;\n      const pathLength = Array.isArray(row) ? row[4] : row.path_length;\n      \n      return {\n        source: 'GRAPH',\n        id: `graph-${idx}`,\n        content: formatGraphPath(pathNodes, pathRelations),\n        path_nodes: pathNodes || [],\n        path_relations: pathRelations || [],\n        path_score: pathScore || 1.0,\n        path_length: pathLength || 1,\n        start_entity: Array.isArray(row) ? row[0] : row.start_entity\n      };\n    });\n  }\n} catch (e) { \n  console.log('Graph parse error:', e.message); \n}\n\n// Vector Results (Pinecone)\ntry {\n  const pineconeData = (() => {\n  try { return $node['WF3: Pinecone HyDE Search'].json; }\n  catch(e) { return { matches: [] }; }\n})();\n  const matches = pineconeData.body?.matches || pineconeData.matches || [];\n  vectorResults = matches.map((m, idx) => ({\n    source: 'VECTOR',\n    id: m.id || `vector-${idx}`,\n    content: m.metadata?.text || m.metadata?.content || '',\n    score: m.score || 0,\n    metadata: m.metadata\n  }));\n} catch (e) { \n  console.log('Vector parse error:', e.message); \n}\n\n// Community Summaries\ntry {\n  const communityData = $node['Community Summaries Fetch'].json;\n  const commArray = Array.isArray(communityData) ? communityData : \n                    (communityData ? [communityData] : []);\n  communityResults = commArray\n    .filter(c => c && c.summary)\n    .map((c, idx) => ({\n      source: 'COMMUNITY',\n      id: c.community_id || `comm-${idx}`,\n      content: c.summary || '',\n      title: c.title,\n      entity_count: c.entity_count\n    }));\n} catch (e) { \n  console.log('Community parse error:', e.message); \n}\n\n// === HELPER: Format graph path for reading ===\nfunction formatGraphPath(nodes, relations) {\n  if (!nodes || nodes.length === 0) return '';\n  \n  let pathStr = nodes[0]?.name || (typeof nodes[0] === 'string' ? nodes[0] : 'Unknown');\n  \n  for (let i = 0; i < (relations?.length || 0) && i < nodes.length - 1; i++) {\n    const nextNode = nodes[i + 1]?.name || (typeof nodes[i + 1] === 'string' ? nodes[i + 1] : 'Unknown');\n    pathStr += ` --[${relations[i]}]--> ${nextNode}`;\n  }\n  return pathStr;\n}\n\n// === DEDUPLICATION & SCORING ===\nconst allResults = [...graphResults, ...vectorResults, ...communityResults];\n\nconst maxGraphScore = Math.max(...graphResults.map(r => r.path_score || 0), 1);\nconst maxVectorScore = Math.max(...vectorResults.map(r => r.score || 0), 1);\n\nconst normalizedResults = allResults.map(r => {\n  let normalizedScore = 0;\n  if (r.source === 'GRAPH') {\n    normalizedScore = (r.path_score / maxGraphScore) * (1 / (r.path_length * 0.3 + 0.7));\n  } else if (r.source === 'VECTOR') {\n    normalizedScore = r.score / maxVectorScore;\n  } else {\n    normalizedScore = 0.5;\n  }\n  return { ...r, normalized_score: normalizedScore };\n});\n\nnormalizedResults.sort((a, b) => b.normalized_score - a.normalized_score);\n\nconst finalResults = [];\nconst sourceCounts = { GRAPH: 0, VECTOR: 0, COMMUNITY: 0 };\nconst MAX_PER_SOURCE = 15;\nconst TOTAL_MAX = 30;\n\nfor (const result of normalizedResults) {\n  if (finalResults.length >= TOTAL_MAX) break;\n  if (sourceCounts[result.source] < MAX_PER_SOURCE) {\n    finalResults.push(result);\n    sourceCounts[result.source]++;\n  }\n}\n\n// === OUTPUT ===\nreturn [{\n  json: {\n    merged_results: finalResults,\n    source_counts: sourceCounts,\n    total_count: finalResults.length,\n    traversal_depth_used: Math.max(...graphResults.map(r => r.path_length || 0), 0),\n    hyde_document: (() => {\n      try {\n        const parsed = JSON.parse($node['WF3: HyDE & Entity Extraction'].json.choices[0].message.content || '{}');\n        return parsed.hyde_document || '';\n      } catch(e) {\n        // LLM returned plain text, not JSON - use the raw text as HyDE document\n        return $node['WF3: HyDE & Entity Extraction'].json.choices?.[0]?.message?.content || $node['OTEL Init'].json.query || '';\n      }\n    })()\n  }\n}];"
+          "jsCode": "// Enhanced Merge for Deep Traversal Results - CONFIRMÉ\n// Handles paths up to 4 hops with intelligent deduplication\n\n// === COLLECT ALL SOURCES ===\nlet graphResults = [];\nlet vectorResults = [];\nlet communityResults = [];\n\n// Graph Results (from Deep Traversal)\ntry {\n  const neo4jData = $node['Shield #4: Neo4j Guardian Traversal'].json;\n  \n  let rows = [];\n  if (neo4jData.data?.values?.length > 0) {\n    // Neo4j query/v2 API format\n    rows = neo4jData.data.values;\n  } else if (neo4jData.results?.[0]?.data) {\n    rows = neo4jData.results[0].data.map(d => d.row);\n  } else if (neo4jData.body?.data?.values?.length > 0) {\n    rows = neo4jData.body.data.values;\n  } else if (neo4jData.body?.results?.[0]?.data) {\n    rows = neo4jData.body.results[0].data.map(d => d.row);\n  } else if (Array.isArray(neo4jData.body)) {\n    rows = neo4jData.body;\n  } else if (Array.isArray(neo4jData)) {\n    rows = neo4jData;\n  }\n  \n  if (rows.length > 0) {\n    graphResults = rows.map((row, idx) => {\n      const pathNodes = Array.isArray(row) ? row[1] : row.path_nodes;\n      const pathRelations = Array.isArray(row) ? row[2] : row.path_relations;\n      const pathScore = Array.isArray(row) ? row[3] : row.path_score;\n      const pathLength = Array.isArray(row) ? row[4] : row.path_length;\n      \n      return {\n        source: 'GRAPH',\n        id: `graph-${idx}`,\n        content: formatGraphPath(pathNodes, pathRelations),\n        path_nodes: pathNodes || [],\n        path_relations: pathRelations || [],\n        path_score: pathScore || 1.0,\n        path_length: pathLength || 1,\n        start_entity: Array.isArray(row) ? row[0] : row.start_entity\n      };\n    });\n  }\n} catch (e) { \n  console.log('Graph parse error:', e.message); \n}\n\n// Vector Results (Pinecone)\ntry {\n  const pineconeData = (() => {\n  try { return $node['WF3: Pinecone HyDE Search'].json; }\n  catch(e) { return { matches: [] }; }\n})();\n  const matches = pineconeData.body?.matches || pineconeData.matches || [];\n  vectorResults = matches.map((m, idx) => ({\n    source: 'VECTOR',\n    id: m.id || `vector-${idx}`,\n    content: m.metadata?.text || m.metadata?.content || '',\n    score: m.score || 0,\n    metadata: m.metadata\n  }));\n} catch (e) { \n  console.log('Vector parse error:', e.message); \n}\n\n// Community Summaries\ntry {\n  const communityData = $node['Community Summaries Fetch'].json;\n  const commArray = Array.isArray(communityData) ? communityData : \n                    (communityData ? [communityData] : []);\n  communityResults = commArray\n    .filter(c => c && c.summary)\n    .map((c, idx) => ({\n      source: 'COMMUNITY',\n      id: c.community_id || `comm-${idx}`,\n      content: c.summary || '',\n      title: c.title,\n      entity_count: c.entity_count\n    }));\n} catch (e) { \n  console.log('Community parse error:', e.message); \n}\n\n// === HELPER: Format graph path for reading ===\nfunction formatGraphPath(nodes, relations) {\n  if (!nodes || nodes.length === 0) return '';\n  \n  let pathStr = nodes[0]?.name || (typeof nodes[0] === 'string' ? nodes[0] : 'Unknown');\n  \n  for (let i = 0; i < (relations?.length || 0) && i < nodes.length - 1; i++) {\n    const nextNode = nodes[i + 1]?.name || (typeof nodes[i + 1] === 'string' ? nodes[i + 1] : 'Unknown');\n    pathStr += ` --[${relations[i]}]--> ${nextNode}`;\n  }\n  return pathStr;\n}\n\n// === DEDUPLICATION & SCORING ===\nconst allResults = [...graphResults, ...vectorResults, ...communityResults];\n\nconst maxGraphScore = Math.max(...graphResults.map(r => r.path_score || 0), 1);\nconst maxVectorScore = Math.max(...vectorResults.map(r => r.score || 0), 1);\n\nconst normalizedResults = allResults.map(r => {\n  let normalizedScore = 0;\n  if (r.source === 'GRAPH') {\n    normalizedScore = (r.path_score / maxGraphScore) * (1 / (r.path_length * 0.3 + 0.7));\n  } else if (r.source === 'VECTOR') {\n    normalizedScore = r.score / maxVectorScore;\n  } else {\n    normalizedScore = 0.5;\n  }\n  return { ...r, normalized_score: normalizedScore };\n});\n\nnormalizedResults.sort((a, b) => b.normalized_score - a.normalized_score);\n\nconst finalResults = [];\nconst sourceCounts = { GRAPH: 0, VECTOR: 0, COMMUNITY: 0 };\nconst MAX_PER_SOURCE = 15;\nconst TOTAL_MAX = 30;\n\nfor (const result of normalizedResults) {\n  if (finalResults.length >= TOTAL_MAX) break;\n  if (sourceCounts[result.source] < MAX_PER_SOURCE) {\n    finalResults.push(result);\n    sourceCounts[result.source]++;\n  }\n}\n\n// === OUTPUT ===\nreturn [{\n  json: {\n    merged_results: finalResults,\n    source_counts: sourceCounts,\n    total_count: finalResults.length,\n    traversal_depth_used: Math.max(...graphResults.map(r => r.path_length || 0), 0),\n    hyde_document: (() => {\n      try {\n        const parsed = JSON.parse($node['WF3: HyDE & Entity Extraction'].json.choices[0].message.content || '{}');\n        return parsed.hyde_document || '';\n      } catch(e) {\n        // LLM returned plain text, not JSON - use the raw text as HyDE document\n        return $node['WF3: HyDE & Entity Extraction'].json.choices?.[0]?.message?.content || $node['OTEL Init'].json.query || '';\n      }\n    })()\n  }\n}];"
         },
         "id": "bc35ece7-e92d-4106-9c9f-05518d0da52e",
         "name": "Merge Graph + Vector + Community (Deep)",
@@ -1026,11 +1070,11 @@
       {
         "parameters": {
           "method": "POST",
-          "url": "={{ $env.RERANKER_API_URL || 'https://api.cohere.ai/v1/rerank' }}",
+          "url": "https://api.jina.ai/v1/rerank",
           "authentication": "none",
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "={\n  \"model\": \"{{ $env.RERANKER_MODEL || 'rerank-multilingual-v3.0' }}\",\n  \"query\": \"{{ $node['OTEL Init'].json.query }}\",\n  \"documents\": {{ JSON.stringify(($json.merged_results || []).map(d => d.content || '').filter(c => c.length > 0).slice(0, 25)) }},\n  \"top_n\": 10\n}",
+          "jsonBody": "={\n  \"model\": \"jina-reranker-v2-base-multilingual\",\n  \"query\": \"{{ $node['OTEL Init'].json.query }}\",\n  \"documents\": {{ JSON.stringify(($json.merged_results || []).map(d => d.content || '').filter(c => c.length > 0).slice(0, 25)) }},\n  \"top_n\": 10\n}",
           "options": {
             "batching": {
               "batch": {
@@ -1038,14 +1082,18 @@
                 "batchInterval": 3000
               }
             },
-            "timeout": 15000
+            "timeout": 30000,
+            "retry": {
+              "maxTries": 3,
+              "waitBetweenTries": 3000
+            }
           },
           "sendHeaders": true,
           "headerParameters": {
             "parameters": [
               {
                 "name": "Authorization",
-                "value": "=Bearer {{ $env.COHERE_API_KEY }}"
+                "value": "Bearer jina_f1348176dc7a4f0da9996cfa6cfa6eecasLHpAw7iEXFqU6eHi9SQBuxqT0F"
               }
             ]
           }
@@ -1058,11 +1106,14 @@
           1376,
           6320
         ],
-        "onError": "continueRegularOutput"
+        "onError": "continueRegularOutput",
+        "retryOnFail": true,
+        "maxTries": 3,
+        "waitBetweenTries": 3000
       },
       {
         "parameters": {
-          "jsCode": "// Reranker fallback handler - CORRIG\u00c9\nconst rerankedResults = $json.results || [];\nconst mergeData = $node['Merge Graph + Vector + Community (Deep)'].json;\n\nreturn [{\n  json: {\n    reranked_results: rerankedResults,\n    merged_results: mergeData.merged_results || [],\n    source_counts: mergeData.source_counts || {},\n    traversal_depth: mergeData.traversal_depth_used || 0,\n    fallback: rerankedResults.length === 0\n  }\n}];"
+          "jsCode": "// Reranker fallback handler - CORRIGÉ\nconst rerankedResults = $json.results || [];\nconst mergeData = $node['Merge Graph + Vector + Community (Deep)'].json;\n\nreturn [{\n  json: {\n    reranked_results: rerankedResults,\n    merged_results: mergeData.merged_results || [],\n    source_counts: mergeData.source_counts || {},\n    traversal_depth: mergeData.traversal_depth_used || 0,\n    fallback: rerankedResults.length === 0\n  }\n}];"
         },
         "id": "7a948764-76a8-4062-a66c-55db8e797232",
         "name": "Reranker Fallback Handler",
@@ -1076,7 +1127,7 @@
       },
       {
         "parameters": {
-          "jsCode": "// PATCH 3.4: Token Budgeting & Map-Reduce for Large Contexts - CORRIG\u00c9\nconst MAX_TOKENS = 6000;\nconst CHARS_PER_TOKEN = 4;\n\nconst mergedResults = $json.merged_results || [];\nconst rerankedResults = $json.reranked_results || [];\n\nlet budget = MAX_TOKENS;\nconst allocated = { \n  reranked: [], \n  graph: [], \n  vector: [], \n  community: [] \n};\n\n// Allocate reranked first (highest priority)\nfor (const item of rerankedResults.slice(0, 5)) {\n  const content = typeof item === 'string' ? item : (item.document || item.content || '');\n  const tokens = Math.ceil(content.length / CHARS_PER_TOKEN);\n  if (budget >= tokens) {\n    allocated.reranked.push(item);\n    budget -= tokens;\n  }\n}\n\n// Allocate remaining results by source\nfor (const result of mergedResults) {\n  const tokens = Math.ceil((result.content?.length || 0) / CHARS_PER_TOKEN);\n  if (budget < tokens) continue;\n  \n  if (result.source === 'GRAPH' && allocated.graph.length < 10) {\n    allocated.graph.push(result);\n    budget -= tokens;\n  } else if (result.source === 'VECTOR' && allocated.vector.length < 10) {\n    allocated.vector.push(result);\n    budget -= tokens;\n  } else if (result.source === 'COMMUNITY' && allocated.community.length < 5) {\n    allocated.community.push(result);\n    budget -= tokens;\n  }\n}\n\n// Build compact relationship string from graph results\nconst relationships = allocated.graph\n  .filter(g => g.path_relations && g.path_nodes)\n  .map(g => {\n    const nodes = g.path_nodes || [];\n    const rels = g.path_relations || [];\n    if (nodes.length < 2) return null;\n    return `${nodes[0]?.name || 'Unknown'}-[${rels[0] || '?'}]->${nodes[1]?.name || 'Unknown'}`;\n  })\n  .filter(r => r !== null)\n  .slice(0, 20)\n  .join('; ');\n\nreturn [{\n  json: {\n    budgeted_context: {\n      reranked: allocated.reranked,\n      graph: allocated.graph,\n      vector: allocated.vector,\n      community: allocated.community,\n      relationships: relationships\n    },\n    tokens_used: MAX_TOKENS - budget,\n    tokens_remaining: budget,\n    fallback: $json.fallback || false,\n    traversal_depth: $json.traversal_depth || 0\n  }\n}];"
+          "jsCode": "// PATCH 3.4: Token Budgeting & Map-Reduce for Large Contexts - CORRIGÉ\nconst MAX_TOKENS = 6000;\nconst CHARS_PER_TOKEN = 4;\n\nconst mergedResults = $json.merged_results || [];\nconst rerankedResults = $json.reranked_results || [];\n\nlet budget = MAX_TOKENS;\nconst allocated = { \n  reranked: [], \n  graph: [], \n  vector: [], \n  community: [] \n};\n\n// Allocate reranked first (highest priority)\nfor (const item of rerankedResults.slice(0, 5)) {\n  const content = typeof item === 'string' ? item : (item.document || item.content || '');\n  const tokens = Math.ceil(content.length / CHARS_PER_TOKEN);\n  if (budget >= tokens) {\n    allocated.reranked.push(item);\n    budget -= tokens;\n  }\n}\n\n// Allocate remaining results by source\nfor (const result of mergedResults) {\n  const tokens = Math.ceil((result.content?.length || 0) / CHARS_PER_TOKEN);\n  if (budget < tokens) continue;\n  \n  if (result.source === 'GRAPH' && allocated.graph.length < 10) {\n    allocated.graph.push(result);\n    budget -= tokens;\n  } else if (result.source === 'VECTOR' && allocated.vector.length < 10) {\n    allocated.vector.push(result);\n    budget -= tokens;\n  } else if (result.source === 'COMMUNITY' && allocated.community.length < 5) {\n    allocated.community.push(result);\n    budget -= tokens;\n  }\n}\n\n// Build compact relationship string from graph results\nconst relationships = allocated.graph\n  .filter(g => g.path_relations && g.path_nodes)\n  .map(g => {\n    const nodes = g.path_nodes || [];\n    const rels = g.path_relations || [];\n    if (nodes.length < 2) return null;\n    return `${nodes[0]?.name || 'Unknown'}-[${rels[0] || '?'}]->${nodes[1]?.name || 'Unknown'}`;\n  })\n  .filter(r => r !== null)\n  .slice(0, 20)\n  .join('; ');\n\nreturn [{\n  json: {\n    budgeted_context: {\n      reranked: allocated.reranked,\n      graph: allocated.graph,\n      vector: allocated.vector,\n      community: allocated.community,\n      relationships: relationships\n    },\n    tokens_used: MAX_TOKENS - budget,\n    tokens_remaining: budget,\n    fallback: $json.fallback || false,\n    traversal_depth: $json.traversal_depth || 0\n  }\n}];"
         },
         "id": "31aa61de-dd88-4c0b-884a-32f85142b63e",
         "name": "JS: Token Budgeting & Map-Reduce",
@@ -1105,13 +1156,18 @@
       {
         "parameters": {
           "method": "POST",
-          "url": "={{ $env.OTEL_COLLECTOR_URL || 'https://otel-collector.internal' }}/v1/traces",
+          "url": "https://disabled.otel.io/v1/traces",
           "sendBody": true,
           "specifyBody": "json",
           "jsonBody": "={\n  \"traceId\": \"={{ $json.trace_id }}\",\n  \"spanName\": \"graph_rag_complete\",\n  \"status\": \"={{ $json.status }}\"\n}",
           "options": {
-            "timeout": 5000
-          }
+            "timeout": 30000,
+            "retry": {
+              "maxTries": 3,
+              "waitBetweenTries": 3000
+            }
+          },
+          "authentication": "none"
         },
         "id": "5767bffd-b95a-4837-ae02-871f103c9944",
         "name": "Shield #9: Export Trace",
@@ -1122,16 +1178,19 @@
           6304
         ],
         "disabled": true,
-        "onError": "continueRegularOutput"
+        "onError": "continueRegularOutput",
+        "retryOnFail": true,
+        "maxTries": 3,
+        "waitBetweenTries": 3000
       },
       {
         "parameters": {
-          "content": "# \ud83d\udd27 VARIABLES D'ENVIRONNEMENT (SOTA 2026) - CORRECTED V3.3.1\n\n## CORRECTIONS APPLIQU\u00c9ES:\n1. \u2705 OTEL Init: Fixed duplicate 'const query' declaration\n2. \u2705 WF3: Cohere Reranker: Fixed triple nested template\n3. \u2705 Model references updated for OpenRouter format\n\n## LLM APIs\n- `OPENROUTER_BASE_URL` - https://openrouter.ai/api/v1/chat/completions\n- `LLM_HYDE_MODEL` - google/gemini-2.0-flash-exp\n\n## Databases\n- `NEO4J_URL` - Neo4j HTTP API URL\n- `PINECONE_URL` - Pinecone query endpoint\n\n## Reranking\n- `RERANKER_API_URL` - https://api.cohere.ai/v1/rerank\n- `RERANKER_MODEL` - rerank-multilingual-v3.0\n",
+          "content": "# 🔧 VARIABLES D'ENVIRONNEMENT (SOTA 2026) - CORRECTED V3.3.1\n\n## CORRECTIONS APPLIQUÉES:\n1. ✅ OTEL Init: Fixed duplicate 'const query' declaration\n2. ✅ WF3: Cohere Reranker: Fixed triple nested template\n3. ✅ Model references updated for OpenRouter format\n\n## LLM APIs\n- `OPENROUTER_BASE_URL` - https://openrouter.ai/api/v1/chat/completions\n- `LLM_HYDE_MODEL` - google/gemini-2.0-flash-exp\n\n## Databases\n- `NEO4J_URL` - Neo4j HTTP API URL\n- `PINECONE_URL` - Pinecone query endpoint\n\n## Reranking\n- `RERANKER_API_URL` - https://api.jina.ai/v1/rerank\n- `RERANKER_MODEL` - jina-reranker-v2-base-multilingual\n",
           "height": 500,
           "width": 400
         },
         "id": "06eeed8a-47ad-49e4-94be-59effdb952c8",
-        "name": "\ud83d\udccb Configuration SOTA 2026",
+        "name": "📋 Configuration SOTA 2026",
         "type": "n8n-nodes-base.stickyNote",
         "typeVersion": 1,
         "position": [
@@ -1188,24 +1247,25 @@
       {
         "parameters": {
           "method": "POST",
-          "url": "={{ $env.EMBEDDING_API_URL || 'https://api.cohere.com/v2/embed' }}",
+          "url": "https://api.jina.ai/v1/embeddings",
           "authentication": "none",
           "nodeCredentialType": "openRouterApi",
           "sendBody": true,
           "specifyBody": "json",
-          "jsonBody": "={{ { \"model\": ($env.EMBEDDING_MODEL || 'embed-english-v3.0'), \"texts\": [$json.hyde_document], \"input_type\": \"search_query\", \"embedding_types\": [\"float\"] } }}",
+          "jsonBody": "={{ { \"model\": ('jina-embeddings-v3' || 'jina-embeddings-v3'), \"input\": [$json.hyde_document], \"task\": \"retrieval.query\" } }}",
           "options": {
             "retry": {
               "maxTries": 3,
-              "waitBetweenTries": 2000
-            }
+              "waitBetweenTries": 3000
+            },
+            "timeout": 30000
           },
           "sendHeaders": true,
           "headerParameters": {
             "parameters": [
               {
                 "name": "Authorization",
-                "value": "=Bearer {{ $env.COHERE_API_KEY }}"
+                "value": "Bearer jina_f1348176dc7a4f0da9996cfa6cfa6eecasLHpAw7iEXFqU6eHi9SQBuxqT0F"
               }
             ]
           }
@@ -1218,8 +1278,10 @@
         ],
         "id": "aae84d9a-da5e-4949-a6ed-9e696d260f95",
         "name": "Generate HyDE Embedding",
-        "credentials": {},
-        "onError": "continueRegularOutput"
+        "onError": "continueRegularOutput",
+        "retryOnFail": true,
+        "maxTries": 3,
+        "waitBetweenTries": 3000
       },
       {
         "parameters": {
@@ -1251,7 +1313,7 @@
       },
       {
         "parameters": {
-          "jsCode": "const embeddingData = $json;\n\n// Check if we have a valid embedding - handle both Cohere and OpenRouter formats\nlet embedding = [];\n\n// Cohere v2 format: embeddings.float[0]\nif (embeddingData.embeddings?.float?.[0]) {\n  embedding = embeddingData.embeddings.float[0];\n}\n// OpenRouter/OpenAI format: data[0].embedding\nelse if (embeddingData.data?.[0]?.embedding) {\n  embedding = embeddingData.data[0].embedding;\n}\n// Body wrapper variants\nelse if (embeddingData.body?.embeddings?.float?.[0]) {\n  embedding = embeddingData.body.embeddings.float[0];\n}\nelse if (embeddingData.body?.data?.[0]?.embedding) {\n  embedding = embeddingData.body.data[0].embedding;\n}\nelse if (Array.isArray(embeddingData.embedding)) {\n  embedding = embeddingData.embedding;\n}\n\n// Validate embedding dimensions (1024 for Cohere, 1536 for OpenAI)\nconst expectedDims = parseInt($env.EMBEDDING_DIMS || '1024');\nconst isValid = embedding.length >= 384; // Accept any reasonable dimension\n\nif (!isValid) {\n  return [{\n    json: {\n      valid: false,\n      error: `Invalid embedding: got ${embedding.length}, expected ${expectedDims}`,\n      embedding: [],\n      fallback: true\n    }\n  }];\n}\n\nreturn [{\n  json: {\n    valid: true,\n    embedding: embedding,\n    dimensions: embedding.length\n  }\n}];"
+          "jsCode": "const embeddingData = $json;\n\n// Check if we have a valid embedding - handle both Cohere and OpenRouter formats\nlet embedding = [];\n\n// Cohere v2 format: embeddings.float[0]\nif (embeddingData.embeddings?.float?.[0]) {\n  embedding = embeddingData.embeddings.float[0];\n}\n// OpenRouter/OpenAI format: data[0].embedding\nelse if (embeddingData.data?.[0]?.embedding) {\n  embedding = embeddingData.data[0].embedding;\n}\n// Body wrapper variants\nelse if (embeddingData.body?.embeddings?.float?.[0]) {\n  embedding = embeddingData.body.embeddings.float[0];\n}\nelse if (embeddingData.body?.data?.[0]?.embedding) {\n  embedding = embeddingData.body.data[0].embedding;\n}\nelse if (Array.isArray(embeddingData.embedding)) {\n  embedding = embeddingData.embedding;\n}\n\n// Validate embedding dimensions (1024 for Cohere, 1536 for OpenAI)\nconst expectedDims = parseInt('1024' || '1024');\nconst isValid = embedding.length >= 384; // Accept any reasonable dimension\n\nif (!isValid) {\n  return [{\n    json: {\n      valid: false,\n      error: `Invalid embedding: got ${embedding.length}, expected ${expectedDims}`,\n      embedding: [],\n      fallback: true\n    }\n  }];\n}\n\nreturn [{\n  json: {\n    valid: true,\n    embedding: embedding,\n    dimensions: embedding.length\n  }\n}];"
         },
         "type": "n8n-nodes-base.code",
         "typeVersion": 2,
@@ -1282,7 +1344,7 @@
       {
         "parameters": {
           "method": "POST",
-          "url": "={{ $env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1/chat/completions' }}",
+          "url": "https://openrouter.ai/api/v1/chat/completions",
           "authentication": "none",
           "nodeCredentialType": "openRouterApi",
           "sendBody": true,
@@ -1291,8 +1353,8 @@
           "options": {
             "timeout": 30000,
             "retry": {
-              "maxTries": 1,
-              "waitBetweenTries": 5000
+              "maxTries": 3,
+              "waitBetweenTries": 3000
             }
           },
           "sendHeaders": true,
@@ -1300,7 +1362,7 @@
             "parameters": [
               {
                 "name": "Authorization",
-                "value": "=Bearer {{ $env.OPENROUTER_API_KEY }}"
+                "value": "Bearer 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"
               }
             ]
           }
@@ -1313,8 +1375,10 @@
           2080,
           6304
         ],
-        "credentials": {},
-        "onError": "continueRegularOutput"
+        "onError": "continueRegularOutput",
+        "retryOnFail": true,
+        "maxTries": 3,
+        "waitBetweenTries": 3000
       },
       {
         "parameters": {
@@ -1641,18 +1705,18 @@
         ]
       }
     },
-    "authors": "Alexis Moret",
+    "authors": "Admin RAG",
     "name": null,
     "description": null,
     "autosaved": false,
     "workflowPublishHistory": [
       {
-        "createdAt": "2026-02-10T12:08:30.711Z",
-        "id": 859,
-        "workflowId": "95x2BBAbJlLWZtWEJn6rb",
-        "versionId": "377c8f45-db4d-405f-a096-b7d25fd0c7ce",
+        "createdAt": "2026-02-16T15:45:59.889Z",
+        "id": 160,
+        "workflowId": "6257AfT1l4FMC6lY",
+        "versionId": "f21d4e07-f0f8-4234-aa7b-76fb62664969",
         "event": "activated",
-        "userId": "215767e0-958a-4c74-a67a-e335807eba64"
+        "userId": "5e0b7c8f-d330-43e7-ada6-31b78e20460a"
       }
     ]
   }

@@ -2,7 +2,7 @@
 
 > **Ce fichier est la reference unique** pour les scripts Python de test.
 > Les scripts doivent s'y referer pour formater les requetes et utiliser les bons points d'entree.
-> Derniere mise a jour : 2026-02-15 (credentials Docker creees, API key reference corrigee)
+> Derniere mise a jour : 2026-02-16 (task runner fix, Jina migration validated, webhooks re-verified)
 
 ---
 
@@ -198,8 +198,8 @@ n8n_api("POST", f"/api/v1/workflows/{WF_ID}/activate")
 | `$env.X` bloqué en Docker self-hosted | Remplacer par valeurs hardcodées dans les nœuds |
 | Credentials n8n inexistantes après migration | **RESOLU 15-fev** : Postgres `USU8ngVzsUbED3mn` + Redis `CWih07lwPxfwFeY6` creees, 12/13 workflows remappes |
 | `require('crypto')` bloqué dans Code nodes | Utiliser fonction hash custom (bitwise) |
-| Pinecone dim 1024 (Cohere) vs 1536 (ancien) | Utiliser index `sota-rag-cohere-1024` |
-| Cohere Reranker v2 échoue | Utiliser `https://api.cohere.ai/v1/rerank` |
+| Pinecone dim 1024 (Jina) vs 1536 (ancien) | Utiliser index `sota-rag-jina-1024` (primary) |
+| Jina embedding JSON trailing comma | Verifier pas de trailing comma dans body JSON apres migration |
 | Tests parallèles → 503 n8n overload | Toujours tester les pipelines séquentiellement |
 | Free models OpenRouter changent souvent | Vérifier disponibilité avant de fixer le modèle |
 
@@ -232,10 +232,10 @@ n8n_api("POST", f"/api/v1/workflows/{WF_ID}/activate")
 
 | Pipeline | Path | Dernier test OK | Timestamp Paris |
 |----------|------|-----------------|-----------------|
-| Standard | `/webhook/rag-multi-index-v3` | 2026-02-12 | 11:19:49 CET |
-| Graph | `/webhook/ff622742-6d71-4e91-af71-b5c666088717` | 2026-02-12 | 09:27:03 CET |
-| Quantitative | `/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9` | 2026-02-12 | 11:11:36 CET |
-| Orchestrator | `/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0` | 2026-02-10 | — |
+| Standard | `/webhook/rag-multi-index-v3` | 2026-02-16 | 19:19 CET |
+| Graph | `/webhook/ff622742-6d71-4e91-af71-b5c666088717` | 2026-02-16 | 19:21 CET |
+| Quantitative | `/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9` | 2026-02-16 | 19:18 CET |
+| Orchestrator | `/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0` | 2026-02-16 | — |
 
 ---
 

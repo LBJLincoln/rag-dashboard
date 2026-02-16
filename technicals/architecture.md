@@ -44,7 +44,8 @@
 
 | DB | Content | Phase 1 | Phase 2 |
 |---|---|---|---|
-| **Pinecone** (sota-rag-cohere-1024) | Vector embeddings | 10,411 vectors, 12 namespaces | Standard RAG search |
+| **Pinecone** (sota-rag-jina-1024) | Vector embeddings (Jina) | 10,411 vectors, 12 namespaces | Standard RAG search (primary) |
+| **Pinecone** (sota-rag-cohere-1024) | Vector embeddings (Cohere) | 10,411 vectors, 12 namespaces | Backup index |
 | **Pinecone** (sota-rag-phase2-graph) | Graph passage embeddings | N/A | 1,296 musique passages (e5-large, 1024-dim) |
 | **Neo4j** | Entity graph | 19,788 nodes, 76,717 relationships | +4,884 entities, +21,810 rels from Phase 2 |
 | **Supabase** | Financial tables + benchmark_datasets | 38 tables, 10,772+ rows | +1,000 Phase 2 questions in benchmark_datasets |
@@ -73,9 +74,9 @@ Modeles gratuits via OpenRouter.
 
 | Provider | Model | Dimensions |
 |---|---|---|
-| **Cohere** (primary) | embed-english-v3.0 | 1024 |
-| **Cohere** (reranker) | rerank-multilingual-v3.0 | N/A |
-| **Jina AI** (backup) | jina-embeddings-v3 | 1024 |
+| **Jina AI** (primary) | jina-embeddings-v3 | 1024 |
+| **Jina AI** (reranker) | jina-reranker-v2-base-multilingual | N/A |
+| **Cohere** (backup) | embed-english-v3.0 | 1024 |
 
 ---
 

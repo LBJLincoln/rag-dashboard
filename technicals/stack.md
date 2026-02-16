@@ -24,9 +24,10 @@
 
 ### Pinecone (Vector DB)
 - **Plan** : Free tier (serverless)
-- **Index Docker** : `sota-rag-cohere-1024`
-- **Dimensions** : 1024 (Cohere embed-english-v3.0)
-- **Contenu** : 10,411 vecteurs, 12 namespaces
+- **Index principal** : `sota-rag-jina-1024` (Jina embeddings-v3, 1024-dim)
+- **Index backup** : `sota-rag-cohere-1024` (Cohere embed-english-v3.0, 1024-dim)
+- **Index Phase 2 Graph** : `sota-rag-phase2-graph` (e5-large, 1024-dim)
+- **Contenu** : 10,411 vecteurs, 12 namespaces (migres vers Jina le 2026-02-16)
 - **Acces** : Direct via API + via n8n
 
 ### Neo4j (Graph DB)
@@ -56,9 +57,9 @@
 ### Embeddings
 | Provider | Modele | Dimensions | Usage |
 |----------|--------|------------|-------|
-| **Cohere** (primary) | embed-english-v3.0 | 1024 | Pinecone indexing + query |
-| **Cohere** (reranker) | rerank-multilingual-v3.0 | N/A | Result reranking |
-| **Jina AI** (backup) | jina-embeddings-v3 | 1024 | MCP embeddings |
+| **Jina AI** (primary) | jina-embeddings-v3 | 1024 | Pinecone indexing + query (migre 2026-02-16) |
+| **Jina AI** (reranker) | jina-reranker-v2-base-multilingual | N/A | Result reranking |
+| **Cohere** (backup) | embed-english-v3.0 | 1024 | Legacy index backup |
 
 ---
 
@@ -80,9 +81,11 @@
 
 Les modeles LLM sont configures via variables d'environnement dans Docker :
 ```
-OPENROUTER_API_KEY, COHERE_API_KEY, PINECONE_API_KEY
+OPENROUTER_API_KEY, JINA_API_KEY, PINECONE_API_KEY
 LLM_SQL_MODEL, LLM_FAST_MODEL, LLM_INTENT_MODEL, etc.
-EMBEDDING_MODEL=embed-english-v3.0, EMBEDDING_DIM=1024
+EMBEDDING_MODEL=jina-embeddings-v3, EMBEDDING_DIM=1024
+EMBEDDING_API_URL=https://api.jina.ai/v1/embeddings
+RERANKER_MODEL=jina-reranker-v2-base-multilingual
 ```
 
 Mapping complet : `n8n/docker-workflow-ids.json`

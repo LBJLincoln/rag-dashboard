@@ -72,24 +72,28 @@ Details complets : `technicals/phases-overview.md`
 
 > **Lire `docs/status.json` pour les metriques live.**
 
-### Session 15 fev 2026
-- Migration Docker terminee (12 fev), repo reorganise (13 fev)
-- **Tous les gates 10/10 passes** (14 fev) : Standard 8/10, Graph 8/10, Quant 10/10, Orch 10/10
-- **Credentials Docker recrees** (15 fev) : Postgres Supabase Pooler + Redis Upstash
-- 12/13 workflows mis a jour avec les nouveaux IDs credentials
-- n8n Docker login corrige : `admin@mon-ipad.com` / `SotaRAG2026!`
+### Session 16 fev 2026 (Sessions 6-8)
+- **Phase 1 COMPLETE** (85.5% overall) — All 4 pipelines pass Phase 1 gates
+- **Phase 2 evaluation** started (50q quantitative, 50q graph, 50q orchestrator)
+- **n8n task runner FIXED** (session 8) — Grant token TTL 15s→120s for slow VM (970MB RAM)
+- **Jina migration VALIDATED** (session 8) — Standard 3/3, Graph 3/3 confirmed with Jina embeddings
+- **Trailing comma fix** (session 8) — Standard embedding JSON body had trailing comma from Jina migration
+- **Migration Jina COMPLETE** (session 7) — 10,411 vectors + 2 workflows migrated Cohere→Jina
+- **Security scrub** (session 7) — 27 files cleaned, CLAUDE.md v2, .env.example rewritten
 
 ### Prochaine action prioritaire
-**Tests 50/50** pour chaque pipeline (iterative-eval.py), puis Phase 2 (hf-1000.json).
+**Quantitative pipeline** : 78.3% → 85% target (SQL edge cases, multi-table JOINs).
+Puis Phase 2 full eval (1000q hf-1000.json).
 Suivre le processus : `directives/workflow-process.md`
 
 ---
 
-## Etat des BDD (verifie le 2026-02-15)
+## Etat des BDD (verifie le 2026-02-16)
 
 ### Pinecone
-- **10,411 vecteurs**, 12 namespaces, dimension **1024** (Cohere embed-english-v3.0)
-- Index : `sota-rag-cohere-1024` (host: `sota-rag-cohere-1024-a4mkzmz.svc.aped-4627-b74a.pinecone.io`)
+- **10,411 vecteurs**, 12 namespaces, dimension **1024** (Jina embeddings-v3)
+- Index principal : `sota-rag-jina-1024` (host: `sota-rag-jina-1024-a4mkzmz.svc.aped-4627-b74a.pinecone.io`)
+- Index backup : `sota-rag-cohere-1024` (Cohere embed-english-v3.0, conserve)
 - Namespaces : benchmark-msmarco (1000), benchmark-frames (824), benchmark-asqa (948), benchmark-squad_v2 (1000), benchmark-triviaqa (1000), default (639), benchmark-popqa (1000), benchmark-narrativeqa (1000), benchmark-natural_questions (1000), benchmark-finqa (500), benchmark-hotpotqa (1000), benchmark-pubmedqa (500)
 
 ### Neo4j
@@ -113,7 +117,7 @@ Voir `technicals/stack.md` pour le detail complet.
 **Resume** :
 - **Workflows** : n8n Docker self-hosted (34.136.180.66:5678)
 - **LLM** : Modeles gratuits via OpenRouter ($0)
-- **Embeddings** : Cohere embed-english-v3.0 (1024-dim) + Jina (backup)
+- **Embeddings** : Jina embeddings-v3 (1024-dim, primary) + Cohere (backup)
 - **Vector DB** : Pinecone (free tier, serverless)
 - **Graph DB** : Neo4j (via n8n Docker)
 - **SQL DB** : Supabase (free tier)

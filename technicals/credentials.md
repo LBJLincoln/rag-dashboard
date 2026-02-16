@@ -1,7 +1,7 @@
 # Credentials & Cles API
 
 > **Ce fichier DOIT etre mis a jour** apres chaque rotation de cle ou changement de service.
-> Derniere mise a jour : 2026-02-15 (credentials Postgres + Redis recreees, workflow IDs corriges)
+> Derniere mise a jour : 2026-02-16 (migration Jina primary, Cohere backup, task runner fix)
 
 ---
 
@@ -40,10 +40,11 @@ Les cles API sont configurees dans :
 - **Variables** : `$env.VAR_NAME` (pas `$vars` — free tier)
 
 ### Pinecone
-- **Index** : `sota-rag-cohere-1024`
+- **Index principal** : `sota-rag-jina-1024` (Jina embeddings-v3, 1024-dim)
+- **Index backup** : `sota-rag-cohere-1024` (Cohere embed-english-v3.0, 1024-dim)
+- **Index Phase 2** : `sota-rag-phase2-graph` (e5-large, 1024-dim)
 - **Host** : Voir .env.local
 - **Plan** : Free (serverless)
-- **Dimensions** : 1024 (Cohere)
 
 ### Supabase
 - **Project ref** : `ayqviqmxifzmhphiqfmj`
@@ -58,13 +59,16 @@ Les cles API sont configurees dans :
 - **Cle** : Dans .env.local et Docker env
 - **Rate limit** : 20 req/min (avec credit)
 
-### Cohere
-- **Embeddings** : `embed-english-v3.0` (1024-dim)
-- **Reranker** : `rerank-multilingual-v3.0`
-
-### Jina AI
-- **Modele** : `jina-embeddings-v3` (1024-dim)
+### Jina AI (PRIMARY — migre le 2026-02-16)
+- **Embeddings** : `jina-embeddings-v3` (1024-dim)
+- **Reranker** : `jina-reranker-v2-base-multilingual`
 - **Limite** : 10M tokens/mois (gratuit)
+- **Usage** : Indexing + query Pinecone + reranking
+
+### Cohere (BACKUP)
+- **Embeddings** : `embed-english-v3.0` (1024-dim) — index backup conserve
+- **Reranker** : `rerank-multilingual-v3.0` — plus utilise
+- **Note** : Trial epuise (429), 2 cles mortes. Index Cohere conserve comme backup uniquement.
 
 ### HuggingFace
 - **Token** : Dans .env.local et env vars VM

@@ -1,10 +1,10 @@
 {
   "versions": {
     "standard": {
-      "version": 4,
-      "hash": "7adc29125ede373b",
-      "timestamp": "2026-02-16T11:56:16.988979Z",
-      "snapshot_file": "standard-2026-02-16T11-56-12-7adc29125ede373b.json",
+      "version": 5,
+      "hash": "a66eb2ef1a5d7688",
+      "timestamp": "2026-02-16T18:36:05.771172Z",
+      "snapshot_file": "standard-2026-02-16T18-35-59-a66eb2ef1a5d7688.json",
       "name": "WF5 Standard RAG V3.4",
       "webhook": "/webhook/rag-multi-index-v3",
       "summary": {
@@ -57,22 +57,142 @@
             "node": "LLM Generation",
             "changes": [
               {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+              }
+            ]
+          },
+          {
+            "node": "Query Decomposer (V.3.4)",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+              }
+            ]
+          },
+          {
+            "node": "📋 Configuration SOTA 2026",
+            "changes": [
+              {
+                "param": "content",
+                "old": "# 🔧 VARIABLES D'ENVIRONNEMENT REQUISES (SOTA 2026)\n\n## LLM APIs\n- `OPENROUTER_BASE_URL` - https://openrouter.ai/api/v1/chat/completions\n- `LLM_HYDE_MODEL` - arcee-ai/trinity-large-preview:free\n- `LLM_",
+                "new": "# 🔧 VARIABLES D'ENVIRONNEMENT REQUISES (SOTA 2026)\n\n## LLM APIs\n- `OPENROUTER_BASE_URL` - https://openrouter.ai/api/v1/chat/completions\n- `LLM_HYDE_MODEL` - arcee-ai/trinity-large-preview:free\n- `LLM_"
+              }
+            ]
+          },
+          {
+            "node": "HTTP Pinecone Query Original",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Api-Key', 'value': 'pcsk_REDACTED'}, {'name': 'Content-Type', 'value': 'application/json'}]}",
+                "new": "{'parameters': [{'name': 'Api-Key', 'value': 'pcsk_6GzVdD_BbHsYNvpcngMqAHH5EvEa9XLnmFpEK9cx5q5xkMp72z5KFQ1q7dEjp8npWhJGBY'}, {'name': 'Content-Type', 'value': 'application/json'}]}"
+              },
+              {
+                "param": "url",
+                "old": "https://sota-rag-cohere-1024-a4mkzmz.svc.aped-4627-b74a.pinecone.io/query",
+                "new": "https://sota-rag-jina-1024-a4mkzmz.svc.aped-4627-b74a.pinecone.io/query"
+              }
+            ]
+          },
+          {
+            "node": "HyDE Embedding",
+            "changes": [
+              {
                 "param": "jsonBody",
-                "old": "={\n  \"model\": \"nvidia/nemotron-3-nano-30b-a3b:free\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are an expert assistant. Answer the question CONCISELY in 1-2 sentences. Be dir",
-                "new": "={\n  \"model\": \"arcee-ai/trinity-large-preview:free\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are an expert assistant. Answer the question CONCISELY in 1-2 sentences. Be dir"
+                "old": "={\n  \"model\": \"embed-english-v3.0\",\n  \"texts\": [{{ JSON.stringify($node['HyDE Generator'].json.choices?.[0]?.message?.content || $node['Init & ACL Pre-Filter V3.4'].json.query || '') }}],\n  \"input_typ",
+                "new": "={\n  \"model\": \"jina-embeddings-v3\",\n  \"input\": [{{ JSON.stringify($node['HyDE Generator'].json.choices?.[0]?.message?.content || $node['Init & ACL Pre-Filter V3.4'].json.query || '') }}],\n  \"task\": \"r"
+              },
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer REDACTED_COHERE_KEY'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer jina_f1348176dc7a4f0da9996cfa6cfa6eecasLHpAw7iEXFqU6eHi9SQBuxqT0F'}]}"
+              },
+              {
+                "param": "url",
+                "old": "https://api.cohere.com/v2/embed",
+                "new": "https://api.jina.ai/v1/embeddings"
+              }
+            ]
+          },
+          {
+            "node": "Cohere Reranker",
+            "changes": [
+              {
+                "param": "jsonBody",
+                "old": "={\n  \"model\": \"rerank-v3.5\",\n  \"query\": {{ JSON.stringify($node['Init & ACL Pre-Filter V3.4'].json.query || '') }},\n  \"documents\": {{ $json.skip_reranker ? '[\"placeholder\"]' : JSON.stringify(($json.re",
+                "new": "={\n  \"model\": \"jina-reranker-v2-base-multilingual\",\n  \"query\": {{ JSON.stringify($node['Init & ACL Pre-Filter V3.4'].json.query || '') }},\n  \"documents\": {{ $json.skip_reranker ? '[\"placeholder\"]' : J"
+              },
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer REDACTED_COHERE_KEY'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer jina_f1348176dc7a4f0da9996cfa6cfa6eecasLHpAw7iEXFqU6eHi9SQBuxqT0F'}]}"
+              },
+              {
+                "param": "url",
+                "old": "https://api.cohere.ai/v1/rerank",
+                "new": "https://api.jina.ai/v1/rerank"
+              }
+            ]
+          },
+          {
+            "node": "HyDE Generator",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+              }
+            ]
+          },
+          {
+            "node": "HTTP Pinecone Query HyDE",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Api-Key', 'value': 'pcsk_REDACTED'}, {'name': 'Content-Type', 'value': 'application/json'}]}",
+                "new": "{'parameters': [{'name': 'Api-Key', 'value': 'pcsk_6GzVdD_BbHsYNvpcngMqAHH5EvEa9XLnmFpEK9cx5q5xkMp72z5KFQ1q7dEjp8npWhJGBY'}, {'name': 'Content-Type', 'value': 'application/json'}]}"
+              },
+              {
+                "param": "url",
+                "old": "https://sota-rag-cohere-1024-a4mkzmz.svc.aped-4627-b74a.pinecone.io/query",
+                "new": "https://sota-rag-jina-1024-a4mkzmz.svc.aped-4627-b74a.pinecone.io/query"
+              }
+            ]
+          },
+          {
+            "node": "Original Embedding",
+            "changes": [
+              {
+                "param": "jsonBody",
+                "old": "={\n  \"model\": \"embed-english-v3.0\",\n  \"texts\": [{{ JSON.stringify($node['Init & ACL Pre-Filter V3.4'].json.query || '') }}],\n  \"input_type\": \"search_query\",\n  \"embedding_types\": [\"float\"]\n}",
+                "new": "={\n  \"model\": \"jina-embeddings-v3\",\n  \"input\": [{{ JSON.stringify($node['Init & ACL Pre-Filter V3.4'].json.query || '') }}],\n  \"task\": \"retrieval.query\"\n}"
+              },
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer REDACTED_COHERE_KEY'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer jina_f1348176dc7a4f0da9996cfa6cfa6eecasLHpAw7iEXFqU6eHi9SQBuxqT0F'}]}"
+              },
+              {
+                "param": "url",
+                "old": "https://api.cohere.com/v2/embed",
+                "new": "https://api.jina.ai/v1/embeddings"
               }
             ]
           }
         ],
         "has_changes": true,
-        "summary": "+0 -0 ~1 nodes"
+        "summary": "+0 -0 ~9 nodes"
       }
     },
     "graph": {
-      "version": 3,
-      "hash": "ab2c4feeacc84cb6",
-      "timestamp": "2026-02-16T10:38:44.134072Z",
-      "snapshot_file": "graph-2026-02-16T10-38-35-ab2c4feeacc84cb6.json",
+      "version": 4,
+      "hash": "3f3c47e27da6b5b4",
+      "timestamp": "2026-02-16T18:36:10.014048Z",
+      "snapshot_file": "graph-2026-02-16T18-35-59-3f3c47e27da6b5b4.json",
       "name": "WF2 Graph RAG V3.3",
       "webhook": "/webhook/ff622742-6d71-4e91-af71-b5c666088717",
       "summary": {
@@ -123,28 +243,93 @@
         "removed_nodes": [],
         "modified_nodes": [
           {
-            "node": "WF3: HyDE & Entity Extraction",
-            "changes": [
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}"
-              }
-            ]
-          },
-          {
             "node": "LLM Answer Synthesis",
             "changes": [
               {
                 "param": "headerParameters",
                 "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}"
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+              }
+            ]
+          },
+          {
+            "node": "WF3: HyDE & Entity Extraction",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+              }
+            ]
+          },
+          {
+            "node": "WF3: Pinecone HyDE Search",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Api-Key', 'value': 'pcsk_REDACTED'}, {'name': 'Content-Type', 'value': 'application/json'}]}",
+                "new": "{'parameters': [{'name': 'Api-Key', 'value': 'pcsk_6GzVdD_BbHsYNvpcngMqAHH5EvEa9XLnmFpEK9cx5q5xkMp72z5KFQ1q7dEjp8npWhJGBY'}, {'name': 'Content-Type', 'value': 'application/json'}]}"
+              },
+              {
+                "param": "url",
+                "old": "https://sota-rag-cohere-1024-a4mkzmz.svc.aped-4627-b74a.pinecone.io/query",
+                "new": "https://sota-rag-jina-1024-a4mkzmz.svc.aped-4627-b74a.pinecone.io/query"
+              }
+            ]
+          },
+          {
+            "node": "WF3: Cohere Reranker",
+            "changes": [
+              {
+                "param": "jsonBody",
+                "old": "={\n  \"model\": \"rerank-v3.5\",\n  \"query\": \"{{ $node['OTEL Init'].json.query }}\",\n  \"documents\": {{ JSON.stringify(($json.merged_results || []).map(d => d.content || '').filter(c => c.length > 0).slice(0",
+                "new": "={\n  \"model\": \"jina-reranker-v2-base-multilingual\",\n  \"query\": \"{{ $node['OTEL Init'].json.query }}\",\n  \"documents\": {{ JSON.stringify(($json.merged_results || []).map(d => d.content || '').filter(c ="
+              },
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer REDACTED_COHERE_KEY'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer jina_f1348176dc7a4f0da9996cfa6cfa6eecasLHpAw7iEXFqU6eHi9SQBuxqT0F'}]}"
+              },
+              {
+                "param": "url",
+                "old": "https://api.cohere.ai/v1/rerank",
+                "new": "https://api.jina.ai/v1/rerank"
+              }
+            ]
+          },
+          {
+            "node": "Generate HyDE Embedding",
+            "changes": [
+              {
+                "param": "jsonBody",
+                "old": "={{ { \"model\": ('embed-english-v3.0' || 'embed-english-v3.0'), \"texts\": [$json.hyde_document], \"input_type\": \"search_query\", \"embedding_types\": [\"float\"] } }}",
+                "new": "={{ { \"model\": ('jina-embeddings-v3' || 'jina-embeddings-v3'), \"input\": [$json.hyde_document], \"task\": \"retrieval.query\" } }}"
+              },
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer REDACTED_COHERE_KEY'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer jina_f1348176dc7a4f0da9996cfa6cfa6eecasLHpAw7iEXFqU6eHi9SQBuxqT0F'}]}"
+              },
+              {
+                "param": "url",
+                "old": "https://api.cohere.com/v2/embed",
+                "new": "https://api.jina.ai/v1/embeddings"
+              }
+            ]
+          },
+          {
+            "node": "📋 Configuration SOTA 2026",
+            "changes": [
+              {
+                "param": "content",
+                "old": "# 🔧 VARIABLES D'ENVIRONNEMENT (SOTA 2026) - CORRECTED V3.3.1\n\n## CORRECTIONS APPLIQUÉES:\n1. ✅ OTEL Init: Fixed duplicate 'const query' declaration\n2. ✅ WF3: Cohere Reranker: Fixed triple nested templa",
+                "new": "# 🔧 VARIABLES D'ENVIRONNEMENT (SOTA 2026) - CORRECTED V3.3.1\n\n## CORRECTIONS APPLIQUÉES:\n1. ✅ OTEL Init: Fixed duplicate 'const query' declaration\n2. ✅ WF3: Cohere Reranker: Fixed triple nested templa"
               }
             ]
           }
         ],
         "has_changes": true,
-        "summary": "+0 -0 ~2 nodes"
+        "summary": "+0 -0 ~6 nodes"
       }
     },
     "quantitative": {
@@ -475,6 +660,22 @@
       "hash": "317d4a7291ebd021",
       "diff_summary": "+0 -0 ~1 nodes",
       "snapshot_file": "orchestrator-2026-02-16T11-56-12-317d4a7291ebd021.json"
+    },
+    {
+      "timestamp": "2026-02-16T18:36:05.771197Z",
+      "pipeline": "standard",
+      "version": 5,
+      "hash": "a66eb2ef1a5d7688",
+      "diff_summary": "+0 -0 ~9 nodes",
+      "snapshot_file": "standard-2026-02-16T18-35-59-a66eb2ef1a5d7688.json"
+    },
+    {
+      "timestamp": "2026-02-16T18:36:10.014078Z",
+      "pipeline": "graph",
+      "version": 4,
+      "hash": "3f3c47e27da6b5b4",
+      "diff_summary": "+0 -0 ~6 nodes",
+      "snapshot_file": "graph-2026-02-16T18-35-59-3f3c47e27da6b5b4.json"
     }
   ]
 }
