@@ -1,13 +1,13 @@
 {
   "meta": {
-    "generated_at": "2026-02-16T01:30:22.349982Z",
+    "generated_at": "2026-02-16T03:49:26.188121Z",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
     "total_unique_questions": 200,
-    "total_test_runs": 818,
-    "total_iterations": 23,
-    "status": "running",
+    "total_test_runs": 868,
+    "total_iterations": 24,
+    "status": "complete",
     "current_session": "2026-02-16T01-30-21"
   },
   "reference_cloud_executions": {
@@ -11327,15 +11327,676 @@
       "id": "iter-2026-02-16T01-30-21",
       "number": 24,
       "timestamp_start": "2026-02-16T01:30:22.349955Z",
-      "timestamp_end": null,
+      "timestamp_end": "2026-02-16T03:47:18.879282Z",
       "label": "15fev-s5-orch-50q-simplified-expected",
       "description": "Iterative evaluation: stages 3-3, pipelines: orchestrator",
       "changes_applied": [],
-      "results_summary": {},
-      "total_tested": 0,
-      "total_correct": 0,
-      "overall_accuracy_pct": 0,
-      "questions": []
+      "results_summary": {
+        "orchestrator": {
+          "tested": 50,
+          "correct": 40,
+          "errors": 2,
+          "accuracy_pct": 80.0,
+          "avg_latency_ms": 154844,
+          "p95_latency_ms": 263509,
+          "avg_f1": 0.7832
+        }
+      },
+      "total_tested": 50,
+      "total_correct": 40,
+      "overall_accuracy_pct": 80.0,
+      "questions": [
+        {
+          "id": "orch-12",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 179002,
+          "answer": "Alfred Hitchcock, Ridley Scott, Christopher Nolan, Danny Boyle, Mike Leigh\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "expected": "Alfred Hitchcock",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T01:33:27.858770Z"
+        },
+        {
+          "id": "orch-13",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 212768,
+          "answer": "NASA conducts research across a broad spectrum of fields, including aeronautics and flight technology, human space exploration, planetary and space science, astrophysics and cosmology, Earth and climate science, and advanced technologies such as robotics, propulsion, and materials science.",
+          "expected": "NASA",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T01:37:11.121229Z"
+        },
+        {
+          "id": "orch-15",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 175998,
+          "answer": "The operating income for the three companies in Q1 2023 is as follows:\n\n1. TechVision Inc: $465,908,000\n2. GreenEnergy Corp: $184,690,000\n3. HealthPlus Labs: $48,153,000\n\nThese figures represent the operating income for each company during the first quarter of 2023.\n\n---\n**Sources:**\n[1] SQL Result 1\n[2] SQL Result 2\n[3] SQL Result 3",
+          "expected": "operating income",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T01:40:17.361851Z"
+        },
+        {
+          "id": "orch-16",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 263509,
+          "answer": "WHO is a specialized agency of the UN.\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "expected": "WHO is a subset of the United Nations",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T01:44:51.354848Z"
+        },
+        {
+          "id": "orch-18",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 156480,
+          "answer": "The SQL query successfully identified 2 products in the AI/ML category for the 'benchmark' tenant:\n\n1. VisionAI Platform (TV-AI-001)\n   - Launched on January 10, 2021\n   - Unit cost: $50\n   - List price: $299.99\n   - Status: Active\n\n2. VisionAI Edge (TV-AI-002)\n   - Launched on April 20, 2022\n   - Unit cost: $35\n   - List price: $199.99\n   - Status: Active\n\nBoth products are currently active and belong to the AI/ML category. The VisionAI Platform is the older product with a higher unit cost and ",
+          "expected": "VisionAI",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T01:47:38.860993Z"
+        },
+        {
+          "id": "orch-19",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 302503,
+          "answer": "",
+          "expected": "",
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "timestamp": "2026-02-16T01:52:52.868570Z"
+        },
+        {
+          "id": "orch-20",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 132500,
+          "answer": "The total debt amounts for HealthPlus Labs are as follows:\n\n1. $240,000,000\n2. $215,000,000\n3. $175,000,000\n4. $140,000,000\n\nThese figures represent the sum of short-term and long-term debt for HealthPlus Labs across different periods or reporting instances.\n\n---\n**Sources:**\n[1] SQL Result 1\n[2] SQL Result 2\n[3] SQL Result 3\n[4] SQL Result 4",
+          "expected": "HealthPlus",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T01:55:13.359458Z"
+        },
+        {
+          "id": "orch-21",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.1818,
+          "latency_ms": 210252,
+          "answer": "I don't have information on the products sold by GreenEnergy Corp.",
+          "expected": "SolarMax 400W, SolarMax 600W, WindTurbo 5kW, PowerVault 10kWh, PowerVault 20kWh, GridManager Pro",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T01:58:54.362982Z"
+        },
+        {
+          "id": "orch-22",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 127741,
+          "answer": "The technology that preceded the Internet was the ARPANET, the early packet‑switching network funded by the U.S. Department of Defense in the late 1960s.",
+          "expected": "Electricity, Telephone, Steam Engine",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:01:11.132116Z"
+        },
+        {
+          "id": "orch-24",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 158003,
+          "answer": "The EPS value for TechVision Inc in 2023 is 16.17.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "expected": "16.17",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:03:56.354274Z"
+        },
+        {
+          "id": "orch-25",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 153015,
+          "answer": "CERN is situated on the border of Switzerland and France, just outside Geneva.",
+          "expected": "Switzerland",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:06:38.853505Z"
+        },
+        {
+          "id": "orch-26",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 146984,
+          "answer": "Vaccines protect against infectious diseases such as measles, polio, hepatitis B, influenza, and human papillomavirus, among many others.",
+          "expected": "influenza",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:09:19.877271Z"
+        },
+        {
+          "id": "orch-28",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.2051,
+          "latency_ms": 108493,
+          "answer": "Based on the SQL query results, HealthPlus Labs achieved the highest revenue growth between 2020 and 2023, with a growth rate of 260%. This means their revenue in 2023 was 3.6 times higher than in 2020.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "expected": "HealthPlus Labs with 260% growth",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:11:15.133323Z"
+        },
+        {
+          "id": "orch-29",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 205239,
+          "answer": "Alan Turing → John McCarthy → Vint Cerf/Bob Kahn → Larry Page/Sergey Brin → Google\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "expected": "Turing",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:14:48.624262Z"
+        },
+        {
+          "id": "orch-30",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 121015,
+          "answer": "Photosynthesis is the process by which green plants, algae, and certain bacteria convert light energy into chemical energy, using carbon dioxide and water to produce glucose and releasing oxygen as a by‑product.",
+          "expected": "photosynthesis",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:16:57.366229Z"
+        },
+        {
+          "id": "orch-31",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 121518,
+          "answer": "TechVision's total assets grew from $5.4 billion in 2020 to $7.924 billion in 2023, representing a compound annual growth rate (CAGR) of approximately 13.4% over the four-year period.\n\n---\n**Sources:**\n[1] SQL Result 1\n[2] SQL Result 2\n[3] SQL Result 3\n[4] SQL Result 4",
+          "expected": "7.924",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:19:07.117799Z"
+        },
+        {
+          "id": "orch-33",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 131745,
+          "answer": "Claude Monet, Pierre-Auguste Renoir, Camille Pissarro, Paul Cézanne, Paul Gauguin, Vincent van Gogh\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "expected": "Picasso",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:21:29.106919Z"
+        },
+        {
+          "id": "orch-34",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 165729,
+          "answer": "Nikola Tesla (1856‑1943) was a Serbian‑American inventor, electrical engineer, and futurist best known for pioneering alternating‑current (AC) power systems, radio technology, and numerous other electrical innovations.",
+          "expected": "Tesla",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:24:24.114904Z"
+        },
+        {
+          "id": "orch-36",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 134750,
+          "answer": "The Pythagorean theorem states that in a right‑angled triangle, the square of the length of the hypotenuse (the side opposite the right angle) equals the sum of the squares of the other two sides, expressed as \\(c^{2}=a^{2}+b^{2}\\).",
+          "expected": "Pythagorean",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:26:49.370813Z"
+        },
+        {
+          "id": "orch-37",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 95744,
+          "answer": "TechVision's interest income for the year 2023 is $45,000,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "expected": "45000000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:28:35.601173Z"
+        },
+        {
+          "id": "orch-38",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 120002,
+          "answer": "The total liabilities for all companies at the end of 2023 is $3,279,000,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "expected": "3279000000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:30:45.628084Z"
+        },
+        {
+          "id": "orch-40",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 169262,
+          "answer": "Quantum computing is a computational model that uses quantum bits (qubits) to process information, exploiting phenomena such as superposition and entanglement to perform certain calculations more efficiently than classical computers.",
+          "expected": "quantum",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:33:44.623887Z"
+        },
+        {
+          "id": "orch-41",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 110982,
+          "answer": "HealthPlus Labs' operating income for 2023 is $218,840,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "expected": "218840000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:35:44.106109Z"
+        },
+        {
+          "id": "orch-42",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 138499,
+          "answer": "Louis Pasteur developed germ theory and vaccines, revolutionizing disease prevention.\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "expected": "Pasteur",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:38:16.106742Z"
+        },
+        {
+          "id": "orch-43",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 108233,
+          "answer": "The top 3 companies by stockholders equity at the end of 2023 are:\n\n1. TechVision Inc - $6,149,000,000\n2. GreenEnergy Corp - $3,276,000,000\n3. HealthPlus Labs - $795,000,000\n\nThese companies have the highest stockholders equity among all companies in the database for the fiscal year 2023.\n\n---\n**Sources:**\n[1] SQL Result 1\n[2] SQL Result 2\n[3] SQL Result 3",
+          "expected": "6149",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:40:12.109631Z"
+        },
+        {
+          "id": "orch-44",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 247997,
+          "answer": "Gene editing, research, agriculture, medicine.\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "expected": "CRISPR",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:44:29.868389Z"
+        },
+        {
+          "id": "orch-46",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 116001,
+          "answer": "National Air and Space Museum, National Museum of Natural History, National Museum of American History, National Museum of African American History and Culture\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "expected": "Smithsonian Institution",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:46:35.866984Z"
+        },
+        {
+          "id": "orch-48",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 135508,
+          "answer": "I cannot determine the products sold by HealthPlus without additional context.",
+          "expected": "GenomeScan, ImmunoBoost, NeuroShield, MedAssist AI, PatientHub; Einstein, Curie, Mandela connected to Nobel Foundation",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:49:01.106285Z"
+        },
+        {
+          "id": "orch-50",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.2553,
+          "latency_ms": 164000,
+          "answer": "Alexander Fleming discovered penicillin (1928) → Howard Florey and Ernst Boris Chain developed mass production methods (1940s) → Jonas Salk developed polio vaccine (1955) → Maurice Hilleman advanced vaccine technology (1940s-2000s) → COVID-19 vaccines developed (2020)\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "expected": "Fleming → Penicillin → Tuberculosis; parallel: Vaccination → COVID-19, both via medical connections",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:51:52.865784Z"
+        },
+        {
+          "id": "orch-01",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 144238,
+          "answer": "TechVision Inc's revenue for the year 2023 was $6,745,000,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:54:25.350237Z"
+        },
+        {
+          "id": "orch-02",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 131266,
+          "answer": "Penicillin was discovered by Alexander Fleming.",
+          "expected": "Alexander Fleming",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:56:46.614539Z"
+        },
+        {
+          "id": "orch-03",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 119494,
+          "answer": "First woman to win a Nobel Prize, only person to win in two different scientific fields (Physics and Chemistry).\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "expected": "Nobel Prize",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T02:58:57.604430Z"
+        },
+        {
+          "id": "orch-04",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 95989,
+          "answer": "The Q4 2023 revenue for GreenEnergy Corp is $1,021,500,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T03:00:44.630664Z"
+        },
+        {
+          "id": "orch-05",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 200494,
+          "answer": "Stephen Hawking, Rosalind Franklin, Charles Darwin, James Watson, Francis Crick, Alan Turing\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T03:04:14.109027Z"
+        },
+        {
+          "id": "orch-06",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 107485,
+          "answer": "The capital city of France is Paris.",
+          "expected": "Paris",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T03:06:11.118791Z"
+        },
+        {
+          "id": "orch-07",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 109748,
+          "answer": "The gross profit margin for HealthPlus Labs in 2023 is 51.9965%.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T03:08:11.363212Z"
+        },
+        {
+          "id": "orch-08",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 149742,
+          "answer": "John McCarthy, Marvin Minsky, Nathaniel Rochester, and Claude Shannon\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T03:10:49.377868Z"
+        },
+        {
+          "id": "orch-09",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 141494,
+          "answer": "Machine learning is a branch of artificial intelligence that enables computers to learn patterns and make predictions or decisions from data without being explicitly programmed for each task. It works by building statistical models that improve their performance automatically as they are exposed to more examples.",
+          "expected": "artificial intelligence",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T03:13:19.882859Z"
+        },
+        {
+          "id": "orch-10",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 177752,
+          "answer": "I don’t have the 2023 R&D spending figures for the three companies, nor a list of museums located in Paris.",
+          "expected": "",
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T03:16:29.873996Z"
+        },
+        {
+          "id": "orch-11",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 100501,
+          "answer": "The net income for TechVision Inc in fiscal year 2022 is $1,337,550,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "expected": "1337550000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T03:18:16.619929Z"
+        },
+        {
+          "id": "orch-14",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.25,
+          "latency_ms": 152761,
+          "answer": "At standard atmospheric pressure (1 atm), water boils at 100 °C (212 °F).",
+          "expected": "100 degrees Celsius",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T03:20:59.871572Z"
+        },
+        {
+          "id": "orch-17",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.3889,
+          "latency_ms": 198983,
+          "answer": "Winston Churchill (1874–1965) was a British politician, military officer, and author who served as Prime Minister during World War II and is celebrated for his leadership in resisting Nazi Germany.",
+          "expected": "British Prime Minister during World War II",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T03:24:27.852940Z"
+        },
+        {
+          "id": "orch-23",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.3125,
+          "latency_ms": 127751,
+          "answer": "DNA (deoxyribonucleic acid) is a double‑stranded molecule composed of nucleotide units that stores and transmits the genetic instructions for the development, functioning, and reproduction of all known living organisms.",
+          "expected": "Deoxyribonucleic acid carries genetic instructions for development",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T03:26:44.125103Z"
+        },
+        {
+          "id": "orch-27",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 301510,
+          "answer": "",
+          "expected": "Layer in stratosphere that absorbs UV radiation",
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "timestamp": "2026-02-16T03:31:55.376970Z"
+        },
+        {
+          "id": "orch-32",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.3404,
+          "latency_ms": 152765,
+          "answer": "The quarterly revenue figures for HealthPlus Labs in 2023 are as follows:\n\n- Q1: $253,440,000\n- Q2: $276,480,000\n- Q3: $299,520,000\n- Q4: $322,560,000\n\nThese figures show a consistent quarterly growth pattern throughout the year.\n\n---\n**Sources:**\n[1] SQL Result 1\n[2] SQL Result 2\n[3] SQL Result 3\n[4] SQL Result 4",
+          "expected": "Q1 $253.4M, Q2 $276.5M, Q3 $299.5M, Q4 $322.6M",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T03:34:36.130752Z"
+        },
+        {
+          "id": "orch-35",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.4,
+          "latency_ms": 129986,
+          "answer": "The average salary across all departments at GreenEnergy is $146,800.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "expected": "Average salary calculation across departments",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T03:36:54.862231Z"
+        },
+        {
+          "id": "orch-39",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 196254,
+          "answer": "Prominent universities known for AI research include the Massachusetts Institute of Technology (MIT), Stanford University, Carnegie Mellon University, the University of Oxford, and the University of California, Berkeley.",
+          "expected": "MIT, Stanford University",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T03:40:19.887265Z"
+        },
+        {
+          "id": "orch-45",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 134753,
+          "answer": "GreenEnergy Corp's cost of goods sold for 2022 was $1,544,400,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "expected": "1544400000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T03:42:42.884568Z"
+        },
+        {
+          "id": "orch-47",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.2609,
+          "latency_ms": 148014,
+          "answer": "The French Revolution (1789‑1799) was a period of radical social and political upheaval in France that dismantled the monarchy, abolished feudal privileges, and established a republic based on principles of liberty, equality, and fraternity. It reshaped French society and had profound global influence on ideas of democracy and nationalism.",
+          "expected": "Period of political and social upheaval in France starting in 1789",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T03:45:17.630193Z"
+        },
+        {
+          "id": "orch-49",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 107754,
+          "answer": "The retained earnings for GreenEnergy Corp at the end of 2023 is $2,776,000,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "expected": "2776000000",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-16T03:47:13.874123Z"
+        }
+      ]
     }
   ],
   "question_registry": {
@@ -14870,13 +15531,25 @@
           "error_type": null,
           "answer": "TechVision Inc's revenue for the year 2023 is $6,745,000,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
           "timestamp": "2026-02-16T00:49:46.226467Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 144238,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "TechVision Inc's revenue for the year 2023 was $6,745,000,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "timestamp": "2026-02-16T02:54:25.360369Z"
         }
       ],
-      "total_runs": 5,
-      "pass_count": 3,
-      "pass_rate": 0.6,
+      "total_runs": 6,
+      "pass_count": 4,
+      "pass_rate": 0.667,
       "current_status": "pass",
-      "last_tested": "2026-02-16T00:49:46.226467Z",
+      "last_tested": "2026-02-16T02:54:25.360369Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -14949,13 +15622,25 @@
           "error_type": null,
           "answer": "Penicillin was discovered by Alexander Fleming.",
           "timestamp": "2026-02-16T00:53:13.978919Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 131266,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Penicillin was discovered by Alexander Fleming.",
+          "timestamp": "2026-02-16T02:56:46.622763Z"
         }
       ],
-      "total_runs": 5,
-      "pass_count": 5,
+      "total_runs": 6,
+      "pass_count": 6,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-16T00:53:13.978919Z",
+      "last_tested": "2026-02-16T02:56:46.622763Z",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -15040,13 +15725,25 @@
           "error_type": null,
           "answer": "Marie Curie won Nobel Prizes in Physics (1903) and Chemistry (1911).\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
           "timestamp": "2026-02-16T00:56:31.983511Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 119494,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "First woman to win a Nobel Prize, only person to win in two different scientific fields (Physics and Chemistry).\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "timestamp": "2026-02-16T02:58:57.627390Z"
         }
       ],
-      "total_runs": 6,
-      "pass_count": 4,
-      "pass_rate": 0.667,
+      "total_runs": 7,
+      "pass_count": 5,
+      "pass_rate": 0.714,
       "current_status": "pass",
-      "last_tested": "2026-02-16T00:56:31.983511Z",
+      "last_tested": "2026-02-16T02:58:57.627390Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -15119,13 +15816,25 @@
           "error_type": null,
           "answer": "The Q4 2023 revenue for GreenEnergy Corp is $1,021,500,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
           "timestamp": "2026-02-16T00:59:06.482417Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 95989,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "The Q4 2023 revenue for GreenEnergy Corp is $1,021,500,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "timestamp": "2026-02-16T03:00:44.637314Z"
         }
       ],
-      "total_runs": 5,
-      "pass_count": 3,
-      "pass_rate": 0.6,
+      "total_runs": 6,
+      "pass_count": 4,
+      "pass_rate": 0.667,
       "current_status": "pass",
-      "last_tested": "2026-02-16T00:59:06.482417Z",
+      "last_tested": "2026-02-16T03:00:44.637314Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -15198,13 +15907,25 @@
           "error_type": null,
           "answer": "Stephen Hawking, Rosalind Franklin, Charles Darwin, James Watson\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
           "timestamp": "2026-02-16T01:02:45.733984Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 200494,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "Stephen Hawking, Rosalind Franklin, Charles Darwin, James Watson, Francis Crick, Alan Turing\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "timestamp": "2026-02-16T03:04:14.116293Z"
         }
       ],
-      "total_runs": 5,
-      "pass_count": 3,
-      "pass_rate": 0.6,
+      "total_runs": 6,
+      "pass_count": 4,
+      "pass_rate": 0.667,
       "current_status": "pass",
-      "last_tested": "2026-02-16T01:02:45.733984Z",
+      "last_tested": "2026-02-16T03:04:14.116293Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -15277,13 +15998,25 @@
           "error_type": null,
           "answer": "The capital city of France is Paris.",
           "timestamp": "2026-02-16T01:05:38.224310Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 107485,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The capital city of France is Paris.",
+          "timestamp": "2026-02-16T03:06:11.127222Z"
         }
       ],
-      "total_runs": 5,
-      "pass_count": 4,
-      "pass_rate": 0.8,
+      "total_runs": 6,
+      "pass_count": 5,
+      "pass_rate": 0.833,
       "current_status": "pass",
-      "last_tested": "2026-02-16T01:05:38.224310Z",
+      "last_tested": "2026-02-16T03:06:11.127222Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -15344,13 +16077,25 @@
           "error_type": null,
           "answer": "The gross profit margin for HealthPlus Labs in 2023 is 51.9965%.\n\n---\n**Sources:**\n[1] SQL Result 1",
           "timestamp": "2026-02-16T01:09:10.723861Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 109748,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "The gross profit margin for HealthPlus Labs in 2023 is 51.9965%.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "timestamp": "2026-02-16T03:08:11.379701Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 3,
-      "pass_rate": 0.75,
+      "total_runs": 5,
+      "pass_count": 4,
+      "pass_rate": 0.8,
       "current_status": "pass",
-      "last_tested": "2026-02-16T01:09:10.723861Z",
+      "last_tested": "2026-02-16T03:08:11.379701Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -15411,13 +16156,25 @@
           "error_type": null,
           "answer": "John McCarthy, Marvin Minsky, Nathaniel Rochester, and Claude Shannon\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
           "timestamp": "2026-02-16T01:12:55.236854Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 149742,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "John McCarthy, Marvin Minsky, Nathaniel Rochester, and Claude Shannon\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "timestamp": "2026-02-16T03:10:49.387628Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 3,
-      "pass_rate": 0.75,
+      "total_runs": 5,
+      "pass_count": 4,
+      "pass_rate": 0.8,
       "current_status": "pass",
-      "last_tested": "2026-02-16T01:12:55.236854Z",
+      "last_tested": "2026-02-16T03:10:49.387628Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -15478,13 +16235,25 @@
           "error_type": null,
           "answer": "Machine learning is a branch of artificial intelligence that enables computers to automatically learn patterns from data and improve their performance on tasks without explicit programming.",
           "timestamp": "2026-02-16T01:16:03.983010Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 141494,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Machine learning is a branch of artificial intelligence that enables computers to learn patterns and make predictions or decisions from data without being explicitly programmed for each task. It works by building statistical models that improve their performance automatically as they are exposed to more examples.",
+          "timestamp": "2026-02-16T03:13:20.116174Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 3,
-      "pass_rate": 0.75,
+      "total_runs": 5,
+      "pass_count": 4,
+      "pass_rate": 0.8,
       "current_status": "pass",
-      "last_tested": "2026-02-16T01:16:03.983010Z",
+      "last_tested": "2026-02-16T03:13:20.116174Z",
       "best_f1": 0.9,
       "trend": "improving"
     },
@@ -15545,13 +16314,25 @@
           "error_type": null,
           "answer": "I don’t have the 2023 R&D spending figures for the three companies, and I can’t list museums in Paris without additional information.",
           "timestamp": "2026-02-16T01:20:13.220212Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 177752,
+          "match_type": "NON_EMPTY",
+          "error": null,
+          "error_type": null,
+          "answer": "I don’t have the 2023 R&D spending figures for the three companies, nor a list of museums located in Paris.",
+          "timestamp": "2026-02-16T03:16:29.881652Z"
         }
       ],
-      "total_runs": 4,
-      "pass_count": 3,
-      "pass_rate": 0.75,
+      "total_runs": 5,
+      "pass_count": 4,
+      "pass_rate": 0.8,
       "current_status": "pass",
-      "last_tested": "2026-02-16T01:20:13.220212Z",
+      "last_tested": "2026-02-16T03:16:29.881652Z",
       "best_f1": 1.0,
       "trend": "improving"
     },
@@ -23736,13 +24517,25 @@
           "error_type": null,
           "answer": "The net income for TechVision Inc in fiscal year 2022 is $1,337,550,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
           "timestamp": "2026-02-16T01:23:46.738827Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 100501,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The net income for TechVision Inc in fiscal year 2022 is $1,337,550,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "timestamp": "2026-02-16T03:18:16.628428Z"
         }
       ],
-      "total_runs": 2,
-      "pass_count": 2,
+      "total_runs": 3,
+      "pass_count": 3,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-16T01:23:46.738827Z",
+      "last_tested": "2026-02-16T03:18:16.628428Z",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -23767,15 +24560,27 @@
           "error_type": null,
           "answer": "Alfred Hitchcock, Christopher Nolan\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
           "timestamp": "2026-02-15T22:40:35.457904Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 179002,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Alfred Hitchcock, Ridley Scott, Christopher Nolan, Danny Boyle, Mike Leigh\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "timestamp": "2026-02-16T01:33:27.865417Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T22:40:35.457904Z",
-      "best_f1": 0.3333,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T01:33:27.865417Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "orch-13": {
       "id": "orch-13",
@@ -23798,15 +24603,27 @@
           "error_type": null,
           "answer": "NASA conducts research across a broad spectrum of scientific fields, including aeronautics, astrophysics, Earth and planetary sciences, human spaceflight, and space technology development. These efforts aim to advance knowledge of the universe, improve Earth observation, and enable future exploration missions.",
           "timestamp": "2026-02-15T22:43:27.468089Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 212768,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "NASA conducts research across a broad spectrum of fields, including aeronautics and flight technology, human space exploration, planetary and space science, astrophysics and cosmology, Earth and climate science, and advanced technologies such as robotics, propulsion, and materials science.",
+          "timestamp": "2026-02-16T01:37:11.351828Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T22:43:27.468089Z",
-      "best_f1": 0.0435,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T01:37:11.351828Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "orch-14": {
       "id": "orch-14",
@@ -23829,13 +24646,25 @@
           "error_type": null,
           "answer": "At standard atmospheric pressure (1 atm), water boils at 100 °C (212 °F).",
           "timestamp": "2026-02-15T22:46:21.946963Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.25,
+          "latency_ms": 152761,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "At standard atmospheric pressure (1 atm), water boils at 100 °C (212 °F).",
+          "timestamp": "2026-02-16T03:20:59.878370Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-15T22:46:21.946963Z",
+      "last_tested": "2026-02-16T03:20:59.878370Z",
       "best_f1": 0.25,
       "trend": "stable"
     },
@@ -23860,15 +24689,27 @@
           "error_type": null,
           "answer": "The total operating income for all companies in Q1 2023 is 698,751,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
           "timestamp": "2026-02-15T22:49:40.449672Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 175998,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The operating income for the three companies in Q1 2023 is as follows:\n\n1. TechVision Inc: $465,908,000\n2. GreenEnergy Corp: $184,690,000\n3. HealthPlus Labs: $48,153,000\n\nThese figures represent the operating income for each company during the first quarter of 2023.\n\n---\n**Sources:**\n[1] SQL Result 1\n[2] SQL Result 2\n[3] SQL Result 3",
+          "timestamp": "2026-02-16T01:40:17.613328Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T22:49:40.449672Z",
-      "best_f1": 0.0,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T01:40:17.613328Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "orch-16": {
       "id": "orch-16",
@@ -23891,13 +24732,25 @@
           "error_type": "TIMEOUT",
           "answer": "",
           "timestamp": "2026-02-15T22:54:54.200381Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 263509,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "WHO is a specialized agency of the UN.\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "timestamp": "2026-02-16T01:44:51.363607Z"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 0,
       "pass_rate": 0.0,
-      "current_status": "error",
-      "last_tested": "2026-02-15T22:54:54.200381Z",
+      "current_status": "fail",
+      "last_tested": "2026-02-16T01:44:51.363607Z",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -23922,14 +24775,26 @@
           "error_type": null,
           "answer": "Winston Churchill (1874–1965) was a British politician, military officer, and writer who served as Prime Minister from 1940 to 1945, leading the United Kingdom during World War II, and later again as Prime Minister from 1951 to 1955; he is renowned for his speeches, leadership during the war, and later receiving the Nobel Prize in Literature.",
           "timestamp": "2026-02-15T22:57:48.226582Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.3889,
+          "latency_ms": 198983,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Winston Churchill (1874–1965) was a British politician, military officer, and author who served as Prime Minister during World War II and is celebrated for his leadership in resisting Nazi Germany.",
+          "timestamp": "2026-02-16T03:24:27.859784Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-15T22:57:48.226582Z",
-      "best_f1": 0.2745,
+      "last_tested": "2026-02-16T03:24:27.859784Z",
+      "best_f1": 0.3889,
       "trend": "stable"
     },
     "orch-18": {
@@ -23953,15 +24818,27 @@
           "error_type": null,
           "answer": "The SQL query successfully identified 2 products in the AI/ML category for the 'benchmark' tenant. The products are:\n\n1. VisionAI Platform (TV-AI-001)\n   - Launched on 2021-01-10\n   - Unit cost: $50\n   - List price: $299.99\n   - Status: Active\n\n2. VisionAI Edge (TV-AI-002)\n   - Launched on 2022-04-20\n   - Unit cost: $35\n   - List price: $199.99\n   - Status: Active\n\nBoth products belong to the 'techvision' company and are currently active in the system.\n\n---\n**Sources:**\n[1] SQL Result 1\n[2] SQL ",
           "timestamp": "2026-02-15T23:00:27.966194Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 156480,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The SQL query successfully identified 2 products in the AI/ML category for the 'benchmark' tenant:\n\n1. VisionAI Platform (TV-AI-001)\n   - Launched on January 10, 2021\n   - Unit cost: $50\n   - List price: $299.99\n   - Status: Active\n\n2. VisionAI Edge (TV-AI-002)\n   - Launched on April 20, 2022\n   - Unit cost: $35\n   - List price: $199.99\n   - Status: Active\n\nBoth products are currently active and belong to the AI/ML category. The VisionAI Platform is the older product with a higher unit cost and ",
+          "timestamp": "2026-02-16T01:47:39.103338Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T23:00:27.966194Z",
-      "best_f1": 0.1587,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T01:47:39.103338Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "orch-19": {
       "id": "orch-19",
@@ -23984,13 +24861,25 @@
           "error_type": null,
           "answer": "Alain Aspect, John F. Clauser, Anton Zeilinger, Syukuro Manabe, Klaus Hasselmann, Giorgio Parisi, Carolyn R. Bertozzi, Morten Meldal, K. Barry Sharpless, Benjamin List, David W. C. MacMillan, Svante Pääbo, David Julius, Ardem P\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
           "timestamp": "2026-02-15T23:04:23.467218Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 302503,
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "answer": "",
+          "timestamp": "2026-02-16T01:52:52.878134Z"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 0,
       "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T23:04:23.467218Z",
+      "current_status": "error",
+      "last_tested": "2026-02-16T01:52:52.878134Z",
       "best_f1": 0.0465,
       "trend": "stable"
     },
@@ -24015,15 +24904,27 @@
           "error_type": null,
           "answer": "The total debt amount for HealthPlus Labs varies across different periods, with the following values:\n\n1. $240,000,000\n2. $215,000,000\n3. $175,000,000\n4. $140,000,000\n\nThese figures represent the sum of short-term and long-term debt for HealthPlus Labs at different points in time. The data shows a decreasing trend in total debt over the observed periods.\n\n---\n**Sources:**\n[1] SQL Result 1\n[2] SQL Result 2\n[3] SQL Result 3\n[4] SQL Result 4",
           "timestamp": "2026-02-15T23:08:25.701234Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 132500,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The total debt amounts for HealthPlus Labs are as follows:\n\n1. $240,000,000\n2. $215,000,000\n3. $175,000,000\n4. $140,000,000\n\nThese figures represent the sum of short-term and long-term debt for HealthPlus Labs across different periods or reporting instances.\n\n---\n**Sources:**\n[1] SQL Result 1\n[2] SQL Result 2\n[3] SQL Result 3\n[4] SQL Result 4",
+          "timestamp": "2026-02-16T01:55:13.367609Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T23:08:25.701234Z",
-      "best_f1": 0.1091,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T01:55:13.367609Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "orch-21": {
       "id": "orch-21",
@@ -24046,14 +24947,26 @@
           "error_type": null,
           "answer": "I don’t have access to the requested product list for GreenEnergy Corp.",
           "timestamp": "2026-02-15T23:12:33.954743Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": false,
+          "f1": 0.1818,
+          "latency_ms": 210252,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "I don't have information on the products sold by GreenEnergy Corp.",
+          "timestamp": "2026-02-16T01:58:54.370203Z"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-15T23:12:33.954743Z",
-      "best_f1": 0.0909,
+      "last_tested": "2026-02-16T01:58:54.370203Z",
+      "best_f1": 0.1818,
       "trend": "stable"
     },
     "orch-22": {
@@ -24077,13 +24990,25 @@
           "error_type": "TIMEOUT",
           "answer": "",
           "timestamp": "2026-02-15T23:17:47.452400Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 127741,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The technology that preceded the Internet was the ARPANET, the early packet‑switching network funded by the U.S. Department of Defense in the late 1960s.",
+          "timestamp": "2026-02-16T02:01:11.355546Z"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 0,
       "pass_rate": 0.0,
-      "current_status": "error",
-      "last_tested": "2026-02-15T23:17:47.452400Z",
+      "current_status": "fail",
+      "last_tested": "2026-02-16T02:01:11.355546Z",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -24108,14 +25033,26 @@
           "error_type": null,
           "answer": "DNA (deoxyribonucleic acid) is a double‑stranded molecule that stores genetic information in the sequence of its nucleotide bases, guiding the development, functioning, and reproduction of all known living organisms.",
           "timestamp": "2026-02-15T23:22:08.952444Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.3125,
+          "latency_ms": 127751,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "DNA (deoxyribonucleic acid) is a double‑stranded molecule composed of nucleotide units that stores and transmits the genetic instructions for the development, functioning, and reproduction of all known living organisms.",
+          "timestamp": "2026-02-16T03:26:44.370931Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-15T23:22:08.952444Z",
-      "best_f1": 0.2424,
+      "last_tested": "2026-02-16T03:26:44.370931Z",
+      "best_f1": 0.3125,
       "trend": "stable"
     },
     "orch-24": {
@@ -24139,15 +25076,27 @@
           "error_type": null,
           "answer": "The EPS value for TechVision Inc in 2023 is 16.17.\n\n---\n**Sources:**\n[1] SQL Result 1",
           "timestamp": "2026-02-15T23:25:20.702351Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 158003,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The EPS value for TechVision Inc in 2023 is 16.17.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "timestamp": "2026-02-16T02:03:56.361298Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T23:25:20.702351Z",
-      "best_f1": 0.32,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T02:03:56.361298Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "orch-25": {
       "id": "orch-25",
@@ -24170,15 +25119,27 @@
           "error_type": null,
           "answer": "CERN is situated on the border between Switzerland and France, near Geneva.",
           "timestamp": "2026-02-15T23:28:33.709701Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 153015,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "CERN is situated on the border of Switzerland and France, just outside Geneva.",
+          "timestamp": "2026-02-16T02:06:38.860450Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T23:28:33.709701Z",
-      "best_f1": 0.1111,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T02:06:38.860450Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "orch-26": {
       "id": "orch-26",
@@ -24201,15 +25162,27 @@
           "error_type": null,
           "answer": "Vaccines protect against diseases such as measles, polio, hepatitis B, influenza, pertussis, rubella, mumps, and varicella.",
           "timestamp": "2026-02-15T23:31:07.228228Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 146984,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Vaccines protect against infectious diseases such as measles, polio, hepatitis B, influenza, and human papillomavirus, among many others.",
+          "timestamp": "2026-02-16T02:09:19.878360Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T23:31:07.228228Z",
-      "best_f1": 0.3077,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T02:09:19.878360Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "orch-27": {
       "id": "orch-27",
@@ -24232,15 +25205,27 @@
           "error_type": null,
           "answer": "The ozone layer is a region of the Earth's stratosphere, roughly 15–35 km above the surface, where ozone (O₃) concentrations are significantly higher than in other layers, absorbing the majority of the Sun's harmful ultraviolet (UV‑B and UV‑C) radiation. It is characterized by a relatively high concentration of ozone (about 10 ppm by volume), a temperature increase with altitude due to UV absorption, and a dynamic balance maintained by photochemical reactions involving oxygen molecules and UV li",
           "timestamp": "2026-02-15T23:34:26.236191Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 301510,
+          "match_type": "NO_ANSWER",
+          "error": "timed out",
+          "error_type": "TIMEOUT",
+          "answer": "",
+          "timestamp": "2026-02-16T03:31:55.604147Z"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 1,
-      "pass_rate": 1.0,
-      "current_status": "pass",
-      "last_tested": "2026-02-15T23:34:26.236191Z",
+      "pass_rate": 0.5,
+      "current_status": "error",
+      "last_tested": "2026-02-16T03:31:55.604147Z",
       "best_f1": 0.1515,
-      "trend": "stable"
+      "trend": "regressing"
     },
     "orch-28": {
       "id": "orch-28",
@@ -24263,15 +25248,27 @@
           "error_type": "TIMEOUT",
           "answer": "",
           "timestamp": "2026-02-15T23:35:19.731613Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.2051,
+          "latency_ms": 108493,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the SQL query results, HealthPlus Labs achieved the highest revenue growth between 2020 and 2023, with a growth rate of 260%. This means their revenue in 2023 was 3.6 times higher than in 2020.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "timestamp": "2026-02-16T02:11:15.357813Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "error",
-      "last_tested": "2026-02-15T23:35:19.731613Z",
-      "best_f1": 0.0,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T02:11:15.357813Z",
+      "best_f1": 0.2051,
+      "trend": "improving"
     },
     "orch-29": {
       "id": "orch-29",
@@ -24294,15 +25291,27 @@
           "error_type": null,
           "answer": "Alan Turing → Turing machine → general-purpose computers → ARPANET → internet → World Wide Web → Google search algorithms\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
           "timestamp": "2026-02-15T23:38:58.982848Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 205239,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Alan Turing → John McCarthy → Vint Cerf/Bob Kahn → Larry Page/Sergey Brin → Google\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "timestamp": "2026-02-16T02:14:48.865088Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T23:38:58.982848Z",
-      "best_f1": 0.24,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T02:14:48.865088Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "orch-30": {
       "id": "orch-30",
@@ -24325,15 +25334,27 @@
           "error_type": null,
           "answer": "Photosynthesis is the process by which green plants, algae, and certain bacteria convert light energy into chemical energy, using carbon dioxide and water to produce glucose and releasing oxygen as a by‑product.",
           "timestamp": "2026-02-15T23:42:34.713937Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 121015,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Photosynthesis is the process by which green plants, algae, and certain bacteria convert light energy into chemical energy, using carbon dioxide and water to produce glucose and releasing oxygen as a by‑product.",
+          "timestamp": "2026-02-16T02:16:57.374457Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T23:42:34.713937Z",
-      "best_f1": 0.25,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T02:16:57.374457Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "orch-31": {
       "id": "orch-31",
@@ -24356,15 +25377,27 @@
           "error_type": null,
           "answer": "TechVision's total assets grew from $5.4 billion in 2020 to $7.924 billion in 2023, representing a compound annual growth rate (CAGR) of approximately 13.7% over the four-year period.\n\n---\n**Sources:**\n[1] SQL Result 1\n[2] SQL Result 2\n[3] SQL Result 3\n[4] SQL Result 4",
           "timestamp": "2026-02-15T23:45:46.461827Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 121518,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "TechVision's total assets grew from $5.4 billion in 2020 to $7.924 billion in 2023, representing a compound annual growth rate (CAGR) of approximately 13.4% over the four-year period.\n\n---\n**Sources:**\n[1] SQL Result 1\n[2] SQL Result 2\n[3] SQL Result 3\n[4] SQL Result 4",
+          "timestamp": "2026-02-16T02:19:07.126047Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T23:45:46.461827Z",
-      "best_f1": 0.1961,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T02:19:07.126047Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "orch-32": {
       "id": "orch-32",
@@ -24387,14 +25420,26 @@
           "error_type": null,
           "answer": "The quarterly revenue figures for HealthPlus Labs in 2023 are as follows:\n\n- Q1: $253,440,000\n- Q2: $276,480,000\n- Q3: $299,520,000\n- Q4: $322,560,000\n\nThese figures show a consistent quarterly growth pattern, with each quarter's revenue increasing by $23,040,000 from the previous quarter.\n\n---\n**Sources:**\n[1] SQL Result 1\n[2] SQL Result 2\n[3] SQL Result 3\n[4] SQL Result 4",
           "timestamp": "2026-02-15T23:48:44.228921Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.3404,
+          "latency_ms": 152765,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "The quarterly revenue figures for HealthPlus Labs in 2023 are as follows:\n\n- Q1: $253,440,000\n- Q2: $276,480,000\n- Q3: $299,520,000\n- Q4: $322,560,000\n\nThese figures show a consistent quarterly growth pattern throughout the year.\n\n---\n**Sources:**\n[1] SQL Result 1\n[2] SQL Result 2\n[3] SQL Result 3\n[4] SQL Result 4",
+          "timestamp": "2026-02-16T03:34:36.367643Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-15T23:48:44.228921Z",
-      "best_f1": 0.2963,
+      "last_tested": "2026-02-16T03:34:36.367643Z",
+      "best_f1": 0.3404,
       "trend": "stable"
     },
     "orch-33": {
@@ -24418,13 +25463,25 @@
           "error_type": null,
           "answer": "Pablo Picasso, Henri Matisse, Salvador Dalí, Joan Miró, Henri Cartier-Bresson, Robert Doisneau, Auguste Rodin, Niki de Saint Phalle\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
           "timestamp": "2026-02-15T23:51:49.220756Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 131745,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Claude Monet, Pierre-Auguste Renoir, Camille Pissarro, Paul Cézanne, Paul Gauguin, Vincent van Gogh\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "timestamp": "2026-02-16T02:21:29.116654Z"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-15T23:51:49.220756Z",
+      "last_tested": "2026-02-16T02:21:29.116654Z",
       "best_f1": 0.1481,
       "trend": "stable"
     },
@@ -24449,15 +25506,27 @@
           "error_type": null,
           "answer": "Nikola Tesla (1856–1943) was a Serbian‑American inventor, electrical engineer, and futurist best known for pioneering the development and practical use of alternating‑current (AC) electricity, as well as for his work on radio, wireless transmission, and numerous other electrical innovations.",
           "timestamp": "2026-02-15T23:55:16.468186Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 165729,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Nikola Tesla (1856‑1943) was a Serbian‑American inventor, electrical engineer, and futurist best known for pioneering alternating‑current (AC) power systems, radio technology, and numerous other electrical innovations.",
+          "timestamp": "2026-02-16T02:24:24.123367Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-15T23:55:16.468186Z",
-      "best_f1": 0.1905,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T02:24:24.123367Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "orch-35": {
       "id": "orch-35",
@@ -24480,14 +25549,26 @@
           "error_type": null,
           "answer": "The average salary across all departments at GreenEnergy is $146,382.98.\n\n---\n**Sources:**\n[1] SQL Result 1",
           "timestamp": "2026-02-15T23:57:51.476127Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.4,
+          "latency_ms": 129986,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "The average salary across all departments at GreenEnergy is $146,800.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "timestamp": "2026-02-16T03:36:54.870870Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-15T23:57:51.476127Z",
-      "best_f1": 0.381,
+      "last_tested": "2026-02-16T03:36:54.870870Z",
+      "best_f1": 0.4,
       "trend": "stable"
     },
     "orch-36": {
@@ -24511,15 +25592,27 @@
           "error_type": null,
           "answer": "The Pythagorean theorem states that in a right‑angled triangle, the square of the length of the hypotenuse (the side opposite the right angle) equals the sum of the squares of the other two sides, expressed as \\(a^{2}+b^{2}=c^{2}\\).",
           "timestamp": "2026-02-16T00:01:01.223380Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 134750,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The Pythagorean theorem states that in a right‑angled triangle, the square of the length of the hypotenuse (the side opposite the right angle) equals the sum of the squares of the other two sides, expressed as \\(c^{2}=a^{2}+b^{2}\\).",
+          "timestamp": "2026-02-16T02:26:49.378159Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-16T00:01:01.223380Z",
-      "best_f1": 0.0541,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T02:26:49.378159Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "orch-37": {
       "id": "orch-37",
@@ -24542,15 +25635,27 @@
           "error_type": null,
           "answer": "TechVision's interest income for 2023 is $45,000,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
           "timestamp": "2026-02-16T00:04:45.460837Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 95744,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "TechVision's interest income for the year 2023 is $45,000,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "timestamp": "2026-02-16T02:28:35.619772Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-16T00:04:45.460837Z",
-      "best_f1": 0.2105,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T02:28:35.619772Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "orch-38": {
       "id": "orch-38",
@@ -24573,15 +25678,27 @@
           "error_type": null,
           "answer": "The total liabilities for all companies at the end of 2023 is $3,279,000,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
           "timestamp": "2026-02-16T00:08:03.739246Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 120002,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The total liabilities for all companies at the end of 2023 is $3,279,000,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "timestamp": "2026-02-16T02:30:45.858987Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-16T00:08:03.739246Z",
-      "best_f1": 0.0833,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T02:30:45.858987Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "orch-39": {
       "id": "orch-39",
@@ -24604,14 +25721,26 @@
           "error_type": null,
           "answer": "Carnegie Mellon University, Stanford University\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
           "timestamp": "2026-02-16T00:10:48.224126Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 196254,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Prominent universities known for AI research include the Massachusetts Institute of Technology (MIT), Stanford University, Carnegie Mellon University, the University of Oxford, and the University of California, Berkeley.",
+          "timestamp": "2026-02-16T03:40:20.113603Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-16T00:10:48.224126Z",
-      "best_f1": 0.3636,
+      "last_tested": "2026-02-16T03:40:20.113603Z",
+      "best_f1": 0.9,
       "trend": "stable"
     },
     "orch-40": {
@@ -24635,15 +25764,27 @@
           "error_type": null,
           "answer": "Quantum computing is a computational model that uses quantum bits (qubits) capable of superposition and entanglement to process information in parallel, allowing certain problems to be solved more efficiently than with classical bits.",
           "timestamp": "2026-02-16T00:14:09.480481Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 169262,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Quantum computing is a computational model that uses quantum bits (qubits) to process information, exploiting phenomena such as superposition and entanglement to perform certain calculations more efficiently than classical computers.",
+          "timestamp": "2026-02-16T02:33:44.851435Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-16T00:14:09.480481Z",
-      "best_f1": 0.2105,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T02:33:44.851435Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "orch-41": {
       "id": "orch-41",
@@ -24666,15 +25807,27 @@
           "error_type": null,
           "answer": "HealthPlus Labs' operating income for 2023 is $218,840,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
           "timestamp": "2026-02-16T00:16:08.222888Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 110982,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "HealthPlus Labs' operating income for 2023 is $218,840,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "timestamp": "2026-02-16T02:35:44.113804Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-16T00:16:08.222888Z",
-      "best_f1": 0.3,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T02:35:44.113804Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "orch-42": {
       "id": "orch-42",
@@ -24697,15 +25850,27 @@
           "error_type": null,
           "answer": "Louis Pasteur pioneered germ theory, developed pasteurization, and created vaccines for rabies, chicken cholera, and anthrax, revolutionizing disease prevention.\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
           "timestamp": "2026-02-16T00:19:43.970382Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 138499,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Louis Pasteur developed germ theory and vaccines, revolutionizing disease prevention.\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "timestamp": "2026-02-16T02:38:16.115595Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-16T00:19:43.970382Z",
-      "best_f1": 0.2,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T02:38:16.115595Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "orch-43": {
       "id": "orch-43",
@@ -24728,15 +25893,27 @@
           "error_type": null,
           "answer": "The top 3 companies by stockholders equity at the end of 2023 are:\n\n1. TechVision Inc with $6,149,000,000\n2. GreenEnergy Corp with $3,276,000,000\n3. HealthPlus Labs with $795,000,000\n\nThese results are based on the balance sheet data for the year 2023, filtered for the 'benchmark' tenant.\n\n---\n**Sources:**\n[1] SQL Result 1\n[2] SQL Result 2\n[3] SQL Result 3",
           "timestamp": "2026-02-16T00:22:56.967917Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 108233,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The top 3 companies by stockholders equity at the end of 2023 are:\n\n1. TechVision Inc - $6,149,000,000\n2. GreenEnergy Corp - $3,276,000,000\n3. HealthPlus Labs - $795,000,000\n\nThese companies have the highest stockholders equity among all companies in the database for the fiscal year 2023.\n\n---\n**Sources:**\n[1] SQL Result 1\n[2] SQL Result 2\n[3] SQL Result 3",
+          "timestamp": "2026-02-16T02:40:12.117622Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-16T00:22:56.967917Z",
-      "best_f1": 0.2545,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-16T02:40:12.117622Z",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "orch-44": {
       "id": "orch-44",
@@ -24759,13 +25936,25 @@
           "error_type": null,
           "answer": "CRISPR is used to precisely edit genes in plants, animals, and humans for disease‑treatment therapies, crop improvement, functional‑genomics research, and rapid diagnostic tools such as SHERLOCK/DETECTR. It also enables synthetic‑biology applications like building gene circuits, creating gene drives, and developing novel biomanufacturing pathways.",
           "timestamp": "2026-02-16T00:26:31.965881Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 247997,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Gene editing, research, agriculture, medicine.\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "timestamp": "2026-02-16T02:44:29.879138Z"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-16T00:26:31.965881Z",
+      "last_tested": "2026-02-16T02:44:29.879138Z",
       "best_f1": 0.087,
       "trend": "stable"
     },
@@ -24790,13 +25979,25 @@
           "error_type": null,
           "answer": "GreenEnergy Corp's cost of goods sold for 2022 was $1,544,400,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
           "timestamp": "2026-02-16T00:28:54.725571Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 134753,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "GreenEnergy Corp's cost of goods sold for 2022 was $1,544,400,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "timestamp": "2026-02-16T03:42:43.121208Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-16T00:28:54.725571Z",
+      "last_tested": "2026-02-16T03:42:43.121208Z",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -24821,13 +26022,25 @@
           "error_type": "TIMEOUT",
           "answer": "",
           "timestamp": "2026-02-16T00:34:07.484460Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 116001,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "National Air and Space Museum, National Museum of Natural History, National Museum of American History, National Museum of African American History and Culture\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "timestamp": "2026-02-16T02:46:35.874658Z"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 0,
       "pass_rate": 0.0,
-      "current_status": "error",
-      "last_tested": "2026-02-16T00:34:07.484460Z",
+      "current_status": "fail",
+      "last_tested": "2026-02-16T02:46:35.874658Z",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -24852,13 +26065,25 @@
           "error_type": null,
           "answer": "The French Revolution (1789‑1799) was a period of radical social and political upheaval in France that dismantled the monarchy, abolished feudal privileges, and promoted the principles of liberty, equality, and fraternity, ultimately reshaping French society and influencing modern democratic ideals.",
           "timestamp": "2026-02-16T00:37:07.740038Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.2609,
+          "latency_ms": 148014,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "The French Revolution (1789‑1799) was a period of radical social and political upheaval in France that dismantled the monarchy, abolished feudal privileges, and established a republic based on principles of liberty, equality, and fraternity. It reshaped French society and had profound global influence on ideas of democracy and nationalism.",
+          "timestamp": "2026-02-16T03:45:17.861820Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-16T00:37:07.740038Z",
+      "last_tested": "2026-02-16T03:45:17.861820Z",
       "best_f1": 0.3,
       "trend": "stable"
     },
@@ -24883,13 +26108,25 @@
           "error_type": null,
           "answer": "I cannot determine the specific products sold by HealthPlus without additional information.",
           "timestamp": "2026-02-16T00:40:06.717916Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 135508,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "I cannot determine the products sold by HealthPlus without additional context.",
+          "timestamp": "2026-02-16T02:49:01.118419Z"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-16T00:40:06.717916Z",
+      "last_tested": "2026-02-16T02:49:01.118419Z",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -24914,13 +26151,25 @@
           "error_type": null,
           "answer": "The retained earnings figure for GreenEnergy Corp at the end of 2023 is $2,776,000,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
           "timestamp": "2026-02-16T00:43:34.974689Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 107754,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The retained earnings for GreenEnergy Corp at the end of 2023 is $2,776,000,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+          "timestamp": "2026-02-16T03:47:13.882554Z"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-16T00:43:34.974689Z",
+      "last_tested": "2026-02-16T03:47:13.882554Z",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -24945,14 +26194,26 @@
           "error_type": null,
           "answer": "Scientific method, collaborative research, basic science importance, global response to infectious diseases.\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
           "timestamp": "2026-02-16T00:47:04.478797Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-16T01-30-21",
+          "iteration_number": 24,
+          "correct": false,
+          "f1": 0.2553,
+          "latency_ms": 164000,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Alexander Fleming discovered penicillin (1928) → Howard Florey and Ernst Boris Chain developed mass production methods (1940s) → Jonas Salk developed polio vaccine (1955) → Maurice Hilleman advanced vaccine technology (1940s-2000s) → COVID-19 vaccines developed (2020)\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "timestamp": "2026-02-16T02:51:52.871697Z"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-16T00:47:04.478797Z",
-      "best_f1": 0.0,
+      "last_tested": "2026-02-16T02:51:52.871697Z",
+      "best_f1": 0.2553,
       "trend": "stable"
     }
   },
@@ -25459,901 +26720,6 @@
     }
   ],
   "execution_logs": [
-    {
-      "timestamp": "2026-02-15T18:09:57.380970Z",
-      "question_id": "graph-18",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 48734,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Nobel Prize laureates",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:11:32.019088Z",
-      "question_id": "graph-19",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.3125,
-      "latency_ms": 89652,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Ada Lovelace is known for her work on Charles Babbage's Analytical Engine and is considered the firs",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:13:35.020661Z",
-      "question_id": "graph-20",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 116495,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "British Museum, Natural History Museum, Science Museum, Victoria and Albert Museum, Tate Modern, Tat",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:14:34.765369Z",
-      "question_id": "graph-21",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.4286,
-      "latency_ms": 57026,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "CERN is not involved in nuclear energy research or applications.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:15:38.016085Z",
-      "question_id": "graph-22",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 61017,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Presidents, Congress members, Supreme Court Justices",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:17:07.269653Z",
-      "question_id": "graph-23",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.2222,
-      "latency_ms": 80287,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Natural history and geology at University of Edinburgh and Christ's College, Cambridge.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:18:48.330942Z",
-      "question_id": "graph-24",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.75,
-      "latency_ms": 98044,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Leonardo da Vinci's works are in the Louvre Museum.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:20:51.313014Z",
-      "question_id": "graph-25",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.4286,
-      "latency_ms": 116511,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "MIT, Stanford, Carnegie Mellon, UC Berkeley, University of Toronto, University of Oxford, University",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:22:37.308771Z",
-      "question_id": "graph-26",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 100488,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Woodrow Wilson, Michelle Obama, Chris Christie, F. Scott Fitzgerald, John McPhee, Joyce Carol Oates,",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:23:43.035644Z",
-      "question_id": "graph-27",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 62985,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "ARPANET",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:24:39.313354Z",
-      "question_id": "graph-28",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.2857,
-      "latency_ms": 54248,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Complex and multifaceted, spanning decades.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:25:34.315380Z",
-      "question_id": "graph-29",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 53253,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Martin Scorsese, Woody Allen, Spike Lee, Sidney Lumet, Joel and Ethan Coen, Noah Baumbach",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:26:22.307803Z",
-      "question_id": "graph-30",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 45500,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The WHO is a specialized agency of the UN, established in 1948, operating under UN administrative fr",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:27:14.813256Z",
-      "question_id": "graph-31",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.25,
-      "latency_ms": 49488,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Radioactive elements, particularly uranium and thorium.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:28:28.798231Z",
-      "question_id": "graph-32",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.1026,
-      "latency_ms": 71994,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Eiffel Tower, Louvre Museum, Notre-Dame Cathedral, Seine River, Champs-\\u00c9lys\\u00e9es, Palace of ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:29:26.044772Z",
-      "question_id": "graph-33",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.1111,
-      "latency_ms": 54736,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Einstein's theories influenced Cambridge physicists.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:30:17.560313Z",
-      "question_id": "graph-34",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.1818,
-      "latency_ms": 49731,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Thomas Edison invented the practical incandescent light bulb, developed the first electrical distrib",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:31:19.312463Z",
-      "question_id": "graph-35",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 59995,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Nikola Tesla, Jonas Salk, Barbara McClintock, Edwin Hubble, Robert Goddard, Richard Feynman",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:33:28.806642Z",
-      "question_id": "graph-36",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 121248,
-      "error_type": "TIMEOUT",
-      "error_preview": "timed out",
-      "answer_preview": "",
-      "confidence": null,
-      "pipeline_details_summary": null
-    },
-    {
-      "timestamp": "2026-02-15T18:35:35.813741Z",
-      "question_id": "graph-37",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 119756,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Computer science, artificial intelligence, cryptography",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:37:04.300812Z",
-      "question_id": "graph-38",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.5,
-      "latency_ms": 83231,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Allies during World War II",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:38:03.807174Z",
-      "question_id": "graph-39",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 57742,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "None.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:39:06.308246Z",
-      "question_id": "graph-40",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 60262,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Measles, mumps, rubella, polio, tetanus, diphtheria, pertussis, influenza.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:40:08.050608Z",
-      "question_id": "graph-41",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.2857,
-      "latency_ms": 59494,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Steam engine catalyzed Industrial Revolution, enabling mass production, revolutionizing transportati",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:41:03.785441Z",
-      "question_id": "graph-42",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 53737,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Leonardo da Vinci",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:42:16.796866Z",
-      "question_id": "graph-43",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.2727,
-      "latency_ms": 69770,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Isaac Newton was president of the Royal Society for nearly 24 years, from 1703 until his death in 17",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:43:18.813776Z",
-      "question_id": "graph-44",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 57241,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Washington, D.C., United States.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:44:22.551751Z",
-      "question_id": "graph-45",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.4615,
-      "latency_ms": 60764,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Nuclear energy generates electricity through fission-powered steam turbines.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:45:26.043310Z",
-      "question_id": "graph-46",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.129,
-      "latency_ms": 60990,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Claude Monet, Pierre-Auguste Renoir, Camille Pissarro, Paul Cézanne, Paul Gauguin, Pablo Picasso, Ge",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:46:53.066718Z",
-      "question_id": "graph-47",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.0577,
-      "latency_ms": 82484,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Pablo Picasso had a profound connection to the Museo del Prado in Madrid, which significantly influe",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:48:06.314858Z",
-      "question_id": "graph-48",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.3333,
-      "latency_ms": 65244,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Louis Pasteur's germ theory and vaccination work laid the foundation for Alexander Fleming's 1928 di",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:49:28.035997Z",
-      "question_id": "graph-49",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 74991,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Alfred Hitchcock, Stanley Kubrick, Ridley Scott, Christopher Nolan",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:50:39.567952Z",
-      "question_id": "graph-50",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 66258,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Paris, France",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T18:59:44.043473Z",
-      "question_id": "quant-01",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 36237,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc's total revenue in fiscal year 2023 was $6,745,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:00:38.793239Z",
-      "question_id": "quant-02",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 52750,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "GreenEnergy Corp's net income in 2023 was $664,400,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:01:08.046742Z",
-      "question_id": "quant-03",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 27238,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The revenue of HealthPlus Labs in Q4 2023 was $322,560,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:01:50.294435Z",
-      "question_id": "quant-04",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 39495,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "In FY 2023, TechVision Inc had a gross profit of $4,586,600,000, while GreenEnergy Corp had a gross ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:02:44.037768Z",
-      "question_id": "quant-05",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 50243,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc's R&D spending in 2023 was $1,349,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:04:03.802498Z",
-      "question_id": "quant-06",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 76250,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The diluted EPS for HealthPlus Labs in fiscal year 2023 was 6.71.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:04:32.811581Z",
-      "question_id": "quant-07",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 27258,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc had $2,200,000,000 in cash and equivalents at the end of 2023.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:05:02.043501Z",
-      "question_id": "quant-08",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 26979,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "GreenEnergy Corp's total assets at the end of fiscal year 2023 were $4,460,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:05:38.537607Z",
-      "question_id": "quant-09",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 33737,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The total stockholders equity for HealthPlus Labs at the end of 2023 was $795,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:06:01.564423Z",
-      "question_id": "quant-10",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 21253,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc's operating income in Q3 2023 was $516,525,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:07:26.058464Z",
-      "question_id": "quant-11",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.2857,
-      "latency_ms": 78505,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc's revenue growth from 2020 to 2023 was as follows:\n\n- 2020 to 2021: 20% growth\n- 2021",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:08:29.564747Z",
-      "question_id": "quant-12",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 58233,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc had the highest revenue in fiscal year 2023, with a revenue of $6,745,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:09:24.038218Z",
-      "question_id": "quant-13",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 50990,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The total long-term debt for GreenEnergy Corp at the end of 2023 was $300,000,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:09:53.799784Z",
-      "question_id": "quant-14",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 27003,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision has 47 active employees.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:11:01.036245Z",
-      "question_id": "quant-15",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 62000,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The average salary of Engineering employees at TechVision is $172,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:11:32.565531Z",
-      "question_id": "quant-16",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 25024,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "GreenEnergy Corp has 6 products in its catalog.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-15T19:12:21.288708Z",
-      "question_id": "quant-17",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 45003,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The cost of goods sold for TechVision Inc in FY 2022 was $1,935,450,000.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
     {
       "timestamp": "2026-02-15T19:13:08.306138Z",
       "question_id": "quant-18",
@@ -28932,6 +29298,800 @@
         "sub_pipelines": [],
         "routing": null
       }
+    },
+    {
+      "timestamp": "2026-02-16T01:33:30.109146Z",
+      "question_id": "orch-12",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 179002,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Alfred Hitchcock, Ridley Scott, Christopher Nolan, Danny Boyle, Mike Leigh\n\n---\n**Sources:**\n[1] gra",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T01:37:13.873125Z",
+      "question_id": "orch-13",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 212768,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "NASA conducts research across a broad spectrum of fields, including aeronautics and flight technolog",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T01:40:19.860773Z",
+      "question_id": "orch-15",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 175998,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The operating income for the three companies in Q1 2023 is as follows:\n\n1. TechVision Inc: $465,908,",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T01:44:53.099029Z",
+      "question_id": "orch-16",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 263509,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "WHO is a specialized agency of the UN.\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T01:47:43.124318Z",
+      "question_id": "orch-18",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 156480,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The SQL query successfully identified 2 products in the AI/ML category for the 'benchmark' tenant:\n\n",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T01:52:54.864933Z",
+      "question_id": "orch-19",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 302503,
+      "error_type": "TIMEOUT",
+      "error_preview": "timed out",
+      "answer_preview": "",
+      "confidence": null,
+      "pipeline_details_summary": null
+    },
+    {
+      "timestamp": "2026-02-16T01:55:14.866824Z",
+      "question_id": "orch-20",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 132500,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The total debt amounts for HealthPlus Labs are as follows:\n\n1. $240,000,000\n2. $215,000,000\n3. $175,",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T01:58:55.629451Z",
+      "question_id": "orch-21",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.1818,
+      "latency_ms": 210252,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "I don't have information on the products sold by GreenEnergy Corp.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:01:13.107028Z",
+      "question_id": "orch-22",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 127741,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The technology that preceded the Internet was the ARPANET, the early packet‑switching network funded",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:03:59.360244Z",
+      "question_id": "orch-24",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 158003,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The EPS value for TechVision Inc in 2023 is 16.17.\n\n---\n**Sources:**\n[1] SQL Result 1",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:06:40.370469Z",
+      "question_id": "orch-25",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 153015,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "CERN is situated on the border of Switzerland and France, just outside Geneva.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:09:21.116469Z",
+      "question_id": "orch-26",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 146984,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Vaccines protect against infectious diseases such as measles, polio, hepatitis B, influenza, and hum",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:11:17.377310Z",
+      "question_id": "orch-28",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.2051,
+      "latency_ms": 108493,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the SQL query results, HealthPlus Labs achieved the highest revenue growth between 2020 and",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:14:50.361157Z",
+      "question_id": "orch-29",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 205239,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Alan Turing → John McCarthy → Vint Cerf/Bob Kahn → Larry Page/Sergey Brin → Google\n\n---\n**Sources:**",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:16:59.371495Z",
+      "question_id": "orch-30",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 121015,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Photosynthesis is the process by which green plants, algae, and certain bacteria convert light energ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:19:09.363333Z",
+      "question_id": "orch-31",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 121518,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "TechVision's total assets grew from $5.4 billion in 2020 to $7.924 billion in 2023, representing a c",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:21:31.110631Z",
+      "question_id": "orch-33",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 131745,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Claude Monet, Pierre-Auguste Renoir, Camille Pissarro, Paul Cézanne, Paul Gauguin, Vincent van Gogh\n",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:24:26.357831Z",
+      "question_id": "orch-34",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 165729,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Nikola Tesla (1856‑1943) was a Serbian‑American inventor, electrical engineer, and futurist best kno",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:26:50.864178Z",
+      "question_id": "orch-36",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 134750,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The Pythagorean theorem states that in a right‑angled triangle, the square of the length of the hypo",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:28:37.625884Z",
+      "question_id": "orch-37",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 95744,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "TechVision's interest income for the year 2023 is $45,000,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:30:48.118637Z",
+      "question_id": "orch-38",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 120002,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The total liabilities for all companies at the end of 2023 is $3,279,000,000.\n\n---\n**Sources:**\n[1] ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:33:46.614758Z",
+      "question_id": "orch-40",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 169262,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Quantum computing is a computational model that uses quantum bits (qubits) to process information, e",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:35:47.377946Z",
+      "question_id": "orch-41",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 110982,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "HealthPlus Labs' operating income for 2023 is $218,840,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:38:17.373219Z",
+      "question_id": "orch-42",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 138499,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Louis Pasteur developed germ theory and vaccines, revolutionizing disease prevention.\n\n---\n**Sources",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:40:13.617596Z",
+      "question_id": "orch-43",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 108233,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The top 3 companies by stockholders equity at the end of 2023 are:\n\n1. TechVision Inc - $6,149,000,0",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:44:31.855547Z",
+      "question_id": "orch-44",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 247997,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Gene editing, research, agriculture, medicine.\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:46:38.114000Z",
+      "question_id": "orch-46",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 116001,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "National Air and Space Museum, National Museum of Natural History, National Museum of American Histo",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:49:01.886111Z",
+      "question_id": "orch-48",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 135508,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "I cannot determine the products sold by HealthPlus without additional context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:51:55.598973Z",
+      "question_id": "orch-50",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.2553,
+      "latency_ms": 164000,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Alexander Fleming discovered penicillin (1928) → Howard Florey and Ernst Boris Chain developed mass ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:54:27.118832Z",
+      "question_id": "orch-01",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 144238,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "TechVision Inc's revenue for the year 2023 was $6,745,000,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:56:48.369678Z",
+      "question_id": "orch-02",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 131266,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Penicillin was discovered by Alexander Fleming.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T02:59:01.364305Z",
+      "question_id": "orch-03",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 119494,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "First woman to win a Nobel Prize, only person to win in two different scientific fields (Physics and",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T03:00:46.368054Z",
+      "question_id": "orch-04",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 95989,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The Q4 2023 revenue for GreenEnergy Corp is $1,021,500,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T03:04:15.624401Z",
+      "question_id": "orch-05",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 200494,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Stephen Hawking, Rosalind Franklin, Charles Darwin, James Watson, Francis Crick, Alan Turing\n\n---\n**",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T03:06:13.603813Z",
+      "question_id": "orch-06",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 107485,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The capital city of France is Paris.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T03:08:13.362985Z",
+      "question_id": "orch-07",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 109748,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The gross profit margin for HealthPlus Labs in 2023 is 51.9965%.\n\n---\n**Sources:**\n[1] SQL Result 1",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T03:10:51.360575Z",
+      "question_id": "orch-08",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 149742,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "John McCarthy, Marvin Minsky, Nathaniel Rochester, and Claude Shannon\n\n---\n**Sources:**\n[1] graph_ra",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T03:13:21.867883Z",
+      "question_id": "orch-09",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 141494,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Machine learning is a branch of artificial intelligence that enables computers to learn patterns and",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T03:16:30.630917Z",
+      "question_id": "orch-10",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 177752,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "I don’t have the 2023 R&D spending figures for the three companies, nor a list of museums located in",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T03:18:18.375998Z",
+      "question_id": "orch-11",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 100501,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The net income for TechVision Inc in fiscal year 2022 is $1,337,550,000.\n\n---\n**Sources:**\n[1] SQL R",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T03:21:01.863898Z",
+      "question_id": "orch-14",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.25,
+      "latency_ms": 152761,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "At standard atmospheric pressure (1 atm), water boils at 100 °C (212 °F).",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T03:24:29.860129Z",
+      "question_id": "orch-17",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.3889,
+      "latency_ms": 198983,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Winston Churchill (1874–1965) was a British politician, military officer, and author who served as P",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T03:26:46.363849Z",
+      "question_id": "orch-23",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.3125,
+      "latency_ms": 127751,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "DNA (deoxyribonucleic acid) is a double‑stranded molecule composed of nucleotide units that stores a",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T03:31:57.115943Z",
+      "question_id": "orch-27",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 301510,
+      "error_type": "TIMEOUT",
+      "error_preview": "timed out",
+      "answer_preview": "",
+      "confidence": null,
+      "pipeline_details_summary": null
+    },
+    {
+      "timestamp": "2026-02-16T03:34:38.106855Z",
+      "question_id": "orch-32",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.3404,
+      "latency_ms": 152765,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The quarterly revenue figures for HealthPlus Labs in 2023 are as follows:\n\n- Q1: $253,440,000\n- Q2: ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T03:36:57.115310Z",
+      "question_id": "orch-35",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.4,
+      "latency_ms": 129986,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The average salary across all departments at GreenEnergy is $146,800.\n\n---\n**Sources:**\n[1] SQL Resu",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T03:40:22.127304Z",
+      "question_id": "orch-39",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 196254,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Prominent universities known for AI research include the Massachusetts Institute of Technology (MIT)",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T03:42:44.623031Z",
+      "question_id": "orch-45",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 134753,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "GreenEnergy Corp's cost of goods sold for 2022 was $1,544,400,000.\n\n---\n**Sources:**\n[1] SQL Result ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T03:45:19.634226Z",
+      "question_id": "orch-47",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.2609,
+      "latency_ms": 148014,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The French Revolution (1789‑1799) was a period of radical social and political upheaval in France th",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-16T03:47:16.130379Z",
+      "question_id": "orch-49",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 107754,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The retained earnings for GreenEnergy Corp at the end of 2023 is $2,776,000,000.\n\n---\n**Sources:**\n[",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
     }
   ],
   "history": [
@@ -29010,71 +30170,141 @@
       "event": "iterative_eval_complete",
       "total_tested": 818,
       "orchestrator": 42.0
+    },
+    {
+      "timestamp": "2026-02-16T03:47:18.879312Z",
+      "event": "iterative_eval_complete",
+      "total_tested": 868,
+      "orchestrator": 80.0
     }
   ],
   "workflow_versions": {
     "standard": {
-      "version": 1,
-      "hash": "77a39eeb683ba5ac",
-      "timestamp": "2026-02-15T12:45:42.858031Z",
+      "version": 2,
+      "hash": "1272d0dbe69a06c9",
+      "timestamp": "2026-02-16T03:49:14.169978Z",
       "name": "WF5 Standard RAG V3.4",
       "webhook": "/webhook/rag-multi-index-v3",
       "total_nodes": 24,
       "models_used": [],
-      "snapshot_file": "standard-2026-02-15T12-45-40-77a39eeb683ba5ac.json",
-      "diff_from_previous": null
-    },
-    "graph": {
-      "version": 1,
-      "hash": "2e721c8f9cf8a2f5",
-      "timestamp": "2026-02-15T12:45:45.583686Z",
-      "name": "WF2 Graph RAG V3.3",
-      "webhook": "/webhook/ff622742-6d71-4e91-af71-b5c666088717",
-      "total_nodes": 26,
-      "models_used": [],
-      "snapshot_file": "graph-2026-02-15T12-45-40-2e721c8f9cf8a2f5.json",
-      "diff_from_previous": null
-    },
-    "quantitative": {
-      "version": 4,
-      "hash": "c6a1994942144485",
-      "timestamp": "2026-02-15T18:34:40.312432Z",
-      "name": "WF4 Quantitative V2.0",
-      "webhook": "/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9",
-      "total_nodes": 26,
-      "models_used": [],
-      "snapshot_file": "quantitative-2026-02-15T18-34-13-c6a1994942144485.json",
+      "snapshot_file": "standard-2026-02-16T03-49-07-1272d0dbe69a06c9.json",
       "diff_from_previous": {
         "added_nodes": [],
         "removed_nodes": [],
         "modified_nodes": [
           {
-            "node": "Prepare SQL Request",
+            "node": "Query Decomposer (V.3.4)",
             "changes": [
               {
-                "param": "jsCode",
-                "old": "// Prepare SQL Request - Safe JSON Building\nconst initData = $node['Schema Context Builder'].json;\n\nconst requestBody = {\n  model: 'arcee-ai/trinity-large-preview:free',\n  messages: [\n    {\n      role",
-                "new": "// Prepare SQL Request - Safe JSON Building\nconst initData = $node['Schema Context Builder'].json;\n\nconst requestBody = {\n  model: 'arcee-ai/trinity-large-preview:free',\n  messages: [\n    {\n      role"
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
               }
             ]
           },
           {
-            "node": "Init & ACL",
+            "node": "LLM Generation",
             "changes": [
               {
-                "param": "jsCode",
-                "old": "// ============================================\n// PATCH #1: INIT & ACL - ORCHESTRATOR SUPPORT\n// ============================================\n// Pour: WF4 Quantitative & WF2 Graph\n// Bug: Workflows é",
-                "new": "// ============================================\n// PATCH #1: INIT & ACL - ORCHESTRATOR SUPPORT\n// ============================================\n// Pour: WF4 Quantitative & WF2 Graph\n// Bug: Workflows é"
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
               }
             ]
           },
           {
-            "node": "SQL Validator (Shield #1)",
+            "node": "HyDE Generator",
             "changes": [
               {
-                "param": "jsCode",
-                "old": "// CRITICAL: SQL Validator - Security Shield (ERROR-SAFE VERSION)\n// Never throws - returns error data that flows through pipeline\nconst contextData = $node['Schema Context Builder'].json;\n\ntry {\n  le",
-                "new": "// CRITICAL: SQL Validator - Security Shield (ERROR-SAFE VERSION)\n// Never throws - returns error data that flows through pipeline\nconst contextData = $node['Schema Context Builder'].json;\n\ntry {\n  le"
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+              }
+            ]
+          }
+        ],
+        "has_changes": true,
+        "summary": "+0 -0 ~3 nodes"
+      }
+    },
+    "graph": {
+      "version": 2,
+      "hash": "fdd404d5c3735134",
+      "timestamp": "2026-02-16T03:49:16.427265Z",
+      "name": "WF2 Graph RAG V3.3",
+      "webhook": "/webhook/ff622742-6d71-4e91-af71-b5c666088717",
+      "total_nodes": 26,
+      "models_used": [],
+      "snapshot_file": "graph-2026-02-16T03-49-07-fdd404d5c3735134.json",
+      "diff_from_previous": {
+        "added_nodes": [],
+        "removed_nodes": [],
+        "modified_nodes": [
+          {
+            "node": "LLM Answer Synthesis",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+              }
+            ]
+          },
+          {
+            "node": "WF3: HyDE & Entity Extraction",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+              }
+            ]
+          }
+        ],
+        "has_changes": true,
+        "summary": "+0 -0 ~2 nodes"
+      }
+    },
+    "quantitative": {
+      "version": 5,
+      "hash": "09e9a012e3a7a6c0",
+      "timestamp": "2026-02-16T03:49:20.917638Z",
+      "name": "WF4 Quantitative V2.0",
+      "webhook": "/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9",
+      "total_nodes": 26,
+      "models_used": [],
+      "snapshot_file": "quantitative-2026-02-16T03-49-07-09e9a012e3a7a6c0.json",
+      "diff_from_previous": {
+        "added_nodes": [],
+        "removed_nodes": [],
+        "modified_nodes": [
+          {
+            "node": "Text-to-SQL Generator (CoT Enhanced)",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+              }
+            ]
+          },
+          {
+            "node": "Interpretation Layer (LLM Analyst)",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+              }
+            ]
+          },
+          {
+            "node": "SQL Repair LLM",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
               }
             ]
           }
@@ -29084,15 +30314,62 @@
       }
     },
     "orchestrator": {
-      "version": 1,
-      "hash": "cbd5a7e4f8a3afd3",
-      "timestamp": "2026-02-15T12:46:10.336399Z",
+      "version": 2,
+      "hash": "05298c263b1d3833",
+      "timestamp": "2026-02-16T03:49:25.920252Z",
       "name": "V10.1 Orchestrator",
       "webhook": "/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0",
       "total_nodes": 68,
       "models_used": [],
-      "snapshot_file": "orchestrator-2026-02-15T12-45-40-cbd5a7e4f8a3afd3.json",
-      "diff_from_previous": null
+      "snapshot_file": "orchestrator-2026-02-16T03-49-07-05298c263b1d3833.json",
+      "diff_from_previous": {
+        "added_nodes": [],
+        "removed_nodes": [],
+        "modified_nodes": [
+          {
+            "node": "🧠 LLM 1: Intent Analyzer",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+              }
+            ]
+          },
+          {
+            "node": "HTTP Request",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+              }
+            ]
+          },
+          {
+            "node": "🎯 LLM 2: Task Planner",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+              }
+            ]
+          },
+          {
+            "node": "🎯 LLM 3: Agent Harness (Opus 4.5)",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+              }
+            ]
+          }
+        ],
+        "has_changes": true,
+        "summary": "+0 -0 ~4 nodes"
+      }
     }
   },
   "workflow_history": [
@@ -29151,6 +30428,38 @@
       "hash": "c6a1994942144485",
       "diff_summary": "+0 -0 ~3 nodes",
       "snapshot_file": "quantitative-2026-02-15T18-34-13-c6a1994942144485.json"
+    },
+    {
+      "timestamp": "2026-02-16T03:49:14.170000Z",
+      "pipeline": "standard",
+      "version": 2,
+      "hash": "1272d0dbe69a06c9",
+      "diff_summary": "+0 -0 ~3 nodes",
+      "snapshot_file": "standard-2026-02-16T03-49-07-1272d0dbe69a06c9.json"
+    },
+    {
+      "timestamp": "2026-02-16T03:49:16.427288Z",
+      "pipeline": "graph",
+      "version": 2,
+      "hash": "fdd404d5c3735134",
+      "diff_summary": "+0 -0 ~2 nodes",
+      "snapshot_file": "graph-2026-02-16T03-49-07-fdd404d5c3735134.json"
+    },
+    {
+      "timestamp": "2026-02-16T03:49:20.917661Z",
+      "pipeline": "quantitative",
+      "version": 5,
+      "hash": "09e9a012e3a7a6c0",
+      "diff_summary": "+0 -0 ~3 nodes",
+      "snapshot_file": "quantitative-2026-02-16T03-49-07-09e9a012e3a7a6c0.json"
+    },
+    {
+      "timestamp": "2026-02-16T03:49:25.920292Z",
+      "pipeline": "orchestrator",
+      "version": 2,
+      "hash": "05298c263b1d3833",
+      "diff_summary": "+0 -0 ~4 nodes",
+      "snapshot_file": "orchestrator-2026-02-16T03-49-07-05298c263b1d3833.json"
     }
   ],
   "workflow_changes": [
@@ -29241,6 +30550,58 @@
       ],
       "affected_pipelines": [
         "quantitative"
+      ],
+      "before_metrics": null,
+      "after_metrics": null
+    },
+    {
+      "timestamp": "2026-02-16T03:49:14.188916Z",
+      "description": "standard workflow updated (v2, hash 1272d0dbe69a06c9) — +0 -0 ~3 nodes",
+      "change_type": "workflow-sync",
+      "files_changed": [
+        "standard-2026-02-16T03-49-07-1272d0dbe69a06c9.json"
+      ],
+      "affected_pipelines": [
+        "standard"
+      ],
+      "before_metrics": null,
+      "after_metrics": null
+    },
+    {
+      "timestamp": "2026-02-16T03:49:16.670045Z",
+      "description": "graph workflow updated (v2, hash fdd404d5c3735134) — +0 -0 ~2 nodes",
+      "change_type": "workflow-sync",
+      "files_changed": [
+        "graph-2026-02-16T03-49-07-fdd404d5c3735134.json"
+      ],
+      "affected_pipelines": [
+        "graph"
+      ],
+      "before_metrics": null,
+      "after_metrics": null
+    },
+    {
+      "timestamp": "2026-02-16T03:49:20.936472Z",
+      "description": "quantitative workflow updated (v5, hash 09e9a012e3a7a6c0) — +0 -0 ~3 nodes",
+      "change_type": "workflow-sync",
+      "files_changed": [
+        "quantitative-2026-02-16T03-49-07-09e9a012e3a7a6c0.json"
+      ],
+      "affected_pipelines": [
+        "quantitative"
+      ],
+      "before_metrics": null,
+      "after_metrics": null
+    },
+    {
+      "timestamp": "2026-02-16T03:49:26.188097Z",
+      "description": "orchestrator workflow updated (v2, hash 05298c263b1d3833) — +0 -0 ~4 nodes",
+      "change_type": "workflow-sync",
+      "files_changed": [
+        "orchestrator-2026-02-16T03-49-07-05298c263b1d3833.json"
+      ],
+      "affected_pipelines": [
+        "orchestrator"
       ],
       "before_metrics": null,
       "after_metrics": null
