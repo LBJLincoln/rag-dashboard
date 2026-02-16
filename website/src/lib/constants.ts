@@ -32,6 +32,16 @@ export const SECTORS: Sector[] = [
         label: 'CCTP',
         roi: '-50% redaction',
       },
+      {
+        question: 'Quelles verifications CSPS sont obligatoires avant la reception d\'un chantier de demolition ?',
+        label: 'Securite chantier',
+        roi: '-35% risques accidents',
+      },
+      {
+        question: 'Comment calculer le Bbio max d\'un projet de logement collectif en zone H2b ?',
+        label: 'Calcul thermique',
+        roi: '2.4M EUR/an ROI',
+      },
     ],
   },
   {
@@ -63,6 +73,16 @@ export const SECTORS: Sector[] = [
         question: 'Comment calibrer un capteur de pression differentielle ?',
         label: 'Calibration',
         roi: '-60% temps calibration',
+      },
+      {
+        question: 'Quelles sont les obligations de l\'exploitant pour un site classe Seveso seuil haut ?',
+        label: 'Seveso/ICPE',
+        roi: 'Zero non-conformite',
+      },
+      {
+        question: 'Comment realiser une analyse AMDEC sur une ligne de production automobile ?',
+        label: 'AMDEC/FMEA',
+        roi: '2.5M EUR/an ROI',
       },
     ],
   },
@@ -96,6 +116,16 @@ export const SECTORS: Sector[] = [
         label: 'IFRS 17',
         roi: 'Mise en conformite',
       },
+      {
+        question: 'Quel est l\'impact d\'une hausse de 50bps du taux directeur sur notre portefeuille obligataire ?',
+        label: 'Stress test',
+        roi: '3.5M EUR/an ROI',
+      },
+      {
+        question: 'Quelles sont les exigences KYC renforcees pour les PPE dans le cadre de la 6e directive AML ?',
+        label: 'KYC/AML',
+        roi: '-90% risque sanction',
+      },
     ],
   },
   {
@@ -127,6 +157,16 @@ export const SECTORS: Sector[] = [
         question: 'Comment rediger une clause de non-concurrence conforme a la jurisprudence ?',
         label: 'Non-concurrence',
         roi: '-50% revision contrats',
+      },
+      {
+        question: 'Quelles clauses du contrat de sous-traitance presentent un risque de requalification en salariat deguise ?',
+        label: 'Analyse contrats',
+        roi: '3.2M EUR/an ROI',
+      },
+      {
+        question: 'Quel est l\'etat actuel de la jurisprudence sur le devoir de vigilance des societes meres (loi Sapin II) ?',
+        label: 'Compliance',
+        roi: 'Zero risque penal',
       },
     ],
   },

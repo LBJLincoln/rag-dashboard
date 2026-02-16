@@ -22,6 +22,9 @@ export function Header() {
           <a href="#how-it-works" className="hover:text-tx transition-colors duration-200">
             Fonctionnement
           </a>
+          <a href="/dashboard" className="hover:text-tx transition-colors duration-200">
+            Dashboard
+          </a>
           <a
             href="https://github.com/LBJLincoln/mon-ipad"
             target="_blank"

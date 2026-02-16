@@ -71,12 +71,12 @@ export function SectorCard({ sector, index, onSelect }: SectorCardProps) {
           </div>
         </div>
 
-        {/* Use case chips — visible on hover */}
-        <div className="flex flex-wrap gap-1.5 mb-4 h-0 group-hover:h-auto overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-300">
-          {sector.useCases.slice(0, 3).map((uc) => (
+        {/* Use case chips with ROI — visible on hover */}
+        <div className="flex flex-wrap gap-1.5 mb-4 max-h-0 group-hover:max-h-40 overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-500">
+          {sector.useCases.map((uc) => (
             <span
               key={uc.label}
-              className="px-2.5 py-1 text-[11px] font-medium rounded-full border"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium rounded-full border"
               style={{
                 backgroundColor: `${sector.color}08`,
                 borderColor: `${sector.color}20`,
@@ -84,6 +84,9 @@ export function SectorCard({ sector, index, onSelect }: SectorCardProps) {
               }}
             >
               {uc.label}
+              {uc.roi && (
+                <span className="text-[9px] text-tx3 font-normal">{uc.roi}</span>
+              )}
             </span>
           ))}
         </div>

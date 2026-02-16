@@ -1,71 +1,60 @@
-# Session State — 16 Fevrier 2026 (Session 8)
+# Session State — 16 Fevrier 2026 (Session 9)
 
 ## Objectif de session
-Fix infrastructure blockers and validate Jina migration:
-1. Fix n8n task runner 403 loop (FAIT)
-2. Validate Jina embeddings on Standard + Graph (FAIT)
-3. Fix trailing comma in Standard embedding nodes (FAIT)
-4. End of session documentation updates (FAIT)
+Produce documentation outputs and improve website business showcase:
+1. Research sector datasets, RAG practices, business cases (FAIT)
+2. Produce sector-datasets document in technicals/ (FAIT)
+3. Produce infrastructure-plan document in technicals/ (FAIT)
+4. Produce dataset-rationale document in directives/ (FAIT)
+5. Build technical dashboard on website (FAIT)
+6. Improve website business content with ROI and trust section (FAIT)
+7. Add SSE streaming endpoint for live dashboard (FAIT)
 
 ## Taches completees
-- Task #1: Investigated Docker containers (PostgreSQL + Redis REQUIRED by n8n internally)
-- Task #2: Fixed task runner 403 loop
-  - Root cause: Grant token TTL 15s too short for VM with 970MB RAM
-  - Fix: task-broker-auth.service.js TTL 15s→120s, mounted as volume in docker-compose.yml
-- Task #3: Analyzed historical executions (163 successful between 01:00-03:47 UTC Feb 16)
-- Task #4: Fixed trailing comma in Standard embedding JSON body (2 nodes)
-- Task #5: Validated Standard pipeline with Jina (3/3 PASS)
-- Task #6: Validated Graph pipeline with Jina (3/3 PASS)
-- Task #7: Tested Quantitative pipeline (1/3 FAIL — known SQL edge cases)
-- Task #8: Synced n8n workflows (Standard v5 + Graph v4 updated)
-- Task #9: Updated all documentation (objective.md, status.md, credentials.md, architecture.md, stack.md, n8n-endpoints.md)
-
-## Blocker resolu
-- n8n task runner: FIXED
-  - Grant token TTL: 15s → 120s (for 970MB RAM VM)
-  - File: ~/n8n/task-broker-auth.service.js (mounted read-only in docker-compose.yml)
-  - All 4 pipelines now execute successfully
+- Phase 1A: Research sector document types & datasets
+- Phase 1B: Research 2026 RAG best practices & test parallelization
+- Phase 1C: Research business use cases & live dashboard tech
+- Phase 2A: Created technicals/sector-datasets.md (47KB, 1000+ document types, 20 datasets/sector)
+- Phase 2B: Created technicals/infrastructure-plan.md (40KB, VM analysis, Docker optimization)
+- Phase 2C: Created directives/dataset-rationale.md (25KB, 14 benchmarks rationale)
+- Phase 3A: Built dashboard (ExecutiveSummary, PipelineCards, PhaseExplorer, QuestionViewer)
+- Phase 3B: Improved SectorCard (5 use cases with ROI), added TrustSection with 14 benchmarks
+- Phase 3C: Added SSE endpoint /api/dashboard/stream for real-time updates
 
 ## Decisions prises
-- PostgreSQL + Redis: KEEP (required by n8n internally — workflows DB + Bull queues)
-- Task runner fix: Volume mount approach (persists across container recreation)
-- TTL value: 120s (conservative, works even under heavy swap pressure)
-- Trailing comma: Fixed via regex on n8n REST API (not file edit)
-
-## Etat des MCP
-| MCP | Status |
-|-----|--------|
-| Neo4j | OK (19,788 nodes) |
-| Pinecone | OK (3 indexes: jina-1024 primary, cohere-1024 backup, phase2-graph) |
-| n8n | OK — FIXED (task runner TTL fix applied) |
-| Jina | OK (embed + rerank) |
-| Cohere | EPUISE (Trial 429, backup index only) |
-| HuggingFace | OK |
-
-## Etat des pipelines
-- Standard: 85.5% Phase 1 — 3/3 session test — Jina VALIDATED
-- Graph: 68.7% Phase 1 — 3/3 session test — Jina VALIDATED
-- Quantitative: 78.3% Phase 1 — 1/3 session test — SQL edge cases
-- Orchestrator: 80% Phase 1 — Not tested this session
-- Overall: 78.1% (target 75%) PASS
+- Dashboard uses 10s polling (sufficient for test runs that take minutes)
+- SSE endpoint added as /api/dashboard/stream for optional real-time streaming
+- TrustSection highlights 14 benchmarks, 232+ questions, 78.1% accuracy
+- SectorCard now shows all 5 use cases with ROI badges on hover
 
 ## Fichiers crees/modifies cette session
 | Fichier | Action |
 |---------|--------|
-| ~/n8n/task-broker-auth.service.js | CREE — TTL fix (15s→120s) |
-| ~/n8n/docker-compose.yml | MODIFIE — runner config + volume mount |
-| Standard workflow (n8n API) | MODIFIE — trailing comma fix in 2 embedding nodes |
-| directives/objective.md | MODIFIE — session notes, Jina primary |
-| directives/status.md | MODIFIE — Session 8 status |
-| directives/session-state.md | MODIFIE — Session 8 state |
-| directives/n8n-endpoints.md | MODIFIE — webhook timestamps, Jina pitfall |
-| technicals/architecture.md | MODIFIE — Jina primary, dual indices |
-| technicals/stack.md | MODIFIE — Jina primary, env vars |
-| technicals/credentials.md | MODIFIE — Jina primary, Cohere backup |
-| n8n/live/ | SYNCED — Standard v5, Graph v4 |
+| technicals/sector-datasets.md | CREE (47KB) |
+| technicals/infrastructure-plan.md | CREE (40KB) |
+| directives/dataset-rationale.md | CREE (25KB) |
+| website/src/app/dashboard/page.tsx | CREE |
+| website/src/app/api/dashboard/route.ts | CREE |
+| website/src/app/api/dashboard/stream/route.ts | CREE (SSE) |
+| website/src/components/dashboard/ExecutiveSummary.tsx | CREE |
+| website/src/components/dashboard/PipelineCards.tsx | CREE |
+| website/src/components/dashboard/PhaseExplorer.tsx | CREE |
+| website/src/components/dashboard/QuestionViewer.tsx | CREE |
+| website/src/components/landing/TrustSection.tsx | CREE |
+| website/src/components/landing/SectorCard.tsx | MODIFIE (5 use cases + ROI) |
+| website/src/components/layout/Header.tsx | MODIFIE (dashboard link) |
+| website/src/lib/constants.ts | MODIFIE (5 use cases/sector) |
+| website/src/app/page.tsx | MODIFIE (TrustSection added) |
 
-## Prochaine session (Session 9)
+## Etat des pipelines (inchange depuis S8)
+- Standard: 85.5% Phase 1 — PASS
+- Graph: 68.7% Phase 1 — gap -1.3pp
+- Quantitative: 78.3% Phase 1 — gap -6.7pp
+- Orchestrator: 80% Phase 1 — PASS
+- Overall: 78.1% (target 75%) PASS
+
+## Prochaine session (Session 10)
 1. Quantitative pipeline: 78.3% → 85% (SQL edge cases, multi-table JOINs)
 2. Graph pipeline: 68.7% → 70% (entity extraction, close to target)
 3. Phase 2 full eval: 1000q once Phase 1 gates all pass
-4. Consider pinning n8n Docker version to avoid task runner regressions
+4. Wire SSE endpoint to dashboard for live updates during test runs

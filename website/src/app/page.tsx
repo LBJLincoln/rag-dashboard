@@ -6,6 +6,7 @@ import { Footer } from '@/components/layout/Footer'
 import { Hero } from '@/components/landing/Hero'
 import { BentoGrid } from '@/components/landing/BentoGrid'
 import { HowItWorks } from '@/components/landing/HowItWorks'
+import { TrustSection } from '@/components/landing/TrustSection'
 import { TermiusModal } from '@/components/modal/TermiusModal'
 import type { Sector } from '@/types/sector'
 
@@ -19,6 +20,7 @@ export default function Home() {
         <Hero />
         <BentoGrid onSelectSector={setActiveSector} />
         <HowItWorks />
+        <TrustSection />
       </main>
       <Footer />
 
