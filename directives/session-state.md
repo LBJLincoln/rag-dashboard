@@ -45,12 +45,62 @@ Session 12 : Correction urgente CPU VM + export Codespace rag-website + lecture 
 - RAM : 757MB used / 970MB total (swap ~895MB)
 - Swap élevé : normal avec 2 instances claude + n8n actif
 
-## Prochaines actions prioritaires
-1. **Website rag-website** : Modifier UI vers style Apple/business pour les 4 secteurs
-2. **Dashboard** : Fenêtre glissante, live evals, gaming progression, dark/light toggle
-3. **Kimi-code** : Tester sur VM pour générer vidéos use-case des 4 secteurs
-4. **Codespace rag-website** : Ouvrir via navigateur pour développement Next.js
-5. **Parallélisation tests** : Recherche internet sur architecture (am7 request)
+## Livraisons Session 12 — Team-Agentic (17 fév 2026, 16h00-17h00)
+
+### 10 agents parallèles lancés
+| Agent | Résultat |
+|-------|----------|
+| Explore website | Audit 25 composants, 2441 LOC, architecture complète |
+| Plan Apple redesign | Plan 20 fichiers, Apple MacBook B2B spec |
+| UX B2B research | Brief FR/secteur, ROI chiffrés, EU AI Act 2025 |
+| RAG 2026 research | arXiv papers, RouteRAG, RRF +18.5% MRR, GraphRAG 80% vs 50.83% |
+| Dashboard gaming spec | SSE 500ms, XP 7 niveaux, react-window spec |
+| Website implementation | ✅ 5 fichiers modifiés/créés |
+| Dashboard implementation | ✅ 4 fichiers (PhaseExplorer 447L, QuestionViewer 432L, AccuracyTrend 438L) |
+| Save research + commit | ✅ commit fa1093e |
+| Kimi test | En attente résultat |
+| Datasets 4 secteurs | En attente résultat |
+
+### Commit principal : 2e5ac45
+- 13 fichiers, 4066 insertions, 408 suppressions
+- Pushé → origin + rag-website (Vercel deploy auto)
+
+### Fichiers créés/modifiés
+WEBSITE:
+- Hero.tsx: titre enterprise statique, CTA anchor #secteurs
+- SectorCard.tsx: ROI toujours visibles, Apple style
+- CaseStudy.tsx: 3 cas clients FR (nouveau)
+- Header.tsx: dark/light toggle
+- globals.css: light mode complet
+
+DASHBOARD:
+- PhaseExplorer.tsx: gates animés, 5 phases collapsibles
+- QuestionViewer.tsx: gaming log, streak, filtre
+- AccuracyTrend.tsx: SVG pur, hover crosshair (nouveau)
+- dashboard/page.tsx: sections toujours visibles
+
+EVAL:
+- quick-test.py: retry 503 exponentiel + sleep 3s
+
+DOCS (technicals/):
+- rag-research-2026.md
+- website-redesign-plan.md
+
+DOCS (directives/):
+- ux-design-brief.md (brief design B2B français)
+
+DOCS (docs/):
+- eval-dashboard-spec.md (spec SSE gaming)
+
+### Prochaines actions prioritaires
+1. **Vercel build** : Vérifier que le déploiement rag-website réussit (TypeScript errors?)
+2. **react-window** : Installer `npm install react-window` dans rag-website pour dashboard spec
+3. **Datasets** : Attendre résultat agent a095c4a, sauvegarder dans technicals/
+4. **Kimi** : Attendre résultat agent aabceb1
+5. **Graph RAG fix** : Entity disambiguation Neo4j → de 68.7% vers 70% (objectif Phase 1)
+6. **Quantitative fix** : CompactRAG pattern → de 78.3% vers 85% (objectif Phase 1)
+7. **RouteRAG** : Ajouter classificateur query dans Orchestrator V10.1
+8. **SSE 500ms** : Implémenter /api/eval/stream selon eval-dashboard-spec.md
 
 ## Architecture finale (DEFINITIVE)
 
@@ -134,3 +184,4 @@ Refactoring complet directives — CLAUDE.md + directives/repos/ (4 fichiers) + 
 ## Repos impactés
 - mon-ipad (origin) — ce refactoring
 - rag-tests, rag-website, rag-data-ingestion, rag-dashboard — via push-directives.sh
+Workaround kimi: echo '{"mcpServers":{}}' > /tmp/empty-mcp.json && kimi --quiet --mcp-config-file /tmp/empty-mcp.json -p 'prompt'
