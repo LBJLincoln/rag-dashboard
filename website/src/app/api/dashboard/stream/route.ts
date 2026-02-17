@@ -1,4 +1,5 @@
-const STATUS_API_URL = process.env.STATUS_API_URL ?? 'http://34.136.180.66:8080/status.json'
+// Port 5678 (n8n webhook) externally accessible; port 8080 blocked by GCP firewall
+const STATUS_API_URL = process.env.STATUS_API_URL ?? 'http://34.136.180.66:5678/webhook/nomos-status'
 
 export const dynamic = 'force-dynamic'
 

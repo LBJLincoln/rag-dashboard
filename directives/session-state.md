@@ -1,39 +1,39 @@
-# Session State — 17 Fevrier 2026 (Session 10)
+# Session State — 17 Fevrier 2026 (Session 11)
 
 ## Objectif de session
-Audit complet infrastructure + liberation VM + activation workflows + refonte dashboard multi-source
+Deploiement complet de l'architecture multi-repo : chaque projet autonome dans son Codespace, mon-ipad comme tour de controle.
 
 ## Taches completees cette session
 
-### Phase A — Audit Infrastructure
-- Audit complet des 5 repos (tous synchro a 3b98e56)
-- Audit VM : RAM 969MB, 3 containers Docker, n8n + PG + Redis
-- Audit n8n : 14 workflows, tous actifs — identification des 3 a desactiver
-- Audit Codespaces : 3 devcontainer configs (rag-tests, rag-data-ingestion, rag-website)
-- Audit ports : 5678 (n8n), 5432 (PG), 6379 (Redis), 8080 (status server)
+### Phase A — Credentials
+- Token GitHub mis a jour sur les 5 remotes (ghp_M89...)
+- Cle OpenRouter mise a jour dans .env.local (sk-or-v1-a56...)
+- gh CLI authentifie (LBJLincoln, scopes complets incl. codespace)
 
-### Phase B — Liberation VM
-- Killed Next.js process (74MB liberes) — NE DOIT PAS tourner sur VM (Vercel)
-- Supprime image Docker redis:alpine inutilisee (97MB disque)
-- Desactive 3 workflows d'ingestion sur VM (Ingestion V3.1, Enrichissement V3.1, Dataset Ingestion)
-- Applique Docker memory limits : n8n 600m, PG 128m, Redis 96m
-- Applique optimisations n8n : pruning (48h, 500 max), save on success=none, concurrency=2
-- Reduit Redis maxmemory 256m → 64m
-- NODE_OPTIONS=--max-old-space-size=512
+### Phase B — Architecture Codespace complete
+- **rag-website** : devcontainer.json + docker-compose.yml (n8n avec 4 pipelines RAG + PG) + setup.sh
+- **rag-tests** : devcontainer.json mis a jour + setup.sh (SSH tunnel vers VM Redis/PG)
+- **rag-data-ingestion** : devcontainer.json mis a jour + setup.sh (stack n8n isole)
+- **rag-dashboard** : devcontainer.json + setup.sh + CLAUDE.md (NOUVEAU — manquait)
+- Tous les devcontainers utilisent `postCreateCommand: bash .devcontainer/<repo>/setup.sh`
 
-### Phase C — Dashboard multi-source
-- API route dashboard refondee pour aggreger 3 sources (mon-ipad, rag-website, rag-data-ingestion)
-- STATUS_API_URL pointe vers port 8080 (Python HTTP server) au lieu de webhook n8n
-- SSE stream route mise a jour (poll 10s au lieu de 5s pour economiser resources)
-- Nouveau composant DataSources.tsx — visualise l'etat des 3 sources de donnees
-- Dashboard page mise a jour avec DataSources + lastIteration + polling 15s
+### Phase C — Scripts d'orchestration (tour de controle)
+- `scripts/deploy-codespaces.sh` : create/start/stop/ssh/tunnel/status/push-all
+- `scripts/sync-workflows.sh` : export workflows n8n API → n8n/live/ + snapshot/current/
+
+### Phase D — Fix port 8080
+- Port 8080 bloque par firewall GCP (pas de permission compute.firewalls.create)
+- Workaround : webhook `/webhook/nomos-status` (KcfzvJD6yydxY9Uk) sur port 5678 = accessible externe
+- API dashboard + SSE stream mis a jour pour utiliser 5678/webhook/nomos-status
+- Teste et valide : HTTP 200 depuis IP externe
 
 ## Decisions prises
-- VM = 11 workflows actifs (4 pipelines RAG + benchmarks + dashboard + feedback)
-- Codespace rag-data-ingestion = ingestion + enrichissement (instance n8n separee)
-- Codespace rag-tests = 2 workers connectes au Redis/PG de la VM
-- Status server = Python HTTP sur port 8080 (pas n8n webhook pour alleger la charge)
-- Dashboard diff 3 sources : mon-ipad (benchmarks), rag-website (sectoriels), rag-data-ingestion (ingestion)
+- STATUS_API_URL = `http://34.136.180.66:5678/webhook/nomos-status` (pas port 8080)
+- rag-website a son PROPRE n8n avec les 4 pipelines importees via setup.sh
+- rag-data-ingestion a son PROPRE n8n isole (PG + Redis locaux)
+- rag-tests utilise les workers connectes au n8n de la VM via SSH tunnel
+- rag-dashboard = site statique, pas de Docker
+- Chaque repo est autonome avec setup.sh, CLAUDE.md role-specifique, docker-compose
 
 ## Etat des workflows (VM)
 | Workflow | ID | Active |
@@ -53,7 +53,16 @@ Audit complet infrastructure + liberation VM + activation workflows + refonte da
 | Enrichissement V3.1 | 9V2UTVRbf4OJXPto | OFF (→ Codespace) |
 | Dataset Ingestion | YaHS9rVb1osRUJpE | OFF (→ Codespace) |
 
-## Etat Phase 1 (base pour Phase 2)
+## Distribution des workflows par repo
+| Repo | Workflows n8n | Docker | Execution |
+|------|--------------|--------|-----------|
+| mon-ipad (VM) | 11 actifs (4 RAG + 7 support) | n8n + PG + Redis | Permanent |
+| rag-website | 4 RAG + feedback + benchmark (importes via setup.sh) | n8n + PG | Codespace |
+| rag-tests | Aucun local (workers connectes a VM) | 2 workers n8n | Codespace |
+| rag-data-ingestion | Ingestion V3.1 + Enrichissement V3.1 | n8n + 2 workers + PG + Redis | Codespace |
+| rag-dashboard | Aucun (read-only) | Aucun | Vercel/GH Pages |
+
+## Etat Phase 1 (inchange)
 | Pipeline | Accuracy | Target | Status |
 |----------|----------|--------|--------|
 | Standard | 85.5% | >= 85% | PASS |
@@ -63,17 +72,29 @@ Audit complet infrastructure + liberation VM + activation workflows + refonte da
 | **Overall** | **78.1%** | **>= 75%** | **PASS** |
 
 ## Repos impactes
-- mon-ipad (origin) — docker-compose optimise, dashboard refait, session-state
+- mon-ipad (origin) — scripts, devcontainers, API routes, session-state
+- rag-website — devcontainer + docker-compose + setup.sh
+- rag-tests — devcontainer + setup.sh
+- rag-data-ingestion — devcontainer + setup.sh
+- rag-dashboard — devcontainer + CLAUDE.md + setup.sh (NOUVEAU)
 
-## Blockers
-- gh CLI pas installe — impossible de gerer les Codespaces depuis la VM
-- n8n API publique v1 timeout sur e2-micro (reponses trop lourdes) — workaround : query PG directement
+## Blockers resolus
+- ~~gh CLI pas installe~~ → gh 2.86.0 installe + authentifie
+- ~~Port 8080 bloque~~ → workaround webhook 5678
+
+## Blockers restants
 - Vercel : user doit connecter via browser (pas encore fait)
+- Codespaces : pas encore crees (scripts prets, attente push)
+- Codespace secrets : credentials non configures dans GitHub Settings
 
-## Prochaines actions
-1. Installer gh CLI sur la VM pour gerer les Codespaces
-2. Creer/demarrer les Codespaces rag-tests et rag-data-ingestion
-3. Adapter les tests website aux 20 datasets/secteur (generer questions sectorielles)
-4. Deployer sur Vercel (rag-website → nomos-ai.vercel.app)
-5. Commencer Phase 2 : corriger Graph (68.7% → 70%) et Quantitative (78.3% → 85%)
-6. Commit + push tous repos
+## Derniere action
+Push vers tous les 5 repos avec scripts + devcontainers complets
+
+## Prochaine action
+1. Creer les Codespaces via `bash scripts/deploy-codespaces.sh create-all`
+2. Configurer les Codespace secrets (OPENROUTER_API_KEY, JINA_API_KEY, etc.)
+3. Deployer Vercel (connecter repo rag-website dans browser)
+4. Phase 2 : corriger Graph (68.7% → 70%) et Quantitative (78.3% → 85%)
+
+## Commits
+- [pending] session11: architecture multi-repo complete + orchestration scripts

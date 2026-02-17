@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server'
 
-const STATUS_API_URL = process.env.STATUS_API_URL ?? 'http://34.136.180.66:8080/status.json'
-const DATA_API_URL = process.env.DATA_API_URL ?? 'http://34.136.180.66:8080/data.json'
+// Port 5678 (n8n) is externally accessible; port 8080 blocked by GCP firewall
+const STATUS_API_URL = process.env.STATUS_API_URL ?? 'http://34.136.180.66:5678/webhook/nomos-status'
+const DATA_API_URL = process.env.DATA_API_URL ?? 'http://34.136.180.66:5678/webhook/nomos-data'
+// Fallback: local status file served by Python HTTP on VM (port 8080, internal only)
+const STATUS_FALLBACK_URL = 'http://34.136.180.66:8080/status.json'
 
 export const dynamic = 'force-dynamic'
 
@@ -32,14 +35,13 @@ async function fetchJSON<T>(url: string, timeoutMs = 10000): Promise<T | null> {
 
 export async function GET() {
   try {
-    // Fetch all sources in parallel
-    const [ragStatus, webhookStatus] = await Promise.all([
+    // Fetch from n8n webhook (5678, externally accessible) with fallback to local HTTP (8080)
+    const [ragStatus, fallbackStatus] = await Promise.all([
       fetchJSON<SourceStatus>(STATUS_API_URL),
-      fetchJSON<SourceStatus>(STATUS_API_URL.replace('status.json', '') + '../webhook/nomos-status'),
+      fetchJSON<SourceStatus>(STATUS_FALLBACK_URL),
     ])
 
-    // Primary source: status.json served by Python HTTP on VM port 8080
-    const status = ragStatus ?? webhookStatus ?? {}
+    const status = ragStatus ?? fallbackStatus ?? {}
 
     // Build multi-source response
     return NextResponse.json({

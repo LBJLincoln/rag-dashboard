@@ -9,7 +9,7 @@
     "ghcr.io/devcontainers/features/node:1": { "version": "20" }
   },
   "forwardPorts": [5678],
-  "postCreateCommand": "pip install requests python-dotenv && npm install -g pm2",
+  "postCreateCommand": "bash .devcontainer/rag-tests/setup.sh",
   "customizations": {
     "vscode": {
       "extensions": [
