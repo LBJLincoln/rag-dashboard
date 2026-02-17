@@ -1,20 +1,18 @@
 import { NextResponse } from 'next/server'
-import { readFile } from 'fs/promises'
-import { join } from 'path'
 
-const ROOT = join(process.cwd(), '..')
+const STATUS_API_URL = process.env.STATUS_API_URL ?? 'http://localhost:3001'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
   try {
-    const [statusRaw, dataRaw] = await Promise.all([
-      readFile(join(ROOT, 'docs/status.json'), 'utf-8').catch(() => '{}'),
-      readFile(join(ROOT, 'docs/data.json'), 'utf-8').catch(() => '{}'),
+    const [statusRes, dataRes] = await Promise.all([
+      fetch(`${STATUS_API_URL}/status.json`, { signal: AbortSignal.timeout(5000) }).catch(() => null),
+      fetch(`${STATUS_API_URL}/data.json`, { signal: AbortSignal.timeout(5000) }).catch(() => null),
     ])
 
-    const status = JSON.parse(statusRaw)
-    const data = JSON.parse(dataRaw)
+    const status = statusRes?.ok ? await statusRes.json() : {}
+    const data = dataRes?.ok ? await dataRes.json() : {}
 
     const iterations = (data.iterations ?? []).slice(-20)
     const registry = data.question_registry ?? {}

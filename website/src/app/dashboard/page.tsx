@@ -52,7 +52,7 @@ export default function DashboardPage() {
               Quality Dashboard
             </h1>
             <p className="text-[14px] text-tx2 mt-1">
-              Transparence totale sur les performances du Multi-RAG Orchestrator
+              Transparence totale sur les performances de Nomos AI
             </p>
           </div>
           <div className="flex items-center bg-white/[0.04] rounded-xl p-1 border border-white/[0.06]">

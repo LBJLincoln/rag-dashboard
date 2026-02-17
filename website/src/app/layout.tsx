@@ -15,12 +15,12 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Multi-RAG Orchestrator | Intelligence Documentaire',
+  title: 'Nomos AI | Intelligence Documentaire',
   description:
-    'Plateforme d\'intelligence documentaire multi-pipeline. 4 secteurs, 4 pipelines RAG, une seule interface.',
+    'Plateforme d\'intelligence documentaire multi-pipeline. 4 secteurs, 4 pipelines RAG orchestres par l\'IA.',
   openGraph: {
-    title: 'Multi-RAG Orchestrator',
-    description: 'Intelligence documentaire nouvelle generation',
+    title: 'Nomos AI',
+    description: 'Intelligence documentaire multi-pipeline — BTP, Industrie, Finance, Juridique',
   },
 }
 

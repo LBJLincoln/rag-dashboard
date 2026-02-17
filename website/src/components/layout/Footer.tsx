@@ -10,7 +10,7 @@ export function Footer() {
               <Bot className="w-3.5 h-3.5 text-ac" />
             </div>
             <span className="text-[13px] text-tx2">
-              Multi-RAG Orchestrator
+              Nomos AI
             </span>
             <span className="text-[11px] text-tx3 font-mono">v1.0</span>
           </div>

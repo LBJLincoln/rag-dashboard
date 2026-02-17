@@ -64,7 +64,7 @@ export function ExecutiveSummary({ status, meta }: Props) {
       {/* Hero message */}
       <div className="mb-6 p-6 rounded-2xl border border-white/[0.06] bg-white/[0.02]">
         <p className="text-[15px] text-tx leading-relaxed">
-          <span className="font-semibold">Multi-RAG Orchestrator</span> est un systeme de recherche
+          <span className="font-semibold">Nomos AI</span> est un systeme de recherche
           documentaire intelligent compose de <span className="text-ac font-medium">4 pipelines RAG</span> specialises,
           evaluees en continu sur <span className="text-pp font-medium">{(meta.total_unique_questions ?? 0).toLocaleString()} questions</span> issues
           de <span className="text-gn font-medium">14 benchmarks academiques</span> reconnus (SQuAD, HotpotQA, FinQA...).

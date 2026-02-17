@@ -11,7 +11,7 @@ export function Header() {
             <Bot className="w-4 h-4 text-ac" />
           </div>
           <span className="font-medium text-tx text-[15px] tracking-tight">
-            Multi-RAG
+            Nomos AI
           </span>
         </div>
 

@@ -1,7 +1,4 @@
-import { readFile, stat } from 'fs/promises'
-import { join } from 'path'
-
-const ROOT = join(process.cwd(), '..')
+const STATUS_API_URL = process.env.STATUS_API_URL ?? 'http://localhost:3001'
 
 export const dynamic = 'force-dynamic'
 
@@ -10,34 +7,30 @@ export async function GET() {
 
   const stream = new ReadableStream({
     async start(controller) {
-      let lastMtime = 0
+      let lastData = ''
 
       const sendUpdate = async () => {
         try {
-          const statusPath = join(ROOT, 'docs/status.json')
-          const fileInfo = await stat(statusPath).catch(() => null)
-          if (!fileInfo) return
+          const res = await fetch(`${STATUS_API_URL}/status.json`, {
+            signal: AbortSignal.timeout(4000),
+          })
+          if (!res.ok) return
 
-          const mtime = fileInfo.mtimeMs
-          if (mtime <= lastMtime) return
-          lastMtime = mtime
+          const raw = await res.text()
+          if (raw === lastData) return
+          lastData = raw
 
-          const raw = await readFile(statusPath, 'utf-8')
-          const data = JSON.parse(raw)
-
-          controller.enqueue(
-            encoder.encode(`data: ${JSON.stringify(data)}\n\n`)
-          )
+          controller.enqueue(encoder.encode(`data: ${raw}\n\n`))
         } catch {
-          // File not ready, skip
+          // Fetch failed, skip
         }
       }
 
       // Send initial data immediately
       await sendUpdate()
 
-      // Poll file changes every 3 seconds
-      const interval = setInterval(sendUpdate, 3000)
+      // Poll every 5 seconds
+      const interval = setInterval(sendUpdate, 5000)
 
       // Keep-alive ping every 30s
       const keepAlive = setInterval(() => {
