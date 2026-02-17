@@ -112,7 +112,7 @@ DOCS (docs/):
 ### Distribution par repo
 | Repo | Exécution | n8n | Docker compose | Workflows |
 |------|-----------|-----|---------------|-----------|
-| **mon-ipad** | VM GCP e2-micro | Permanent (11 actifs) | Déjà en place | 4 RAG + 7 support |
+| **mon-ipad** | VM GCP e2-micro | Permanent (13 actifs) | Déjà en place | 4 RAG + 9 support |
 | **rag-website** | Codespace | Local (démarré par setup.sh) | n8n + PG | Sectoriels |
 | **rag-tests** | Codespace | Remote (VM via SSH tunnel) | Aucun | Aucun local |
 | **rag-data-ingestion** | Codespace | Local (démarré par setup.sh) | n8n + 2 workers + PG + Redis | Ingestion V3.1 + Enrichissement V3.1 |
@@ -180,7 +180,7 @@ Refactoring complet directives — CLAUDE.md + directives/repos/ (4 fichiers) + 
 ### Infrastructure validée
 - **VM** : Load 0.42, RAM 789MB/969MB, Swap 1175MB (normal) ✅
 - **Docker** : n8n + redis + postgres — tous running ✅
-- **n8n** : 11 workflows actifs ✅
+- **n8n** : 13 workflows actifs ✅
 - **Pinecone** : 4 indexes accessibles (sota-rag-jina-1024, sota-rag, sota-rag-cohere-1024, sota-rag-phase2-graph) ✅
 - **Neo4j** : 19,788 nodes — accessible ✅
 - **Supabase** : REST API accessible (table documents) ✅

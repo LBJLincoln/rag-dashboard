@@ -125,10 +125,10 @@ Analyser les techniques de pointe 2025-2026 en RAG, ingestion, et enrichissement
 
 | Workflow | ID n8n | Nodes | Role |
 |----------|--------|-------|------|
-| **Ingestion V3.1** | `nh1D4Up0wBZhuQbp` | 28 | Ingestion de documents dans les BDD |
-| **Enrichissement V3.1** | `ORa01sX4xI0iRCJ8` | 29 | Enrichissement des donnees existantes |
-| **Feedback V3.1** | `iVsj6dq8UpX5Dk7c` | 13 | Boucle de feedback des resultats |
-| **Benchmark V3.0** | `qUm28nhq62SxVWHe` | 9 | Benchmark automatise |
+| **Ingestion V3.1** | `15sUKy5lGL4rYW0L` | 28 | Ingestion de documents dans les BDD |
+| **Enrichissement V3.1** | `9V2UTVRbf4OJXPto` | 29 | Enrichissement des donnees existantes |
+| **Feedback V3.1** | `F70g14jMxIGCZnFz` | 13 | Boucle de feedback des resultats |
+| **Benchmark V3.0** | `LKZO1QQY9jvBltP0` | 9 | Benchmark automatise |
 
 ### Plan
 
@@ -167,14 +167,13 @@ Analyser les techniques de pointe 2025-2026 en RAG, ingestion, et enrichissement
 | benchmark-frames | 824 | 3+ |
 | benchmark-pubmedqa | 500 | 3+ |
 | benchmark-asqa | 948 | 3+ |
-| **Total** | **10,411** | Dimension: 1536 |
+| **Total** | **10,411** | Dimension: 1024 |
 
-**Note** : Les vecteurs sont en dimension 1536 (pas 1024). Verifier la coherence avec le modele d'embedding utilise.
+**Note** : Les vecteurs sont en dimension **1024** (Jina-embeddings-v3, dim=1024 confirmé).
 
 ### Neo4j (via n8n)
-- 110 entites, 151 relations
-- Couverture Phase 1 uniquement
-- Phase 2+ necessite extraction d'entites depuis les contextes HF
+- **19,788 nodes, 76,717 relations** (Phase 1 actuel)
+- Phase 2+ : +4,884 entities, +21,810 relations prévus
 
 ### Supabase (via n8n)
 - 88 lignes, 5 tables
@@ -205,19 +204,19 @@ Analyser les techniques de pointe 2025-2026 en RAG, ingestion, et enrichissement
 ### Ingestion/Enrichment (4)
 | Nom | ID | Nodes |
 |-----|-----|-------|
-| Ingestion V3.1 | `nh1D4Up0wBZhuQbp` | 28 |
-| Enrichissement V3.1 | `ORa01sX4xI0iRCJ8` | 29 |
-| Feedback V3.1 | `iVsj6dq8UpX5Dk7c` | 13 |
-| Benchmark V3.0 | `qUm28nhq62SxVWHe` | 9 |
+| Ingestion V3.1 | `15sUKy5lGL4rYW0L` | 28 |
+| Enrichissement V3.1 | `9V2UTVRbf4OJXPto` | 29 |
+| Feedback V3.1 | `F70g14jMxIGCZnFz` | 13 |
+| Benchmark V3.0 | `LKZO1QQY9jvBltP0` | 9 |
 
 ### Benchmark/Support (5)
 | Nom | ID | Nodes |
 |-----|-----|-------|
-| Dataset Ingestion Pipeline | `L8irkzSrfLlgt2Bt` | 23 |
-| Monitoring & Alerting | `8a72LTsYvsH2X79d` | 19 |
-| Orchestrator Tester | `7UMkzbjkkYZAUzPD` | 15 |
-| RAG Batch Tester | `QCHKdqnTIEwEN1Ng` | 16 |
-| SQL Executor Utility | `3O2xcKuloLnZB5dH` | 2 |
+| Dataset Ingestion Pipeline | `YaHS9rVb1osRUJpE` | 23 |
+| Monitoring & Alerting | `tLNh3wTty7sEprLj` | 19 |
+| Orchestrator Tester | `m9jaYzWMSVbBFeSf` | 15 |
+| RAG Batch Tester | `y2FUkI5SZfau67dN` | 16 |
+| SQL Executor Utility | `22k9541l9mHENlLD` | 2 |
 
 ---
 

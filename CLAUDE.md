@@ -71,7 +71,7 @@ n8n-postgres-1     postgres:15-alpine    Up (healthy)  0.0.0.0:5432->5432/tcp
 - **PostgreSQL** : Base interne n8n (historique executions, credentials)
 - **Fix critique appliqué** : `task-broker-auth.service.js` TTL 15s→120s (volume monté)
 
-### n8n — État des workflows (11 actifs)
+### n8n — État des workflows (13 actifs)
 | Workflow | ID Docker | Version | Status |
 |----------|-----------|---------|--------|
 | Standard RAG V3.4 | `TmgyRP20N4JFd9CB` | v5, 24 nodes | ON |
@@ -155,7 +155,7 @@ Inclus      : Python 3.11, Node.js 20, Docker-in-Docker, Claude Code CLI
 - **Qui l'exécute** : Claude Code sur la VM permanente, via Termius
 - **Ce qu'il contient** : Directives, scripts eval, configs MCP, n8n sync, CLAUDE.md master
 - **Ce qu'il fait** : Piloter les 4 autres repos, lancer tests, fixer workflows n8n, analyser résultats
-- **n8n** : Permanent (11 workflows actifs sur Docker VM)
+- **n8n** : Permanent (13 workflows actifs sur Docker VM)
 - **Git remotes** : 5 (origin + 4 satellites)
 - **Directive locale** : `/home/termius/mon-ipad/CLAUDE.md` (ce fichier)
 - **Directive pour agents satellites** : `directives/repos/*.md` → pushés vers chaque repo

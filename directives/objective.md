@@ -120,7 +120,7 @@ Suivre le processus : `directives/workflow-process.md`
 - Namespaces : benchmark-msmarco (1000), benchmark-frames (824), benchmark-asqa (948), benchmark-squad_v2 (1000), benchmark-triviaqa (1000), default (639), benchmark-popqa (1000), benchmark-narrativeqa (1000), benchmark-natural_questions (1000), benchmark-finqa (500), benchmark-hotpotqa (1000), benchmark-pubmedqa (500)
 
 ### Neo4j
-- **19,788 noeuds**, **76,532 relations**
+- **19,788 noeuds**, **76,717 relations**
 - Top types : Person (8,531), Entity (8,218), Organization (1,775), City (840), Technology (139)
 - Top relations : CONNECTE (75,205), SOUS_ENSEMBLE_DE (554), A_CREE (497)
 - Acces : HTTPS API `https://38c949a2.databases.neo4j.io/db/neo4j/query/v2`
