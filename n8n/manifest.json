@@ -1,10 +1,10 @@
 {
   "versions": {
     "standard": {
-      "version": 5,
-      "hash": "a66eb2ef1a5d7688",
-      "timestamp": "2026-02-16T18:36:05.771172Z",
-      "snapshot_file": "standard-2026-02-16T18-35-59-a66eb2ef1a5d7688.json",
+      "version": 6,
+      "hash": "fd27c3e0d75c22ae",
+      "timestamp": "2026-02-17T21:23:28.922904Z",
+      "snapshot_file": "standard-2026-02-17T21-23-26-fd27c3e0d75c22ae.json",
       "name": "WF5 Standard RAG V3.4",
       "webhook": "/webhook/rag-multi-index-v3",
       "summary": {
@@ -58,83 +58,8 @@
             "changes": [
               {
                 "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
-              }
-            ]
-          },
-          {
-            "node": "Query Decomposer (V.3.4)",
-            "changes": [
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
-              }
-            ]
-          },
-          {
-            "node": "📋 Configuration SOTA 2026",
-            "changes": [
-              {
-                "param": "content",
-                "old": "# 🔧 VARIABLES D'ENVIRONNEMENT REQUISES (SOTA 2026)\n\n## LLM APIs\n- `OPENROUTER_BASE_URL` - https://openrouter.ai/api/v1/chat/completions\n- `LLM_HYDE_MODEL` - arcee-ai/trinity-large-preview:free\n- `LLM_",
-                "new": "# 🔧 VARIABLES D'ENVIRONNEMENT REQUISES (SOTA 2026)\n\n## LLM APIs\n- `OPENROUTER_BASE_URL` - https://openrouter.ai/api/v1/chat/completions\n- `LLM_HYDE_MODEL` - arcee-ai/trinity-large-preview:free\n- `LLM_"
-              }
-            ]
-          },
-          {
-            "node": "HTTP Pinecone Query Original",
-            "changes": [
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Api-Key', 'value': 'pcsk_REDACTED'}, {'name': 'Content-Type', 'value': 'application/json'}]}",
-                "new": "{'parameters': [{'name': 'Api-Key', 'value': 'pcsk_6GzVdD_BbHsYNvpcngMqAHH5EvEa9XLnmFpEK9cx5q5xkMp72z5KFQ1q7dEjp8npWhJGBY'}, {'name': 'Content-Type', 'value': 'application/json'}]}"
-              },
-              {
-                "param": "url",
-                "old": "https://sota-rag-cohere-1024-a4mkzmz.svc.aped-4627-b74a.pinecone.io/query",
-                "new": "https://sota-rag-jina-1024-a4mkzmz.svc.aped-4627-b74a.pinecone.io/query"
-              }
-            ]
-          },
-          {
-            "node": "HyDE Embedding",
-            "changes": [
-              {
-                "param": "jsonBody",
-                "old": "={\n  \"model\": \"embed-english-v3.0\",\n  \"texts\": [{{ JSON.stringify($node['HyDE Generator'].json.choices?.[0]?.message?.content || $node['Init & ACL Pre-Filter V3.4'].json.query || '') }}],\n  \"input_typ",
-                "new": "={\n  \"model\": \"jina-embeddings-v3\",\n  \"input\": [{{ JSON.stringify($node['HyDE Generator'].json.choices?.[0]?.message?.content || $node['Init & ACL Pre-Filter V3.4'].json.query || '') }}],\n  \"task\": \"r"
-              },
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer REDACTED_COHERE_KEY'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer jina_f1348176dc7a4f0da9996cfa6cfa6eecasLHpAw7iEXFqU6eHi9SQBuxqT0F'}]}"
-              },
-              {
-                "param": "url",
-                "old": "https://api.cohere.com/v2/embed",
-                "new": "https://api.jina.ai/v1/embeddings"
-              }
-            ]
-          },
-          {
-            "node": "Cohere Reranker",
-            "changes": [
-              {
-                "param": "jsonBody",
-                "old": "={\n  \"model\": \"rerank-v3.5\",\n  \"query\": {{ JSON.stringify($node['Init & ACL Pre-Filter V3.4'].json.query || '') }},\n  \"documents\": {{ $json.skip_reranker ? '[\"placeholder\"]' : JSON.stringify(($json.re",
-                "new": "={\n  \"model\": \"jina-reranker-v2-base-multilingual\",\n  \"query\": {{ JSON.stringify($node['Init & ACL Pre-Filter V3.4'].json.query || '') }},\n  \"documents\": {{ $json.skip_reranker ? '[\"placeholder\"]' : J"
-              },
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer REDACTED_COHERE_KEY'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer jina_f1348176dc7a4f0da9996cfa6cfa6eecasLHpAw7iEXFqU6eHi9SQBuxqT0F'}]}"
-              },
-              {
-                "param": "url",
-                "old": "https://api.cohere.ai/v1/rerank",
-                "new": "https://api.jina.ai/v1/rerank"
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}"
               }
             ]
           },
@@ -143,56 +68,31 @@
             "changes": [
               {
                 "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}"
               }
             ]
           },
           {
-            "node": "HTTP Pinecone Query HyDE",
+            "node": "Query Decomposer (V.3.4)",
             "changes": [
               {
                 "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Api-Key', 'value': 'pcsk_REDACTED'}, {'name': 'Content-Type', 'value': 'application/json'}]}",
-                "new": "{'parameters': [{'name': 'Api-Key', 'value': 'pcsk_6GzVdD_BbHsYNvpcngMqAHH5EvEa9XLnmFpEK9cx5q5xkMp72z5KFQ1q7dEjp8npWhJGBY'}, {'name': 'Content-Type', 'value': 'application/json'}]}"
-              },
-              {
-                "param": "url",
-                "old": "https://sota-rag-cohere-1024-a4mkzmz.svc.aped-4627-b74a.pinecone.io/query",
-                "new": "https://sota-rag-jina-1024-a4mkzmz.svc.aped-4627-b74a.pinecone.io/query"
-              }
-            ]
-          },
-          {
-            "node": "Original Embedding",
-            "changes": [
-              {
-                "param": "jsonBody",
-                "old": "={\n  \"model\": \"embed-english-v3.0\",\n  \"texts\": [{{ JSON.stringify($node['Init & ACL Pre-Filter V3.4'].json.query || '') }}],\n  \"input_type\": \"search_query\",\n  \"embedding_types\": [\"float\"]\n}",
-                "new": "={\n  \"model\": \"jina-embeddings-v3\",\n  \"input\": [{{ JSON.stringify($node['Init & ACL Pre-Filter V3.4'].json.query || '') }}],\n  \"task\": \"retrieval.query\"\n}"
-              },
-              {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer REDACTED_COHERE_KEY'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer jina_f1348176dc7a4f0da9996cfa6cfa6eecasLHpAw7iEXFqU6eHi9SQBuxqT0F'}]}"
-              },
-              {
-                "param": "url",
-                "old": "https://api.cohere.com/v2/embed",
-                "new": "https://api.jina.ai/v1/embeddings"
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}"
               }
             ]
           }
         ],
         "has_changes": true,
-        "summary": "+0 -0 ~9 nodes"
+        "summary": "+0 -0 ~3 nodes"
       }
     },
     "graph": {
-      "version": 6,
-      "hash": "5bf91c328f41fcac",
-      "timestamp": "2026-02-17T18:21:23.024898Z",
-      "snapshot_file": "graph-2026-02-17T18-21-17-5bf91c328f41fcac.json",
+      "version": 7,
+      "hash": "4fa23329f2913001",
+      "timestamp": "2026-02-17T21:23:31.407282Z",
+      "snapshot_file": "graph-2026-02-17T21-23-26-4fa23329f2913001.json",
       "name": "WF2 Graph RAG V3.3",
       "webhook": "/webhook/ff622742-6d71-4e91-af71-b5c666088717",
       "summary": {
@@ -243,25 +143,35 @@
         "removed_nodes": [],
         "modified_nodes": [
           {
+            "node": "LLM Answer Synthesis",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}"
+              }
+            ]
+          },
+          {
             "node": "WF3: HyDE & Entity Extraction",
             "changes": [
               {
-                "param": "jsonBody",
-                "old": "={\n  \"model\": \"arcee-ai/trinity-large-preview:free\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Generate a hypothetical document that would perfectly answer the question. This doc",
-                "new": "={\n  \"model\": \"arcee-ai/trinity-large-preview:free\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"IMPORTANT: Respond ONLY with valid JSON, no prose or markdown.\\n\\nGenerate a hypoth"
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}"
               }
             ]
           }
         ],
         "has_changes": true,
-        "summary": "+0 -0 ~1 nodes"
+        "summary": "+0 -0 ~2 nodes"
       }
     },
     "quantitative": {
-      "version": 9,
-      "hash": "f17f0e6bd4eb4fb9",
-      "timestamp": "2026-02-17T18:46:48.535803Z",
-      "snapshot_file": "quantitative-2026-02-17T18-46-38-f17f0e6bd4eb4fb9.json",
+      "version": 10,
+      "hash": "41f6bbfee57201c3",
+      "timestamp": "2026-02-17T21:23:37.173862Z",
+      "snapshot_file": "quantitative-2026-02-17T21-23-26-41f6bbfee57201c3.json",
       "name": "WF4 Quantitative V2.0",
       "webhook": "/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9",
       "summary": {
@@ -312,25 +222,45 @@
         "removed_nodes": [],
         "modified_nodes": [
           {
-            "node": "Prepare SQL Request",
+            "node": "Text-to-SQL Generator (CoT Enhanced)",
             "changes": [
               {
-                "param": "jsCode",
-                "old": "// Prepare SQL Request v6b - Phase 2 bypass + Phase 1 LLM SQL\nconst initData = $node['Schema Context Builder'].json;\nconst query = (initData.query || '').toLowerCase();\nconst PHASE1_COMPANIES = ['tech",
-                "new": "// Prepare SQL Request v6b - Phase 2 bypass + Phase 1 LLM SQL\nconst initData = $node['Schema Context Builder'].json;\nconst query = (initData.query || '').toLowerCase();\nconst PHASE1_COMPANIES = ['tech"
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}"
+              }
+            ]
+          },
+          {
+            "node": "Interpretation Layer (LLM Analyst)",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}"
+              }
+            ]
+          },
+          {
+            "node": "SQL Repair LLM",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}"
               }
             ]
           }
         ],
         "has_changes": true,
-        "summary": "+0 -0 ~1 nodes"
+        "summary": "+0 -0 ~3 nodes"
       }
     },
     "orchestrator": {
-      "version": 4,
-      "hash": "317d4a7291ebd021",
-      "timestamp": "2026-02-16T11:56:42.748277Z",
-      "snapshot_file": "orchestrator-2026-02-16T11-56-12-317d4a7291ebd021.json",
+      "version": 5,
+      "hash": "f9b161f90ba19093",
+      "timestamp": "2026-02-17T21:23:44.433699Z",
+      "snapshot_file": "orchestrator-2026-02-17T21-23-26-f9b161f90ba19093.json",
       "name": "V10.1 Orchestrator",
       "webhook": "/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0",
       "summary": {
@@ -426,18 +356,48 @@
         "removed_nodes": [],
         "modified_nodes": [
           {
+            "node": "🧠 LLM 1: Intent Analyzer",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}"
+              }
+            ]
+          },
+          {
+            "node": "HTTP Request",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}"
+              }
+            ]
+          },
+          {
             "node": "🎯 LLM 2: Task Planner",
             "changes": [
               {
-                "param": "jsonBody",
-                "old": "={\n  \"model\": \"nvidia/nemotron-3-nano-30b-a3b:free\",\n  \"temperature\": 0.2,\n  \"max_tokens\": 500,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": {{ JSON.stringify(`You are the TASK PLANNER",
-                "new": "={\n  \"model\": \"arcee-ai/trinity-large-preview:free\",\n  \"temperature\": 0.2,\n  \"max_tokens\": 500,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": {{ JSON.stringify(`You are the TASK PLANNER"
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}"
+              }
+            ]
+          },
+          {
+            "node": "🎯 LLM 3: Agent Harness (Opus 4.5)",
+            "changes": [
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}"
               }
             ]
           }
         ],
         "has_changes": true,
-        "summary": "+0 -0 ~1 nodes"
+        "summary": "+0 -0 ~4 nodes"
       }
     }
   },
@@ -633,6 +593,38 @@
       "hash": "f17f0e6bd4eb4fb9",
       "diff_summary": "+0 -0 ~1 nodes",
       "snapshot_file": "quantitative-2026-02-17T18-46-38-f17f0e6bd4eb4fb9.json"
+    },
+    {
+      "timestamp": "2026-02-17T21:23:28.922929Z",
+      "pipeline": "standard",
+      "version": 6,
+      "hash": "fd27c3e0d75c22ae",
+      "diff_summary": "+0 -0 ~3 nodes",
+      "snapshot_file": "standard-2026-02-17T21-23-26-fd27c3e0d75c22ae.json"
+    },
+    {
+      "timestamp": "2026-02-17T21:23:31.407305Z",
+      "pipeline": "graph",
+      "version": 7,
+      "hash": "4fa23329f2913001",
+      "diff_summary": "+0 -0 ~2 nodes",
+      "snapshot_file": "graph-2026-02-17T21-23-26-4fa23329f2913001.json"
+    },
+    {
+      "timestamp": "2026-02-17T21:23:37.173885Z",
+      "pipeline": "quantitative",
+      "version": 10,
+      "hash": "41f6bbfee57201c3",
+      "diff_summary": "+0 -0 ~3 nodes",
+      "snapshot_file": "quantitative-2026-02-17T21-23-26-41f6bbfee57201c3.json"
+    },
+    {
+      "timestamp": "2026-02-17T21:23:44.433948Z",
+      "pipeline": "orchestrator",
+      "version": 5,
+      "hash": "f9b161f90ba19093",
+      "diff_summary": "+0 -0 ~4 nodes",
+      "snapshot_file": "orchestrator-2026-02-17T21-23-26-f9b161f90ba19093.json"
     }
   ]
 }
