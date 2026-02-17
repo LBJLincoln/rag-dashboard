@@ -111,7 +111,6 @@ function NotificationCard({
 
 export function MilestoneNotification() {
   const [notifications, setNotifications] = useState<Milestone[]>([])
-  const queueRef = useRef<Milestone[]>([])
 
   const addNotification = useCallback((m: Milestone) => {
     setNotifications(prev => {
@@ -129,7 +128,6 @@ export function MilestoneNotification() {
   const xpLevel = useEvalStore(s => s.xpLevel)
   const levelUpTriggered = useEvalStore(s => s.levelUpTriggered)
   const prevXpLevel = useEvalStore(s => s.prevXpLevel)
-  const prevXpLevelRef = useRef(xpLevel.level)
 
   useEffect(() => {
     if (levelUpTriggered && prevXpLevel) {
