@@ -1,8 +1,56 @@
-# Session State — 17 Février 2026 (Session 11b → refactoring directives)
+# Session State — 17 Février 2026 (Session 12 → CPU fix + Codespace export + nouveaux docs lus)
 
 ## Objectif de session
-Refactoring complet des directives : CLAUDE.md enrichi avec infra réelle,
-création des directives personnelles par repo satellite (directives/repos/).
+Session 12 : Correction urgente CPU VM + export Codespace rag-website + lecture nouveaux docs GitHub.
+
+## Actions Session 12 (17 fév 2026)
+
+### CPU Fix URGENT ✅
+- **Problème** : Load average 7.82 sur 1 vCPU — `nextjs-website.service` (systemd user) tournait en permanence sur la VM
+- **Processus tués** : npm exec next start / node next start (PIDs 274348, 274420, 274885)
+- **Cause racine** : Service systemd user `nextjs-website.service` relançait le process après chaque kill
+- **Fix** : `systemctl --user stop nextjs-website.service && systemctl --user disable nextjs-website.service`
+- **Résultat** : Load average 0.59 (vs 7.82 avant) ✅
+- **Note** : Next.js appartient au Codespace rag-website, PAS à la VM permanente
+
+### Git sync ✅
+- Commit local (diagnostics + n8n live) : `9c04352`
+- Pull GitHub origin (fichier "new mardi17feb26" créé par user) : rebased + merged
+- Push origin + rag-website : `769ee23` → synchro complète
+
+### Codespace rag-website ✅
+- Démarré via SSH : `nomos-rag-website-jr7q9gr69qqfqp6r` → Status: Available
+- Code à jour sur rag-website GitHub remote (push `769ee23`)
+
+### Nouveaux documents lus (GitHub uniquement)
+1. **`new mardi17feb26`** : Modifications website + dashboard
+   - Evals en direct, visuelles, gamifiées, interactives sur website ET dashboard
+   - Description business = chatbot sectoriel connecté aux données enterprise → réponses sourcées + artefacts visuels
+   - Kimi-code sur VM → vidéos use-case business pour les 4 secteurs
+   - Style Apple MacBook Pro pour les 4 cases sectorielles
+   - Dashboard : fenêtre glissante élégante, tests multi-repos, multi-instances n8n
+2. **`am26`** : Architecture globale dashboard live
+   - Executive summary transparent + phases/metrics + questions/réponses browsables
+   - Gaming style pour progression itérations
+   - Mode dark/light (Apple style toggle)
+   - Terminal-style Q&A avec scores F1, temps, LLM utilisé
+3. **`am7`** : Améliorations majeures structure
+   - 1000 types de documents, 10 datasets techniques + 10 datasets recherche par secteur
+   - Kimi Code installé sur VM (`/home/termius/.local/bin/kimi`) → à utiliser pour vidéos
+   - Site business vs technique (potentiellement dupliquer)
+   - Architecture de test parallèle à étudier
+
+## État CPU/RAM VM (fin session)
+- Load average : **0.59** (corrigé de 7.82)
+- RAM : 757MB used / 970MB total (swap ~895MB)
+- Swap élevé : normal avec 2 instances claude + n8n actif
+
+## Prochaines actions prioritaires
+1. **Website rag-website** : Modifier UI vers style Apple/business pour les 4 secteurs
+2. **Dashboard** : Fenêtre glissante, live evals, gaming progression, dark/light toggle
+3. **Kimi-code** : Tester sur VM pour générer vidéos use-case des 4 secteurs
+4. **Codespace rag-website** : Ouvrir via navigateur pour développement Next.js
+5. **Parallélisation tests** : Recherche internet sur architecture (am7 request)
 
 ## Architecture finale (DEFINITIVE)
 
