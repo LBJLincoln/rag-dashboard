@@ -1,0 +1,23 @@
+{
+  "name": "Nomos AI — Website Workflows",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": { "version": "3.11" },
+    "ghcr.io/devcontainers/features/node:1": { "version": "20" }
+  },
+  "forwardPorts": [3000],
+  "postCreateCommand": "pip install requests python-dotenv && cd website && npm install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "bradlc.vscode-tailwindcss"
+      ]
+    }
+  },
+  "remoteEnv": {
+    "VM_HOST": "34.136.180.66",
+    "N8N_HOST": "http://34.136.180.66:5678",
+    "REPO_ROLE": "rag-website"
+  }
+}
