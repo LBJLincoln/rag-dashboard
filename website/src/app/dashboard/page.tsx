@@ -4,8 +4,17 @@ import { useState, useEffect } from 'react'
 import { Header } from '@/components/layout/Header'
 import { ExecutiveSummary } from '@/components/dashboard/ExecutiveSummary'
 import { PipelineCards } from '@/components/dashboard/PipelineCards'
+import { DataSources } from '@/components/dashboard/DataSources'
 import { PhaseExplorer } from '@/components/dashboard/PhaseExplorer'
 import { QuestionViewer } from '@/components/dashboard/QuestionViewer'
+
+interface SourceInfo {
+  label: string
+  description: string
+  status: 'connected' | 'offline' | 'pending'
+  last_update: string | null
+  datasets: string
+}
 
 interface DashboardData {
   status: {
@@ -14,7 +23,10 @@ interface DashboardData {
     phase?: { current: number; name: string }
     blockers?: string[]
   }
-  meta: { total_unique_questions?: number; total_test_runs?: number; total_iterations?: number }
+  meta: { total_unique_questions?: number; total_test_runs?: number; total_iterations?: number; source?: string }
+  sources: Record<string, SourceInfo>
+  phase: { current: number; name: string; gates_passed: boolean }
+  lastIteration: { id: string; label: string; timestamp: string } | null
   iterations: { id: string; label: string; timestamp: string; results_summary: Record<string, { tested: number; correct: number; accuracy: number }> }[]
   recentQuestions: Record<string, unknown>[]
   registrySize: number
@@ -37,7 +49,7 @@ export default function DashboardPage() {
       }
     }
     fetchData()
-    const interval = setInterval(fetchData, 10000)
+    const interval = setInterval(fetchData, 15000)
     return () => clearInterval(interval)
   }, [])
 
@@ -45,7 +57,7 @@ export default function DashboardPage() {
     <>
       <Header />
       <main className="min-h-screen pt-16 pb-20 px-4 md:px-8 max-w-7xl mx-auto">
-        {/* View toggle — Apple style */}
+        {/* View toggle */}
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-[28px] md:text-[36px] font-bold tracking-[-0.03em] text-tx">
@@ -95,6 +107,24 @@ export default function DashboardPage() {
               view={view}
             />
 
+            {/* Data sources section — always visible */}
+            {data.sources && (
+              <DataSources sources={data.sources} />
+            )}
+
+            {/* Last iteration info */}
+            {data.lastIteration && (
+              <div className="p-4 rounded-2xl border border-white/[0.06] bg-white/[0.02]">
+                <div className="text-[11px] uppercase tracking-[0.1em] text-tx3 mb-2">Derniere iteration</div>
+                <div className="flex items-center gap-4">
+                  <span className="text-[13px] font-mono text-tx">{data.lastIteration.label}</span>
+                  <span className="text-[11px] text-tx3">
+                    {new Date(data.lastIteration.timestamp).toLocaleString('fr-FR')}
+                  </span>
+                </div>
+              </div>
+            )}
+
             {view === 'detailed' && (
               <>
                 <PhaseExplorer iterations={data.iterations} />
@@ -104,7 +134,7 @@ export default function DashboardPage() {
           </div>
         ) : (
           <div className="text-center text-tx2 py-20">
-            Impossible de charger les donnees. Verifiez que les fichiers docs/status.json et docs/data.json existent.
+            Impossible de charger les donnees. Verifiez que le serveur de status est accessible.
           </div>
         )}
       </main>

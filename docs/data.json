@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-02-16T18:36:10.511402Z",
+    "generated_at": "2026-02-17T09:59:14.452189Z",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
@@ -28877,16 +28877,6 @@
   },
   "quick_tests": [
     {
-      "timestamp": "2026-02-15T13:59:01.521133Z",
-      "pipeline": "quantitative",
-      "query": "What is the total number of products across all companies?",
-      "status": "pass",
-      "latency_ms": 22595,
-      "response_preview": "The SQL query executed to determine the total number of products across all companies returned no results. This could be due to several reasons:\n\n1. **No Data**: There might be no products in the data",
-      "trigger": "manual",
-      "error": null
-    },
-    {
       "timestamp": "2026-02-15T13:59:18.045183Z",
       "pipeline": "quantitative",
       "query": "What was HealthPlus Labs' net income in 2022?",
@@ -29375,6 +29365,16 @@
       "response_preview": "",
       "trigger": "manual",
       "error": "Empty response"
+    },
+    {
+      "timestamp": "2026-02-17T09:59:14.447333Z",
+      "pipeline": "standard",
+      "query": "What is the capital of Japan?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "timed out"
     }
   ],
   "execution_logs": [

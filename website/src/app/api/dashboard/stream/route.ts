@@ -1,4 +1,4 @@
-const STATUS_API_URL = process.env.STATUS_API_URL ?? 'http://localhost:3001'
+const STATUS_API_URL = process.env.STATUS_API_URL ?? 'http://34.136.180.66:8080/status.json'
 
 export const dynamic = 'force-dynamic'
 
@@ -11,12 +11,15 @@ export async function GET() {
 
       const sendUpdate = async () => {
         try {
-          const res = await fetch(`${STATUS_API_URL}/status.json`, {
-            signal: AbortSignal.timeout(4000),
+          const res = await fetch(STATUS_API_URL, {
+            signal: AbortSignal.timeout(10000),
+            cache: 'no-store',
           })
           if (!res.ok) return
 
-          const raw = await res.text()
+          const json = await res.json()
+          const payload = Array.isArray(json) ? json[0] : json
+          const raw = JSON.stringify(payload)
           if (raw === lastData) return
           lastData = raw
 
@@ -29,8 +32,8 @@ export async function GET() {
       // Send initial data immediately
       await sendUpdate()
 
-      // Poll every 5 seconds
-      const interval = setInterval(sendUpdate, 5000)
+      // Poll every 10 seconds (reduced from 5s to save VM resources)
+      const interval = setInterval(sendUpdate, 10000)
 
       // Keep-alive ping every 30s
       const keepAlive = setInterval(() => {
@@ -60,6 +63,7 @@ export async function GET() {
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache',
       Connection: 'keep-alive',
+      'Access-Control-Allow-Origin': '*',
     },
   })
 }

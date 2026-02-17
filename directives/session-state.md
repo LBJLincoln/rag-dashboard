@@ -1,80 +1,79 @@
-# Session State — 16-17 Fevrier 2026 (Session 9 — continued x2)
+# Session State — 17 Fevrier 2026 (Session 10)
 
 ## Objectif de session
-Refonte complete architecture multi-repo + branding Nomos AI + deploiement Vercel + topologie n8n
+Audit complet infrastructure + liberation VM + activation workflows + refonte dashboard multi-source
 
 ## Taches completees cette session
 
-### Phase A — Documentation & Dashboard (avant compactage 1)
-- technicals/sector-datasets.md (47KB) — 1000+ types docs par secteur
-- technicals/infrastructure-plan.md (40KB) — Plan infra distribuee
-- directives/dataset-rationale.md (25KB) — Justification 14 benchmarks
-- Dashboard technique complet (4 composants + API + SSE)
-- TrustSection + SectorCard ameliore (5 use cases ROI)
+### Phase A — Audit Infrastructure
+- Audit complet des 5 repos (tous synchro a 3b98e56)
+- Audit VM : RAM 969MB, 3 containers Docker, n8n + PG + Redis
+- Audit n8n : 14 workflows, tous actifs — identification des 3 a desactiver
+- Audit Codespaces : 3 devcontainer configs (rag-tests, rag-data-ingestion, rag-website)
+- Audit ports : 5678 (n8n), 5432 (PG), 6379 (Redis), 8080 (status server)
 
-### Phase B — Architecture Multi-Repo (apres compactage 1)
-- mon-ipad rendu PRIVE
-- 4 repos PRIVES crees : rag-tests, rag-website, rag-dashboard, rag-data-ingestion
-- Contenu complet de mon-ipad pousse vers les 4 repos
-- CLAUDE.md reecrit pour architecture tour de controle
-- objective.md mis a jour (4 phases, 5 repos)
-- propositions v3 corrige avec recherche 2026
+### Phase B — Liberation VM
+- Killed Next.js process (74MB liberes) — NE DOIT PAS tourner sur VM (Vercel)
+- Supprime image Docker redis:alpine inutilisee (97MB disque)
+- Desactive 3 workflows d'ingestion sur VM (Ingestion V3.1, Enrichissement V3.1, Dataset Ingestion)
+- Applique Docker memory limits : n8n 600m, PG 128m, Redis 96m
+- Applique optimisations n8n : pruning (48h, 500 max), save on success=none, concurrency=2
+- Reduit Redis maxmemory 256m → 64m
+- NODE_OPTIONS=--max-old-space-size=512
 
-### Phase C — Branding Nomos AI + Vercel prep (apres compactage 2)
-- Rebranding complet : Multi-RAG → Nomos AI (Header, Footer, Layout, Dashboard, ExecutiveSummary, package.json)
-- API routes adaptees pour Vercel (fetch STATUS_API_URL au lieu de filesystem local)
-- vercel.json configure (region cdg1)
-- CORS headers pour API routes
-- Build Next.js 15.5.12 reussi (landing + dashboard + 3 API routes)
-- Serveur status Python sur VM port 3001 (sert status.json/data.json en HTTP)
-- technicals/topology.md (380 lignes) — topologie complete 6 instances n8n
-
-### Recherche 2026 (resultats cles)
-- Workers n8n NE PEUVENT PAS tourner sur e2-micro (pas assez de RAM)
-- VM = controle uniquement (main + Redis + PG, pas de workers)
-- Next.js NE PEUT PAS tourner sur VM avec n8n (RAM saturee a 869/970MB)
-- Free tier realiste : ~15-20 exec/s max (3 Codespace workers)
-- Reverse SSH tunnel necessaire (gh codespace ssh -R)
-- N8N_CONCURRENCY_PRODUCTION_LIMIT=2 sur VM (quick tests seulement)
+### Phase C — Dashboard multi-source
+- API route dashboard refondee pour aggreger 3 sources (mon-ipad, rag-website, rag-data-ingestion)
+- STATUS_API_URL pointe vers port 8080 (Python HTTP server) au lieu de webhook n8n
+- SSE stream route mise a jour (poll 10s au lieu de 5s pour economiser resources)
+- Nouveau composant DataSources.tsx — visualise l'etat des 3 sources de donnees
+- Dashboard page mise a jour avec DataSources + lastIteration + polling 15s
 
 ## Decisions prises
-- **Nom de marque : Nomos AI** (nomos = ordre cosmique, loi universelle en grec ancien)
-- Architecture 5 repos prives
-- VM = controle + quick tests (1q/5q/10q/50q max) — PAS de site web sur VM
-- Vercel = site business + dashboard (obligatoire car RAM VM insuffisante)
-- Codespaces = tests lourds (500q+) + ingestion
-- 4 sessions Claude Code CLI simultanees (1 par repo, Max plan)
-- Dashboard doit agreger donnees de 4 repos en temps reel
-- Workflows dupliques par repo avec datasets propres (20/secteur)
-- Chaque repo suit workflow-process.md identique
+- VM = 11 workflows actifs (4 pipelines RAG + benchmarks + dashboard + feedback)
+- Codespace rag-data-ingestion = ingestion + enrichissement (instance n8n separee)
+- Codespace rag-tests = 2 workers connectes au Redis/PG de la VM
+- Status server = Python HTTP sur port 8080 (pas n8n webhook pour alleger la charge)
+- Dashboard diff 3 sources : mon-ipad (benchmarks), rag-website (sectoriels), rag-data-ingestion (ingestion)
 
-## Topologie n8n (6 processus, 10 conteneurs, 3 environnements)
-- VM : n8n-main + PG + Redis (~74MB)
-- Codespace A (rag-tests) : 2 workers RAG (~1GB)
-- Codespace B (rag-data-ingestion) : n8n-ingestion-main + 2 workers + PG + Redis (~1.1GB)
+## Etat des workflows (VM)
+| Workflow | ID | Active |
+|----------|-----|--------|
+| Orchestrator V10.1 | aGsYnJY9nNCaTM82 | ON |
+| Standard RAG V3.4 | TmgyRP20N4JFd9CB | ON |
+| Graph RAG V3.3 | 6257AfT1l4FMC6lY | ON |
+| Quantitative V2.0 | e465W7V9Q8uK6zJE | ON |
+| Dashboard Status API | KcfzvJD6yydxY9Uk | ON |
+| Benchmark V3.0 | LKZO1QQY9jvBltP0 | ON |
+| Monitoring Dashboard | tLNh3wTty7sEprLj | ON |
+| SQL Executor | 22k9541l9mHENlLD | ON |
+| Orchestrator Tester | m9jaYzWMSVbBFeSf | ON |
+| RAG Batch Tester | y2FUkI5SZfau67dN | ON |
+| Feedback V3.1 | F70g14jMxIGCZnFz | ON |
+| Ingestion V3.1 | 15sUKy5lGL4rYW0L | OFF (→ Codespace) |
+| Enrichissement V3.1 | 9V2UTVRbf4OJXPto | OFF (→ Codespace) |
+| Dataset Ingestion | YaHS9rVb1osRUJpE | OFF (→ Codespace) |
 
-## Repos impactes (tous a 34400e2)
-- mon-ipad (origin) — tous les fichiers
-- rag-tests — copie complete
-- rag-website — copie complete
-- rag-dashboard — copie complete
-- rag-data-ingestion — copie complete
+## Etat Phase 1 (base pour Phase 2)
+| Pipeline | Accuracy | Target | Status |
+|----------|----------|--------|--------|
+| Standard | 85.5% | >= 85% | PASS |
+| Graph | 68.7% | >= 70% | FAIL (-1.3pp) |
+| Quantitative | 78.3% | >= 85% | FAIL (-6.7pp) |
+| Orchestrator | 80.0% | >= 70% | PASS |
+| **Overall** | **78.1%** | **>= 75%** | **PASS** |
 
-## Commits cette session
-- 5db43d6 — dashboard, docs, business content & SSE
-- 542ff35 — propositions v1
-- 2fdee30 — multi-repo architecture + research corrections
-- 34400e2 — rebrand Nomos AI + Vercel-ready + topology document
+## Repos impactes
+- mon-ipad (origin) — docker-compose optimise, dashboard refait, session-state
 
 ## Blockers
-- Vercel : user doit connecter via browser (CLI timeout sur VM low-RAM)
-- Token GitHub manque scope `delete_repo` → 4 anciens repos a supprimer manuellement
-- gh CLI pas installe sur la VM
+- gh CLI pas installe — impossible de gerer les Codespaces depuis la VM
+- n8n API publique v1 timeout sur e2-micro (reponses trop lourdes) — workaround : query PG directement
+- Vercel : user doit connecter via browser (pas encore fait)
 
-## En cours / Prochaines actions (cette session)
-1. DEPLOYER sur Vercel : rag-website → nomos-ai.vercel.app (user action browser)
-   - Root dir: website, env vars: N8N_HOST, N8N_WEBHOOK_PATH, STATUS_API_URL
-2. devcontainer.json pour rag-tests et rag-data-ingestion
-3. Configuration agentic Claude Code par repo
-4. Workflows dupliques par repo avec datasets sectoriels (20/secteur)
-5. Mise a jour docs finaux + push all repos
+## Prochaines actions
+1. Installer gh CLI sur la VM pour gerer les Codespaces
+2. Creer/demarrer les Codespaces rag-tests et rag-data-ingestion
+3. Adapter les tests website aux 20 datasets/secteur (generer questions sectorielles)
+4. Deployer sur Vercel (rag-website → nomos-ai.vercel.app)
+5. Commencer Phase 2 : corriger Graph (68.7% → 70%) et Quantitative (78.3% → 85%)
+6. Commit + push tous repos
