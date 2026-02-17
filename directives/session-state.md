@@ -206,13 +206,74 @@ Refactoring complet directives — CLAUDE.md + directives/repos/ (4 fichiers) + 
 - Les datasets HF ne sont PAS téléchargés (recherche seulement, pas d'ingestion)
 - Tier 1 à ingérer la prochaine fois : jurisprudence, legi, financebench, ragbench, bsard
 
+## Session 13 — Fixes pipelines + sécurité (17 fév 2026)
+
+### Audit repo (agent a6ca5d6) ✅
+- 13 incohérences corrigées : IDs workflows, Pinecone dim 1536→1024, Neo4j 76717, 11→13 workflows
+- Commit 609f1e4
+
+### Graph RAG fix (agent a587b8e) ✅
+- Root cause : URL Neo4j `bolt://localhost:7687` invalide pour Neo4j Aura HTTPS
+- Fix #1 : URL → `https://38c949a2.databases.neo4j.io/db/neo4j/query/v2`
+- Fix #2 : HyDE temperature 0.7→0.1, max_tokens 800→400
+- Graph v5 → v6
+- RÉSULTAT : Neo4j maintenant appelé (latence 62s vs 40s) ✅ — vérification iterative-eval en attente
+
+### Quantitative fix (agent aed7acb) ✅
+- Root cause : `employees` table utilise `company_id` (pas `company_name`)
+- Fix : SQL system prompt corrigé avec company_id + growth_rate formule
+- Quantitative v7 → v9 (v8 cassé JS syntax, revert + safe fix)
+- RÉSULTAT : fix appliqué — vérification iterative-eval en attente
+
+### SSE Stream ✅
+- `website/src/app/api/eval/stream/route.ts` : SSE endpoint 500ms polling
+- `website/src/hooks/useSSEStream.ts` : client hook auto-reconnect
+
+### Website + Dashboard ✅
+- Apple B2B redesign : Hero, BentoGrid, HowItWorks, SectorCard, DashboardCTA, VideoModal
+- Dashboard live : XPProgressionBar, FeedStatusBar, MilestoneNotification, QuestionRow, VirtualizedFeedList
+- evalStore.ts (Zustand) + useEvalStream.ts
+
+### SÉCURITÉ — Fuite secrets (résolu) ⚠️
+- Commit c2c9c30 avait exposé : OpenRouter `sk-or-v1-fa3d327f...`, Pinecone `pcsk_6GzVdD_...`, Jina `jina_f134...`
+- Cause : n8n/sync.py enregistre les diffs des paramètres (incluant clés API) dans docs/data.json
+- Fix appliqué : redaction Python (6d66662) + push 5 remotes ✅
+- ACTION REQUISE : Faire tourner les clés (OpenRouter, Pinecone, Jina) — clés exposées dans git history
+- TODO : Patcher sync.py pour redacter les valeurs credentials avant écriture
+
+### Commits Session 13
+- 609f1e4 : fixes audit (11→13 workflows, IDs, dim)
+- c2c9c30 : fixes pipelines Graph + Quant + SSE (contient secrets — remplacés en 6d66662)
+- 6d66662 : redaction secrets data.json (SECURITY FIX)
+- e3e7685 : website Apple redesign + dashboard live components
+
+## État Phase 1 (après fixes — avant vérification)
+| Pipeline | Accuracy | Target | Status |
+|----------|----------|--------|--------|
+| Standard | 85.5% | >= 85% | PASS ✅ |
+| Graph | 68.7% | >= 70% | FAIL (-1.3pp) — fix appliqué, à vérifier |
+| Quantitative | 78.3% | >= 85% | FAIL (-6.7pp) — fix appliqué, à vérifier |
+| Orchestrator | 80.0% | >= 70% | PASS ✅ |
+| **Overall** | **78.1%** | **>= 75%** | **PASS** ✅ |
+
+## Codespaces
+- `nomos-rag-website-jr7q9gr69qqfqp6r` — Shutdown (auto-sleep après 30min)
+- `nomos-rag-tests-5g6g5q9vjjwjf5g4` — Shutdown (auto-sleep)
+- Dashboard `nomos-status` webhook : non répondu → données potentiellement stale
+
 ## Prochaine action
-1. **Graph RAG** : corriger 68.7% → 70% (entity disambiguation Neo4j)
-2. **Quantitative** : corriger 78.3% → 85% (CompactRAG pattern)
-3. **Datasets** : Ingérer Tier 1 via rag-data-ingestion Codespace
-4. **SSE 500ms** : Implémenter /api/eval/stream selon docs/eval-dashboard-spec.md
+1. **URGENT** : Rotater les clés API (OpenRouter, Pinecone, Jina) — git history exposé
+2. **URGENT** : Patcher `n8n/sync.py` pour redacter credentials dans les diffs
+3. **Graph RAG** : Lancer iterative-eval pour vérifier 68.7% → ≥70%
+4. **Quantitative** : Lancer iterative-eval pour vérifier 78.3% → ≥85%
+5. **Dashboard nomos-status** : Vérifier et corriger le webhook
+
+## Dernière action
+Redaction secrets docs/data.json + push 5 remotes → 6d66662 + e3e7685
 
 ## Repos impactés
-- mon-ipad (origin) — ce refactoring
-- rag-tests, rag-website, rag-data-ingestion, rag-dashboard — via push-directives.sh
+- mon-ipad (origin) — tous commits
+- rag-website — website/dashboard
+- rag-tests, rag-dashboard, rag-data-ingestion — poussés (sync)
+
 Workaround kimi: echo '{"mcpServers":{}}' > /tmp/empty-mcp.json && kimi --quiet --mcp-config-file /tmp/empty-mcp.json -p 'prompt'

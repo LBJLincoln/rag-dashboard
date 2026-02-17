@@ -165,6 +165,25 @@ def extract_workflow_summary(wf_data):
     }
 
 
+import re as _re
+
+_CREDENTIAL_PATTERNS = [
+    _re.compile(r'sk-or-v1-[a-f0-9]{20,}'),
+    _re.compile(r'pcsk_[A-Za-z0-9_]{20,}'),
+    _re.compile(r'jina_[a-f0-9A-Za-z]{20,}'),
+    _re.compile(r'Bearer [A-Za-z0-9\-_\.]{20,}'),
+    _re.compile(r'Basic [A-Za-z0-9+/=]{20,}'),
+    _re.compile(r'hf_[A-Za-z0-9]{20,}'),
+    _re.compile(r'ghp_[A-Za-z0-9]{20,}'),
+]
+
+def _redact(value: str) -> str:
+    """Redact API keys and credentials from a string value."""
+    for pattern in _CREDENTIAL_PATTERNS:
+        value = pattern.sub('[REDACTED]', value)
+    return value
+
+
 def diff_workflows(old_wf, new_wf):
     """Compute a diff between two workflow versions."""
     old_nodes = {n.get("name", ""): n for n in old_wf.get("nodes", [])}
@@ -189,8 +208,8 @@ def diff_workflows(old_wf, new_wf):
                 if old_val != new_val:
                     changes.append({
                         "param": key,
-                        "old": str(old_p.get(key, ""))[:200],
-                        "new": str(new_p.get(key, ""))[:200],
+                        "old": _redact(str(old_p.get(key, "")))[:200],
+                        "new": _redact(str(new_p.get(key, "")))[:200],
                     })
             modified.append({"node": name, "changes": changes})
 
