@@ -119,8 +119,12 @@ n8n local   : OUI — docker-compose.yml (n8n-main + 3 workers + Redis + Postgre
 # 0. Configurer Opus 4.6 (une fois par Codespace)
 bash scripts/setup-claude-opus.sh
 
-# 1. Démarrer n8n LOCAL (PAS de SSH tunnel — n8n tourne dans ce Codespace)
+# 1. Préparer docker-compose.yml (le fichier source est rag-tests-docker-compose.yml)
+cp rag-tests-docker-compose.yml docker-compose.yml  # si docker-compose.yml absent
+
+# 2. Démarrer n8n LOCAL (PAS de SSH tunnel — n8n tourne dans ce Codespace)
 docker compose up -d
+sleep 10  # attendre que n8n démarre
 curl -s http://localhost:5678/healthz | head -1  # doit répondre "OK"
 
 # 2. Charger les variables d'environnement
