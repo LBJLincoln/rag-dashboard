@@ -62,8 +62,25 @@ Appliquer les recommandations du fichier "new mardi17feb26" + rechercher les pap
 | Orchestrator | 80.0% | >= 70% | PASS |
 | **Overall** | **78.1%** | **>= 75%** | **PASS** |
 
+## Fix Vercel déploiement (session 13 — post-compactage)
+
+### Problème résolu (commit 15b019d, alexis.moret6@outlook.fr)
+- **Cause 1** : 2 TypeScript errors bloquaient le build Vercel (servait ancien build `3b98e56`)
+  - `api/dashboard/route.ts:52` — `webhookStatus` non défini → corrigé
+  - `MilestoneNotification.tsx:82` — prop `style` interdite sur Lucide Icon → `<span>` wrapper
+- **Cause 2** : Vercel GitHub App rejetait les commits de `lahargnedebartoli-alt` (email `lahargnedebartoli@gmail.com`) — pas accès au projet Vercel
+  - **Fix** : git config `user.email = alexis.moret6@outlook.fr` (email du compte Vercel `lbjlincoln`)
+  - **OBLIGATOIRE** : Tous les commits futurs pushés vers rag-website/rag-dashboard DOIVENT avoir cet email
+- **CI/CD ajouté** : `.github/workflows/deploy-website.yml` pour déploiement automatique
+
+### Configuration git actuelle (critique pour Vercel)
+```
+user.email = alexis.moret6@outlook.fr
+user.name = LBJLincoln
+```
+
 ## Dernière action
-Commit + push multi-repos (session 13)
+Fix Vercel + push — nomos-ai-pied.vercel.app et nomos-dashboard.vercel.app à jour ✅
 
 ## Prochaines actions prioritaires
 1. **Graph RAG** : 68.7% → 70% (entity disambiguation Neo4j)
@@ -71,8 +88,7 @@ Commit + push multi-repos (session 13)
 3. **RAGAS** : Ajouter faithfulness + context_recall aux eval scripts
 4. **Late chunking** : Ré-ingérer avec `late_chunking=True` top 3 namespaces
 5. **BM25** : Ajouter pipelines Juridique et Finance
-6. **Vercel build** : Vérifier déploiement rag-website (TypeScript errors?)
-7. **react-window** : `npm install react-window` dans rag-website Codespace
+6. **react-window** : `npm install react-window` dans rag-website Codespace
 
 ## Sites production
 - rag-website : https://nomos-ai-pied.vercel.app

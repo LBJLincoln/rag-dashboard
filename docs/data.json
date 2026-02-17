@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-02-17T18:46:49.035136Z",
+    "generated_at": "2026-02-17T20:28:50.907572Z",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
@@ -28877,96 +28877,6 @@
   },
   "quick_tests": [
     {
-      "timestamp": "2026-02-15T17:29:32.815526Z",
-      "pipeline": "graph",
-      "query": "What is the WHO?",
-      "status": "pass",
-      "latency_ms": 51043,
-      "response_preview": "Specialized agency of the United Nations responsible for international public health.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-15T17:30:10.205197Z",
-      "pipeline": "graph",
-      "query": "What disease is caused by mosquitoes?",
-      "status": "pass",
-      "latency_ms": 37313,
-      "response_preview": "Malaria, dengue fever, Zika virus, West Nile virus, chikungunya, yellow fever",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-15T17:42:46.369942Z",
-      "pipeline": "quantitative",
-      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
-      "status": "pass",
-      "latency_ms": 70948,
-      "response_preview": "TechVision Inc's total revenue in fiscal year 2023 was $6,745,000,000.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-15T17:43:19.865033Z",
-      "pipeline": "graph",
-      "query": "What did Marie Curie win Nobel Prizes for?",
-      "status": "pass",
-      "latency_ms": 86228,
-      "response_preview": "Physics and Chemistry",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-15T17:44:10.616092Z",
-      "pipeline": "graph",
-      "query": "What did Alexander Fleming discover?",
-      "status": "pass",
-      "latency_ms": 49492,
-      "response_preview": "Penicillin",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-15T17:45:24.858206Z",
-      "pipeline": "graph",
-      "query": "Who founded Microsoft?",
-      "status": "pass",
-      "latency_ms": 71747,
-      "response_preview": "Bill Gates and Paul Allen",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-15T17:46:11.355592Z",
-      "pipeline": "graph",
-      "query": "What is the WHO?",
-      "status": "pass",
-      "latency_ms": 45502,
-      "response_preview": "A specialized agency of the United Nations responsible for international public health.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-15T17:47:00.114595Z",
-      "pipeline": "graph",
-      "query": "What disease is caused by mosquitoes?",
-      "status": "pass",
-      "latency_ms": 47523,
-      "response_preview": "Malaria, dengue fever, Zika virus, West Nile virus, yellow fever, chikungunya, lymphatic filariasis, Japanese encephalitis",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-15T21:53:40.380551Z",
-      "pipeline": "orchestrator",
-      "query": "What is the capital of Japan?",
-      "status": "fail",
-      "latency_ms": 72747,
-      "response_preview": "Unable to generate answer",
-      "trigger": "manual",
-      "error": null
-    },
-    {
       "timestamp": "2026-02-15T22:00:38.170268Z",
       "pipeline": "standard",
       "query": "What is the capital of Japan?",
@@ -29375,6 +29285,96 @@
       "response_preview": "",
       "trigger": "manual",
       "error": "Empty response"
+    },
+    {
+      "timestamp": "2026-02-17T19:11:05.105822Z",
+      "pipeline": "graph",
+      "query": "What did Marie Curie win Nobel Prizes for?",
+      "status": "fail",
+      "latency_ms": 85486,
+      "response_preview": "Information not available in the knowledge graph.",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-17T19:12:11.125859Z",
+      "pipeline": "graph",
+      "query": "What did Alexander Fleming discover?",
+      "status": "fail",
+      "latency_ms": 58486,
+      "response_preview": "Information not available in the knowledge graph.",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-17T19:13:47.618479Z",
+      "pipeline": "graph",
+      "query": "Who founded Microsoft?",
+      "status": "fail",
+      "latency_ms": 85006,
+      "response_preview": "Information not available in the knowledge graph.",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-17T20:15:26.683858Z",
+      "pipeline": "graph",
+      "query": "What did Marie Curie win Nobel Prizes for?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 503: HTTP Error 503: Service Unavailable"
+    },
+    {
+      "timestamp": "2026-02-17T20:17:01.429269Z",
+      "pipeline": "graph",
+      "query": "What did Alexander Fleming discover?",
+      "status": "pass",
+      "latency_ms": 82745,
+      "response_preview": "Penicillin",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-17T20:18:42.924752Z",
+      "pipeline": "graph",
+      "query": "Who founded Microsoft?",
+      "status": "pass",
+      "latency_ms": 88492,
+      "response_preview": "Bill Gates and Paul Allen",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-17T20:26:21.156186Z",
+      "pipeline": "standard",
+      "query": "What is the capital of Japan?",
+      "status": "fail",
+      "latency_ms": 52001,
+      "response_preview": "Unable to generate answer",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-17T20:27:14.665222Z",
+      "pipeline": "standard",
+      "query": "Where is Normandy located?",
+      "status": "fail",
+      "latency_ms": 47752,
+      "response_preview": "Unable to generate answer",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-17T20:28:50.684469Z",
+      "pipeline": "standard",
+      "query": "Who painted the Mona Lisa?",
+      "status": "fail",
+      "latency_ms": 85239,
+      "response_preview": "Unable to generate answer",
+      "trigger": "manual",
+      "error": null
     }
   ],
   "execution_logs": [
