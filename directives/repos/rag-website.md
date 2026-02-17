@@ -71,20 +71,20 @@ Voir la liste complète dans `technicals/sector-datasets.md` (sections 3.1 à 3.
 ### BTP/Construction (5 datasets prioritaires)
 | # | Dataset | Source HF | Utilité |
 |---|---------|-----------|---------|
-| 1 | Construction-specific QA | Identifier depuis sector-datasets.md | Normes DTU, Eurocodes |
-| 2 | CCTP/Marchés publics | Identifier depuis sector-datasets.md | Documents contractuels |
-| 3 | RE2020 / Environnement | Identifier depuis sector-datasets.md | Réglementation énergétique |
-| 4 | Securité chantier | Identifier depuis sector-datasets.md | PPSPS, DIUO |
-| 5 | Urbanisme | Identifier depuis sector-datasets.md | PLU, permis |
+| 1 | **CODE-ACCORD** | `GT4SD/code-accord` | NER réglementations bâtiment FR (DTU, Eurocodes) |
+| 2 | **ConstructionSite VQA** | `joyjeni/ConstructionSite-VQA-GPT4` | QA chantiers (sécurité, équipements) |
+| 3 | **Engineering Drawings AS1100** | `cclabsai/engineering-drawing-qa-as1100` | QA dessins techniques / plans |
+| 4 | **DesignQA** | `filipeabperes/DesignQA` | QA conformité normes ingénierie |
+| 5 | **SQuAD Construction subset** | `rajpurkar/squad_v2` (filtré bâtiment) | QA extractif documents construction |
 
 ### Industrie/Manufacturing (5 datasets prioritaires)
 | # | Dataset | Source HF | Utilité |
 |---|---------|-----------|---------|
-| 1 | Manufacturing QA | `xiyuez/im-feeling-curious` ou équivalent | Process industriel |
-| 2 | AMDEC/Maintenance | Identifier depuis sector-datasets.md | Fiches techniques |
-| 3 | ISO Standards QA | Identifier depuis sector-datasets.md | Qualité ISO |
-| 4 | ICPE/Seveso | Identifier depuis sector-datasets.md | Environnement |
-| 5 | S1000D Technical | Identifier depuis sector-datasets.md | Documentation technique |
+| 1 | **Manufacturing QA** | `thesven/manufacturing-qa-gpt4o` | 5 000 QA process fab, qualité, lean |
+| 2 | **TAT-QA** | `nextplusplus/TAT-QA` | QA hybride tableaux + texte (rapports qualité) |
+| 3 | **QuALITY** | `nyu-mll/quality` | QA documents longs (manuels, procédures 5000+ tokens) |
+| 4 | **RAGBench** | `rungalileo/ragbench` | 100K exemples RAG multi-domaine industrie |
+| 5 | **CRAG** | `facebook/crag` | Benchmark RAG NeurIPS 2024 (multi-hop, dynamique) |
 
 ### Finance (5 datasets prioritaires)
 | # | Dataset | Source HF | Utilité |
