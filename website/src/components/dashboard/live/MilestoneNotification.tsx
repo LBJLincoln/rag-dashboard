@@ -79,7 +79,7 @@ function NotificationCard({
         className="flex-shrink-0 w-8 h-8 rounded-xl flex items-center justify-center"
         style={{ backgroundColor: `${milestone.color}20` }}
       >
-        <Icon className="w-4 h-4" style={{ color: milestone.color } as React.CSSProperties} />
+        <span style={{ color: milestone.color }}><Icon className="w-4 h-4" /></span>
       </div>
 
       {/* Text */}

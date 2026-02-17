@@ -49,7 +49,7 @@ export async function GET() {
       status,
       // Metadata
       meta: {
-        source: ragStatus ? 'status-file' : webhookStatus ? 'n8n-webhook' : 'unavailable',
+        source: ragStatus ? 'n8n-webhook' : fallbackStatus ? 'status-file' : 'unavailable',
         fetched_at: new Date().toISOString(),
         total_unique_questions: status.totals?.unique_questions ?? 0,
         total_test_runs: status.totals?.test_runs ?? 0,
