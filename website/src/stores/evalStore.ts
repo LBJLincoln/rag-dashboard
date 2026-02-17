@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { immer } from 'zustand/middleware/immer'
 import { subscribeWithSelector } from 'zustand/middleware'
 
 // ---- Types ---------------------------------------------------------------
@@ -93,7 +92,7 @@ export function computePipelineStats(
     const latencies = qs.map(q => q.latency_ms).sort((a, b) => a - b)
     const f1s = qs.map(q => q.f1).filter(f => f > 0)
 
-    // Compute streak: count consecutive correct from the end
+    // Streak: consecutive correct from the end
     let streak = 0
     for (let i = qs.length - 1; i >= 0; i--) {
       if (qs[i].correct) streak++
@@ -156,7 +155,7 @@ export function buildFeedItems(
   for (let i = 0; i < questions.length; i++) {
     const q = questions[i]
 
-    // Pipeline separator when switching pipeline
+    // Insert separator when pipeline changes
     if (q.rag_type !== lastPipeline) {
       if (lastPipeline !== null) {
         items.push({
@@ -176,7 +175,7 @@ export function buildFeedItems(
     rollingAcc[q.rag_type].tested++
     if (q.correct) rollingAcc[q.rag_type].correct++
 
-    // Milestone: accuracy crosses target threshold (only at 10+ tested)
+    // Milestone: accuracy crosses target (only at 10+ tested)
     const acc = rollingAcc[q.rag_type]
     const target = pipelineTargets[q.rag_type] ?? 75
     const currentAcc = (acc.correct / acc.tested) * 100
@@ -189,23 +188,13 @@ export function buildFeedItems(
         items.push({
           type: 'milestone',
           key: `milestone-pass-${i}`,
-          milestone: {
-            pipelineName: q.rag_type,
-            accuracy: currentAcc,
-            target,
-            direction: 'pass',
-          },
+          milestone: { pipelineName: q.rag_type, accuracy: currentAcc, target, direction: 'pass' },
         })
       } else if (prevAcc >= target && currentAcc < target) {
         items.push({
           type: 'milestone',
           key: `milestone-fail-${i}`,
-          milestone: {
-            pipelineName: q.rag_type,
-            accuracy: currentAcc,
-            target,
-            direction: 'fail',
-          },
+          milestone: { pipelineName: q.rag_type, accuracy: currentAcc, target, direction: 'fail' },
         })
       }
     }
@@ -218,6 +207,8 @@ export function buildFeedItems(
 
 // ---- Store ---------------------------------------------------------------
 
+const WINDOW_SIZE = 500
+
 interface EvalStore {
   // Connection state
   connectionStatus: 'idle' | 'connecting' | 'live' | 'reconnecting' | 'error'
@@ -228,17 +219,17 @@ interface EvalStore {
   isRunning: boolean
   elapsedMs: number
 
-  // Live question feed (sliding window — max 500 in memory)
+  // Live question feed (sliding window — max WINDOW_SIZE in memory)
   questions: QuestionResult[]
   WINDOW_SIZE: number
 
   // Per-pipeline live stats (computed from questions[])
   pipelineStats: Record<string, PipelineLiveStats>
 
-  // Historical iterations (from data.json, last 42)
+  // Historical iterations
   iterations: IterationSummary[]
 
-  // Current XP level based on question count
+  // XP level
   xpLevel: XPLevel
   prevXpLevel: XPLevel | null
   levelUpTriggered: boolean
@@ -254,81 +245,73 @@ interface EvalStore {
 }
 
 export const useEvalStore = create<EvalStore>()(
-  subscribeWithSelector(
-    immer((set, get) => ({
-      connectionStatus: 'idle' as const,
-      sseSeq: 0,
-      currentIteration: null,
-      isRunning: false,
-      elapsedMs: 0,
-      questions: [],
-      WINDOW_SIZE: 500,
-      pipelineStats: {},
-      iterations: [],
-      xpLevel: XP_LEVELS[0],
-      prevXpLevel: null,
-      levelUpTriggered: false,
+  subscribeWithSelector((set, get) => ({
+    connectionStatus: 'idle' as const,
+    sseSeq: 0,
+    currentIteration: null,
+    isRunning: false,
+    elapsedMs: 0,
+    questions: [],
+    WINDOW_SIZE,
+    pipelineStats: {},
+    iterations: [],
+    xpLevel: XP_LEVELS[0],
+    prevXpLevel: null,
+    levelUpTriggered: false,
 
-      setConnectionStatus: (s) =>
-        set(state => {
-          state.connectionStatus = s
-        }),
+    setConnectionStatus: (s) => set({ connectionStatus: s }),
 
-      appendQuestion: (q) =>
-        set(state => {
-          // Sliding window: discard oldest when over limit
-          if (state.questions.length >= state.WINDOW_SIZE) {
-            state.questions.shift()
+    appendQuestion: (q) => {
+      const state = get()
+      let questions = state.questions
+
+      // Sliding window
+      if (questions.length >= WINDOW_SIZE) {
+        questions = questions.slice(1)
+      }
+      questions = [...questions, q]
+
+      const newPipelineStats = computePipelineStats(questions)
+      const totalTested = questions.length
+      const newLevel = computeXPLevel(totalTested)
+
+      const levelUp = newLevel.level > state.xpLevel.level
+      const prevXpLevel = levelUp ? state.xpLevel : state.prevXpLevel
+      const levelUpTriggered = levelUp ? true : state.levelUpTriggered
+
+      // Optimistic iteration update
+      const currentIteration = state.currentIteration
+        ? {
+            ...state.currentIteration,
+            total_tested: (state.currentIteration.total_tested ?? 0) + 1,
           }
-          state.questions.push(q)
-          state.sseSeq = q.seq + 1
+        : null
 
-          // Recompute pipeline stats
-          state.pipelineStats = computePipelineStats(state.questions)
+      set({
+        questions,
+        sseSeq: q.seq + 1,
+        pipelineStats: newPipelineStats,
+        xpLevel: newLevel,
+        prevXpLevel,
+        levelUpTriggered,
+        currentIteration,
+      })
+    },
 
-          // Recompute XP level based on total tested
-          const totalTested = state.questions.length
-          const newLevel = computeXPLevel(totalTested)
-          if (newLevel.level > state.xpLevel.level) {
-            state.prevXpLevel = state.xpLevel
-            state.levelUpTriggered = true
-          }
-          state.xpLevel = newLevel
+    setCurrentIteration: (it) =>
+      set({ currentIteration: it, isRunning: true }),
 
-          // Update current iteration optimistically
-          if (state.currentIteration) {
-            state.currentIteration.total_tested =
-              (state.currentIteration.total_tested ?? 0) + 1
-          }
-        }),
+    setIterations: (its) => set({ iterations: its }),
 
-      setCurrentIteration: (it) =>
-        set(state => {
-          state.currentIteration = it
-          state.isRunning = true
-        }),
+    setIsRunning: (v) =>
+      set(v ? { isRunning: true } : { isRunning: false, elapsedMs: 0 }),
 
-      setIterations: (its) =>
-        set(state => {
-          state.iterations = its
-        }),
+    clearLevelUpTrigger: () =>
+      set({ levelUpTriggered: false, prevXpLevel: null }),
 
-      setIsRunning: (v) =>
-        set(state => {
-          state.isRunning = v
-          if (!v) state.elapsedMs = 0
-        }),
-
-      clearLevelUpTrigger: () =>
-        set(state => {
-          state.levelUpTriggered = false
-          state.prevXpLevel = null
-        }),
-
-      tick: () =>
-        set(state => {
-          if (state.isRunning) state.elapsedMs += 1000
-        }),
-    }))
-  )
+    tick: () => {
+      const { isRunning, elapsedMs } = get()
+      if (isRunning) set({ elapsedMs: elapsedMs + 1000 })
+    },
+  }))
 )

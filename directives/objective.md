@@ -104,9 +104,21 @@ Details complets : `technicals/phases-overview.md`
 - **Migration Jina COMPLETE** (session 7) — 10,411 vectors + 2 workflows migrated Cohere→Jina
 - **Security scrub** (session 7) — 27 files cleaned, CLAUDE.md v2, .env.example rewritten
 
-### Prochaine action prioritaire
-**Quantitative pipeline** : 78.3% → 85% target (SQL edge cases, multi-table JOINs).
-Puis Phase 2 full eval (1000q hf-1000.json).
+### Prochaine action prioritaire (mis à jour 2026-02-17, session 13)
+
+### Priorités pipeline
+1. **Graph RAG** : 68.7% → 70% (entity disambiguation Neo4j)
+2. **Quantitative** : 78.3% → 85% (CompactRAG pattern + BM25 pour colonnes)
+3. **RAGAS metrics** : Ajouter faithfulness + context_recall aux eval scripts
+
+### Website/Dashboard (livrés en session 13)
+- Hero redesigné (problem-first, dual CTA, pain points cycliques)
+- 4 sector cards Apple-style (pain point BIG + ROI chips + vidéo modal)
+- HowItWorks repositionné "Sous le capot" (pipelines = sous-section)
+- DashboardCTA section (transparence, lien vers /dashboard)
+- VideoModal (storyboard cinématique des scripts Kimi)
+- Dashboard SSE (evalStore, useEvalStream, XPProgressionBar, live Q&A feed)
+
 Suivre le processus : `directives/workflow-process.md`
 
 ---
@@ -132,6 +144,23 @@ Suivre le processus : `directives/workflow-process.md`
 - Credential n8n Docker : `Supabase Postgres (Pooler)` (ID: `USU8ngVzsUbED3mn`)
 
 ---
+
+## Enterprise Production Gates 2026 (Standard industrie)
+
+Seuils requis pour "production readiness" selon recherche Feb 2026 :
+
+| Métrique | Seuil | État actuel |
+|---------|-------|-------------|
+| Accuracy (overall) | >= 75% | **78.1% PASS** |
+| Accuracy Standard | >= 85% | **85.5% PASS** |
+| Accuracy Graph | >= 70% | **68.7% FAIL** |
+| Accuracy Quantitative | >= 85% | **78.3% FAIL** |
+| Faithfulness | >= 95% | **non mesuré** |
+| Context Recall | >= 85% | **non mesuré** |
+| Hallucination Rate | <= 2% | **non mesuré** |
+| Mean Latency | <= 2.5s | **non mesuré** |
+
+→ Action : Ajouter RAGAS faithfulness + context_recall aux scripts eval.
 
 ## Stack Technique
 

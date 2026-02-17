@@ -202,13 +202,96 @@ time.sleep(3)  # Mandatory inter-call delay — prevents n8n queue saturation
 
 ---
 
+---
+
+## 9. Nouveaux Papers Février 2026 (Recherche internet 2026-02-17)
+
+### Papers publiés Jan-Fév 2026 directement pertinents
+
+| Paper | arXiv | Finding clé |
+|-------|-------|-------------|
+| A-RAG: Scaling Agentic RAG via Hierarchical Retrieval Interfaces | [2602.03442](https://arxiv.org/abs/2602.03442) | 3 outils (keyword/semantic/chunk-read), outperforms monolithic RAG avec ≤ tokens |
+| DeepRead: Document Structure-Aware Reasoning | [2602.05014](https://arxiv.org/abs/2602.05014) | Hiérarchie document (sections/tables) comme prior pour multi-turn retrieval |
+| Agentic-R: Learning to Retrieve for Agentic Search | [2601.11888](https://arxiv.org/abs/2601.11888) | Fine-tuning retriever pour agentic multi-step search |
+| Agentic RAG Survey | [2501.09136](https://arxiv.org/abs/2501.09136) | Taxonomie complète : reflection, planning, tool use, multi-agent collaboration |
+
+### Domaine-Specific RAG (MDPI + ACL 2024)
+- **RAG-Studio** (ACL EMNLP 2024) : Self-aligned training pour adapter un RAG générique à un domaine spécifique **sans données humaines** — via données synthétiques seulement. SOTA sur biomedical, finance, law.
+- **Hybrid retrieval gagne 15-25% de précision** sur les requêtes domain-specific avec terminologie exacte (codes légaux, ratios financiers) vs pure dense retrieval.
+- **Chunking par domaine** : Juridique → chunks 1024-2048 tokens (préserver contexte article) ; Finance → 256 tokens avec metadata structurée ; BTP → synonym expansion (DTU, CCAG, CCTP).
+
+### Late Chunking (Jina AI, arXiv:2409.04701)
+- Embed le document entier → **puis** chunker les embeddings (inverse du pipeline classique)
+- **+10-12% retrieval accuracy** sur docs avec références anaphoriques (pronoms → entités antérieures)
+- **Jina API supporte nativement** : `late_chunking=True` dans les paramètres d'API
+- **Pas de coût LLM** (vs Contextual Retrieval d'Anthropic qui nécessite LLM call par chunk)
+- Action : Ré-ingérer les 3 plus grands namespaces avec late chunking, mesurer amélioration
+
+### RAGAS Metrics — Standard 2026 Obligatoire
+La simple métrique "accuracy" est **insuffisante en 2026**. Standard enterprise :
+| Métrique | Définition | Seuil enterprise |
+|---------|-----------|-----------------|
+| **Faithfulness** | % statements dans la réponse sourcés dans le contexte | >= 95% |
+| **Context Recall** | % infos pertinentes effectivement récupérées | >= 85% |
+| **Hallucination rate** | 1 - Faithfulness | <= 2% |
+| **Mean latency** | Temps moyen par question | <= 2.5s |
+| **Context Precision** | % docs récupérés qui sont pertinents | >= 80% |
+
+**Action immédiate** : Ajouter RAGAS à `eval/quick-test.py` et `eval/iterative-eval.py`. Tracker faithfulness et context_recall en plus de accuracy. Ces métriques sont requises pour Phase Gate eligibility.
+
+### B2B SaaS Landing Page — Benchmarks Conversion 2026
+- Template pages : ~3.8% conversion | Custom : 11.6%+
+- **Chatbot live embed dans hero : +3-4x engagement** (plus fort levier de conversion pour une plateforme RAG)
+- Video testimonials : +80% conversion
+- Hero sous 8 mots, headline outcome-focused
+- Structure multi-stakeholder : DG/CEO (ROI) | DSI (sécurité) | Utilisateur (facilité) | Acheteur (ROI/prix)
+- **ROI Calculator interactif** : input (nb docs + taille équipe) → output (temps gagné + coût évité)
+
+### Enterprise Production Gates 2026 (Dextra Labs)
+Ces seuils définissent la "production readiness" en 2026 :
+```
+Faithfulness     >= 95%   (actuellement non mesuré)
+Hallucination    <= 2%    (actuellement non mesuré)
+Helpfulness      >= 90%   (actuellement non mesuré)
+Mean latency     <= 2.5s  (actuellement non mesuré)
+Accuracy         >= 85%   (Standard: PASS, Quant/Graph: FAIL)
+```
+
+### Sécurité Multi-Tenant (Enterprise Critical)
+- **Access control bypass** dans les vector stores = faille critique enterprise
+- Solution : Document-level ACLs comme metadata dans chaque vector Pinecone
+- Isolation par namespace client (actuellement 12 namespaces génériques → à segmenter par client/secteur)
+- Table stakes pour tout déploiement B2B réel
+
+---
+
+## 10. Top 10 Actions Prioritaires (Classées par Impact)
+
+1. **Ajouter RAGAS faithfulness + context recall** aux scripts eval (2-4h) — requis Phase Gates
+2. **Late chunking Jina** `late_chunking=True` pour ré-ingestion des 3 plus grands namespaces (4-8h) → +10-12%
+3. **BM25/keyword search** pour Juridique et Finance dans n8n (1-2h/pipeline) → +15-25%
+4. **Query classification node** dans Orchestrator V10.1 — pattern A-RAG Feb 2026 (4-6h)
+5. **Hero rag-website** outcome-focused, < 8 mots, chatbot live embed (1 jour)
+6. **Confidence-gated escalation** dans Orchestrator si confiance < 0.7 → 2e pipeline (2-4h)
+7. **Phase Gate progress bar** dans dashboard (4h)
+8. **Progressive disclosure citations** dans chatbot (réponse d'abord, sources collapsibles) (2-4h)
+9. **Feedback widget** thumbs up/down → Supabase (2-4h)
+10. **ACL metadata** dans Pinecone par client/secteur (1-2 jours, ré-ingestion)
+
+---
+
 ## References
 
 | Paper | arXiv ID | Key Contribution |
 |-------|----------|-----------------|
 | MA-RAG: Multi-Agent RAG | arXiv:2505.20096 | Stage-level specialization, -23% hallucination |
 | A-RAG: Adaptive RAG | arXiv:2602.03442 | LLM tool selection, -31% unnecessary calls |
+| DeepRead: Document Structure-Aware | arXiv:2602.05014 | Document hierarchy priors, multi-turn evidence |
+| Agentic-R: Learning to Retrieve | arXiv:2601.11888 | Retriever fine-tuning pour agentic search |
+| Agentic RAG Survey | arXiv:2501.09136 | Taxonomie complète : reflection, planning, tool use |
 | GraphRAG vs Vector RAG | arXiv:2502.11371 | GraphRAG 80% vs 50.83% on entity queries |
-| RRF: Reciprocal Rank Fusion | Cormack et al. (classic) | +18.5% MRR, fuse vector + BM25 |
+| Late Chunking | arXiv:2409.04701 | +10-12% retrieval accuracy, no LLM cost |
+| RAG-Studio: Domain Adaptation | ACL EMNLP 2024 | Synthetic data pour fine-tuning domain-specific RAG |
+| RRF: Reciprocal Rank Fusion | Cormack et al. | +18.5% MRR, fuse vector + BM25 |
 | CompactRAG | Internal pattern | +12% on structured/numerical queries |
 | RouteRAG | Internal pattern | +6.2% from adaptive routing |

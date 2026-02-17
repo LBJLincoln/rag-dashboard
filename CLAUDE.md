@@ -479,6 +479,38 @@ Credentials   → .env.local (jamais dans git)
 | Orchestrator | `/webhook/92217bb8-...` | Meta | >= 70% | **80.0% PASS** |
 | **Overall** | | | **>= 75%** | **78.1% PASS** |
 
+### Enterprise Production Gates 2026 (requis pour Phase Gate eligibility)
+| Métrique | Seuil | État |
+|---------|-------|------|
+| Accuracy overall | >= 75% | **78.1% PASS** |
+| Faithfulness | >= 95% | **non mesuré** ← à ajouter |
+| Context Recall | >= 85% | **non mesuré** ← à ajouter |
+| Hallucination | <= 2% | **non mesuré** ← à ajouter |
+| Latency mean | <= 2.5s | **non mesuré** ← à ajouter |
+
+### Recherche Feb 2026 — Papers clés
+| Paper | arXiv | Action |
+|-------|-------|--------|
+| A-RAG (Agentic Hierarchical Retrieval) | 2602.03442 | Blueprint Orchestrator V11 |
+| DeepRead (Structure-Aware Reasoning) | 2602.05014 | Juridique/Finance chunking |
+| Late Chunking | 2409.04701 | Ré-ingestion Jina `late_chunking=True` |
+| RAG-Studio (Domain Adaptation) | ACL EMNLP 2024 | Synthetic data par secteur |
+
+→ Détails complets : `technicals/rag-research-2026.md`
+
+### Website/Dashboard — Livrés session 13 (2026-02-17)
+- **Hero** : problem-first, pain points cycliques, dual CTA + lien dashboard
+- **SectorCard** : Apple-style, pain point en grand, ROI chips, bouton vidéo
+- **VideoModal** : storyboard cinématique scripts Kimi (4 secteurs)
+- **HowItWorks** : "Sous le capot", pipelines en sous-section
+- **DashboardCTA** : section transparence avec métriques live
+- **evalStore.ts** : Zustand SSE store (XP levels, streaming, pipeline stats)
+- **useEvalStream.ts** : SSE hook avec reconnect exponentiel
+- **dashboard/live/** : QuestionRow, VirtualizedFeedList, FeedStatusBar, MilestoneNotification
+- **XPProgressionBar** : 7 niveaux gamifiés (1q → 1000q)
+
+→ Sites : https://nomos-ai-pied.vercel.app | https://nomos-dashboard.vercel.app
+
 ### Accès
 | Ressource | Accès |
 |-----------|-------|
