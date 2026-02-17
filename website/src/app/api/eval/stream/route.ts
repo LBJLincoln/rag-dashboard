@@ -16,9 +16,8 @@ export const dynamic = 'force-dynamic'
 // Config
 // ---------------------------------------------------------------------------
 
-const GITHUB_RAW_DATA =
-  'https://raw.githubusercontent.com/LBJLincoln/rag-website/main/docs/data.json'
-
+// eval-data.json is bundled in /public — served as static asset on same origin
+// Fallback: n8n status API on the VM (aggregate data only)
 const N8N_STATUS_URL =
   process.env.STATUS_API_URL ?? 'http://34.136.180.66:5678/webhook/nomos-status'
 
@@ -207,6 +206,10 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const sinceSeq = parseInt(searchParams.get('since') ?? '0', 10)
 
+  // Derive the data URL from the request origin (works on any Vercel deployment/preview)
+  const origin = new URL(request.url).origin
+  const EVAL_DATA_URL = `${origin}/eval-data.json`
+
   const encoder = new TextEncoder()
 
   const stream = new ReadableStream({
@@ -230,7 +233,7 @@ export async function GET(request: NextRequest) {
       // ----------------------------------------------------------------
       // Initial data load — emit HISTORY_BURST_COUNT recent questions
       // ----------------------------------------------------------------
-      const initialData = await fetchJSON<DataJson>(GITHUB_RAW_DATA)
+      const initialData = await fetchJSON<DataJson>(EVAL_DATA_URL)
       let allQuestions: QuestionResult[] = []
       let registry: Record<string, { question: string }> = {}
 
@@ -274,7 +277,7 @@ export async function GET(request: NextRequest) {
         if (closed) return
 
         // Try GitHub raw data.json first
-        const data = await fetchJSON<DataJson>(GITHUB_RAW_DATA)
+        const data = await fetchJSON<DataJson>(EVAL_DATA_URL)
 
         if (data) {
           registry = data.question_registry ?? {}
