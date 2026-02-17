@@ -265,6 +265,9 @@ export const useEvalStore = create<EvalStore>()(
       const state = get()
       let questions = state.questions
 
+      // Dedup — skip if this question ID is already in the window (happens on reconnect)
+      if (questions.some(existing => existing.id === q.id)) return
+
       // Sliding window
       if (questions.length >= WINDOW_SIZE) {
         questions = questions.slice(1)

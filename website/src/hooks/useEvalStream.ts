@@ -44,10 +44,10 @@ export function useEvalStream() {
         const msg = JSON.parse(event.data)
         switch (msg.type) {
           case 'question':
-            if (msg.data) appendQuestion(msg.data)
+            if (msg.payload) appendQuestion(msg.payload)
             break
           case 'iteration_start':
-            if (msg.data) setCurrentIteration(msg.data)
+            if (msg.payload) setCurrentIteration(msg.payload)
             setIsRunning(true)
             break
           case 'iteration_end':
