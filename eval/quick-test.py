@@ -75,8 +75,8 @@ def normalize_for_match(text):
     return normalized.lower()
 
 
-def call_endpoint(endpoint, query, timeout=60):
-    """Call a RAG endpoint and return response info."""
+def call_endpoint(endpoint, query, timeout=60, max_retries=3):
+    """Call a RAG endpoint with exponential backoff on 503/error."""
     payload = json.dumps({
         "query": query,
         "tenant_id": "benchmark",
@@ -86,26 +86,37 @@ def call_endpoint(endpoint, query, timeout=60):
     }).encode()
     headers = {"Content-Type": "application/json"}
 
-    try:
-        req = request.Request(endpoint, data=payload, headers=headers, method="POST")
-        start = time.time()
-        with request.urlopen(req, timeout=timeout) as resp:
-            raw = resp.read().decode()
-            latency = int((time.time() - start) * 1000)
-            if raw and raw.strip():
-                data = json.loads(raw)
-                if isinstance(data, list):
-                    data = data[0] if data else {}
-                # Extract answer
-                answer = ""
-                for key in ["response", "answer", "result", "interpretation", "final_response"]:
-                    if key in data and data[key]:
-                        answer = str(data[key])
-                        break
-                return {"status": "ok", "latency_ms": latency, "answer": answer, "error": None}
-            return {"status": "empty", "latency_ms": latency, "answer": "", "error": "Empty response"}
-    except Exception as e:
-        return {"status": "error", "latency_ms": 0, "answer": "", "error": str(e)[:200]}
+    for attempt in range(max_retries):
+        try:
+            req = request.Request(endpoint, data=payload, headers=headers, method="POST")
+            start = time.time()
+            with request.urlopen(req, timeout=timeout) as resp:
+                raw = resp.read().decode()
+                latency = int((time.time() - start) * 1000)
+                if raw and raw.strip():
+                    data = json.loads(raw)
+                    if isinstance(data, list):
+                        data = data[0] if data else {}
+                    answer = ""
+                    for key in ["response", "answer", "result", "interpretation", "final_response"]:
+                        if key in data and data[key]:
+                            answer = str(data[key])
+                            break
+                    return {"status": "ok", "latency_ms": latency, "answer": answer, "error": None}
+                return {"status": "empty", "latency_ms": latency, "answer": "", "error": "Empty response"}
+        except error.HTTPError as e:
+            if e.code == 503 and attempt < max_retries - 1:
+                wait = 3 * (2 ** attempt)  # 3s, 6s, 12s
+                print(f"    503 on attempt {attempt+1} — retry in {wait}s")
+                time.sleep(wait)
+                continue
+            return {"status": "error", "latency_ms": 0, "answer": "", "error": f"HTTP {e.code}: {str(e)[:150]}"}
+        except Exception as e:
+            if attempt < max_retries - 1:
+                time.sleep(3 * (2 ** attempt))
+                continue
+            return {"status": "error", "latency_ms": 0, "answer": "", "error": str(e)[:200]}
+    return {"status": "error", "latency_ms": 0, "answer": "", "error": "Max retries exceeded"}
 
 
 def run_quick_tests(pipelines, max_questions=3, trigger="manual"):
@@ -124,6 +135,8 @@ def run_quick_tests(pipelines, max_questions=3, trigger="manual"):
         for i, q in enumerate(questions):
             # Use generous timeouts — LLM calls via free models can be slow
             pipe_timeout = 300 if pipe == "orchestrator" else 90
+            if i > 0:
+                time.sleep(3)  # 3s between questions — prevents n8n 503 (LIMIT=2)
             resp = call_endpoint(endpoint, q["query"], timeout=pipe_timeout)
             expected = q.get("expected_contains", "")
             passed = False

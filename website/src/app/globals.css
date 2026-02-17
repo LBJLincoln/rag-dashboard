@@ -291,6 +291,35 @@ body {
   100% { background-position: 0% 50%; }
 }
 
+/* Light mode overrides — toggled via .light class on <html> */
+.light {
+  --bg: #f5f5f7;
+  --s1: #ffffff;
+  --s2: #f2f2f7;
+  --tx: #1d1d1f;
+  --tx2: #6e6e73;
+  --tx3: #8a8a8f;
+  --s3: #e8e8ed;
+  --s4: #d2d2d7;
+  --s5: #c7c7cc;
+  --bd: rgba(0, 0, 0, 0.08);
+  --bd2: rgba(0, 0, 0, 0.12);
+  --bd3: rgba(0, 0, 0, 0.18);
+  --glass: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-subtle: rgba(0, 0, 0, 0.03);
+}
+
+.light body {
+  background: var(--bg);
+  color: var(--tx);
+}
+
+.light .glass-strong {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
 *:focus-visible {
   outline: 2px solid var(--ac);
   outline-offset: 2px;

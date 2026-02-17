@@ -16,7 +16,7 @@ export function SectorCard({ sector, index, onSelect }: SectorCardProps) {
   return (
     <motion.button
       onClick={() => onSelect(sector)}
-      className="group relative w-full text-left p-8 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-500 cursor-pointer overflow-hidden"
+      className="group relative w-full text-left p-8 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300 cursor-pointer overflow-hidden"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -25,31 +25,20 @@ export function SectorCard({ sector, index, onSelect }: SectorCardProps) {
         delay: 0.08 * index,
         ease: [0.4, 0, 0.2, 1],
       }}
-      whileHover={{ y: -4 }}
+      whileHover={{ scale: 1.02 }}
     >
-      {/* Glass card overlay */}
-      <div className="absolute inset-0 glass opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+      {/* Top border accent line — always visible, sector color */}
+      <div
+        className="absolute top-0 left-0 right-0 h-[3px] rounded-t-2xl"
+        style={{ background: `linear-gradient(90deg, ${sector.color}90, ${sector.color}20)` }}
+      />
 
       {/* Subtle glow on hover */}
       <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-2xl"
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"
         style={{
-          background: `radial-gradient(800px circle at 50% 50%, ${sector.color}08, transparent 50%)`,
+          background: `radial-gradient(600px circle at 50% 0%, ${sector.color}06, transparent 60%)`,
         }}
-      />
-
-      {/* Animated sector glow ring */}
-      <div
-        className="absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-        style={{
-          background: `linear-gradient(135deg, ${sector.color}20, transparent 40%, transparent 60%, ${sector.color}10)`,
-        }}
-      />
-
-      {/* Top accent line */}
-      <div
-        className="absolute top-0 left-8 right-8 h-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{ background: `linear-gradient(90deg, transparent, ${sector.color}40, transparent)` }}
       />
 
       <div className="relative z-10">
@@ -71,9 +60,9 @@ export function SectorCard({ sector, index, onSelect }: SectorCardProps) {
           </div>
         </div>
 
-        {/* Use case chips with ROI — visible on hover */}
-        <div className="flex flex-wrap gap-1.5 mb-4 max-h-0 group-hover:max-h-40 overflow-hidden opacity-0 group-hover:opacity-100 transition-all duration-500">
-          {sector.useCases.map((uc) => (
+        {/* Use case chips with ROI — always visible, first 3 */}
+        <div className="flex flex-wrap gap-1.5 mb-5">
+          {sector.useCases.slice(0, 3).map((uc) => (
             <span
               key={uc.label}
               className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-medium rounded-full border"
@@ -85,18 +74,23 @@ export function SectorCard({ sector, index, onSelect }: SectorCardProps) {
             >
               {uc.label}
               {uc.roi && (
-                <span className="text-[9px] text-tx3 font-normal">{uc.roi}</span>
+                <span
+                  className="text-[10px] font-semibold"
+                  style={{ color: sector.color }}
+                >
+                  {uc.roi}
+                </span>
               )}
             </span>
           ))}
         </div>
 
-        {/* Metrics */}
-        <div className="grid grid-cols-3 gap-4 mt-6 pt-6 border-t border-white/[0.06]">
+        {/* Metrics — always visible */}
+        <div className="grid grid-cols-3 gap-4 pt-5 border-t border-white/[0.06]">
           {sector.metrics.map((m) => (
             <div key={m.label}>
               <div
-                className="text-[17px] font-semibold font-mono tabular-nums"
+                className="text-[18px] font-bold font-mono tabular-nums"
                 style={{ color: sector.color }}
               >
                 {m.value}
@@ -106,9 +100,9 @@ export function SectorCard({ sector, index, onSelect }: SectorCardProps) {
           ))}
         </div>
 
-        {/* CTA */}
-        <div className="mt-6 flex items-center gap-2 text-[13px] font-medium" style={{ color: sector.color }}>
-          <span>Interroger</span>
+        {/* CTA — always visible */}
+        <div className="mt-5 flex items-center gap-2 text-[13px] font-semibold" style={{ color: sector.color }}>
+          <span>Tester le chatbot</span>
           <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1.5 transition-transform duration-300" />
         </div>
       </div>

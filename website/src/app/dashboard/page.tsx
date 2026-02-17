@@ -5,6 +5,7 @@ import { Header } from '@/components/layout/Header'
 import { ExecutiveSummary } from '@/components/dashboard/ExecutiveSummary'
 import { PipelineCards } from '@/components/dashboard/PipelineCards'
 import { DataSources } from '@/components/dashboard/DataSources'
+import { AccuracyTrend } from '@/components/dashboard/AccuracyTrend'
 import { PhaseExplorer } from '@/components/dashboard/PhaseExplorer'
 import { QuestionViewer } from '@/components/dashboard/QuestionViewer'
 
@@ -16,9 +17,19 @@ interface SourceInfo {
   datasets: string
 }
 
+interface PipelineData {
+  accuracy: number
+  target: number
+  met: boolean
+  tested: number
+  correct: number
+  errors: number
+  gap: number
+}
+
 interface DashboardData {
   status: {
-    pipelines?: Record<string, { accuracy: number; target: number; met: boolean; tested: number; correct: number; errors: number; gap: number }>
+    pipelines?: Record<string, PipelineData>
     overall?: { accuracy: number; target: number; met: boolean }
     phase?: { current: number; name: string }
     blockers?: string[]
@@ -32,9 +43,20 @@ interface DashboardData {
   registrySize: number
 }
 
+// Shape adapter: convert DashboardData (page's wrapped format) into the flat
+// shape expected by PhaseExplorer which also accepts the status.json format.
+function toPhaseExplorerData(data: DashboardData) {
+  return {
+    phase: data.phase ?? data.status.phase,
+    pipelines: data.status.pipelines,
+    overall: data.status.overall,
+    status: data.status,
+  }
+}
+
 export default function DashboardPage() {
   const [data, setData] = useState<DashboardData | null>(null)
-  const [view, setView] = useState<'overview' | 'detailed'>('overview')
+  const [bottomExpanded, setBottomExpanded] = useState(true)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -57,7 +79,7 @@ export default function DashboardPage() {
     <>
       <Header />
       <main className="min-h-screen pt-16 pb-20 px-4 md:px-8 max-w-7xl mx-auto">
-        {/* View toggle */}
+        {/* Page header */}
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-[28px] md:text-[36px] font-bold tracking-[-0.03em] text-tx">
@@ -67,28 +89,19 @@ export default function DashboardPage() {
               Transparence totale sur les performances de Nomos AI
             </p>
           </div>
-          <div className="flex items-center bg-white/[0.04] rounded-xl p-1 border border-white/[0.06]">
-            <button
-              onClick={() => setView('overview')}
-              className={`px-4 py-1.5 text-[12px] font-medium rounded-lg transition-all ${
-                view === 'overview'
-                  ? 'bg-white/[0.08] text-tx'
-                  : 'text-tx3 hover:text-tx2'
-              }`}
+          {/* Collapse/expand button for bottom sections */}
+          <button
+            onClick={() => setBottomExpanded(e => !e)}
+            className="flex items-center gap-2 px-4 py-1.5 text-[12px] font-medium rounded-xl border border-white/[0.06] bg-white/[0.04] text-tx2 hover:bg-white/[0.06] transition-all"
+          >
+            {bottomExpanded ? 'Reduire' : 'Developper'}
+            <span
+              className="text-white/30 transition-transform duration-200"
+              style={{ display: 'inline-block', transform: bottomExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}
             >
-              Vue globale
-            </button>
-            <button
-              onClick={() => setView('detailed')}
-              className={`px-4 py-1.5 text-[12px] font-medium rounded-lg transition-all ${
-                view === 'detailed'
-                  ? 'bg-white/[0.08] text-tx'
-                  : 'text-tx3 hover:text-tx2'
-              }`}
-            >
-              Vue detaillee
-            </button>
-          </div>
+              ↓
+            </span>
+          </button>
         </div>
 
         {loading ? (
@@ -97,22 +110,32 @@ export default function DashboardPage() {
           </div>
         ) : data ? (
           <div className="space-y-8">
+            {/* 1 — Executive KPIs */}
             <ExecutiveSummary
               status={data.status}
               meta={data.meta}
             />
 
+            {/* 2 — Pipeline cards */}
             <PipelineCards
               pipelines={data.status.pipelines ?? {}}
-              view={view}
+              view="detailed"
             />
 
-            {/* Data sources section — always visible */}
+            {/* 3 — Accuracy trend chart */}
+            <div>
+              <h2 className="text-[11px] uppercase tracking-[0.1em] text-tx3 mb-4">
+                Tendance de precision — 42 iterations
+              </h2>
+              <AccuracyTrend />
+            </div>
+
+            {/* 4 — Data sources section */}
             {data.sources && (
               <DataSources sources={data.sources} />
             )}
 
-            {/* Last iteration info */}
+            {/* 5 — Last iteration info */}
             {data.lastIteration && (
               <div className="p-4 rounded-2xl border border-white/[0.06] bg-white/[0.02]">
                 <div className="text-[11px] uppercase tracking-[0.1em] text-tx3 mb-2">Derniere iteration</div>
@@ -125,10 +148,24 @@ export default function DashboardPage() {
               </div>
             )}
 
-            {view === 'detailed' && (
+            {/* 6 — Bottom sections (collapsible) */}
+            {bottomExpanded && (
               <>
-                <PhaseExplorer iterations={data.iterations} />
-                <QuestionViewer questions={data.recentQuestions} />
+                {/* Phase gate progress */}
+                <div>
+                  <h2 className="text-[11px] uppercase tracking-[0.1em] text-tx3 mb-4">
+                    Progression par phase
+                  </h2>
+                  <PhaseExplorer data={toPhaseExplorerData(data)} />
+                </div>
+
+                {/* Q&A history */}
+                <div>
+                  <h2 className="text-[11px] uppercase tracking-[0.1em] text-tx3 mb-4">
+                    Historique des questions
+                  </h2>
+                  <QuestionViewer questions={data.recentQuestions} />
+                </div>
               </>
             )}
           </div>
