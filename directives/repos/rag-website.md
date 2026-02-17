@@ -6,6 +6,44 @@
 
 ---
 
+## ÉTAT ACTUEL — 17 fév 2026
+
+| | |
+|-|-|
+| **Dernier commit** | c5a9ec70 — 17 fév 2026 (fix SSE live feed + Apple B2B redesign) |
+| **Déployé / en cours** | Live sur Vercel : https://nomos-ai-pied.vercel.app — dashboard SSE /dashboard actif (932q) |
+| **Codespace** | Shutdown — nomos-rag-website-jr7q9gr69qqfqp6r |
+| **Prochain objectif immédiat** | Intégrer vrais docs sectoriels (BTP/Industrie/Finance/Juridique) dans les démos chatbot |
+
+### Commandes clés pour cette session
+```bash
+# Redémarrer le Codespace si nécessaire
+gh codespace start --codespace nomos-rag-website-jr7q9gr69qqfqp6r
+
+# Dans le Codespace — dev local
+npm install
+npm run dev  # port 3000
+
+# Déployer en prod
+git push origin main  # → Vercel auto-deploy
+
+# Vérifier le build
+npm run build
+```
+
+### Livrables déjà en prod (session 13 — 17 fév 2026)
+- Hero : problem-first, pain points cycliques, dual CTA + lien dashboard
+- SectorCard : Apple-style, pain point en grand, ROI chips, bouton vidéo
+- VideoModal : storyboard cinématique scripts Kimi (4 secteurs)
+- HowItWorks : "Sous le capot", pipelines en sous-section
+- DashboardCTA : section transparence avec métriques live
+- evalStore.ts : Zustand SSE store (XP levels, streaming, pipeline stats)
+- useEvalStream.ts : SSE hook avec reconnect exponentiel
+- dashboard/live/ : QuestionRow, VirtualizedFeedList, FeedStatusBar, MilestoneNotification
+- XPProgressionBar : 7 niveaux gamifiés (1q → 1000q)
+
+---
+
 ## OBJECTIF DE CE REPO
 
 Construire un **Multi-RAG Orchestrator sectoriel** capable de répondre aux questions

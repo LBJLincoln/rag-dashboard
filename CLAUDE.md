@@ -1,8 +1,161 @@
-# Multi-RAG Orchestrator — Tour de Controle Centrale
+# Multi-RAG Orchestrator — Tour de Contrôle Centrale
 
-> **Ce repo (`mon-ipad`) est le CENTRE DE COMMANDE.**
-> Il pilote 4 repos satellites depuis la VM Google Cloud via Termius.
-> Toute session Claude Code commence ici. Il doit rester concis et a jour.
+> **CE REPO (`mon-ipad`) EST LA TOUR DE CONTRÔLE.**
+> VM Google Cloud permanente · Claude Code via Termius · Pilote 4 repos satellites
+> **Lire cette section EN PREMIER à chaque session.**
+
+---
+
+## CARTE DES INSTANCES ACTIVES
+
+### Instance permanente — VM Google Cloud
+| Composant | Adresse | État |
+|-----------|---------|------|
+| VM SSH | 34.136.180.66 | Permanent |
+| n8n API | localhost:5678 | 11 workflows ON |
+| n8n Webhooks | 34.136.180.66:5678 | Public |
+| Claude Code | Termius terminal | Ce repo |
+
+### Déploiements Vercel (production live)
+| Site | URL | Dernier commit | État |
+|------|-----|---------------|------|
+| Website business | nomos-ai-pied.vercel.app | c5a9ec70 (17 fév) | Live |
+| Dashboard tech | nomos-dashboard.vercel.app | (à vérifier) | A vérifier |
+
+### Codespaces GitHub (éphémères — 60h/mois)
+| Codespace | Repo | État | Usage |
+|-----------|------|------|-------|
+| nomos-rag-tests-5g6g5q9vjjwjf5g4 | rag-tests | Shutdown | Tests 50-200q |
+| nomos-rag-website-jr7q9gr69qqfqp6r | rag-website | Shutdown | Dev website |
+| A créer | rag-data-ingestion | Non créé | Ingestion massive |
+
+### Bases de données cloud
+| Service | Contenu | Utilisation |
+|---------|---------|------------|
+| Pinecone sota-rag-jina-1024 | 10,411 vecteurs | Standard + Graph RAG |
+| Pinecone sota-rag-phase2-graph | 1,296 vecteurs | Graph enrichi |
+| Neo4j Aura | 19,788 nodes / 76,717 rels | Graph RAG |
+| Supabase | 40 tables / ~17K lignes | Quantitatif + benchmarks |
+
+---
+
+## ÉTAT ACTUEL — PHASE 1 (200q baseline)
+
+### Pipelines RAG (mise à jour : 17 fév 2026)
+| Pipeline | Accuracy | Target | Gap | Action |
+|----------|----------|--------|-----|--------|
+| Standard | **85.5%** | >= 85% | +0.5pp | PASS |
+| Graph | **68.7%** | >= 70% | -1.3pp | FAIL — Entity disambiguation Neo4j |
+| Quantitative | **78.3%** | >= 85% | -6.7pp | FAIL — CompactRAG + BM25 PRIORITE |
+| Orchestrator | **80.0%** | >= 70% | +10pp | PASS |
+| **Overall** | **78.1%** | >= 75% | +3.1pp | PASS |
+
+### Gates Phase 1 → Phase 2
+- BLOQUE : Graph 68.7% < 70% et Quantitative 78.3% < 85%
+- OK : Overall 78.1% >= 75%
+- Prochaine action : **Fix Quantitative en priorité** (gap -6.7pp)
+
+### Métriques avancées (non mesurées — à implémenter)
+- Faithfulness >= 95% | Context Recall >= 85% | Hallucination <= 2% | Latency <= 2.5s
+
+---
+
+## ÉTAT PAR REPO SATELLITE
+
+### `rag-tests` — Tests des 4 pipelines
+| | |
+|-|-|
+| **Dernier commit** | 9f5a53dd — 17 fév 2026 |
+| **État** | Scripts à jour, SSH tunnel configuré |
+| **Codespace** | Shutdown (à redémarrer pour tests 50q+) |
+| **Prochain objectif** | 200q complets tous pipelines → data.json mis à jour |
+| **Commandes clés** | `python3 eval/iterative-eval.py --label "Phase1-fix-quant"` |
+| **Données** | 932 questions testées, 42 itérations, docs/data.json |
+
+### `rag-website` — Site business 4 secteurs
+| | |
+|-|-|
+| **Dernier commit** | c5a9ec70 — 17 fév 2026 (fix SSE live feed) |
+| **État** | Deployed sur Vercel (nomos-ai-pied.vercel.app) |
+| **Codespace** | Shutdown |
+| **Prochain objectif** | Intégrer vrais docs sectoriels (BTP/Industrie/Finance/Juridique) |
+| **Commandes clés** | `git push rag-website main` → Vercel auto-deploy |
+| **Dashboard live** | /dashboard → 932q feed SSE OK |
+
+### `rag-data-ingestion` — Ingestion + enrichissement BDD
+| | |
+|-|-|
+| **Dernier commit** | 9f5a53dd — 17 fév 2026 |
+| **État** | Workflows Ingestion V3.1 + Enrichissement V3.1 |
+| **Codespace** | Non créé (créer pour ingestion massive) |
+| **Prochain objectif** | Télécharger 14 benchmarks (~4 GB) + ingérer secteurs (~1.4 GB) |
+| **Commandes clés** | `gh codespace create --repo LBJLincoln/rag-data-ingestion` |
+| **Volume** | ~5.4 GB total à ingérer → Pinecone + Neo4j + Supabase |
+
+### `rag-dashboard` — Dashboard statique
+| | |
+|-|-|
+| **Dernier commit** | 9f5a53dd — 17 fév 2026 |
+| **État** | Statique, pas de Codespace nécessaire |
+| **Prochain objectif** | Vérifier déploiement GitHub Pages / Vercel |
+| **Données live** | nomos-dashboard.vercel.app (nomos-status webhook VM) |
+
+---
+
+## PROCESS SESSION — BOUCLE STANDARD
+
+### Démarrage de session (TOUJOURS)
+```bash
+cat directives/session-state.md  # Mémoire de session
+cat docs/status.json             # Métriques live
+cat directives/status.md         # Résumé session précédente
+```
+
+### Fix pipeline (boucle d'itération)
+```
+1. DIAGNOSTIQUER  → node-analyzer.py + analyze_n8n_executions.py
+2. FIXER          → API REST n8n (1 noeud à la fois)
+3. TESTER         → quick-test.py --questions 5 minimum
+4. VALIDER        → quick-test.py --questions 10 (5/5 minimum)
+5. SYNC           → n8n/sync.py
+6. COMMIT+PUSH    → origin + repos concernés
+```
+
+### Lancement parallèle (3 Codespaces + VM)
+```bash
+# VM (pilotage)
+# → surveiller MCP, commit résultats, piloter les agents
+
+# Codespace 1 : rag-data-ingestion (n8n propre, 2 workers)
+gh codespace create --repo LBJLincoln/rag-data-ingestion --machine basicLinux32gb
+gh codespace ssh --codespace <name>
+# → télécharger datasets HuggingFace → ingérer → Pinecone+Neo4j+Supabase
+
+# Codespace 2 : rag-tests (tunnel SSH → VM n8n)
+gh codespace start --codespace nomos-rag-tests-5g6g5q9vjjwjf5g4
+gh codespace ssh --codespace nomos-rag-tests-5g6g5q9vjjwjf5g4
+# → ssh -L 5678:localhost:5678 user@34.136.180.66 -N &
+# → python3 eval/iterative-eval.py --label "Phase1-200q"
+
+# Codespace 3 : rag-website (Vercel stateless)
+gh codespace start --codespace nomos-rag-website-jr7q9gr69qqfqp6r
+# → npm run dev → intégrer docs sectoriels
+```
+
+---
+
+## REGLES CRITIQUES (résumé)
+
+| # | Règle | Conséquence si violée |
+|---|-------|----------------------|
+| 1 | Tests SEQUENTIELS (jamais parallèles) | 503 n8n |
+| 2 | source .env.local avant scripts Python | Variables manquantes |
+| 3 | ZERO credentials dans git | Leak API keys |
+| 4 | Commit + push après chaque fix | Travail perdu |
+| 5 | 5/5 minimum avant sync n8n | Régression |
+| 6 | MAJ session-state.md après milestone | Agent perdu au compactage |
+| 7 | git config user.email = alexis.moret6@outlook.fr | Vercel rejette commits |
+| 8 | 1 fix par itération (pas plusieurs noeuds) | Impossible de débugger |
 
 ---
 
@@ -71,7 +224,7 @@ n8n-postgres-1     postgres:15-alpine    Up (healthy)  0.0.0.0:5432->5432/tcp
 - **PostgreSQL** : Base interne n8n (historique executions, credentials)
 - **Fix critique appliqué** : `task-broker-auth.service.js` TTL 15s→120s (volume monté)
 
-### n8n — État des workflows (13 actifs)
+### n8n — État des workflows (11 actifs)
 | Workflow | ID Docker | Version | Status |
 |----------|-----------|---------|--------|
 | Standard RAG V3.4 | `TmgyRP20N4JFd9CB` | v5, 24 nodes | ON |
@@ -155,7 +308,7 @@ Inclus      : Python 3.11, Node.js 20, Docker-in-Docker, Claude Code CLI
 - **Qui l'exécute** : Claude Code sur la VM permanente, via Termius
 - **Ce qu'il contient** : Directives, scripts eval, configs MCP, n8n sync, CLAUDE.md master
 - **Ce qu'il fait** : Piloter les 4 autres repos, lancer tests, fixer workflows n8n, analyser résultats
-- **n8n** : Permanent (13 workflows actifs sur Docker VM)
+- **n8n** : Permanent (11 workflows actifs sur Docker VM)
 - **Git remotes** : 5 (origin + 4 satellites)
 - **Directive locale** : `/home/termius/mon-ipad/CLAUDE.md` (ce fichier)
 - **Directive pour agents satellites** : `directives/repos/*.md` → pushés vers chaque repo

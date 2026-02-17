@@ -27,6 +27,7 @@ import { FeedStatusBar } from '@/components/dashboard/live/FeedStatusBar'
 import { MilestoneNotification } from '@/components/dashboard/live/MilestoneNotification'
 import { useEvalStream } from '@/hooks/useEvalStream'
 import { useEvalStore } from '@/stores/evalStore'
+import { ReposPanel } from '@/components/dashboard/ReposPanel'
 
 // ---- Types ---------------------------------------------------------------
 
@@ -447,7 +448,17 @@ export default function DashboardPage() {
               view="detailed"
             />
 
-            {/* 4 — Live Q&A Feed */}
+            {/* 4 — Repos & Infrastructure */}
+            <section className="rounded-2xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
+              <div className="px-5 pt-5 pb-2">
+                <h2 className="text-[11px] uppercase tracking-[0.1em] text-tx3 mb-4">
+                  Repos & Infrastructure
+                </h2>
+                <ReposPanel />
+              </div>
+            </section>
+
+            {/* 5 — Live Q&A Feed */}
             <section className="rounded-2xl border border-white/[0.06] bg-white/[0.02] overflow-hidden">
               <div
                 className="flex items-center justify-between px-4 py-3 border-b border-white/[0.06] cursor-pointer hover:bg-white/[0.02] transition-colors"

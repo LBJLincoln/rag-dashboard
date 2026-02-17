@@ -6,12 +6,50 @@
 
 ---
 
+## ÉTAT ACTUEL — 17 fév 2026
+
+| | |
+|-|-|
+| **Dernier commit** | 9f5a53dd — 17 fév 2026 |
+| **Déployé / en cours** | Scripts eval à jour, tunnel SSH configuré, 932 questions testées sur 42 itérations |
+| **Codespace** | Shutdown — nomos-rag-tests-5g6g5q9vjjwjf5g4 (à redémarrer pour tests 50q+) |
+| **Prochain objectif immédiat** | Fix Quantitative pipeline : 78.3% → 85% (gap -6.7pp, priorité absolue) |
+
+### Commandes clés pour cette session
+```bash
+# Démarrer le Codespace si nécessaire
+gh codespace start --codespace nomos-rag-tests-5g6g5q9vjjwjf5g4
+
+# Dans le Codespace — activer tunnel SSH vers VM n8n
+ssh -L 5678:localhost:5678 termius@34.136.180.66 -N -f
+curl -s http://localhost:5678/healthz | head -1
+
+# Charger variables
+source .env.local
+
+# Test rapide pipeline Quantitative (priorité)
+python3 eval/quick-test.py --questions 5 --pipeline quantitative
+
+# Test itératif pour fix en cours
+python3 eval/iterative-eval.py --label "Phase1-fix-quant"
+```
+
+### État des pipelines (objectif de session)
+| Pipeline | Accuracy | Target | Gap | Priorité |
+|----------|----------|--------|-----|----------|
+| Standard | **85.5%** | >= 85% | +0.5pp | Maintenir |
+| Graph | **68.7%** | >= 70% | -1.3pp | P2 — entity disambiguation |
+| Quantitative | **78.3%** | >= 85% | -6.7pp | **P1 — CompactRAG + BM25** |
+| Orchestrator | **80.0%** | >= 70% | +10pp | Maintenir |
+
+---
+
 ## OBJECTIF DE CE REPO
 
 **Tester, mesurer et rapporter** la performance des 4 pipelines RAG hébergés sur la VM.
 Tu ne modifies PAS les workflows n8n (rôle de mon-ipad).
 Tu ne touches PAS aux données (rôle de rag-data-ingestion).
-Tu **mesures** uniquement, et tu pusher les résultats vers GitHub.
+Tu **mesures** uniquement, et tu pushes les résultats vers GitHub.
 
 ### Cibles Phase 1 (actuel)
 | Pipeline | Cible | Accuracy actuelle |
@@ -92,11 +130,11 @@ python3 eval/run-eval-parallel.py --questions 1000 --label "phase2-1000q"
 
 ### Règle d'or : JAMAIS de tests parallèles
 ```bash
-# ❌ NE PAS FAIRE
+# NE PAS FAIRE
 python3 quick-test.py --pipeline standard &
 python3 quick-test.py --pipeline graph &  # → 503
 
-# ✅ FAIRE
+# FAIRE
 python3 quick-test.py --questions 5 --pipelines standard,graph,quantitative,orchestrator
 ```
 
@@ -134,8 +172,8 @@ Orchestrator : http://localhost:5678/webhook/92217bb8-ffc8-459a-8331-3f553812c3d
 
 ## PRIORITÉS ACTUELLES (Phase 1 → Phase 2)
 
-1. **Graph** : 68.7% → 70% (gap -1.3pp — entity extraction)
-2. **Quantitative** : 78.3% → 85% (gap -6.7pp — SQL edge cases, multi-table JOINs)
+1. **Quantitative** : 78.3% → 85% (gap -6.7pp — SQL edge cases, multi-table JOINs)
+2. **Graph** : 68.7% → 70% (gap -1.3pp — entity extraction)
 3. **Phase 2** : 1000q (hf-1000.json) quand les gates Phase 1 passent
 
 ---

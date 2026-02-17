@@ -6,6 +6,45 @@
 
 ---
 
+## ÉTAT ACTUEL — 17 fév 2026
+
+| | |
+|-|-|
+| **Dernier commit** | 9f5a53dd — 17 fév 2026 |
+| **Déployé / en cours** | Workflows Ingestion V3.1 + Enrichissement V3.1 sur VM. Codespace non créé. |
+| **Codespace** | Non créé — à créer pour ingestion massive (~5.4 GB total) |
+| **Prochain objectif immédiat** | Créer Codespace + télécharger datasets Finance/Juridique (priorité car Quantitative 78.3% et Graph 68.7% FAIL) |
+
+### Commandes clés pour cette session
+```bash
+# Créer le Codespace (si non existant)
+gh codespace create --repo LBJLincoln/rag-data-ingestion --machine basicLinux32gb
+
+# Se connecter
+gh codespace ssh --codespace <name>
+
+# Dans le Codespace — démarrer n8n + workers
+source .env.local
+docker compose up -d  # n8n + 2 workers + postgres + redis
+
+# Télécharger datasets prioritaires (Finance puis Juridique)
+python3 scripts/download-sector-datasets.py --sector finance --max 10000
+python3 scripts/download-sector-datasets.py --sector juridique --max 10000
+
+# Lancer ingestion
+python3 scripts/trigger-ingestion.py --dataset financebench --workers 2
+```
+
+### Datasets prioritaires à ingérer (dans l'ordre)
+| Priorité | Secteur | Dataset | Raison |
+|----------|---------|---------|--------|
+| P1 | Finance | PatronusAI/financebench + TheFinAI/convfinqa | Quantitative 78.3% → 85% |
+| P2 | Juridique | rcds/french_case_law + rcds/cold-french-law | Graph 68.7% → 70% |
+| P3 | BTP | GT4SD/code-accord + autres | Futur secteur |
+| P4 | Industrie | thesven/manufacturing-qa-gpt4o + RAGBench | Futur secteur |
+
+---
+
 ## OBJECTIF DE CE REPO
 
 **Améliorer drastiquement** les 2 workflows d'ingestion via recherche académique 2026,
@@ -130,7 +169,7 @@ La qualité se mesure par la performance RAG APRÈS ingestion.
 ```bash
 source .env.local
 # Ingérer 1 document de test
-python3 scripts/ingest-one.py --file datasets/sample/btp-dtु-14-001.pdf --pipeline standard
+python3 scripts/ingest-one.py --file datasets/sample/btp-dtu-14-001.pdf --pipeline standard
 # Vérifier dans Pinecone : bon chunk ? bon embedding ?
 python3 scripts/verify-ingestion.py --last 1
 ```
