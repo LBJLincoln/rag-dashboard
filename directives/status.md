@@ -1,136 +1,128 @@
-# Status de Session — 16 Fevrier 2026 (Session 8)
+# Status de Session — 17 Février 2026 (Session 11b + refactoring directives)
 
-> Session infrastructure : task runner fix, Jina validation, embedding trailing comma fix.
-> n8n task runner FIXED (grant token TTL 15s→120s for 970MB RAM VM).
-> Standard + Graph VALIDATED with Jina embeddings (3/3 each).
-> Quantitative remains at 78.3% (1/3 on quick test, known SQL edge cases).
+> Session 11b : architecture multi-repo finalisée, devcontainers image-based, docker-compose standalone.
+> Session directives (17 fév) : refactoring complet des directives — CLAUDE.md enrichi, directives/repos/ créées.
 
 ---
 
-## Fichiers modifies ou crees lors de cette session
+## Ce qui a été fait dans les sessions récentes
 
-### Fichiers crees (1)
-| Fichier | Description |
-|---------|-------------|
-| `~/n8n/task-broker-auth.service.js` | Modified n8n auth service: grant token TTL 15s→120s |
+### Session 11b (17 fév 2026) — Architecture multi-repo
+- ✅ Devcontainers image-based (pas de dockerComposeFile → résout bug SSH)
+- ✅ docker-compose.yml standalone pour rag-website et rag-data-ingestion
+- ✅ setup.sh démarre docker-compose + attend n8n + importe workflows + installe Claude Code
+- ✅ rag-tests = remote-only (SSH tunnel vers VM n8n, pas de n8n local)
+- ✅ rag-dashboard = site statique (pas de Docker, pas de Codespace nécessaire)
+- ✅ scripts/deploy-codespaces.sh : create/start/stop/ssh/tunnel/status/push-all
+- ✅ Fix port 8080 : webhook `/webhook/nomos-status` sur port 5678
+- ✅ Push architecture vers tous les repos satellites
 
-### Fichiers modifies (7)
+### Session directives (17 fév 2026) — Refactoring complet
+- ✅ CLAUDE.md entièrement réécrit (infra réelle, rôles précis, accès Claude détaillés)
+- ✅ `directives/repos/rag-tests.md` créé
+- ✅ `directives/repos/rag-website.md` créé (objectif sectoriel + recherche 2026)
+- ✅ `directives/repos/rag-data-ingestion.md` créé (recherche papiers 2026 obligatoire)
+- ✅ `directives/repos/rag-dashboard.md` créé
+- ✅ `scripts/push-directives.sh` créé (push CLAUDE.md vers chaque satellite)
+
+### Session 8 (16 fév 2026) — Infrastructure n8n
+- ✅ Task runner TTL fix : 15s → 120s (VM 970MB RAM, souvent en swap)
+- ✅ Trailing comma fix Standard embedding JSON (migration Jina)
+- ✅ Jina migration validée : Standard 3/3, Graph 3/3
+- ✅ Quantitative 1/3 (SQL edge cases — à corriger)
+
+---
+
+## État des pipelines (Phase 1 — 200q)
+
+| Pipeline | Accuracy | Target | Status |
+|----------|----------|--------|--------|
+| Standard | 85.5% | >= 85% | ✅ PASS |
+| Graph | 68.7% | >= 70% | ❌ FAIL (-1.3pp) |
+| Quantitative | 78.3% | >= 85% | ❌ FAIL (-6.7pp) |
+| Orchestrator | 80.0% | >= 70% | ✅ PASS |
+| **Overall** | **78.1%** | **>= 75%** | **✅ PASS** |
+
+---
+
+## État des bases de données
+
+| Database | Contenu | Status |
+|----------|---------|--------|
+| **Pinecone** (sota-rag-jina-1024) | 10,411 vecteurs, 12 namespaces, 1024-dim | ✅ PRIMARY |
+| **Pinecone** (sota-rag-cohere-1024) | 10,411 vecteurs, backup Cohere | ✅ BACKUP |
+| **Pinecone** (sota-rag-phase2-graph) | 1,296 vecteurs, e5-large | ✅ OK |
+| **Neo4j** | 19,788 nodes, 76,717 relations | ✅ OK |
+| **Supabase** | 40 tables, ~17,000+ lignes | ✅ OK |
+
+---
+
+## Infrastructure VM (état actuel)
+
+```
+VM Google Cloud e2-micro : 34.136.180.66
+RAM : 969MB total / ~865MB utilisé / ~104MB disponible
+Swap : 2047MB / ~1084MB utilisé (VM en swap régulièrement)
+Disque : 30GB / 12GB utilisé / 17GB libres
+
+Docker containers :
+  n8n-n8n-1        : Up (stable), port 5678
+  n8n-redis-1      : Up (healthy), port 6379
+  n8n-postgres-1   : Up (healthy), port 5432
+
+n8n workflows actifs : 11
+```
+
+---
+
+## Fichiers modifiés lors du refactoring directives (17 fév)
+
 | Fichier | Modification |
 |---------|-------------|
-| `~/n8n/docker-compose.yml` | Task runner config: removed N8N_RUNNERS_DISABLED, added volume mount for TTL fix |
-| `directives/objective.md` | Updated session notes, Jina primary, Pinecone index names |
-| `directives/n8n-endpoints.md` | Updated webhook test timestamps, Jina pitfall note |
-| `technicals/architecture.md` | Jina primary in embeddings section, dual Pinecone indices |
-| `technicals/stack.md` | Jina primary, Cohere backup, Docker env vars updated |
-| `technicals/credentials.md` | Jina primary section, Cohere marked as backup/epuise |
-| `directives/status.md` | This file (Session 8 status) |
-
-### Modifications n8n (via API REST)
-| Workflow | Modification | Nodes changes |
-|---------|-------------|---------------|
-| Standard (TmgyRP20N4JFd9CB) | Trailing comma fix in embedding JSON body | 2 nodes (HyDE Embedding, Original Embedding) |
-
-### n8n sync (via n8n/sync.py)
-| Workflow | Status | Details |
-|---------|--------|---------|
-| Standard | UPDATED | v5, 24 nodes, 9 changed |
-| Graph | UPDATED | v4, 26 nodes, 6 changed |
-| Quantitative | UNCHANGED | — |
-| Orchestrator | UNCHANGED | — |
+| `CLAUDE.md` | Réécriture complète : infra réelle, rôles Claude précis, accès/limites, infra détaillée |
+| `directives/repos/rag-tests.md` | NOUVEAU : directive agent testeur |
+| `directives/repos/rag-website.md` | NOUVEAU : directive agent website, datasets sectoriels, recherche 2026 |
+| `directives/repos/rag-data-ingestion.md` | NOUVEAU : directive agent ingestion, recherche papiers 2026 obligatoire |
+| `directives/repos/rag-dashboard.md` | NOUVEAU : directive dashboard statique |
+| `scripts/push-directives.sh` | NOUVEAU : push CLAUDE.md vers chaque repo satellite |
+| `directives/status.md` | MAJ session 11b + refactoring |
 
 ---
 
-## Task Runner Fix — Details
-
-### Root Cause
-n8n 2.7.4 task runner grant token TTL (15 seconds) too short for memory-constrained VM.
-- VM: 970MB RAM, 1.4GB swap used
-- Claude Code process: ~297MB RAM
-- Task runner V8 compilation: >15s when VM is swapping
-- Grant token expires before runner connects → 403 Forbidden loop
-
-### Fix Applied
-Modified `task-broker-auth.service.js`:
-- `GRANT_TOKEN_TTL = 15 * seconds` → `120 * seconds`
-- Mounted as read-only volume in docker-compose.yml
-- Persists across container recreation
-
-### Verification
-- 163 successful executions between 01:00-03:47 UTC (when Claude Code not running)
-- After TTL fix: Standard 3/3, Graph 3/3, Quantitative 1/3
-- n8n stable at 36% CPU after fix
-
----
-
-## Trailing Comma Fix — Details
-
-### Root Cause
-Jina migration script (session 7) removed `"embedding_types": ["float"]` from Standard embedding nodes
-but left a trailing comma in the JSON body:
-```
-"task": "retrieval.query",
-
-}
-```
-
-### Fix Applied
-Regex replacement via n8n REST API:
-```python
-re.sub(r',\s*\n\s*\n\s*}', '\n}', body)
-```
-Applied to HyDE Embedding and Original Embedding nodes.
-
----
-
-## Etat des pipelines
-
-| Pipeline | Phase 1 (200q) | Session 8 Test | Jina Migration | Status |
-|----------|---------------|----------------|----------------|--------|
-| Standard | 85.5% PASS | 3/3 PASS | VALIDATED | OK |
-| Graph | 68.7% (~70%) | 3/3 PASS | VALIDATED | OK |
-| Quantitative | 78.3% FAIL | 1/3 FAIL | N/A (SQL) | Needs work |
-| Orchestrator | 80% PASS | Not tested | N/A (meta) | OK |
-| **Overall P1** | **78.1%** | - | - | **PASS (>75%)** |
-
----
-
-## Etat des bases de donnees
-
-| Database | Content | Status |
-|----------|---------|--------|
-| **Pinecone** (sota-rag-jina-1024) | 10,411 vectors, 12 namespaces (Jina) | OK — PRIMARY |
-| **Pinecone** (sota-rag-cohere-1024) | 10,411 vectors, 12 namespaces (Cohere) | OK — BACKUP |
-| **Pinecone** (sota-rag-phase2-graph) | 1,296 vectors, 1 namespace (e5-large) | OK |
-| **Neo4j** | 19,788 nodes, 76,717 relationships | OK |
-| **Supabase** | 40 tables, ~17,000+ rows | OK |
-
----
-
-## Prochaine action
+## Prochaines actions prioritaires
 
 ```
-Session 9 — Priorites :
-1. Quantitative pipeline: 78.3% → 85% target
-   - SQL edge cases: multi-table JOINs, period filtering
-   - Run iterative-eval 5→10→50q
-2. Graph pipeline: 68.7% → 70% target (close!)
-   - Entity extraction improvements
-3. Phase 2 full eval: 1000q (hf-1000.json) once Phase 1 gates stable
-4. Consider: pin n8n Docker to specific version (avoid task runner regressions)
+COURT TERME (Phase 1 — compléter les gates) :
+1. Graph pipeline : 68.7% → 70% (entity extraction, GraphRAG community detection)
+2. Quantitative pipeline : 78.3% → 85% (SQL edge cases, multi-table JOINs)
+3. Pousser les directives vers chaque repo satellite : bash scripts/push-directives.sh
+
+MOYEN TERME (Phase 2) :
+4. Créer/vérifier les Codespaces rag-tests et rag-data-ingestion
+5. rag-data-ingestion : Phase 0 recherche papiers 2026 → améliorer Ingestion V4.0
+6. rag-website : Phase 0 recherche papiers 2026 → adapter pipelines aux secteurs
+7. Phase 2 full eval (1000q — hf-1000.json) quand Phase 1 gates OK
+
+LONG TERME :
+8. Ingestion des 20 datasets sectoriels (sector-datasets.md)
+9. rag-website : déploiement production Vercel avec les 4 secteurs
+10. Phase 3 : 10K+ questions
 ```
 
 ---
 
-## Prompt exact pour la prochaine session
+## Prompt pour la prochaine session
 
 ```
-Continue le travail sur mon-ipad. Session 16-fev (session 9) :
-- Session 8 a fixe : task runner (TTL 15s→120s), trailing comma Standard, Jina valide
-- TOUS les pipelines fonctionnent : Standard 3/3, Graph 3/3, Quant 1/3
-- Phase 1 overall 78.1% (>75% target PASS)
-- PRIORITE 1 : Quantitative 78.3% → 85% (SQL edge cases)
-- PRIORITE 2 : Graph 68.7% → 70% (entity extraction)
-- PRIORITE 3 : Phase 2 full eval (1000q)
-- Docker: task-broker-auth.service.js monte en volume (TTL fix persistant)
+Continue le travail sur mon-ipad (session 12) :
+- Session 11b a finalisé l'architecture multi-repo (devcontainers image-based, docker-compose standalone)
+- Refactoring directives : CLAUDE.md enrichi, directives/repos/ créées (4 repos)
+- Phase 1 overall 78.1% (>75% PASS) — mais Graph 68.7% et Quantitative 78.3% échouent
+- PRIORITÉ 1 : Graph 68.7% → 70% (entity extraction)
+- PRIORITÉ 2 : Quantitative 78.3% → 85% (SQL edge cases)
+- PRIORITÉ 3 : push directives → bash scripts/push-directives.sh
+- PRIORITÉ 4 : vérifier/créer les Codespaces rag-tests et rag-data-ingestion
+- Infrastructure VM : 30GB disk (17GB libre), 969MB RAM (~100MB dispo), swap actif
+- Docker : n8n + redis + postgres actifs
 - TOUJOURS : source .env.local avant scripts Python
 ```
