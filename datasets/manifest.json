@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-02-08T22:15:00Z",
+  "last_updated": "2026-02-17T22:00:00Z",
   "last_verified": "2026-02-08T22:15:00Z",
   "verified_by": "phase2-database-setup branch",
   "description": "Dataset manifest for Multi-RAG Orchestrator evaluation across 5 phases. Tracks all 16 HuggingFace datasets and Phase 1 curated questions.",
@@ -370,17 +370,36 @@
   "tier_summary": {
     "tier_1": {
       "description": "Multi-hop reasoning (graph-centric)",
-      "datasets": ["musique", "2wikimultihopqa", "hotpotqa"],
+      "datasets": [
+        "musique",
+        "2wikimultihopqa",
+        "hotpotqa"
+      ],
       "primary_db": "neo4j"
     },
     "tier_2": {
       "description": "Financial and tabular QA (quantitative-centric)",
-      "datasets": ["finqa", "tatqa", "convfinqa", "wikitablequestions"],
+      "datasets": [
+        "finqa",
+        "tatqa",
+        "convfinqa",
+        "wikitablequestions"
+      ],
       "primary_db": "supabase"
     },
     "tier_3": {
       "description": "General knowledge QA (standard RAG)",
-      "datasets": ["frames", "triviaqa", "squad_v2", "popqa", "msmarco", "asqa", "narrativeqa", "pubmedqa", "natural_questions"],
+      "datasets": [
+        "frames",
+        "triviaqa",
+        "squad_v2",
+        "popqa",
+        "msmarco",
+        "asqa",
+        "narrativeqa",
+        "pubmedqa",
+        "natural_questions"
+      ],
       "primary_db": "pinecone"
     }
   },
@@ -390,5 +409,232 @@
     "phase_3": 10700,
     "phase_4": 101324,
     "phase_5": "1M+"
+  },
+  "sector_datasets": {
+    "description": "Sector-specific datasets for rag-website demos and pipeline reinforcement. Ingested via rag-data-ingestion Codespace.",
+    "total_sector_datasets": 20,
+    "finance": {
+      "priority": "P1",
+      "pipeline": "quantitative",
+      "impact": "Pushes Quantitative from 78.3% to ~85% (Phase 1 target)",
+      "datasets": [
+        {
+          "name": "financebench",
+          "hf_id": "PatronusAI/financebench",
+          "split": "train",
+          "priority": "P1",
+          "approx_count": 150,
+          "ingestion_status": {
+            "supabase": "not_started",
+            "pinecone": "not_started",
+            "neo4j": "not_needed"
+          },
+          "note": "Real financial Q&A from annual reports — key for Quant pipeline"
+        },
+        {
+          "name": "convfinqa",
+          "hf_id": "czyssrs/ConvFinQA",
+          "split": "train",
+          "priority": "P1",
+          "approx_count": 3892,
+          "ingestion_status": {
+            "supabase": "partial",
+            "pinecone": "partial",
+            "neo4j": "not_needed"
+          },
+          "note": "Conversational financial QA with numerical reasoning"
+        },
+        {
+          "name": "tatqa",
+          "hf_id": "kasnerz/tatqa",
+          "split": "train",
+          "priority": "P1",
+          "approx_count": 16552,
+          "ingestion_status": {
+            "supabase": "partial",
+            "pinecone": "partial",
+            "neo4j": "not_needed"
+          },
+          "note": "QA over tables and text from financial reports"
+        },
+        {
+          "name": "sec_qa",
+          "hf_id": "jkung2003/sec-qa",
+          "split": "train",
+          "priority": "P2",
+          "approx_count": 5000,
+          "ingestion_status": {
+            "supabase": "not_started",
+            "pinecone": "not_started",
+            "neo4j": "not_needed"
+          },
+          "note": "QA from SEC filings (10-K, 10-Q)"
+        },
+        {
+          "name": "financial_phrasebank",
+          "hf_id": "takala/financial_phrasebank",
+          "split": "train",
+          "priority": "P3",
+          "approx_count": 4846,
+          "ingestion_status": {
+            "supabase": "not_started",
+            "pinecone": "not_started",
+            "neo4j": "not_needed"
+          },
+          "note": "Financial sentiment sentences — useful for context enrichment"
+        }
+      ]
+    },
+    "juridique": {
+      "priority": "P1",
+      "pipeline": "graph",
+      "impact": "Strengthens Neo4j with French legal entities — Graph from 68.7% to ~72%",
+      "datasets": [
+        {
+          "name": "french_case_law",
+          "hf_id": "rcds/french_case_law",
+          "split": "train",
+          "priority": "P1",
+          "approx_count": 50000,
+          "ingestion_status": {
+            "supabase": "not_started",
+            "pinecone": "not_started",
+            "neo4j": "not_started"
+          },
+          "note": "French court decisions — primary source for legal Graph RAG"
+        },
+        {
+          "name": "cold_french_law",
+          "hf_id": "rcds/cold-french-law",
+          "split": "train",
+          "priority": "P1",
+          "approx_count": 10000,
+          "ingestion_status": {
+            "supabase": "not_started",
+            "pinecone": "not_started",
+            "neo4j": "not_started"
+          },
+          "note": "French legal texts (codes, statutes) — enriches Neo4j legal graph"
+        },
+        {
+          "name": "legalbench",
+          "hf_id": "nguha/legalbench",
+          "split": "test",
+          "priority": "P2",
+          "approx_count": 162,
+          "ingestion_status": {
+            "supabase": "not_started",
+            "pinecone": "not_started",
+            "neo4j": "not_started"
+          },
+          "note": "162 legal reasoning tasks — gold benchmark for legal RAG evaluation"
+        },
+        {
+          "name": "eurlex",
+          "hf_id": "EurLex/eurlex",
+          "split": "train",
+          "priority": "P2",
+          "approx_count": 20000,
+          "ingestion_status": {
+            "supabase": "not_started",
+            "pinecone": "not_started",
+            "neo4j": "not_started"
+          },
+          "note": "EU legal documents — cross-border regulatory coverage"
+        },
+        {
+          "name": "cail2018",
+          "hf_id": "thunlp/cail2018",
+          "split": "train",
+          "priority": "P3",
+          "approx_count": 183000,
+          "ingestion_status": {
+            "supabase": "not_started",
+            "pinecone": "not_started",
+            "neo4j": "not_started"
+          },
+          "note": "Chinese legal cases — structural reference for legal QA format"
+        }
+      ]
+    },
+    "btp": {
+      "priority": "P2",
+      "pipeline": "standard",
+      "impact": "Powers BTP sector demo on rag-website",
+      "datasets": [
+        {
+          "name": "code_accord",
+          "hf_id": "GT4SD/code-accord",
+          "split": "train",
+          "priority": "P2",
+          "approx_count": 5000,
+          "ingestion_status": {
+            "supabase": "not_started",
+            "pinecone": "not_started",
+            "neo4j": "not_needed"
+          },
+          "note": "Building regulation Q&A pairs — BTP compliance"
+        },
+        {
+          "name": "ragbench_btp",
+          "hf_id": "rungalileo/ragbench",
+          "split": "train",
+          "priority": "P2",
+          "approx_count": 100000,
+          "ingestion_status": {
+            "supabase": "not_started",
+            "pinecone": "not_started",
+            "neo4j": "not_needed"
+          },
+          "note": "General RAG benchmark — filtered for construction/engineering domain"
+        },
+        {
+          "name": "docie",
+          "hf_id": "Sygil/DocIE",
+          "split": "train",
+          "priority": "P2",
+          "approx_count": 3000,
+          "ingestion_status": {
+            "supabase": "not_started",
+            "pinecone": "not_started",
+            "neo4j": "not_needed"
+          },
+          "note": "Document information extraction — useful for BTP document parsing"
+        }
+      ]
+    },
+    "industrie": {
+      "priority": "P2",
+      "pipeline": "standard",
+      "impact": "Powers Industrie sector demo on rag-website",
+      "datasets": [
+        {
+          "name": "manufacturing_qa",
+          "hf_id": "thesven/manufacturing-qa-gpt4o",
+          "split": "train",
+          "priority": "P2",
+          "approx_count": 3000,
+          "ingestion_status": {
+            "supabase": "not_started",
+            "pinecone": "not_started",
+            "neo4j": "not_needed"
+          },
+          "note": "GPT-4o generated manufacturing Q&A — high quality domain coverage"
+        },
+        {
+          "name": "ragbench",
+          "hf_id": "rungalileo/ragbench",
+          "split": "train",
+          "priority": "P2",
+          "approx_count": 100000,
+          "ingestion_status": {
+            "supabase": "not_started",
+            "pinecone": "not_started",
+            "neo4j": "not_needed"
+          },
+          "note": "General RAG benchmark — industrial and technical knowledge"
+        }
+      ]
+    }
   }
 }
