@@ -3,7 +3,7 @@ services:
   workspace:
     image: mcr.microsoft.com/devcontainers/universal:2
     volumes:
-      - ..:/workspace:cached
+      - ../..:/workspace:cached
     command: sleep infinity
 
   n8n-worker-1:
