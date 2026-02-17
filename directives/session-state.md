@@ -1,4 +1,4 @@
-# Session State — 17 Février 2026 (Session 12 → CPU fix + Codespace export + nouveaux docs lus)
+# Session State — 17 Février 2026 (Session 12 → vérification complète + orchestration next session)
 
 ## Objectif de session
 Session 12 : Correction urgente CPU VM + export Codespace rag-website + lecture nouveaux docs GitHub.
@@ -175,11 +175,42 @@ DOCS (docs/):
 ## Dernière action
 Refactoring complet directives — CLAUDE.md + directives/repos/ (4 fichiers) + push-directives.sh
 
+## Vérification Session 12 — État final ✅
+
+### Infrastructure validée
+- **VM** : Load 0.42, RAM 789MB/969MB, Swap 1175MB (normal) ✅
+- **Docker** : n8n + redis + postgres — tous running ✅
+- **n8n** : 11 workflows actifs ✅
+- **Pinecone** : 4 indexes accessibles (sota-rag-jina-1024, sota-rag, sota-rag-cohere-1024, sota-rag-phase2-graph) ✅
+- **Neo4j** : 19,788 nodes — accessible ✅
+- **Supabase** : REST API accessible (table documents) ✅
+
+### Sites de production
+- **rag-website** : https://nomos-ai-pied.vercel.app — HTTP 200 ✅
+- **rag-dashboard** : https://nomos-dashboard.vercel.app — HTTP 200 ✅
+- **n8n externe** : http://34.136.180.66:5678/healthz — HTTP 200 ✅
+
+### Codespaces
+- `nomos-rag-website-jr7q9gr69qqfqp6r` — waked, Available ✅
+- `nomos-rag-tests-5g6g5q9vjjwjf5g4` — waked, Starting ✅
+- devcontainer.json image-based (universal:2) configuré ✅
+- setup.sh : n8n + workflows importés (rag-website) / VM connectivity check (rag-tests) ✅
+
+### Git sync (5 repos) — tous à 9ba942d ✅
+- origin, rag-tests, rag-website, rag-dashboard, rag-data-ingestion : en sync
+
+### Scripts créés
+- `scripts/wake-codespaces.sh` : dashboard de démarrage rapide + wake Codespaces ✅
+
+### Ce qui N'a PAS été fait (datasets)
+- Les datasets HF ne sont PAS téléchargés (recherche seulement, pas d'ingestion)
+- Tier 1 à ingérer la prochaine fois : jurisprudence, legi, financebench, ragbench, bsard
+
 ## Prochaine action
-1. Committer + pusher ce refactoring : `git add -A && git commit -m "..."`
-2. Pousser les directives vers les repos satellites : `bash scripts/push-directives.sh`
-3. Phase 1 : corriger Graph (68.7% → 70%) et Quantitative (78.3% → 85%)
-4. Créer/vérifier les Codespaces rag-tests et rag-data-ingestion
+1. **Graph RAG** : corriger 68.7% → 70% (entity disambiguation Neo4j)
+2. **Quantitative** : corriger 78.3% → 85% (CompactRAG pattern)
+3. **Datasets** : Ingérer Tier 1 via rag-data-ingestion Codespace
+4. **SSE 500ms** : Implémenter /api/eval/stream selon docs/eval-dashboard-spec.md
 
 ## Repos impactés
 - mon-ipad (origin) — ce refactoring
