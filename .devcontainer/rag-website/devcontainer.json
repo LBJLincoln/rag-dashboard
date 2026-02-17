@@ -1,14 +1,13 @@
 {
   "name": "Nomos AI — Website + 4 RAG Pipelines",
-  "dockerComposeFile": "docker-compose.yml",
-  "service": "workspace",
-  "workspaceFolder": "/workspace",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
   "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
     "ghcr.io/devcontainers/features/python:1": { "version": "3.11" },
     "ghcr.io/devcontainers/features/node:1": { "version": "20" }
   },
   "forwardPorts": [3000, 5678],
-  "postCreateCommand": "bash .devcontainer/rag-website/setup.sh",
+  "postCreateCommand": "bash /workspaces/${localWorkspaceFolderBasename}/.devcontainer/rag-website/setup.sh",
   "customizations": {
     "vscode": {
       "extensions": [

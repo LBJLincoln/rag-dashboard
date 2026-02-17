@@ -6,7 +6,7 @@ set -euo pipefail
 echo "=== Nomos AI — rag-data-ingestion Codespace Setup ==="
 
 N8N_URL="${N8N_HOST:-http://localhost:5678}"
-WORKFLOW_DIR="/workspace/n8n/live"
+WORKFLOW_DIR="/workspaces/rag-data-ingestion/n8n/live"
 MAX_WAIT=120
 
 # --- 1. Wait for n8n to be ready ---
@@ -45,7 +45,7 @@ npm install @pinecone-database/mcp 2>/dev/null || true
 
 # --- 5. Generate MCP config ---
 echo "[5/7] Configuring MCP servers..."
-cat > /workspace/.mcp.json << MCPEOF
+cat > /workspaces/rag-data-ingestion/.mcp.json << MCPEOF
 {
   "mcpServers": {
     "n8n": {
@@ -69,7 +69,7 @@ cat > /workspace/.mcp.json << MCPEOF
     "pinecone": {
       "type": "stdio",
       "command": "node",
-      "args": ["/workspace/node_modules/@pinecone-database/mcp/dist/index.js"],
+      "args": ["/workspaces/rag-data-ingestion/node_modules/@pinecone-database/mcp/dist/index.js"],
       "env": {
         "PINECONE_API_KEY": "${PINECONE_API_KEY:-}"
       }
@@ -84,7 +84,7 @@ cat > /workspace/.mcp.json << MCPEOF
     "jina-embeddings": {
       "type": "stdio",
       "command": "python3",
-      "args": ["/workspace/mcp/jina-embeddings-server.py"],
+      "args": ["/workspaces/rag-data-ingestion/mcp/jina-embeddings-server.py"],
       "env": {
         "JINA_API_KEY": "${JINA_API_KEY:-}",
         "PINECONE_API_KEY": "${PINECONE_API_KEY:-}",
@@ -119,7 +119,7 @@ for key, label in checks.items():
 # --- 7. Verify sector datasets ---
 echo "[7/7] Checking sector datasets..."
 for sector in btp industrie finance juridique; do
-  count=$(find /workspace/datasets -iname "*${sector}*" 2>/dev/null | wc -l)
+  count=$(find /workspaces/rag-data-ingestion/datasets -iname "*${sector}*" 2>/dev/null | wc -l)
   echo "  ${sector}: ${count} files"
 done
 

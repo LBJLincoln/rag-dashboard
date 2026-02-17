@@ -1,15 +1,13 @@
 {
   "name": "Nomos AI — RAG Tests Workers",
-  "dockerComposeFile": "docker-compose.yml",
-  "service": "workspace",
-  "workspaceFolder": "/workspace",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
     "ghcr.io/devcontainers/features/python:1": { "version": "3.11" },
     "ghcr.io/devcontainers/features/node:1": { "version": "20" }
   },
   "forwardPorts": [5678],
-  "postCreateCommand": "bash .devcontainer/rag-tests/setup.sh",
+  "postCreateCommand": "bash /workspaces/${localWorkspaceFolderBasename}/.devcontainer/rag-tests/setup.sh",
   "customizations": {
     "vscode": {
       "extensions": [

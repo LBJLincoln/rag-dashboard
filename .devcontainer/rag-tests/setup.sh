@@ -25,7 +25,7 @@ pip install -q requests python-dotenv numpy 2>/dev/null
 # --- 3. Verify eval scripts ---
 echo "[3/7] Verifying eval scripts..."
 for script in eval/quick-test.py eval/iterative-eval.py eval/run-eval-parallel.py eval/node-analyzer.py; do
-  if [ -f "/workspace/${script}" ]; then
+  if [ -f "/workspaces/rag-tests/${script}" ]; then
     echo "  OK: ${script}"
   else
     echo "  MISSING: ${script}"
@@ -34,7 +34,7 @@ done
 
 # --- 4. Verify datasets ---
 echo "[4/7] Checking datasets..."
-dataset_count=$(find /workspace/datasets -name "*.json" 2>/dev/null | wc -l)
+dataset_count=$(find /workspaces/rag-tests/datasets -name "*.json" 2>/dev/null | wc -l)
 echo "  Found ${dataset_count} dataset files"
 
 # --- 5. Install Claude Code CLI ---
@@ -45,7 +45,7 @@ npm install @pinecone-database/mcp 2>/dev/null || true
 
 # --- 6. Generate MCP config ---
 echo "[6/7] Configuring MCP servers..."
-cat > /workspace/.mcp.json << MCPEOF
+cat > /workspaces/rag-tests/.mcp.json << MCPEOF
 {
   "mcpServers": {
     "n8n": {
@@ -70,7 +70,7 @@ cat > /workspace/.mcp.json << MCPEOF
     "pinecone": {
       "type": "stdio",
       "command": "node",
-      "args": ["/workspace/node_modules/@pinecone-database/mcp/dist/index.js"],
+      "args": ["/workspaces/rag-tests/node_modules/@pinecone-database/mcp/dist/index.js"],
       "env": {
         "PINECONE_API_KEY": "${PINECONE_API_KEY:-}"
       }
@@ -85,7 +85,7 @@ cat > /workspace/.mcp.json << MCPEOF
     "jina-embeddings": {
       "type": "stdio",
       "command": "python3",
-      "args": ["/workspace/mcp/jina-embeddings-server.py"],
+      "args": ["/workspaces/rag-tests/mcp/jina-embeddings-server.py"],
       "env": {
         "JINA_API_KEY": "${JINA_API_KEY:-}",
         "PINECONE_API_KEY": "${PINECONE_API_KEY:-}",

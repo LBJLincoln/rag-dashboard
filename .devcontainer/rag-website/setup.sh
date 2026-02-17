@@ -6,7 +6,7 @@ set -euo pipefail
 echo "=== Nomos AI — rag-website Codespace Setup ==="
 
 N8N_URL="${N8N_HOST:-http://localhost:5678}"
-WORKFLOW_DIR="/workspace/n8n/live"
+WORKFLOW_DIR="/workspaces/rag-website/n8n/live"
 MAX_WAIT=120
 
 # --- 1. Wait for n8n to be ready ---
@@ -50,8 +50,8 @@ pip install -q requests python-dotenv 2>/dev/null
 
 # --- 5. Install website deps ---
 echo "[5/8] Installing website dependencies..."
-if [ -d "/workspace/website" ]; then
-  cd /workspace/website && npm install --silent 2>/dev/null
+if [ -d "/workspaces/rag-website/website" ]; then
+  cd /workspaces/rag-website/website && npm install --silent 2>/dev/null
   cd /workspace
 fi
 
@@ -65,7 +65,7 @@ npm install @pinecone-database/mcp 2>/dev/null || true
 
 # --- 7. Generate MCP config ---
 echo "[7/8] Configuring MCP servers..."
-cat > /workspace/.mcp.json << MCPEOF
+cat > /workspaces/rag-website/.mcp.json << MCPEOF
 {
   "mcpServers": {
     "n8n": {
@@ -90,7 +90,7 @@ cat > /workspace/.mcp.json << MCPEOF
     "pinecone": {
       "type": "stdio",
       "command": "node",
-      "args": ["/workspace/node_modules/@pinecone-database/mcp/dist/index.js"],
+      "args": ["/workspaces/rag-website/node_modules/@pinecone-database/mcp/dist/index.js"],
       "env": {
         "PINECONE_API_KEY": "${PINECONE_API_KEY:-}"
       }
@@ -105,7 +105,7 @@ cat > /workspace/.mcp.json << MCPEOF
     "jina-embeddings": {
       "type": "stdio",
       "command": "python3",
-      "args": ["/workspace/mcp/jina-embeddings-server.py"],
+      "args": ["/workspaces/rag-website/mcp/jina-embeddings-server.py"],
       "env": {
         "JINA_API_KEY": "${JINA_API_KEY:-}",
         "PINECONE_API_KEY": "${PINECONE_API_KEY:-}",

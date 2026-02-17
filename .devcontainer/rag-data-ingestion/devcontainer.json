@@ -1,15 +1,13 @@
 {
   "name": "Nomos AI — Data Ingestion Stack",
-  "dockerComposeFile": "docker-compose.yml",
-  "service": "workspace",
-  "workspaceFolder": "/workspace",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
     "ghcr.io/devcontainers/features/python:1": { "version": "3.11" },
     "ghcr.io/devcontainers/features/node:1": { "version": "20" }
   },
   "forwardPorts": [5678, 5432, 6379],
-  "postCreateCommand": "bash .devcontainer/rag-data-ingestion/setup.sh",
+  "postCreateCommand": "bash /workspaces/${localWorkspaceFolderBasename}/.devcontainer/rag-data-ingestion/setup.sh",
   "customizations": {
     "vscode": {
       "extensions": [
