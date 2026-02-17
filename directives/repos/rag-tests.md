@@ -62,6 +62,36 @@ Tu **mesures** uniquement, et tu pushes les résultats vers GitHub.
 
 ---
 
+## POSITION DANS LE PLAN GLOBAL (phases A→D)
+
+```
+PHASE A — RAG Pipeline Iteration  ← CE REPO EST ICI
+  Phase 1 (200q)  ← EN COURS — BLOQUÉE (Graph + Quant FAIL)
+  Phase 2 (1 000q HuggingFace)  ← prérequis : Phase 1 gates toutes passées
+  Phase 3 (~10K q)  ← prérequis : Phase 2
+  Phase 4 (~100K q) / Phase 5 (1M+)  ← infrastructure payante requise
+
+PHASE B — Analyse SOTA 2026  ← MON-IPAD (pilotage)
+PHASE C — Ingestion & Enrichment BDD  ← RAG-DATA-INGESTION
+PHASE D — Production & Déploiement  ← RAG-WEBSITE + RAG-DASHBOARD
+```
+
+### Ce que ce repo doit produire pour débloquer la phase suivante
+
+| Pour débloquer | Condition à atteindre | Comment |
+|---------------|----------------------|---------|
+| **Phase 1 → Phase 2** | Graph ≥ 70% ET Quant ≥ 85% (3 iter. stables) | Fix n8n workflows + tester ici |
+| **Phase 2 (1000q)** | Datasets HuggingFace ingérés par rag-data-ingestion | Attendre ingestion, puis lancer `--questions 1000` |
+| **Phase 3 (10K q)** | Phase 2 gates : Graph ≥ 60%, Quant ≥ 70% | Idem |
+
+### Pourquoi Phase 1 est encore bloquée (ne pas confondre avec Phase 2)
+Les itérations 35-42 labelisées **"Phase2-quant-..."** dans `docs/data.json` sont des **tests de niveau Phase 2** sur le pipeline quantitatif, pas une entrée officielle en Phase 2. Elles ont été lancées pour identifier les lacunes. La Phase 1 reste bloquée car :
+- Graph : 68.7% < 70% cible (−1.3pp)
+- Quantitative : 78.3% < 85% cible (−6.7pp)
+- 0 itération stable consécutive sur les 2 pipelines simultanément
+
+---
+
 ## INFRASTRUCTURE DE CE CODESPACE
 
 ```

@@ -64,6 +64,42 @@ puis ingérer les datasets sectoriels dans les BDD du projet.
 
 ---
 
+## POSITION DANS LE PLAN GLOBAL (phases A→D)
+
+```
+PHASE A — RAG Pipeline Iteration  ← RAG-TESTS exécute, mon-ipad pilote
+  Phase 1 (200q)   BLOQUÉE — ce repo débloque via ingestion Finance + Juridique
+  Phase 2 (1 000q) ← prérequis : ce repo doit ingérer les 14 benchmarks HuggingFace
+  Phase 3 (~10K q) ← prérequis : extension des ingestions
+
+PHASE B — Analyse SOTA 2026  ← MON-IPAD (pilotage + résultats en technicals/)
+  → Informe les V4.0 des workflows d'ingestion/enrichissement de CE REPO
+
+PHASE C — Ingestion & Enrichment BDD  ← CE REPO EST ICI
+  ✅ Ingestion V3.1 opérationnelle (sur VM)
+  ❌ Datasets Phase 2 non encore téléchargés (~4 GB HuggingFace)
+  ❌ Datasets sectoriels website non ingérés (~1.4 GB)
+
+PHASE D — Production & Déploiement  ← RAG-WEBSITE + RAG-DASHBOARD
+```
+
+### Ce que ce repo doit produire pour débloquer la phase suivante
+
+| Pour débloquer | Ce que ce repo doit faire |
+|---------------|--------------------------|
+| **Phase 1 → Phase 2** (rag-tests) | Ingérer FinQA/TatQA/ConvFinQA (Quant) + French Case Law (Graph) → datasets disponibles dans Supabase/Neo4j |
+| **Phase 2 complète** | Télécharger + ingérer les 14 benchmarks HuggingFace (~4 GB) |
+| **Website démos** (rag-website) | Ingérer docs sectoriels BTP/Industrie/Finance/Juridique (~1.4 GB) dans Pinecone |
+
+### Volume total à ingérer
+| Type | Source | Taille | Priorité |
+|------|--------|--------|----------|
+| Benchmarks Phase 2 (14 datasets) | HuggingFace | ~4 GB | P1 — débloque tests |
+| Docs sectoriels website (4 secteurs) | HuggingFace + docs FR | ~1.4 GB | P2 — débloque démos |
+| **Total** | | **~5.4 GB** | |
+
+---
+
 ## PHASE 0 : RECHERCHE ACADÉMIQUE (OBLIGATOIRE — FAIRE EN PREMIER)
 
 **Avant tout développement**, effectuer une revue systématique des papiers de recherche 2026.

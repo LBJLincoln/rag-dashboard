@@ -55,7 +55,24 @@
 - OK : Overall 78.1% >= 75%
 - Prochaine action : **Fix Quantitative en priorité** (gap -6.7pp)
 
-### Métriques avancées (non mesurées — à implémenter)
+### IMPORTANT — Clarification nomenclature
+Les itérations 35-42 sont labellisées "Phase2-quant-*" dans docs/data.json.
+**Ce ne sont PAS des tests de Phase 2 officielle.** Ce sont des tests du pipeline
+quantitatif avec des datasets de niveau Phase 2, effectués pour identifier les lacunes.
+**La Phase 1 n'est pas encore passée.** Pour entrer en Phase 2, Graph ET Quantitative
+doivent atteindre leurs cibles + 3 itérations stables consécutives.
+
+### Plan des phases (A → D) — Vue d'ensemble
+| Phase | Description | Repo exécutant | Statut |
+|-------|-------------|---------------|--------|
+| **A.Phase1** | 200q baseline — 4 pipelines | rag-tests | BLOQUEE |
+| **A.Phase2** | 1 000q HuggingFace | rag-tests | Prérequis : Phase1 |
+| **A.Phase3** | ~10K q | rag-tests | Prérequis : Phase2 |
+| **B. SOTA** | Recherche académique 2026 | mon-ipad | FAIT (session 13) |
+| **C. Ingestion** | 14 benchmarks + secteurs | rag-data-ingestion | PENDING (Codespace à créer) |
+| **D. Website** | Site 4 secteurs + dashboard | rag-website | EN COURS (MVP live) |
+
+### Métriques avancées (non mesurées — à implémenter Phase 2+)
 - Faithfulness >= 95% | Context Recall >= 85% | Hallucination <= 2% | Latency <= 2.5s
 
 ---

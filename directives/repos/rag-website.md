@@ -44,6 +44,39 @@ npm run build
 
 ---
 
+## POSITION DANS LE PLAN GLOBAL (phases A→D)
+
+```
+PHASE A — RAG Pipeline Iteration  ← RAG-TESTS + MON-IPAD
+  Phase 1 (200q)  BLOQUÉE — ne concerne pas directement ce repo
+
+PHASE B — Analyse SOTA 2026  ← MON-IPAD (résultats dans technicals/)
+  → Ce repo CONSOMME les résultats SOTA pour ses démos
+
+PHASE C — Ingestion & Enrichment  ← RAG-DATA-INGESTION
+  → Ce repo CONSOMME les datasets sectoriels ingérés (Pinecone website-sectors-*)
+
+PHASE D — Production & Déploiement  ← CE REPO EST ICI ✅
+  Statut actuel : MVP en prod (nomos-ai-pied.vercel.app)
+  Manquant : vraies données sectorielles dans les démos chatbot
+```
+
+### Ce que ce repo attend des autres repos
+
+| Dépendance | Depuis | Condition |
+|------------|--------|-----------|
+| Architectures pipelines validées | mon-ipad Phase 1 | Copier quand Phase 1 passée |
+| Données Finance dans Supabase | rag-data-ingestion | FinQA + TatQA ingérés |
+| Données Juridique dans Neo4j | rag-data-ingestion | French Case Law ingéré |
+| Données BTP/Industrie dans Pinecone | rag-data-ingestion | Datasets sectoriels BTP/Industrie |
+
+### Ce que ce repo produit pour le projet
+- Site vitrine déployé (preuve de concept pour clients)
+- Dashboard live `/dashboard` avec SSE feed (932q actuellement)
+- Scripts Kimi → vidéos marketing 4 secteurs
+
+---
+
 ## OBJECTIF DE CE REPO
 
 Construire un **Multi-RAG Orchestrator sectoriel** capable de répondre aux questions
