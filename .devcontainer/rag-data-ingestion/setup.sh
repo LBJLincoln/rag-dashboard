@@ -5,23 +5,34 @@ set -euo pipefail
 
 echo "=== Nomos AI — rag-data-ingestion Codespace Setup ==="
 
-N8N_URL="${N8N_HOST:-http://localhost:5678}"
-WORKFLOW_DIR="/workspaces/rag-data-ingestion/n8n/live"
-MAX_WAIT=120
+DEVCONTAINER_DIR="/workspaces/${localWorkspaceFolderBasename:-.}/.devcontainer/rag-data-ingestion"
+REPO_ROOT="/workspaces/${localWorkspaceFolderBasename:-.}"
+N8N_URL="http://localhost:5678"
+WORKFLOW_DIR="${REPO_ROOT}/n8n/live"
+MAX_WAIT=180
 
-# --- 1. Wait for n8n to be ready ---
-echo "[1/7] Waiting for local n8n stack..."
+# --- 1. Start n8n stack via docker compose (queue mode + 2 workers) ---
+echo "[1/7] Starting n8n ingestion stack (docker compose)..."
+if [ -f "${DEVCONTAINER_DIR}/docker-compose.yml" ]; then
+  docker compose -f "${DEVCONTAINER_DIR}/docker-compose.yml" up -d
+  echo "  n8n stack starting (main + 2 workers + PG + Redis)..."
+else
+  echo "  WARN: docker-compose.yml not found, skipping n8n start"
+fi
+
+# --- 2. Wait for n8n to be ready ---
+echo "[2/7] Waiting for local n8n stack..."
 elapsed=0
 until curl -sf "${N8N_URL}/healthz" > /dev/null 2>&1; do
-  sleep 2; elapsed=$((elapsed + 2))
+  sleep 3; elapsed=$((elapsed + 3))
   if [ $elapsed -ge $MAX_WAIT ]; then
     echo "ERROR: n8n not ready after ${MAX_WAIT}s"; exit 1
   fi
 done
 echo "  n8n ready (${elapsed}s)"
 
-# --- 2. Import ingestion + enrichment workflows ---
-echo "[2/7] Importing ingestion workflows..."
+# --- 3. Import ingestion + enrichment workflows ---
+echo "[3/7] Importing ingestion workflows..."
 for wf in ingestion.json enrichment.json; do
   if [ -f "${WORKFLOW_DIR}/${wf}" ]; then
     curl -sf -X POST "${N8N_URL}/api/v1/workflows" \
@@ -33,19 +44,19 @@ for wf in ingestion.json enrichment.json; do
   fi
 done
 
-# --- 3. Install Python deps ---
-echo "[3/7] Installing Python dependencies..."
-pip install -q requests python-dotenv 2>/dev/null
+# --- 4. Install Python deps ---
+echo "[4/7] Installing Python dependencies..."
+pip install -q requests python-dotenv 2>/dev/null || true
 
-# --- 4. Install Claude Code CLI ---
-echo "[4/7] Installing Claude Code CLI..."
+# --- 5. Install Claude Code CLI + MCP ---
+echo "[5/7] Installing Claude Code CLI..."
 npm install -g @anthropic-ai/claude-code 2>/dev/null && echo "  claude installed" || echo "  WARN: claude install failed"
 npm install -g neo4j-mcp 2>/dev/null || true
 npm install @pinecone-database/mcp 2>/dev/null || true
 
-# --- 5. Generate MCP config ---
-echo "[5/7] Configuring MCP servers..."
-cat > /workspaces/rag-data-ingestion/.mcp.json << MCPEOF
+# --- 6. Generate MCP config ---
+echo "[6/7] Configuring MCP servers..."
+cat > "${REPO_ROOT}/.mcp.json" << MCPEOF
 {
   "mcpServers": {
     "n8n": {
@@ -69,7 +80,7 @@ cat > /workspaces/rag-data-ingestion/.mcp.json << MCPEOF
     "pinecone": {
       "type": "stdio",
       "command": "node",
-      "args": ["/workspaces/rag-data-ingestion/node_modules/@pinecone-database/mcp/dist/index.js"],
+      "args": ["${REPO_ROOT}/node_modules/@pinecone-database/mcp/dist/index.js"],
       "env": {
         "PINECONE_API_KEY": "${PINECONE_API_KEY:-}"
       }
@@ -84,7 +95,7 @@ cat > /workspaces/rag-data-ingestion/.mcp.json << MCPEOF
     "jina-embeddings": {
       "type": "stdio",
       "command": "python3",
-      "args": ["/workspaces/rag-data-ingestion/mcp/jina-embeddings-server.py"],
+      "args": ["${REPO_ROOT}/mcp/jina-embeddings-server.py"],
       "env": {
         "JINA_API_KEY": "${JINA_API_KEY:-}",
         "PINECONE_API_KEY": "${PINECONE_API_KEY:-}",
@@ -99,8 +110,8 @@ cat > /workspaces/rag-data-ingestion/.mcp.json << MCPEOF
 MCPEOF
 echo "  .mcp.json generated (n8n → local)"
 
-# --- 6. Verify external DB connectivity ---
-echo "[6/7] Verifying external DB connectivity..."
+# --- 7. Verify environment ---
+echo "[7/7] Verifying environment..."
 python3 -c "
 import os
 checks = {
@@ -114,19 +125,19 @@ for key, label in checks.items():
     val = os.environ.get(key, '')
     status = 'OK' if val else 'MISSING (set as Codespace secret)'
     print(f'  {label}: {status}')
-" 2>/dev/null
+" 2>/dev/null || true
 
-# --- 7. Verify sector datasets ---
-echo "[7/7] Checking sector datasets..."
+# Check sector datasets
+echo "  Checking sector datasets..."
 for sector in btp industrie finance juridique; do
-  count=$(find /workspaces/rag-data-ingestion/datasets -iname "*${sector}*" 2>/dev/null | wc -l)
-  echo "  ${sector}: ${count} files"
+  count=\$(find "${REPO_ROOT}/datasets" -iname "*\${sector}*" 2>/dev/null | wc -l)
+  echo "    \${sector}: \${count} files"
 done
 
 echo ""
 echo "=== Setup complete ==="
 echo "  n8n local:    ${N8N_URL}"
-echo "  Claude Code:  claude (run from /workspace)"
+echo "  Claude Code:  claude (run from ${REPO_ROOT})"
 echo "  Workflows:    Ingestion V3.1 + Enrichissement V3.1"
 echo "  Workers:      2 (queue mode, concurrency 5 each)"
 echo ""

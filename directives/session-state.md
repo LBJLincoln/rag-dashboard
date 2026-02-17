@@ -1,39 +1,57 @@
-# Session State — 17 Fevrier 2026 (Session 11)
+# Session State — 17 Fevrier 2026 (Session 11b)
 
 ## Objectif de session
 Deploiement complet de l'architecture multi-repo : chaque projet autonome dans son Codespace, mon-ipad comme tour de controle.
 
+## Architecture finale (DEFINITIVE)
+
+### Principe
+- `devcontainer.json` = image-based UNIQUEMENT (PAS de dockerComposeFile)
+- `docker-compose.yml` = fichier STANDALONE, demarre par `setup.sh` via `docker compose up -d`
+- Cela evite que SSH atterrisse dans le mauvais conteneur (bug precedent)
+
+### Distribution par repo
+| Repo | Execution | n8n | Docker compose | Workflows |
+|------|-----------|-----|---------------|-----------|
+| **mon-ipad** | VM GCP e2-micro | Permanent (11 actifs) | Deja en place | 4 RAG + 7 support |
+| **rag-website** | Codespace | Local (demarre par setup.sh) | n8n + PG | 4 RAG + feedback + benchmark |
+| **rag-tests** | Codespace | Remote (VM via SSH tunnel) | Aucun | Aucun local |
+| **rag-data-ingestion** | Codespace | Local (demarre par setup.sh) | n8n + 2 workers + PG + Redis | Ingestion V3.1 + Enrichissement V3.1 |
+| **rag-dashboard** | Vercel / GH Pages | Aucun | Aucun | Aucun (read-only) |
+
+### Chaque Codespace inclut
+- Ubuntu (mcr.microsoft.com/devcontainers/universal:2)
+- Python 3.11, Node.js 20, Docker-in-Docker
+- Claude Code CLI (`@anthropic-ai/claude-code`)
+- `.mcp.json` auto-genere (n8n, neo4j, pinecone, supabase, jina)
+- `CLAUDE.md` role-specifique
+
 ## Taches completees cette session
 
 ### Phase A — Credentials
-- Token GitHub mis a jour sur les 5 remotes (ghp_M89...)
-- Cle OpenRouter mise a jour dans .env.local (sk-or-v1-a56...)
-- gh CLI authentifie (LBJLincoln, scopes complets incl. codespace)
+- Token GitHub mis a jour sur les 5 remotes
+- Cle OpenRouter mise a jour dans .env.local
+- gh CLI authentifie (LBJLincoln, scopes complets)
 
-### Phase B — Architecture Codespace complete
-- **rag-website** : devcontainer.json + docker-compose.yml (n8n avec 4 pipelines RAG + PG) + setup.sh
-- **rag-tests** : devcontainer.json mis a jour + setup.sh (SSH tunnel vers VM Redis/PG)
-- **rag-data-ingestion** : devcontainer.json mis a jour + setup.sh (stack n8n isole)
-- **rag-dashboard** : devcontainer.json + setup.sh + CLAUDE.md (NOUVEAU — manquait)
-- Tous les devcontainers utilisent `postCreateCommand: bash .devcontainer/<repo>/setup.sh`
+### Phase B — Architecture Codespace
+- 4 devcontainer configs (rag-website, rag-tests, rag-data-ingestion, rag-dashboard)
+- docker-compose.yml STANDALONE pour rag-website et rag-data-ingestion
+- setup.sh demarre docker-compose + attend n8n + importe workflows + installe Claude Code
+- rag-tests = pas de n8n local (connecte a la VM remote)
+- rag-dashboard = site statique (pas de Docker)
 
-### Phase C — Scripts d'orchestration (tour de controle)
+### Phase C — Scripts d'orchestration
 - `scripts/deploy-codespaces.sh` : create/start/stop/ssh/tunnel/status/push-all
-- `scripts/sync-workflows.sh` : export workflows n8n API → n8n/live/ + snapshot/current/
+- `scripts/sync-workflows.sh` : export workflows n8n API
 
 ### Phase D — Fix port 8080
-- Port 8080 bloque par firewall GCP (pas de permission compute.firewalls.create)
-- Workaround : webhook `/webhook/nomos-status` (KcfzvJD6yydxY9Uk) sur port 5678 = accessible externe
-- API dashboard + SSE stream mis a jour pour utiliser 5678/webhook/nomos-status
-- Teste et valide : HTTP 200 depuis IP externe
+- Workaround webhook `/webhook/nomos-status` sur port 5678
 
 ## Decisions prises
-- STATUS_API_URL = `http://34.136.180.66:5678/webhook/nomos-status` (pas port 8080)
-- rag-website a son PROPRE n8n avec les 4 pipelines importees via setup.sh
-- rag-data-ingestion a son PROPRE n8n isole (PG + Redis locaux)
-- rag-tests utilise les workers connectes au n8n de la VM via SSH tunnel
-- rag-dashboard = site statique, pas de Docker
-- Chaque repo est autonome avec setup.sh, CLAUDE.md role-specifique, docker-compose
+- Docker-compose = STANDALONE (PAS dans devcontainer.json → bug SSH resolu)
+- setup.sh fait `docker compose -f ... up -d` puis attend n8n
+- rag-tests = remote-only (pas de n8n local)
+- rag-dashboard = pas de Codespace necessaire (Vercel/GH Pages)
 
 ## Etat des workflows (VM)
 | Workflow | ID | Active |
@@ -45,22 +63,6 @@ Deploiement complet de l'architecture multi-repo : chaque projet autonome dans s
 | Dashboard Status API | KcfzvJD6yydxY9Uk | ON |
 | Benchmark V3.0 | LKZO1QQY9jvBltP0 | ON |
 | Monitoring Dashboard | tLNh3wTty7sEprLj | ON |
-| SQL Executor | 22k9541l9mHENlLD | ON |
-| Orchestrator Tester | m9jaYzWMSVbBFeSf | ON |
-| RAG Batch Tester | y2FUkI5SZfau67dN | ON |
-| Feedback V3.1 | F70g14jMxIGCZnFz | ON |
-| Ingestion V3.1 | 15sUKy5lGL4rYW0L | OFF (→ Codespace) |
-| Enrichissement V3.1 | 9V2UTVRbf4OJXPto | OFF (→ Codespace) |
-| Dataset Ingestion | YaHS9rVb1osRUJpE | OFF (→ Codespace) |
-
-## Distribution des workflows par repo
-| Repo | Workflows n8n | Docker | Execution |
-|------|--------------|--------|-----------|
-| mon-ipad (VM) | 11 actifs (4 RAG + 7 support) | n8n + PG + Redis | Permanent |
-| rag-website | 4 RAG + feedback + benchmark (importes via setup.sh) | n8n + PG | Codespace |
-| rag-tests | Aucun local (workers connectes a VM) | 2 workers n8n | Codespace |
-| rag-data-ingestion | Ingestion V3.1 + Enrichissement V3.1 | n8n + 2 workers + PG + Redis | Codespace |
-| rag-dashboard | Aucun (read-only) | Aucun | Vercel/GH Pages |
 
 ## Etat Phase 1 (inchange)
 | Pipeline | Accuracy | Target | Status |
@@ -71,30 +73,11 @@ Deploiement complet de l'architecture multi-repo : chaque projet autonome dans s
 | Orchestrator | 80.0% | >= 70% | PASS |
 | **Overall** | **78.1%** | **>= 75%** | **PASS** |
 
-## Repos impactes
-- mon-ipad (origin) — scripts, devcontainers, API routes, session-state
-- rag-website — devcontainer + docker-compose + setup.sh
-- rag-tests — devcontainer + setup.sh
-- rag-data-ingestion — devcontainer + setup.sh
-- rag-dashboard — devcontainer + CLAUDE.md + setup.sh (NOUVEAU)
-
-## Blockers resolus
-- ~~gh CLI pas installe~~ → gh 2.86.0 installe + authentifie
-- ~~Port 8080 bloque~~ → workaround webhook 5678
-
-## Blockers restants
-- Vercel : user doit connecter via browser (pas encore fait)
-- Codespaces : pas encore crees (scripts prets, attente push)
-- Codespace secrets : credentials non configures dans GitHub Settings
-
 ## Derniere action
-Push vers tous les 5 repos avec scripts + devcontainers complets
+Fix complet : docker-compose standalone + setup.sh updated + commit + push
 
 ## Prochaine action
-1. Creer les Codespaces via `bash scripts/deploy-codespaces.sh create-all`
-2. Configurer les Codespace secrets (OPENROUTER_API_KEY, JINA_API_KEY, etc.)
-3. Deployer Vercel (connecter repo rag-website dans browser)
-4. Phase 2 : corriger Graph (68.7% → 70%) et Quantitative (78.3% → 85%)
-
-## Commits
-- [pending] session11: architecture multi-repo complete + orchestration scripts
+1. Supprimer les Codespaces casses
+2. Recreer les Codespaces propres
+3. Verifier SSH → Ubuntu + Docker + Claude Code
+4. Phase 2 : corriger Graph et Quantitative

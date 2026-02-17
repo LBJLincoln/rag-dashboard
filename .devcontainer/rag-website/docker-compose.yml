@@ -1,38 +1,20 @@
+# Standalone n8n stack for rag-website Codespace
+# Started by setup.sh AFTER devcontainer is built (NOT referenced in devcontainer.json)
 version: '3.8'
 services:
-  workspace:
-    image: mcr.microsoft.com/devcontainers/universal:2
-    volumes:
-      - ../..:/workspace:cached
-    command: sleep infinity
-
-  # n8n instance with all 4 RAG pipelines for sector-specific queries
   n8n:
     image: n8nio/n8n:latest
     ports:
       - "5678:5678"
     environment:
-      - N8N_HOST=0.0.0.0
-      - N8N_PORT=5678
-      - N8N_PROTOCOL=http
-      - EXECUTIONS_MODE=regular
       - DB_TYPE=postgresdb
       - DB_POSTGRESDB_HOST=postgres
       - DB_POSTGRESDB_PORT=5432
       - DB_POSTGRESDB_DATABASE=n8n_website
       - DB_POSTGRESDB_USER=n8n
       - DB_POSTGRESDB_PASSWORD=${DB_POSTGRESDB_PASSWORD:-n8npass}
-      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-website-enc-key-change-me}
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-nomos-website-key}
       - N8N_CONCURRENCY_PRODUCTION_LIMIT=5
-      - GENERIC_TIMEZONE=Europe/Paris
-      # External DB credentials (passed from .env.local)
-      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
-      - JINA_API_KEY=${JINA_API_KEY}
-      - PINECONE_API_KEY=${PINECONE_API_KEY}
-      - NEO4J_URI=${NEO4J_URI}
-      - NEO4J_PASSWORD=${NEO4J_PASSWORD}
-      - SUPABASE_API_KEY=${SUPABASE_API_KEY}
-      - SUPABASE_URL=${SUPABASE_URL}
     volumes:
       - n8n_website_data:/home/node/.n8n
     depends_on:

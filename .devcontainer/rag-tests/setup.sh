@@ -1,10 +1,12 @@
 #!/bin/bash
 # rag-tests Codespace bootstrap
-# Installs: 2 n8n workers (SSH tunnel to VM) + Claude Code CLI + eval scripts
+# No local n8n — uses VM remote n8n via SSH tunnel
+# Installs: Claude Code CLI + eval scripts + MCP
 set -euo pipefail
 
 echo "=== Nomos AI — rag-tests Codespace Setup ==="
 
+REPO_ROOT="/workspaces/${localWorkspaceFolderBasename:-.}"
 VM_HOST="${VM_HOST:-34.136.180.66}"
 N8N_URL="http://${VM_HOST}:5678"
 MAX_WAIT=60
@@ -20,12 +22,12 @@ fi
 
 # --- 2. Install Python deps ---
 echo "[2/7] Installing Python dependencies..."
-pip install -q requests python-dotenv numpy 2>/dev/null
+pip install -q requests python-dotenv numpy 2>/dev/null || true
 
 # --- 3. Verify eval scripts ---
 echo "[3/7] Verifying eval scripts..."
 for script in eval/quick-test.py eval/iterative-eval.py eval/run-eval-parallel.py eval/node-analyzer.py; do
-  if [ -f "/workspaces/rag-tests/${script}" ]; then
+  if [ -f "${REPO_ROOT}/${script}" ]; then
     echo "  OK: ${script}"
   else
     echo "  MISSING: ${script}"
@@ -34,10 +36,10 @@ done
 
 # --- 4. Verify datasets ---
 echo "[4/7] Checking datasets..."
-dataset_count=$(find /workspaces/rag-tests/datasets -name "*.json" 2>/dev/null | wc -l)
+dataset_count=$(find "${REPO_ROOT}/datasets" -name "*.json" 2>/dev/null | wc -l)
 echo "  Found ${dataset_count} dataset files"
 
-# --- 5. Install Claude Code CLI ---
+# --- 5. Install Claude Code CLI + MCP ---
 echo "[5/7] Installing Claude Code CLI..."
 npm install -g @anthropic-ai/claude-code 2>/dev/null && echo "  claude installed" || echo "  WARN: claude install failed"
 npm install -g neo4j-mcp 2>/dev/null || true
@@ -45,7 +47,7 @@ npm install @pinecone-database/mcp 2>/dev/null || true
 
 # --- 6. Generate MCP config ---
 echo "[6/7] Configuring MCP servers..."
-cat > /workspaces/rag-tests/.mcp.json << MCPEOF
+cat > "${REPO_ROOT}/.mcp.json" << MCPEOF
 {
   "mcpServers": {
     "n8n": {
@@ -70,7 +72,7 @@ cat > /workspaces/rag-tests/.mcp.json << MCPEOF
     "pinecone": {
       "type": "stdio",
       "command": "node",
-      "args": ["/workspaces/rag-tests/node_modules/@pinecone-database/mcp/dist/index.js"],
+      "args": ["${REPO_ROOT}/node_modules/@pinecone-database/mcp/dist/index.js"],
       "env": {
         "PINECONE_API_KEY": "${PINECONE_API_KEY:-}"
       }
@@ -85,7 +87,7 @@ cat > /workspaces/rag-tests/.mcp.json << MCPEOF
     "jina-embeddings": {
       "type": "stdio",
       "command": "python3",
-      "args": ["/workspaces/rag-tests/mcp/jina-embeddings-server.py"],
+      "args": ["${REPO_ROOT}/mcp/jina-embeddings-server.py"],
       "env": {
         "JINA_API_KEY": "${JINA_API_KEY:-}",
         "PINECONE_API_KEY": "${PINECONE_API_KEY:-}",
@@ -108,15 +110,14 @@ for key in ['N8N_HOST', 'OPENROUTER_API_KEY', 'JINA_API_KEY', 'PINECONE_API_KEY'
     val = os.environ.get(key, '')
     status = 'OK' if val else 'MISSING (set as Codespace secret)'
     print(f'  {key}: {status}')
-" 2>/dev/null
+" 2>/dev/null || true
 
 echo ""
 echo "=== Setup complete ==="
 echo "  VM n8n:      http://${VM_HOST}:5678"
-echo "  Claude Code: claude (run from /workspace)"
-echo "  Workers:     docker-compose up -d (starts 2 n8n workers)"
+echo "  Claude Code: claude (run from ${REPO_ROOT})"
+echo "  Mode:        Remote tests (no local n8n)"
 echo ""
 echo "Next steps:"
 echo "  1. source .env.local (if exists)"
-echo "  2. docker-compose -f .devcontainer/rag-tests/docker-compose.yml up -d"
-echo "  3. claude  (launches Claude Code with CLAUDE.md from .devcontainer/rag-tests/)"
+echo "  2. claude  (launches Claude Code with CLAUDE.md)"

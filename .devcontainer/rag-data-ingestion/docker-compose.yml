@@ -1,12 +1,9 @@
+# Standalone n8n stack for rag-data-ingestion Codespace
+# Started by setup.sh AFTER devcontainer is built (NOT referenced in devcontainer.json)
+# Queue mode with 2 workers for parallel ingestion
 version: '3.8'
 services:
-  workspace:
-    image: mcr.microsoft.com/devcontainers/universal:2
-    volumes:
-      - ../..:/workspace:cached
-    command: sleep infinity
-
-  n8n-ingestion:
+  n8n:
     image: n8nio/n8n:latest
     ports:
       - "5678:5678"
@@ -19,8 +16,8 @@ services:
       - DB_POSTGRESDB_PORT=5432
       - DB_POSTGRESDB_DATABASE=n8n_ingestion
       - DB_POSTGRESDB_USER=n8n
-      - DB_POSTGRESDB_PASSWORD=${DB_POSTGRESDB_PASSWORD}
-      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
+      - DB_POSTGRESDB_PASSWORD=${DB_POSTGRESDB_PASSWORD:-n8npass}
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-nomos-ingestion-key}
       - N8N_CONCURRENCY_PRODUCTION_LIMIT=2
     volumes:
       - n8n_ingestion_data:/home/node/.n8n
@@ -31,7 +28,7 @@ services:
         condition: service_started
     restart: unless-stopped
 
-  n8n-ingestion-worker-1:
+  n8n-worker-1:
     image: n8nio/n8n:latest
     command: worker
     environment:
@@ -43,14 +40,14 @@ services:
       - DB_POSTGRESDB_PORT=5432
       - DB_POSTGRESDB_DATABASE=n8n_ingestion
       - DB_POSTGRESDB_USER=n8n
-      - DB_POSTGRESDB_PASSWORD=${DB_POSTGRESDB_PASSWORD}
-      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
+      - DB_POSTGRESDB_PASSWORD=${DB_POSTGRESDB_PASSWORD:-n8npass}
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-nomos-ingestion-key}
       - N8N_CONCURRENCY_PRODUCTION_LIMIT=5
     depends_on:
-      - n8n-ingestion
+      - n8n
     restart: unless-stopped
 
-  n8n-ingestion-worker-2:
+  n8n-worker-2:
     image: n8nio/n8n:latest
     command: worker
     environment:
@@ -62,11 +59,11 @@ services:
       - DB_POSTGRESDB_PORT=5432
       - DB_POSTGRESDB_DATABASE=n8n_ingestion
       - DB_POSTGRESDB_USER=n8n
-      - DB_POSTGRESDB_PASSWORD=${DB_POSTGRESDB_PASSWORD}
-      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
+      - DB_POSTGRESDB_PASSWORD=${DB_POSTGRESDB_PASSWORD:-n8npass}
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-nomos-ingestion-key}
       - N8N_CONCURRENCY_PRODUCTION_LIMIT=5
     depends_on:
-      - n8n-ingestion
+      - n8n
     restart: unless-stopped
 
   postgres:
@@ -74,7 +71,7 @@ services:
     environment:
       POSTGRES_DB: n8n_ingestion
       POSTGRES_USER: n8n
-      POSTGRES_PASSWORD: ${DB_POSTGRESDB_PASSWORD}
+      POSTGRES_PASSWORD: ${DB_POSTGRESDB_PASSWORD:-n8npass}
     volumes:
       - postgres_ingestion_data:/var/lib/postgresql/data
     healthcheck:
