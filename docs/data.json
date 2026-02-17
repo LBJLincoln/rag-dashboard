@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-02-17T11:14:40.706786Z",
+    "generated_at": "2026-02-17T15:33:48.965532Z",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
@@ -28877,26 +28877,6 @@
   },
   "quick_tests": [
     {
-      "timestamp": "2026-02-15T13:59:30.896369Z",
-      "pipeline": "quantitative",
-      "query": "What was TechVision's revenue in Q1 2023?",
-      "status": "pass",
-      "latency_ms": 12813,
-      "response_preview": "Based on the executed SQL query, there is no data available for TechVision's revenue in Q1 2023. The query returned 0 rows, indicating that either TechVision did not report revenue for that period, or",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-15T14:00:07.215697Z",
-      "pipeline": "orchestrator",
-      "query": "What is the capital of Japan?",
-      "status": "pass",
-      "latency_ms": 36269,
-      "response_preview": "The capital city of Japan is Tokyo.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
       "timestamp": "2026-02-15T14:02:08.585087Z",
       "pipeline": "orchestrator",
       "query": "What was TechVision Inc's total revenue in 2023?",
@@ -29372,6 +29352,26 @@
       "query": "What is the capital of Japan?",
       "status": "fail",
       "latency_ms": 79993,
+      "response_preview": "Unable to generate answer",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-17T15:32:34.465853Z",
+      "pipeline": "graph",
+      "query": "What did Marie Curie win Nobel Prizes for?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "timed out"
+    },
+    {
+      "timestamp": "2026-02-17T15:33:48.965470Z",
+      "pipeline": "standard",
+      "query": "What is the capital of Japan?",
+      "status": "fail",
+      "latency_ms": 46001,
       "response_preview": "Unable to generate answer",
       "trigger": "manual",
       "error": null

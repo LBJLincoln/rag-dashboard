@@ -75,7 +75,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "Bearer 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"
+              "value": "Bearer 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"
             }
           ]
         }
@@ -414,7 +414,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "Bearer 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"
+              "value": "Bearer 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"
             }
           ]
         }
@@ -588,7 +588,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "Bearer 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"
+              "value": "Bearer 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"
             }
           ]
         }
@@ -1044,7 +1044,7 @@
             "parameters": [
               {
                 "name": "Authorization",
-                "value": "Bearer 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"
+                "value": "Bearer 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"
               }
             ]
           }
@@ -1383,7 +1383,7 @@
             "parameters": [
               {
                 "name": "Authorization",
-                "value": "Bearer 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"
+                "value": "Bearer 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"
               }
             ]
           }
@@ -1557,7 +1557,7 @@
             "parameters": [
               {
                 "name": "Authorization",
-                "value": "Bearer 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"
+                "value": "Bearer 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"
               }
             ]
           }
