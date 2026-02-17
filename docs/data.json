@@ -32914,7 +32914,7 @@
               {
                 "param": "headerParameters",
                 "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}"
               }
             ]
           },
@@ -32924,7 +32924,7 @@
               {
                 "param": "headerParameters",
                 "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}"
               }
             ]
           },
@@ -32944,7 +32944,7 @@
               {
                 "param": "headerParameters",
                 "old": "{'parameters': [{'name': 'Api-Key', 'value': 'pcsk_REDACTED'}, {'name': 'Content-Type', 'value': 'application/json'}]}",
-                "new": "{'parameters': [{'name': 'Api-Key', 'value': 'pcsk_6GzVdD_BbHsYNvpcngMqAHH5EvEa9XLnmFpEK9cx5q5xkMp72z5KFQ1q7dEjp8npWhJGBY'}, {'name': 'Content-Type', 'value': 'application/json'}]}"
+                "new": "{'parameters': [{'name': 'Api-Key', 'value': 'pcsk_REDACTED'}, {'name': 'Content-Type', 'value': 'application/json'}]}"
               },
               {
                 "param": "url",
@@ -32964,7 +32964,7 @@
               {
                 "param": "headerParameters",
                 "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer REDACTED_COHERE_KEY'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer jina_f1348176dc7a4f0da9996cfa6cfa6eecasLHpAw7iEXFqU6eHi9SQBuxqT0F'}]}"
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer jina_REDACTED'}]}"
               },
               {
                 "param": "url",
@@ -32984,7 +32984,7 @@
               {
                 "param": "headerParameters",
                 "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer REDACTED_COHERE_KEY'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer jina_f1348176dc7a4f0da9996cfa6cfa6eecasLHpAw7iEXFqU6eHi9SQBuxqT0F'}]}"
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer jina_REDACTED'}]}"
               },
               {
                 "param": "url",
@@ -32999,7 +32999,7 @@
               {
                 "param": "headerParameters",
                 "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer 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'}]}"
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer sk-or-v1-REDACTED'}]}"
               }
             ]
           },
@@ -33009,7 +33009,7 @@
               {
                 "param": "headerParameters",
                 "old": "{'parameters': [{'name': 'Api-Key', 'value': 'pcsk_REDACTED'}, {'name': 'Content-Type', 'value': 'application/json'}]}",
-                "new": "{'parameters': [{'name': 'Api-Key', 'value': 'pcsk_6GzVdD_BbHsYNvpcngMqAHH5EvEa9XLnmFpEK9cx5q5xkMp72z5KFQ1q7dEjp8npWhJGBY'}, {'name': 'Content-Type', 'value': 'application/json'}]}"
+                "new": "{'parameters': [{'name': 'Api-Key', 'value': 'pcsk_REDACTED'}, {'name': 'Content-Type', 'value': 'application/json'}]}"
               },
               {
                 "param": "url",
@@ -33029,7 +33029,7 @@
               {
                 "param": "headerParameters",
                 "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer REDACTED_COHERE_KEY'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer jina_f1348176dc7a4f0da9996cfa6cfa6eecasLHpAw7iEXFqU6eHi9SQBuxqT0F'}]}"
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer jina_REDACTED'}]}"
               },
               {
                 "param": "url",
