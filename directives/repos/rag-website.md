@@ -1,7 +1,8 @@
 # rag-website — CLAUDE.md
 
 > **Ce repo s'exécute dans un Codespace GitHub éphémère (dev) + Vercel (prod).**
-> Tu es un agent Claude Code spécialisé dans le SITE BUSINESS multi-secteurs.
+> Tu es un agent Claude Code (`claude-opus-4-6`) spécialisé dans le SITE BUSINESS multi-secteurs.
+> **MODÈLE OBLIGATOIRE : `claude-opus-4-6`** — lancer `bash scripts/setup-claude-opus.sh` au démarrage.
 > Tu suis le même workflow-process que mon-ipad, adapté à ton objectif secteur.
 
 ---

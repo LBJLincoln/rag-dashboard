@@ -2,6 +2,7 @@
 
 > **CE REPO (`mon-ipad`) EST LA TOUR DE CONTRÔLE.**
 > VM Google Cloud permanente · Claude Code via Termius · Pilote 4 repos satellites
+> **MODÈLE OBLIGATOIRE : `claude-opus-4-6` (abonnement Max) — PAS Sonnet.**
 > **Lire cette section EN PREMIER à chaque session.**
 
 ---
@@ -83,10 +84,10 @@ doivent atteindre leurs cibles + 3 itérations stables consécutives.
 | | |
 |-|-|
 | **Dernier commit** | 9f5a53dd — 17 fév 2026 |
-| **État** | Scripts à jour, SSH tunnel configuré |
-| **Codespace** | Shutdown (à redémarrer pour tests 50q+) |
-| **Prochain objectif** | 200q complets tous pipelines → data.json mis à jour |
-| **Commandes clés** | `python3 eval/iterative-eval.py --label "Phase1-fix-quant"` |
+| **État** | Scripts à jour, **n8n LOCAL dans Codespace** (docker-compose, 3 workers) |
+| **Codespace** | Shutdown (à redémarrer — `docker compose up -d` au démarrage) |
+| **Prochain objectif** | Fix Quantitative 78.3%→85% (gap -6.7pp) |
+| **Commandes clés** | `docker compose up -d && python3 eval/iterative-eval.py --label "Phase1-fix-quant"` |
 | **Données** | 932 questions testées, 42 itérations, docs/data.json |
 
 ### `rag-website` — Site business 4 secteurs
@@ -148,11 +149,11 @@ gh codespace create --repo LBJLincoln/rag-data-ingestion --machine basicLinux32g
 gh codespace ssh --codespace <name>
 # → télécharger datasets HuggingFace → ingérer → Pinecone+Neo4j+Supabase
 
-# Codespace 2 : rag-tests (tunnel SSH → VM n8n)
+# Codespace 2 : rag-tests (n8n LOCAL — docker-compose, 3 workers)
 gh codespace start --codespace nomos-rag-tests-5g6g5q9vjjwjf5g4
 gh codespace ssh --codespace nomos-rag-tests-5g6g5q9vjjwjf5g4
-# → ssh -L 5678:localhost:5678 user@34.136.180.66 -N &
-# → python3 eval/iterative-eval.py --label "Phase1-200q"
+# → docker compose up -d   (n8n-main + 3 workers + redis + postgres)
+# → source .env.local && python3 eval/iterative-eval.py --label "Phase1-200q"
 
 # Codespace 3 : rag-website (Vercel stateless)
 gh codespace start --codespace nomos-rag-website-jr7q9gr69qqfqp6r
@@ -178,7 +179,22 @@ gh codespace start --codespace nomos-rag-website-jr7q9gr69qqfqp6r
 
 ## CE QUE TU ES ET CE QUE TU FAIS PRECISEMENT
 
-Tu es Claude Code (claude-sonnet-4-5) exécuté dans **Termius** connecté à la **VM Google Cloud** (`34.136.180.66`). Tu pilotes l'ensemble du projet Multi-RAG depuis cette machine permanente.
+### MODÈLE OBLIGATOIRE — Opus 4.6
+**TOUJOURS utiliser `claude-opus-4-6` (jamais Sonnet).** L'abonnement Max donne accès au meilleur modèle Anthropic disponible.
+
+```bash
+# Au démarrage de chaque session / Codespace :
+bash scripts/setup-claude-opus.sh
+# OU lancer directement :
+claude --model claude-opus-4-6
+```
+
+Le fichier `.claude/settings.json` contient `"model": "claude-opus-4-6"`.
+Tous les repos satellites doivent faire de même (voir `directives/repos/*.md`).
+
+---
+
+Tu es Claude Code (`claude-opus-4-6`) exécuté dans **Termius** connecté à la **VM Google Cloud** (`34.136.180.66`). Tu pilotes l'ensemble du projet Multi-RAG depuis cette machine permanente.
 
 ### Tes actions concrètes
 | Action | Outil | Détail |

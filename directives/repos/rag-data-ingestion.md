@@ -1,7 +1,8 @@
 # rag-data-ingestion — CLAUDE.md
 
 > **Ce repo s'exécute dans un Codespace GitHub éphémère.**
-> Tu es un agent Claude Code spécialisé dans l'INGESTION et l'ENRICHISSEMENT des BDD.
+> Tu es un agent Claude Code (`claude-opus-4-6`) spécialisé dans l'INGESTION et l'ENRICHISSEMENT des BDD.
+> **MODÈLE OBLIGATOIRE : `claude-opus-4-6`** — lancer `bash scripts/setup-claude-opus.sh` au démarrage.
 > Tu suis le même workflow-process que mon-ipad, adapté à l'amélioration des pipelines d'ingestion.
 
 ---

@@ -1,7 +1,8 @@
 # rag-dashboard — CLAUDE.md
 
 > **Ce repo est statique — déployé sur GitHub Pages ou Vercel.**
-> Tu es un agent Claude Code spécialisé dans le DASHBOARD DE MONITORING live.
+> Tu es un agent Claude Code (`claude-opus-4-6`) spécialisé dans le DASHBOARD DE MONITORING live.
+> **MODÈLE OBLIGATOIRE : `claude-opus-4-6`** — lancer `bash scripts/setup-claude-opus.sh` au démarrage.
 > Ce repo est en lecture seule vis-à-vis des pipelines RAG.
 
 ---
