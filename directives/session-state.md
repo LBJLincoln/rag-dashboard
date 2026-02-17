@@ -1,57 +1,48 @@
-# Session State — 17 Février 2026 (Session 13 — Research + Website/Dashboard redesign)
+# Session State — 17 Février 2026 (Session 14 — Opus 4.6 + VM→Codespace migration)
 
 ## Objectif de session
-Appliquer les recommandations du fichier "new mardi17feb26" + rechercher les papers scientifiques Feb 2026 + analyser les 4 repos satellites + implémenter toutes les modifications en parallèle.
+Migration architecture : VM Google Cloud passe en mode STOCKAGE UNIQUEMENT.
+n8n arrêté sur VM. Tout le calcul délégué aux Codespaces GitHub.
+Opus 4.6 obligatoire dans tous les repos.
 
-## Actions Session 13 (17 fév 2026) — Team-Agentique 5 agents
+## Décisions prises (session 14)
 
-### Agents parallèles lancés
-| Agent | Mission | Résultat |
-|-------|---------|----------|
-| `a9aa3e8` | Recherche papers Jan-Fév 2026 (10 topics) | ✅ Rapport complet 10 sections |
-| `a48f28f` | Analyse complète 4 repos satellites | ✅ 47 fichiers, gaps identifiés |
-| `a49e61c` | Dashboard SSE gaming + pédagogie | ✅ 6 nouveaux fichiers, 1136 LOC |
-| `abe7ae5` | Website business redesign + Apple + Kimi | ✅ 9 fichiers créés/modifiés |
+### 1. VM = Stockage permanent uniquement
+- n8n ARRÊTÉ sur la VM (`docker compose stop n8n`)
+- Redis + PostgreSQL restent (stockage historique)
+- Codespaces font tout le calcul
+- Si Codespace crashe → résultats préservés GitHub (push automatique avant arrêt)
 
-### Papers clés Jan-Fév 2026 trouvés
-- **A-RAG** (arXiv:2602.03442) : Hierarchical retrieval (keyword/semantic/chunk-read)
-- **DeepRead** (arXiv:2602.05014) : Document structure-aware reasoning multi-turn
-- **Agentic-R** (arXiv:2601.11888) : Retriever fine-tuning pour agentic search
-- **Late Chunking** (arXiv:2409.04701) : +10-12% retrieval, natif Jina `late_chunking=True`
-- **RAG-Studio** (ACL EMNLP 2024) : Domain adaptation synthétique (BTP/Finance/Juridique)
+### 2. n8n LOCAL dans chaque Codespace
+- `rag-tests` : docker-compose.yml pushé (n8n-main + 3 workers + redis + postgres)
+- `rag-data-ingestion` : docker-compose.yml déjà en place (2 workers)
+- Workflows importés depuis `n8n/current/` via sync.py au démarrage Codespace
 
-### Enterprise Production Gates 2026 identifiés (non mesurés actuellement)
-- Faithfulness >= 95% | Context Recall >= 85% | Hallucination <= 2% | Latency <= 2.5s
+### 3. claude-opus-4-6 PARTOUT
+- `.claude/settings.json` : `"model": "claude-opus-4-6"` ✅
+- `.env.local` : `ANTHROPIC_MODEL=claude-opus-4-6` ✅
+- `scripts/setup-claude-opus.sh` : script déploiement Opus dans tout Codespace ✅
+- `directives/repos/*.md` (4 repos) : header Opus 4.6 ajouté ✅
+- `CLAUDE.md` : mis à jour avec nouvelle architecture ✅
 
-### Fichiers website créés/modifiés (session 13)
-| Fichier | LOC | Changement |
-|---------|-----|-----------|
-| `Hero.tsx` | 129 | Rewrite : problem-first, pain points cycliques, dual CTA |
-| `SectorCard.tsx` | 136 | Rewrite Apple : pain point BIG, ROI chips, bouton vidéo |
-| `BentoGrid.tsx` | 61 | Header "Votre secteur. Vos documents." |
-| `HowItWorks.tsx` | 163 | "Sous le capot" — pipelines en sous-section |
-| `VideoModal.tsx` | 175 | NOUVEAU : storyboard cinématique scripts Kimi |
-| `DashboardCTA.tsx` | 95 | NOUVEAU : section transparence benchmarks |
-| `page.tsx` | 45 | + DashboardCTA, ordre révisé |
-| `constants.ts` | 200+ | painPoint, ROI chips, videoScript par secteur |
-| `types/sector.ts` | +15 | VideoScriptRow, champs optionnels secteur |
+## Commits session 14
+| Hash | Description |
+|------|-------------|
+| d480212 | feat(opus+n8n): Opus 4.6 mandatory + n8n local Codespace pour rag-tests |
+| (en cours) | feat(vm): arrêt n8n VM, architecture VM=stockage |
 
-### Fichiers dashboard créés/modifiés (session 13)
-| Fichier | LOC | Type |
-|---------|-----|------|
-| `stores/evalStore.ts` | 334 | NOUVEAU : Zustand SSE store + XP levels |
-| `hooks/useEvalStream.ts` | 106 | NOUVEAU : SSE hook auto-reconnect |
-| `dashboard/live/QuestionRow.tsx` | 189 | NOUVEAU : terminal-style Q&A |
-| `dashboard/live/VirtualizedFeedList.tsx` | 192 | NOUVEAU : liste scrollable |
-| `dashboard/live/FeedStatusBar.tsx` | 112 | NOUVEAU : stats temps réel |
-| `dashboard/live/MilestoneNotification.tsx` | 203 | NOUVEAU : toast gaming |
-| `app/dashboard/page.tsx` | +439 | MAJ : XPBar + live feed + pédagogie |
+## État infrastructure actuel
+```
+VM (34.136.180.66) :
+  n8n          : STOPPED
+  Redis        : Up (stockage)
+  PostgreSQL   : Up (stockage)
+  RAM disponible : ~230MB (était ~100MB avec n8n actif)
 
-### Fichiers docs mis à jour
-- `technicals/rag-research-2026.md` : Sections 9-10 (nouveaux papers + 10 actions prioritaires)
-- `directives/objective.md` : Production gates + priorités + livrables session 13
-- `CLAUDE.md` : Production gates + papers Feb 2026 + livrables website/dashboard
-- `directives/session-state.md` : Ce fichier
+GitHub (source de vérité) :
+  docker-compose.yml dans rag-tests : ✅ (3 workers)
+  docker-compose.yml dans rag-data-ingestion : ✅ (2 workers)
+```
 
 ## État des pipelines (inchangé — tests non lancés cette session)
 | Pipeline | Accuracy | Target | Status |
@@ -62,39 +53,20 @@ Appliquer les recommandations du fichier "new mardi17feb26" + rechercher les pap
 | Orchestrator | 80.0% | >= 70% | PASS |
 | **Overall** | **78.1%** | **>= 75%** | **PASS** |
 
-## Fix Vercel déploiement (session 13 — post-compactage)
+## Prochaine action (PRIORITÉ ABSOLUE — Phase 1)
+1. Créer/démarrer Codespace rag-tests
+2. `docker compose up -d` (n8n LOCAL 3 workers)
+3. `bash scripts/setup-claude-opus.sh`
+4. Importer workflows n8n depuis `n8n/current/`
+5. **Fixer Quantitative** : 78.3% → 85% (CompactRAG + BM25, gap -6.7pp)
+6. **Fixer Graph** : 68.7% → 70% (entity disambiguation, gap -1.3pp)
 
-### Problème résolu (commit 15b019d, alexis.moret6@outlook.fr)
-- **Cause 1** : 2 TypeScript errors bloquaient le build Vercel (servait ancien build `3b98e56`)
-  - `api/dashboard/route.ts:52` — `webhookStatus` non défini → corrigé
-  - `MilestoneNotification.tsx:82` — prop `style` interdite sur Lucide Icon → `<span>` wrapper
-- **Cause 2** : Vercel GitHub App rejetait les commits de `lahargnedebartoli-alt` (email `lahargnedebartoli@gmail.com`) — pas accès au projet Vercel
-  - **Fix** : git config `user.email = alexis.moret6@outlook.fr` (email du compte Vercel `lbjlincoln`)
-  - **OBLIGATOIRE** : Tous les commits futurs pushés vers rag-website/rag-dashboard DOIVENT avoir cet email
-- **CI/CD ajouté** : `.github/workflows/deploy-website.yml` pour déploiement automatique
-
-### Configuration git actuelle (critique pour Vercel)
+## Configuration git (CRITIQUE pour Vercel)
 ```
 user.email = alexis.moret6@outlook.fr
 user.name = LBJLincoln
 ```
 
-## Dernière action
-Fix Vercel + push — nomos-ai-pied.vercel.app et nomos-dashboard.vercel.app à jour ✅
-
-## Prochaines actions prioritaires
-1. **Graph RAG** : 68.7% → 70% (entity disambiguation Neo4j)
-2. **Quantitative** : 78.3% → 85% (CompactRAG + BM25 pour colonnes)
-3. **RAGAS** : Ajouter faithfulness + context_recall aux eval scripts
-4. **Late chunking** : Ré-ingérer avec `late_chunking=True` top 3 namespaces
-5. **BM25** : Ajouter pipelines Juridique et Finance
-6. **react-window** : `npm install react-window` dans rag-website Codespace
-
 ## Sites production
 - rag-website : https://nomos-ai-pied.vercel.app
 - rag-dashboard : https://nomos-dashboard.vercel.app
-
-## Workaround kimi
-```bash
-echo '{"mcpServers":{}}' > /tmp/empty-mcp.json && kimi --quiet --mcp-config-file /tmp/empty-mcp.json -p 'prompt'
-```

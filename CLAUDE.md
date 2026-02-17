@@ -9,13 +9,18 @@
 
 ## CARTE DES INSTANCES ACTIVES
 
-### Instance permanente — VM Google Cloud
+### Instance permanente — VM Google Cloud (STOCKAGE UNIQUEMENT)
 | Composant | Adresse | État |
 |-----------|---------|------|
 | VM SSH | 34.136.180.66 | Permanent |
-| n8n API | localhost:5678 | 11 workflows ON |
-| n8n Webhooks | 34.136.180.66:5678 | Public |
-| Claude Code | Termius terminal | Ce repo |
+| **n8n VM** | localhost:5678 | **ARRÊTÉ** — calcul délégué aux Codespaces |
+| Redis | localhost:6379 | Up (stockage queue) |
+| PostgreSQL | localhost:5432 | Up (stockage n8n DB) |
+| Claude Code | Termius terminal | Ce repo — pilotage uniquement |
+
+**Principe : VM = stockage permanent + relay GitHub. ZÉRO calcul n8n sur la VM.**
+Tous les tests et ingestions se font dans les Codespaces GitHub.
+Si un Codespace crashe → résultats préservés sur GitHub (auto-push avant arrêt).
 
 ### Déploiements Vercel (production live)
 | Site | URL | Dernier commit | État |
@@ -23,12 +28,14 @@
 | Website business | nomos-ai-pied.vercel.app | c5a9ec70 (17 fév) | Live |
 | Dashboard tech | nomos-dashboard.vercel.app | (à vérifier) | A vérifier |
 
-### Codespaces GitHub (éphémères — 60h/mois)
-| Codespace | Repo | État | Usage |
-|-----------|------|------|-------|
-| nomos-rag-tests-5g6g5q9vjjwjf5g4 | rag-tests | Shutdown | Tests 50-200q |
-| nomos-rag-website-jr7q9gr69qqfqp6r | rag-website | Shutdown | Dev website |
-| A créer | rag-data-ingestion | Non créé | Ingestion massive |
+### Codespaces GitHub (éphémères — 60h/mois) — CALCUL PRINCIPAL
+| Codespace | Repo | État | n8n local |
+|-----------|------|------|-----------|
+| nomos-rag-tests-5g6g5q9vjjwjf5g4 | rag-tests | Shutdown | 3 workers (docker-compose.yml) |
+| nomos-rag-website-jr7q9gr69qqfqp6r | rag-website | Shutdown | Stateless (Vercel) |
+| A créer | rag-data-ingestion | Non créé | 2 workers (docker-compose.yml) |
+
+**Résultats toujours pushés vers GitHub AVANT arrêt du Codespace.**
 
 ### Bases de données cloud
 | Service | Contenu | Utilisation |
@@ -214,7 +221,7 @@ Tu es Claude Code (`claude-opus-4-6`) exécuté dans **Termius** connecté à la
 
 ### Ce à quoi tu AS accès
 - **Filesystem local complet** : `/home/termius/mon-ipad/` (et `/home/termius/`)
-- **n8n Docker** : API REST sur `localhost:5678`, MCP n8n
+- **n8n Codespace uniquement** : n8n tourne dans les Codespaces, PAS sur la VM (arrêté)
 - **Bases de données cloud** : Pinecone, Neo4j Aura, Supabase (via MCP + env vars)
 - **APIs externes** : OpenRouter (LLM), Jina (embeddings), Cohere (reranking), HuggingFace
 - **GitHub** : 5 repos via HTTPS + token (ghp_... dans remotes)
@@ -243,34 +250,28 @@ Disque     : 30 GB total | 12 GB utilisé | 17 GB libres (43% plein)
 Uptime     : Permanent (pas de coupure planifiée)
 ```
 
-**Contrainte critique** : RAM limitée à ~970MB. Claude Code seul consomme ~297MB. Avec n8n actif, la VM swap régulièrement. Les scripts Python lourds peuvent échouer par OOM.
+**VM = STOCKAGE UNIQUEMENT.** n8n arrêté → RAM disponible ~230MB (vs ~100MB avant). Les Codespaces exécutent tout le calcul.
 
-### Containers Docker actifs (sur la VM)
+### Containers Docker sur la VM (stockage uniquement)
 ```
 CONTAINER          IMAGE                 STATUS       PORTS
-n8n-n8n-1          n8nio/n8n:latest      Up (stable)  0.0.0.0:5678->5678/tcp
+n8n-n8n-1          n8nio/n8n:latest      STOPPED      — (calcul → Codespaces)
 n8n-redis-1        redis:7-alpine        Up (healthy)  0.0.0.0:6379->6379/tcp
 n8n-postgres-1     postgres:15-alpine    Up (healthy)  0.0.0.0:5432->5432/tcp
 ```
-- **n8n** : Workflow engine, port 5678 (admin: `admin@mon-ipad.com`)
-- **Redis** : Queue mode pour n8n (mode worker distribué)
-- **PostgreSQL** : Base interne n8n (historique executions, credentials)
-- **Fix critique appliqué** : `task-broker-auth.service.js` TTL 15s→120s (volume monté)
+- **n8n** : ARRÊTÉ sur VM — tourne dans les Codespaces (docker-compose local)
+- **Redis** : Stockage queue (backup — non utilisé par Codespaces)
+- **PostgreSQL** : Stockage DB n8n (backup historique exécutions)
 
-### n8n — État des workflows (11 actifs)
-| Workflow | ID Docker | Version | Status |
-|----------|-----------|---------|--------|
-| Standard RAG V3.4 | `TmgyRP20N4JFd9CB` | v5, 24 nodes | ON |
-| Graph RAG V3.3 | `6257AfT1l4FMC6lY` | v4, 26 nodes | ON |
-| Quantitative V2.0 | `e465W7V9Q8uK6zJE` | — | ON |
-| Orchestrator V10.1 | `aGsYnJY9nNCaTM82` | — | ON |
-| Dashboard Status API | `KcfzvJD6yydxY9Uk` | — | ON |
-| Benchmark V3.0 | `LKZO1QQY9jvBltP0` | — | ON |
-| Monitoring Dashboard | `tLNh3wTty7sEprLj` | — | ON |
-| Ingestion V3.1 | `15sUKy5lGL4rYW0L` | — | ON |
-| Enrichissement V3.1 | `9V2UTVRbf4OJXPto` | — | ON |
-| Feedback V3.1 | `F70g14jMxIGCZnFz` | — | ON |
-| Dataset Ingestion | `YaHS9rVb1osRUJpE` | — | ON |
+### n8n — Workflows synchés (source : `n8n/current/`)
+| Workflow | Fichier | Version | Notes |
+|----------|---------|---------|-------|
+| Standard RAG V3.4 | standard.json | v6 | Push vers Codespace rag-tests |
+| Graph RAG V3.3 | graph.json | v7 | Push vers Codespace rag-tests |
+| Quantitative V2.0 | quantitative.json | v10 | Push vers Codespace rag-tests |
+| Orchestrator V10.1 | orchestrator.json | v5 | Push vers Codespace rag-tests |
+| Ingestion V3.1 | ingestion.json | — | Push vers Codespace rag-data-ingestion |
+| Enrichissement V3.1 | enrichissement.json | — | Push vers Codespace rag-data-ingestion |
 
 ### Bases de données cloud (état au 2026-02-17)
 | BDD | Plan | Contenu | Limite |
@@ -284,7 +285,7 @@ n8n-postgres-1     postgres:15-alpine    Up (healthy)  0.0.0.0:5432->5432/tcp
 ### MCP Servers configurés (`.mcp.json`)
 | MCP | Endpoint | Capacités | Limite |
 |-----|----------|-----------|--------|
-| `n8n` | localhost:5678 | Execute/inspecte workflows, liste executions, active/désactive | Aucune |
+| `n8n` | localhost:5678 | **N/A sur VM** — n8n arrêté. MCP n8n disponible dans Codespace uniquement | — |
 | `pinecone` | API HTTPS | Upsert, query, delete vecteurs ; gestion indexes | Free tier |
 | `neo4j` | HTTPS API | Cypher queries, lecture/écriture graph | Free (200K nodes) |
 | `supabase` | Pooler AWS eu-west-1:6543 | SQL SELECT/INSERT/UPDATE/DELETE | Free (500MB) |
