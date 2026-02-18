@@ -23,7 +23,7 @@
     {
       "parameters": {
         "operation": "executeQuery",
-        "query": "SELECT table_name, column_name, data_type, is_nullable \nFROM information_schema.columns \nWHERE table_schema = 'public'\n  AND table_name IN ('financials', 'balance_sheet', 'products', 'employees', 'quarterly_revenue', 'orders', 'customers', 'departments', 'finqa_tables', 'convfinqa_tables')\n  AND table_name NOT LIKE 'pg_%'\n  AND table_name NOT LIKE '_realtime%'\n  AND table_name NOT LIKE 'supabase_%'\nORDER BY table_name, ordinal_position\nLIMIT 500",
+        "query": "SELECT table_name, column_name, data_type, is_nullable \nFROM information_schema.columns \nWHERE table_schema = 'public'\n  AND table_name IN ('financials', 'balance_sheet', 'sales_data', 'products', 'employees', 'quarterly_revenue', 'orders', 'customers', 'departments', 'finqa_tables', 'convfinqa_tables')\n  AND table_name NOT LIKE 'pg_%'\n  AND table_name NOT LIKE '_realtime%'\n  AND table_name NOT LIKE 'supabase_%'\nORDER BY table_name, ordinal_position\nLIMIT 500",
         "options": {}
       },
       "id": "629ec593-2bf6-4688-99d2-fe8b2009e062",
