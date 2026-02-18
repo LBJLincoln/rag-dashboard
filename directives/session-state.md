@@ -1,107 +1,102 @@
-# Session State — 18 Février 2026 (Session 14 — suite — Fixes Phase 1 + Nouveau Codespace)
+# Session State — 18 Février 2026 (Session 15 — Fixes CI GitHub Actions)
 
 ## Objectif de session
-Compléter Phase 1 : fixes graph (68.7%→70%) + quantitative (78.3%→85%).
-Tester dans le nouveau Codespace `ominous-giggle` avec Docker.
+Faire fonctionner les tests Phase 1 via GitHub Actions.
+Fix quantitative (78.3%→85%) et graph (68.7%→70%) validés via tests CI.
 
-## Décisions prises (session 14 — suite)
+## Décisions prises (session 15)
 
-### 1. VM = Stockage permanent uniquement (CONFIRMÉ)
-- n8n ARRÊTÉ (task runner TTL + RAM insuffisante)
-- `N8N_RUNNERS_DISABLED=true` ajouté dans docker-compose.yml (mais insuffisant)
-- Redis + PostgreSQL restent actifs
+### 1. GitHub Actions = seule solution viable pour tests
+- VM RAM trop limitée pour n8n + task runner
+- Codespace SSH proxy = Alpine Linux, pas de Docker
+- devcontainer nécessite VS Code/web UI, pas SSH
+- GitHub Actions donne Docker natif + 8GB RAM ✅
 
-### 2. Fixes Phase 1 appliqués + validés (sans tests n8n)
+### 2. Bugs CI corrigés (session 15)
 
-#### Graph pipeline (68.7% → cible 70%)
-1. ✅ `n.tenant_id IN [$tenant_id, 'default', 'benchmark'] OR n.tenant_id IS NULL` (2 noeuds)
-   - **Validation Neo4j** : 19,723 nœuds avec `benchmark`, 65 avec `default`
-   - Ancien filtre ne voyait que 65 nœuds sur 19,788 !
-2. ✅ HyDE max_tokens: 800 → 400
+#### Bug 1: n8n API auth (résolu ✅)
+- Problème: fresh n8n DB ne reconnaît pas le JWT stocké
+- Fix: `N8N_GLOBAL_ADMIN_API_KEY=rag-tests-ci-api-key-2026` dans docker-compose
+- Résultat: import workflows fonctionne maintenant
 
-#### Quantitative pipeline (78.3% → cible 85%)
-1. ✅ Schema Introspection : tables complètes avec sales_data réajoutée
-   - Tables : financials, balance_sheet, sales_data, products, employees,
-     quarterly_revenue, orders, customers, departments, finqa_tables, convfinqa_tables
-   - **Validation Supabase** : TechVision FY2023=$6.745B, GreenEnergy FY2023=$3.65B ✅
-2. ✅ SQL Validator : injection tenant_id désactivée pour JOINs
-3. ✅ Schema Context Builder : foreign keys + relations inter-tables
-4. ✅ Supabase DB patchée directement (PostgreSQL n8n) + JSON mis à jour
+#### Bug 2: Service name (résolu ✅)
+- Problème: docker-compose utilise `n8n-main` mais workflow cherchait `n8n`
+- Fix: test-phase1.yml corrigé avec `n8n-main`
 
-### 3. Devcontainer.json créé pour Docker-in-Docker
-- `.devcontainer/devcontainer.json` : docker-in-docker + python3.11 + node20
-- Pushé vers tous les repos
-- Nouveau Codespace `ominous-giggle-5g6g5q9vj9v434776` créé (provisioning)
+#### Bug 3: Supabase credentials manquants (résolu ✅)
+- Problème: fresh n8n DB n'a pas les credentials Postgres pour quantitative/graph
+- Fix: créer credentials via API n8n après démarrage, patcher IDs dans workflow JSONs
+- Script: `scripts/patch_workflow_credentials.py`
+- Secret ajouté: `SUPABASE_PASSWORD` dans rag-tests repo
 
-## Commits session 14
+#### Bug 4: YAML invalide (résolu ✅)
+- Problème: Python multi-ligne dans `run: |` cassait le YAML parser GitHub
+- Fix: tout Python sur une ligne OU dans scripts/*.py séparés
+- Erreur: "while scanning a simple key... import json, sys"
+
+#### Bug 5: workflow_dispatch non reconnu (résolu ✅)
+- Problème: YAML invalide → GitHub ne reconnaissait pas le trigger
+- Fix: YAML corrigé, em dash `—` retiré du nom (→ `-`)
+
+### 3. État actuel
+- Run #22124535460 en cours (quantitative, 3 questions, ~3-4 min)
+- Tous les secrets GitHub configurés ✅
+
+## Commits session 15
 | Hash | Description |
 |------|-------------|
-| 7d8644d | feat(codespace+phase1): script setup rag-tests + fixes graph/quantitative finaux |
-| be1282a | feat(devcontainer): docker-in-docker pour Codespaces RAG tests |
-| 0d4e87e | fix(quant): ajouter sales_data au schema introspection (table réelle 1152 lignes) |
+| 054da16 | fix(ci): fix n8n auth + add Supabase credentials for GitHub Actions |
+| 437c846 | fix(ci): force GitHub Actions re-index |
+| aab8950 | fix(ci): fix YAML syntax — move Python code out of run blocks |
 
 ## État infrastructure actuel
 ```
 VM (34.136.180.66) :
-  n8n          : STOPPED (RAM trop faible, task runner instable)
+  n8n          : STOPPED (RAM insuffisante)
   Redis        : Up (stockage)
-  PostgreSQL   : Up (stockage + workflows patchés)
-  RAM disponible : ~290MB
+  PostgreSQL   : Up (stockage + workflows)
+  RAM disponible : ~290MB sans n8n
 
-GitHub :
-  .devcontainer/devcontainer.json : ✅ (docker-in-docker feature)
-  n8n/live/graph.json : ✅ (tenant_id + max_tokens fixés)
-  n8n/live/quantitative.json : ✅ (schema + SQL + FK fixés)
-  n8n/website/ : ✅ (9 workflows)
+GitHub rag-tests secrets :
+  JINA_API_KEY          ✅
+  N8N_API_KEY           ✅ (JWT, ignoré — on utilise static key)
+  NEO4J_URI             ✅
+  OPENROUTER_API_KEY    ✅
+  PINECONE_API_KEY      ✅
+  PINECONE_HOST         ✅
+  SUPABASE_API_KEY      ✅
+  SUPABASE_PASSWORD     ✅ (nouveau)
+  SUPABASE_URL          ✅
 
-Codespace ominous-giggle : PROVISIONING (nouveau, avec Docker)
-Codespace rag-tests ancien : ShuttingDown (remplacé)
+GitHub Actions CI :
+  N8N_GLOBAL_ADMIN_API_KEY = rag-tests-ci-api-key-2026 (static, dans docker-compose)
+  Workers : 3 (standard, graph, quantitative)
+  Credentials : créés via API après démarrage + JSONs patchés automatiquement
 ```
 
 ## État des pipelines
 | Pipeline | Accuracy | Target | Status |
 |----------|----------|--------|--------|
 | Standard | 85.5% | >= 85% | PASS |
-| Graph | 68.7% → fix appliqué | >= 70% | FIX PENDING TEST |
-| Quantitative | 78.3% → fix appliqué | >= 85% | FIX PENDING TEST |
+| Graph | 68.7% → fix appliqué | >= 70% | TEST EN COURS |
+| Quantitative | 78.3% → fix appliqué | >= 85% | TEST EN COURS |
 | Orchestrator | 80.0% | >= 70% | PASS |
 | **Overall** | **78.1%** | **>= 75%** | **PASS** |
 
-## Prochaine action (PRIORITÉ ABSOLUE — Phase 1)
-1. Attendre Codespace `ominous-giggle` (Available):
-   ```bash
-   gh codespace list  # attendre status=Available
-   ```
-2. SSH + setup:
-   ```bash
-   gh codespace ssh -c ominous-giggle-5g6g5q9vj9v434776
-   # Dans Codespace:
-   docker --version  # vérifier Docker OK
-   # git pull pour avoir les derniers fixes
-   bash scripts/setup-codespace-rag-tests.sh
-   ```
-3. Tester pipelines fixés:
-   ```bash
-   source .env.local && python3 eval/quick-test.py --questions 5 --pipeline quantitative
-   source .env.local && python3 eval/quick-test.py --questions 5 --pipeline graph
-   ```
-4. Si tests passent → iterative-eval.py --label "Phase1-fix-session14"
-5. **Objectif** : Quantitative 78.3%→85%, Graph 68.7%→70%
+## Prochaine action (après résultat CI)
+Si tests passent :
+1. Déclencher test pour `graph` (3 questions)
+2. Si graph passe : déclencher `all` avec 10 questions
+3. Si tout passe : déclencher mode `full` avec iterative-eval
+4. Résultats → commits dans rag-tests → push tous repos
 
-## Pourquoi n8n ne peut pas tourner sur la VM
-- RAM ~970MB totale, ~290MB disponible sans n8n
-- n8n process + task runner : ~400MB minimum
-- PostgreSQL + Redis : ~250MB déjà utilisés
-- Swap : 2GB mais cause db timeouts sous forte utilisation
-- Task runner TTL de 120s insuffisant avec le swap (runner démarre trop lentement)
-- Solution : n8n dans Codespace (8GB RAM)
+Si tests échouent :
+1. Télécharger artifacts (logs)
+2. `gh run view --log-failed <run-id> --repo LBJLincoln/rag-tests`
+3. Analyser erreur et corriger
 
-## Configuration git (CRITIQUE pour Vercel)
+## Commande de surveillance
+```bash
+gh run list --repo LBJLincoln/rag-tests --limit 3
+gh run view --log-failed 22124535460 --repo LBJLincoln/rag-tests 2>&1 | head -50
 ```
-user.email = alexis.moret6@outlook.fr
-user.name = LBJLincoln
-```
-
-## Sites production
-- rag-website : https://nomos-ai-pied.vercel.app
-- rag-dashboard : https://nomos-dashboard.vercel.app

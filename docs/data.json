@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-02-17T23:59:15.505020Z",
+    "generated_at": "2026-02-18T01:09:08.843393Z",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
@@ -28877,66 +28877,6 @@
   },
   "quick_tests": [
     {
-      "timestamp": "2026-02-15T22:19:52.244237Z",
-      "pipeline": "orchestrator",
-      "query": "What is the largest ocean?",
-      "status": "pass",
-      "latency_ms": 177487,
-      "response_preview": "The Pacific Ocean is the largest ocean by size.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-15T22:36:24.219456Z",
-      "pipeline": "orchestrator",
-      "query": "What is the capital of Japan?",
-      "status": "pass",
-      "latency_ms": 207737,
-      "response_preview": "The capital city of Japan is Tokyo.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-16T07:53:00.463922Z",
-      "pipeline": "graph",
-      "query": "What did Marie Curie win Nobel Prizes for?",
-      "status": "pass",
-      "latency_ms": 45205,
-      "response_preview": "Physics (1903) and Chemistry (1911)",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-16T07:54:34.039039Z",
-      "pipeline": "graph",
-      "query": "What did Alexander Fleming discover?",
-      "status": "error",
-      "latency_ms": 0,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "timed out"
-    },
-    {
-      "timestamp": "2026-02-16T08:06:29.314920Z",
-      "pipeline": "standard",
-      "query": "What is the capital of Japan?",
-      "status": "pass",
-      "latency_ms": 70998,
-      "response_preview": "The capital of Japan is Tokyo.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-16T08:07:33.068820Z",
-      "pipeline": "standard",
-      "query": "Where is Normandy located?",
-      "status": "pass",
-      "latency_ms": 61016,
-      "response_preview": "Normandy is a region in the northwest of France, bordering the English Channel.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
       "timestamp": "2026-02-16T15:49:49.628571Z",
       "pipeline": "standard",
       "query": "What is the capital of Japan?",
@@ -29368,6 +29308,66 @@
     },
     {
       "timestamp": "2026-02-17T23:59:15.504193Z",
+      "pipeline": "quantitative",
+      "query": "What is the total number of products across all companies?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 404: HTTP Error 404: Not Found"
+    },
+    {
+      "timestamp": "2026-02-18T00:49:10.732327Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 404: HTTP Error 404: Not Found"
+    },
+    {
+      "timestamp": "2026-02-18T00:49:16.226159Z",
+      "pipeline": "quantitative",
+      "query": "What was GreenEnergy Corp's total revenue in 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 404: HTTP Error 404: Not Found"
+    },
+    {
+      "timestamp": "2026-02-18T00:49:22.204459Z",
+      "pipeline": "quantitative",
+      "query": "What is the total number of products across all companies?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 404: HTTP Error 404: Not Found"
+    },
+    {
+      "timestamp": "2026-02-18T01:08:45.580554Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 404: HTTP Error 404: Not Found"
+    },
+    {
+      "timestamp": "2026-02-18T01:09:03.840232Z",
+      "pipeline": "quantitative",
+      "query": "What was GreenEnergy Corp's total revenue in 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 404: HTTP Error 404: Not Found"
+    },
+    {
+      "timestamp": "2026-02-18T01:09:08.843348Z",
       "pipeline": "quantitative",
       "query": "What is the total number of products across all companies?",
       "status": "error",
