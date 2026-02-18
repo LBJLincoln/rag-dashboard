@@ -47,6 +47,14 @@ from importlib.machinery import SourceFileLoader
 run_eval_mod = SourceFileLoader("run_eval", os.path.join(EVAL_DIR, "run-eval.py")).load_module()
 writer = SourceFileLoader("w", os.path.join(EVAL_DIR, "live-writer.py")).load_module()
 
+# Progress callback for live monitoring from VM
+try:
+    from progress_callback import ProgressReporter
+    _reporter = None  # initialized in main()
+except ImportError:
+    ProgressReporter = None
+    _reporter = None
+
 # Re-use functions from run-eval.py
 call_rag = run_eval_mod.call_rag
 extract_answer = run_eval_mod.extract_answer
@@ -255,6 +263,16 @@ def run_pipeline(rag_type, questions, tested_ids_by_type, label=""):
             elif rag_type == "orchestrator":
                 time.sleep(1)  # Minimal spacing for sub-workflow contention
 
+        # Report progress for live monitoring
+        if _reporter:
+            _reporter.update(
+                pipeline=rag_type,
+                question_id=qid,
+                correct=is_correct,
+                latency_ms=resp["latency_ms"],
+                error=resp["error"],
+            )
+
         # Per-question result for pipeline snapshot
         per_question_results.append({
             "id": qid,
@@ -279,6 +297,16 @@ def run_pipeline(rag_type, questions, tested_ids_by_type, label=""):
     acc = round(totals["correct"] / totals["tested"] * 100, 1) if totals["tested"] > 0 else 0
     tprint(f"\n  [{rag_type.upper()}] DONE: {totals['correct']}/{totals['tested']} "
            f"({acc}%) | {totals['errors']} errors")
+
+    # Report pipeline completion for live monitoring
+    if _reporter:
+        _reporter.pipeline_done(
+            pipeline=rag_type,
+            accuracy=acc,
+            tested=totals["tested"],
+            correct=totals["correct"],
+        )
+
     return rag_type, totals, per_question_results
 
 
@@ -355,6 +383,11 @@ def main():
         description=args.description or f"Dataset: {dataset_label}, Parallel: {args.types}, Max: {args.max}, Reset: {args.reset}",
     )
 
+    # Initialize progress reporter for live monitoring
+    global _reporter
+    if ProgressReporter:
+        _reporter = ProgressReporter(label=args.label or f"eval-{dataset_label}")
+
     # Load questions
     print("\n  Loading questions...")
     questions = load_questions(include_1000=args.include_1000, dataset=args.dataset or "phase-1")
@@ -374,6 +407,11 @@ def main():
         tested_ids = load_tested_ids_by_type()
         total_already = sum(len(v) for v in tested_ids.values())
         print(f"  Dedup: {total_already} already tested (will be skipped)")
+
+    # Start progress reporter
+    if _reporter:
+        total_q = sum(len(v) for v in questions.values())
+        _reporter.start(total_questions=total_q, pipelines=list(questions.keys()))
 
     # DB snapshot
     print("\n  Taking pre-evaluation DB snapshot...")
@@ -443,6 +481,11 @@ def main():
     if overall_totals["tested"] > 0:
         writer.finish(event="eval_complete")
         print(f"  Dashboard updated: docs/data.json")
+
+    # Finish progress reporter
+    if _reporter:
+        final_acc = round(overall_totals['correct'] / overall_totals['tested'] * 100, 1) if overall_totals['tested'] > 0 else 0
+        _reporter.finish(overall_accuracy=final_acc)
 
     if args.push:
         print("  Pushing to GitHub...")

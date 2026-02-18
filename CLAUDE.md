@@ -18,12 +18,19 @@
 | PostgreSQL | localhost:5432 | Up (n8n DB) |
 | Claude Code | Termius terminal | Ce repo — pilotage uniquement |
 
-**Principe : VM = n8n permanent (webhooks). Tests → GitHub Actions CI (docker-compose).** Tests lourds (100q+) → Codespace rag-tests. VM RAM limitée (~100MB dispo) → jamais run tests directement dessus.
+**Principe : VM = n8n permanent (stockage workflows + webhooks). Tests → Codespaces (docker-compose).** Tests lourds (100q+) → Codespace rag-tests. VM RAM limitée (~100MB dispo) → jamais run tests directement dessus.
+
+**Architecture n8n clarifiée (session 23)** : PAS besoin d'un n8n Docker séparé pour les 16+ workflows.
+Les définitions de workflows pèsent ~500KB dans PostgreSQL — aucun impact RAM.
+Le n8n VM stocke + expose les webhooks. L'exécution lourde se fait dans les Codespaces.
+Chaque Codespace a son propre n8n Docker (avec workers) pour l'exécution parallèle.
 
 ### Déploiements Vercel (production live)
 | Site | URL | Dernier commit | État |
 |------|-----|---------------|------|
-| Website business | nomos-ai-pied.vercel.app | c5a9ec70 (17 fév) | Live |
+| Website ETI (4 secteurs) | nomos-ai-pied.vercel.app | c5a9ec70 (17 fév) | Live |
+| Website PME Connecteurs | (à déployer) | session 22 (18 fév) | Push pending |
+| Website PME Use Cases | (à déployer) | session 22 (18 fév) | Push pending |
 | Dashboard tech | nomos-dashboard.vercel.app | (à vérifier) | A vérifier |
 
 ### Codespaces GitHub (éphémères — 60h/mois) — CALCUL PRINCIPAL
@@ -34,6 +41,57 @@
 | A créer | rag-data-ingestion | Non créé | 2 workers (docker-compose.yml) |
 
 **Résultats toujours pushés vers GitHub AVANT arrêt du Codespace.**
+
+### Pilotage Live des Codespaces (OBLIGATOIRE)
+
+**Problème résolu** : Avant session 23, aucune visibilité en temps réel sur les runs Codespace depuis la VM. Maintenant, le système de pilotage offre :
+
+| Capacité | Commande VM | Mécanisme |
+|----------|-------------|-----------|
+| **Lancer un run** | `scripts/codespace-control.sh launch <cs> [args]` | `gh codespace ssh` + nohup |
+| **Voir la progression** | `scripts/codespace-control.sh status <cs>` | Lit `/tmp/eval-progress.json` via SSH |
+| **Stream logs live** | `scripts/codespace-control.sh stream <cs>` | `tail -f` via SSH |
+| **Arrêter un run** | `scripts/codespace-control.sh stop <cs>` | `kill PID` via SSH |
+| **Récupérer résultats** | `scripts/codespace-control.sh results <cs>` | Copie JSON via SSH |
+| **Monitoring continu** | `scripts/codespace-control.sh monitor 30` | Boucle auto-refresh |
+
+#### Architecture du pilotage
+```
+VM (mon-ipad) ────── gh codespace ssh ──────> Codespace (rag-tests)
+   │                                               │
+   ├─ codespace-control.sh                         ├─ /tmp/eval-progress.json
+   │   ├─ launch → nohup python3 eval/...          │    (ProgressReporter écrit ici)
+   │   ├─ status → cat progress.json               ├─ /tmp/eval-run.pid
+   │   ├─ stream → tail -f log                     │    (PID du process eval)
+   │   ├─ stop   → kill $(cat pid)                 ├─ /tmp/eval-run.log
+   │   └─ monitor → boucle auto-refresh            │    (stdout/stderr du run)
+   │                                               │
+   └─ Webhook optionnel ←── POST ──────────────────┘
+      (n8n /webhook/codespace-progress)         (eval script POST progress)
+```
+
+#### Callback de progression (eval/progress_callback.py)
+Les scripts eval écrivent leur progression dans `/tmp/eval-progress.json` après chaque question.
+Ce fichier contient : status, tested/total, accuracy par pipeline, ETA, PID.
+La VM lit ce fichier via `gh codespace ssh -- cat /tmp/eval-progress.json`.
+
+#### Commandes rapides
+```bash
+# Lister les Codespaces actifs
+scripts/codespace-control.sh list
+
+# Lancer un test sur rag-tests (50 questions, label Phase1)
+scripts/codespace-control.sh launch nomos-rag-tests-5g6g5q9vjjwjf5g4 --max 50 --label "Phase1-fix"
+
+# Voir la progression en temps réel
+scripts/codespace-control.sh stream nomos-rag-tests-5g6g5q9vjjwjf5g4
+
+# STOP d'urgence
+scripts/codespace-control.sh stop nomos-rag-tests-5g6g5q9vjjwjf5g4
+
+# Dashboard monitoring auto-refresh toutes les 30s
+scripts/codespace-control.sh monitor 30
+```
 
 ### Bases de données cloud
 | Service | Contenu | Utilisation |
@@ -218,7 +276,7 @@ Tu es Claude Code (`claude-opus-4-6`) exécuté dans **Termius** connecté à la
 | Reranking | MCP `cohere` | API Cohere (limité) |
 | Chercher datasets/modèles | MCP `huggingface` | Hub API |
 | Gérer GitHub | `Bash` + `gh` CLI | 5 remotes configurés |
-| Contrôler les Codespaces | `gh` CLI | Create/stop/ssh |
+| Contrôler les Codespaces | `gh` CLI + `codespace-control.sh` | Create/stop/ssh/monitor live |
 | Committer et pousser | `Bash` git | Vers les 5 remotes |
 
 ### Ce à quoi tu AS accès
@@ -556,6 +614,27 @@ gh codespace stop --codespace <name>
 gh codespace delete --codespace <name>
 ```
 
+### 2.6b Pilotage Live Codespaces (NOUVEAU — session 23)
+```bash
+# Lancer un run eval depuis la VM
+scripts/codespace-control.sh launch <codespace> --max 50 --label "Phase1-fix"
+
+# Voir la progression en temps réel
+scripts/codespace-control.sh status <codespace>
+
+# Stream live des logs (Ctrl+C pour arrêter)
+scripts/codespace-control.sh stream <codespace>
+
+# STOP d'urgence (kill le process eval)
+scripts/codespace-control.sh stop <codespace>
+
+# Récupérer les résultats
+scripts/codespace-control.sh results <codespace>
+
+# Dashboard monitoring continu (auto-refresh 30s)
+scripts/codespace-control.sh monitor 30
+```
+
 ### 2.7 SSH tunnel vers VM depuis Codespace
 ```bash
 # Dans le Codespace rag-tests, pour accéder au n8n de la VM :
@@ -688,6 +767,8 @@ git diff --cached | grep -iE 'sk-or-|pcsk_|jV_zGdx|sbp_|hf_[A-Za-z]{10}|jina_[a-
 19. **RAM critique** — VM a seulement ~100MB dispo, éviter scripts mémoire-intensifs en parallèle
 20. **Directives repos** — MAJ `directives/repos/*.md` si changements d'architecture
 21. **MAJ `technicals/fixes-library.md`** — après chaque fix réussi (avant commit)
+22. **Pilotage live** — utiliser `codespace-control.sh` pour lancer/monitor/stopper les runs Codespace
+23. **Progress callback** — les scripts eval écrivent `/tmp/eval-progress.json` pour visibilité VM
 
 ---
 
@@ -767,10 +848,12 @@ Details complets : `technicals/env-vars-exhaustive.md` (Section 2 : LLM Model Va
 | `directives/repos/` | **Directives personnalisées par repo satellite** |
 | `technicals/` | Documentation technique (stack, archi, credentials, phases) |
 | `eval/` | Scripts d'évaluation Python |
-| `scripts/` | Utilitaires Python + scripts Bash |
+| `scripts/` | Utilitaires Python + scripts Bash + **codespace-control.sh** (pilotage live) |
 | `n8n/` | Workflows (live, validated, sync) |
 | `mcp/` | Serveurs MCP |
-| `website/` | Code Next.js (site-business + dashboard) |
+| `website/` | Code Next.js site ETI (4 secteurs) |
+| `website-pme-connectors/` | Code Next.js site PME (12 connecteurs apps) |
+| `website-pme-usecases/` | Code Next.js site PME (catalogue 200 cas) |
 | `datasets/` | Données de test |
 | `snapshot/` | Références (good, current) |
 | `logs/` | Logs d'exécution |
