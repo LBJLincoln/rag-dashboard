@@ -1,66 +1,88 @@
-# Session State — 18 Février 2026 (Session 17)
+# Session State — 18 Fevrier 2026 (Session 18)
+
+> Last updated: 2026-02-18T14:30:00Z
 
 ## Objectif de session
-Améliorer graph (68.7%→70%) + quantitative (78.3%→85%) + préparer Phase 2 + créer bibliothèque de fixes + audit complet repo.
+Restructuration profonde de la documentation, directives et processus du projet Multi-RAG. Pilotage et analyse uniquement depuis VM Termius — ZERO tests, ZERO calcul lourd.
 
-## Résultats Session 17
+## Taches accomplies
 
-### Pipeline Graph ✅ FIXED
-- **Symptôme** : skip_graph=true silencieux → pipeline ne queryait jamais Neo4j
-- **Root cause** : `Shield #4: Neo4j Guardian Traversal` URL = `bolt://localhost:7687` (Bolt protocol, incompatible avec HTTP Request node)
-- **Fix** : URL → `https://38c949a2.databases.neo4j.io/db/neo4j/query/v2` + Basic auth header
-- **Test** : 5/5 PASS (27-79s par question, traversal Neo4j actif confirmé)
-- **Fichier** : `n8n/live/graph.json`
+### 1. Document exhaustif credentials/env-vars (CREE)
+- `technicals/env-vars-exhaustive.md` — 33 vars documentees, 8 sections
+- Matrice workflow x env var (13 workflows)
+- Log de modifications horodate
+- 18 variables manquantes identifiees (monitoring optionnel)
 
-### Pipeline Quantitative 🟡 PARTIELLEMENT FIXÉ
-- **Symptôme** : HTTP 500 immédiat sur toutes requêtes
-- **Root cause** : Live workflow n8n = 0 nodes (workflow cassé) + credential postgres ID `zEr7jPswZNv6lWKu` inexistante
-- **Fix appliqué** :
-  1. Workflow restauré depuis disque (25 nodes) via PUT API ✅
-  2. Credential remappée dans `n8n/live/quantitative.json` : `zEr7jPswZNv6lWKu` → `USU8ngVzsUbED3mn` (Supabase Postgres Pooler) ✅
-  3. Push vers n8n Docker VM : ❌ BLOQUÉ (VM n8n instable — DB timeouts récurrents, CPU 252%)
-- **État** : Fichier JSON corrigé sur disque. Sera utilisé au prochain CI run. Push VM en attente stabilisation.
-- **Action suivante** : Au début session 18, re-pousser `n8n/live/quantitative.json` vers n8n Docker via API quand stabilisé.
+### 2. Refonte objective.md (REFAIT)
+- Couvre les 5 repos (mon-ipad, rag-tests, rag-website, rag-data-ingestion, rag-dashboard)
+- Corrige Neo4j 110 → 19,788 nodes
+- Corrige Supabase 88 → 17,000+ lignes
 
-### Bibliothèque de Fixes ✅ CRÉÉE
-- `technicals/fixes-library.md` — 233 lignes, 12 fixes documentés (sessions 7-17)
-- `directives/workflow-process.md` — ETAPE 0 ajoutée (consulter fixes-library avant debug)
-- `directives/repos/rag-tests.md` — ETAPE 0 + règle 1 ajoutées
-- `directives/repos/rag-data-ingestion.md` — ETAPE 0 + règle 1 ajoutées
-- `directives/repos/rag-website.md` — ETAPE 0 + règle 1 ajoutées
+### 3. Architecture 16 workflows + audit (MAJ)
+- Audit 13 → 9 workflows (4 supprimes : feedback, monitoring, orch-tester, rag-tester)
+- Cible 16 workflows en 3 categories : A (Test-RAG), B (Sector), C (Ingestion)
+- Raisons documentees pour chaque suppression
 
-### Audit et mise à jour docs ✅
-- `CLAUDE.md` : n8n containers section corrigée, Phase 1 gates, fixes-library en mandatory outputs, règle 21
-- `directives/n8n-endpoints.md` : 4 nouveaux pièges ajoutés (bolt, workflow vide, PUT 400, N8N_RUNNERS), date 18/02
-- `directives/objective.md` : Session 17 documentée, prochaines actions mises à jour
-- 6 fichiers obsolètes supprimés (session 16)
+### 4. Team-agentic formel (CREE)
+- `technicals/team-agentic-process.md` — roles, communication, auto-stop, fixes-library, export, tracking, Opus 4.6
 
-## Commits session 17
+### 5. Anti-staleness protocol (AJOUTE)
+- Section 0.4 dans CLAUDE.md
+- `scripts/check-staleness.sh` cree (scanner dates >48h)
+- `Last updated:` ajoute a tous les fichiers directives/ et technicals/ modifies
+
+### 6. Workflow-process.md + 4 repos (MAJ)
+- Etape 0 renforcee : "appliquer directement si connu", consulter snapshots
+- Auto-stop protocol reference
+- 4 repos directives : Last updated, fixes-library partagee, auto-stop, team-agentic ref
+- rag-data-ingestion : ajout table BDD separees
+
+### 7. CLAUDE.md master (MAJ — 10 changements)
+- Workflows 11 → 9 (audit), cible 16 (A/B/C)
+- MCP n8n : "N/A" → "OK"
+- Anti-staleness section 0.4
+- Refs env-vars + team-agentic + fixes-library
+- Tableau LLM (Llama 70B, Gemma 27B, Trinity)
+- Checklist fin de session : +env-vars +check-staleness
+- Team-agentic : +auto-stop +fixes-library
+
+### 8. Infrastructure + stack (MAJ)
+- infrastructure-plan.md : section Docker par repo, scaling
+- stack.md : Redis cache→queue, Neo4j bolt→https, Supabase 88→17000+
+
+### 9. Website redesign (AJOUTE)
+- Section REDESIGN dans rag-website.md
+- CTA "TESTEZ DIRECTEMENT", pipeline 3 etapes, ordre secteurs
+
+## Decisions prises
+1. 4 workflows supprimes (feedback, monitoring, orch-tester, rag-tester) — redondants ou non configures
+2. Architecture 16 workflows en 3 categories (A/B/C) adoptee
+3. Anti-staleness 48h obligatoire sur tous les directives/technicals
+4. Fixes-library master dans mon-ipad, copies vers satellites
+
+## Commits session 18
 | Hash | Description |
 |------|-------------|
-| cab38e2 | chore(session-16-end): audit + fix CLAUDE.md + delete 6 obsolete files |
-| (à venir) | feat(session-17): graph fix + quant credential + fixes-library + docs audit |
+| 395ab02 | batch 1 — env-vars, team-agentic, architecture, stack fixes |
+| 4c5e366 | batch 2 — workflow-process + 4 repo directives |
+| adcdfcf | batch 3 — website redesign directives |
+| 2909321 | batch 4 — CLAUDE.md master complete |
+| (en cours) | batch 5 — session-state + status |
 
-## Infrastructure
-```
-VM (34.136.180.66) :
-  n8n : Up mais instable (DB timeouts, CPU ~250%) — workflows via fichiers JSON
-  Tests : GitHub Actions (2-8GB RAM, Docker natif, workflow files = source of truth)
+## Repos impactes
+- mon-ipad (tous les fichiers)
 
-rag-tests CI last run : 22137858153 — ALL 4 PIPELINES 5/5 PASS ✅
-```
+## Prochaine action (Session 19)
+1. **Pousser directives vers satellites** : `bash scripts/push-directives.sh`
+2. **Desactiver 4 workflows dans n8n Docker** : feedback, monitoring, orch-tester, rag-tester
+3. **Lancer tests** : Graph (cible 70%) + Quantitative (cible 85%) dans Codespace rag-tests
+4. **Si gates passees** : lancer Phase 2 avec `datasets/phase-2/hf-1000.json`
 
-## Prochaine action (Session 18)
-1. **Re-pousser quantitative.json** vers n8n VM quand stabilisé (credential fix déjà dans fichier)
-2. **Lancer iterative-eval** sur les 2 pipelines fixes : graph + quantitative
-3. **Mesurer accuracy réelle** : graph (cible 70%) + quantitative (cible 85%)
-4. **Si gates passées** : lancer Phase 2 avec `datasets/phase-2/hf-1000.json`
-
-## Accuracy actuelle (docs/status.json)
+## Accuracy actuelle (inchangee — aucun test cette session)
 | Pipeline | Accuracy | Target | Status |
 |----------|----------|--------|--------|
-| Standard | 85.5% | 85% | ✅ PASS |
-| Graph | 68.7% | 70% | ❌ (fix appliqué, retestar) |
-| Quantitative | 78.3% | 85% | ❌ (fix appliqué, retestar) |
-| Orchestrator | 80.0% | 70% | ✅ PASS |
-| **Overall** | **78.1%** | **75%** | **✅ PASS** |
+| Standard | 85.5% | 85% | PASS |
+| Graph | 68.7% | 70% | FAIL (fix applique, retester) |
+| Quantitative | 78.3% | 85% | FAIL (fix applique, retester) |
+| Orchestrator | 80.0% | 70% | PASS |
+| **Overall** | **78.1%** | **75%** | **PASS** |

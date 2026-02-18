@@ -1,56 +1,62 @@
-# Status — 18 Février 2026 (Session 17)
+# Status — 18 Fevrier 2026 (Session 18)
 
-## Pipelines RAG — État actuel
+> Last updated: 2026-02-18T14:30:00Z
 
-| Pipeline | Score | Target | Status | Action |
-|----------|-------|--------|--------|--------|
-| Standard | 85.5% | 85% | ✅ PASS | Stable |
-| Graph | 68.7%* | 70% | ❌ | Fix appliqué (bolt→https) — retestar |
-| Quantitative | 78.3%* | 85% | ❌ | Fix appliqué (credential) — retestar |
-| Orchestrator | 80.0% | 70% | ✅ PASS | Stable |
-| **Overall** | **78.1%** | **75%** | **✅ PASS** | |
+## Session 18 = Restructuration Profonde (ZERO tests)
 
-*Accuracy mesurée avant les fixes de session 17. Retestar pour confirmer améliorations.
+Aucun test execute, aucun workflow modifie dans n8n. Session dediee a la restructuration de la documentation, des directives et des processus team-agentic.
 
-## CI Phase 1 Gate — ALL PASS (run 22137858153)
-| Pipeline | Score | Status |
-|----------|-------|--------|
-| standard | 5/5 | ✅ PASS |
-| graph | 5/5 | ✅ PASS |
-| quantitative | 5/5 | ✅ PASS |
-| orchestrator | 5/5 | ✅ PASS |
+### Fichiers crees (3)
+| Fichier | Contenu |
+|---------|---------|
+| `technicals/env-vars-exhaustive.md` | 33 vars, 8 sections, matrice workflow x var |
+| `technicals/team-agentic-process.md` | Roles, auto-stop, fixes-library, export, Opus 4.6 |
+| `scripts/check-staleness.sh` | Scanner anti-staleness (>48h → alerte) |
 
-## Fixes Session 17 (2026-02-18)
+### Fichiers modifies (12)
+| Fichier | Changement principal |
+|---------|---------------------|
+| `CLAUDE.md` | 10 changements (workflows 9/16, MCP fix, LLM table, anti-staleness) |
+| `directives/objective.md` | Refonte multi-repo, fix Neo4j/Supabase staleness |
+| `directives/workflow-process.md` | Etape 0 renforcee, auto-stop protocol |
+| `directives/repos/rag-tests.md` | Last updated, fixes-library, auto-stop |
+| `directives/repos/rag-website.md` | Last updated, fixes-library, REDESIGN section |
+| `directives/repos/rag-data-ingestion.md` | Last updated, fixes-library, BDD separees |
+| `directives/repos/rag-dashboard.md` | Last updated, team-agentic ref |
+| `technicals/architecture.md` | Audit 13→9 workflows, cible 16 (A/B/C) |
+| `technicals/stack.md` | Redis cache→queue, Neo4j bolt→https, Supabase 88→17000+ |
+| `technicals/infrastructure-plan.md` | Docker par repo section |
 
-### Graph — bolt://localhost → HTTPS Neo4j
-- `Shield #4: Neo4j Guardian Traversal` URL changée vers API HTTP Neo4j Aura
-- Test local : 5/5 PASS ✅ (traversal Neo4j actif, latence 27-79s)
+### Audit workflows : 13 → 9 actifs
+| Supprime | Raison |
+|----------|--------|
+| Feedback V3.1 | DeepSeek non configure, SLACK_WEBHOOK absent |
+| Monitoring | OTEL non configure |
+| Orchestrator Tester | Duplique quick-test.py |
+| RAG Batch Tester | Duplique quick-test.py |
 
-### Quantitative — Live workflow vide + credential manquante
-- Workflow restauré depuis disque (25 nodes) via PUT API
-- Credential `zEr7jPswZNv6lWKu` → `USU8ngVzsUbED3mn` (Supabase Postgres Pooler) dans fichier JSON
-- Push vers n8n VM bloqué (CPU 252%, DB timeouts) — sera appliqué session 18
+## Pipelines RAG — Accuracy (inchangee)
 
-### Bibliothèque de Fixes ✅ CRÉÉE (12 bugs documentés)
-- `technicals/fixes-library.md` — référence permanente, 12 bugs sessions 7-17
-- `directives/workflow-process.md` — ETAPE 0 "consulter fixes-library EN PREMIER"
-- Tous les `directives/repos/*.md` mis à jour avec ETAPE 0
+| Pipeline | Score | Target | Status |
+|----------|-------|--------|--------|
+| Standard | 85.5% | 85% | PASS |
+| Graph | 68.7%* | 70% | FAIL (fix applique session 17, retestar) |
+| Quantitative | 78.3%* | 85% | FAIL (fix applique session 17, retestar) |
+| Orchestrator | 80.0% | 70% | PASS |
+| **Overall** | **78.1%** | **75%** | **PASS** |
 
-### Audit complet repo ✅
-- CLAUDE.md corrigé (n8n containers, Phase 1 gates, mandatory outputs)
-- n8n-endpoints.md : 4 nouveaux pièges + date 18/02
-- objective.md : Session 17 documentée
-- 6 fichiers obsolètes supprimés
+*Accuracy mesuree avant les fixes. Retestar pour confirmer ameliorations.
 
-## Prochaine session (18)
+## Prochaine session (19)
 
-**Priorité 1** : Re-pousser `n8n/live/quantitative.json` vers n8n Docker (quand VM stabilisée)
-**Priorité 2** : Retestar graph + quantitative (iterative-eval 50q chacun)
-**Priorité 3** : Si accuracy gates passées → **lancer Phase 2** (1000q HuggingFace)
+**Priorite 1** : Pousser directives vers satellites (`push-directives.sh`)
+**Priorite 2** : Desactiver 4 workflows dans n8n Docker VM
+**Priorite 3** : Lancer tests Graph + Quantitative dans Codespace rag-tests
+**Priorite 4** : Si gates passees → Phase 2 (1000q HuggingFace)
 
-## État des BDD (vérifié 2026-02-18)
-| BDD | Contenu | Prêt Phase 2 |
+## Etat des BDD (inchange)
+| BDD | Contenu | Pret Phase 2 |
 |-----|---------|--------------|
-| Pinecone `sota-rag-jina-1024` | 10,411 vecteurs, 12 ns | ✅ |
-| Neo4j Aura Free | 19,788 nodes, 76,717 relations | ✅ |
+| Pinecone `sota-rag-jina-1024` | 10,411 vecteurs, 12 ns | Oui |
+| Neo4j Aura Free | 19,788 nodes, 76,717 relations | Oui |
 | Supabase | 40 tables, ~17K lignes | Partiel (besoin ingestion Phase 2) |
