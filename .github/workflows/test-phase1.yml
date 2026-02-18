@@ -135,6 +135,45 @@ jobs:
           retention-days: 7
           if-no-files-found: warn
 
+      - name: Debug n8n execution errors (always)
+        if: always()
+        run: |
+          echo "=== Last 5 n8n executions ==="
+          curl -s "http://localhost:5678/rest/executions?limit=5" \
+            -H "Cookie: n8n-auth=$(python3 -c \"
+import json,urllib.request,urllib.parse
+req = urllib.request.Request('http://localhost:5678/rest/login',
+  data=json.dumps({'emailOrLdapLoginId':'ci@nomos.ai','password':'CI-Nomos-2026!'}).encode(),
+  headers={'Content-Type':'application/json'}, method='POST')
+resp = urllib.request.urlopen(req)
+cookies = resp.headers.get('Set-Cookie','')
+for part in cookies.split(';'):
+  part=part.strip()
+  if part.startswith('n8n-auth='):
+    print(part[9:])
+    break
+\")" 2>/dev/null \
+          | python3 -c "
+import json,sys
+try:
+  d = json.load(sys.stdin)
+  execs = d.get('data', d) if isinstance(d, dict) else d
+  if isinstance(execs, list):
+    for e in execs[:5]:
+      status = e.get('status','?')
+      wf_name = e.get('workflowData',{}).get('name','?') if isinstance(e.get('workflowData'),dict) else e.get('workflowId','?')
+      err_msg = ''
+      if e.get('data') and isinstance(e['data'], dict):
+        for node_data in e['data'].get('resultData',{}).get('runData',{}).values():
+          for run in (node_data if isinstance(node_data, list) else []):
+            if run.get('error'):
+              err_msg = str(run['error'])[:150]
+      print(f'  [{status}] {wf_name}: {err_msg or \"OK\"}')
+except Exception as ex:
+  print(f'Error parsing: {ex}')
+  print(sys.stdin.read()[:200])
+" 2>/dev/null || echo "Could not fetch execution logs"
+
       - name: n8n logs on failure
         if: failure()
         run: docker compose logs n8n-main --tail 100

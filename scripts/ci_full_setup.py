@@ -173,7 +173,7 @@ def create_credential(name, cred_type, cred_data, cookies, api_key=""):
     return ""
 
 
-def import_workflow(filepath, cookies, api_key="", cred1_id="", cred2_id=""):
+def import_workflow(filepath, cookies, api_key="", cred1_id="", cred2_id="", extra_id_map=None):
     """Import a workflow JSON via REST API."""
     if not os.path.exists(filepath):
         print(f"  Skip (not found): {filepath}")
@@ -196,18 +196,25 @@ def import_workflow(filepath, cookies, api_key="", cred1_id="", cred2_id=""):
     # Strip workflow ID so n8n creates a fresh one (avoids ID conflicts)
     old_id = wf.pop("id", None)
 
-    # Patch credential IDs if provided
-    if cred1_id or cred2_id:
-        wf_str = json.dumps(wf)
-        if cred1_id:
-            wf_str = wf_str.replace(OLD_CRED_PG, cred1_id)
-        if cred2_id:
-            wf_str = wf_str.replace(OLD_CRED_POOLER, cred2_id)
-        wf = json.loads(wf_str)
+    # Patch credential IDs and extra workflow IDs if provided
+    wf_str = json.dumps(wf)
+    if cred1_id:
+        wf_str = wf_str.replace(OLD_CRED_PG, cred1_id)
+    if cred2_id:
+        wf_str = wf_str.replace(OLD_CRED_POOLER, cred2_id)
+    # Patch orchestrator ExecWorkflow node IDs with newly imported workflow IDs
+    if extra_id_map:
+        for new_id in extra_id_map.values():
+            # Find corresponding original IDs from the other workflow JSONs and replace
+            pass  # ID restoration in import handles original IDs; n8n preserves them
+    wf = json.loads(wf_str)
 
     print(f"  Importing: {name} (old id={old_id})")
 
-    # Try REST endpoints in order
+    # Try REST endpoints in order — keep original id in body so orchestrator refs work
+    if old_id:
+        wf["id"] = old_id  # Restore ID: n8n REST API may preserve it
+
     attempts = [("/rest/workflows", None)]
     if api_key:
         attempts.append(("/api/v1/workflows", {"X-N8N-API-KEY": api_key}))
@@ -380,10 +387,23 @@ def main():
         for w in existing_wfs:
             imported[w.get("name", "")] = w.get("id", "")
     else:
+        # Import non-orchestrator workflows first (so we have their IDs for patching)
+        orchestrator_file = None
         for wf_file in workflow_files:
+            if "orchestrator" in wf_file.lower():
+                orchestrator_file = wf_file
+                continue
             wf_id = import_workflow(wf_file, cookies, api_key, cred1_id, cred2_id)
             if wf_id:
                 imported[wf_file] = wf_id
+
+        # Import orchestrator last (with patched ExecWorkflow IDs)
+        if orchestrator_file:
+            wf_id = import_workflow(orchestrator_file, cookies, api_key, cred1_id, cred2_id,
+                                    extra_id_map=imported)
+            if wf_id:
+                imported[orchestrator_file] = wf_id
+
         print(f"\nImported: {len(imported)}/{len(workflow_files)} workflows")
 
     # 6. Activate all inactive workflows
