@@ -312,4 +312,39 @@ git push origin main  # → déclenche Vercel auto-deploy
 
 ---
 
+---
+
+## REDESIGN DEMANDE (Session 18 — 18 fev 2026)
+
+### Changements requis
+
+1. **Retirer** la promesse "reponse en 3 secondes" → remplacer par **"IA experte sectorielle connectee a VOS donnees"**
+
+2. **CTA principal** : "TESTEZ DIRECTEMENT PAR VOUS-MEME" — place avant la section chatbot, bien visible
+
+3. **Pipeline en 3 etapes Apple-style** :
+   - Etape 1 : **Connexion donnees** (1M+ documents indexes)
+   - Etape 2 : **Chatbot IA** (question en langage naturel)
+   - Etape 3 : **Reponses detaillees avec sources** (citations, confiance, traces)
+
+4. **Ordre des secteurs** (modifie) :
+   1. Industrie (maintenance, ICPE, qualite ISO, AMDEC)
+   2. BTP Construction (normes, marches, CCTP, RE2020)
+   3. Finance (etats financiers, IFRS, prudentiel, KYC)
+   4. Juridique (jurisprudence, codes, contrats, compliance)
+
+5. **Chatbot cards** : mosaique 4-apps iPad style, clairement cliquables, avec icon + titre secteur + preview question exemple
+
+6. **Execution** : dans Codespace rag-website, PAS sur la VM
+
+### Elements a conserver
+- Hero problem-first (pain points cycliques)
+- SectorCards Apple-style (pain point BIG + ROI chips)
+- VideoModal storyboard cinematique
+- HowItWorks "Sous le capot"
+- DashboardCTA section transparence
+- Dashboard SSE live (/dashboard)
+
+---
+
 *Ce CLAUDE.md est géré depuis `mon-ipad/directives/repos/rag-website.md`.*
