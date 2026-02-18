@@ -1,9 +1,0 @@
-Concernant le website et le dashboard, je souhaite procéder dès modifications subastantesielles :
-- pour les deux ,il faut bien s'assurer qu'ils contiennent bien les évals lancées en direct, montrées de manière visuelle et gamifiees, interactives, claires et exploitables, avec une explication pour ceux qui ne comprennent pas, puissante te efficace, 
-- pour le website, tu présentes encore mal ce que c'est d'un point de vue business : en gros c'est un chatbot spécialisé dans un des quatre secteurs spécifiques, capable de se relier à de très nombreuses de vos données, et de vous apporter des réponses sourcees, visuelles, par artefact, comme clairement exposé dans un document que j'avais créé hors de la structure mais bien présent dans mon-ipad repo GitHub.b
--Pour le website, il y avait aussi un document qui parlait de l'utilisation de kimi-xode depuis la console VM que tu devrais lancer concernant la description des vidéos dont on parlait pour les cas d'usage pour gacyn des quatre secteurs.
-- de manière générale, ça doit être plus percutant et plus réaliste. On s'en fiche des quatre pipelines, ça doit être une sous partie bien mieux expliquée d'ailleurs avant de pouvoir cliquer sur le dashboard et le discours de transparence et d'explication des datasets et autres choisies et metrics visées 
-- il fait que tu cherches sur internet la page de présentation de apple sur les MacBook Pro pour faire pareil pour les 4 cases et plus compréhensibles business our chaque secteur
-
-Dashboard: 
-- doit pouvoir faire fenêtre glissante efficace et élégante pour UI et UX periennte pour chacun des tests effectués, sur au total plus de 3-4 repos, et de multiples instances n8n normalement et de très nombreux workers si tout a vraiment été appliqué comme souhaite 
