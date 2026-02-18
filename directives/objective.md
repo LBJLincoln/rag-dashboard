@@ -1,6 +1,10 @@
 # Objectif Final & Situation Actuelle
 
-## Objectif
+> Last updated: 2026-02-18T14:00:00Z
+
+---
+
+## 1. Vision Globale
 
 Construire un **Multi-RAG Orchestrator SOTA** capable de router intelligemment des questions vers 4 pipelines RAG specialisees (Standard, Graph, Quantitative, Orchestrator) et d'atteindre des performances state-of-the-art sur des benchmarks HuggingFace progressifs.
 
@@ -8,19 +12,63 @@ Construire un **Multi-RAG Orchestrator SOTA** capable de router intelligemment d
 
 ---
 
-## Architecture Multi-Repo (Session 9+)
+## 2. mon-ipad — Tour de Controle Centrale
 
-Le projet est distribue sur **5 repos prives** pilotes depuis la VM Google Cloud :
+| | |
+|-|-|
+| **Role** | Pilotage, stockage n8n final, sync GitHub/VM, ZERO tests lourds |
+| **Localisation** | VM Google Cloud permanente (34.136.180.66) |
+| **n8n** | Docker permanent — 9 workflows actifs (4 RAG + 5 support), cible 16 |
+| **Actions** | Fix workflows, sync repos, analyser resultats, distribuer directives |
+| **Interdit** | Tests lourds (RAM ~100MB dispo), calcul intensif |
 
-| Repo | Role | Execution |
-|------|------|-----------|
-| `mon-ipad` | Tour de controle centrale | VM (permanent) |
-| `rag-tests` | Tests des 4 pipelines RAG | Codespaces |
-| `rag-website` | Site business 4 secteurs | Vercel |
-| `rag-dashboard` | Dashboard live technique | Vercel/GH Pages |
-| `rag-data-ingestion` | Ingestion + enrichissement BDD | Codespaces |
+---
 
-Architecture detaillee : `propositions` (fichier racine)
+## 3. rag-tests — Mesure Performance 4 Pipelines
+
+| | |
+|-|-|
+| **Role** | Executer tests, mesurer accuracy, rapporter resultats |
+| **Localisation** | Codespace ephemere (8GB RAM, docker-compose) |
+| **n8n** | Local dans Codespace (n8n-main + 3 workers + Redis + PostgreSQL) |
+| **Phase 1** | BLOQUEE — Graph 68.7% < 70%, Quantitative 78.3% < 85% |
+| **Phase 2** | En attente — 1000q HuggingFace (prerequis : Phase 1 gates) |
+| **Donnees** | 932 questions testees, 42 iterations, docs/data.json |
+
+---
+
+## 4. rag-website — Site Vitrine 4 Secteurs
+
+| | |
+|-|-|
+| **Role** | Site business, chatbots sectoriels, dashboard SSE live |
+| **Localisation** | Codespace (dev) + Vercel (prod : nomos-ai-pied.vercel.app) |
+| **Secteurs** | BTP/Construction, Industrie, Finance, Juridique |
+| **MVP** | Live — Hero, SectorCards, HowItWorks, Dashboard SSE (932q) |
+| **Manquant** | Vrais documents sectoriels dans les demos chatbot |
+
+---
+
+## 5. rag-data-ingestion — Ingestion 5.4GB Datasets
+
+| | |
+|-|-|
+| **Role** | Telecharger datasets HuggingFace, ingerer dans BDD separees |
+| **Localisation** | Codespace ephemere (a creer) |
+| **n8n** | Local COMPLET (n8n + 2 workers, queue mode Redis) |
+| **Volume** | ~4 GB benchmarks Phase 2 + ~1.4 GB docs sectoriels = **5.4 GB** |
+| **BDD cibles** | Pinecone (vectors), Neo4j (graph), Supabase (tables) |
+
+---
+
+## 6. rag-dashboard — Metriques Live Read-Only
+
+| | |
+|-|-|
+| **Role** | Dashboard technique affichant les metriques en temps reel |
+| **Localisation** | Statique — GitHub Pages ou Vercel |
+| **Source** | Webhook VM `/webhook/nomos-status` + fallback `status.json` GitHub |
+| **n8n** | AUCUN — consomme uniquement |
 
 ---
 
@@ -28,15 +76,17 @@ Architecture detaillee : `propositions` (fichier racine)
 
 ```
 PHASE A : RAG Pipeline Iteration (prioritaire)
-  1/1 -> 5/5 -> 10/10 -> 200q -> 1000q -> 10Kq -> 100Kq -> 1M+q
+  Phase 1 (200q) ← BLOQUEE — Graph 68.7%, Quant 78.3%
+  Phase 2 (1000q HuggingFace) ← prerequis Phase 1
+  Phase 3 (~10Kq) → Phase 4 (~100Kq) → Phase 5 (1M+)
   Repo : rag-tests (Codespaces pour 500q+)
 
 PHASE B : Analyse SOTA 2026 (recherche academique)
-  Papiers recents -> Techniques SOTA -> Design optimise
-  Repo : mon-ipad (controle)
+  Papiers recents → Techniques SOTA → Design optimise
+  Repo : mon-ipad (controle) — FAIT (session 13)
 
 PHASE C : Ingestion & Enrichment (post-analyse SOTA)
-  Analyse des workflows existants -> Nouvelles BDD -> Tests iteratifs
+  14 benchmarks HuggingFace + 20 datasets sectoriels
   Repo : rag-data-ingestion (Codespaces)
 
 PHASE D : Production & Deploiement
@@ -48,13 +98,13 @@ Details complets : `technicals/phases-overview.md`
 
 ---
 
-## Pipelines RAG (4) — Docker n8n (34.136.180.66:5678)
+## Pipelines RAG (4) — Docker n8n (localhost:5678)
 
 | Pipeline | Role | Base de donnees | Webhook | Cible Phase 1 |
 |----------|------|-----------------|---------|---------------|
-| **Standard** | RAG vectoriel classique | Pinecone (10.4K vecteurs) | `/webhook/rag-multi-index-v3` | >= 85% |
-| **Graph** | RAG sur graphe d'entites | Neo4j (110 entites) | `/webhook/ff622742-...` | >= 70% |
-| **Quantitative** | RAG SQL sur tables financieres | Supabase (88 lignes) | `/webhook/3e0f8010-...` | >= 85% |
+| **Standard** | RAG vectoriel classique | Pinecone (10,411 vecteurs, 12 ns) | `/webhook/rag-multi-index-v3` | >= 85% |
+| **Graph** | RAG sur graphe d'entites | Neo4j (19,788 nodes, 76,717 rels) | `/webhook/ff622742-...` | >= 70% |
+| **Quantitative** | RAG SQL sur tables | Supabase (40 tables, ~17,000+ lignes) | `/webhook/3e0f8010-...` | >= 85% |
 | **Orchestrator** | Route vers les 3 pipelines | Aucune (meta-pipeline) | `/webhook/92217bb8-...` | >= 70% |
 
 ## Workflow IDs — Docker (source de verite)
@@ -75,19 +125,21 @@ Details complets : `technicals/phases-overview.md`
 | Quantitative | `E19NZG9WfM7FNsxr` | #19326 |
 | Orchestrator | `ALd4gOEqiKL5KR1p` | #19323 |
 
-## Workflows supplementaires (9)
+## Workflows actifs — Actuels (9) et Cible (16)
 
+### Actuels (9 apres audit session 18)
 | Workflow | Role | Docker ID |
 |----------|------|-----------|
 | **Ingestion V3.1** | Ingestion de documents | `15sUKy5lGL4rYW0L` |
 | **Enrichissement V3.1** | Enrichissement donnees | `9V2UTVRbf4OJXPto` |
-| **Feedback V3.1** | Boucle de feedback | `F70g14jMxIGCZnFz` |
 | **Benchmark V3.0** | Benchmark automatise | `LKZO1QQY9jvBltP0` |
 | **Dataset Ingestion** | Ingestion datasets HF | `YaHS9rVb1osRUJpE` |
-| **Monitoring** | Monitoring & Alerting | `tLNh3wTty7sEprLj` |
-| **Orchestrator Tester** | Tests orchestrateur | `m9jaYzWMSVbBFeSf` |
-| **RAG Batch Tester** | Tests batch RAG | `y2FUkI5SZfau67dN` |
-| **SQL Executor** | Execution SQL | `22k9541l9mHENlLD` |
+| **SQL Executor** | Execution SQL (sub-workflow) | `22k9541l9mHENlLD` |
+
+Supprimes (session 18) : Feedback V3.1, Monitoring, Orchestrator Tester, RAG Batch Tester — voir `technicals/architecture.md` pour raisons.
+
+### Cible (16 workflows en 3 categories)
+Voir `technicals/architecture.md` section "Architecture 16 Workflows".
 
 ---
 
@@ -95,35 +147,37 @@ Details complets : `technicals/phases-overview.md`
 
 > **Lire `docs/status.json` pour les metriques live.**
 
-### Session 16 fev 2026 (Sessions 6-8)
-- **Phase 1 COMPLETE** (85.5% overall) — All 4 pipelines pass Phase 1 gates
-- **Phase 2 evaluation** started (50q quantitative, 50q graph, 50q orchestrator)
-- **n8n task runner FIXED** (session 8) — Grant token TTL 15s→120s for slow VM (970MB RAM)
-- **Jina migration VALIDATED** (session 8) — Standard 3/3, Graph 3/3 confirmed with Jina embeddings
-- **Trailing comma fix** (session 8) — Standard embedding JSON body had trailing comma from Jina migration
-- **Migration Jina COMPLETE** (session 7) — 10,411 vectors + 2 workflows migrated Cohere→Jina
-- **Security scrub** (session 7) — 27 files cleaned, CLAUDE.md v2, .env.example rewritten
+### Session 18 fev 2026 (Session 18 — Restructuration)
+- **Restructuration profonde** documentation + directives + processus
+- **Audit 13→9 workflows** (4 supprimes : feedback, monitoring, orch-tester, rag-tester)
+- **Architecture 16 workflows** documentee (A: Test-RAG, B: Sector, C: Ingestion)
+- **Env-vars exhaustif** cree (technicals/env-vars-exhaustive.md)
+- **Team-agentic formel** cree (technicals/team-agentic-process.md)
+- **Anti-staleness** protocole ajoute
 
-### Prochaine action prioritaire (mis à jour 2026-02-17, session 13)
+### Session 17 (18 fev 2026)
+- **CI smoke test ALL GREEN** (commit 630f81f) — 4/4 pipelines 5/5 via GitHub Actions
+- **Graph bolt→https fix APPLIED** — Neo4j URL corrigee
+- **Quantitative 0-nodes fix APPLIED** — workflow live restaure
+- **fixes-library.md cree** — 12 fixes documentes
 
-### Priorités pipeline
-1. **Graph RAG** : 68.7% → 70% (entity disambiguation Neo4j)
+### Prochaine action prioritaire
+
+#### Priorites pipeline
+1. **Graph RAG** : 68.7% → 70% (entity disambiguation Neo4j — bolt fix applique, retester)
 2. **Quantitative** : 78.3% → 85% (CompactRAG pattern + BM25 pour colonnes)
 3. **RAGAS metrics** : Ajouter faithfulness + context_recall aux eval scripts
 
-### Website/Dashboard (livrés en session 13)
-- Hero redesigné (problem-first, dual CTA, pain points cycliques)
-- 4 sector cards Apple-style (pain point BIG + ROI chips + vidéo modal)
-- HowItWorks repositionné "Sous le capot" (pipelines = sous-section)
-- DashboardCTA section (transparence, lien vers /dashboard)
-- VideoModal (storyboard cinématique des scripts Kimi)
+#### Website/Dashboard (livres en session 13)
+- Hero redesigne (problem-first, dual CTA, pain points cycliques)
+- 4 sector cards Apple-style (pain point BIG + ROI chips + video modal)
 - Dashboard SSE (evalStore, useEvalStream, XPProgressionBar, live Q&A feed)
 
 Suivre le processus : `directives/workflow-process.md`
 
 ---
 
-## Etat des BDD (verifie le 2026-02-16)
+## Etat des BDD (verifie le 2026-02-18)
 
 ### Pinecone
 - **10,411 vecteurs**, 12 namespaces, dimension **1024** (Jina embeddings-v3)
@@ -147,18 +201,16 @@ Suivre le processus : `directives/workflow-process.md`
 
 ## Enterprise Production Gates 2026 (Standard industrie)
 
-Seuils requis pour "production readiness" selon recherche Feb 2026 :
-
-| Métrique | Seuil | État actuel |
+| Metrique | Seuil | Etat actuel |
 |---------|-------|-------------|
 | Accuracy (overall) | >= 75% | **78.1% PASS** |
 | Accuracy Standard | >= 85% | **85.5% PASS** |
 | Accuracy Graph | >= 70% | **68.7% FAIL** |
 | Accuracy Quantitative | >= 85% | **78.3% FAIL** |
-| Faithfulness | >= 95% | **non mesuré** |
-| Context Recall | >= 85% | **non mesuré** |
-| Hallucination Rate | <= 2% | **non mesuré** |
-| Mean Latency | <= 2.5s | **non mesuré** |
+| Faithfulness | >= 95% | **non mesure** |
+| Context Recall | >= 85% | **non mesure** |
+| Hallucination Rate | <= 2% | **non mesure** |
+| Mean Latency | <= 2.5s | **non mesure** |
 
 → Action : Ajouter RAGAS faithfulness + context_recall aux scripts eval.
 
@@ -167,14 +219,14 @@ Seuils requis pour "production readiness" selon recherche Feb 2026 :
 Voir `technicals/stack.md` pour le detail complet.
 
 **Resume** :
-- **Workflows** : n8n Docker self-hosted (34.136.180.66:5678)
-- **LLM** : Modeles gratuits via OpenRouter ($0)
+- **Workflows** : n8n Docker self-hosted (localhost:5678)
+- **LLM** : 3 modeles gratuits via OpenRouter ($0) — Llama 70B, Gemma 27B, Trinity
 - **Embeddings** : Jina embeddings-v3 (1024-dim, primary) + Cohere (backup)
 - **Vector DB** : Pinecone (free tier, serverless)
-- **Graph DB** : Neo4j (via n8n Docker)
+- **Graph DB** : Neo4j Aura Free (HTTPS API)
 - **SQL DB** : Supabase (free tier)
 - **Eval** : Python scripts locaux
-- **Dev** : Claude Code (Max plan) via Termius
+- **Dev** : Claude Code (Max plan, Opus 4.6) via Termius
 
 ---
 

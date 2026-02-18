@@ -1,26 +1,29 @@
 # Architecture Reference — Multi-RAG Orchestrator SOTA 2026
 
+> Last updated: 2026-02-18T14:00:00Z
 > Reference detaillee. Pour demarrage rapide, utiliser `docs/status.json`.
 
 ---
 
-## Architecture globale (Session 14 — 17 fév 2026)
+## Architecture globale (Session 18 — 18 fev 2026)
 
 ```
-VM Google Cloud (34.136.180.66) — STOCKAGE UNIQUEMENT
-  n8n : ARRÊTÉ (Codespaces font le calcul)
-  Redis + PostgreSQL : Up (stockage historique)
+VM Google Cloud (34.136.180.66) — PERMANENT (pilotage + n8n)
+  n8n Docker : Up (9 workflows actifs, cible 16)
+  Redis : Up (queue mode)
+  PostgreSQL : Up (n8n DB)
+  Claude Code : Termius terminal (pilotage uniquement)
 
-GitHub — Source de vérité
+GitHub — Source de verite
   n8n/live/     : Workflows Phase 1 (benchmark)
   n8n/website/  : Workflows website (copies Phase 1 + ingestion secteurs)
-  n8n/validated/: Snapshots versionés
+  n8n/validated/: Snapshots versiones
 
 Codespace rag-tests — Tests Phase 1
   n8n LOCAL (3 workers, docker-compose)
   Import workflows depuis n8n/live/
 
-Codespace rag-website — Site + démos secteurs
+Codespace rag-website — Site + demos secteurs
   n8n LOCAL (docker-compose)
   Import workflows depuis n8n/website/
   Ingestion secteurs → Pinecone website-sectors-jina-1024
@@ -44,19 +47,62 @@ Codespace rag-data-ingestion — Ingestion benchmarks
 | Quantitative V2.0 | `/webhook/3e0f8010-...` | Supabase REST API (exec_sql RPC) | `e465W7V9Q8uK6zJE` |
 | Orchestrator V10.1 | `/webhook/92217bb8-...` | Routes to above | `aGsYnJY9nNCaTM82` |
 
-### Support Workflows (9)
+### Support Workflows — Actifs (5 apres audit session 18)
 
-| Workflow | Docker ID |
-|---|---|
-| Ingestion V3.1 | `15sUKy5lGL4rYW0L` |
-| Enrichissement V3.1 | `9V2UTVRbf4OJXPto` |
-| Feedback V3.1 | `F70g14jMxIGCZnFz` |
-| Benchmark V3.0 | `LKZO1QQY9jvBltP0` |
-| Dataset Ingestion Pipeline | `YaHS9rVb1osRUJpE` |
-| Monitoring & Alerting | `tLNh3wTty7sEprLj` |
-| Orchestrator Tester | `m9jaYzWMSVbBFeSf` |
-| RAG Batch Tester | `y2FUkI5SZfau67dN` |
-| SQL Executor Utility | `22k9541l9mHENlLD` |
+| Workflow | Docker ID | Statut |
+|---|---|---|
+| Ingestion V3.1 | `15sUKy5lGL4rYW0L` | GARDER |
+| Enrichissement V3.1 | `9V2UTVRbf4OJXPto` | GARDER |
+| Benchmark V3.0 | `LKZO1QQY9jvBltP0` | GARDER — script benchmark automatise |
+| Dataset Ingestion Pipeline | `YaHS9rVb1osRUJpE` | GARDER — pipeline HuggingFace → Pinecone |
+| SQL Executor Utility | `22k9541l9mHENlLD` | GARDER — sub-workflow utilise par quantitative |
+
+### Support Workflows — Supprimes (audit session 18)
+
+| Workflow | Docker ID | Raison suppression |
+|---|---|---|
+| Feedback V3.1 | `F70g14jMxIGCZnFz` | Reference DeepSeek API non configure, SLACK_WEBHOOK_URL absent |
+| Monitoring & Alerting | `tLNh3wTty7sEprLj` | OTEL_EXPORTER non configure, aucun monitoring actif |
+| Orchestrator Tester | `m9jaYzWMSVbBFeSf` | Duplique `eval/quick-test.py --pipeline orchestrator` |
+| RAG Batch Tester | `y2FUkI5SZfau67dN` | Duplique `eval/quick-test.py` |
+
+---
+
+## Architecture 16 Workflows (Cible)
+
+### Category A : Test-RAG (4 pipelines actifs)
+| Workflow | BDD | Activation |
+|----------|-----|------------|
+| Standard RAG V3.4 | Pinecone `sota-rag-jina-1024` | Actif maintenant |
+| Graph RAG V3.3 | Neo4j general + Supabase `public` | Actif maintenant |
+| Quantitative V2.0 | Supabase `public` | Actif maintenant |
+| Orchestrator V10.1 | Meta (route vers A) | Actif maintenant |
+
+### Category B : Sector (4 pipelines — apres Phase 2 validee)
+| Workflow | BDD | Activation |
+|----------|-----|------------|
+| Sector Standard | Pinecone `website-sectors-jina-1024` | Apres Phase 2 |
+| Sector Graph | Neo4j labels `WEB_*` | Apres Phase 2 |
+| Sector Quantitative | Supabase schema `website_*` | Apres Phase 2 |
+| Sector Orchestrator | Meta (route vers B) | Apres Phase 2 |
+
+### Category C : Ingestion (2+2 workflows)
+| Workflow | BDD | Activation |
+|----------|-----|------------|
+| Ingestion V3.1 | Pinecone `sota-rag-*`, Neo4j, Supabase | Actif maintenant |
+| Enrichissement V3.1 | Neo4j, Pinecone | Actif maintenant |
+| Sector Ingestion | Pinecone `website-sectors-*`, Neo4j `WEB_*` | Apres Phase 2 |
+| Sector Enrichissement | Neo4j `WEB_*` | Apres Phase 2 |
+
+### Support (4 workflows)
+| Workflow | Role |
+|----------|------|
+| Benchmark V3.0 | Tests automatises |
+| Dataset Ingestion Pipeline | HuggingFace → Pinecone |
+| SQL Executor | Sub-workflow quantitative |
+| Dashboard Status API | Webhook metriques live |
+
+**Total : 4 (A) + 4 (B) + 4 (C) + 4 (Support) = 16 workflows**
 
 ## Workflows Website (Codespace rag-website — n8n/website/)
 

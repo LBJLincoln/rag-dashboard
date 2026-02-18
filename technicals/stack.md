@@ -1,5 +1,6 @@
 # Stack Technique Complete — Docker Era
 
+> Last updated: 2026-02-18T14:00:00Z
 > Post-migration Docker (2026-02-12)
 
 ---
@@ -12,11 +13,11 @@
 - **Docker** : n8n + Redis
 
 ### n8n Docker Self-Hosted
-- **Host** : `http://34.136.180.66:5678`
-- **UI** : admin / SotaRAG2026!
-- **PostgreSQL** : localhost:5432 (n8n / n8n_password_secure_2026)
-- **Redis** : localhost:6379 (cache)
-- **13 workflows actifs** (4 pipelines + 9 support)
+- **Host** : `http://localhost:5678` (interne VM)
+- **UI** : `admin@mon-ipad.com` / SotaRAG2026!
+- **PostgreSQL** : localhost:5432 (n8n / n8n_password_secure_2026) — n8n internal DB
+- **Redis** : localhost:6379 — queue mode (Bull queues, pas cache)
+- **9 workflows actifs** (4 pipelines + 5 support), cible 16
 
 ---
 
@@ -31,17 +32,17 @@
 - **Acces** : Direct via API + via n8n
 
 ### Neo4j (Graph DB)
-- **Acces** : bolt://localhost:7687 (Docker VM)
-- **API** : https://38c949a2.databases.neo4j.io
-- **Contenu** : 110 entites, 151 relations
-- **Acces** : Direct depuis Docker, MCP neo4j configure
+- **Acces** : HTTPS API `https://38c949a2.databases.neo4j.io/db/neo4j/query/v2`
+- **Protocole** : HTTPS (pas bolt:// — incompatible avec HTTP Request node n8n)
+- **Contenu** : 19,788 noeuds, 76,717 relations
+- **Acces** : Direct via MCP neo4j configure + n8n HTTP Request nodes
 
 ### Supabase (SQL DB)
 - **Plan** : Free tier
 - **Project** : ayqviqmxifzmhphiqfmj
 - **URL** : https://ayqviqmxifzmhphiqfmj.supabase.co
-- **Contenu** : 88 lignes, 5 tables financieres
-- **Acces** : Direct depuis Docker + MCP supabase configure
+- **Contenu** : 40 tables, ~17,000+ lignes
+- **Acces** : PostgreSQL pooler `aws-1-eu-west-1.pooler.supabase.com:6543` + MCP supabase
 
 ---
 

@@ -1,6 +1,6 @@
 # Infrastructure & Test Parallelization Plan — Multi-RAG SOTA 2026
 
-> Last updated: 2026-02-16
+> Last updated: 2026-02-18T14:00:00Z
 > Context: Multi-RAG orchestrator running 4 pipelines (Standard, Graph, Quantitative, Orchestrator)
 > on a Google Cloud free-tier VM, evaluated against 200+ questions (Phase 1) scaling to 1M+ (Phase 5).
 
@@ -1030,6 +1030,33 @@ docker exec postgres-container psql -U n8n -c "SELECT count(*) FROM execution_en
 # === Redis memory usage ===
 docker exec redis-container redis-cli INFO memory | grep used_memory_human
 ```
+
+## 9. Docker Per Repo (Architecture Distribuee)
+
+Chaque repo a sa propre configuration Docker, adaptee a son role.
+
+| Repo | Localisation Docker | Containers | Capacite |
+|------|-------------------|------------|----------|
+| **mon-ipad** | VM permanent | n8n + postgres + redis | Stockage + pilotage, 0 tests lourds |
+| **rag-tests** | Codespace | n8n + 3 workers + pg + redis | ~180-360 q/h (3 workers, rate-limit OpenRouter) |
+| **rag-website** | Codespace | n8n + pg | Dev sector pipelines |
+| **rag-data-ingestion** | Codespace | n8n + 2 workers + pg + redis | Ingestion parallele |
+
+### Workers et scaling
+- Workers multipliables en queue mode Redis (1 worker = 1 execution concurrente)
+- Limite RAM Codespace (8GB) → max ~5 workers par Codespace
+- Bottleneck reel = OpenRouter free tier (20 req/min)
+- Augmenter les workers au-dela de 3 n'ameliore pas le throughput si OpenRouter rate-limite
+
+### Roles Docker par environnement
+| Environnement | n8n | Workers | Tests | Ingestion |
+|---------------|-----|---------|-------|-----------|
+| VM (mon-ipad) | Up (stockage workflows) | 0 | NON (RAM ~100MB) | NON |
+| Codespace rag-tests | Up (locale) | 3 | OUI (50-1000q) | NON |
+| Codespace rag-website | Up (locale) | 0 | OUI (sectoriels) | OUI (sectoriels) |
+| Codespace rag-data-ingestion | Up (locale) | 2 | NON | OUI (massive) |
+
+---
 
 ## Appendix B: Decision Log
 
