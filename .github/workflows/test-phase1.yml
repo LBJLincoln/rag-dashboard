@@ -81,23 +81,12 @@ jobs:
           sleep 10
           docker compose ps
 
-      - name: Create Supabase credentials in n8n
+      - name: Setup n8n (credentials + API key)
         env:
           SUPABASE_PASSWORD: ${{ secrets.SUPABASE_PASSWORD }}
+          N8N_API_KEY: rag-tests-ci-api-key-2026
         run: |
-          N8N_KEY="rag-tests-ci-api-key-2026"
-          CRED1=$(curl -sf -X POST "http://localhost:5678/api/v1/credentials" \
-            -H "X-N8N-API-KEY: $N8N_KEY" -H "Content-Type: application/json" \
-            -d "{\"name\":\"Supabase PostgreSQL\",\"type\":\"postgres\",\"data\":{\"host\":\"db.ayqviqmxifzmhphiqfmj.supabase.co\",\"port\":5432,\"database\":\"postgres\",\"user\":\"postgres\",\"password\":\"$SUPABASE_PASSWORD\",\"ssl\":true,\"sshTunnel\":false}}")
-          CRED1_ID=$(echo "$CRED1" | python3 -c "import json,sys; print(json.load(sys.stdin).get('id','ERROR'))")
-          echo "Cred1 (Supabase PG): $CRED1_ID"
-          CRED2=$(curl -sf -X POST "http://localhost:5678/api/v1/credentials" \
-            -H "X-N8N-API-KEY: $N8N_KEY" -H "Content-Type: application/json" \
-            -d "{\"name\":\"Supabase Postgres (Pooler)\",\"type\":\"postgres\",\"data\":{\"host\":\"aws-1-eu-west-1.pooler.supabase.com\",\"port\":6543,\"database\":\"postgres\",\"user\":\"postgres.ayqviqmxifzmhphiqfmj\",\"password\":\"$SUPABASE_PASSWORD\",\"ssl\":true,\"sshTunnel\":false}}")
-          CRED2_ID=$(echo "$CRED2" | python3 -c "import json,sys; print(json.load(sys.stdin).get('id','ERROR'))")
-          echo "Cred2 (Supabase Pooler): $CRED2_ID"
-          echo "CRED1_ID=$CRED1_ID" >> $GITHUB_ENV
-          echo "CRED2_ID=$CRED2_ID" >> $GITHUB_ENV
+          python3 scripts/ci_n8n_setup.py --supabase-password "$SUPABASE_PASSWORD"
 
       - name: Patch workflow JSONs with CI credential IDs
         run: |
@@ -107,7 +96,7 @@ jobs:
 
       - name: Import n8n workflows
         run: |
-          N8N_KEY="rag-tests-ci-api-key-2026"
+          N8N_KEY="${N8N_CI_API_KEY:-rag-tests-ci-api-key-2026}"
           for wf_file in n8n/live/standard.json n8n/live/graph.json n8n/live/quantitative.json n8n/live/orchestrator.json; do
             if [ -f "$wf_file" ]; then
               RESP=$(curl -s -X POST "http://localhost:5678/api/v1/workflows" \
@@ -118,17 +107,17 @@ jobs:
                 WF_ID=$(echo "$RESP" | python3 -c "import json,sys; print(json.load(sys.stdin).get('id','?'))")
                 echo "Imported: $WF_NAME (id=$WF_ID)"
               else
-                echo "Import issue: $WF_NAME -- $(echo $RESP | head -c 200)"
+                echo "Import issue: $WF_NAME -- $(echo $RESP | head -c 300)"
               fi
             fi
           done
 
       - name: Activate all workflows
         run: |
-          N8N_KEY="rag-tests-ci-api-key-2026"
+          N8N_KEY="${N8N_CI_API_KEY:-rag-tests-ci-api-key-2026}"
           curl -s "http://localhost:5678/api/v1/workflows?limit=20" \
             -H "X-N8N-API-KEY: $N8N_KEY" \
-            | python3 -c "import json,sys,urllib.request; d=json.load(sys.stdin); [urllib.request.urlopen(urllib.request.Request('http://localhost:5678/api/v1/workflows/'+w['id']+'/activate',method='POST',headers={'X-N8N-API-KEY':'rag-tests-ci-api-key-2026'})) or print('Activated:',w.get('name','')[:50]) for w in d.get('data',[]) if not w.get('active')]"
+            | python3 -c "import json,sys,urllib.request; d=json.load(sys.stdin); [urllib.request.urlopen(urllib.request.Request('http://localhost:5678/api/v1/workflows/'+w['id']+'/activate',method='POST',headers={'X-N8N-API-KEY':'${N8N_CI_API_KEY:-rag-tests-ci-api-key-2026}'})) or print('Activated:',w.get('name','')[:50]) for w in d.get('data',[]) if not w.get('active')]"
           echo "Activation done"
 
       - name: Create .env.local
@@ -168,8 +157,12 @@ jobs:
         if: always()
         with:
           name: phase1-test-logs-${{ github.run_id }}
-          path: logs/
+          path: |
+            logs/*.log
+            logs/*.json
+            logs/*.txt
           retention-days: 7
+          if-no-files-found: warn
 
       - name: n8n logs on failure
         if: failure()
