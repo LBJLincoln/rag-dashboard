@@ -1,9 +1,11 @@
 # rag-website — CLAUDE.md
 
+> Last updated: 2026-02-18T14:00:00Z
 > **Ce repo s'exécute dans un Codespace GitHub éphémère (dev) + Vercel (prod).**
 > Tu es un agent Claude Code (`claude-opus-4-6`) spécialisé dans le SITE BUSINESS multi-secteurs.
 > **MODÈLE OBLIGATOIRE : `claude-opus-4-6`** — lancer `bash scripts/setup-claude-opus.sh` au démarrage.
 > Tu suis le même workflow-process que mon-ipad, adapté à ton objectif secteur.
+> Processus team-agentic : voir `technicals/team-agentic-process.md` (dans mon-ipad).
 
 ---
 
@@ -205,6 +207,24 @@ rag-website-postgres-1  postgres:15         Port 5432 (interne)
 
 ---
 
+## ETAPE 0 — Consulter la Bibliotheque de Fixes (OBLIGATOIRE)
+
+**AVANT tout debug, TOUJOURS consulter `technicals/fixes-library.md` en premier.**
+
+```bash
+cat technicals/fixes-library.md
+```
+
+12 bugs critiques ont deja ete resolus (sessions 7–17). Chercher le symptome dans le tableau PIEGES RECURRENTS avant toute analyse. **Si symptome connu → appliquer directement SANS re-analyser.** Particulierement pertinent : FIX-04 (Jina JSON), FIX-07 (Neo4j URL), FIX-09 (PUT 400), FIX-12 (Pinecone dim). Si le symptome est nouveau → debugger, puis signaler a mon-ipad.
+
+### Protocole Auto-Stop
+3 echecs consecutifs sur le meme type d'erreur → STOP, documenter dans `logs/diagnostics/`, signaler a mon-ipad.
+
+### Fixes Library Partagee
+La bibliotheque de fixes master est dans `mon-ipad/technicals/fixes-library.md`. Ce repo recoit une copie via `push-directives.sh`. Si tu decouvres un nouveau bug, documente-le dans `logs/diagnostics/` + commit + push.
+
+---
+
 ## BOUCLE D'ITÉRATION (même que workflow-process.md — adapté secteurs)
 
 ### Étape 1 : Test 1/1 (par secteur)
@@ -262,15 +282,16 @@ Deploy      : Vercel (auto push main)
 
 ## RÈGLES D'OR
 
-1. **source .env.local** avant tout script Python
-2. **Bases de données SÉPARÉES** — ne jamais écrire dans les indexes de mon-ipad
-3. **Recherche papiers 2026 OBLIGATOIRE** avant développement
-4. **UN fix par itération** — même règle que mon-ipad
-5. **Double analyse** (node-analyzer + analyze_n8n_executions) pour chaque exécution
-6. **Tests séquentiels** — jamais parallèles (503)
-7. **5/5 minimum** avant sync/commit
-8. **Push avant arrêt Codespace** — éphémère !
-9. **Résultats vers GitHub** — mon-ipad lit depuis rag-website/main
+1. **Consulter fixes-library.md EN PREMIER** — avant tout debug (`technicals/fixes-library.md`)
+2. **source .env.local** avant tout script Python
+3. **Bases de données SÉPARÉES** — ne jamais écrire dans les indexes de mon-ipad
+4. **Recherche papiers 2026 OBLIGATOIRE** avant développement
+5. **UN fix par itération** — même règle que mon-ipad
+6. **Double analyse** (node-analyzer + analyze_n8n_executions) pour chaque exécution
+7. **Tests séquentiels** — jamais parallèles (503)
+8. **5/5 minimum** avant sync/commit
+9. **Push avant arrêt Codespace** — éphémère !
+10. **Résultats vers GitHub** — mon-ipad lit depuis rag-website/main
 
 ---
 

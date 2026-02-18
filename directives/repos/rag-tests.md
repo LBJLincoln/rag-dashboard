@@ -1,10 +1,12 @@
 # rag-tests — CLAUDE.md
 
+> Last updated: 2026-02-18T14:00:00Z
 > **Ce repo s'exécute dans un Codespace GitHub éphémère.**
 > Tu es un agent Claude Code (`claude-opus-4-6`) spécialisé dans les TESTS des 4 pipelines RAG.
 > **MODÈLE OBLIGATOIRE : `claude-opus-4-6`** — lancer `bash scripts/setup-claude-opus.sh` au démarrage.
 > **n8n LOCAL dans ce Codespace** (docker-compose : n8n-main + 3 workers) — PAS de SSH tunnel vers la VM.
 > Tu suis le même workflow-process que mon-ipad, adapté à ton rôle de testeur.
+> Processus team-agentic : voir `technicals/team-agentic-process.md` (dans mon-ipad).
 
 ---
 
@@ -140,6 +142,24 @@ python3 eval/phase_gates.py
 
 ---
 
+## ETAPE 0 — Consulter la Bibliotheque de Fixes (OBLIGATOIRE)
+
+**AVANT tout debug, TOUJOURS consulter `technicals/fixes-library.md` en premier.**
+
+```bash
+cat technicals/fixes-library.md
+```
+
+12 bugs critiques ont deja ete resolus (sessions 7–17). Chercher le symptome dans le tableau PIEGES RECURRENTS avant toute analyse. **Si symptome connu → appliquer directement SANS re-analyser.** Consulter les 2-3 dernieres versions reussies dans `n8n/validated/`. Si le symptome est nouveau → debugger, puis signaler a mon-ipad pour documentation dans la bibliotheque.
+
+### Protocole Auto-Stop
+3 echecs consecutifs sur le meme type d'erreur → STOP, documenter dans `logs/diagnostics/`, signaler a mon-ipad.
+
+### Fixes Library Partagee
+La bibliotheque de fixes master est dans `mon-ipad/technicals/fixes-library.md`. Ce repo recoit une copie via `push-directives.sh`. Si tu decouvres un nouveau bug, documente-le dans `logs/diagnostics/` + commit + push. L'orchestrateur (mon-ipad) ajoutera le fix au master.
+
+---
+
 ## BOUCLE D'ITÉRATION (identique à workflow-process.md de mon-ipad)
 
 ### Étape 1 : Test 1/1
@@ -242,14 +262,15 @@ git push origin main
 
 ## RÈGLES D'OR
 
-1. **source .env.local** avant tout script Python
-2. **docker compose up -d** avant tout test (n8n LOCAL — PAS de SSH tunnel)
-3. **Tests séquentiels** — un pipeline à la fois (jamais de parallèles → 503)
-4. **Double analyse** (node-analyzer + analyze_n8n_executions) pour chaque exécution
-5. **Ne pas modifier** les workflows n8n → rôle exclusif de mon-ipad
-6. **Push résultats** avant arrêt du Codespace (éphémère !)
-7. **Signaler les problèmes** dans logs/diagnostics/ + commit
-8. **Modèle : claude-opus-4-6** — lancer `bash scripts/setup-claude-opus.sh` au démarrage
+1. **Consulter fixes-library.md EN PREMIER** — avant tout debug (`technicals/fixes-library.md`)
+2. **source .env.local** avant tout script Python
+3. **docker compose up -d** avant tout test (n8n LOCAL — PAS de SSH tunnel)
+4. **Tests séquentiels** — un pipeline à la fois (jamais de parallèles → 503)
+5. **Double analyse** (node-analyzer + analyze_n8n_executions) pour chaque exécution
+6. **Ne pas modifier** les workflows n8n → rôle exclusif de mon-ipad
+7. **Push résultats** avant arrêt du Codespace (éphémère !)
+8. **Signaler les problèmes** dans logs/diagnostics/ + commit
+9. **Modèle : claude-opus-4-6** — lancer `bash scripts/setup-claude-opus.sh` au démarrage
 
 ---
 

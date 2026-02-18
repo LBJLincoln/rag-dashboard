@@ -1,9 +1,11 @@
 # rag-dashboard — CLAUDE.md
 
+> Last updated: 2026-02-18T14:00:00Z
 > **Ce repo est statique — déployé sur GitHub Pages ou Vercel.**
 > Tu es un agent Claude Code (`claude-opus-4-6`) spécialisé dans le DASHBOARD DE MONITORING live.
 > **MODÈLE OBLIGATOIRE : `claude-opus-4-6`** — lancer `bash scripts/setup-claude-opus.sh` au démarrage.
 > Ce repo est en lecture seule vis-à-vis des pipelines RAG.
+> Processus team-agentic : voir `technicals/team-agentic-process.md` (dans mon-ipad).
 
 ---
 

@@ -1,9 +1,11 @@
 # rag-data-ingestion — CLAUDE.md
 
+> Last updated: 2026-02-18T14:00:00Z
 > **Ce repo s'exécute dans un Codespace GitHub éphémère.**
 > Tu es un agent Claude Code (`claude-opus-4-6`) spécialisé dans l'INGESTION et l'ENRICHISSEMENT des BDD.
 > **MODÈLE OBLIGATOIRE : `claude-opus-4-6`** — lancer `bash scripts/setup-claude-opus.sh` au démarrage.
 > Tu suis le même workflow-process que mon-ipad, adapté à l'amélioration des pipelines d'ingestion.
+> Processus team-agentic : voir `technicals/team-agentic-process.md` (dans mon-ipad).
 
 ---
 
@@ -197,6 +199,31 @@ rag-ingestion-redis-1    redis:7-alpine        Port 6379 (queue)
 
 ---
 
+## ETAPE 0 — Consulter la Bibliotheque de Fixes (OBLIGATOIRE)
+
+**AVANT tout debug, TOUJOURS consulter `technicals/fixes-library.md` en premier.**
+
+```bash
+cat technicals/fixes-library.md
+```
+
+12 bugs critiques ont deja ete resolus (sessions 7–17). Chercher le symptome dans le tableau PIEGES RECURRENTS avant toute analyse. **Si symptome connu → appliquer directement SANS re-analyser.** Particulierement pertinent : FIX-06 (credentials manquantes), FIX-09 (PUT 400), FIX-12 (Pinecone dim mismatch). Si le symptome est nouveau → debugger, puis signaler a mon-ipad pour documentation.
+
+### Protocole Auto-Stop
+3 echecs consecutifs sur le meme type d'erreur → STOP, documenter dans `logs/diagnostics/`, signaler a mon-ipad.
+
+### Fixes Library Partagee
+La bibliotheque de fixes master est dans `mon-ipad/technicals/fixes-library.md`. Ce repo recoit une copie via `push-directives.sh`. Si tu decouvres un nouveau bug, documente-le dans `logs/diagnostics/` + commit + push.
+
+### BDD Separees (Ingestion)
+| BDD | Index/Schema mon-ipad (benchmark) | Index/Schema website (secteurs) |
+|-----|-----------------------------------|--------------------------------|
+| Pinecone | `sota-rag-jina-1024` | `website-sectors-jina-1024` |
+| Neo4j | labels generiques | labels `WEB_*` |
+| Supabase | schema `public` | schema `website_*` |
+
+---
+
 ## BOUCLE D'ITÉRATION (même que workflow-process.md — adapté ingestion)
 
 ### Le "test" ici = mesurer la qualité d'ingestion
@@ -318,15 +345,16 @@ git push origin main
 
 ## RÈGLES D'OR
 
-1. **Recherche papiers 2026 OBLIGATOIRE** avant tout développement
-2. **source .env.local** avant tout script Python
-3. **UN fix par itération** — jamais plusieurs changements simultanés
-4. **Mesurer AVANT et APRÈS** chaque changement
-5. **Double analyse** (node-analyzer + analyze_n8n_executions)
-6. **Ne jamais écraser** les indexes Pinecone de mon-ipad (`sota-rag-*`)
-7. **Push résultats** avant arrêt du Codespace (éphémère !)
-8. **Documenter** chaque technique dans `research/papers-2026.md`
-9. **Signaler à mon-ipad** les workflows validés pour déploiement VM
+1. **Consulter fixes-library.md EN PREMIER** — avant tout debug (`technicals/fixes-library.md`)
+2. **Recherche papiers 2026 OBLIGATOIRE** avant tout développement
+3. **source .env.local** avant tout script Python
+4. **UN fix par itération** — jamais plusieurs changements simultanés
+5. **Mesurer AVANT et APRÈS** chaque changement
+6. **Double analyse** (node-analyzer + analyze_n8n_executions)
+7. **Ne jamais écraser** les indexes Pinecone de mon-ipad (`sota-rag-*`)
+8. **Push résultats** avant arrêt du Codespace (éphémère !)
+9. **Documenter** chaque technique dans `research/papers-2026.md`
+10. **Signaler à mon-ipad** les workflows validés pour déploiement VM
 
 ---
 

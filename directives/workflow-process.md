@@ -1,5 +1,44 @@
 # Processus Standard de Session Claude Code
 
+> Last updated: 2026-02-18T14:00:00Z
+
+## ETAPE 0 — Consulter la Bibliotheque de Fixes (OBLIGATOIRE)
+
+**AVANT tout debug, TOUJOURS consulter `technicals/fixes-library.md` en premier.**
+
+```bash
+cat technicals/fixes-library.md
+```
+
+### Pourquoi
+12 bugs critiques ont deja ete resolus sur ce projet (sessions 7–17). La majorite des nouveaux symptomes sont des recurrences ou des variantes de bugs connus. Consulter la bibliotheque evite de re-debugger des problemes deja resolus.
+
+### Utilisation
+1. Identifier le symptome (HTTP 500, boucle infinie, credential manquante, skip_graph, PUT 400...)
+2. Chercher dans le tableau **PIEGES RECURRENTS** → solution immediate
+3. **Si le symptome correspond a un fix connu → appliquer directement SANS re-analyser**
+4. Si le symptome est nouveau → debugger normalement, puis documenter le fix dans la bibliotheque
+5. **Consulter les 2-3 dernieres versions reussies** de ce pipeline dans `snapshot/workflows/` ou `n8n/validated/`
+
+### Protocole Auto-Stop (3 echecs consecutifs)
+Si un pipeline enchaine **3 echecs consecutifs** sur le meme type d'erreur :
+1. **STOP** — ne pas retenter le meme fix
+2. Documenter le pattern dans `logs/diagnostics/`
+3. Analyser avec les 2 outils (node-analyzer + analyze_n8n_executions)
+4. Consulter `technicals/team-agentic-process.md` pour la procedure complete
+
+### Mise a jour obligatoire
+Apres chaque fix reussi (5/5 PASS) → ajouter l'entree dans `technicals/fixes-library.md` :
+- Numero de fix suivant
+- Session + date
+- Pipeline concerne
+- Symptome exact
+- Root cause
+- Fix applique (code si pertinent)
+- Fichier impacte
+
+---
+
 ## Demarrage de Session
 
 ```
@@ -183,6 +222,7 @@ python3 scripts/analyze_n8n_executions.py --pipeline <cible> --limit 5
 ---
 
 ### Avant TOUT fix, repondre a :
+- [ ] **Consulte technicals/fixes-library.md ?** → symptome deja connu ? (OBLIGATOIRE — ETAPE 0)
 - [ ] Quel noeud exact cause le probleme ? **(confirme par les DEUX outils)**
 - [ ] Qu'est-ce que le noeud recoit en input ? **(via analyze_n8n_executions.py)**
 - [ ] Qu'est-ce qu'il produit en output ? **(via analyze_n8n_executions.py)**
@@ -218,12 +258,14 @@ WORKFLOW_IDS = {
 
 ## Regles d'Or
 
-1. **UN fix par iteration** — jamais plusieurs noeuds/pipelines en meme temps
-2. **n8n est la source de verite** — editer dans n8n, sync vers GitHub
-3. **Analyse granulaire AVANT chaque fix** — **LES DEUX OUTILS sont OBLIGATOIRES**
-4. **Verifier AVANT de sync** — 5/5 doit passer avant de commit
-5. **Commit + push apres chaque fix reussi** — garder les agents en sync
-6. **Si 3+ regressions → REVERT immediat**
+1. **Consulter fixes-library.md EN PREMIER** — avant tout debug (`technicals/fixes-library.md`)
+2. **UN fix par iteration** — jamais plusieurs noeuds/pipelines en meme temps
+3. **n8n est la source de verite** — editer dans n8n, sync vers GitHub
+4. **Analyse granulaire AVANT chaque fix** — **LES DEUX OUTILS sont OBLIGATOIRES**
+5. **Verifier AVANT de sync** — 5/5 doit passer avant de commit
+6. **Commit + push apres chaque fix reussi** — garder les agents en sync
+7. **Si 3+ regressions → REVERT immediat**
+8. **MAJ fixes-library.md apres chaque fix** — perpetuer la connaissance
 
 ---
 
