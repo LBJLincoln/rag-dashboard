@@ -1,58 +1,68 @@
-# Status — 18 Fevrier 2026 (Session 18)
+# Status — 18 Fevrier 2026 (Session 20)
 
-> Last updated: 2026-02-18T14:30:00Z
+> Last updated: 2026-02-18T20:00:00Z
 
-## Session 18 = Restructuration Profonde (ZERO tests)
+## Session 20 = Nettoyage massif + Infrastructure + Recherche (ZERO tests)
 
-Aucun test execute, aucun workflow modifie dans n8n. Session dediee a la restructuration de la documentation, des directives et des processus team-agentic.
+Aucun test execute. Session dediee au nettoyage, specialisation repos, creation infrastructure docs, et recherche alternatives cloud.
 
-### Fichiers crees (3)
+### Fichiers crees (4)
 | Fichier | Contenu |
 |---------|---------|
-| `technicals/env-vars-exhaustive.md` | 33 vars, 8 sections, matrice workflow x var |
-| `technicals/team-agentic-process.md` | Roles, auto-stop, fixes-library, export, Opus 4.6 |
-| `scripts/check-staleness.sh` | Scanner anti-staleness (>48h → alerte) |
+| `infra/inventory.md` | Comptage precis 5 repos, Mermaid diagrams (3) |
+| `infra/cloud-alternatives.md` | 20+ providers, HF Spaces 16GB $0, Phase 5 estimation |
+| `directives/research-methodology.md` | Directive recherche centralisee (arXiv, labs, $0) |
+| `scripts/specialize-repos.sh` | Script specialisation 4 repos satellites |
 
-### Fichiers modifies (12)
+### Fichiers copies vers infra/ (6)
+infrastructure-plan.md, n8n-topology.md, stack.md, credentials.md, architecture.md, env-vars-exhaustive.md
+
+### Fichiers modifies (6)
 | Fichier | Changement principal |
 |---------|---------------------|
-| `CLAUDE.md` | 10 changements (workflows 9/16, MCP fix, LLM table, anti-staleness) |
-| `directives/objective.md` | Refonte multi-repo, fix Neo4j/Supabase staleness |
-| `directives/workflow-process.md` | Etape 0 renforcee, auto-stop protocol |
-| `directives/repos/rag-tests.md` | Last updated, fixes-library, auto-stop |
-| `directives/repos/rag-website.md` | Last updated, fixes-library, REDESIGN section |
-| `directives/repos/rag-data-ingestion.md` | Last updated, fixes-library, BDD separees |
-| `directives/repos/rag-dashboard.md` | Last updated, team-agentic ref |
-| `technicals/architecture.md` | Audit 13→9 workflows, cible 16 (A/B/C) |
-| `technicals/stack.md` | Redis cache→queue, Neo4j bolt→https, Supabase 88→17000+ |
-| `technicals/infrastructure-plan.md` | Docker par repo section |
+| `technicals/phases-overview.md` | Neo4j 110→19,788, Supabase 88→17,000+, workflows 13→9 |
+| `docs/data.json` | Workflow IDs Docker corriges (4 pipelines) |
+| `CLAUDE.md` | 3 support workflows OFF (pret), coherence |
+| `directives/dataset-rationale.md` | Timestamp ajoute |
+| 10 fichiers .md | Timestamps "Last updated" ajoutes |
 
-### Audit workflows : 13 → 9 actifs
-| Supprime | Raison |
-|----------|--------|
-| Feedback V3.1 | DeepSeek non configure, SLACK_WEBHOOK absent |
-| Monitoring | OTEL non configure |
-| Orchestrator Tester | Duplique quick-test.py |
-| RAG Batch Tester | Duplique quick-test.py |
+### Fichiers supprimes (4 de n8n/live/)
+feedback.json, benchmark-monitoring.json, benchmark-orchestrator-tester.json, benchmark-rag-tester.json
+
+### Actions n8n Docker
+4 workflows desactives via API REST (feedback, monitoring, orch-tester, rag-tester)
+
+### Specialisation repos satellites
+| Repo | Items supprimes | Fichiers restants |
+|------|----------------|-------------------|
+| rag-tests | 31 | ~326 |
+| rag-website | 17 | ~83 |
+| rag-dashboard | 22 | ~9 |
+| rag-data-ingestion | 30 | ~295 |
+
+### Decouverte majeure : HF Spaces
+- 16 GB RAM, 2 CPU, Docker natif, $0 permanent
+- Sleep apres 48h (contournable via ping cron)
+- Migration possible pour n8n moyen terme (Phase 3-4)
 
 ## Pipelines RAG — Accuracy (inchangee)
 
 | Pipeline | Score | Target | Status |
 |----------|-------|--------|--------|
 | Standard | 85.5% | 85% | PASS |
-| Graph | 68.7%* | 70% | FAIL (fix applique session 17, retestar) |
-| Quantitative | 78.3%* | 85% | FAIL (fix applique session 17, retestar) |
+| Graph | 68.7%* | 70% | FAIL (fix applique session 17, retester) |
+| Quantitative | 78.3%* | 85% | FAIL (fix applique session 17, retester) |
 | Orchestrator | 80.0% | 70% | PASS |
 | **Overall** | **78.1%** | **75%** | **PASS** |
 
-*Accuracy mesuree avant les fixes. Retestar pour confirmer ameliorations.
+*Accuracy mesuree avant les fixes. Retester pour confirmer ameliorations.
 
-## Prochaine session (19)
+## Prochaine session (21)
 
-**Priorite 1** : Pousser directives vers satellites (`push-directives.sh`)
-**Priorite 2** : Desactiver 4 workflows dans n8n Docker VM
-**Priorite 3** : Lancer tests Graph + Quantitative dans Codespace rag-tests
-**Priorite 4** : Si gates passees → Phase 2 (1000q HuggingFace)
+**Priorite 1** : Fix Graph 68.7%→70% (gap -1.3pp) dans Codespace rag-tests
+**Priorite 2** : Fix Quantitative 78.3%→85% (CompactRAG + BM25)
+**Priorite 3** : Si gates passees → Phase 2 (1000q HuggingFace)
+**Priorite 4** : Optionnel — deployer n8n sur HF Spaces
 
 ## Etat des BDD (inchange)
 | BDD | Contenu | Pret Phase 2 |

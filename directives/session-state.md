@@ -1,82 +1,100 @@
-# Session State — 18 Fevrier 2026 (Session 18)
+# Session State — 18 Fevrier 2026 (Session 20)
 
-> Last updated: 2026-02-18T14:30:00Z
+> Last updated: 2026-02-18T20:00:00Z
 
 ## Objectif de session
-Restructuration profonde de la documentation, directives et processus du projet Multi-RAG. Pilotage et analyse uniquement depuis VM Termius — ZERO tests, ZERO calcul lourd.
+Nettoyage massif, verification staleness, specialisation des 4 repos satellites, creation dossier infra/, inventaire complet, recherche alternatives cloud gratuites, creation directive recherche internet centralisee.
 
 ## Taches accomplies
 
-### 1. Document exhaustif credentials/env-vars (CREE)
-- `technicals/env-vars-exhaustive.md` — 33 vars documentees, 8 sections
-- Matrice workflow x env var (13 workflows)
-- Log de modifications horodate
-- 18 variables manquantes identifiees (monitoring optionnel)
+### T1. Desactivation 4 workflows n8n Docker (API REST)
+- Feedback V3.1 (`F70g14jMxIGCZnFz`) → desactive
+- Monitoring (`tLNh3wTty7sEprLj`) → desactive
+- Orchestrator Tester (`m9jaYzWMSVbBFeSf`) → desactive
+- RAG Batch Tester (`y2FUkI5SZfau67dN`) → desactive
 
-### 2. Refonte objective.md (REFAIT)
-- Couvre les 5 repos (mon-ipad, rag-tests, rag-website, rag-data-ingestion, rag-dashboard)
-- Corrige Neo4j 110 → 19,788 nodes
-- Corrige Supabase 88 → 17,000+ lignes
+### T2. Suppression 4 fichiers workflow n8n/live/
+- Supprimes : feedback.json, benchmark-monitoring.json, benchmark-orchestrator-tester.json, benchmark-rag-tester.json
+- Resultat : 9 fichiers restants dans n8n/live/
 
-### 3. Architecture 16 workflows + audit (MAJ)
-- Audit 13 → 9 workflows (4 supprimes : feedback, monitoring, orch-tester, rag-tester)
-- Cible 16 workflows en 3 categories : A (Test-RAG), B (Sector), C (Ingestion)
-- Raisons documentees pour chaque suppression
+### T3. Correction fichiers outdated
+- `technicals/phases-overview.md` : Neo4j 110→19,788, Supabase 88→17,000+, workflows 13→9
+- `docs/data.json` : workflow IDs Docker corriges (4 pipelines)
+- `CLAUDE.md` : 3 support workflows marques OFF (pret)
+- `directives/dataset-rationale.md` : timestamp ajoute
 
-### 4. Team-agentic formel (CREE)
-- `technicals/team-agentic-process.md` — roles, communication, auto-stop, fixes-library, export, tracking, Opus 4.6
+### T4. Anti-staleness complet
+- 10 fichiers .md sans timestamp → tous corriges
+- 25/25 fichiers passent le check-staleness.sh
 
-### 5. Anti-staleness protocol (AJOUTE)
-- Section 0.4 dans CLAUDE.md
-- `scripts/check-staleness.sh` cree (scanner dates >48h)
-- `Last updated:` ajoute a tous les fichiers directives/ et technicals/ modifies
+### T5. Push directives vers satellites
+- `bash scripts/push-directives.sh` execute → 4 repos MAJ
 
-### 6. Workflow-process.md + 4 repos (MAJ)
-- Etape 0 renforcee : "appliquer directement si connu", consulter snapshots
-- Auto-stop protocol reference
-- 4 repos directives : Last updated, fixes-library partagee, auto-stop, team-agentic ref
-- rag-data-ingestion : ajout table BDD separees
+### T6. Specialisation repos satellites (grande suppression)
+- Script `scripts/specialize-repos.sh` cree (170 lignes)
+- rag-tests : 31 items supprimes (website/, mcp/, n8n/, db/, etc.)
+- rag-website : 17 items supprimes (eval/, scripts/, datasets/, etc.)
+- rag-dashboard : 22 items supprimes (quasi tout sauf docs/)
+- rag-data-ingestion : 30 items supprimes (website/, eval/, etc.)
 
-### 7. CLAUDE.md master (MAJ — 10 changements)
-- Workflows 11 → 9 (audit), cible 16 (A/B/C)
-- MCP n8n : "N/A" → "OK"
-- Anti-staleness section 0.4
-- Refs env-vars + team-agentic + fixes-library
-- Tableau LLM (Llama 70B, Gemma 27B, Trinity)
-- Checklist fin de session : +env-vars +check-staleness
-- Team-agentic : +auto-stop +fixes-library
+### T7. Creation dossier infra/
+- 8 fichiers : 6 copies depuis technicals/ + inventory.md + cloud-alternatives.md
+- Mermaid diagrams architecture 5 repos + infra + workflows
 
-### 8. Infrastructure + stack (MAJ)
-- infrastructure-plan.md : section Docker par repo, scaling
-- stack.md : Redis cache→queue, Neo4j bolt→https, Supabase 88→17000+
+### T8. Inventaire complet (infra/inventory.md)
+- mon-ipad : 504 fichiers core
+- rag-tests : 326 fichiers (post-specialisation)
+- rag-website : 83 fichiers
+- rag-dashboard : 9 fichiers
+- rag-data-ingestion : 295 fichiers
 
-### 9. Website redesign (AJOUTE)
-- Section REDESIGN dans rag-website.md
-- CTA "TESTEZ DIRECTEMENT", pipeline 3 etapes, ordre secteurs
+### T9. Recherche alternatives cloud gratuites (infra/cloud-alternatives.md)
+- 20+ providers analyses (HF Spaces, Azure, AWS, Fly.io, Railway, Koyeb, Render, Hetzner)
+- **Decouverte majeure** : Hugging Face Spaces = 16 GB RAM, 2 CPU, $0 permanent
+- Strategie multi-provider : HF Spaces + Supabase + Codespaces = $0 total, 25 GB RAM distribuee
+- Estimation Phase 5 : 1M questions / 1,200 req/h = ~35 jours 24/7
+
+### T10. Directive recherche internet centralisee (directives/research-methodology.md)
+- 4 tiers de sources (arXiv → Labs blogs → Docs officielles → Leaderboards)
+- Suivi obligatoire : Anthropic, OpenAI, Google DeepMind, xAI, Meta AI
+- Contrainte $0 absolue : toute technique payante → chercher alternative gratuite
+- Template de documentation avec references verifiables
+
+### T11. Verification fixes-library dans satellites
+- rag-tests : OK (technicals/fixes-library.md present)
+- rag-data-ingestion : OK (technicals/fixes-library.md present)
+- rag-website : N/A (pas de debug pipeline)
+- rag-dashboard : N/A (statique)
+
+### T12. Review rag-research-2026.md
+- 11 papiers arXiv cites, structure solide
+- Garde dans technicals/ (source de verite academique)
+- Idees integrees dans cloud-alternatives.md et research-methodology.md
 
 ## Decisions prises
-1. 4 workflows supprimes (feedback, monitoring, orch-tester, rag-tester) — redondants ou non configures
-2. Architecture 16 workflows en 3 categories (A/B/C) adoptee
-3. Anti-staleness 48h obligatoire sur tous les directives/technicals
-4. Fixes-library master dans mon-ipad, copies vers satellites
+1. VM GCloud = pilotage uniquement (RAM non compromise, ~400 MB Docker + Claude Code)
+2. HF Spaces = option migration moyen terme (16 GB RAM gratuit)
+3. Research-methodology.md = directive centralisee pour TOUS les repos
+4. Specialisation repos = chaque repo ne garde que ce qui le concerne
 
-## Commits session 18
+## Commits session 20
 | Hash | Description |
 |------|-------------|
-| 395ab02 | batch 1 — env-vars, team-agentic, architecture, stack fixes |
-| 4c5e366 | batch 2 — workflow-process + 4 repo directives |
-| adcdfcf | batch 3 — website redesign directives |
-| 2909321 | batch 4 — CLAUDE.md master complete |
-| (en cours) | batch 5 — session-state + status |
+| 724c596 | nettoyage massif + staleness + specialisation repos |
+| 1bc6002 | infra/ dossier + inventaire + alternatives cloud + directive recherche |
 
 ## Repos impactes
-- mon-ipad (tous les fichiers)
+- mon-ipad (T1-T12)
+- rag-tests (T5 directives + T6 specialisation)
+- rag-website (T5 directives + T6 specialisation)
+- rag-dashboard (T5 directives + T6 specialisation)
+- rag-data-ingestion (T5 directives + T6 specialisation)
 
-## Prochaine action (Session 19)
-1. **Pousser directives vers satellites** : `bash scripts/push-directives.sh`
-2. **Desactiver 4 workflows dans n8n Docker** : feedback, monitoring, orch-tester, rag-tester
-3. **Lancer tests** : Graph (cible 70%) + Quantitative (cible 85%) dans Codespace rag-tests
-4. **Si gates passees** : lancer Phase 2 avec `datasets/phase-2/hf-1000.json`
+## Prochaine action (Session 21)
+1. **Fix Graph 68.7%→70%** (gap -1.3pp, plus petit gap) dans Codespace rag-tests
+2. **Fix Quantitative 78.3%→85%** (CompactRAG + BM25) dans Codespace rag-tests
+3. **Si gates passees** : Phase 2 (1000q HuggingFace)
+4. **Optionnel** : Deployer n8n sur HF Spaces si besoin plus de RAM
 
 ## Accuracy actuelle (inchangee — aucun test cette session)
 | Pipeline | Accuracy | Target | Status |
