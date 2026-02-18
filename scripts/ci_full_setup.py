@@ -96,23 +96,27 @@ def parse_cookies(cookie_header):
     return cookies
 
 
-def login():
-    """Login and return cookies dict."""
+def login(max_retries=12, retry_delay=10):
+    """Login and return cookies dict. Retries to handle n8n REST API startup lag."""
     print("Logging in to n8n...")
-    for payload in [
+    payloads = [
         {"emailOrLdapLoginId": CI_EMAIL, "password": CI_PASSWORD},
         {"email": CI_EMAIL, "password": CI_PASSWORD},
-    ]:
-        data, cookie_str = http("POST", "/rest/login", data=payload)
-        if isinstance(data, dict) and "error" not in data:
-            cookies = parse_cookies(cookie_str)
-            if cookies:
-                print(f"  Logged in, cookies: {list(cookies.keys())}")
-                return cookies
-            print(f"  Login returned no cookies: {str(data)[:100]}")
-        else:
-            print(f"  Login failed ({list(payload.keys())[0]}): {str(data)[:100]}")
-    print("  ERROR: Login failed")
+    ]
+    for attempt in range(max_retries):
+        for payload in payloads:
+            data, cookie_str = http("POST", "/rest/login", data=payload)
+            # Check if response is valid JSON login success (not HTML error page)
+            if isinstance(data, dict) and "error" not in data and not str(data).startswith("<!"):
+                cookies = parse_cookies(cookie_str)
+                if cookies:
+                    print(f"  Logged in (attempt {attempt+1}), cookies: {list(cookies.keys())}")
+                    return cookies
+        # Login not ready yet (n8n REST API may still be initializing after healthz)
+        if attempt < max_retries - 1:
+            print(f"  Login attempt {attempt+1}/{max_retries} failed — waiting {retry_delay}s for REST API...")
+            time.sleep(retry_delay)
+    print("  ERROR: Login failed after all retries")
     return {}
 
 
