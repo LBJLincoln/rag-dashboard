@@ -61,6 +61,20 @@ Pilotage live Codespaces depuis VM, push websites PME, clarification architectur
 - Script migration créé: scripts/migrate-to-hf-spaces.sh
 - Architecture cible: VM (pilotage) + HF Space (n8n 16GB + 3 workers)
 
+### T7. Migration HF Spaces exécutée
+- Space créé: https://huggingface.co/spaces/LBJLincoln/nomos-rag-engine
+- Dockerfile standalone (supervisord, pas Docker-in-Docker) — compatible HF Spaces
+- Services: n8n main + 2 workers (concurrency=3 chacun) + PostgreSQL + Redis + Nginx
+- 9 workflows importés automatiquement
+- Keep-alive crontab VM: */30 * * * * curl healthz
+- Build Docker en cours sur HF (5-10 min)
+
+### T8. Audit credentials complet
+- 18 vars dans .env.local, toutes présentes et correctes
+- .gitignore protège .env.local, .mcp.json, .claude/settings.json
+- Aucun secret dans git (vérifié)
+- 7 remotes GitHub tous avec token ghp_ intégré
+
 ## Commits session 23
 | Hash | Description |
 |------|-------------|
@@ -68,12 +82,14 @@ Pilotage live Codespaces depuis VM, push websites PME, clarification architectur
 | 1c5fbf3 | 2 repos PME créés + remotes ajoutés + CLAUDE.md 7 repos |
 | c4ccaa1 | session-state MAJ session 23 |
 | b8b3ca5 | Vercel configuré — 4 sites live HTTP 200 |
+| 4fdc7f2 | script migration HF Spaces + session-state |
 
 ## Prochaine action (Session 24)
-1. **Lancer migration HF Spaces** : `source .env.local && bash scripts/migrate-to-hf-spaces.sh`
-2. Configurer keep-alive crontab VM
-3. Fix Graph 68.7%→70% (via HF Space n8n au lieu de Codespace)
-4. Fix Quantitative 78.3%→85%
+1. **Vérifier HF Space up** : `curl https://LBJLincoln-nomos-rag-engine.hf.space/healthz`
+2. **Importer API keys** dans n8n HF Space (env vars via HF Settings)
+3. **Tester** : `N8N_HOST=https://LBJLincoln-nomos-rag-engine.hf.space python3 eval/quick-test.py --questions 1 --pipeline standard`
+4. Fix Graph 68.7%→70%
+5. Fix Quantitative 78.3%→85%
 
 ---
 
