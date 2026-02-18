@@ -30,6 +30,7 @@ CI_PASSWORD = "CI-Nomos-2026!"
 # Old VM credential IDs → replaced with CI-created IDs in workflow JSONs
 OLD_CRED_PG = "zEr7jPswZNv6lWKu"
 OLD_CRED_POOLER = "USU8ngVzsUbED3mn"
+OLD_CRED_REDIS = "O2KEPiv7VzgDG5ZX"  # Orchestrator Redis (conv cache)
 
 WORKFLOW_FILES = [
     "n8n/live/standard.json",
@@ -177,7 +178,7 @@ def create_credential(name, cred_type, cred_data, cookies, api_key=""):
     return ""
 
 
-def import_workflow(filepath, cookies, api_key="", cred1_id="", cred2_id="", extra_id_map=None):
+def import_workflow(filepath, cookies, api_key="", cred1_id="", cred2_id="", cred_redis_id="", extra_id_map=None):
     """Import a workflow JSON via REST API.
 
     extra_id_map: {old_workflow_id: new_workflow_id} — used to patch orchestrator
@@ -214,6 +215,8 @@ def import_workflow(filepath, cookies, api_key="", cred1_id="", cred2_id="", ext
     elif cred1_id:
         wf_str = wf_str.replace(OLD_CRED_PG, cred1_id)
         wf_str = wf_str.replace(OLD_CRED_POOLER, cred1_id)
+    if cred_redis_id:
+        wf_str = wf_str.replace(OLD_CRED_REDIS, cred_redis_id)
 
     # Patch orchestrator ExecWorkflow node IDs with actual new workflow IDs
     if extra_id_map:
@@ -382,6 +385,16 @@ def main():
     cred1_id = create_credential("Supabase PostgreSQL", "postgres", supabase_pg_data, cookies, api_key)
     cred2_id = create_credential("Supabase Postgres (Pooler)", "postgres", supabase_pooler_data, cookies, api_key)
 
+    # Redis credential for orchestrator (conversation cache + result cache)
+    # Points to local CI Redis service (no auth, DB 0)
+    redis_data = {
+        "host": "redis",
+        "port": 6379,
+        "password": "",
+        "database": 0,
+    }
+    cred_redis_id = create_credential("CI Redis", "redis", redis_data, cookies, api_key)
+
     # 5. Import workflows (skip if already exist in n8n)
     print("\n=== Checking existing workflows ===")
     existing_wfs = list_workflows(cookies, api_key)
@@ -412,7 +425,7 @@ def main():
                     old_id = json.load(f).get("id", "")
             except Exception:
                 old_id = ""
-            new_id = import_workflow(wf_file, cookies, api_key, cred1_id, cred2_id)
+            new_id = import_workflow(wf_file, cookies, api_key, cred1_id, cred2_id, cred_redis_id)
             if new_id:
                 imported[wf_file] = new_id
                 if old_id:
@@ -422,7 +435,7 @@ def main():
         # Import orchestrator last — patch ExecWorkflow refs with actual new IDs
         if orchestrator_file:
             print(f"\n  Orchestrator ID map: {old_id_to_new_id}")
-            wf_id = import_workflow(orchestrator_file, cookies, api_key, cred1_id, cred2_id,
+            wf_id = import_workflow(orchestrator_file, cookies, api_key, cred1_id, cred2_id, cred_redis_id,
                                     extra_id_map=old_id_to_new_id)
             if wf_id:
                 imported[orchestrator_file] = wf_id

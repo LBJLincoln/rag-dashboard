@@ -139,6 +139,26 @@ jobs:
               sys.exit(1)
           "
 
+      - name: Smoke webhooks (curl raw response)
+        run: |
+          echo "=== Webhook diagnostics ==="
+          for pipe in standard graph quantitative orchestrator; do
+            case $pipe in
+              standard)     url=http://localhost:5678/webhook/rag-multi-index-v3 ;;
+              graph)        url=http://localhost:5678/webhook/ff622742-6d71-4e91-af71-b5c666088717 ;;
+              quantitative) url=http://localhost:5678/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9 ;;
+              orchestrator) url=http://localhost:5678/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0 ;;
+            esac
+            echo "--- $pipe ---"
+            HTTP_CODE=$(curl -s -o /tmp/wh-$pipe.json -w "%{http_code}" \
+              -X POST -H 'Content-Type: application/json' \
+              -d '{"query":"test","tenant_id":"ci","top_k":1}' \
+              --max-time 90 "$url" 2>&1)
+            echo "HTTP $HTTP_CODE"
+            cat /tmp/wh-$pipe.json | head -c 500
+            echo ""
+          done
+
       - name: Run Phase 1 tests
         id: tests
         run: |
@@ -179,6 +199,7 @@ jobs:
       - name: n8n logs (always)
         if: always()
         run: |
-          echo "=== n8n-main logs ===" && docker compose logs n8n-main --tail 50
-          echo "=== n8n-worker-1 logs ===" && docker compose logs n8n-worker-1 --tail 30
-          echo "=== n8n-worker-2 logs ===" && docker compose logs n8n-worker-2 --tail 20
+          echo "=== n8n-main logs ===" && docker compose logs n8n-main --tail 80
+          echo "=== n8n-worker-1 logs ===" && docker compose logs n8n-worker-1 --tail 60
+          echo "=== n8n-worker-2 logs ===" && docker compose logs n8n-worker-2 --tail 60
+          echo "=== n8n-worker-3 logs ===" && docker compose logs n8n-worker-3 --tail 60
