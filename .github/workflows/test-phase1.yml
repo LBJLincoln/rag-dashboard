@@ -94,6 +94,9 @@ jobs:
             --old1 zEr7jPswZNv6lWKu --new1 "$CRED1_ID" \
             --old2 USU8ngVzsUbED3mn --new2 "$CRED2_ID"
 
+      - name: Prepare workflow JSONs (strip shared/ownedBy for fresh DB)
+        run: python3 scripts/ci_prepare_workflows.py
+
       - name: Import n8n workflows via CLI (docker cp + file path)
         run: |
           CONTAINER=$(docker compose ps -q n8n-main)

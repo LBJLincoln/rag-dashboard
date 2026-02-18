@@ -79,8 +79,11 @@ def wait_for_n8n(host, max_wait=180):
 
 def get_settings():
     try:
-        data, _ = request("GET", "/rest/settings", raise_on_error=False)
-        print(f"  /rest/settings keys: {list(data.keys())[:10]}")
+        raw, _ = request("GET", "/rest/settings", raise_on_error=False)
+        print(f"  /rest/settings raw keys: {list(raw.keys())[:10]}")
+        # n8n 2.x nests settings under 'data'
+        data = raw.get("data", raw)
+        print(f"  Settings keys: {list(data.keys())[:10]}")
         print(f"  userManagement: {data.get('userManagement', 'NOT FOUND')}")
         return data
     except Exception as e:
@@ -98,19 +101,25 @@ def setup_owner():
         "password": CI_PASSWORD,
     }
     # Try multiple known endpoints for different n8n versions
-    for endpoint in ["/rest/owner", "/rest/owner-setup", "/api/v1/owner-setup"]:
+    # n8n 2.x: /rest/owner-setup (with /rest prefix)
+    for endpoint in ["/rest/owner-setup", "/rest/owner", "/api/v1/owner-setup"]:
         try:
             data, _ = request("POST", endpoint, data=payload, raise_on_error=False)
-            if "error" not in data:
-                email = (data.get("data", {}).get("email") or
-                         data.get("data", {}).get("user", {}).get("email") or "?")
+            print(f"  {endpoint} response: {str(data)[:200]}")
+            # Success if no error and status not 4xx
+            status = data.get("status", 0)
+            if "error" not in data and str(status) not in ("401", "403", "404", "500"):
+                # Try to extract email from various response formats
+                email = (
+                    data.get("data", {}).get("email") or
+                    data.get("data", {}).get("user", {}).get("email") or
+                    data.get("email") or "?"
+                )
                 print(f"  Owner created via {endpoint}: {email}")
                 return data
-            else:
-                err = data.get("error", "")
-                if "Cannot POST" in err or "404" in str(data.get("status", "")):
-                    continue
-                print(f"  {endpoint} response: {str(data)[:150]}")
+            err = str(data.get("error", ""))
+            if "Cannot POST" in err or str(data.get("status", "")) in ("404",):
+                continue
         except Exception as e:
             print(f"  {endpoint} exception: {e}")
     return {}

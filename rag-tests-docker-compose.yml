@@ -49,8 +49,8 @@ services:
       - N8N_VERSION_NOTIFICATIONS_ENABLED=false
       - N8N_HIRING_BANNER_ENABLED=false
       - N8N_PUBLIC_API_DISABLED=false
-      # Pre-configure API key for CI — requires USER_MANAGEMENT_DISABLED in n8n 2.x
-      - N8N_USER_MANAGEMENT_DISABLED=true
+      # N8N_USER_MANAGEMENT_DISABLED is deprecated in n8n 2.x — removed
+      # ci_n8n_setup.py creates owner + API key on first run
       - N8N_GLOBAL_ADMIN_API_KEY=rag-ci-nomos-2026-b7f8a91d2e3c4f5a6b7c8d9e0f1a2b3c4d5e6f7
       - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-changeme-same-as-vm}
       # --- Queue mode ---
