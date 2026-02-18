@@ -102,6 +102,19 @@ jobs:
           printf 'SUPABASE_URL=%s\n' "${{ secrets.SUPABASE_URL }}" >> .env.local
           printf 'SUPABASE_API_KEY=%s\n' "${{ secrets.SUPABASE_API_KEY }}" >> .env.local
 
+      - name: Test Supabase pooler connectivity
+        run: |
+          python3 -c "
+          import socket, sys
+          try:
+              s = socket.create_connection(('aws-1-eu-west-1.pooler.supabase.com', 6543), timeout=5)
+              s.close()
+              print('Supabase pooler port 6543: REACHABLE')
+          except Exception as e:
+              print(f'Supabase pooler port 6543: UNREACHABLE — {e}')
+              sys.exit(1)
+          "
+
       - name: Run Phase 1 tests
         id: tests
         run: |
@@ -139,6 +152,6 @@ jobs:
         if: always()
         run: python3 scripts/ci_debug_executions.py || echo "Could not fetch execution logs"
 
-      - name: n8n logs on failure
-        if: failure()
-        run: docker compose logs n8n-main --tail 100
+      - name: n8n logs (always)
+        if: always()
+        run: docker compose logs n8n-main --tail 80
