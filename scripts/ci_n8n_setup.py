@@ -234,7 +234,7 @@ def main():
         setup_owner()
 
     # 3. Try static API key first (N8N_GLOBAL_ADMIN_API_KEY if it works)
-    static_key = os.environ.get("N8N_API_KEY", "rag-tests-ci-api-key-2026")
+    static_key = os.environ.get("N8N_API_KEY", "rag-ci-nomos-2026-b7f8a91d2e3c4f5a6b7c8d9e0f1a2b3c4d5e6f7")
     api_key = ""
     cookies = {}
     token = ""

@@ -31,7 +31,7 @@ on:
 env:
   N8N_HOST: http://localhost:5678
   N8N_WEBHOOK_HOST: http://localhost:5678
-  N8N_API_KEY: rag-tests-ci-api-key-2026
+  N8N_API_KEY: rag-ci-nomos-2026-b7f8a91d2e3c4f5a6b7c8d9e0f1a2b3c4d5e6f7
 
 jobs:
   test-rag-pipelines:
@@ -66,7 +66,7 @@ jobs:
           NEO4J_AUTH: ${{ secrets.NEO4J_AUTH }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_API_KEY: ${{ secrets.SUPABASE_API_KEY }}
-          N8N_API_KEY: rag-tests-ci-api-key-2026
+          N8N_API_KEY: rag-ci-nomos-2026-b7f8a91d2e3c4f5a6b7c8d9e0f1a2b3c4d5e6f7
           N8N_ENCRYPTION_KEY: sota-rag-2026-encryption-key-change-me
         run: |
           docker compose up -d
@@ -84,7 +84,7 @@ jobs:
       - name: Setup n8n (credentials + API key)
         env:
           SUPABASE_PASSWORD: ${{ secrets.SUPABASE_PASSWORD }}
-          N8N_API_KEY: rag-tests-ci-api-key-2026
+          N8N_API_KEY: rag-ci-nomos-2026-b7f8a91d2e3c4f5a6b7c8d9e0f1a2b3c4d5e6f7
         run: |
           python3 scripts/ci_n8n_setup.py --supabase-password "$SUPABASE_PASSWORD"
 
@@ -96,7 +96,7 @@ jobs:
 
       - name: Import n8n workflows
         run: |
-          N8N_KEY="${N8N_CI_API_KEY:-rag-tests-ci-api-key-2026}"
+          N8N_KEY="${N8N_CI_API_KEY:-rag-ci-nomos-2026-b7f8a91d2e3c4f5a6b7c8d9e0f1a2b3c4d5e6f7}"
           for wf_file in n8n/live/standard.json n8n/live/graph.json n8n/live/quantitative.json n8n/live/orchestrator.json; do
             if [ -f "$wf_file" ]; then
               RESP=$(curl -s -X POST "http://localhost:5678/api/v1/workflows" \
@@ -114,15 +114,15 @@ jobs:
 
       - name: Activate all workflows
         run: |
-          N8N_KEY="${N8N_CI_API_KEY:-rag-tests-ci-api-key-2026}"
+          N8N_KEY="${N8N_CI_API_KEY:-rag-ci-nomos-2026-b7f8a91d2e3c4f5a6b7c8d9e0f1a2b3c4d5e6f7}"
           curl -s "http://localhost:5678/api/v1/workflows?limit=20" \
             -H "X-N8N-API-KEY: $N8N_KEY" \
-            | python3 -c "import json,sys,urllib.request; d=json.load(sys.stdin); [urllib.request.urlopen(urllib.request.Request('http://localhost:5678/api/v1/workflows/'+w['id']+'/activate',method='POST',headers={'X-N8N-API-KEY':'${N8N_CI_API_KEY:-rag-tests-ci-api-key-2026}'})) or print('Activated:',w.get('name','')[:50]) for w in d.get('data',[]) if not w.get('active')]"
+            | python3 -c "import json,sys,urllib.request; d=json.load(sys.stdin); [urllib.request.urlopen(urllib.request.Request('http://localhost:5678/api/v1/workflows/'+w['id']+'/activate',method='POST',headers={'X-N8N-API-KEY':'${N8N_CI_API_KEY:-rag-ci-nomos-2026-b7f8a91d2e3c4f5a6b7c8d9e0f1a2b3c4d5e6f7}'})) or print('Activated:',w.get('name','')[:50]) for w in d.get('data',[]) if not w.get('active')]"
           echo "Activation done"
 
       - name: Create .env.local
         run: |
-          printf 'N8N_HOST=http://localhost:5678\nN8N_API_KEY=rag-tests-ci-api-key-2026\n' > .env.local
+          printf 'N8N_HOST=http://localhost:5678\nN8N_API_KEY=rag-ci-nomos-2026-b7f8a91d2e3c4f5a6b7c8d9e0f1a2b3c4d5e6f7\n' > .env.local
           printf 'OPENROUTER_API_KEY=%s\n' "${{ secrets.OPENROUTER_API_KEY }}" >> .env.local
           printf 'JINA_API_KEY=%s\n' "${{ secrets.JINA_API_KEY }}" >> .env.local
           printf 'PINECONE_API_KEY=%s\n' "${{ secrets.PINECONE_API_KEY }}" >> .env.local

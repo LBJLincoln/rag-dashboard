@@ -51,7 +51,7 @@ services:
       - N8N_PUBLIC_API_DISABLED=false
       # Pre-configure API key for CI — requires USER_MANAGEMENT_DISABLED in n8n 2.x
       - N8N_USER_MANAGEMENT_DISABLED=true
-      - N8N_GLOBAL_ADMIN_API_KEY=${N8N_API_KEY:-rag-tests-ci-api-key-2026}
+      - N8N_GLOBAL_ADMIN_API_KEY=rag-ci-nomos-2026-b7f8a91d2e3c4f5a6b7c8d9e0f1a2b3c4d5e6f7
       - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-changeme-same-as-vm}
       # --- Queue mode ---
       - EXECUTIONS_MODE=queue
