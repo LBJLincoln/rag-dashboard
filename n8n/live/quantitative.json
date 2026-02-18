@@ -68,8 +68,8 @@
         "options": {
           "timeout": 25000,
           "retry": {
-            "maxTries": 3,
-            "waitBetweenTries": 2000
+            "maxTries": 1,
+            "waitBetweenTries": 1000
           }
         },
         "sendHeaders": true,
@@ -156,8 +156,8 @@
         "options": {
           "timeout": 25000,
           "retry": {
-            "maxTries": 3,
-            "waitBetweenTries": 2000
+            "maxTries": 1,
+            "waitBetweenTries": 1000
           }
         },
         "sendHeaders": true,
@@ -266,8 +266,8 @@
         "options": {
           "timeout": 20000,
           "retry": {
-            "maxTries": 3,
-            "waitBetweenTries": 2000
+            "maxTries": 1,
+            "waitBetweenTries": 1000
           }
         },
         "sendHeaders": true,
