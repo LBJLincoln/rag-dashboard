@@ -31,7 +31,7 @@ on:
 env:
   N8N_HOST: http://localhost:5678
   N8N_WEBHOOK_HOST: http://localhost:5678
-  # Static CI API key — matches N8N_GLOBAL_ADMIN_API_KEY in docker-compose
+  # Static CI API key — matches N8N_GLOBAL_ADMIN_API_KEY in rag-tests-docker-compose.yml
   N8N_API_KEY: rag-tests-ci-api-key-2026
 
 jobs:
