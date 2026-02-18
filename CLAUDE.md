@@ -25,13 +25,13 @@ Les définitions de workflows pèsent ~500KB dans PostgreSQL — aucun impact RA
 Le n8n VM stocke + expose les webhooks. L'exécution lourde se fait dans les Codespaces.
 Chaque Codespace a son propre n8n Docker (avec workers) pour l'exécution parallèle.
 
-### Déploiements Vercel (production live)
-| Site | URL | Dernier commit | État |
-|------|-----|---------------|------|
-| Website ETI (4 secteurs) | nomos-ai-pied.vercel.app | c5a9ec70 (17 fév) | Live |
-| Website PME Connecteurs | (Vercel à configurer) | 5e33ba5 (18 fév) | Repo créé : rag-pme-connectors |
-| Website PME Use Cases | (Vercel à configurer) | 84ee5cb (18 fév) | Repo créé : rag-pme-usecases |
-| Dashboard tech | nomos-dashboard.vercel.app | (à vérifier) | A vérifier |
+### Déploiements Vercel (production live — tous HTTP 200)
+| Site | URL | Repo GitHub | Région | État |
+|------|-----|-------------|--------|------|
+| Website ETI (4 secteurs) | nomos-ai-pied.vercel.app | rag-website | cdg1 | Live |
+| Website PME Connecteurs | nomos-pme-connectors-alexis-morets-projects.vercel.app | rag-pme-connectors | cdg1 | Live |
+| Website PME Use Cases | nomos-pme-usecases-alexis-morets-projects.vercel.app | rag-pme-usecases | cdg1 | Live |
+| Dashboard tech | nomos-dashboard-alexis-morets-projects.vercel.app | rag-dashboard | iad1 | Live |
 
 ### Codespaces GitHub (éphémères — 60h/mois) — CALCUL PRINCIPAL
 | Codespace | Repo | État | n8n local |
@@ -846,7 +846,7 @@ Details complets : `technicals/env-vars-exhaustive.md` (Section 2 : LLM Model Va
 - **dashboard/live/** : QuestionRow, VirtualizedFeedList, FeedStatusBar, MilestoneNotification
 - **XPProgressionBar** : 7 niveaux gamifiés (1q → 1000q)
 
-→ Sites : https://nomos-ai-pied.vercel.app | https://nomos-dashboard.vercel.app
+→ Sites : https://nomos-ai-pied.vercel.app | https://nomos-pme-connectors-alexis-morets-projects.vercel.app | https://nomos-pme-usecases-alexis-morets-projects.vercel.app | https://nomos-dashboard-alexis-morets-projects.vercel.app
 
 ### Accès
 | Ressource | Accès |
