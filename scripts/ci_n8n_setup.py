@@ -80,13 +80,16 @@ def wait_for_n8n(host, max_wait=180):
 def get_settings():
     try:
         data, _ = request("GET", "/rest/settings", raise_on_error=False)
+        print(f"  /rest/settings keys: {list(data.keys())[:10]}")
+        print(f"  userManagement: {data.get('userManagement', 'NOT FOUND')}")
         return data
-    except Exception:
+    except Exception as e:
+        print(f"  Settings error: {e}")
         return {}
 
 
 def setup_owner():
-    """Create the n8n owner account (first-time setup)."""
+    """Create the n8n owner account (first-time setup). Try multiple endpoints."""
     print("Creating n8n owner account...")
     payload = {
         "email": CI_EMAIL,
@@ -94,43 +97,56 @@ def setup_owner():
         "lastName": CI_LASTNAME,
         "password": CI_PASSWORD,
     }
-    try:
-        data, _ = request("POST", "/rest/owner-setup", data=payload, raise_on_error=False)
-        if "error" in data:
-            print(f"  Owner setup response: {data}")
-        else:
-            print(f"  Owner created: {data.get('data', {}).get('email', '?')}")
-        return data
-    except Exception as e:
-        print(f"  Owner setup exception: {e}")
-        return {}
+    # Try multiple known endpoints for different n8n versions
+    for endpoint in ["/rest/owner", "/rest/owner-setup", "/api/v1/owner-setup"]:
+        try:
+            data, _ = request("POST", endpoint, data=payload, raise_on_error=False)
+            if "error" not in data:
+                email = (data.get("data", {}).get("email") or
+                         data.get("data", {}).get("user", {}).get("email") or "?")
+                print(f"  Owner created via {endpoint}: {email}")
+                return data
+            else:
+                err = data.get("error", "")
+                if "Cannot POST" in err or "404" in str(data.get("status", "")):
+                    continue
+                print(f"  {endpoint} response: {str(data)[:150]}")
+        except Exception as e:
+            print(f"  {endpoint} exception: {e}")
+    return {}
 
 
 def login():
-    """Login and return (token, cookies_dict)."""
+    """Login and return (token, cookies_dict). Tries multiple field formats."""
     print("Logging in to n8n...")
-    payload = {"email": CI_EMAIL, "password": CI_PASSWORD}
-    try:
-        data, cookie_str = request("POST", "/rest/login", data=payload, raise_on_error=False)
-        if "error" in data:
-            print(f"  Login failed: {data}")
-            return None, {}
-        token = data.get("data", {}).get("token", "")
-        # Parse n8n.user.id cookie
-        cookies = {}
-        for part in cookie_str.split(","):
-            for segment in part.split(";"):
-                segment = segment.strip()
-                if "=" in segment:
-                    k, v = segment.split("=", 1)
-                    k = k.strip()
-                    if k in ("n8n-auth", "n8n.user.id"):
-                        cookies[k] = v.strip()
-        print(f"  Logged in, token={token[:20]}..., cookies={list(cookies.keys())}")
-        return token, cookies
-    except Exception as e:
-        print(f"  Login exception: {e}")
-        return None, {}
+    # n8n 2.x uses emailOrLdapLoginId; older versions use email
+    for payload in [
+        {"emailOrLdapLoginId": CI_EMAIL, "password": CI_PASSWORD},
+        {"email": CI_EMAIL, "password": CI_PASSWORD},
+    ]:
+        try:
+            data, cookie_str = request("POST", "/rest/login", data=payload, raise_on_error=False)
+            if "error" in data:
+                err_text = str(data.get("error", ""))
+                if "emailOrLdapLoginId" in err_text and "email" in payload:
+                    continue  # try next format
+                print(f"  Login failed ({list(payload.keys())[0]}): {str(data)[:150]}")
+                continue
+            token = data.get("data", {}).get("token", "")
+            cookies = {}
+            for part in cookie_str.split(","):
+                for segment in part.split(";"):
+                    segment = segment.strip()
+                    if "=" in segment:
+                        k, v = segment.split("=", 1)
+                        k = k.strip()
+                        if k in ("n8n-auth", "n8n.user.id", "n8n-browse-id"):
+                            cookies[k] = v.strip()
+            print(f"  Logged in ({list(payload.keys())[0]}), token_len={len(token)}, cookies={list(cookies.keys())}")
+            return token, cookies
+        except Exception as e:
+            print(f"  Login exception: {e}")
+    return None, {}
 
 
 def create_api_key(token, cookies):

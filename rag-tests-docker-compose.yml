@@ -49,7 +49,8 @@ services:
       - N8N_VERSION_NOTIFICATIONS_ENABLED=false
       - N8N_HIRING_BANNER_ENABLED=false
       - N8N_PUBLIC_API_DISABLED=false
-      # Pre-configure API key so imports work on fresh DB (no user creation needed)
+      # Pre-configure API key for CI — requires USER_MANAGEMENT_DISABLED in n8n 2.x
+      - N8N_USER_MANAGEMENT_DISABLED=true
       - N8N_GLOBAL_ADMIN_API_KEY=${N8N_API_KEY:-rag-tests-ci-api-key-2026}
       - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-changeme-same-as-vm}
       # --- Queue mode ---
