@@ -1,4 +1,4 @@
-name: Phase 1 — RAG Pipeline Tests
+name: Phase 1 - RAG Pipeline Tests
 
 on:
   workflow_dispatch:
@@ -31,7 +31,6 @@ on:
 env:
   N8N_HOST: http://localhost:5678
   N8N_WEBHOOK_HOST: http://localhost:5678
-  # Static CI API key — matches N8N_GLOBAL_ADMIN_API_KEY in rag-tests-docker-compose.yml
   N8N_API_KEY: rag-tests-ci-api-key-2026
 
 jobs:
@@ -49,17 +48,15 @@ jobs:
           python-version: '3.11'
 
       - name: Install Python dependencies
-        run: |
-          pip install requests python-dotenv aiohttp
+        run: pip install requests python-dotenv aiohttp
 
       - name: Create logs directory
         run: mkdir -p logs
 
       - name: Copy rag-tests docker-compose
-        run: |
-          cp rag-tests-docker-compose.yml docker-compose.yml
+        run: cp rag-tests-docker-compose.yml docker-compose.yml
 
-      - name: Start n8n stack (main + 3 workers)
+      - name: Start n8n stack
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           JINA_API_KEY: ${{ secrets.JINA_API_KEY }}
@@ -73,181 +70,77 @@ jobs:
           N8N_ENCRYPTION_KEY: sota-rag-2026-encryption-key-change-me
         run: |
           docker compose up -d
-
-          echo "Waiting for n8n-main to be ready..."
-          MAX_WAIT=180
-          WAITED=0
-          while [ $WAITED -lt $MAX_WAIT ]; do
+          echo "Waiting for n8n..."
+          for i in $(seq 1 36); do
             if curl -sf http://localhost:5678/healthz > /dev/null 2>&1; then
-              echo "n8n ready in ${WAITED}s"
-              break
+              echo "n8n ready after $((i*5))s"; break
             fi
             sleep 5
-            WAITED=$((WAITED + 5))
           done
-
-          if [ $WAITED -ge $MAX_WAIT ]; then
-            echo "ERROR: n8n failed to start"
-            docker compose logs n8n-main
-            exit 1
-          fi
-
-          # Extra wait for workers
+          curl -sf http://localhost:5678/healthz || (docker compose logs n8n-main && exit 1)
           sleep 10
           docker compose ps
 
-      - name: Create Supabase credentials in n8n and patch workflows
+      - name: Create Supabase credentials in n8n
         env:
           SUPABASE_PASSWORD: ${{ secrets.SUPABASE_PASSWORD }}
-          N8N_KEY: rag-tests-ci-api-key-2026
         run: |
-          # Create "Supabase PostgreSQL" credential (used by quantitative pipeline)
-          CRED1_RESP=$(curl -s -X POST "http://localhost:5678/api/v1/credentials" \
-            -H "X-N8N-API-KEY: $N8N_KEY" \
-            -H "Content-Type: application/json" \
-            -d "{
-              \"name\": \"Supabase PostgreSQL\",
-              \"type\": \"postgres\",
-              \"data\": {
-                \"host\": \"db.ayqviqmxifzmhphiqfmj.supabase.co\",
-                \"port\": 5432,
-                \"database\": \"postgres\",
-                \"user\": \"postgres\",
-                \"password\": \"$SUPABASE_PASSWORD\",
-                \"ssl\": true,
-                \"sshTunnel\": false,
-                \"allowUnauthorizedCerts\": false
-              }
-            }")
-          CRED1_ID=$(echo "$CRED1_RESP" | python3 -c "import json,sys; d=json.loads(sys.stdin.read()); print(d.get('id','ERROR'))")
-          echo "Supabase PostgreSQL credential ID: $CRED1_ID"
+          N8N_KEY="rag-tests-ci-api-key-2026"
+          CRED1=$(curl -sf -X POST "http://localhost:5678/api/v1/credentials" \
+            -H "X-N8N-API-KEY: $N8N_KEY" -H "Content-Type: application/json" \
+            -d "{\"name\":\"Supabase PostgreSQL\",\"type\":\"postgres\",\"data\":{\"host\":\"db.ayqviqmxifzmhphiqfmj.supabase.co\",\"port\":5432,\"database\":\"postgres\",\"user\":\"postgres\",\"password\":\"$SUPABASE_PASSWORD\",\"ssl\":true,\"sshTunnel\":false}}")
+          CRED1_ID=$(echo "$CRED1" | python3 -c "import json,sys; print(json.load(sys.stdin).get('id','ERROR'))")
+          echo "Cred1 (Supabase PG): $CRED1_ID"
+          CRED2=$(curl -sf -X POST "http://localhost:5678/api/v1/credentials" \
+            -H "X-N8N-API-KEY: $N8N_KEY" -H "Content-Type: application/json" \
+            -d "{\"name\":\"Supabase Postgres (Pooler)\",\"type\":\"postgres\",\"data\":{\"host\":\"aws-1-eu-west-1.pooler.supabase.com\",\"port\":6543,\"database\":\"postgres\",\"user\":\"postgres.ayqviqmxifzmhphiqfmj\",\"password\":\"$SUPABASE_PASSWORD\",\"ssl\":true,\"sshTunnel\":false}}")
+          CRED2_ID=$(echo "$CRED2" | python3 -c "import json,sys; print(json.load(sys.stdin).get('id','ERROR'))")
+          echo "Cred2 (Supabase Pooler): $CRED2_ID"
+          echo "CRED1_ID=$CRED1_ID" >> $GITHUB_ENV
+          echo "CRED2_ID=$CRED2_ID" >> $GITHUB_ENV
 
-          # Create "Supabase Postgres (Pooler)" credential (used by graph pipeline)
-          CRED2_RESP=$(curl -s -X POST "http://localhost:5678/api/v1/credentials" \
-            -H "X-N8N-API-KEY: $N8N_KEY" \
-            -H "Content-Type: application/json" \
-            -d "{
-              \"name\": \"Supabase Postgres (Pooler)\",
-              \"type\": \"postgres\",
-              \"data\": {
-                \"host\": \"aws-1-eu-west-1.pooler.supabase.com\",
-                \"port\": 6543,
-                \"database\": \"postgres\",
-                \"user\": \"postgres.ayqviqmxifzmhphiqfmj\",
-                \"password\": \"$SUPABASE_PASSWORD\",
-                \"ssl\": true,
-                \"sshTunnel\": false,
-                \"allowUnauthorizedCerts\": false
-              }
-            }")
-          CRED2_ID=$(echo "$CRED2_RESP" | python3 -c "import json,sys; d=json.loads(sys.stdin.read()); print(d.get('id','ERROR'))")
-          echo "Supabase Postgres (Pooler) credential ID: $CRED2_ID"
-
-          # Patch workflow JSONs to use new credential IDs (bash vars → python via args)
-          python3 -c "
-import json, sys
-
-cred1_id = sys.argv[1]
-cred2_id = sys.argv[2]
-
-# Map old workflow credential IDs → new CI credential IDs
-cred_map = {
-    'zEr7jPswZNv6lWKu': cred1_id,   # Supabase PostgreSQL (quantitative)
-    'USU8ngVzsUbED3mn': cred2_id,   # Supabase Postgres Pooler (graph)
-}
-print(f'Credential mapping: {cred_map}')
-
-import os
-for fname in ['n8n/live/quantitative.json', 'n8n/live/graph.json',
-              'n8n/live/standard.json', 'n8n/live/orchestrator.json']:
-    if not os.path.exists(fname):
-        continue
-    with open(fname) as f:
-        d = json.load(f)
-    patched = False
-    for node in d.get('nodes', []):
-        for cred_type, cred_info in node.get('credentials', {}).items():
-            old_id = cred_info.get('id', '')
-            if old_id in cred_map and cred_map[old_id] not in ('ERROR', ''):
-                new_id = cred_map[old_id]
-                print(f'  Patched {fname}: node={node[\"name\"][:40]} {old_id} -> {new_id}')
-                cred_info['id'] = new_id
-                patched = True
-    if patched:
-        with open(fname, 'w') as f:
-            json.dump(d, f, ensure_ascii=False, indent=2)
-print('Credential patching complete')
-" "$CRED1_ID" "$CRED2_ID"
+      - name: Patch workflow JSONs with CI credential IDs
+        run: |
+          python3 scripts/patch_workflow_credentials.py \
+            --old1 zEr7jPswZNv6lWKu --new1 "$CRED1_ID" \
+            --old2 USU8ngVzsUbED3mn --new2 "$CRED2_ID"
 
       - name: Import n8n workflows
-        env:
-          N8N_KEY: rag-tests-ci-api-key-2026
         run: |
+          N8N_KEY="rag-tests-ci-api-key-2026"
           for wf_file in n8n/live/standard.json n8n/live/graph.json n8n/live/quantitative.json n8n/live/orchestrator.json; do
             if [ -f "$wf_file" ]; then
               RESP=$(curl -s -X POST "http://localhost:5678/api/v1/workflows" \
-                -H "X-N8N-API-KEY: $N8N_KEY" \
-                -H "Content-Type: application/json" \
+                -H "X-N8N-API-KEY: $N8N_KEY" -H "Content-Type: application/json" \
                 --data @"$wf_file")
-              WF_NAME=$(python3 -c "import json; d=json.load(open('$wf_file')); print(d.get('name','?'))" 2>/dev/null)
+              WF_NAME=$(python3 -c "import json; print(json.load(open('$wf_file')).get('name','?'))")
               if echo "$RESP" | grep -q '"id"'; then
-                WF_ID=$(python3 -c "import json,sys; print(json.loads(sys.stdin.read()).get('id','?'))" <<< "$RESP")
-                echo "✅ Imported: $WF_NAME (id=$WF_ID)"
+                WF_ID=$(echo "$RESP" | python3 -c "import json,sys; print(json.load(sys.stdin).get('id','?'))")
+                echo "Imported: $WF_NAME (id=$WF_ID)"
               else
-                echo "⚠️  Import issue: $WF_NAME — $(echo $RESP | head -c 300)"
+                echo "Import issue: $WF_NAME -- $(echo $RESP | head -c 200)"
               fi
             fi
           done
 
       - name: Activate all workflows
-        env:
-          N8N_KEY: rag-tests-ci-api-key-2026
         run: |
+          N8N_KEY="rag-tests-ci-api-key-2026"
           curl -s "http://localhost:5678/api/v1/workflows?limit=20" \
-            -H "X-N8N-API-KEY: $N8N_KEY" | python3 -c "
-          import sys, json, urllib.request
-          d = json.loads(sys.stdin.read())
-          print(f'Total workflows: {len(d.get(\"data\",[]))}')
-          for w in d.get('data', []):
-              if not w.get('active'):
-                  wid = w['id']
-                  req = urllib.request.Request(
-                      f'http://localhost:5678/api/v1/workflows/{wid}/activate',
-                      method='POST',
-                      headers={'X-N8N-API-KEY': 'rag-tests-ci-api-key-2026'}
-                  )
-                  try:
-                      urllib.request.urlopen(req)
-                      print(f'  ✅ Activated: {w.get(\"name\",\"\")[:55]}')
-                  except Exception as e:
-                      print(f'  ⚠️  Error: {w.get(\"name\",\"\")}: {e}')
-              else:
-                  print(f'  ✓  Already active: {w.get(\"name\",\"\")[:55]}')
-          "
+            -H "X-N8N-API-KEY: $N8N_KEY" \
+            | python3 -c "import json,sys,urllib.request; d=json.load(sys.stdin); [urllib.request.urlopen(urllib.request.Request('http://localhost:5678/api/v1/workflows/'+w['id']+'/activate',method='POST',headers={'X-N8N-API-KEY':'rag-tests-ci-api-key-2026'})) or print('Activated:',w.get('name','')[:50]) for w in d.get('data',[]) if not w.get('active')]"
+          echo "Activation done"
 
-      - name: Create .env.local from secrets
+      - name: Create .env.local
         run: |
-          printf 'N8N_HOST=http://localhost:5678\n' > .env.local
-          printf 'N8N_API_KEY=rag-tests-ci-api-key-2026\n' >> .env.local
+          printf 'N8N_HOST=http://localhost:5678\nN8N_API_KEY=rag-tests-ci-api-key-2026\n' > .env.local
           printf 'OPENROUTER_API_KEY=%s\n' "${{ secrets.OPENROUTER_API_KEY }}" >> .env.local
           printf 'JINA_API_KEY=%s\n' "${{ secrets.JINA_API_KEY }}" >> .env.local
           printf 'PINECONE_API_KEY=%s\n' "${{ secrets.PINECONE_API_KEY }}" >> .env.local
           printf 'PINECONE_HOST=%s\n' "${{ secrets.PINECONE_HOST }}" >> .env.local
           printf 'NEO4J_URI=%s\n' "${{ secrets.NEO4J_URI }}" >> .env.local
-          printf 'NEO4J_AUTH=%s\n' "${{ secrets.NEO4J_AUTH }}" >> .env.local
           printf 'SUPABASE_URL=%s\n' "${{ secrets.SUPABASE_URL }}" >> .env.local
           printf 'SUPABASE_API_KEY=%s\n' "${{ secrets.SUPABASE_API_KEY }}" >> .env.local
-
-      - name: Verify setup
-        run: |
-          echo "=== Registered workflows ==="
-          curl -s "http://localhost:5678/api/v1/workflows?limit=20" \
-            -H "X-N8N-API-KEY: rag-tests-ci-api-key-2026" | python3 -c "
-          import sys, json
-          d = json.loads(sys.stdin.read())
-          for w in d.get('data', []):
-              print(f'  [{\"ON\" if w.get(\"active\") else \"off\"}] {w.get(\"name\",\"?\")[:60]}')
-          "
 
       - name: Run Phase 1 tests
         id: tests
@@ -255,9 +148,7 @@ print('Credential patching complete')
           set -o allexport; source .env.local; set +o allexport
           PIPELINE="${{ inputs.pipeline }}"
           QUESTIONS="${{ inputs.questions }}"
-
           if [ "$PIPELINE" = "all" ]; then
-            echo "=== Testing all pipelines ==="
             python3 eval/quick-test.py --questions $QUESTIONS --pipeline standard 2>&1 | tee logs/test-standard.log
             python3 eval/quick-test.py --questions $QUESTIONS --pipeline graph 2>&1 | tee logs/test-graph.log
             python3 eval/quick-test.py --questions $QUESTIONS --pipeline quantitative 2>&1 | tee logs/test-quantitative.log
@@ -266,7 +157,7 @@ print('Credential patching complete')
             python3 eval/quick-test.py --questions $QUESTIONS --pipeline $PIPELINE 2>&1 | tee logs/test-$PIPELINE.log
           fi
 
-      - name: Run full iterative eval (full mode only)
+      - name: Run full iterative eval
         if: inputs.mode == 'full'
         run: |
           set -o allexport; source .env.local; set +o allexport
@@ -282,8 +173,4 @@ print('Credential patching complete')
 
       - name: n8n logs on failure
         if: failure()
-        run: |
-          echo "=== n8n-main logs ==="
-          docker compose logs n8n-main --tail 80
-          echo "=== n8n-worker-1 logs ==="
-          docker compose logs n8n-worker-1 --tail 30
+        run: docker compose logs n8n-main --tail 80
