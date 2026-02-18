@@ -125,7 +125,7 @@ jobs:
                   dbname='postgres',
                   user='postgres.ayqviqmxifzmhphiqfmj',
                   password=os.environ.get('SUPABASE_PASSWORD',''),
-                  sslmode='require',
+                  sslmode='disable',  # Supabase pooler SSL fails on GitHub Actions
                   connect_timeout=10
               )
               cur = conn.cursor()

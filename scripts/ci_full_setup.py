@@ -375,9 +375,9 @@ def main():
         "database": "postgres",
         "user": "postgres.ayqviqmxifzmhphiqfmj",
         "password": supabase_pw,
-        "ssl": True,
+        "ssl": False,  # SSL disabled — GitHub Actions has SSL issues with pooler
         "sshTunnel": False,
-        "allowUnauthorizedCerts": False,
+        "allowUnauthorizedCerts": True,
     }
     cred1_id = create_credential("Supabase PostgreSQL", "postgres", supabase_pg_data, cookies, api_key)
     cred2_id = create_credential("Supabase Postgres (Pooler)", "postgres", supabase_pooler_data, cookies, api_key)
