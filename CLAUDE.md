@@ -1,7 +1,7 @@
 # Multi-RAG Orchestrator — Tour de Contrôle Centrale
 
 > **CE REPO (`mon-ipad`) EST LA TOUR DE CONTRÔLE.**
-> VM Google Cloud permanente · Claude Code via Termius · Pilote 4 repos satellites
+> VM Google Cloud permanente · Claude Code via Termius · Pilote 6 repos satellites
 > **MODÈLE OBLIGATOIRE : `claude-opus-4-6` (abonnement Max) — PAS Sonnet.**
 > **Lire cette section EN PREMIER à chaque session.**
 
@@ -29,8 +29,8 @@ Chaque Codespace a son propre n8n Docker (avec workers) pour l'exécution parall
 | Site | URL | Dernier commit | État |
 |------|-----|---------------|------|
 | Website ETI (4 secteurs) | nomos-ai-pied.vercel.app | c5a9ec70 (17 fév) | Live |
-| Website PME Connecteurs | (à déployer) | session 22 (18 fév) | Push pending |
-| Website PME Use Cases | (à déployer) | session 22 (18 fév) | Push pending |
+| Website PME Connecteurs | (Vercel à configurer) | 5e33ba5 (18 fév) | Repo créé : rag-pme-connectors |
+| Website PME Use Cases | (Vercel à configurer) | 84ee5cb (18 fév) | Repo créé : rag-pme-usecases |
 | Dashboard tech | nomos-dashboard.vercel.app | (à vérifier) | A vérifier |
 
 ### Codespaces GitHub (éphémères — 60h/mois) — CALCUL PRINCIPAL
@@ -453,6 +453,20 @@ Inclus      : Python 3.11, Node.js 20, Docker-in-Docker, Claude Code CLI
 - **Déploiement** : GitHub Pages ou Vercel (statique)
 - **Directive** : `CLAUDE.md` dans le repo (poussé depuis `directives/repos/rag-dashboard.md`)
 
+#### `rag-pme-connectors` — Site PME Connecteurs (12 apps)
+- **Qui l'exécute** : Vercel (prod), dev local optionnel
+- **Ce qu'il contient** : Next.js 14, 12 connecteurs applications, chatbot intégré
+- **Ce qu'il fait** : Vitrine PME — intégrations Nomos AI avec apps business
+- **Déploiement** : Push GitHub → Vercel auto-deploy (à configurer)
+- **Directive** : Aucune (site statique)
+
+#### `rag-pme-usecases` — Site PME Use Cases (200 cas)
+- **Qui l'exécute** : Vercel (prod), dev local optionnel
+- **Ce qu'il contient** : Next.js 14, catalogue 200 use cases, filtrage par secteur
+- **Ce qu'il fait** : Catalogue exhaustif de cas d'usage RAG pour PME
+- **Déploiement** : Push GitHub → Vercel auto-deploy (à configurer)
+- **Directive** : Aucune (site statique)
+
 #### `rag-data-ingestion` — Ingestion + enrichissement BDD
 - **Qui l'exécute** : Agent Claude Code dans Codespace éphémère
 - **Ce qu'il contient** : Workflows Ingestion V3.1, Enrichissement V3.1, scripts Python
@@ -468,6 +482,8 @@ rag-tests          → github.com/LBJLincoln/rag-tests.git
 rag-website        → github.com/LBJLincoln/rag-website.git
 rag-dashboard      → github.com/LBJLincoln/rag-dashboard.git
 rag-data-ingestion → github.com/LBJLincoln/rag-data-ingestion.git
+rag-pme-connectors → github.com/LBJLincoln/rag-pme-connectors.git
+rag-pme-usecases   → github.com/LBJLincoln/rag-pme-usecases.git
 ```
 
 ---
@@ -584,7 +600,7 @@ git push rag-dashboard main
 git push rag-data-ingestion main
 
 # Push vers tous les repos
-for R in origin rag-tests rag-website rag-dashboard rag-data-ingestion; do git push $R main; done
+for R in origin rag-tests rag-website rag-dashboard rag-data-ingestion rag-pme-connectors rag-pme-usecases; do git push $R main; done
 
 # Sync n8n workflows
 python3 n8n/sync.py
