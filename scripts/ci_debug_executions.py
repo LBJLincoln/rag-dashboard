@@ -46,8 +46,13 @@ def main():
         print(f"Could not fetch executions: {e}")
         return
 
-    execs = data.get("data", data) if isinstance(data, dict) else data
-    if not isinstance(execs, list):
+    # n8n 2.x wraps executions in data.results or data directly
+    inner = data.get("data", data) if isinstance(data, dict) else data
+    if isinstance(inner, dict):
+        execs = inner.get("results", inner.get("data", []))
+    elif isinstance(inner, list):
+        execs = inner
+    else:
         print(f"Unexpected response: {str(data)[:200]}")
         return
 

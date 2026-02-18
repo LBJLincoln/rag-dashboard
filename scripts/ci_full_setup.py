@@ -174,7 +174,11 @@ def create_credential(name, cred_type, cred_data, cookies, api_key=""):
 
 
 def import_workflow(filepath, cookies, api_key="", cred1_id="", cred2_id="", extra_id_map=None):
-    """Import a workflow JSON via REST API."""
+    """Import a workflow JSON via REST API.
+
+    extra_id_map: {old_workflow_id: new_workflow_id} — used to patch orchestrator
+                  ExecWorkflow node references after other workflows are imported.
+    """
     if not os.path.exists(filepath):
         print(f"  Skip (not found): {filepath}")
         return None
@@ -193,27 +197,30 @@ def import_workflow(filepath, cookies, api_key="", cred1_id="", cred2_id="", ext
     if wf.get("meta") and wf["meta"].get("instanceId"):
         wf["meta"].pop("instanceId", None)
 
-    # Strip workflow ID so n8n creates a fresh one (avoids ID conflicts)
+    # Strip workflow ID — n8n assigns a new ID on import regardless
     old_id = wf.pop("id", None)
 
-    # Patch credential IDs and extra workflow IDs if provided
+    # Patch credential IDs:
+    # Use pooler (cred2_id) for both OLD_CRED_PG and OLD_CRED_POOLER, since
+    # Supabase direct connections (port 5432) require IPv4 add-on not available in CI.
     wf_str = json.dumps(wf)
-    if cred1_id:
-        wf_str = wf_str.replace(OLD_CRED_PG, cred1_id)
     if cred2_id:
-        wf_str = wf_str.replace(OLD_CRED_POOLER, cred2_id)
-    # Patch orchestrator ExecWorkflow node IDs with newly imported workflow IDs
+        wf_str = wf_str.replace(OLD_CRED_PG, cred2_id)      # direct → pooler (CI-safe)
+        wf_str = wf_str.replace(OLD_CRED_POOLER, cred2_id)  # pooler → pooler
+    elif cred1_id:
+        wf_str = wf_str.replace(OLD_CRED_PG, cred1_id)
+        wf_str = wf_str.replace(OLD_CRED_POOLER, cred1_id)
+
+    # Patch orchestrator ExecWorkflow node IDs with actual new workflow IDs
     if extra_id_map:
-        for new_id in extra_id_map.values():
-            # Find corresponding original IDs from the other workflow JSONs and replace
-            pass  # ID restoration in import handles original IDs; n8n preserves them
+        for old_wf_id, new_wf_id in extra_id_map.items():
+            if old_wf_id and new_wf_id:
+                wf_str = wf_str.replace(old_wf_id, new_wf_id)
+                print(f"    Patched ExecWorkflow ref: {old_wf_id} → {new_wf_id}")
+
     wf = json.loads(wf_str)
 
     print(f"  Importing: {name} (old id={old_id})")
-
-    # Try REST endpoints in order — keep original id in body so orchestrator refs work
-    if old_id:
-        wf["id"] = old_id  # Restore ID: n8n REST API may preserve it
 
     attempts = [("/rest/workflows", None)]
     if api_key:
@@ -381,26 +388,38 @@ def main():
 
     # Import if not already present
     print("\n=== Importing workflows ===")
-    imported = {}  # filepath → wf_id
+    imported = {}  # filepath → new_wf_id
+    old_id_to_new_id = {}  # old_workflow_id → new_workflow_id (for orchestrator patching)
+
     if len(existing_wfs) >= len(workflow_files):
         print("  Workflows already in n8n — skipping import")
         for w in existing_wfs:
             imported[w.get("name", "")] = w.get("id", "")
     else:
-        # Import non-orchestrator workflows first (so we have their IDs for patching)
+        # Import non-orchestrator workflows first, track old_id → new_id mapping
         orchestrator_file = None
         for wf_file in workflow_files:
             if "orchestrator" in wf_file.lower():
                 orchestrator_file = wf_file
                 continue
-            wf_id = import_workflow(wf_file, cookies, api_key, cred1_id, cred2_id)
-            if wf_id:
-                imported[wf_file] = wf_id
+            # Read old_id before import (will be different from n8n-assigned ID)
+            try:
+                with open(wf_file) as f:
+                    old_id = json.load(f).get("id", "")
+            except Exception:
+                old_id = ""
+            new_id = import_workflow(wf_file, cookies, api_key, cred1_id, cred2_id)
+            if new_id:
+                imported[wf_file] = new_id
+                if old_id:
+                    old_id_to_new_id[old_id] = new_id
+                    print(f"    ID mapping: {old_id} → {new_id}")
 
-        # Import orchestrator last (with patched ExecWorkflow IDs)
+        # Import orchestrator last — patch ExecWorkflow refs with actual new IDs
         if orchestrator_file:
+            print(f"\n  Orchestrator ID map: {old_id_to_new_id}")
             wf_id = import_workflow(orchestrator_file, cookies, api_key, cred1_id, cred2_id,
-                                    extra_id_map=imported)
+                                    extra_id_map=old_id_to_new_id)
             if wf_id:
                 imported[orchestrator_file] = wf_id
 
