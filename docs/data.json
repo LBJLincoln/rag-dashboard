@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-02-17T21:23:44.930101Z",
+    "generated_at": "2026-02-17T23:59:15.505020Z",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
@@ -28877,36 +28877,6 @@
   },
   "quick_tests": [
     {
-      "timestamp": "2026-02-15T22:09:43.456987Z",
-      "pipeline": "orchestrator",
-      "query": "What was TechVision Inc's total revenue in 2023?",
-      "status": "pass",
-      "latency_ms": 179255,
-      "response_preview": "TechVision Inc's total revenue for 2023 is $6,745,000,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-15T22:13:41.196249Z",
-      "pipeline": "orchestrator",
-      "query": "What did Marie Curie win Nobel Prizes for?",
-      "status": "pass",
-      "latency_ms": 231014,
-      "response_preview": "Marie Curie won the 1903 Nobel Prize in Physics (shared with Pierre Curie and Henri Becquerel) for their work on radioactivity, and the 1911 Nobel Prize in Chemistry for discovering radium and poloniu",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-15T22:16:49.697411Z",
-      "pipeline": "orchestrator",
-      "query": "Who painted the Mona Lisa?",
-      "status": "pass",
-      "latency_ms": 184237,
-      "response_preview": "Leonardo da Vinci painted the Mona Lisa.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
       "timestamp": "2026-02-15T22:19:52.244237Z",
       "pipeline": "orchestrator",
       "query": "What is the largest ocean?",
@@ -29375,6 +29345,36 @@
       "response_preview": "",
       "trigger": "manual",
       "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-17T23:58:42.752602Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 404: HTTP Error 404: Not Found"
+    },
+    {
+      "timestamp": "2026-02-17T23:58:48.734677Z",
+      "pipeline": "quantitative",
+      "query": "What was GreenEnergy Corp's total revenue in 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 404: HTTP Error 404: Not Found"
+    },
+    {
+      "timestamp": "2026-02-17T23:59:15.504193Z",
+      "pipeline": "quantitative",
+      "query": "What is the total number of products across all companies?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 404: HTTP Error 404: Not Found"
     }
   ],
   "execution_logs": [

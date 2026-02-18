@@ -1,10 +1,10 @@
 {
   "updatedAt": "2026-02-10T13:12:40.848Z",
   "createdAt": "2026-02-09T04:28:12.794Z",
-  "id": "E19NZG9WfM7FNsxr",
-  "name": "TEST - SOTA 2026 - WF4 Quantitative V2.0",
+  "id": null,
+  "name": "WEBSITE - Quantitative RAG - Finance",
   "description": null,
-  "active": true,
+  "active": false,
   "isArchived": false,
   "nodes": [
     {
@@ -10725,5 +10725,13 @@
         "userId": "215767e0-958a-4c74-a67a-e335807eba64"
       }
     ]
+  },
+  "_website_metadata": {
+    "sector": "Finance/Financial Analysis",
+    "pinecone_index": "website-sectors-jina-1024",
+    "namespace": "finance",
+    "source_workflow": "quantitative.json",
+    "phase": "Phase1-validated",
+    "note": "Copie du workflow Phase 1 validé — adapté pour le secteur website"
   }
 }

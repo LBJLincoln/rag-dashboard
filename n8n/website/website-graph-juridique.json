@@ -1,10 +1,10 @@
 {
   "updatedAt": "2026-02-16T15:45:55.635Z",
   "createdAt": "2026-02-14T01:10:15.711Z",
-  "id": "6257AfT1l4FMC6lY",
-  "name": "TEST - SOTA 2026 - WF2 Graph RAG V3.3 - CORRECTED",
+  "id": null,
+  "name": "WEBSITE - Graph RAG - Juridique/Legal",
   "description": null,
-  "active": true,
+  "active": false,
   "isArchived": false,
   "nodes": [
     {
@@ -1719,5 +1719,13 @@
         "userId": "5e0b7c8f-d330-43e7-ada6-31b78e20460a"
       }
     ]
+  },
+  "_website_metadata": {
+    "sector": "Juridique/Legal",
+    "pinecone_index": "website-sectors-jina-1024",
+    "namespace": "juridique",
+    "source_workflow": "graph.json",
+    "phase": "Phase1-validated",
+    "note": "Copie du workflow Phase 1 validé — adapté pour le secteur website"
   }
 }

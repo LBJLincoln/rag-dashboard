@@ -4,7 +4,36 @@
 
 ---
 
-## n8n Docker Workflows (host: 34.136.180.66:5678)
+## Architecture globale (Session 14 — 17 fév 2026)
+
+```
+VM Google Cloud (34.136.180.66) — STOCKAGE UNIQUEMENT
+  n8n : ARRÊTÉ (Codespaces font le calcul)
+  Redis + PostgreSQL : Up (stockage historique)
+
+GitHub — Source de vérité
+  n8n/live/     : Workflows Phase 1 (benchmark)
+  n8n/website/  : Workflows website (copies Phase 1 + ingestion secteurs)
+  n8n/validated/: Snapshots versionés
+
+Codespace rag-tests — Tests Phase 1
+  n8n LOCAL (3 workers, docker-compose)
+  Import workflows depuis n8n/live/
+
+Codespace rag-website — Site + démos secteurs
+  n8n LOCAL (docker-compose)
+  Import workflows depuis n8n/website/
+  Ingestion secteurs → Pinecone website-sectors-jina-1024
+
+Codespace rag-data-ingestion — Ingestion benchmarks
+  n8n LOCAL (2 workers, docker-compose)
+  Import workflows Ingestion V3.1 + Enrichissement V3.1
+  → Pinecone sota-rag-jina-1024, Neo4j, Supabase
+```
+
+---
+
+## n8n Docker Workflows (Phase 1 — Codespace rag-tests)
 
 ### Pipelines RAG (4)
 
@@ -28,6 +57,37 @@
 | Orchestrator Tester | `m9jaYzWMSVbBFeSf` |
 | RAG Batch Tester | `y2FUkI5SZfau67dN` |
 | SQL Executor Utility | `22k9541l9mHENlLD` |
+
+## Workflows Website (Codespace rag-website — n8n/website/)
+
+> Ces workflows sont des COPIES des workflows Phase 1 validés, adaptés pour les secteurs.
+> Voir `n8n/website/README.md` pour l'architecture complète.
+
+### RAG Pipelines website (fichiers JSON)
+| Workflow | Source | Secteur | Pinecone namespace |
+|---------|--------|---------|-------------------|
+| website-standard-btp | standard.json (85.5%) | BTP/Construction | `btp` |
+| website-standard-industrie | standard.json (85.5%) | Industrie | `industrie` |
+| website-quantitative-finance | quantitative.json (fixé) | Finance | `finance` |
+| website-graph-juridique | graph.json (fixé) | Juridique | `juridique` |
+| website-orchestrator | orchestrator.json (80%) | Routeur | `website-sectors-jina-1024` |
+
+### Fixes appliqués (Phase 1 → website)
+| Fix | Pipeline | Problème | Solution |
+|-----|---------|---------|---------|
+| tenant_id dual | Graph | Neo4j a `default` ET `benchmark` | `n.tenant_id IN ['default','benchmark'] OR IS NULL` |
+| Schema tables | Quantitative | `sales_data`, `kpis` inexistants en Supabase | Tables corrigées : `orders`, `customers`, `quarterly_revenue` |
+| SQL Validator JOIN | Quantitative | Injection tenant_id casse les JOINs | Injection désactivée (LLM gère via prompt) |
+
+### Ingestion website (nouveaux workflows — NOT rag-data-ingestion)
+| Workflow | Datasets HF | Namespace |
+|---------|------------|---------|
+| website-ingestion-finance | financebench, ConvFinQA, tatqa | `finance` |
+| website-ingestion-juridique | french_case_law, cold-french-law, legalbench | `juridique` |
+| website-ingestion-btp | code-accord, ragbench | `btp` |
+| website-ingestion-industrie | manufacturing-qa-gpt4o, ragbench | `industrie` |
+
+---
 
 ### Trace Cloud (OBSOLETE — reference uniquement)
 
