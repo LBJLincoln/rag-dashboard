@@ -48,7 +48,7 @@ jobs:
           python-version: '3.11'
 
       - name: Install Python dependencies
-        run: pip install requests python-dotenv aiohttp bcrypt
+        run: pip install requests python-dotenv aiohttp bcrypt psycopg2-binary
 
       - name: Create logs directory
         run: mkdir -p logs
@@ -102,16 +102,40 @@ jobs:
           printf 'SUPABASE_URL=%s\n' "${{ secrets.SUPABASE_URL }}" >> .env.local
           printf 'SUPABASE_API_KEY=%s\n' "${{ secrets.SUPABASE_API_KEY }}" >> .env.local
 
-      - name: Test Supabase pooler connectivity
+      - name: Test Supabase DB connection
+        env:
+          SUPABASE_PASSWORD: ${{ secrets.SUPABASE_PASSWORD }}
         run: |
           python3 -c "
-          import socket, sys
+          import socket, sys, os
+          # TCP test
           try:
               s = socket.create_connection(('aws-1-eu-west-1.pooler.supabase.com', 6543), timeout=5)
               s.close()
-              print('Supabase pooler port 6543: REACHABLE')
+              print('Port 6543: REACHABLE')
           except Exception as e:
-              print(f'Supabase pooler port 6543: UNREACHABLE — {e}')
+              print(f'Port 6543: UNREACHABLE — {e}')
+              sys.exit(1)
+          # Actual Postgres connection test
+          try:
+              import psycopg2
+              conn = psycopg2.connect(
+                  host='aws-1-eu-west-1.pooler.supabase.com',
+                  port=6543,
+                  dbname='postgres',
+                  user='postgres.ayqviqmxifzmhphiqfmj',
+                  password=os.environ.get('SUPABASE_PASSWORD',''),
+                  sslmode='require',
+                  connect_timeout=10
+              )
+              cur = conn.cursor()
+              cur.execute('SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = \'public\'')
+              count = cur.fetchone()[0]
+              cur.close()
+              conn.close()
+              print(f'Postgres pooler: CONNECTED — {count} public tables')
+          except Exception as e:
+              print(f'Postgres pooler: FAILED — {e}')
               sys.exit(1)
           "
 
@@ -154,4 +178,7 @@ jobs:
 
       - name: n8n logs (always)
         if: always()
-        run: docker compose logs n8n-main --tail 80
+        run: |
+          echo "=== n8n-main logs ===" && docker compose logs n8n-main --tail 50
+          echo "=== n8n-worker-1 logs ===" && docker compose logs n8n-worker-1 --tail 30
+          echo "=== n8n-worker-2 logs ===" && docker compose logs n8n-worker-2 --tail 20
