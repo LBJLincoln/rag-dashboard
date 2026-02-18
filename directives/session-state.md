@@ -49,10 +49,31 @@ Pilotage live Codespaces depuis VM, push websites PME, clarification architectur
 3. Pilotage live via `gh codespace ssh` — pas de webhook obligatoire
 4. Progress callback ecrit en local (/tmp/eval-progress.json), VM lit via SSH
 
-## Prochaine action
-1. Configurer Vercel pour les 2 nouveaux repos PME
-2. Fix Graph 68.7%→70% dans Codespace rag-tests (utiliser codespace-control.sh)
-3. Fix Quantitative 78.3%→85%
+### T5. Configuration Vercel pour 2 repos PME
+- Projets Vercel créés via API (prj_SXyOzloroHkQoEOyAB2fbBCsaOMq, prj_XjAAWoZCdF8XulyXtW2rNn22zHeH)
+- Région cdg1 (Paris) configurée
+- SSO désactivé sur les 4 projets
+- 4/4 sites HTTP 200 (ETI + PME Connectors + PME UseCases + Dashboard)
+
+### T6. Analyse migration Codespaces → HuggingFace Spaces
+- Vérifié: workflow-process aligné sur tous les repos (4-step loop)
+- Bottleneck 150K questions = OpenRouter 20req/min (pas RAM)
+- Script migration créé: scripts/migrate-to-hf-spaces.sh
+- Architecture cible: VM (pilotage) + HF Space (n8n 16GB + 3 workers)
+
+## Commits session 23
+| Hash | Description |
+|------|-------------|
+| dd2a930 | pilotage live Codespaces + push websites PME |
+| 1c5fbf3 | 2 repos PME créés + remotes ajoutés + CLAUDE.md 7 repos |
+| c4ccaa1 | session-state MAJ session 23 |
+| b8b3ca5 | Vercel configuré — 4 sites live HTTP 200 |
+
+## Prochaine action (Session 24)
+1. **Lancer migration HF Spaces** : `source .env.local && bash scripts/migrate-to-hf-spaces.sh`
+2. Configurer keep-alive crontab VM
+3. Fix Graph 68.7%→70% (via HF Space n8n au lieu de Codespace)
+4. Fix Quantitative 78.3%→85%
 
 ---
 
