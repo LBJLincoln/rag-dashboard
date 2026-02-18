@@ -1,0 +1,181 @@
+name: Phase 1 — RAG Pipeline Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      pipeline:
+        description: 'Pipeline to test'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - quantitative
+          - graph
+          - standard
+          - orchestrator
+      questions:
+        description: 'Number of questions per pipeline'
+        required: true
+        default: '5'
+        type: string
+      mode:
+        description: 'Test mode'
+        required: true
+        default: 'quick'
+        type: choice
+        options:
+          - quick
+          - full
+
+env:
+  N8N_HOST: http://localhost:5678
+  N8N_WEBHOOK_HOST: http://localhost:5678
+
+jobs:
+  test-rag-pipelines:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          pip install requests python-dotenv aiohttp
+
+      - name: Copy docker-compose for n8n
+        run: |
+          # Use the rag-tests docker-compose
+          if [ -f rag-tests-docker-compose.yml ]; then
+            cp rag-tests-docker-compose.yml docker-compose.yml
+          fi
+
+      - name: Start n8n (docker-compose)
+        run: |
+          # Override with GitHub secrets for API keys
+          export OPENROUTER_API_KEY=${{ secrets.OPENROUTER_API_KEY }}
+          export JINA_API_KEY=${{ secrets.JINA_API_KEY }}
+          export PINECONE_API_KEY=${{ secrets.PINECONE_API_KEY }}
+          export NEO4J_URI=${{ secrets.NEO4J_URI }}
+          export NEO4J_AUTH=${{ secrets.NEO4J_AUTH }}
+          export SUPABASE_URL=${{ secrets.SUPABASE_URL }}
+          export SUPABASE_API_KEY=${{ secrets.SUPABASE_API_KEY }}
+
+          docker compose up -d
+
+          # Wait for n8n to be ready
+          MAX_WAIT=120
+          WAITED=0
+          while [ $WAITED -lt $MAX_WAIT ]; do
+            if curl -sf http://localhost:5678/healthz > /dev/null 2>&1; then
+              echo "n8n ready in ${WAITED}s"
+              break
+            fi
+            sleep 5
+            WAITED=$((WAITED + 5))
+          done
+
+          if [ $WAITED -ge $MAX_WAIT ]; then
+            echo "ERROR: n8n failed to start"
+            docker compose logs n8n
+            exit 1
+          fi
+
+      - name: Import n8n workflows
+        run: |
+          N8N_KEY=${{ secrets.N8N_API_KEY || 'admin' }}
+
+          for wf_file in n8n/live/standard.json n8n/live/graph.json n8n/live/quantitative.json n8n/live/orchestrator.json; do
+            if [ -f "$wf_file" ]; then
+              RESP=$(curl -s -X POST "http://localhost:5678/api/v1/workflows" \
+                -H "X-N8N-API-KEY: $N8N_KEY" \
+                -H "Content-Type: application/json" \
+                --data @"$wf_file")
+              WF_NAME=$(python3 -c "import json; d=json.load(open('$wf_file')); print(d.get('name','?'))" 2>/dev/null)
+              if echo "$RESP" | grep -q '"id"'; then
+                echo "✅ Imported: $WF_NAME"
+              else
+                echo "⚠️  Import issue: $WF_NAME — $(echo $RESP | head -c 200)"
+              fi
+            fi
+          done
+
+      - name: Activate workflows
+        run: |
+          N8N_KEY=${{ secrets.N8N_API_KEY || 'admin' }}
+
+          curl -s "http://localhost:5678/api/v1/workflows?limit=20" \
+            -H "X-N8N-API-KEY: $N8N_KEY" | python3 -c "
+          import sys, json, urllib.request
+          d = json.loads(sys.stdin.read())
+          for w in d.get('data', []):
+              if not w.get('active'):
+                  wid = w['id']
+                  req = urllib.request.Request(
+                      f'http://localhost:5678/api/v1/workflows/{wid}/activate',
+                      method='POST',
+                      headers={'X-N8N-API-KEY': '$N8N_KEY'}
+                  )
+                  try:
+                      urllib.request.urlopen(req)
+                      print(f'Activated: {w.get(\"name\",\"\")[:40]}')
+                  except Exception as e:
+                      print(f'Error: {e}')
+          "
+
+      - name: Create .env.local from secrets
+        run: |
+          cat > .env.local << EOF
+          N8N_HOST=http://localhost:5678
+          N8N_API_KEY=${{ secrets.N8N_API_KEY || 'admin' }}
+          OPENROUTER_API_KEY=${{ secrets.OPENROUTER_API_KEY }}
+          JINA_API_KEY=${{ secrets.JINA_API_KEY }}
+          PINECONE_API_KEY=${{ secrets.PINECONE_API_KEY }}
+          PINECONE_HOST=${{ secrets.PINECONE_HOST }}
+          NEO4J_URI=${{ secrets.NEO4J_URI }}
+          NEO4J_AUTH=${{ secrets.NEO4J_AUTH }}
+          SUPABASE_URL=${{ secrets.SUPABASE_URL }}
+          SUPABASE_API_KEY=${{ secrets.SUPABASE_API_KEY }}
+          EOF
+
+      - name: Run Phase 1 tests
+        id: tests
+        run: |
+          source .env.local
+          PIPELINE="${{ inputs.pipeline }}"
+          QUESTIONS="${{ inputs.questions }}"
+
+          if [ "$PIPELINE" = "all" ]; then
+            echo "=== Testing all pipelines ==="
+            python3 eval/quick-test.py --questions $QUESTIONS --pipeline standard 2>&1 | tee logs/test-standard.log
+            python3 eval/quick-test.py --questions $QUESTIONS --pipeline graph 2>&1 | tee logs/test-graph.log
+            python3 eval/quick-test.py --questions $QUESTIONS --pipeline quantitative 2>&1 | tee logs/test-quantitative.log
+            python3 eval/quick-test.py --questions $QUESTIONS --pipeline orchestrator 2>&1 | tee logs/test-orchestrator.log
+          else
+            python3 eval/quick-test.py --questions $QUESTIONS --pipeline $PIPELINE 2>&1 | tee logs/test-$PIPELINE.log
+          fi
+
+      - name: Run full iterative eval (full mode only)
+        if: inputs.mode == 'full'
+        run: |
+          source .env.local
+          python3 eval/iterative-eval.py --label "GH-Actions-$(date +%Y%m%d)" 2>&1 | tee logs/iterative-eval.log
+
+      - name: Upload test logs
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: phase1-test-logs
+          path: logs/
+          retention-days: 7
+
+      - name: n8n logs on failure
+        if: failure()
+        run: docker compose logs n8n --tail 50
