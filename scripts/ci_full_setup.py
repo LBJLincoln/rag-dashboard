@@ -231,21 +231,37 @@ def import_workflow(filepath, cookies, api_key="", cred1_id="", cred2_id=""):
 
 def activate_workflow(wf_id, name, cookies, api_key=""):
     """Activate a workflow via REST."""
-    attempts = [(f"/rest/workflows/{wf_id}/activate", None)]
+    # Try dedicated activate endpoints first
+    activate_attempts = [(f"/rest/workflows/{wf_id}/activate", None, "POST")]
     if api_key:
-        attempts.append((f"/api/v1/workflows/{wf_id}/activate", {"X-N8N-API-KEY": api_key}))
+        activate_attempts.append((f"/api/v1/workflows/{wf_id}/activate", {"X-N8N-API-KEY": api_key}, "POST"))
 
-    for endpoint, extra_headers in attempts:
-        for method in ["PATCH", "POST"]:
-            data, _ = http(method, endpoint, data={},
-                           headers=extra_headers,
-                           cookies=cookies)
-            active = (data.get("active") if isinstance(data, dict) else False) or \
-                     (data.get("data", {}).get("active") if isinstance(data.get("data"), dict) else False)
-            if active:
-                print(f"  Activated ({method}): {name} ({wf_id})")
-                return True
-        print(f"    {endpoint} activation failed: {extract_error(data) if isinstance(data, dict) else str(data)[:100]}")
+    # Also try PATCH/PUT with active:true body
+    patch_attempts = [(f"/rest/workflows/{wf_id}", None, "PATCH")]
+    if api_key:
+        patch_attempts.append((f"/api/v1/workflows/{wf_id}", {"X-N8N-API-KEY": api_key}, "PATCH"))
+
+    all_attempts = activate_attempts + patch_attempts
+
+    for endpoint, extra_headers, method in all_attempts:
+        body = {} if "activate" in endpoint else {"active": True}
+        data, _ = http(method, endpoint, data=body,
+                       headers=extra_headers,
+                       cookies=cookies)
+        if not isinstance(data, dict):
+            print(f"    {method} {endpoint}: non-dict response: {str(data)[:100]}")
+            continue
+        # Check active in response (both flat and nested formats)
+        raw_active = data.get("active")
+        nested = data.get("data", {})
+        nested_active = nested.get("active") if isinstance(nested, dict) else None
+        is_active = raw_active is True or nested_active is True
+        if is_active:
+            print(f"  Activated ({method}): {name} ({wf_id})")
+            return True
+        err = extract_error(data)
+        print(f"    {method} {endpoint}: active={raw_active}/{nested_active} err={err} raw={str(data)[:120]}")
+
     return False
 
 
