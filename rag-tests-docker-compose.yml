@@ -54,6 +54,7 @@ services:
       - N8N_GLOBAL_ADMIN_API_KEY=rag-ci-nomos-2026-b7f8a91d2e3c4f5a6b7c8d9e0f1a2b3c4d5e6f7
       - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-changeme-same-as-vm}
       - N8N_LOG_LEVEL=debug
+      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
       # --- Queue mode ---
       - EXECUTIONS_MODE=queue
       - QUEUE_BULL_REDIS_HOST=redis
@@ -150,6 +151,7 @@ services:
       - DB_POSTGRESDB_PASSWORD=n8n_password
       - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-changeme-same-as-vm}
       - N8N_LOG_LEVEL=debug
+      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
       # External APIs needed by workers for workflow execution
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
       - OPENROUTER_BASE_URL=https://openrouter.ai/api/v1/chat/completions
@@ -200,6 +202,7 @@ services:
       - DB_POSTGRESDB_PASSWORD=n8n_password
       - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-changeme-same-as-vm}
       - N8N_LOG_LEVEL=debug
+      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
       - OPENROUTER_BASE_URL=https://openrouter.ai/api/v1/chat/completions
       - JINA_API_KEY=${JINA_API_KEY}
@@ -249,6 +252,7 @@ services:
       - DB_POSTGRESDB_PASSWORD=n8n_password
       - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:-changeme-same-as-vm}
       - N8N_LOG_LEVEL=debug
+      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
       - OPENROUTER_BASE_URL=https://openrouter.ai/api/v1/chat/completions
       - JINA_API_KEY=${JINA_API_KEY}
