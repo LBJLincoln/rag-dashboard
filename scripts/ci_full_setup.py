@@ -229,38 +229,50 @@ def import_workflow(filepath, cookies, api_key="", cred1_id="", cred2_id=""):
     return None
 
 
+def get_workflow(wf_id, cookies, api_key=""):
+    """Get a single workflow's details."""
+    for endpoint, extra_headers in [
+        (f"/rest/workflows/{wf_id}", None),
+        (f"/api/v1/workflows/{wf_id}", {"X-N8N-API-KEY": api_key} if api_key else None),
+    ]:
+        if extra_headers is None and not cookies:
+            continue
+        data, _ = http("GET", endpoint, headers=extra_headers, cookies=cookies)
+        if isinstance(data, dict):
+            wf = data.get("data", data)
+            if isinstance(wf, dict) and wf.get("id"):
+                return wf
+    return {}
+
+
 def activate_workflow(wf_id, name, cookies, api_key=""):
     """Activate a workflow via REST."""
-    # Try dedicated activate endpoints first
-    activate_attempts = [(f"/rest/workflows/{wf_id}/activate", None, "POST")]
+    # Get current workflow to extract versionId (required by n8n 2.x activate endpoint)
+    wf = get_workflow(wf_id, cookies, api_key)
+    version_id = wf.get("versionId", "")
+    print(f"  Activating {name} ({wf_id}), versionId={version_id or 'NONE'}")
+
+    # n8n 2.x: POST /rest/workflows/{id}/activate requires {"versionId": "..."} in body
+    activate_body = {"versionId": version_id} if version_id else {}
+
+    attempts = [(f"/rest/workflows/{wf_id}/activate", None, "POST", activate_body)]
     if api_key:
-        activate_attempts.append((f"/api/v1/workflows/{wf_id}/activate", {"X-N8N-API-KEY": api_key}, "POST"))
+        attempts.append((f"/api/v1/workflows/{wf_id}/activate", {"X-N8N-API-KEY": api_key}, "POST", activate_body))
 
-    # Also try PATCH/PUT with active:true body
-    patch_attempts = [(f"/rest/workflows/{wf_id}", None, "PATCH")]
-    if api_key:
-        patch_attempts.append((f"/api/v1/workflows/{wf_id}", {"X-N8N-API-KEY": api_key}, "PATCH"))
-
-    all_attempts = activate_attempts + patch_attempts
-
-    for endpoint, extra_headers, method in all_attempts:
-        body = {} if "activate" in endpoint else {"active": True}
+    for endpoint, extra_headers, method, body in attempts:
         data, _ = http(method, endpoint, data=body,
                        headers=extra_headers,
                        cookies=cookies)
         if not isinstance(data, dict):
-            print(f"    {method} {endpoint}: non-dict response: {str(data)[:100]}")
+            print(f"    {method} {endpoint}: non-dict: {str(data)[:100]}")
             continue
-        # Check active in response (both flat and nested formats)
-        raw_active = data.get("active")
         nested = data.get("data", {})
-        nested_active = nested.get("active") if isinstance(nested, dict) else None
-        is_active = raw_active is True or nested_active is True
+        is_active = (data.get("active") is True or
+                     (isinstance(nested, dict) and nested.get("active") is True))
         if is_active:
-            print(f"  Activated ({method}): {name} ({wf_id})")
+            print(f"  Activated: {name} ({wf_id})")
             return True
-        err = extract_error(data)
-        print(f"    {method} {endpoint}: active={raw_active}/{nested_active} err={err} raw={str(data)[:120]}")
+        print(f"    {method} {endpoint}: active={data.get('active')}/{nested.get('active') if isinstance(nested,dict) else '?'} raw={str(data)[:150]}")
 
     return False
 
