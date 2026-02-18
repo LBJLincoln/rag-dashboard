@@ -2,7 +2,7 @@
 
 > **Ce fichier est la reference unique** pour les scripts Python de test.
 > Les scripts doivent s'y referer pour formater les requetes et utiliser les bons points d'entree.
-> Derniere mise a jour : 2026-02-16 (task runner fix, Jina migration validated, webhooks re-verified)
+> Derniere mise a jour : 2026-02-18 (task runner fix, Jina migration validated, webhooks re-verified, pièges bolt+PUT+runners ajoutés)
 
 ---
 
@@ -202,6 +202,10 @@ n8n_api("POST", f"/api/v1/workflows/{WF_ID}/activate")
 | Jina embedding JSON trailing comma | Verifier pas de trailing comma dans body JSON apres migration |
 | Tests parallèles → 503 n8n overload | Toujours tester les pipelines séquentiellement |
 | Free models OpenRouter changent souvent | Vérifier disponibilité avant de fixer le modèle |
+| Neo4j URL `bolt://` | `skip_graph=true` silencieux — Graph renvoie réponse vide sans erreur | Changer URL → `https://...neo4j.io/db/neo4j/query/v2` |
+| Workflow live vide (0 nodes) | HTTP 500 immédiat sur tout appel webhook | Re-pousser depuis `n8n/live/` via PUT API |
+| PUT 400 "additional properties" | `isArchived`, `versionCounter` rejetés par l'API | Payload minimal : `name` + `nodes` + `connections` + `settings` + `staticData` |
+| `N8N_RUNNERS_ENABLED` (CI) | `$getWorkflowStaticData` ne persiste pas entre runs | Ajouter `N8N_RUNNERS_ENABLED=false` dans docker-compose |
 
 ---
 

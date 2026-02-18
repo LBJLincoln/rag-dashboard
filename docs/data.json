@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-02-18T06:15:58.868226Z",
+    "generated_at": "2026-02-18T14:14:38.989959Z",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
@@ -28877,446 +28877,6 @@
   },
   "quick_tests": [
     {
-      "timestamp": "2026-02-16T16:10:34.640456Z",
-      "pipeline": "standard",
-      "query": "What is the capital of Japan?",
-      "status": "error",
-      "latency_ms": 0,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "timed out"
-    },
-    {
-      "timestamp": "2026-02-16T18:28:06.288246Z",
-      "pipeline": "standard",
-      "query": "What is the capital of Japan?",
-      "status": "pass",
-      "latency_ms": 21499,
-      "response_preview": "Tokyo is the capital of Japan.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-16T18:28:37.780639Z",
-      "pipeline": "standard",
-      "query": "Where is Normandy located?",
-      "status": "pass",
-      "latency_ms": 29505,
-      "response_preview": "Normandy is located in northern France.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-16T18:28:59.532017Z",
-      "pipeline": "standard",
-      "query": "Who painted the Mona Lisa?",
-      "status": "pass",
-      "latency_ms": 18982,
-      "response_preview": "Leonardo da Vinci painted the Mona Lisa.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-16T18:30:27.282238Z",
-      "pipeline": "graph",
-      "query": "What did Marie Curie win Nobel Prizes for?",
-      "status": "pass",
-      "latency_ms": 59239,
-      "response_preview": "Physics and chemistry",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-16T18:31:06.533132Z",
-      "pipeline": "graph",
-      "query": "What did Alexander Fleming discover?",
-      "status": "pass",
-      "latency_ms": 35752,
-      "response_preview": "Penicillin",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-16T18:32:34.774706Z",
-      "pipeline": "graph",
-      "query": "Who founded Microsoft?",
-      "status": "pass",
-      "latency_ms": 82752,
-      "response_preview": "Bill Gates and Paul Allen",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-16T18:34:22.518630Z",
-      "pipeline": "quantitative",
-      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
-      "status": "pass",
-      "latency_ms": 59510,
-      "response_preview": "TechVision Inc's total revenue in fiscal year 2023 was $0.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-16T18:34:51.014655Z",
-      "pipeline": "quantitative",
-      "query": "What was GreenEnergy Corp's total revenue in 2023?",
-      "status": "fail",
-      "latency_ms": 26758,
-      "response_preview": "$0",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-16T18:35:12.534989Z",
-      "pipeline": "quantitative",
-      "query": "What is the total number of products across all companies?",
-      "status": "error",
-      "latency_ms": 19517,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "Empty response"
-    },
-    {
-      "timestamp": "2026-02-17T09:59:14.447333Z",
-      "pipeline": "standard",
-      "query": "What is the capital of Japan?",
-      "status": "error",
-      "latency_ms": 0,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "timed out"
-    },
-    {
-      "timestamp": "2026-02-17T11:14:40.703969Z",
-      "pipeline": "standard",
-      "query": "What is the capital of Japan?",
-      "status": "fail",
-      "latency_ms": 79993,
-      "response_preview": "Unable to generate answer",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-17T15:32:34.465853Z",
-      "pipeline": "graph",
-      "query": "What did Marie Curie win Nobel Prizes for?",
-      "status": "error",
-      "latency_ms": 0,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "timed out"
-    },
-    {
-      "timestamp": "2026-02-17T15:33:48.965470Z",
-      "pipeline": "standard",
-      "query": "What is the capital of Japan?",
-      "status": "fail",
-      "latency_ms": 46001,
-      "response_preview": "Unable to generate answer",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-17T18:02:36.967072Z",
-      "pipeline": "graph",
-      "query": "What did Marie Curie win Nobel Prizes for?",
-      "status": "fail",
-      "latency_ms": 62003,
-      "response_preview": "Information not available in the knowledge graph.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-17T18:03:21.982765Z",
-      "pipeline": "graph",
-      "query": "What did Alexander Fleming discover?",
-      "status": "fail",
-      "latency_ms": 40745,
-      "response_preview": "Information not available in the knowledge graph.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-17T18:04:20.979067Z",
-      "pipeline": "graph",
-      "query": "Who founded Microsoft?",
-      "status": "fail",
-      "latency_ms": 54488,
-      "response_preview": "Information not available in the knowledge graph.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-17T18:14:15.455584Z",
-      "pipeline": "graph",
-      "query": "What did Marie Curie win Nobel Prizes for?",
-      "status": "fail",
-      "latency_ms": 73766,
-      "response_preview": "Information not available in the knowledge graph.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-17T18:15:41.986650Z",
-      "pipeline": "graph",
-      "query": "What did Alexander Fleming discover?",
-      "status": "fail",
-      "latency_ms": 79000,
-      "response_preview": "Information not available in the knowledge graph.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-17T18:16:45.722786Z",
-      "pipeline": "graph",
-      "query": "Who founded Microsoft?",
-      "status": "fail",
-      "latency_ms": 56519,
-      "response_preview": "Information not available in the knowledge graph.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-17T18:29:37.039571Z",
-      "pipeline": "quantitative",
-      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
-      "status": "error",
-      "latency_ms": 57014,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "Empty response"
-    },
-    {
-      "timestamp": "2026-02-17T18:30:09.531037Z",
-      "pipeline": "quantitative",
-      "query": "What was GreenEnergy Corp's total revenue in 2023?",
-      "status": "error",
-      "latency_ms": 27491,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "Empty response"
-    },
-    {
-      "timestamp": "2026-02-17T18:30:25.281035Z",
-      "pipeline": "quantitative",
-      "query": "What is the total number of products across all companies?",
-      "status": "error",
-      "latency_ms": 11226,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "Empty response"
-    },
-    {
-      "timestamp": "2026-02-17T18:38:09.519070Z",
-      "pipeline": "quantitative",
-      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
-      "status": "error",
-      "latency_ms": 0,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "HTTP 503: HTTP Error 503: Service Unavailable"
-    },
-    {
-      "timestamp": "2026-02-17T18:40:46.516926Z",
-      "pipeline": "quantitative",
-      "query": "What was GreenEnergy Corp's total revenue in 2023?",
-      "status": "pass",
-      "latency_ms": 51762,
-      "response_preview": "Unable to generate SQL query for this question. Error: [object Object]",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-17T18:42:06.040026Z",
-      "pipeline": "quantitative",
-      "query": "What is the total number of products across all companies?",
-      "status": "error",
-      "latency_ms": 68513,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "Empty response"
-    },
-    {
-      "timestamp": "2026-02-17T19:11:05.105822Z",
-      "pipeline": "graph",
-      "query": "What did Marie Curie win Nobel Prizes for?",
-      "status": "fail",
-      "latency_ms": 85486,
-      "response_preview": "Information not available in the knowledge graph.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-17T19:12:11.125859Z",
-      "pipeline": "graph",
-      "query": "What did Alexander Fleming discover?",
-      "status": "fail",
-      "latency_ms": 58486,
-      "response_preview": "Information not available in the knowledge graph.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-17T19:13:47.618479Z",
-      "pipeline": "graph",
-      "query": "Who founded Microsoft?",
-      "status": "fail",
-      "latency_ms": 85006,
-      "response_preview": "Information not available in the knowledge graph.",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-17T20:15:26.683858Z",
-      "pipeline": "graph",
-      "query": "What did Marie Curie win Nobel Prizes for?",
-      "status": "error",
-      "latency_ms": 0,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "HTTP 503: HTTP Error 503: Service Unavailable"
-    },
-    {
-      "timestamp": "2026-02-17T20:17:01.429269Z",
-      "pipeline": "graph",
-      "query": "What did Alexander Fleming discover?",
-      "status": "pass",
-      "latency_ms": 82745,
-      "response_preview": "Penicillin",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-17T20:18:42.924752Z",
-      "pipeline": "graph",
-      "query": "Who founded Microsoft?",
-      "status": "pass",
-      "latency_ms": 88492,
-      "response_preview": "Bill Gates and Paul Allen",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-17T20:26:21.156186Z",
-      "pipeline": "standard",
-      "query": "What is the capital of Japan?",
-      "status": "fail",
-      "latency_ms": 52001,
-      "response_preview": "Unable to generate answer",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-17T20:27:14.665222Z",
-      "pipeline": "standard",
-      "query": "Where is Normandy located?",
-      "status": "fail",
-      "latency_ms": 47752,
-      "response_preview": "Unable to generate answer",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-17T20:28:50.684469Z",
-      "pipeline": "standard",
-      "query": "Who painted the Mona Lisa?",
-      "status": "fail",
-      "latency_ms": 85239,
-      "response_preview": "Unable to generate answer",
-      "trigger": "manual",
-      "error": null
-    },
-    {
-      "timestamp": "2026-02-17T21:03:56.678534Z",
-      "pipeline": "standard",
-      "query": "What is the capital of Japan?",
-      "status": "error",
-      "latency_ms": 0,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "timed out"
-    },
-    {
-      "timestamp": "2026-02-17T21:08:50.915585Z",
-      "pipeline": "standard",
-      "query": "Where is Normandy located?",
-      "status": "error",
-      "latency_ms": 0,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "timed out"
-    },
-    {
-      "timestamp": "2026-02-17T21:13:15.416712Z",
-      "pipeline": "standard",
-      "query": "Who painted the Mona Lisa?",
-      "status": "error",
-      "latency_ms": 0,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
-    },
-    {
-      "timestamp": "2026-02-17T23:58:42.752602Z",
-      "pipeline": "quantitative",
-      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
-      "status": "error",
-      "latency_ms": 0,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "HTTP 404: HTTP Error 404: Not Found"
-    },
-    {
-      "timestamp": "2026-02-17T23:58:48.734677Z",
-      "pipeline": "quantitative",
-      "query": "What was GreenEnergy Corp's total revenue in 2023?",
-      "status": "error",
-      "latency_ms": 0,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "HTTP 404: HTTP Error 404: Not Found"
-    },
-    {
-      "timestamp": "2026-02-17T23:59:15.504193Z",
-      "pipeline": "quantitative",
-      "query": "What is the total number of products across all companies?",
-      "status": "error",
-      "latency_ms": 0,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "HTTP 404: HTTP Error 404: Not Found"
-    },
-    {
-      "timestamp": "2026-02-18T00:49:10.732327Z",
-      "pipeline": "quantitative",
-      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
-      "status": "error",
-      "latency_ms": 0,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "HTTP 404: HTTP Error 404: Not Found"
-    },
-    {
-      "timestamp": "2026-02-18T00:49:16.226159Z",
-      "pipeline": "quantitative",
-      "query": "What was GreenEnergy Corp's total revenue in 2023?",
-      "status": "error",
-      "latency_ms": 0,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "HTTP 404: HTTP Error 404: Not Found"
-    },
-    {
-      "timestamp": "2026-02-18T00:49:22.204459Z",
-      "pipeline": "quantitative",
-      "query": "What is the total number of products across all companies?",
-      "status": "error",
-      "latency_ms": 0,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "HTTP 404: HTTP Error 404: Not Found"
-    },
-    {
       "timestamp": "2026-02-18T01:08:45.580554Z",
       "pipeline": "quantitative",
       "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
@@ -29375,6 +28935,446 @@
       "response_preview": "",
       "trigger": "manual",
       "error": "HTTP 503: HTTP Error 503: Service Unavailable"
+    },
+    {
+      "timestamp": "2026-02-18T12:01:38.154604Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
+      "status": "pass",
+      "latency_ms": 19231,
+      "response_preview": "Unable to generate SQL query for this question. Error: [object Object]",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T12:01:47.536373Z",
+      "pipeline": "graph",
+      "query": "What did Marie Curie win Nobel Prizes for?",
+      "status": "pass",
+      "latency_ms": 35630,
+      "response_preview": "Physics and Chemistry",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T12:01:55.918060Z",
+      "pipeline": "quantitative",
+      "query": "What was GreenEnergy Corp's total revenue in 2023?",
+      "status": "pass",
+      "latency_ms": 14651,
+      "response_preview": "Unable to generate SQL query for this question. Error: [object Object]",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T12:02:07.075749Z",
+      "pipeline": "quantitative",
+      "query": "What is the total number of products across all companies?",
+      "status": "error",
+      "latency_ms": 8075,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "Empty response"
+    },
+    {
+      "timestamp": "2026-02-18T12:02:25.762037Z",
+      "pipeline": "quantitative",
+      "query": "What was HealthPlus Labs' net income in 2022?",
+      "status": "pass",
+      "latency_ms": 15484,
+      "response_preview": "Unable to generate SQL query for this question. Error: [object Object]",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T12:02:30.040028Z",
+      "pipeline": "graph",
+      "query": "What did Alexander Fleming discover?",
+      "status": "pass",
+      "latency_ms": 39200,
+      "response_preview": "Penicillin",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T12:02:44.285135Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision's revenue in Q1 2023?",
+      "status": "pass",
+      "latency_ms": 15267,
+      "response_preview": "Unable to generate SQL query for this question. Error: [object Object]",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T12:03:00.627550Z",
+      "pipeline": "graph",
+      "query": "Who founded Microsoft?",
+      "status": "pass",
+      "latency_ms": 27249,
+      "response_preview": "Bill Gates and Paul Allen",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T12:05:26.163857Z",
+      "pipeline": "graph",
+      "query": "What did Marie Curie win Nobel Prizes for?",
+      "status": "pass",
+      "latency_ms": 74999,
+      "response_preview": "Physics and Chemistry",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T12:06:01.160930Z",
+      "pipeline": "graph",
+      "query": "What is the WHO?",
+      "status": "pass",
+      "latency_ms": 79252,
+      "response_preview": "World Health Organization",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T12:10:19.158824Z",
+      "pipeline": "graph",
+      "query": "What disease is caused by mosquitoes?",
+      "status": "pass",
+      "latency_ms": 57538,
+      "response_preview": "Malaria",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T12:36:45.145609Z",
+      "pipeline": "graph",
+      "query": "What did Marie Curie win Nobel Prizes for?",
+      "status": "pass",
+      "latency_ms": 89979,
+      "response_preview": "Physics and Chemistry",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T12:36:59.892165Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T12:37:09.127296Z",
+      "pipeline": "quantitative",
+      "query": "What was GreenEnergy Corp's total revenue in 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T12:37:19.378067Z",
+      "pipeline": "quantitative",
+      "query": "What is the total number of products across all companies?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T12:37:36.128406Z",
+      "pipeline": "quantitative",
+      "query": "What was HealthPlus Labs' net income in 2022?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T12:37:47.867557Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision's revenue in Q1 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T12:38:05.384154Z",
+      "pipeline": "graph",
+      "query": "What did Alexander Fleming discover?",
+      "status": "pass",
+      "latency_ms": 73232,
+      "response_preview": "Penicillin",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T12:39:43.646691Z",
+      "pipeline": "graph",
+      "query": "Who founded Microsoft?",
+      "status": "pass",
+      "latency_ms": 91284,
+      "response_preview": "Bill Gates and Paul Allen",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T12:41:39.395609Z",
+      "pipeline": "graph",
+      "query": "What did Marie Curie win Nobel Prizes for?",
+      "status": "pass",
+      "latency_ms": 76041,
+      "response_preview": "Physics and chemistry",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T12:42:46.386353Z",
+      "pipeline": "graph",
+      "query": "What did Marie Curie win Nobel Prizes for?",
+      "status": "pass",
+      "latency_ms": 52014,
+      "response_preview": "Physics and Chemistry",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T12:44:06.873175Z",
+      "pipeline": "graph",
+      "query": "What did Alexander Fleming discover?",
+      "status": "pass",
+      "latency_ms": 75755,
+      "response_preview": "Penicillin",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T12:46:22.123177Z",
+      "pipeline": "graph",
+      "query": "Who founded Microsoft?",
+      "status": "pass",
+      "latency_ms": 32996,
+      "response_preview": "Bill Gates and Paul Allen",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T12:46:59.669529Z",
+      "pipeline": "graph",
+      "query": "What is the WHO?",
+      "status": "pass",
+      "latency_ms": 33237,
+      "response_preview": "World Health Organization",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T12:47:43.632827Z",
+      "pipeline": "graph",
+      "query": "What disease is caused by mosquitoes?",
+      "status": "pass",
+      "latency_ms": 38524,
+      "response_preview": "Malaria",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T12:52:37.733069Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T12:52:46.738006Z",
+      "pipeline": "quantitative",
+      "query": "What was GreenEnergy Corp's total revenue in 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T12:53:51.237600Z",
+      "pipeline": "quantitative",
+      "query": "What is the total number of products across all companies?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T12:54:06.233539Z",
+      "pipeline": "quantitative",
+      "query": "What was HealthPlus Labs' net income in 2022?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T12:54:17.240899Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision's revenue in Q1 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T12:59:14.485434Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T12:59:26.979119Z",
+      "pipeline": "quantitative",
+      "query": "What was GreenEnergy Corp's total revenue in 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T12:59:39.220072Z",
+      "pipeline": "quantitative",
+      "query": "What is the total number of products across all companies?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T13:00:23.981429Z",
+      "pipeline": "quantitative",
+      "query": "What was HealthPlus Labs' net income in 2022?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T13:00:40.975477Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision's revenue in Q1 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T13:08:51.491224Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T13:09:17.974224Z",
+      "pipeline": "quantitative",
+      "query": "What was GreenEnergy Corp's total revenue in 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T13:09:35.474670Z",
+      "pipeline": "quantitative",
+      "query": "What is the total number of products across all companies?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T13:09:53.235630Z",
+      "pipeline": "quantitative",
+      "query": "What was HealthPlus Labs' net income in 2022?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T13:10:51.466893Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision's revenue in Q1 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T13:11:54.223641Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 500: HTTP Error 500: Internal Server Error"
+    },
+    {
+      "timestamp": "2026-02-18T13:17:26.497969Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
+      "status": "pass",
+      "latency_ms": 65247,
+      "response_preview": "Unable to generate SQL query for this question. Error: access to env vars denied",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T13:25:26.470310Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
+      "status": "pass",
+      "latency_ms": 112729,
+      "response_preview": "Unable to generate SQL query for this question. Error: [object Object]",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-18T14:14:38.989854Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
+      "status": "pass",
+      "latency_ms": 113232,
+      "response_preview": "Unable to generate SQL query for this question. Error: [object Object]",
+      "trigger": "manual",
+      "error": null
     }
   ],
   "execution_logs": [

@@ -173,14 +173,16 @@ gh codespace start --codespace nomos-rag-website-jr7q9gr69qqfqp6r
 
 | # | Règle | Conséquence si violée |
 |---|-------|----------------------|
-| 1 | Tests SEQUENTIELS (jamais parallèles) | 503 n8n |
-| 2 | source .env.local avant scripts Python | Variables manquantes |
-| 3 | ZERO credentials dans git | Leak API keys |
-| 4 | Commit + push après chaque fix | Travail perdu |
-| 5 | 5/5 minimum avant sync n8n | Régression |
-| 6 | MAJ session-state.md après milestone | Agent perdu au compactage |
-| 7 | git config user.email = alexis.moret6@outlook.fr | Vercel rejette commits |
-| 8 | 1 fix par itération (pas plusieurs noeuds) | Impossible de débugger |
+| 1 | Consulter **`technicals/fixes-library.md`** avant tout debug | Re-débugger un bug déjà résolu |
+| 2 | Tests SEQUENTIELS (jamais parallèles) | 503 n8n |
+| 3 | source .env.local avant scripts Python | Variables manquantes |
+| 4 | ZERO credentials dans git | Leak API keys |
+| 5 | Commit + push après chaque fix | Travail perdu |
+| 6 | 5/5 minimum avant sync n8n | Régression |
+| 7 | MAJ session-state.md après milestone | Agent perdu au compactage |
+| 8 | MAJ **`technicals/fixes-library.md`** après chaque fix réussi | Bibliothèque incomplète |
+| 9 | git config user.email = alexis.moret6@outlook.fr | Vercel rejette commits |
+| 10 | 1 fix par itération (pas plusieurs noeuds) | Impossible de débugger |
 
 ---
 
@@ -264,20 +266,35 @@ n8n-postgres-1     postgres:15-alpine    Up (healthy)  0.0.0.0:5432->5432/tcp
 - **PostgreSQL** : Base interne n8n (historique executions, credentials)
 - **Fix critique appliqué** : `task-broker-auth.service.js` TTL 15s→120s (volume monté)
 
-### n8n — État des workflows (11 actifs)
-| Workflow | ID Docker | Version | Status |
-|----------|-----------|---------|--------|
-| Standard RAG V3.4 | `TmgyRP20N4JFd9CB` | v5, 24 nodes | ON |
-| Graph RAG V3.3 | `6257AfT1l4FMC6lY` | v4, 26 nodes | ON |
-| Quantitative V2.0 | `e465W7V9Q8uK6zJE` | — | ON |
-| Orchestrator V10.1 | `aGsYnJY9nNCaTM82` | — | ON |
-| Dashboard Status API | `KcfzvJD6yydxY9Uk` | — | ON |
-| Benchmark V3.0 | `LKZO1QQY9jvBltP0` | — | ON |
-| Monitoring Dashboard | `tLNh3wTty7sEprLj` | — | ON |
-| Ingestion V3.1 | `15sUKy5lGL4rYW0L` | — | ON |
-| Enrichissement V3.1 | `9V2UTVRbf4OJXPto` | — | ON |
-| Feedback V3.1 | `F70g14jMxIGCZnFz` | — | ON |
-| Dataset Ingestion | `YaHS9rVb1osRUJpE` | — | ON |
+### n8n — Workflows actifs (9 apres audit session 18, cible 16)
+
+#### Pipelines RAG (4)
+| Workflow | ID Docker | Status |
+|----------|-----------|--------|
+| Standard RAG V3.4 | `TmgyRP20N4JFd9CB` | ON |
+| Graph RAG V3.3 | `6257AfT1l4FMC6lY` | ON |
+| Quantitative V2.0 | `e465W7V9Q8uK6zJE` | ON |
+| Orchestrator V10.1 | `aGsYnJY9nNCaTM82` | ON |
+
+#### Support (5)
+| Workflow | ID Docker | Status |
+|----------|-----------|--------|
+| Dashboard Status API | `KcfzvJD6yydxY9Uk` | ON |
+| Benchmark V3.0 | `LKZO1QQY9jvBltP0` | ON |
+| Ingestion V3.1 | `15sUKy5lGL4rYW0L` | ON |
+| Enrichissement V3.1 | `9V2UTVRbf4OJXPto` | ON |
+| Dataset Ingestion | `YaHS9rVb1osRUJpE` | ON |
+
+#### Supprimes (audit session 18)
+Feedback V3.1, Monitoring Dashboard, Orchestrator Tester, RAG Batch Tester — raisons dans `technicals/architecture.md`.
+
+#### Cible 16 workflows (3 categories)
+| Cat. | Workflows | Activation |
+|------|-----------|------------|
+| **A: Test-RAG** | 4 pipelines actuels | Actifs maintenant |
+| **B: Sector** | 4 pipelines sectoriels | Apres Phase 2 |
+| **C: Ingestion** | 2+2 ingestion/enrichment | Partiellement actifs |
+→ Details : `technicals/architecture.md`
 
 ### Bases de données cloud (état au 2026-02-17)
 | BDD | Plan | Contenu | Limite |
@@ -291,7 +308,7 @@ n8n-postgres-1     postgres:15-alpine    Up (healthy)  0.0.0.0:5432->5432/tcp
 ### MCP Servers configurés (`.mcp.json`)
 | MCP | Endpoint | Capacités | Limite |
 |-----|----------|-----------|--------|
-| `n8n` | localhost:5678 | **N/A sur VM** — n8n arrêté. MCP n8n disponible dans Codespace uniquement | — |
+| `n8n` | localhost:5678 | **OK** — n8n Docker up, API REST + MCP disponibles | — |
 | `pinecone` | API HTTPS | Upsert, query, delete vecteurs ; gestion indexes | Free tier |
 | `neo4j` | HTTPS API | Cypher queries, lecture/écriture graph | Free (200K nodes) |
 | `supabase` | Pooler AWS eu-west-1:6543 | SQL SELECT/INSERT/UPDATE/DELETE | Free (500MB) |
@@ -348,7 +365,7 @@ Inclus      : Python 3.11, Node.js 20, Docker-in-Docker, Claude Code CLI
 - **Qui l'exécute** : Claude Code sur la VM permanente, via Termius
 - **Ce qu'il contient** : Directives, scripts eval, configs MCP, n8n sync, CLAUDE.md master
 - **Ce qu'il fait** : Piloter les 4 autres repos, lancer tests, fixer workflows n8n, analyser résultats
-- **n8n** : Permanent (11 workflows actifs sur Docker VM)
+- **n8n** : Permanent (9 workflows actifs, cible 16 — voir `technicals/architecture.md`)
 - **Git remotes** : 5 (origin + 4 satellites)
 - **Directive locale** : `/home/termius/mon-ipad/CLAUDE.md` (ce fichier)
 - **Directive pour agents satellites** : `directives/repos/*.md` → pushés vers chaque repo
@@ -403,6 +420,7 @@ rag-data-ingestion → github.com/LBJLincoln/rag-data-ingestion.git
 1. **Lire `directives/session-state.md`** — Mémoire de travail
 2. **Lire `directives/status.md`** — Résumé dernière session
 3. **Lire `docs/status.json`** — Métriques live
+4. `cat technicals/fixes-library.md | head -50` — Symptôme connu ?
 
 **Règle** : Avant chaque action complexe, re-lire `directives/session-state.md`.
 
@@ -425,6 +443,14 @@ rag-data-ingestion → github.com/LBJLincoln/rag-data-ingestion.git
 | **GitHub** (5 repos privés) | Checkpoints persistants |
 | **Codespaces** (éphémères) | Exécution lourde, résultats pushés vers repos |
 
+### 0.4 Protocole Anti-Staleness (OBLIGATOIRE)
+1. Tout fichier directive DOIT inclure `Last updated: YYYY-MM-DDTHH:MM:SSZ` en header
+2. Au demarrage de session : verifier si un fichier directive a >48h → WARN + mettre a jour
+3. `session-state.md` mis a jour APRES chaque milestone (pas juste fin de session)
+4. `status.md` mis a jour en DERNIERE action de chaque session
+5. Script : `bash scripts/check-staleness.sh` — scanne tous les .md pour dates obsoletes
+6. Reference : `technicals/team-agentic-process.md` pour le processus formel
+
 ---
 
 ## PHASE 1 — LIRE
@@ -434,6 +460,7 @@ rag-data-ingestion → github.com/LBJLincoln/rag-data-ingestion.git
 cat directives/session-state.md
 cat docs/status.json
 cat directives/status.md
+bash scripts/check-staleness.sh  # Verifier staleness
 ```
 
 ### 1.2 Comprendre le projet
@@ -445,12 +472,15 @@ cat directives/status.md
 - `directives/n8n-endpoints.md` — Webhooks et API REST
 
 ### 1.4 Références techniques
-- `technicals/architecture.md` — 4 pipelines + 9 workflows
+- `technicals/architecture.md` — 4 pipelines + 9 workflows actifs, cible 16 (categories A/B/C)
 - `technicals/stack.md` — Stack technique
 - `technicals/credentials.md` — Configuration services
+- `technicals/env-vars-exhaustive.md` — **33 vars documentees**, matrice workflow x var, log modifications
+- `technicals/team-agentic-process.md` — Processus team-agentic formel (roles, auto-stop, fixes-library)
 - `technicals/phases-overview.md` — 5 phases et gates
-- `technicals/infrastructure-plan.md` — Plan d'infrastructure distribuée
+- `technicals/infrastructure-plan.md` — Plan d'infrastructure distribuee + Docker par repo
 - `technicals/sector-datasets.md` — 1000+ types de documents par secteur
+- `technicals/fixes-library.md` — Bibliotheque des 12+ fixes documentes
 - `directives/dataset-rationale.md` — Justification des 14 benchmarks
 - `directives/repos/` — Directives personnalisées par repo satellite
 
@@ -557,7 +587,8 @@ ssh -L 5678:localhost:5678 <user>@34.136.180.66 -N &
 2. Snapshot : `snapshot/current/`
 3. Status : `python3 eval/generate_status.py`
 4. Session-state : `directives/session-state.md`
-5. **Commit + push IMMÉDIATEMENT** (origin + repos concernés)
+5. Fixes library : `technicals/fixes-library.md` — documenter le fix (symptôme, cause, solution)
+6. **Commit + push IMMÉDIATEMENT** (origin + repos concernés)
 
 ### 3.3 Pushes réguliers (OBLIGATOIRE)
 - Après chaque fix réussi
@@ -650,6 +681,7 @@ git diff --cached | grep -iE 'sk-or-|pcsk_|jV_zGdx|sbp_|hf_[A-Za-z]{10}|jina_[a-
 18. **Codespaces = éphémère** — résultats pushés avant arrêt
 19. **RAM critique** — VM a seulement ~100MB dispo, éviter scripts mémoire-intensifs en parallèle
 20. **Directives repos** — MAJ `directives/repos/*.md` si changements d'architecture
+21. **MAJ `technicals/fixes-library.md`** — après chaque fix réussi (avant commit)
 
 ---
 

@@ -1,66 +1,66 @@
-# Session State — 18 Février 2026 (Session 16 — Fix CI Quantitative RÉUSSI ✅)
+# Session State — 18 Février 2026 (Session 17)
 
 ## Objectif de session
-Fix CI GitHub Actions quantitative pipeline : 0/2 → 5/5 PASS ✅ ACCOMPLI
+Améliorer graph (68.7%→70%) + quantitative (78.3%→85%) + préparer Phase 2 + créer bibliothèque de fixes + audit complet repo.
 
-## Résultat CI Run 22137858153 (tous fixes)
-| Pipeline | Score | Status |
-|----------|-------|--------|
-| standard | 5/5 | ✅ PASS |
-| graph | 5/5 | ✅ PASS |
-| **quantitative** | **5/5** | **✅ PASS** |
-| orchestrator | 5/5 | ✅ PASS |
+## Résultats Session 17
 
-## Root Cause confirmée (quantitative CI 0/2 → timeout)
-1. **Task runner isolation** : n8n latest = task runners actifs par défaut → Code nodes
-   en subprocess isolé → `$getWorkflowStaticData` ne persiste pas → boucle de
-   réparation SQL infinie → EXECUTIONS_TIMEOUT=300s → 2 questions × 300s = 10 min timeout
-2. **SQL Validator fallback SQL invalide** : quand LLM timeout, générait
-   `SELECT 'error' WHERE tenant_id = 'ci' LIMIT 1` (pas de FROM → syntaxe PostgreSQL
-   invalide → SQL Executor échoue → entre dans boucle réparation → infinie)
+### Pipeline Graph ✅ FIXED
+- **Symptôme** : skip_graph=true silencieux → pipeline ne queryait jamais Neo4j
+- **Root cause** : `Shield #4: Neo4j Guardian Traversal` URL = `bolt://localhost:7687` (Bolt protocol, incompatible avec HTTP Request node)
+- **Fix** : URL → `https://38c949a2.databases.neo4j.io/db/neo4j/query/v2` + Basic auth header
+- **Test** : 5/5 PASS (27-79s par question, traversal Neo4j actif confirmé)
+- **Fichier** : `n8n/live/graph.json`
 
-## 3 Fixes appliqués
+### Pipeline Quantitative 🟡 PARTIELLEMENT FIXÉ
+- **Symptôme** : HTTP 500 immédiat sur toutes requêtes
+- **Root cause** : Live workflow n8n = 0 nodes (workflow cassé) + credential postgres ID `zEr7jPswZNv6lWKu` inexistante
+- **Fix appliqué** :
+  1. Workflow restauré depuis disque (25 nodes) via PUT API ✅
+  2. Credential remappée dans `n8n/live/quantitative.json` : `zEr7jPswZNv6lWKu` → `USU8ngVzsUbED3mn` (Supabase Postgres Pooler) ✅
+  3. Push vers n8n Docker VM : ❌ BLOQUÉ (VM n8n instable — DB timeouts récurrents, CPU 252%)
+- **État** : Fichier JSON corrigé sur disque. Sera utilisé au prochain CI run. Push VM en attente stabilisation.
+- **Action suivante** : Au début session 18, re-pousser `n8n/live/quantitative.json` vers n8n Docker via API quand stabilisé.
 
-### Fix 1 — N8N_RUNNERS_ENABLED=false (commit 25cb84b)
-- rag-tests-docker-compose.yml : 4 services n8n
-- Code nodes s'exécutent dans le processus worker (pas de subprocess)
-- `$getWorkflowStaticData` persiste correctement
+### Bibliothèque de Fixes ✅ CRÉÉE
+- `technicals/fixes-library.md` — 233 lignes, 12 fixes documentés (sessions 7-17)
+- `directives/workflow-process.md` — ETAPE 0 ajoutée (consulter fixes-library avant debug)
+- `directives/repos/rag-tests.md` — ETAPE 0 + règle 1 ajoutées
+- `directives/repos/rag-data-ingestion.md` — ETAPE 0 + règle 1 ajoutées
+- `directives/repos/rag-website.md` — ETAPE 0 + règle 1 ajoutées
 
-### Fix 2 — SQL Error Handler counter via $execution.id (commit 25cb84b)
-- Clé `repair_${$execution.id}` (unique par exécution)
-- `$getWorkflowStaticData('global')` pour persistance
-- MAX_REPAIRS=2, exit propre après 2 tentatives
+### Audit et mise à jour docs ✅
+- `CLAUDE.md` : n8n containers section corrigée, Phase 1 gates, fixes-library en mandatory outputs, règle 21
+- `directives/n8n-endpoints.md` : 4 nouveaux pièges ajoutés (bolt, workflow vide, PUT 400, N8N_RUNNERS), date 18/02
+- `directives/objective.md` : Session 17 documentée, prochaines actions mises à jour
+- 6 fichiers obsolètes supprimés (session 16)
 
-### Fix 3 — SQL Validator fallback SQL syntax fix (commit 630f81f)
-- Retiré `WHERE tenant_id = '...'` des 4 fallback SELECT literals
-- `SELECT 'error' as status LIMIT 1` → PostgreSQL valide
-- SQL Executor réussit même quand LLM fail → port[0] → no repair loop
-
-## État actuel (post-session-16)
-Prochaine priorité : améliorer la QUALITÉ des réponses quantitative
-→ Le pipeline passe le gate (non-timeout) mais LLM free tier rate-limit en CI
-→ Réponses "Unable to generate SQL query" pas très utiles
-→ Candidats pour amélioration: timeout LLM 25s→60s, retry 1→2
-
-## Commits session 16
+## Commits session 17
 | Hash | Description |
 |------|-------------|
-| 872fa0a | fix(quantitative): SQL Error Handler — remove counter reset + ReferenceError |
-| a81c81a | fix(quantitative): SQL Error Handler — $node self-reference counter |
-| 25cb84b | fix(ci): disable n8n task runners + fix SQL Error Handler loop counter |
-| 630f81f | fix(quantitative): SQL Validator fallback SQL syntax error |
+| cab38e2 | chore(session-16-end): audit + fix CLAUDE.md + delete 6 obsolete files |
+| (à venir) | feat(session-17): graph fix + quant credential + fixes-library + docs audit |
 
 ## Infrastructure
 ```
 VM (34.136.180.66) :
-  n8n : Up — stockage uniquement, JAMAIS pour tests
-  Tests : GitHub Actions (2-8GB RAM, Docker natif)
+  n8n : Up mais instable (DB timeouts, CPU ~250%) — workflows via fichiers JSON
+  Tests : GitHub Actions (2-8GB RAM, Docker natif, workflow files = source of truth)
 
-GitHub rag-tests secrets : tous configurés ✅
-rag-tests CI : ALL PIPELINES 5/5 PASS ✅
+rag-tests CI last run : 22137858153 — ALL 4 PIPELINES 5/5 PASS ✅
 ```
 
-## Prochaine action
-1. Optionnel: améliorer qualité réponses quantitative (LLM timeout en CI)
-2. Déclencher mode `full` avec iterative-eval pour mesurer accuracy réelle
-3. Mettre à jour docs/status.json + technicals/phases-overview.md
+## Prochaine action (Session 18)
+1. **Re-pousser quantitative.json** vers n8n VM quand stabilisé (credential fix déjà dans fichier)
+2. **Lancer iterative-eval** sur les 2 pipelines fixes : graph + quantitative
+3. **Mesurer accuracy réelle** : graph (cible 70%) + quantitative (cible 85%)
+4. **Si gates passées** : lancer Phase 2 avec `datasets/phase-2/hf-1000.json`
+
+## Accuracy actuelle (docs/status.json)
+| Pipeline | Accuracy | Target | Status |
+|----------|----------|--------|--------|
+| Standard | 85.5% | 85% | ✅ PASS |
+| Graph | 68.7% | 70% | ❌ (fix appliqué, retestar) |
+| Quantitative | 78.3% | 85% | ❌ (fix appliqué, retestar) |
+| Orchestrator | 80.0% | 70% | ✅ PASS |
+| **Overall** | **78.1%** | **75%** | **✅ PASS** |
