@@ -1,0 +1,10 @@
+Recomposition profonde de tous les repos:
+- le repo mon-ipad devenant la tour de contrôle de visualisation et de lancement des tests dans les autres repos via leur Ubuntu ou codespace propre, c'est lui qui contiendra tous les dossiers de tous les repos, mais ça doit être mieux structure pour que l'on comprenne mieux quel repo a fait quoi
+- tous les autres repos ne devront contenir que leurs directives propres mais en suivant la même structure que mon-ipad. Ils auront leur propre bibliothèque de fixe. Repo test et repo website partageront leurs bibliothèques de fixes et l'actualiseront constamment. Classification claire et immédiatement récupérable par Claude code CLI quand il est confronté à un problème sur n8n pour voir les 2-3 last versions ayant marché pour ce problème specifique.
+- repo mon-ipad devra bien actualiser ce qui est fait dans chaque repo, constamment. Il doit contenir ses propres directives mais aussi les directives de chaque repo, afin de piloter
+- fichier objective.md ne parle que d'un seul aspect, pas de tous les repos 
+
+J'AI CRU APERCEVOIR QUE DQNS BEAUXOUP DE FICHIERS, PARTICULIÈREMENT DANS LE DOSSIER DIRECTIVES, DES INFOS VENANT DU 14/02, ET QUI SEMBLENT BIEN LONGAINES ET POTENTIELLEMENT INCOHÉRENTES.
+
+Il faut actualiser tout ça et FAIRE EN SORTE QUE CE GENRE DE SITUATION NE SE REPRODUISE PLUS, DONC CORRECTEMENT LE SIGNIFIER QUELQUE PART DANS CHAQUE REPO
+
