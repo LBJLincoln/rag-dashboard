@@ -135,25 +135,41 @@ def get_or_create_api_key(cookies):
     return ""
 
 
+def extract_id(data):
+    """Extract 'id' from n8n response (handles both flat and {data: {...}} formats)."""
+    if not isinstance(data, dict):
+        return ""
+    return (data.get("id", "") or
+            data.get("data", {}).get("id", "") if isinstance(data.get("data"), dict) else "")
+
+
+def extract_error(data):
+    """Extract error/message from n8n response."""
+    if not isinstance(data, dict):
+        return str(data)[:200]
+    return str(
+        data.get("message", "") or
+        data.get("error", "") or
+        data.get("data", {}).get("message", "") if isinstance(data.get("data"), dict) else ""
+    )[:200]
+
+
 def create_credential(name, cred_type, cred_data, cookies, api_key=""):
     """Create n8n credential via REST."""
     payload = {"name": name, "type": cred_type, "data": cred_data}
-    attempts = [
-        ("/rest/credentials", {"Cookie": "; ".join(f"{k}={v}" for k, v in cookies.items())} if cookies else {}),
-    ]
+    attempts = [("/rest/credentials", None)]
     if api_key:
         attempts.append(("/api/v1/credentials", {"X-N8N-API-KEY": api_key}))
 
     for endpoint, extra_headers in attempts:
-        data, _ = http("POST", endpoint, data=payload, headers=extra_headers if extra_headers else None,
-                       cookies=cookies if not extra_headers else None)
+        data, _ = http("POST", endpoint, data=payload, headers=extra_headers,
+                       cookies=cookies)
         if isinstance(data, dict):
-            cred_id = data.get("id", "")
+            cred_id = extract_id(data)
             if cred_id:
                 print(f"  Created '{name}' id={cred_id} via {endpoint}")
                 return cred_id
-            err = str(data.get("error", data.get("message", "")))[:100]
-            print(f"  {endpoint} failed for '{name}': {err}")
+            print(f"  {endpoint} failed for '{name}': {extract_error(data)} | raw={str(data)[:100]}")
     return ""
 
 
@@ -192,23 +208,22 @@ def import_workflow(filepath, cookies, api_key="", cred1_id="", cred2_id=""):
     print(f"  Importing: {name} (old id={old_id})")
 
     # Try REST endpoints in order
-    attempts = []
-    if cookies:
-        attempts.append(("/rest/workflows", None))  # uses cookies
+    attempts = [("/rest/workflows", None)]
     if api_key:
         attempts.append(("/api/v1/workflows", {"X-N8N-API-KEY": api_key}))
 
     for endpoint, extra_headers in attempts:
         data, _ = http("POST", endpoint, data=wf,
                        headers=extra_headers,
-                       cookies=cookies if not extra_headers else None)
+                       cookies=cookies)
         if isinstance(data, dict):
-            wf_id = data.get("id", "")
+            wf_id = extract_id(data)
             if wf_id:
-                print(f"    Imported via {endpoint}: id={wf_id}, name={data.get('name','?')[:50]}")
+                wf_name = (data.get("name") or
+                           data.get("data", {}).get("name", "?") if isinstance(data.get("data"), dict) else "?")
+                print(f"    Imported via {endpoint}: id={wf_id}, name={wf_name[:50]}")
                 return wf_id
-            err = str(data.get("message", data.get("error", "")))[:150]
-            print(f"    {endpoint} failed for '{name}': {err}")
+            print(f"    {endpoint} failed for '{name}': {extract_error(data)} | raw={str(data)[:100]}")
 
     print(f"  FAILED to import: {name}")
     return None
@@ -216,53 +231,48 @@ def import_workflow(filepath, cookies, api_key="", cred1_id="", cred2_id=""):
 
 def activate_workflow(wf_id, name, cookies, api_key=""):
     """Activate a workflow via REST."""
-    attempts = []
-    if cookies:
-        attempts.append((f"/rest/workflows/{wf_id}/activate", None))
+    attempts = [(f"/rest/workflows/{wf_id}/activate", None)]
     if api_key:
         attempts.append((f"/api/v1/workflows/{wf_id}/activate", {"X-N8N-API-KEY": api_key}))
 
     for endpoint, extra_headers in attempts:
-        data, _ = http("PATCH", endpoint, data={},
-                       headers=extra_headers,
-                       cookies=cookies if not extra_headers else None)
-        if isinstance(data, dict) and data.get("active") is True:
-            print(f"  Activated: {name} ({wf_id})")
-            return True
-        # Also try POST
-        data, _ = http("POST", endpoint, data={},
-                       headers=extra_headers,
-                       cookies=cookies if not extra_headers else None)
-        if isinstance(data, dict) and data.get("active") is True:
-            print(f"  Activated (POST): {name} ({wf_id})")
-            return True
-        err = str(data)[:100] if isinstance(data, dict) else str(data)[:100]
-        print(f"    {endpoint} activation failed: {err}")
+        for method in ["PATCH", "POST"]:
+            data, _ = http(method, endpoint, data={},
+                           headers=extra_headers,
+                           cookies=cookies)
+            active = (data.get("active") if isinstance(data, dict) else False) or \
+                     (data.get("data", {}).get("active") if isinstance(data.get("data"), dict) else False)
+            if active:
+                print(f"  Activated ({method}): {name} ({wf_id})")
+                return True
+        print(f"    {endpoint} activation failed: {extract_error(data) if isinstance(data, dict) else str(data)[:100]}")
     return False
 
 
-def verify_workflows(cookies, api_key=""):
-    """List all workflows in n8n."""
-    print("=== Verifying workflows ===")
-    attempts = []
-    if cookies:
-        attempts.append(("/rest/workflows?limit=20", None))
+def list_workflows(cookies, api_key=""):
+    """List all workflows, return list of dicts."""
+    attempts = [("/rest/workflows?limit=20", None)]
     if api_key:
         attempts.append(("/api/v1/workflows?limit=20", {"X-N8N-API-KEY": api_key}))
 
     for endpoint, extra_headers in attempts:
-        data, _ = http("GET", endpoint,
-                       headers=extra_headers,
-                       cookies=cookies if not extra_headers else None)
+        data, _ = http("GET", endpoint, headers=extra_headers, cookies=cookies)
         if isinstance(data, dict):
-            wfs = data.get("data", data) if isinstance(data, dict) else data
-            if isinstance(wfs, list):
-                print(f"Total: {len(wfs)} workflows")
-                for w in wfs:
-                    status = "ACTIVE" if w.get("active") else "inactive"
-                    print(f"  [{status}] {w.get('name','?')[:60]}")
-                return len(wfs)
-    return 0
+            wfs = data.get("data", data)
+            if isinstance(wfs, list) and len(wfs) >= 0:
+                return wfs
+    return []
+
+
+def verify_workflows(cookies, api_key=""):
+    """Print all workflows in n8n."""
+    print("=== Verifying workflows ===")
+    wfs = list_workflows(cookies, api_key)
+    print(f"Total: {len(wfs)} workflows")
+    for w in wfs:
+        status = "ACTIVE" if w.get("active") else "inactive"
+        print(f"  [{status}] id={w.get('id','?')} {w.get('name','?')[:55]}")
+    return len(wfs)
 
 
 def main():
@@ -326,33 +336,41 @@ def main():
     cred1_id = create_credential("Supabase PostgreSQL", "postgres", supabase_pg_data, cookies, api_key)
     cred2_id = create_credential("Supabase Postgres (Pooler)", "postgres", supabase_pooler_data, cookies, api_key)
 
-    # 5. Import workflows
+    # 5. Import workflows (skip if already exist in n8n)
+    print("\n=== Checking existing workflows ===")
+    existing_wfs = list_workflows(cookies, api_key)
+    print(f"Found {len(existing_wfs)} existing workflows in n8n")
+    for w in existing_wfs:
+        status = "ACTIVE" if w.get("active") else "inactive"
+        print(f"  [{status}] id={w.get('id','?')} {w.get('name','?')[:55]}")
+
+    # Import if not already present
     print("\n=== Importing workflows ===")
     imported = {}  # filepath → wf_id
-    for wf_file in workflow_files:
-        wf_id = import_workflow(wf_file, cookies, api_key, cred1_id, cred2_id)
-        if wf_id:
-            imported[wf_file] = wf_id
+    if len(existing_wfs) >= len(workflow_files):
+        print("  Workflows already in n8n — skipping import")
+        for w in existing_wfs:
+            imported[w.get("name", "")] = w.get("id", "")
+    else:
+        for wf_file in workflow_files:
+            wf_id = import_workflow(wf_file, cookies, api_key, cred1_id, cred2_id)
+            if wf_id:
+                imported[wf_file] = wf_id
+        print(f"\nImported: {len(imported)}/{len(workflow_files)} workflows")
 
-    print(f"\nImported: {len(imported)}/{len(workflow_files)} workflows")
-
-    # 6. Activate workflows
+    # 6. Activate all inactive workflows
     print("\n=== Activating workflows ===")
-    # Need names for logging
-    wf_names = {}
-    for wf_file in workflow_files:
-        try:
-            with open(wf_file) as f:
-                wf_names[wf_file] = json.load(f).get("name", os.path.basename(wf_file))
-        except Exception:
-            wf_names[wf_file] = os.path.basename(wf_file)
-
-    # First activate from our imported IDs
-    for wf_file, wf_id in imported.items():
-        activate_workflow(wf_id, wf_names.get(wf_file, wf_id), cookies, api_key)
-
-    # Also activate any workflows already in n8n (in case import was partial)
     time.sleep(2)
+    current_wfs = list_workflows(cookies, api_key)
+    activated = 0
+    for w in current_wfs:
+        if not w.get("active"):
+            if activate_workflow(w["id"], w.get("name", w["id"]), cookies, api_key):
+                activated += 1
+        else:
+            print(f"  Already active: {w.get('name','?')[:55]}")
+
+    print(f"\nActivated {activated} workflows, {len(current_wfs) - activated} already active")
     verify_workflows(cookies, api_key)
 
     # 7. Output to GITHUB_ENV
@@ -372,11 +390,12 @@ def main():
     if not cred1_id and not cred2_id:
         print("WARNING: No credentials created — Postgres nodes may fail in tests")
 
-    if len(imported) == 0:
-        print("ERROR: No workflows imported")
+    total_wfs = len(list_workflows(cookies, api_key))
+    if total_wfs == 0:
+        print("ERROR: No workflows in n8n after setup")
         sys.exit(1)
 
-    print("=== Done ===")
+    print(f"=== Done: {total_wfs} workflows in n8n ===")
 
 
 if __name__ == "__main__":
