@@ -333,3 +333,108 @@ body {
     radial-gradient(ellipse at 50% 80%, rgba(191, 90, 242, 0.04) 0%, transparent 50%),
     var(--bg);
 }
+
+/* ─── MacBook Frame ─── */
+.macbook-wrapper {
+  perspective: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  transition: transform 0.5s var(--ease);
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .macbook-wrapper {
+    max-width: 700px;
+  }
+}
+
+.macbook-screen {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: #1a1a1e;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px 16px 4px 4px;
+  overflow: hidden;
+  transform: rotateX(2deg);
+  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.macbook-wrapper:hover .macbook-screen {
+  transform: rotateX(0deg);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.6),
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.macbook-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 6px;
+  background: #0a0a0a;
+  border-radius: 0 0 8px 8px;
+  z-index: 10;
+}
+
+.macbook-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.macbook-base {
+  width: 108%;
+  height: 12px;
+  background: linear-gradient(180deg, #3a3a3c, #2c2c2e);
+  border-radius: 0 0 8px 8px;
+  margin-top: -1px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: none;
+}
+
+/* ─── Spotlight Bar ─── */
+.spotlight-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 560px;
+  height: 52px;
+  padding: 0 16px;
+  border-radius: 12px;
+  background: rgba(40, 40, 44, 0.95);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.3s var(--ease);
+  animation: spotlight-breathe 4s ease-in-out infinite;
+}
+
+.spotlight-bar:hover {
+  transform: scale(1.02);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+@keyframes spotlight-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.005); }
+}
+
+.spotlight-bar:hover {
+  animation: none;
+  transform: scale(1.02);
+}

@@ -6,10 +6,11 @@ import { SectorCard } from './SectorCard'
 import type { Sector } from '@/types/sector'
 
 interface BentoGridProps {
-  onSelectSector: (sector: Sector) => void
+  onOpenChatbot: (sector: Sector) => void
+  onOpenPortfolio: (sector: Sector) => void
 }
 
-export function BentoGrid({ onSelectSector }: BentoGridProps) {
+export function BentoGrid({ onOpenChatbot, onOpenPortfolio }: BentoGridProps) {
   return (
     <section id="secteurs" className="py-16 md:py-24" style={{ background: 'var(--s1)' }}>
       <div className="max-w-5xl mx-auto px-6">
@@ -25,11 +26,11 @@ export function BentoGrid({ onSelectSector }: BentoGridProps) {
             Votre secteur. Vos documents.
           </p>
           <h2 className="text-[32px] md:text-[42px] font-bold tracking-[-0.03em] text-tx leading-[1.1] mb-4">
-            Un chatbot taillé pour votre métier.
+            Un chatbot taille pour votre metier.
           </h2>
           <p className="text-[16px] text-tx2 max-w-xl mx-auto leading-relaxed">
-            Pas un assistant généraliste. Un expert de votre domaine, connecté à vos données,
-            qui répond avec les sources exactes.
+            Pas un assistant generaliste. Un expert de votre domaine, connecte a vos donnees,
+            qui repond avec les sources exactes.
           </p>
         </motion.div>
 
@@ -42,18 +43,19 @@ export function BentoGrid({ onSelectSector }: BentoGridProps) {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <p className="text-[22px] md:text-[28px] font-bold text-tx tracking-[-0.02em]">
-            Mais testez directement par vous-même :
+            Mais testez directement par vous-meme :
           </p>
         </motion.div>
 
         {/* 2-column grid — compact iPad mosaic */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {SECTORS.map((sector, i) => (
             <SectorCard
               key={sector.id}
               sector={sector}
               index={i}
-              onSelect={onSelectSector}
+              onOpenChatbot={onOpenChatbot}
+              onOpenPortfolio={onOpenPortfolio}
             />
           ))}
         </div>
@@ -66,7 +68,7 @@ export function BentoGrid({ onSelectSector }: BentoGridProps) {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          Chaque secteur dispose de son propre index documentaire et de pipelines IA spécialisés.
+          Chaque secteur dispose de son propre index documentaire et de pipelines IA specialises.
         </motion.p>
       </div>
     </section>
