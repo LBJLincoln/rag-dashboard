@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-02-18T01:09:08.843393Z",
+    "generated_at": "2026-02-18T06:15:58.868226Z",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
@@ -28877,36 +28877,6 @@
   },
   "quick_tests": [
     {
-      "timestamp": "2026-02-16T15:49:49.628571Z",
-      "pipeline": "standard",
-      "query": "What is the capital of Japan?",
-      "status": "error",
-      "latency_ms": 0,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "HTTP Error 404: Not Found"
-    },
-    {
-      "timestamp": "2026-02-16T15:58:33.622698Z",
-      "pipeline": "standard",
-      "query": "What is the capital of Japan?",
-      "status": "error",
-      "latency_ms": 0,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "timed out"
-    },
-    {
-      "timestamp": "2026-02-16T16:08:05.618663Z",
-      "pipeline": "standard",
-      "query": "What is the capital of Japan?",
-      "status": "error",
-      "latency_ms": 0,
-      "response_preview": "",
-      "trigger": "manual",
-      "error": "HTTP Error 503: Service Unavailable"
-    },
-    {
       "timestamp": "2026-02-16T16:10:34.640456Z",
       "pipeline": "standard",
       "query": "What is the capital of Japan?",
@@ -29375,6 +29345,36 @@
       "response_preview": "",
       "trigger": "manual",
       "error": "HTTP 404: HTTP Error 404: Not Found"
+    },
+    {
+      "timestamp": "2026-02-18T06:03:41.354047Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "<urlopen error [Errno 111] Connection refused>"
+    },
+    {
+      "timestamp": "2026-02-18T06:09:43.352688Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "<urlopen error [Errno 111] Connection refused>"
+    },
+    {
+      "timestamp": "2026-02-18T06:15:58.864415Z",
+      "pipeline": "quantitative",
+      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
+      "status": "error",
+      "latency_ms": 0,
+      "response_preview": "",
+      "trigger": "manual",
+      "error": "HTTP 503: HTTP Error 503: Service Unavailable"
     }
   ],
   "execution_logs": [
