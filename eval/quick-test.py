@@ -133,8 +133,8 @@ def run_quick_tests(pipelines, max_questions=3, trigger="manual"):
         pipe_results = []
 
         for i, q in enumerate(questions):
-            # Use generous timeouts — LLM calls via free models can be slow
-            pipe_timeout = 300 if pipe == "orchestrator" else 90
+            # Use generous timeouts — LLM calls via free models can be slow (429 retries)
+            pipe_timeout = 300 if pipe in ("orchestrator", "quantitative") else 90
             if i > 0:
                 time.sleep(3)  # 3s between questions — prevents n8n 503 (LIMIT=2)
             resp = call_endpoint(endpoint, q["query"], timeout=pipe_timeout)
