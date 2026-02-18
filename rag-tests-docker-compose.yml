@@ -57,6 +57,8 @@ services:
       - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
       - NODE_FUNCTION_ALLOW_BUILTIN=*
       - NODE_FUNCTION_ALLOW_EXTERNAL=*
+      # Global execution timeout: kill stale executions after 5 min
+      - EXECUTIONS_TIMEOUT=300
       # --- Queue mode ---
       - EXECUTIONS_MODE=queue
       - QUEUE_BULL_REDIS_HOST=redis
