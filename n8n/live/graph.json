@@ -29,7 +29,7 @@
         "nodeCredentialType": "openRouterApi",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"model\": \"arcee-ai/trinity-large-preview:free\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Generate a hypothetical document that would perfectly answer the question. This document will be used for semantic search. Format: dense, factual text, 200-300 words. Also extract key entities as JSON: {\\\"hyde_document\\\": string, \\\"entities\\\": [{\\\"name\\\": string, \\\"type\\\": string}]}\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $json.query }}\"\n    }\n  ],\n  \"temperature\": 0.7,\n  \"max_tokens\": 800\n}",
+        "jsonBody": "={\n  \"model\": \"arcee-ai/trinity-large-preview:free\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Generate a hypothetical document that would perfectly answer the question. This document will be used for semantic search. Format: dense, factual text, 200-300 words. Also extract key entities as JSON: {\\\"hyde_document\\\": string, \\\"entities\\\": [{\\\"name\\\": string, \\\"type\\\": string}]}\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $json.query }}\"\n    }\n  ],\n  \"temperature\": 0.7,\n  \"max_tokens\": 400\n}",
         "options": {
           "timeout": 30000,
           "retry": {

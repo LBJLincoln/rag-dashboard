@@ -53,13 +53,38 @@ GitHub (source de vérité) :
 | Orchestrator | 80.0% | >= 70% | PASS |
 | **Overall** | **78.1%** | **>= 75%** | **PASS** |
 
+## Fixes appliqués (non testés — Codespace requis pour test)
+
+### Graph pipeline (68.7% → cible 70%)
+1. ✅ tenant_id: `IN ['default','benchmark'] OR IS NULL` (2 occurrences corrigées)
+2. ✅ HyDE max_tokens: 800 → 400 (verbosité réduite)
+
+### Quantitative pipeline (78.3% → cible 85%)
+1. ✅ Schema Introspection: tables inexistantes supprimées (sales_data, kpis, companies)
+   + tables réelles ajoutées (orders, customers, departments, quarterly_revenue)
+2. ✅ SQL Validator: injection tenant_id désactivée pour JOINs
+3. ✅ SQL Prompt: fallback `tenant_id IS NULL` ajouté
+4. ✅ Schema Context Builder: foreign keys + relations inter-tables ajoutés
+
+## 9 workflows website créés (n8n/website/)
+- RAG Pipeline copies (Phase 1): standard-btp, standard-industrie, quantitative-finance, graph-juridique, orchestrator
+- Ingestion secteurs (NOUVEAUX): ingestion-finance, ingestion-juridique, ingestion-btp, ingestion-industrie
+- README: n8n/website/README.md
+
 ## Prochaine action (PRIORITÉ ABSOLUE — Phase 1)
-1. Créer/démarrer Codespace rag-tests
-2. `docker compose up -d` (n8n LOCAL 3 workers)
-3. `bash scripts/setup-claude-opus.sh`
-4. Importer workflows n8n depuis `n8n/current/`
-5. **Fixer Quantitative** : 78.3% → 85% (CompactRAG + BM25, gap -6.7pp)
-6. **Fixer Graph** : 68.7% → 70% (entity disambiguation, gap -1.3pp)
+1. Démarrer Codespace rag-tests:
+   ```bash
+   gh codespace start --codespace nomos-rag-tests-5g6g5q9vjjwjf5g4
+   gh codespace ssh --codespace nomos-rag-tests-5g6g5q9vjjwjf5g4
+   bash scripts/setup-codespace-rag-tests.sh
+   ```
+2. Tester pipelines fixés:
+   ```bash
+   source .env.local && python3 eval/quick-test.py --questions 5 --pipeline quantitative
+   source .env.local && python3 eval/quick-test.py --questions 5 --pipeline graph
+   ```
+3. Si tests passent → iterative-eval.py --label "Phase1-fix-session14"
+4. **Objectif** : Quantitative 78.3%→85%, Graph 68.7%→70%
 
 ## Configuration git (CRITIQUE pour Vercel)
 ```
