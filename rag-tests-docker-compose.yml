@@ -59,6 +59,8 @@ services:
       - NODE_FUNCTION_ALLOW_EXTERNAL=*
       # Global execution timeout: kill stale executions after 5 min
       - EXECUTIONS_TIMEOUT=300
+      # Disable task runners: Code nodes run in worker process (fixes $getWorkflowStaticData in loops)
+      - N8N_RUNNERS_ENABLED=false
       # --- Queue mode ---
       - EXECUTIONS_MODE=queue
       - QUEUE_BULL_REDIS_HOST=redis
@@ -158,6 +160,7 @@ services:
       - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
       - NODE_FUNCTION_ALLOW_BUILTIN=*
       - NODE_FUNCTION_ALLOW_EXTERNAL=*
+      - N8N_RUNNERS_ENABLED=false
       # External APIs needed by workers for workflow execution
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
       - OPENROUTER_BASE_URL=https://openrouter.ai/api/v1/chat/completions
@@ -211,6 +214,7 @@ services:
       - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
       - NODE_FUNCTION_ALLOW_BUILTIN=*
       - NODE_FUNCTION_ALLOW_EXTERNAL=*
+      - N8N_RUNNERS_ENABLED=false
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
       - OPENROUTER_BASE_URL=https://openrouter.ai/api/v1/chat/completions
       - JINA_API_KEY=${JINA_API_KEY}
@@ -263,6 +267,7 @@ services:
       - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
       - NODE_FUNCTION_ALLOW_BUILTIN=*
       - NODE_FUNCTION_ALLOW_EXTERNAL=*
+      - N8N_RUNNERS_ENABLED=false
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
       - OPENROUTER_BASE_URL=https://openrouter.ai/api/v1/chat/completions
       - JINA_API_KEY=${JINA_API_KEY}
