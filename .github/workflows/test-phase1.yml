@@ -94,30 +94,28 @@ jobs:
             --old1 zEr7jPswZNv6lWKu --new1 "$CRED1_ID" \
             --old2 USU8ngVzsUbED3mn --new2 "$CRED2_ID"
 
-      - name: Import n8n workflows
+      - name: Import n8n workflows via CLI (no auth needed)
         run: |
-          N8N_KEY="${N8N_CI_API_KEY:-rag-ci-nomos-2026-b7f8a91d2e3c4f5a6b7c8d9e0f1a2b3c4d5e6f7}"
           for wf_file in n8n/live/standard.json n8n/live/graph.json n8n/live/quantitative.json n8n/live/orchestrator.json; do
             if [ -f "$wf_file" ]; then
-              RESP=$(curl -s -X POST "http://localhost:5678/api/v1/workflows" \
-                -H "X-N8N-API-KEY: $N8N_KEY" -H "Content-Type: application/json" \
-                --data @"$wf_file")
               WF_NAME=$(python3 -c "import json; print(json.load(open('$wf_file')).get('name','?'))")
-              if echo "$RESP" | grep -q '"id"'; then
-                WF_ID=$(echo "$RESP" | python3 -c "import json,sys; print(json.load(sys.stdin).get('id','?'))")
-                echo "Imported: $WF_NAME (id=$WF_ID)"
+              if docker compose exec -T n8n-main sh -c 'n8n import:workflow --input=-' < "$wf_file" 2>&1; then
+                echo "Imported via CLI: $WF_NAME"
               else
-                echo "Import issue: $WF_NAME -- $(echo $RESP | head -c 300)"
+                echo "CLI import failed for: $WF_NAME — trying REST API..."
+                N8N_KEY="${N8N_CI_API_KEY:-rag-ci-nomos-2026-b7f8a91d2e3c4f5a6b7c8d9e0f1a2b3c4d5e6f7}"
+                RESP=$(curl -s -X POST "http://localhost:5678/rest/workflows" \
+                  -H "Content-Type: application/json" --data @"$wf_file")
+                echo "$RESP" | grep -q '"id"' && echo "Imported via REST: $WF_NAME" || echo "Both methods failed: $WF_NAME"
               fi
             fi
           done
 
-      - name: Activate all workflows
+      - name: Activate all workflows via REST
         run: |
-          N8N_KEY="${N8N_CI_API_KEY:-rag-ci-nomos-2026-b7f8a91d2e3c4f5a6b7c8d9e0f1a2b3c4d5e6f7}"
-          curl -s "http://localhost:5678/api/v1/workflows?limit=20" \
-            -H "X-N8N-API-KEY: $N8N_KEY" \
-            | python3 -c "import json,sys,urllib.request; d=json.load(sys.stdin); [urllib.request.urlopen(urllib.request.Request('http://localhost:5678/api/v1/workflows/'+w['id']+'/activate',method='POST',headers={'X-N8N-API-KEY':'${N8N_CI_API_KEY:-rag-ci-nomos-2026-b7f8a91d2e3c4f5a6b7c8d9e0f1a2b3c4d5e6f7}'})) or print('Activated:',w.get('name','')[:50]) for w in d.get('data',[]) if not w.get('active')]"
+          # /rest/ is accessible without auth when N8N_USER_MANAGEMENT_DISABLED=true
+          curl -s "http://localhost:5678/rest/workflows?limit=20" \
+            | python3 -c "import json,sys,urllib.request; d=json.load(sys.stdin); wfs=d.get('data',d) if isinstance(d,dict) else d; [urllib.request.urlopen(urllib.request.Request('http://localhost:5678/rest/workflows/'+str(w.get('id',''))+'/activate',method='POST',headers={'Content-Type':'application/json'})) or print('Activated:',w.get('name','')[:50]) for w in (wfs if isinstance(wfs,list) else []) if not w.get('active')]"
           echo "Activation done"
 
       - name: Create .env.local

@@ -175,37 +175,63 @@ def create_api_key(token, cookies):
 
 
 def test_api_key(api_key):
-    """Test if the API key works."""
+    """Test if the API key works against /api/v1/ endpoint."""
+    for path in ["/api/v1/workflows", "/rest/workflows"]:
+        try:
+            data, _ = request("GET", path,
+                              headers={"X-N8N-API-KEY": api_key},
+                              raise_on_error=False)
+            if "error" not in data and "message" not in data:
+                print(f"  API key works on {path}")
+                return True
+        except Exception:
+            pass
+    return False
+
+
+def test_rest_no_auth():
+    """Test if /rest/ API is accessible without auth (UMG disabled mode)."""
     try:
-        data, _ = request("GET", "/api/v1/workflows",
-                          headers={"X-N8N-API-KEY": api_key},
-                          raise_on_error=False)
-        if "error" not in data:
+        data, _ = request("GET", "/rest/workflows", raise_on_error=False)
+        if "error" not in data and "message" not in data:
+            print(f"  /rest/workflows accessible without auth ✅")
             return True
+        print(f"  /rest/workflows requires auth: {str(data)[:100]}")
         return False
-    except Exception:
+    except Exception as e:
+        print(f"  /rest/workflows check error: {e}")
         return False
 
 
 def create_credential(api_key, name, cred_type, cred_data, cookies=None, token=None):
-    """Create an n8n credential via API."""
-    headers = {"X-N8N-API-KEY": api_key} if api_key else {}
-    if token and not api_key:
-        headers["Authorization"] = f"Bearer {token}"
+    """Create an n8n credential — tries /rest/ first (UMG disabled), then /api/v1/ with key."""
     payload = {"name": name, "type": cred_type, "data": cred_data}
-    try:
-        data, _ = request("POST", "/api/v1/credentials",
-                          data=payload, headers=headers,
-                          cookies=cookies or {}, raise_on_error=False)
-        cred_id = data.get("id", "")
-        if cred_id:
-            print(f"  Created credential '{name}': id={cred_id}")
-        else:
-            print(f"  Credential creation failed for '{name}': {data}")
-        return cred_id
-    except Exception as e:
-        print(f"  Credential creation exception for '{name}': {e}")
-        return ""
+
+    # Try /rest/credentials first (works when N8N_USER_MANAGEMENT_DISABLED=true)
+    for endpoint, headers, desc in [
+        ("/rest/credentials", {}, "REST no-auth"),
+        ("/api/v1/credentials", {"X-N8N-API-KEY": api_key} if api_key else {}, "API v1 key"),
+        ("/api/v1/credentials", {"Authorization": f"Bearer {token}"} if token else {}, "Bearer token"),
+    ]:
+        if not headers and desc != "REST no-auth":
+            continue
+        try:
+            data, _ = request("POST", endpoint, data=payload, headers=headers,
+                              cookies=cookies or {}, raise_on_error=False)
+            cred_id = data.get("id", "")
+            if cred_id:
+                print(f"  Created credential '{name}' via {desc}: id={cred_id}")
+                return cred_id
+            if "error" in data:
+                err = str(data["error"])[:80]
+                if "Cannot POST" in err or "Unauthorized" in err or "401" in str(data.get("status")):
+                    continue  # try next endpoint
+                print(f"  {desc} response for '{name}': {err}")
+        except Exception as e:
+            print(f"  {desc} exception for '{name}': {e}")
+
+    print(f"  All methods failed for credential '{name}'")
+    return ""
 
 
 def main():
@@ -233,6 +259,9 @@ def main():
     if needs_setup:
         setup_owner()
 
+    # 2.5 Check if REST API is accessible without auth (N8N_USER_MANAGEMENT_DISABLED=true)
+    rest_no_auth = test_rest_no_auth()
+
     # 3. Try static API key first (N8N_GLOBAL_ADMIN_API_KEY if it works)
     static_key = os.environ.get("N8N_API_KEY", "rag-ci-nomos-2026-b7f8a91d2e3c4f5a6b7c8d9e0f1a2b3c4d5e6f7")
     api_key = ""
@@ -242,6 +271,8 @@ def main():
     if test_api_key(static_key):
         print(f"Static API key works: {static_key[:20]}...")
         api_key = static_key
+    elif rest_no_auth:
+        print("REST API accessible without auth — skipping login flow")
     else:
         print("Static API key did not work, using login flow...")
         # 4. Login
