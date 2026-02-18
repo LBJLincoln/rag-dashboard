@@ -81,17 +81,10 @@ jobs:
           sleep 10
           docker compose ps
 
-      - name: Discover n8n CLI and DB schema
+      - name: Initialize n8n DB (create CI owner user + project)
         run: |
-          echo "=== n8n CLI commands ==="
-          docker compose exec -T n8n-main n8n --help 2>&1 | head -60
-          echo "=== PostgreSQL tables ==="
-          docker compose exec -T postgres psql -U n8n -d n8n -c "\dt" 2>&1
-          echo "=== user table schema (try different names) ==="
-          docker compose exec -T postgres psql -U n8n -d n8n -c "\d+ user_entity" 2>&1 | head -30 || true
-          docker compose exec -T postgres psql -U n8n -d n8n -c "\d+ public.user" 2>&1 | head -30 || true
-          echo "=== project table ==="
-          docker compose exec -T postgres psql -U n8n -d n8n -c "\d+ project_entity" 2>&1 | head -20 || true
+          pip install bcrypt -q
+          python3 scripts/ci_init_n8n_db.py
 
       - name: Setup n8n (credentials + API key)
         env:
