@@ -1,6 +1,6 @@
 # Environment Variables & Credentials — Document Exhaustif
 
-> Last updated: 2026-02-18T22:01:57+01:00
+> Last updated: 2026-02-19T00:15:00+01:00
 > Ce fichier documente TOUTES les variables d'environnement, credentials et connexions
 > utilisees par le projet Multi-RAG. Les valeurs sont masquees (`.env.local` = source).
 
@@ -244,6 +244,9 @@ Tableau croisant les 13 workflows actifs avec les variables d'environnement qu'i
 | 2026-02-17 | `NEO4J_URL` (graph.json) | `bolt://localhost:7687` → `https://38c949a2...` | Fix FIX-07 bolt protocol |
 | 2026-02-17 | Credential quant | `zEr7jPswZNv6lWKu` → `USU8ngVzsUbED3mn` | Fix FIX-11 credential manquante |
 | 2026-02-18 | Ce fichier | Cree | Documentation exhaustive session 18 |
+| 2026-02-18 | `.mcp.json` OPENROUTER_API_KEY | Aligne sur .env.local | Audit session 24 |
+| 2026-02-18 | `.mcp.json` COHERE_API_KEY | Aligne sur .env.local | Audit session 24 |
+| 2026-02-18 | 16 HF Space secrets | Crees | Deploiement HF Space nomos-rag-engine |
 
 ---
 

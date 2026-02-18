@@ -1,6 +1,75 @@
-# Session State — 18 Fevrier 2026 (Session 23)
+# Session State — 18 Fevrier 2026 (Session 24)
 
-> Last updated: 2026-02-18T23:30:00+01:00
+> Last updated: 2026-02-19T00:20:00+01:00
+
+## Session 24 — Taches accomplies
+
+### T1. HF Space nomos-rag-engine deploye
+- CONFIG_ERROR corrige (README.md + Dockerfile standalone)
+- 4 iterations du Dockerfile: DinD -> supervisord -> SQLite simplifie -> auto-setup
+- n8n 1.76.1 running sur `https://lbjlincoln-nomos-rag-engine.hf.space`
+- Healthz OK, webhooks fonctionnels (POST body preserve)
+- Space rendu public (proxy HF casse les POST body pour spaces prives)
+- Keep-alive cron configure (*/30 * * * *)
+- 16 secrets HF configures (API keys + model vars)
+
+### T2. Audit et alignement credentials
+- 2 mismatches fixes: OpenRouter et Cohere aligns entre .env.local et .mcp.json
+- Verification complete: 18 vars .env.local, 7 MCP servers, 7 git remotes
+- Tous proteges par .gitignore
+
+### T3. Analyse faisabilite "5 HF Spaces avec Claude Code CLI"
+- **REPONSE: NON FAISABLE** — Claude Code est un outil terminal interactif, incompatible avec HF Spaces (web apps)
+- Architecture correcte: VM (Claude Code) + HF Space (n8n) + Codespaces (tests)
+
+### Limitation decouverte: HF proxy casse les POST body
+- Le proxy HuggingFace modifie les POST body pour les endpoints `/rest/` et `/api/`
+- Les webhooks `/webhook/` fonctionnent normalement (POST body preserve)
+- Consequence: impossible de creer des credential objects n8n depuis l'exterieur
+- Solution requise: creer les credentials depuis l'entrypoint (localhost, bypass proxy)
+
+## HF Space — Etat actuel
+| Composant | Etat |
+|-----------|------|
+| Space URL | https://lbjlincoln-nomos-rag-engine.hf.space |
+| Runtime | RUNNING (cpu-basic, 16GB RAM) |
+| n8n version | 1.76.1 |
+| Database | SQLite |
+| Owner | admin@mon-ipad.com / SotaRAG2026! |
+| Secrets | 16 vars configurees |
+| Workflows | Import + credentials via n8n CLI (5 creds: 4 postgres + 1 basicAuth) |
+| Webhooks | Route OK, POST body preserve |
+| Keep-alive | Cron VM */30 min |
+
+### T4. Credentials n8n auto-importees via CLI
+- 5 credential objects crees dans l'entrypoint: USU8ngVzsUbED3mn, zEr7jPswZNv6lWKu, 0bf5AHN9S8qJTBr8, FZUFrHg9RgDR3MAB (postgres), n4K6ZIj6aa0dsiGN (basicAuth Neo4j)
+- Utilise `n8n import:credentials` (bypass proxy HF)
+- Workflows importes via `n8n import:workflow`
+- Activation automatique via REST localhost + cookie
+
+### T5. End-of-session checklist
+- env-vars-exhaustive.md MAJ (3 lignes log modifications)
+- credentials.md MAJ (audit session 24)
+- session-state.md MAJ
+- status.md MAJ
+- check-staleness: 26/26 fichiers OK
+
+## Commits session 24
+| Hash | Description |
+|------|-------------|
+| TBD | session 24: HF Space deploye + credentials audit + fin session |
+
+## Repos impactes
+- mon-ipad (T1-T5)
+- HF Space nomos-rag-engine (T1, T4)
+
+## Prochaine action (Session 25)
+1. **Verifier HF Space**: `curl https://lbjlincoln-nomos-rag-engine.hf.space/healthz` + tester webhook
+2. **Tester end-to-end HF**: `N8N_HOST=https://lbjlincoln-nomos-rag-engine.hf.space python3 eval/quick-test.py --questions 1 --pipeline standard`
+3. Fix Graph 68.7%->70% (gap -1.3pp)
+4. Fix Quantitative 78.3%->85% (gap -6.7pp)
+
+---
 
 ## Objectif de session
 Pilotage live Codespaces depuis VM, push websites PME, clarification architecture n8n, création 2 repos PME séparés.

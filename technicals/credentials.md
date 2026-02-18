@@ -1,9 +1,9 @@
 # Credentials & Cles API
 
-> Last updated: 2026-02-18T22:01:57+01:00
+> Last updated: 2026-02-18T23:50:00+01:00
 
 > **Ce fichier DOIT etre mis a jour** apres chaque rotation de cle ou changement de service.
-> Derniere mise a jour : 2026-02-16 (migration Jina primary, Cohere backup, task runner fix)
+> Derniere mise a jour : 2026-02-18 (audit credentials session 24, alignement .env.local/.mcp.json, HF Space)
 
 ---
 
@@ -73,7 +73,17 @@ Les cles API sont configurees dans :
 - **Note** : Trial epuise (429), 2 cles mortes. Index Cohere conserve comme backup uniquement.
 
 ### HuggingFace
-- **Token** : Dans .env.local et env vars VM
+- **Token** : Dans .env.local et .mcp.json (huggingface MCP)
+- **HF Space** : `https://huggingface.co/spaces/LBJLincoln/nomos-rag-engine` (private, Docker, cpu-basic)
+- **URL n8n HF** : `https://lbjlincoln-nomos-rag-engine.hf.space` (deploiement en cours)
+
+### Audit credentials session 24
+| Source | Credentials | Alignees |
+|--------|------------|----------|
+| `.env.local` | 18 vars (source de verite) | Reference |
+| `.mcp.json` | 7 MCP servers | Alignees (OpenRouter + Cohere fixes) |
+| Git remotes | 7 remotes avec `ghp_` token | OK |
+| `.gitignore` | .env.local, .mcp.json, .claude/ | Proteges |
 
 ---
 
