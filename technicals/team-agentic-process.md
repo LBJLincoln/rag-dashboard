@@ -1,6 +1,6 @@
 # Processus Team-Agentic Formel
 
-> Last updated: 2026-02-18T14:00:00Z
+> Last updated: 2026-02-18T22:01:57+01:00
 > Definit les roles, la communication et les protocoles entre agents Claude Code
 > repartis sur la VM et les Codespaces.
 

@@ -27,6 +27,17 @@ import threading
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+# Timezone: Europe/Paris
+EVAL_DIR_TZ = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, EVAL_DIR_TZ)
+try:
+    from tz_utils import paris_iso, paris_strftime
+except ImportError:
+    from zoneinfo import ZoneInfo
+    _TZ = ZoneInfo("Europe/Paris")
+    def paris_iso(): return datetime.now(_TZ).isoformat(timespec='seconds')
+    def paris_strftime(fmt="%Y-%m-%dT%H-%M-%S"): return datetime.now(_TZ).strftime(fmt)
+
 # Import from the existing run-eval.py
 EVAL_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.dirname(EVAL_DIR)
@@ -106,12 +117,12 @@ def tprint(msg):
 
 def save_pipeline_results(rag_type, results, label=""):
     """Save per-pipeline results as a JSON snapshot for traceability."""
-    ts = datetime.utcnow().strftime("%Y-%m-%dT%H-%M-%S")
+    ts = paris_strftime()
     filename = f"{rag_type}-{ts}.json"
     filepath = os.path.join(PIPELINE_RESULTS_DIR, filename)
     snapshot = {
         "pipeline": rag_type,
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": paris_iso(),
         "label": label,
         "total_tested": len(results),
         "correct": sum(1 for r in results if r.get("correct")),

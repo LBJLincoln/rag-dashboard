@@ -39,6 +39,16 @@ from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from collections import defaultdict
 
+# Timezone: Europe/Paris
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+try:
+    from tz_utils import paris_iso, paris_strftime
+except ImportError:
+    from zoneinfo import ZoneInfo
+    _TZ = ZoneInfo("Europe/Paris")
+    def paris_iso(): return datetime.now(_TZ).isoformat(timespec='seconds')
+    def paris_strftime(fmt="%Y-%m-%dT%H-%M-%S"): return datetime.now(_TZ).strftime(fmt)
+
 EVAL_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.dirname(EVAL_DIR)
 sys.path.insert(0, EVAL_DIR)
@@ -450,7 +460,7 @@ def check_stage_gate(stage_result, stage_config, pipeline):
 def generate_stage_report(all_stage_results, kb):
     """Generate a detailed report after all stages complete."""
     report = {
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": paris_iso(),
         "pipelines": {},
         "summary": {},
         "error_analysis": {},
@@ -754,7 +764,7 @@ def main():
     report = generate_stage_report(all_stage_results, kb)
 
     # Save report
-    ts = datetime.utcnow().strftime("%Y-%m-%dT%H-%M-%S")
+    ts = paris_strftime()
     report_path = os.path.join(RESULTS_DIR, f"iterative-{ts}.json")
     with open(report_path, "w") as f:
         json.dump(report, f, indent=2, ensure_ascii=False)
@@ -762,7 +772,7 @@ def main():
     # Save stage data to a format the dashboard can consume
     stage_data_path = os.path.join(RESULTS_DIR, f"stages-{ts}.json")
     stage_data = {
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": paris_iso(),
         "label": args.label,
         "pipelines": {},
     }

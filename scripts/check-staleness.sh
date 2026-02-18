@@ -4,6 +4,7 @@
 # Alerte si un fichier n'a pas de "Last updated:" ou si la date > 48h
 
 STALE_THRESHOLD_HOURS=48
+export TZ="Europe/Paris"
 CURRENT_EPOCH=$(date +%s)
 STALE_COUNT=0
 MISSING_COUNT=0
@@ -24,7 +25,7 @@ for dir in directives technicals; do
         [ -f "$file" ] || continue
 
         # Extract "Last updated: YYYY-MM-DDTHH:MM:SSZ" line
-        LAST_UPDATED=$(grep -m1 "Last updated:" "$file" | grep -oP '\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z')
+        LAST_UPDATED=$(grep -m1 "Last updated:" "$file" | grep -oP '\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(Z|[+-]\d{2}:\d{2})')
 
         if [ -z "$LAST_UPDATED" ]; then
             echo "MISSING  $file — no 'Last updated:' timestamp found"
@@ -58,7 +59,7 @@ done
 for file in directives/repos/*.md; do
     [ -f "$file" ] || continue
 
-    LAST_UPDATED=$(grep -m1 "Last updated:" "$file" | grep -oP '\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z')
+    LAST_UPDATED=$(grep -m1 "Last updated:" "$file" | grep -oP '\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(Z|[+-]\d{2}:\d{2})')
 
     if [ -z "$LAST_UPDATED" ]; then
         echo "MISSING  $file — no 'Last updated:' timestamp found"

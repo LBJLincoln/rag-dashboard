@@ -1,9 +1,20 @@
 import json
 import os
 import sys
+import time
 from urllib import request, error
 from datetime import datetime
 from collections import defaultdict
+
+# Timezone: Europe/Paris
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+try:
+    from tz_utils import paris_now, paris_iso
+except ImportError:
+    from zoneinfo import ZoneInfo
+    _TZ = ZoneInfo("Europe/Paris")
+    def paris_now(): return datetime.now(_TZ)
+    def paris_iso(): return datetime.now(_TZ).isoformat(timespec='seconds')
 
 # --- Constants ---
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,26 +32,46 @@ RAG_ENDPOINTS = {
 
 # --- Functions ---
 
-def call_rag(endpoint, question, timeout=60):
+def call_rag(endpoint, question, timeout=60, max_retries=3):
     """
-    Makes an HTTP POST request to the RAG endpoint.
+    Makes an HTTP POST request to the RAG endpoint with retry + exponential backoff.
     Returns a dictionary with 'data', 'latency_ms', 'error', 'http_status'.
+    Retries on: 429 (rate limit), 502/503/504 (server overload), timeouts, connection errors.
     """
-    start_time = datetime.now()
-    try:
-        payload = json.dumps({"query": question, "tenant_id": "benchmark"}).encode('utf-8')
-        headers = {"Content-Type": "application/json"}
-        req = request.Request(endpoint, data=payload, headers=headers)
-        with request.urlopen(req, timeout=timeout) as resp:
-            data = json.loads(resp.read().decode('utf-8'))
+    RETRYABLE_CODES = {429, 502, 503, 504}
+    last_result = None
+
+    for attempt in range(max_retries):
+        start_time = datetime.now()
+        try:
+            payload = json.dumps({"query": question, "tenant_id": "benchmark"}).encode('utf-8')
+            headers = {"Content-Type": "application/json"}
+            req = request.Request(endpoint, data=payload, headers=headers)
+            with request.urlopen(req, timeout=timeout) as resp:
+                data = json.loads(resp.read().decode('utf-8'))
+                latency_ms = int((datetime.now() - start_time).total_seconds() * 1000)
+                return {"data": data, "latency_ms": latency_ms, "error": None, "http_status": resp.getcode()}
+        except error.HTTPError as e:
             latency_ms = int((datetime.now() - start_time).total_seconds() * 1000)
-            return {"data": data, "latency_ms": latency_ms, "error": None, "http_status": resp.getcode()}
-    except error.HTTPError as e:
-        latency_ms = int((datetime.now() - start_time).total_seconds() * 1000)
-        return {"data": None, "latency_ms": latency_ms, "error": str(e), "http_status": e.code}
-    except Exception as e:
-        latency_ms = int((datetime.now() - start_time).total_seconds() * 1000)
-        return {"data": None, "latency_ms": latency_ms, "error": str(e), "http_status": None}
+            last_result = {"data": None, "latency_ms": latency_ms, "error": str(e), "http_status": e.code}
+            if e.code in RETRYABLE_CODES and attempt < max_retries - 1:
+                delay = (2 ** attempt) + 1  # 2s, 5s, 9s
+                time.sleep(delay)
+                continue
+            return last_result
+        except (ConnectionError, TimeoutError, OSError) as e:
+            latency_ms = int((datetime.now() - start_time).total_seconds() * 1000)
+            last_result = {"data": None, "latency_ms": latency_ms, "error": str(e), "http_status": None}
+            if attempt < max_retries - 1:
+                delay = (2 ** attempt) + 1
+                time.sleep(delay)
+                continue
+            return last_result
+        except Exception as e:
+            latency_ms = int((datetime.now() - start_time).total_seconds() * 1000)
+            return {"data": None, "latency_ms": latency_ms, "error": str(e), "http_status": None}
+
+    return last_result or {"data": None, "latency_ms": 0, "error": "max retries exhausted", "http_status": None}
 
 
 def extract_answer(response_data):

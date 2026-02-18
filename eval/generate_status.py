@@ -15,6 +15,15 @@ import os
 import sys
 from datetime import datetime
 
+# Timezone: Europe/Paris
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+try:
+    from tz_utils import paris_iso
+except ImportError:
+    from zoneinfo import ZoneInfo
+    _TZ = ZoneInfo("Europe/Paris")
+    def paris_iso(): return datetime.now(_TZ).isoformat(timespec='seconds')
+
 EVAL_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.dirname(EVAL_DIR)
 DATA_JSON = os.path.join(REPO_ROOT, "docs", "data.json")
@@ -131,7 +140,7 @@ def generate():
         next_action = f"Fix {worst[0]} pipeline ({worst[1]['accuracy']}% vs {worst[1]['target']}% target, gap: {worst[1]['gap']}pp)"
 
     status = {
-        "generated_at": datetime.utcnow().isoformat() + "Z",
+        "generated_at": paris_iso(),
         "phase": {
             "current": 1,
             "name": "Baseline (200q)",

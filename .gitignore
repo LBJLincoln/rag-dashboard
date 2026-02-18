@@ -48,3 +48,5 @@ __pycache__/
 *.tmp
 *.temp
 snapshot/pre-jina-migration/
+website-pme-connectors/.next/
+website-pme-usecases/.next/

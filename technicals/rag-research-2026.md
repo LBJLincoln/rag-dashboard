@@ -1,8 +1,8 @@
 # RAG Research 2026 — Condensed Findings
 
-> Last updated: 2026-02-18T18:35:00Z
+> Last updated: 2026-02-18T22:01:57+01:00
 
-> Last updated: 2026-02-17
+> Last updated: 2026-02-18T22:01:57+01:00
 > Applies to: Multi-RAG Orchestrator (Standard, Graph, Quantitative, Orchestrator pipelines)
 
 ---

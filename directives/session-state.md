@@ -1,9 +1,67 @@
-# Session State — 18 Fevrier 2026 (Session 20)
+# Session State — 18 Fevrier 2026 (Session 22)
 
-> Last updated: 2026-02-18T20:00:00Z
+> Last updated: 2026-02-18T22:02:00+01:00
 
 ## Objectif de session
-Nettoyage massif, verification staleness, specialisation des 4 repos satellites, creation dossier infra/, inventaire complet, recherche alternatives cloud gratuites, creation directive recherche internet centralisee.
+Verification RAM VM, validation architecture parallele 500q, migration timestamps UTC→Paris, fix docker-compose workers, ajout retry call_rag, inventaire automatise, creation/finalisation 3 sites web PME.
+
+## Session 22 — Taches accomplies
+
+### T1. Diagnostic RAM VM
+- 83Mi free, 188Mi available (OK pour pilotage)
+- Docker: 176Mi (n8n+redis+pg)
+- Claude Code: 209Mi
+- Verdict: conforme a l'architecture (pilotage only, tests → Codespaces)
+
+### T2. Migration timestamps UTC→Paris (Europe/Paris)
+- Cree eval/tz_utils.py (paris_now, paris_iso, paris_strftime)
+- Modifie 5 scripts eval: run-eval.py, generate_status.py, live-writer.py, run-eval-parallel.py, iterative-eval.py
+- Modifie scripts/check-staleness.sh (regex accepte +01:00 et Z)
+- Mis a jour 26 fichiers .md headers vers heure Paris
+- 26/26 fichiers passent le check-staleness.sh
+
+### T3. Ajout retry + backoff dans call_rag()
+- call_rag() dans eval/run-eval.py: 3 retries avec backoff exponentiel (2s, 5s, 9s)
+- Retry sur: 429, 502, 503, 504, timeout, connection errors
+- Impact: elimine les faux negatifs dus aux 503 n8n transitoires
+
+### T4. Fix docker-compose rag-data-ingestion workers
+- Ajoute API keys completes (OpenRouter, Jina, Pinecone, Neo4j, Supabase) aux 2 workers
+- Ajoute LLM models + embedding config
+- Ajoute healthchecks + mem_limit 1g par worker
+- Workers passent de concurrency implicite a --concurrency=3
+
+### T5. Ajout healthchecks + memory limits docker-compose rag-tests
+- n8n-main: healthcheck curl /healthz, mem_limit 2g
+- Workers 1-3: healthcheck node, mem_limit 1536m chacun
+- Prevents OOM crashes et auto-recovery
+
+### T6. Script inventaire automatise cross-repos
+- Cree scripts/inventory-update.sh
+- Compte fichiers de chaque repo via git ls-tree
+- Resultat: 1418 fichiers (683+344+84+10+297)
+- Genere infra/inventory.md automatiquement
+
+### T7. Finalisation 3 sites web PME (EN COURS)
+- website/ (ETI 4 secteurs): enrichi session 21
+- website-pme-connectors/ (12 connecteurs apps): cree session 21, pas deploye
+- website-pme-usecases/ (catalogue 200 cas): cree session 21, pas deploye
+
+## Decisions prises
+1. Timestamps heure Paris partout (eval, directives, staleness)
+2. Retry 3x avec backoff dans call_rag() (0 faux negatifs 503)
+3. Workers ingestion ont les memes API keys que main
+4. Memory limits sur tous les containers Codespace
+
+## Analyse architecture 500q parallele
+**Status: possible en theorie, pas encore en pratique.**
+- Actuel: 3 workers × concurrency=2 = 6 exec paralleles max
+- Bottleneck: OpenRouter free tier (~20 req/min)
+- Pour 500q/pipeline: besoin asyncio.Semaphore + aiohttp (decrit dans infrastructure-plan.md mais PAS implemente)
+- Estimation: 500q × 4 pipelines = 2000q → 5.5-11h sur Codespace
+- La VM ne fait QUE du pilotage (correct)
+
+## Commits session 22
 
 ## Taches accomplies
 

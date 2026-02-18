@@ -33,6 +33,17 @@ import subprocess
 from datetime import datetime
 from collections import defaultdict
 
+# Timezone: Europe/Paris
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+try:
+    from tz_utils import paris_now, paris_iso, paris_strftime
+except ImportError:
+    from zoneinfo import ZoneInfo
+    _TZ = ZoneInfo("Europe/Paris")
+    def paris_now(): return datetime.now(_TZ)
+    def paris_iso(): return datetime.now(_TZ).isoformat(timespec='seconds')
+    def paris_strftime(fmt="%Y-%m-%dT%H-%M-%S"): return datetime.now(_TZ).strftime(fmt)
+
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCS_DIR = os.path.join(REPO_ROOT, "docs")
 LOGS_DIR = os.path.join(REPO_ROOT, "logs")
@@ -66,7 +77,7 @@ def _load():
 
 def _save(data):
     """Save data.json atomically, then regenerate docs/status.json."""
-    data["meta"]["generated_at"] = datetime.utcnow().isoformat() + "Z"
+    data["meta"]["generated_at"] = paris_iso()
     tmp = DATA_FILE + f".tmp.{threading.get_ident()}"
     with open(tmp, "w") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
@@ -91,7 +102,7 @@ def _default_data():
     return {
         "meta": {
             "version": "2.0",
-            "generated_at": datetime.utcnow().isoformat() + "Z",
+            "generated_at": paris_iso(),
             "status": "idle",
             "project": "Multi-RAG Orchestrator SOTA 2026",
             "phase": "Phase 1 — Baseline (200q)",
@@ -191,7 +202,7 @@ def _get_current_iteration(data):
         data["iterations"].append({
             "id": _iteration_id,
             "number": iter_num,
-            "timestamp_start": datetime.utcnow().isoformat() + "Z",
+            "timestamp_start": paris_iso(),
             "timestamp_end": None,
             "label": f"Iteration {iter_num}",
             "description": "",
@@ -268,7 +279,7 @@ def _update_question_registry(data, qid, rag_type, question_text, expected, corr
         "error": _sanitize(error, 200) if error else None,
         "error_type": error_type,
         "answer": _sanitize(answer, 500),
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": paris_iso(),
     })
 
     # Recompute summary fields
@@ -333,7 +344,7 @@ def init(status="running", label="", description="", changes=None):
         changes: List of change descriptions applied before this iteration
     """
     global _session_id, _exec_log_path, _iteration_id
-    _session_id = datetime.utcnow().strftime("%Y-%m-%dT%H-%M-%S")
+    _session_id = paris_strftime()
     _exec_log_path = os.path.join(EXEC_DIR, f"exec-{_session_id}.jsonl")
     _iteration_id = f"iter-{_session_id}"
 
@@ -347,7 +358,7 @@ def init(status="running", label="", description="", changes=None):
     data["iterations"].append({
         "id": _iteration_id,
         "number": iter_num,
-        "timestamp_start": datetime.utcnow().isoformat() + "Z",
+        "timestamp_start": paris_iso(),
         "timestamp_end": None,
         "label": label or f"Iteration {iter_num}",
         "description": description,
@@ -387,9 +398,9 @@ def record_question(rag_type, question_id, question_text, correct, f1=0,
             "match_type": match_type,
             "error": _sanitize(error, 200) if error else None,
             "error_type": error_type,
-            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "timestamp": paris_iso(),
         })
-        iteration["timestamp_end"] = datetime.utcnow().isoformat() + "Z"
+        iteration["timestamp_end"] = paris_iso()
 
         # Recompute iteration summary
         _recompute_iteration_summary(iteration)
@@ -424,7 +435,7 @@ def record_execution(rag_type, question_id, question_text, expected="",
             raw_resp_str = str(raw_response)[:2000]
 
     entry = {
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": paris_iso(),
         "session_id": _session_id,
         "question_id": question_id,
         "rag_type": rag_type,
@@ -468,7 +479,7 @@ def record_execution(rag_type, question_id, question_text, expected="",
 
     # Write error trace file
     if error:
-        err_id = f"err-{datetime.utcnow().strftime('%Y-%m-%d')}-{question_id}-{error_type or 'unknown'}".lower()
+        err_id = f"err-{paris_strftime('%Y-%m-%d')}-{question_id}-{error_type or 'unknown'}".lower()
         err_id = err_id.replace(" ", "-")
         err_path = os.path.join(ERR_DIR, f"{err_id}.json")
         err_trace = {
@@ -555,7 +566,7 @@ def record_quick_test(pipeline, query, status, latency_ms, response_preview="",
         data = _load()
         data = _ensure_v2(data)
         data["quick_tests"].append({
-            "timestamp": datetime.utcnow().isoformat() + "Z",
+            "timestamp": paris_iso(),
             "pipeline": pipeline,
             "query": query[:200],
             "status": status,
@@ -577,7 +588,7 @@ def record_workflow_change(description, files_changed=None, before_metrics=None,
     data = _load()
     data = _ensure_v2(data)
     change = {
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": paris_iso(),
         "description": description,
         "change_type": change_type,
         "files_changed": files_changed or [],
@@ -595,7 +606,7 @@ def snapshot_databases(trigger="manual"):
     snap_id = f"snap-{datetime.utcnow().strftime('%Y-%m-%dT%H-%M-%S')}"
     snapshot = {
         "snapshot_id": snap_id,
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": paris_iso(),
         "trigger": trigger,
         "pinecone": {},
         "neo4j": {},
@@ -723,7 +734,7 @@ def finish(event="eval_complete"):
     # Close the current iteration
     if data["iterations"]:
         iteration = data["iterations"][-1]
-        iteration["timestamp_end"] = datetime.utcnow().isoformat() + "Z"
+        iteration["timestamp_end"] = paris_iso()
 
     # Add history point
     accs = {}
@@ -733,7 +744,7 @@ def finish(event="eval_complete"):
             accs[rt] = rs["accuracy_pct"]
 
     point = {
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": paris_iso(),
         "event": event,
         "total_tested": data["meta"].get("total_test_runs", 0),
     }

@@ -1,6 +1,6 @@
 # rag-tests — CLAUDE.md
 
-> Last updated: 2026-02-18T14:00:00Z
+> Last updated: 2026-02-18T22:01:57+01:00
 > **Ce repo s'exécute dans un Codespace GitHub éphémère.**
 > Tu es un agent Claude Code (`claude-opus-4-6`) spécialisé dans les TESTS des 4 pipelines RAG.
 > **MODÈLE OBLIGATOIRE : `claude-opus-4-6`** — lancer `bash scripts/setup-claude-opus.sh` au démarrage.

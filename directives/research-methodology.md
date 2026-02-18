@@ -1,6 +1,6 @@
 # Research Methodology — Directive Centralisee pour Tous les Repos
 
-> Last updated: 2026-02-18T19:00:00Z
+> Last updated: 2026-02-18T22:01:57+01:00
 
 ---
 
