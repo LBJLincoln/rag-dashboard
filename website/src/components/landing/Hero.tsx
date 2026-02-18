@@ -5,8 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { BarChart3 } from 'lucide-react'
 
 const PAIN_POINTS = [
-  { sector: 'BTP', text: '3 heures perdues par jour à chercher des normes', color: '#4C8BF5' },
   { sector: 'Industrie', text: '15 000 € par an et par technicien en recherche', color: '#30D982' },
+  { sector: 'BTP', text: '3 heures perdues par jour à chercher des normes', color: '#4C8BF5' },
   { sector: 'Finance', text: '40% du temps en veille réglementaire manuelle', color: '#F5B731' },
   { sector: 'Juridique', text: '40% du temps perdu avant de lire un dossier', color: '#F08838' },
 ]
@@ -79,9 +79,9 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.16, ease: [0.4, 0, 0.2, 1] }}
         >
-          <span className="text-tx">Nomos AI répond en</span>
+          <span className="text-tx">Votre IA experte,</span>
           <br />
-          <span className="text-gradient">3 secondes.</span>
+          <span className="text-gradient">connectée à vos données.</span>
         </motion.h1>
 
         {/* Subtitle */}
@@ -91,8 +91,8 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.24, ease: [0.4, 0, 0.2, 1] }}
         >
-          Un chatbot spécialisé dans votre secteur, connecté à vos documents,{' '}
-          qui donne des réponses sourcées et vérifiables.
+          Une IA experte de votre secteur, personnalisée à vos besoins,{' '}
+          reliée à vos données. Des réponses précises, sourcées et vérifiables.
         </motion.p>
 
         {/* Dual CTA */}

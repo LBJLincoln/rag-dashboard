@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Play } from 'lucide-react'
+import { ArrowRight, Play, MessageSquare } from 'lucide-react'
 import type { Sector } from '@/types/sector'
 import { VideoModal } from './VideoModal'
 
@@ -19,7 +19,8 @@ export function SectorCard({ sector, index, onSelect }: SectorCardProps) {
   return (
     <>
       <motion.div
-        className="group relative w-full text-left rounded-2xl border border-white/[0.06] bg-white/[0.02] overflow-hidden"
+        className="group relative w-full text-left rounded-2xl border border-white/[0.06] bg-white/[0.02] overflow-hidden cursor-pointer hover:scale-[1.02] transition-transform duration-300"
+        onClick={() => onSelect(sector)}
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -113,14 +114,14 @@ export function SectorCard({ sector, index, onSelect }: SectorCardProps) {
           />
 
           {/* CTA row */}
-          <button
-            onClick={() => onSelect(sector)}
-            className="group/btn flex items-center gap-2 text-[13px] font-semibold transition-all duration-200"
+          <span
+            className="group/btn inline-flex items-center gap-2 text-[13px] font-semibold transition-all duration-200"
             style={{ color: sector.color }}
           >
-            <span>Démo interactive</span>
+            <MessageSquare className="w-3.5 h-3.5" />
+            <span>Ouvrir le chatbot</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1.5 transition-transform duration-300" />
-          </button>
+          </span>
         </div>
       </motion.div>
 

@@ -1,35 +1,28 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { MessageSquare, Cpu, Database, CheckCircle, ArrowUpRight } from 'lucide-react'
+import { MessageSquare, Database, CheckCircle, ArrowUpRight } from 'lucide-react'
 
 const steps = [
   {
-    icon: MessageSquare,
+    icon: Database,
     step: '01',
-    title: 'Vous posez une question',
-    description: 'En langage naturel, dans votre secteur. Pas de syntaxe, pas de formation.',
+    title: 'Connexion à vos données',
+    description: 'Plus d\'1M de documents. Tous vos fichiers métier. Connexion à vos outils existants.',
     color: 'var(--ac)',
   },
   {
-    icon: Cpu,
+    icon: MessageSquare,
     step: '02',
-    title: "L'IA choisit la meilleure méthode",
-    description: '4 moteurs spécialisés — vectoriel, relationnel, tabulaire, méta-routing — sélectionnés automatiquement.',
-    color: 'var(--pp)',
-  },
-  {
-    icon: Database,
-    step: '03',
-    title: 'Recherche dans vos documents',
-    description: 'Pinecone, Neo4j et Supabase interrogés simultanément. Vos données restent chez vous.',
+    title: 'Communiquez via chatbot',
+    description: 'En langage naturel. Pas de syntaxe, pas de formation. L\'IA comprend votre contexte.',
     color: 'var(--gn)',
   },
   {
     icon: CheckCircle,
-    step: '04',
-    title: 'Réponse sourcée en 3 secondes',
-    description: 'Avec les sources exactes, un score de confiance, et les passages pertinents mis en avant.',
+    step: '03',
+    title: 'Réponses détaillées et précises',
+    description: 'Documents sources à explorer. Score de confiance. Passages pertinents mis en avant.',
     color: 'var(--yl)',
   },
 ]
@@ -57,13 +50,13 @@ export function HowItWorks() {
           La technologie transparente.
         </h2>
         <p className="text-[15px] text-tx2 max-w-lg mx-auto leading-relaxed">
-          De votre question à la réponse sourcée, en moins de 5 secondes.
+          De votre question à la réponse sourcée, en toute transparence.
           Chaque étape est mesurée, auditée, publique.
         </p>
       </motion.div>
 
       {/* 4-step flow */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
         {steps.map((step, i) => (
           <motion.div
             key={step.step}

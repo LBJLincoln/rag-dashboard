@@ -3,60 +3,6 @@ import type { Sector } from '@/types/sector'
 
 export const SECTORS: Sector[] = [
   {
-    id: 'btp',
-    name: 'BTP & Construction',
-    description:
-      'Normes DTU, reglementations, CCTP et specifications techniques du batiment.',
-    icon: HardHat,
-    color: '#4C8BF5',
-    colorVar: 'var(--ac)',
-    gradient: 'from-blue-500/20 to-blue-600/5',
-    painPoint: '3 heures perdues par jour',
-    painPointSub: 'à chercher des informations techniques sur vos chantiers',
-    roiPrimary: '+20% productivité',
-    roiSecondary: 'Zéro oubli de norme',
-    roiThird: 'Devis plus justes',
-    metrics: [
-      { label: 'Documents indexes', value: '2,400+' },
-      { label: 'Precision', value: '92%' },
-      { label: 'Temps de reponse', value: '<3s' },
-    ],
-    useCases: [
-      {
-        question: 'Quelles sont les normes DTU pour l\'isolation thermique des murs exterieurs ?',
-        label: 'Normes DTU',
-        roi: '-70% temps recherche',
-      },
-      {
-        question: 'Quels sont les seuils reglementaires RE2020 pour un batiment tertiaire ?',
-        label: 'RE2020',
-        roi: 'Conformite garantie',
-      },
-      {
-        question: 'Comment rediger un CCTP pour un lot plomberie ?',
-        label: 'CCTP',
-        roi: '-50% redaction',
-      },
-      {
-        question: 'Quelles verifications CSPS sont obligatoires avant la reception d\'un chantier de demolition ?',
-        label: 'Securite chantier',
-        roi: '-35% risques accidents',
-      },
-      {
-        question: 'Comment calculer le Bbio max d\'un projet de logement collectif en zone H2b ?',
-        label: 'Calcul thermique',
-        roi: '2.4M EUR/an ROI',
-      },
-    ],
-    videoScript: [
-      { time: '0-5s', voice: '« Vos équipes perdent 3 heures par jour à chercher des informations ? »', screen: '[3H/JOUR PERDUES] Recherche d\'infos technique' },
-      { time: '5-12s', voice: '« Notre IA RAG répond en 3 secondes. Un DTU, un CCAP, un plan de chantier : elle trouve l\'info exacte dans vos milliers de documents. »', screen: '[RÉPONSE EN 3 SECONDES] DTU • CCAP • Plans • Vos documents internes' },
-      { time: '12-19s', voice: '« Résultat : moins d\'erreurs de devis, zéro oubli de norme, et vos chantiers livrés dans les délais. »', screen: '[ROI CONCRET] Devis plus justes / Conformité garantie / Délais tenus' },
-      { time: '19-25s', voice: '« Les ETI du BTP gagnent 20% de productivité. Vos équipes se concentrent sur l\'exécution, pas la paperasse. »', screen: '[+20% PRODUCTIVITÉ] BTP & Construction' },
-      { time: '25-30s', voice: '« Démo personnalisée sur vos propres documents. Réservez votre créneau. »', screen: '[DÉMO GRATUITE] 30 min, vos docs, vos cas d\'usage' },
-    ],
-  },
-  {
     id: 'industrie',
     name: 'Industrie',
     description:
@@ -73,7 +19,7 @@ export const SECTORS: Sector[] = [
     metrics: [
       { label: 'Fiches techniques', value: '1,800+' },
       { label: 'Precision', value: '89%' },
-      { label: 'Temps de reponse', value: '<4s' },
+      { label: 'Sources citees', value: '100%' },
     ],
     useCases: [
       {
@@ -104,10 +50,64 @@ export const SECTORS: Sector[] = [
     ],
     videoScript: [
       { time: '0-5s', voice: '« Vos équipes perdent 2 heures par jour à chercher des informations techniques ? »', screen: '2h/jour perdues → Coût caché : 15 000€/an par technicien' },
-      { time: '5-11s', voice: '« Notre IA donne la réponse en 3 secondes. Manuels, procédures ATEX, fiches sécurité : tout est accessible instantanément. »', screen: '3 secondes vs 2 heures' },
+      { time: '5-11s', voice: '« Notre IA donne la réponse instantanément. Manuels, procédures ATEX, fiches sécurité : tout est accessible en un instant. »', screen: 'Réponse immédiate vs 2 heures de recherche' },
       { time: '11-17s', voice: '« Maintenance préventive : vos techniciens ont les bonnes procédures, immédiatement. Résultat : 30% moins de pannes imprévues. »', screen: '−30% de pannes / MTTR réduit de moitié' },
       { time: '17-23s', voice: '« Qualité et conformité : une non-conformité ? Le chatbot trace la procédure corrective en temps réel. Zéro retard de certification. »', screen: 'Zéro retard audit / 100% traçable' },
       { time: '23-28s', voice: '« Déployé en 48h. ROI mesurable dès le premier mois. Demandez votre démo gratuite. »', screen: 'ROI 1er mois / Démo gratuite' },
+    ],
+  },
+  {
+    id: 'btp',
+    name: 'BTP & Construction',
+    description:
+      'Normes DTU, reglementations, CCTP et specifications techniques du batiment.',
+    icon: HardHat,
+    color: '#4C8BF5',
+    colorVar: 'var(--ac)',
+    gradient: 'from-blue-500/20 to-blue-600/5',
+    painPoint: '3 heures perdues par jour',
+    painPointSub: 'à chercher des informations techniques sur vos chantiers',
+    roiPrimary: '+20% productivité',
+    roiSecondary: 'Zéro oubli de norme',
+    roiThird: 'Devis plus justes',
+    metrics: [
+      { label: 'Documents indexes', value: '2,400+' },
+      { label: 'Precision', value: '92%' },
+      { label: 'Sources citees', value: '100%' },
+    ],
+    useCases: [
+      {
+        question: 'Quelles sont les normes DTU pour l\'isolation thermique des murs exterieurs ?',
+        label: 'Normes DTU',
+        roi: '-70% temps recherche',
+      },
+      {
+        question: 'Quels sont les seuils reglementaires RE2020 pour un batiment tertiaire ?',
+        label: 'RE2020',
+        roi: 'Conformite garantie',
+      },
+      {
+        question: 'Comment rediger un CCTP pour un lot plomberie ?',
+        label: 'CCTP',
+        roi: '-50% redaction',
+      },
+      {
+        question: 'Quelles verifications CSPS sont obligatoires avant la reception d\'un chantier de demolition ?',
+        label: 'Securite chantier',
+        roi: '-35% risques accidents',
+      },
+      {
+        question: 'Comment calculer le Bbio max d\'un projet de logement collectif en zone H2b ?',
+        label: 'Calcul thermique',
+        roi: '2.4M EUR/an ROI',
+      },
+    ],
+    videoScript: [
+      { time: '0-5s', voice: '« Vos équipes perdent 3 heures par jour à chercher des informations ? »', screen: '[3H/JOUR PERDUES] Recherche d\'infos technique' },
+      { time: '5-12s', voice: '« Notre IA RAG trouve l\'info exacte dans vos documents. Un DTU, un CCAP, un plan de chantier : elle trouve l\'info exacte dans vos milliers de documents. »', screen: '[RÉPONSE EXPERTE SOURCÉE] DTU • CCAP • Plans • Vos documents internes' },
+      { time: '12-19s', voice: '« Résultat : moins d\'erreurs de devis, zéro oubli de norme, et vos chantiers livrés dans les délais. »', screen: '[ROI CONCRET] Devis plus justes / Conformité garantie / Délais tenus' },
+      { time: '19-25s', voice: '« Les ETI du BTP gagnent 20% de productivité. Vos équipes se concentrent sur l\'exécution, pas la paperasse. »', screen: '[+20% PRODUCTIVITÉ] BTP & Construction' },
+      { time: '25-30s', voice: '« Démo personnalisée sur vos propres documents. Réservez votre créneau. »', screen: '[DÉMO GRATUITE] 30 min, vos docs, vos cas d\'usage' },
     ],
   },
   {
@@ -127,7 +127,7 @@ export const SECTORS: Sector[] = [
     metrics: [
       { label: 'Rapports indexes', value: '3,200+' },
       { label: 'Precision', value: '94%' },
-      { label: 'Temps de reponse', value: '<2s' },
+      { label: 'Sources citees', value: '100%' },
     ],
     useCases: [
       {
@@ -158,7 +158,7 @@ export const SECTORS: Sector[] = [
     ],
     videoScript: [
       { time: '0-5s', voice: '« Vos équipes passent encore des heures à fouiller vos réglementations ? »', screen: '[Votre temps, c\'est de l\'argent.]' },
-      { time: '5-12s', voice: '« Notre IA RAG répond en 3 secondes sur AMF, BCE, Bâle III. KYC validé 4 fois plus vite. Zéro erreur de conformité. »', screen: '[AMF • BCE • Bâle III] / [KYC : -75% de temps] / [Conformité : 0 erreur]' },
+      { time: '5-12s', voice: '« Notre IA RAG répond instantanément sur AMF, BCE, Bâle III. KYC validé 4 fois plus vite. Zéro erreur de conformité. »', screen: '[AMF • BCE • Bâle III] / [KYC : -75% de temps] / [Conformité : 0 erreur]' },
       { time: '12-19s', voice: '« Contrats clients, rapports d\'audit, analyses financières : tout devient accessible, instantanément. »', screen: '[100% de vos documents] / [1 question = 1 réponse]' },
       { time: '19-26s', voice: '« Résultat ? Vos équipes gagnent 12 heures par semaine. Vous réduisez vos risques réglementaires de 60%. »', screen: '[+12h/semaine gagnées] / [-60% de risque]' },
       { time: '26-30s', voice: '« Démonstration personnalisée. Cette semaine. »', screen: '[Réservez votre démo →]' },
@@ -181,7 +181,7 @@ export const SECTORS: Sector[] = [
     metrics: [
       { label: 'Articles de loi', value: '5,000+' },
       { label: 'Precision', value: '91%' },
-      { label: 'Temps de reponse', value: '<3s' },
+      { label: 'Sources citees', value: '100%' },
     ],
     useCases: [
       {
@@ -212,7 +212,7 @@ export const SECTORS: Sector[] = [
     ],
     videoScript: [
       { time: '0-5s', voice: '« Vos juristes passent 40% de leur temps à chercher des informations. »', screen: '40% du temps perdu en recherche' },
-      { time: '5-10s', voice: '« Interrogez la jurisprudence en 3 secondes. 15 heures de recherche économisées par dossier. »', screen: 'Jurisprudence instantanée | -15h par dossier' },
+      { time: '5-10s', voice: '« Interrogez la jurisprudence instantanément. 15 heures de recherche économisées par dossier. »', screen: 'Jurisprudence instantanée | -15h par dossier' },
       { time: '10-15s', voice: '« Veille réglementaire RGPD et droit des sociétés en temps réel. Zéro sanction évitée. »', screen: 'Conformité temps réel | Zéro risque' },
       { time: '15-20s', voice: '« Contrats types et clauses générés instantanément. ROI : +35% de productivité juridique. »', screen: 'Contrats instantanés | +35% productivité' },
       { time: '20-30s', voice: '« Déjà 80 cabinets et directions juridiques nous font confiance. Démo personnalisée sous 48h. »', screen: '80+ cabinets équipés / Démonstration sous 48h' },

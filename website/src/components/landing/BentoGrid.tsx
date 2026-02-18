@@ -33,8 +33,21 @@ export function BentoGrid({ onSelectSector }: BentoGridProps) {
           </p>
         </motion.div>
 
-        {/* 2-column grid — Apple feature spotlight style */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {/* Transition CTA */}
+        <motion.div
+          className="text-center mb-10"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          <p className="text-[22px] md:text-[28px] font-bold text-tx tracking-[-0.02em]">
+            Mais testez directement par vous-même :
+          </p>
+        </motion.div>
+
+        {/* 2-column grid — compact iPad mosaic */}
+        <div className="grid grid-cols-2 gap-4">
           {SECTORS.map((sector, i) => (
             <SectorCard
               key={sector.id}

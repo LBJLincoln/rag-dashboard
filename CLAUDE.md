@@ -257,7 +257,7 @@ Uptime     : Permanent (pas de coupure planifiée)
 ### Containers Docker actifs (sur la VM)
 ```
 CONTAINER          IMAGE                 STATUS       PORTS
-n8n-n8n-1          n8nio/n8n:latest      Up (stable)  0.0.0.0:5678->5678/tcp
+n8n-n8n-1          n8nio/n8n:2.7.4       Up (stable)  0.0.0.0:5678->5678/tcp
 n8n-redis-1        redis:7-alpine        Up (healthy)  0.0.0.0:6379->6379/tcp
 n8n-postgres-1     postgres:15-alpine    Up (healthy)  0.0.0.0:5432->5432/tcp
 ```

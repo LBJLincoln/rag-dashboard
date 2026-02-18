@@ -22,13 +22,13 @@ export default function Home() {
         {/* 1. Hero: problem-first, dual CTA */}
         <Hero />
 
-        {/* 2. Sector cards: Apple-style pain point + ROI focus */}
+        {/* 2. How it works: "sous le capot", pipelines as sub-section */}
+        <HowItWorks />
+
+        {/* 3. Sector cards: Apple-style pain point + ROI focus */}
         <div id="secteurs">
           <BentoGrid onSelectSector={setActiveSector} />
         </div>
-
-        {/* 3. How it works: "sous le capot", pipelines as sub-section */}
-        <HowItWorks />
 
         {/* 4. Case studies: real ROI, real companies */}
         <CaseStudy />
