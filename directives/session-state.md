@@ -1,11 +1,62 @@
-# Session State — 18 Fevrier 2026 (Session 22)
+# Session State — 18 Fevrier 2026 (Session 23)
 
-> Last updated: 2026-02-18T22:02:00+01:00
+> Last updated: 2026-02-18T23:30:00+01:00
 
 ## Objectif de session
-Verification RAM VM, validation architecture parallele 500q, migration timestamps UTC→Paris, fix docker-compose workers, ajout retry call_rag, inventaire automatise, creation/finalisation 3 sites web PME.
+Pilotage live Codespaces depuis VM, push websites PME, clarification architecture n8n, création 2 repos PME séparés.
 
-## Session 22 — Taches accomplies
+## Session 23 — Taches accomplies
+
+### T1. Systeme de pilotage live Codespaces
+- Cree `scripts/codespace-control.sh` (220+ lignes) avec 8 commandes : list/launch/status/logs/stream/stop/results/monitor
+- Cree `eval/progress_callback.py` — ProgressReporter ecrit `/tmp/eval-progress.json` apres chaque question
+- Integre dans `eval/run-eval-parallel.py` : reporter.start(), reporter.update() par question, reporter.pipeline_done(), reporter.finish()
+- Architecture : VM → `gh codespace ssh` → lecture progress.json / kill PID / tail -f logs
+
+### T2. Clarification architecture n8n
+- Pas besoin d'un n8n Docker separe pour les 16+ workflows
+- Definitions workflows = ~500KB dans PostgreSQL, aucun impact RAM
+- VM stocke + expose webhooks, Codespaces executent
+- Documente dans CLAUDE.md
+
+### T3. Creation 2 repos PME separes
+- `rag-pme-connectors` : 45 fichiers, Next.js, site 12 connecteurs apps
+- `rag-pme-usecases` : 46 fichiers, Next.js, catalogue 200 cas d'usage
+- Remotes ajoutes dans mon-ipad (total 7 repos)
+- Vercel a configurer pour auto-deploy
+
+### T4. Mise a jour CLAUDE.md complete
+- Passage de 5 a 7 repos
+- Section pilotage live Codespaces (architecture, commandes, callback)
+- Section clarification archi n8n
+- Tables deployements Vercel mise a jour
+- Regles d'or 22 + 23 ajoutees
+
+## Commits session 23
+| Hash | Description |
+|------|-------------|
+| dd2a930 | pilotage live Codespaces + push websites PME |
+| 1c5fbf3 | 2 repos PME crees + remotes ajoutes + CLAUDE.md 7 repos |
+
+## Repos impactes
+- mon-ipad (T1-T4)
+- rag-pme-connectors (T3 — nouveau)
+- rag-pme-usecases (T3 — nouveau)
+
+## Decisions prises
+1. PAS de n8n Docker separe — VM n8n stocke les definitions, Codespaces executent
+2. Repos PME separes (pas dans rag-website) pour deploiement Vercel independant
+3. Pilotage live via `gh codespace ssh` — pas de webhook obligatoire
+4. Progress callback ecrit en local (/tmp/eval-progress.json), VM lit via SSH
+
+## Prochaine action
+1. Configurer Vercel pour les 2 nouveaux repos PME
+2. Fix Graph 68.7%→70% dans Codespace rag-tests (utiliser codespace-control.sh)
+3. Fix Quantitative 78.3%→85%
+
+---
+
+## Session 22 — Taches accomplies (precedente)
 
 ### T1. Diagnostic RAM VM
 - 83Mi free, 188Mi available (OK pour pilotage)
