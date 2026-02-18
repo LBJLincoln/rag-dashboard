@@ -1,5 +1,7 @@
 # Dataset Rationale — Multi-RAG Orchestrator SOTA 2026
 
+> Last updated: 2026-02-18T18:35:00Z
+
 ## Pourquoi ces datasets ?
 
 Notre systeme Multi-RAG est evalue sur 14 datasets soigneusement selectionnes parmi les benchmarks les plus reconnus en 2024-2026. Ce document explique chaque choix.

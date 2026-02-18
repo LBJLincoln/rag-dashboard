@@ -1,5 +1,7 @@
 # Fixes Library — Multi-RAG Orchestrator
 
+> Last updated: 2026-02-18T18:35:00Z
+
 > **Bibliotheque permanente de tous les bugs resolus.** A consulter EN PREMIER avant tout debug.
 > Mise a jour obligatoire apres chaque fix reussi. Session courante : Session 17 (2026-02-18).
 

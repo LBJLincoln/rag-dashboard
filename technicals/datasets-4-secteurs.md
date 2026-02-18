@@ -1,4 +1,7 @@
 # Datasets FR Enterprise RAG — 4 Secteurs
+
+> Last updated: 2026-02-18T18:35:00Z
+
 > Recherche complète agent (session 12 — 17 fév 2026)
 > 80 datasets identifiés (20 par secteur × 4 secteurs)
 

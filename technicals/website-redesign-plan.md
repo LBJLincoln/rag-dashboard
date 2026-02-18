@@ -1,4 +1,7 @@
 # Website Redesign Plan — Apple MacBook Pro Style B2B
+
+> Last updated: 2026-02-18T18:35:00Z
+
 > Généré par agent Plan (session 12 — 17 fév 2026)
 > Sources : audit complet 25 composants + best practices recherche
 

@@ -281,9 +281,9 @@ n8n-postgres-1     postgres:15-alpine    Up (healthy)  0.0.0.0:5432->5432/tcp
 |----------|-----------|--------|
 | Dashboard Status API | `KcfzvJD6yydxY9Uk` | ON |
 | Benchmark V3.0 | `LKZO1QQY9jvBltP0` | ON |
-| Ingestion V3.1 | `15sUKy5lGL4rYW0L` | ON |
-| Enrichissement V3.1 | `9V2UTVRbf4OJXPto` | ON |
-| Dataset Ingestion | `YaHS9rVb1osRUJpE` | ON |
+| Ingestion V3.1 | `15sUKy5lGL4rYW0L` | OFF (prêt) |
+| Enrichissement V3.1 | `9V2UTVRbf4OJXPto` | OFF (prêt) |
+| Dataset Ingestion | `YaHS9rVb1osRUJpE` | OFF (prêt) |
 
 #### Supprimes (audit session 18)
 Feedback V3.1, Monitoring Dashboard, Orchestrator Tester, RAG Batch Tester — raisons dans `technicals/architecture.md`.

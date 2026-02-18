@@ -1,5 +1,7 @@
 # n8n API Endpoints & Reference Complete
 
+> Last updated: 2026-02-18T18:35:00Z
+
 > **Ce fichier est la reference unique** pour les scripts Python de test.
 > Les scripts doivent s'y referer pour formater les requetes et utiliser les bons points d'entree.
 > Derniere mise a jour : 2026-02-18 (task runner fix, Jina migration validated, webhooks re-verified, pièges bolt+PUT+runners ajoutés)

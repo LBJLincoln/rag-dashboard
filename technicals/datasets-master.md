@@ -1,5 +1,7 @@
 # Datasets Master Reference — Multi-RAG SOTA 2026
 
+> Last updated: 2026-02-18T18:35:00Z
+
 > Source unique de vérité pour TOUS les datasets du projet.
 > Lire avant toute ingestion ou évaluation.
 > Mise à jour : 2026-02-17

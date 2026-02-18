@@ -1,5 +1,7 @@
 # Credentials & Cles API
 
+> Last updated: 2026-02-18T18:35:00Z
+
 > **Ce fichier DOIT etre mis a jour** apres chaque rotation de cle ou changement de service.
 > Derniere mise a jour : 2026-02-16 (migration Jina primary, Cohere backup, task runner fix)
 

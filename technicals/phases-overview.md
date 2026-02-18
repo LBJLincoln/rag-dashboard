@@ -1,5 +1,7 @@
 # Incremental Evaluation Plan — SOTA 2026
 
+> Last updated: 2026-02-18T18:35:00Z
+
 ## Vue d'ensemble
 
 ```
@@ -32,8 +34,8 @@ PHASE C : Ingestion & Enrichment Pipelines
 
 **Etat des BDD** :
 - Pinecone : 10,411 vecteurs, 12 namespaces (PRET)
-- Neo4j : 110 entites, 151 relations (PRET pour Phase 1)
-- Supabase : 88 lignes, 5 tables (PRET pour Phase 1)
+- Neo4j : 19,788 nodes, 76,717 relations (PRET pour Phase 1)
+- Supabase : ~17,000+ lignes, 40 tables (PRET pour Phase 1)
 
 **Exit criteria** :
 - Tous les pipelines >= leur target
@@ -176,8 +178,8 @@ Analyser les techniques de pointe 2025-2026 en RAG, ingestion, et enrichissement
 - Phase 2+ : +4,884 entities, +21,810 relations prévus
 
 ### Supabase (via n8n)
-- 88 lignes, 5 tables
-- Couverture Phase 1 uniquement
+- ~17,000+ lignes, 40 tables
+- Couverture Phase 1 + benchmark datasets ingeres
 - Phase 2+ necessite ingestion des tables financieres HF
 
 ### Datasets locaux
@@ -191,32 +193,35 @@ Analyser les techniques de pointe 2025-2026 en RAG, ingestion, et enrichissement
 
 ---
 
-## Workflows n8n complets (13 actifs)
+## Workflows n8n (9 actifs apres audit session 18)
 
-### Pipelines RAG (4)
-| Nom | ID | Nodes |
-|-----|-----|-------|
-| Standard RAG V3.4 | `IgQeo5svGlIAPkBc` | 23 |
-| Graph RAG V3.3 | `95x2BBAbJlLWZtWEJn6rb` | 26 |
-| Quantitative V2.0 | `E19NZG9WfM7FNsxr` | 25 |
-| Orchestrator V10.1 | `ALd4gOEqiKL5KR1p` | 68 |
+### Pipelines RAG (4) — Actifs
+| Nom | ID Docker | Nodes | Status |
+|-----|-----------|-------|--------|
+| Standard RAG V3.4 | `TmgyRP20N4JFd9CB` | 23 | ON |
+| Graph RAG V3.3 | `6257AfT1l4FMC6lY` | 26 | ON |
+| Quantitative V2.0 | `e465W7V9Q8uK6zJE` | 25 | ON |
+| Orchestrator V10.1 | `aGsYnJY9nNCaTM82` | 68 | ON |
 
-### Ingestion/Enrichment (4)
-| Nom | ID | Nodes |
-|-----|-----|-------|
-| Ingestion V3.1 | `15sUKy5lGL4rYW0L` | 28 |
-| Enrichissement V3.1 | `9V2UTVRbf4OJXPto` | 29 |
-| Feedback V3.1 | `F70g14jMxIGCZnFz` | 13 |
-| Benchmark V3.0 | `LKZO1QQY9jvBltP0` | 9 |
+### Support (5) — Mixte
+| Nom | ID Docker | Nodes | Status |
+|-----|-----------|-------|--------|
+| Dashboard Status API | `KcfzvJD6yydxY9Uk` | — | ON |
+| Benchmark V3.0 | `LKZO1QQY9jvBltP0` | 9 | ON |
+| Ingestion V3.1 | `15sUKy5lGL4rYW0L` | 28 | OFF (pret) |
+| Enrichissement V3.1 | `9V2UTVRbf4OJXPto` | 29 | OFF (pret) |
+| Dataset Ingestion | `YaHS9rVb1osRUJpE` | 23 | OFF (pret) |
 
-### Benchmark/Support (5)
-| Nom | ID | Nodes |
-|-----|-----|-------|
-| Dataset Ingestion Pipeline | `YaHS9rVb1osRUJpE` | 23 |
-| Monitoring & Alerting | `tLNh3wTty7sEprLj` | 19 |
-| Orchestrator Tester | `m9jaYzWMSVbBFeSf` | 15 |
-| RAG Batch Tester | `y2FUkI5SZfau67dN` | 16 |
-| SQL Executor Utility | `22k9541l9mHENlLD` | 2 |
+### Utilitaire
+| Nom | ID Docker | Nodes | Status |
+|-----|-----------|-------|--------|
+| SQL Executor Utility | `22k9541l9mHENlLD` | 2 | ON |
+
+### Supprimes (session 18, desactives session 20)
+- Feedback V3.1 (`F70g14jMxIGCZnFz`) — desactive
+- Monitoring & Alerting (`tLNh3wTty7sEprLj`) — desactive
+- Orchestrator Tester (`m9jaYzWMSVbBFeSf`) — desactive
+- RAG Batch Tester (`y2FUkI5SZfau67dN`) — desactive
 
 ---
 
@@ -225,7 +230,7 @@ Analyser les techniques de pointe 2025-2026 en RAG, ingestion, et enrichissement
 | Metrique | Phase 1 | Phase 2 | Phase 3 | Phase 4 | Phase 5 |
 |----------|---------|---------|---------|---------|---------|
 | Pinecone vecteurs | 10,411 | 10,411 | ~15,000 | ~100,000 | ~500,000+ |
-| Neo4j entites | 110 | ~2,500 | ~4,000 | ~15,000 | ~50,000+ |
-| Neo4j relations | 151 | ~3,000 | ~5,000 | ~20,000 | ~75,000+ |
-| Supabase lignes | 88 | ~10,000 | ~12,000 | ~50,000 | ~200,000+ |
+| Neo4j entites | 19,788 | ~25,000 | ~30,000 | ~50,000 | ~200,000+ |
+| Neo4j relations | 76,717 | ~100,000 | ~120,000 | ~200,000 | ~400,000+ |
+| Supabase lignes | ~17,000 | ~30,000 | ~50,000 | ~100,000 | ~500,000+ |
 | Questions testees | 200 | 1,200 | ~11,500 | ~100,000 | ~2,200,000 |

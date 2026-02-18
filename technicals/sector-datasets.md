@@ -1,5 +1,7 @@
 # Sector Datasets & Document Types — Multi-RAG SOTA 2026
 
+> Last updated: 2026-02-18T18:35:00Z
+
 > Reference documentaire pour le Multi-RAG Orchestrator ciblant les ETI et Grands Groupes francais.
 > 4 secteurs verticaux, 50 datasets identifies, ~2.6M questions disponibles.
 > Derniere mise a jour : 2026-02-16
