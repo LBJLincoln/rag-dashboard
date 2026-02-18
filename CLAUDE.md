@@ -604,35 +604,41 @@ git diff --cached | grep -iE 'sk-or-|pcsk_|jV_zGdx|sbp_|hf_[A-Za-z]{10}|jina_[a-
 
 ### 3.5 En fin de session — Checklist
 1. `technicals/` — MAJ si changements
-2. `snapshot/current/` — Sync workflows
-3. `docs/data.json` — Régénérer
-4. `directives/session-state.md` — État final
-5. `directives/status.md` — Résumé session (EN DERNIER)
-6. **Commit + push vers origin ET repos satellites impactés**
+2. `technicals/env-vars-exhaustive.md` — MAJ si credentials changees
+3. `snapshot/current/` — Sync workflows
+4. `docs/data.json` — Regenerer
+5. `directives/session-state.md` — Etat final
+6. `directives/status.md` — Resume session (EN DERNIER)
+7. `bash scripts/check-staleness.sh` — Verifier aucun fichier stale
+8. **Commit + push vers origin ET repos satellites impactes**
 
 ---
 
 ## Processus Team-Agentique (OBLIGATOIRE)
 
+> Reference complete : `technicals/team-agentic-process.md`
+
 ### Principes
-1. **Parallélisation** : Tâches indépendantes en parallèle (sauf tests n8n → séquentiels)
-2. **Délégation spécialisée** : Agent analyse, agent fix, agent test
+1. **Parallélisation** : Taches independantes en parallele (sauf tests n8n → sequentiels)
+2. **Delegation specialisee** : Agent analyse, agent fix, agent test
 3. **Coordination** : L'agent principal ne duplique pas
 4. **Reference-based** : Comparer avec `snapshot/good/`
+5. **Auto-Stop** : 3 echecs consecutifs → STOP (voir `technicals/team-agentic-process.md`)
+6. **Fixes Library partagee** : master dans mon-ipad, copies vers satellites via `push-directives.sh`
 
 ### Optimisations
-- `run_in_background: true` pour tâches longues
+- `run_in_background: true` pour taches longues
 - `resume` pour reprendre un agent
-- `model: haiku` pour tâches simples
-- `model: opus` pour décisions complexes
+- `model: haiku` pour taches simples
+- `model: opus` pour decisions complexes
 
-### Architecture distribuée (par volume de tests)
-| Volume | Exécution | Raison |
+### Architecture distribuee (par volume de tests)
+| Volume | Execution | Raison |
 |--------|-----------|--------|
 | 1-10 questions | VM directement | RAM suffisante |
-| 50-200 questions | VM avec queue mode | Redis présent |
+| 50-200 questions | VM avec queue mode | Redis present |
 | 500q+ | Codespace `rag-tests` | RAM 8GB, pas de contrainte |
-| Ingestion massive | Codespace `rag-data-ingestion` | n8n + 2 workers dédiés |
+| Ingestion massive | Codespace `rag-data-ingestion` | n8n + 2 workers dedies |
 
 ---
 
@@ -713,7 +719,16 @@ Credentials   → .env.local (jamais dans git)
 | Hallucination | <= 2% | **non mesuré** ← à ajouter |
 | Latency mean | <= 2.5s | **non mesuré** ← à ajouter |
 
-### Recherche Feb 2026 — Papers clés
+### Modeles LLM (3 familles, tous gratuits via OpenRouter)
+| Famille | Modele | Roles | Cout |
+|---------|--------|-------|------|
+| **Llama 70B** | `meta-llama/llama-3.3-70b-instruct:free` | SQL, Intent, Planning, HyDE, Agent, QA | $0 |
+| **Gemma 27B** | `google/gemma-3-27b-it:free` | Fast, Lite | $0 |
+| **Trinity** | `arcee-ai/trinity-large-preview:free` | Extraction entites, Community summaries | $0 |
+
+Details complets : `technicals/env-vars-exhaustive.md` (Section 2 : LLM Model Vars)
+
+### Recherche Feb 2026 — Papers cles
 | Paper | arXiv | Action |
 |-------|-------|--------|
 | A-RAG (Agentic Hierarchical Retrieval) | 2602.03442 | Blueprint Orchestrator V11 |
