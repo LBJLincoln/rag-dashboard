@@ -298,6 +298,38 @@ def activate_workflow(wf_id, name, cookies, api_key=""):
     return False
 
 
+def patch_workflow_timeout(wf_id, name, cookies, api_key="", timeout=-1):
+    """Patch executionTimeout in a workflow's settings.
+
+    timeout=-1 means unlimited (no timeout).
+    Used to override the quantitative workflow's 60s timeout in CI.
+    """
+    wf = get_workflow(wf_id, cookies, api_key)
+    if not wf:
+        print(f"  patch_workflow_timeout: cannot fetch {name} ({wf_id})")
+        return False
+    settings = wf.get("settings", {})
+    old_timeout = settings.get("executionTimeout", "not set")
+    settings["executionTimeout"] = timeout
+    wf["settings"] = settings
+
+    # PUT the full workflow back
+    attempts = [(f"/rest/workflows/{wf_id}", None)]
+    if api_key:
+        attempts.append((f"/api/v1/workflows/{wf_id}", {"X-N8N-API-KEY": api_key}))
+
+    for endpoint, extra_headers in attempts:
+        data, _ = http("PUT", endpoint, data=wf, headers=extra_headers, cookies=cookies)
+        if isinstance(data, dict):
+            new_settings = (data.get("settings") or
+                            data.get("data", {}).get("settings", {}) if isinstance(data.get("data"), dict) else {})
+            new_timeout = new_settings.get("executionTimeout", "?") if isinstance(new_settings, dict) else "?"
+            print(f"  patched timeout: {name} ({wf_id}): {old_timeout}s → {new_timeout}s via {endpoint}")
+            return True
+        print(f"  PUT {endpoint} failed: {str(data)[:100]}")
+    return False
+
+
 def list_workflows(cookies, api_key=""):
     """List all workflows, return list of dicts."""
     attempts = [("/rest/workflows?limit=20", None)]
@@ -456,6 +488,14 @@ def main():
 
     print(f"\nActivated {activated} workflows, {len(current_wfs) - activated} already active")
     verify_workflows(cookies, api_key)
+
+    # 6b. Patch quantitative workflow: remove 60s executionTimeout (CI needs more time for 429 retries)
+    print("\n=== Patching workflow timeouts ===")
+    current_wfs_now = list_workflows(cookies, api_key)
+    for w in current_wfs_now:
+        wname = w.get("name", "")
+        if "quantitative" in wname.lower() or "quant" in wname.lower():
+            patch_workflow_timeout(w["id"], wname, cookies, api_key, timeout=-1)
 
     # 7. Output to GITHUB_ENV
     output = {
