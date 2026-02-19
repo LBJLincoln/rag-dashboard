@@ -527,9 +527,11 @@ rag-pme-usecases   → github.com/LBJLincoln/rag-pme-usecases.git
 3. **Lire `docs/status.json`** — Métriques live
 4. **Lire `technicals/debug/knowledge-base.md`** — **CERVEAU PERSISTANT** (patterns, solutions, LLM, APIs)
 5. `cat technicals/debug/fixes-library.md | head -50` — Symptôme connu ?
+6. **Consulter `docs/document-index.md`** — **INDEX DE RECHERCHE** (sujet → fichier source)
 
 **Règle** : Avant chaque action complexe, re-lire `directives/session-state.md`.
 **Règle** : Après chaque découverte technique, mettre à jour `technicals/debug/knowledge-base.md` IMMÉDIATEMENT (pas en fin de session).
+**Règle** : Quand tu cherches une information, consulte `docs/document-index.md` pour savoir dans quel document la trouver.
 
 ### 0.2 Mise à jour session-state.md (OBLIGATOIRE)
 ```markdown
@@ -932,4 +934,4 @@ Details complets : `technicals/infra/env-vars-exhaustive.md` (Section 2 : LLM Mo
 | `snapshot/` | Références (good, current) |
 | `logs/` | Logs d'exécution |
 | `outputs/` | Archives sessions |
-| `docs/` | Dashboard data (status.json, data.json) |
+| `docs/` | Dashboard data (status.json, data.json), **document-index.md** (INDEX), executive-summary.md |

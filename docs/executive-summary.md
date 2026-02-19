@@ -1,6 +1,6 @@
 # EXECUTIVE SUMMARY — Nomos AI Multi-RAG Orchestrator
 
-> Last updated: 2026-02-19T18:30:00+01:00
+> Last updated: 2026-02-20T01:00:00+01:00
 > **Ce fichier DOIT etre consulte et mis a jour a CHAQUE session.**
 > Il est la reference unique pour comprendre tout le projet en langage clair.
 
@@ -35,7 +35,7 @@ Construire un moteur de reponse capable de traiter **1 million+ de questions** d
 ### Ou en est-on ?
 - **Phase 1** (200 questions de test) : 3 pipelines sur 4 passent leurs objectifs
 - **Phase 2** (3,000 questions) : En preparation, datasets prets
-- **Bloqueur unique** : Le pipeline Quantitative (questions financieres) crash sur HF Space
+- **Bloqueur restant** : Le pipeline Quantitative fonctionne (200 OK) mais est rate-limited par OpenRouter (429 Too Many Requests). Solution identifiee : rotation de modeles LLM.
 
 ### Chiffres cles
 | Metrique | Valeur |
@@ -47,7 +47,7 @@ Construire un moteur de reponse capable de traiter **1 million+ de questions** d
 | Lignes dans Supabase | ~17,600 |
 | Datasets sectoriels telecharges | 7,609 items |
 | Commits depuis le debut | 100+ |
-| Sessions Claude Code | 26 |
+| Sessions Claude Code | 27 |
 
 ---
 
@@ -139,7 +139,7 @@ mon-ipad (PILOTE)
 |---------|---------|---------------------|
 | `directives/` | Memoire de session, status | `session-state.md`, `status.md`, `workflow-process.md` |
 | `directives/repos/` | CLAUDE.md pour chaque satellite | `rag-tests.md`, `rag-website.md`, `rag-data-ingestion.md`, `rag-dashboard.md` |
-| `technicals/` | Documentation technique | `knowledge-base.md`, `fixes-library.md`, `team-agentic-process.md`, `architecture.md` |
+| `technicals/` | Documentation technique (4 sous-dossiers: debug/, infra/, project/, data/) | `debug/knowledge-base.md`, `debug/fixes-library.md`, `project/team-agentic-process.md`, `infra/architecture.md` |
 | `eval/` | Scripts Python d'evaluation | `quick-test.py`, `iterative-eval.py`, `run-eval-parallel.py` |
 | `scripts/` | Utilitaires | `push-directives.sh`, `codespace-control.sh`, `download-sectors.py` |
 | `n8n/live/` | Workflows n8n (JSON) | `standard.json`, `graph.json`, `quantitative.json`, `orchestrator.json` |
@@ -172,7 +172,7 @@ mon-ipad (PILOTE)
 | **n8n** | Version 2.8.3 (latest) |
 | **DB interne** | SQLite + Redis |
 | **Usage** | Execution des pipelines RAG pour les tests |
-| **Workflows** | 9 importes (Standard OK, Graph OK, Quant FAIL, Orch timeout) |
+| **Workflows** | 9 importes. **3/4 pipelines fonctionnels** (Standard 100%, Graph 100%, Orchestrator 100%). Quantitative: infra OK mais OpenRouter 429 rate limit |
 
 ### Codespaces GitHub (ephemeres — 60h/mois)
 | Element | Detail |
@@ -227,9 +227,9 @@ Question → Analyse l'intention financiere
          → LLM interprete les resultats
 ```
 - **Base de donnees** : Supabase (financials, balance_sheet, sales_data, etc.)
-- **Precision** : 78.3% (FAIL — workflow crash sur HF Space)
+- **Precision** : 78.3% (sur VM) — HF Space: 200 OK mais OpenRouter 429 rate limit
 - **Webhook** : `/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9`
-- **Probleme actuel** : Le workflow utilise `$env.OPENROUTER_API_KEY` qui n'est pas configure sur HF Space
+- **Probleme actuel** : OpenRouter 429 rate limit (20 RPM par modele). Les 6 pipelines partagent le meme compteur RPM Llama 70B. Solution: changer vers Qwen 2.5 Coder 32B (pool RPM separe) + rotation 3 modeles. Voir `technicals/infra/llm-models-and-fallbacks.md`
 
 #### Pipeline Orchestrator (combine les 3)
 ```
@@ -341,10 +341,10 @@ ETAPE 1 : Lire l'etat precedent
   → cat directives/session-state.md     (memoire de travail)
   → cat docs/status.json                (metriques)
   → cat directives/status.md            (resume session precedente)
-  → cat technicals/knowledge-base.md    (cerveau persistant)
+  → cat technicals/debug/knowledge-base.md    (cerveau persistant)
 
 ETAPE 2 : Verifier les fixes connus
-  → cat technicals/fixes-library.md     (27 bugs deja resolus)
+  → cat technicals/debug/fixes-library.md     (35 bugs deja resolus)
 
 ETAPE 3 : Identifier l'objectif de session
   → Quel pipeline a le plus gros ecart par rapport a sa cible ?
@@ -474,8 +474,8 @@ git push origin main
 | `CLAUDE.md` | Directives globales (29 regles, architecture) | Souvent |
 | `directives/session-state.md` | Memoire de travail active | **TOUJOURS** |
 | `directives/status.md` | Resume de la derniere session | **TOUJOURS** (en dernier) |
-| `technicals/knowledge-base.md` | Cerveau persistant (patterns, solutions) | Souvent |
-| `technicals/fixes-library.md` | 27 bugs documentes | Apres chaque fix |
+| `technicals/debug/knowledge-base.md` | Cerveau persistant (patterns, solutions) | Souvent |
+| `technicals/debug/fixes-library.md` | 35 bugs documentes | Apres chaque fix |
 | `docs/status.json` | Metriques machine-readable (auto-genere) | Apres chaque eval |
 | `docs/data.json` | Donnees de toutes les iterations | Apres chaque eval |
 | `docs/executive-summary.md` | **CE FICHIER** | **TOUJOURS** |
@@ -484,11 +484,13 @@ git push origin main
 ### Fichiers de configuration (modifies rarement)
 | Fichier | Role |
 |---------|------|
-| `technicals/architecture.md` | Architecture des 4 pipelines + 9 workflows |
-| `technicals/team-agentic-process.md` | Strategie multi-model (Opus+Sonnet+Haiku) |
-| `technicals/phases-overview.md` | Plan des 5 phases (200q → 1M+) |
-| `technicals/env-vars-exhaustive.md` | 33 variables d'environnement documentees |
-| `technicals/sector-datasets.md` | 1000+ types de documents par secteur |
+| `technicals/infra/architecture.md` | Architecture des 4 pipelines + 9 workflows |
+| `technicals/project/team-agentic-process.md` | Strategie multi-model (Opus+Sonnet+Haiku) |
+| `technicals/project/phases-overview.md` | Plan des 5 phases (200q → 1M+) |
+| `technicals/infra/env-vars-exhaustive.md` | 33 variables d'environnement documentees |
+| `technicals/data/sector-datasets.md` | 1000+ types de documents par secteur |
+
+**Note** : `technicals/` est organise en 4 sous-dossiers: `debug/`, `infra/`, `project/`, `data/`
 | `directives/workflow-process.md` | Boucle d'iteration detaillee |
 | `directives/n8n-endpoints.md` | Webhooks et API REST |
 | `directives/objective.md` | Objectif final du projet |
@@ -525,11 +527,12 @@ git push origin main
 | Orchestrator | **80.0%** | >= 70% | PASSE | +10pp |
 | **Global** | **85.9%** | >= 75% | **PASSE** | +10.9pp |
 
-### Bloqueur : Quantitative
-- Le pipeline crash (HTTP 500) sur HF Space
-- Cause identifiee : le workflow utilise `$env.OPENROUTER_API_KEY` (variable d'environnement) au lieu de cles hardcodees comme les autres pipelines
-- Donnees Supabase presentes et verifiees (24 lignes financials avec TechVision, GreenEnergy, HealthPlus)
-- Code template SQL ecrit mais pas deploye
+### Bloqueur restant : Quantitative (rate limit, pas crash)
+- Le pipeline fonctionne (HTTP 200 OK sur HF Space) — FIX-29 a FIX-35 appliques
+- Infra OK: 12 noeuds s'executent correctement, credentials configurees
+- Probleme: OpenRouter 429 rate limit — 6 env vars pointent vers le meme Llama 70B (20 RPM partage)
+- Solution identifiee: Changer LLM_SQL_MODEL vers Qwen 2.5 Coder 32B (pool RPM separe, HumanEval 85%)
+- Details complets: `technicals/infra/llm-models-and-fallbacks.md`
 
 ### Datasets Phase 2 (prets)
 | Dataset | Questions | Status |
@@ -541,22 +544,46 @@ git push origin main
 | Secteur BTP (4 fichiers JSONL) | 1,844 | TELECHARGE |
 | Secteur Industrie (3 fichiers JSONL) | 1,015 | TELECHARGE |
 
-### Fixes documentes (27 au total)
-Les 27 bugs deja resolus sont dans `technicals/fixes-library.md`.
+### Fixes documentes (35 au total)
+Les 35 bugs deja resolus sont dans `technicals/debug/fixes-library.md`.
 Les plus importants :
 - FIX-21 : n8n Code node cache (Task Runner)
 - FIX-22 : OpenRouter rate limiting (429)
 - FIX-26 : Webhook path/field name incorrects
 - FIX-27 : n8n REST API sans cle API
 
+### Tests de concurrence (session 27)
+| Config | Pipelines | Concurrency | Standard | Graph | Orchestrator |
+|--------|-----------|-------------|----------|-------|--------------|
+| Baseline | 3 | 1 | 100% (9s) | 100% (18s) | 100% (14s) |
+| Moderate | 3 | 3 | 100% (23s) | 90% (26s) | 70% (35s) |
+| Stress | 3 | 5 | 100% (29s) | 90% (44s) | 0% AUTO-STOP |
+
+**Limites de concurrence recommandees** :
+- Standard : jusqu'a 5 questions simultanees (rock solid)
+- Graph : jusqu'a 3 questions simultanees (leger degrade au-dela)
+- Orchestrator : 1 question a la fois (degrade sous charge car delegue aux sous-pipelines)
+- Quantitative : non teste (rate limited)
+
+### Fixes session 27 (FIX-29 a FIX-35)
+| Fix | Description |
+|-----|-------------|
+| FIX-29 | Quant postgres→REST API, Orch bitwiseHash, 16 env vars, JWT key |
+| FIX-30 | PostgreSQL local pour Orchestrator, HTTP v4.3, continueOnFail |
+| FIX-31 | Live diagnostic server (diag-server.py) + improved error tracking |
+| FIX-32 | Quant $env Code nodes + Standard sub-workflow return |
+| FIX-33 | $env replace ALL refs at import time (n8n 2.8 blocks ALL) |
+| FIX-34 | Orchestrator: executeWorkflow → httpRequest (sub-wf return vide) |
+| FIX-35 | Quantitative: OPENROUTER_BASE_URL manquait /chat/completions |
+
 ---
 
 ## 12. PROCHAINES ETAPES
 
-### Session 27 (prochaine)
-1. **Diagnostiquer + fixer Quantitative 500** : Ajouter `OPENROUTER_API_KEY` dans le Docker HF Space
-2. **Valider Phase 1** : Full eval 200q sur les 4 pipelines
-3. **Lancer Phase 2** : 3,000 questions (si Phase 1 validee)
+### Session 28 (prochaine)
+1. **Deployer Qwen 2.5 Coder 32B comme LLM_SQL_MODEL sur HF Space** (pool RPM separe)
+2. **Implementer rotation 3 modeles dans le Code node Quantitative** (60 RPM combines)
+3. **Valider Phase 1** : full eval 200q sur les 4 pipelines (3 iterations stables)
 
 ### Phase 2 → Phase 3
 - Phase 2 : 3,000 questions → objectifs relaxes (Graph >= 60%, Quant >= 70%)

@@ -1,6 +1,6 @@
 # Session State — 19 Fevrier 2026 (Session 27 suite)
 
-> Last updated: 2026-02-20T00:15:00+01:00
+> Last updated: 2026-02-20T01:00:00+01:00
 
 ## Objectif de session : Phase 2 pour TOUS les pipelines (bottleneck strategy)
 
@@ -29,10 +29,14 @@
 Key: Standard rock solid at any load. Orchestrator must run sequential.
 
 ### DOCUMENTATION CREATED (session 27 suite)
-- `technicals/diagnostic-flowchart.md` — 6 decision trees for recurring problems
-- `technicals/knowledge-base.md` Section 7.4 — Concurrent load testing results
-- `technicals/architecture.md` — Updated HF Space state (3/4 pipelines working)
+- `technicals/debug/diagnostic-flowchart.md` — 6 decision trees for recurring problems
+- `technicals/debug/knowledge-base.md` Section 7.4 — Concurrent load testing results
+- `technicals/infra/architecture.md` — Updated HF Space state (3/4 pipelines working)
+- `technicals/infra/llm-models-and-fallbacks.md` — LLM models registry + fallback architecture
+- `docs/document-index.md` — INDEX document: topic → source file(s) mapping
 - `eval/parallel-pipeline-test.py` v2 — concurrent questions support (--concurrency flag)
+- Restructure `technicals/` into 4 subdirectories: `debug/`, `infra/`, `project/`, `data/` (17 files moved)
+- Updated `docs/executive-summary.md` with session 27 results
 
 ### Fixes session 27
 
@@ -77,9 +81,23 @@ Key: Standard rock solid at any load. Orchestrator must run sequential.
 | 7d378d9 | HF Space | fix(FIX-35): OPENROUTER_BASE_URL /chat/completions |
 | 31e684b | HF Space | fix(FIX-35b): bash case statements for URL fix |
 
-### Prochaines actions
-1. Resoudre Quantitative 429 rate limit — tester modele alternatif (Qwen, DeepSeek)
-2. Ajouter model fallback dans entrypoint.sh (LLM_SQL_MODEL env var)
-3. Lancer eval parallele 20+ questions pour validation complete
-4. Documenter concurrency limits dans architecture.md
-5. Valider Phase 1 gates
+### Commits session 27 (continuation — mon-ipad)
+
+| Hash | Description |
+|------|-------------|
+| c125b34 | feat(session-26): FIX-28 env vars + secrets HF Space + bottleneck strategy |
+| 60d33bc | docs(session-26): executive summary — comprehensive project reference document |
+| 8f37f25 | docs(session-26): Phase 2 readiness document + status updates |
+| e031df3 | feat(session-26): team-agentic multi-model strategy + Graph 10/10 PASS |
+| 5b1c29e | docs: diagnostic-flowchart + architecture update |
+| a45189d | feat: parallel-pipeline-test.py v2 (concurrent questions) |
+| e6c3e1d | refactor: restructure technicals/ into 4 subdirectories |
+| 7491a57 | feat: LLM models & fallbacks reference document |
+| (pending) | docs: document-index + executive-summary update + session-state |
+
+### Prochaines actions (session 28)
+1. Deployer Qwen 2.5 Coder 32B comme LLM_SQL_MODEL sur HF Space (pool RPM separe)
+2. Implementer rotation 3 modeles dans le Code node Quantitative (60 RPM combines)
+3. Tester Quantitative avec nouveau modele (5 questions minimum)
+4. Valider Phase 1 gates (4/4 pipelines + 3 iterations stables)
+5. Lancer Phase 2 (3,000 questions) si Phase 1 validee
