@@ -1,6 +1,6 @@
 # Knowledge Base — Cerveau Persistant Multi-RAG
 
-> Last updated: 2026-02-19T22:50:00+01:00
+> Last updated: 2026-02-19T23:20:00+01:00
 > **Ce document est VIVANT.** Il s'enrichit a CHAQUE session avec les solutions, patterns
 > et connaissances techniques decouvertes. A lire EN PREMIER avec `fixes-library.md`.
 > Objectif : ameliorer la performance de l'agent a chaque session.
@@ -282,6 +282,30 @@ Options :
 
 Le FIX-33 dans entrypoint.sh remplace $env.X par os.environ values
 AVANT le JSON parsing, couvrant 30+ variables.
+Script: fix-env-refs.py (standalone, appele depuis entrypoint.sh)
+```
+
+### 3.6 executeWorkflow retourne vide avec respondToWebhook (CRITIQUE — FIX-34)
+```
+Quand un workflow est appele via executeWorkflow (n8n Execute Workflow node),
+et que le sub-workflow utilise respondToWebhook pour envoyer sa reponse :
+
+PROBLEME : respondToWebhook envoie la reponse HTTP au client original
+mais NE RETOURNE PAS les donnees au noeud executeWorkflow parent.
+Resultat : data.main = [[]] (tableau vide).
+
+CONSEQUENCE : Tout noeud en aval du executeWorkflow ne recoit aucun item
+et ne s'execute jamais.
+
+SOLUTION : Remplacer executeWorkflow par httpRequest POST vers le webhook
+du sub-workflow. L'httpRequest recoit la reponse JSON normalement.
+  - URL: http://localhost:5678/webhook/<path>
+  - Method: POST
+  - Body: { "query": "<task_query>" }
+  - Timeout: 30000ms
+
+REGLE : Ne JAMAIS utiliser executeWorkflow pour appeler un workflow
+qui utilise respondToWebhook. Utiliser httpRequest a la place.
 ```
 
 ### 3.4 HTTP Request node — config recommandee
@@ -439,6 +463,7 @@ sota-rag-jina-1024 : 10,411 vecteurs
 | Session | Ajouts | Date |
 |---------|--------|------|
 | 25 | Creation du document, modeles LLM, 8 patterns, APIs, schemas | 2026-02-19 |
+| 27 | $env interdit tous noeuds (3.5), executeWorkflow vide (3.6) | 2026-02-19 |
 
 ---
 

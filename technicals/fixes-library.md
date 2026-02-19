@@ -44,6 +44,7 @@
 | 31 | Infrastructure | Live diagnostic server (diag-server.py) sur port 7861 | 27 | IMPORTANT |
 | 32 | Quantitative + Standard | $env bloque dans Code nodes Task Runner + sub-workflow return | 27 | CRITIQUE |
 | 33 | TOUS workflows | $env bloque pour TOUS les types de noeuds n8n 2.8+ (pas juste Code) | 27 | CRITIQUE |
+| 34 | Orchestrator | executeWorkflow retourne vide (sub-wf respondToWebhook) → httpRequest | 27 | CRITIQUE |
 
 ---
 
@@ -58,6 +59,8 @@
 | AP-5 | Modifier plusieurs noeuds a la fois | OCCASIONAL | Regle 10 : 1 fix par iteration |
 | AP-6 | Patcher nodes[] mais pas activeVersion.nodes[] | CHAQUE FIX | Toujours patcher BOTH (FIX-29, FIX-32) |
 | AP-7 | Utiliser $env dans un Code node n8n 2.7+ | CRITIQUE | $env bloque par Task Runner — hardcoder (FIX-32) |
+| AP-8 | Utiliser $env dans N'IMPORTE QUEL noeud n8n 2.8+ | CRITIQUE | $env bloque PARTOUT — injecter a l'import (FIX-33) |
+| AP-9 | Utiliser executeWorkflow quand sub-wf a respondToWebhook | CRITIQUE | executeWorkflow retourne vide — utiliser httpRequest (FIX-34) |
 
 ---
 
@@ -653,4 +656,21 @@ location /diag { proxy_pass http://127.0.0.1:7861/diag; }
 **Fix** : Remplacement de TOUTES les references `$env.X` par les valeurs reelles au moment de l'import dans entrypoint.sh. Un script Python parcourt le texte brut du JSON AVANT parsing et remplace chaque `$env.VAR_NAME` par la valeur de `os.environ.get(VAR_NAME, default)`. Couvre 30+ variables avec defaults.
 **Impact** : 117 references $env a travers 5 workflows (quantitative: 20, orchestrator: 27, ingestion: 22, enrichment: 24, benchmark-dataset-ingestion: 24). Standard et Graph = 0 (deja clean).
 **REGLE DEFINITIVE** : `$env` est INTERDIT dans n8n 2.8+ pour TOUS les types de noeuds. Ne JAMAIS utiliser $env dans les workflows. Injecter les valeurs a l'import ou utiliser des credentials n8n.
-**Fichiers impactes** : `entrypoint.sh` (HF Space) — section import Python
+**Fichiers impactes** : `entrypoint.sh` (HF Space) — section import Python, `fix-env-refs.py` (standalone script)
+
+---
+
+### FIX-34 — Orchestrator executeWorkflow → httpRequest (sub-workflow return vide)
+**Session** : 27 (2026-02-19)
+**Pipeline** : Orchestrator V10.1
+**Symptome** : Orchestrator retourne 200 body vide (SIZE:0, ~14s). Standard/Graph/Quant fonctionnent individuellement. Les 28 noeuds executes ont TOUS status=success, mais le `📥 Task Result Handler` ne fire jamais.
+**Cause racine** : Les 3 noeuds `Invoke WF5: Standard`, `Invoke WF2: Graph`, `Invoke WF4: Quantitative` utilisent `executeWorkflow` pour appeler les sub-workflows. Mais les sub-workflows terminent avec `respondToWebhook` qui envoie la reponse HTTP au client original et NE RETOURNE PAS les donnees au noeud parent `executeWorkflow`. Resultat: `data.main: [[]]` (tableau vide) → `📥 Task Result Handler` ne recoit aucun item → boucle de taches rompue → `Response Builder V9` jamais atteint → `Return Response V8` jamais atteint → body vide.
+**Preuve** : Execution #16 (Orchestrator post-FIX-33). `Invoke WF5: Standard` a `executionStatus: success` et `subExecution.executionId: 17` (mode integrated, success) MAIS `data.main: [[]]`. Sur 68 noeuds dans le workflow, seulement 28 executes. `📥 Task Result Handler`, `Response Builder V9`, `Merge`, `Return Response V8` ABSENTS de la liste des noeuds executes.
+**Fix** : Remplacement des 3 noeuds `executeWorkflow` par des `httpRequest` (typeVersion 4.2) qui font des POST vers les webhooks locaux :
+- `Invoke WF5: Standard` → POST `http://localhost:5678/webhook/rag-multi-index-v3`
+- `Invoke WF2: Graph` → POST `http://localhost:5678/webhook/ff622742-6d71-4e91-af71-b5c666088717`
+- `Invoke WF4: Quantitative` → POST `http://localhost:5678/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9`
+Le body est `{ "query": "<task_query>" }`. Le timeout est 30s. La reponse JSON du sub-workflow est recue normalement par le noeud HTTP Request.
+**Avantage** : Les sub-workflows fonctionnent parfaitement en mode webhook (testes). Pas besoin de modifier les sub-workflows, juste l'Orchestrator.
+**REGLE** : Ne JAMAIS utiliser `executeWorkflow` pour appeler un workflow qui utilise `respondToWebhook`. Utiliser `httpRequest` POST vers le webhook a la place.
+**Fichiers impactes** : `n8n-workflows/orchestrator.json` (HF Space)

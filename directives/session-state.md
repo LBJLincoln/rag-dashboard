@@ -1,6 +1,6 @@
 # Session State — 19 Fevrier 2026 (Session 27 suite)
 
-> Last updated: 2026-02-19T22:45:00+01:00
+> Last updated: 2026-02-19T23:15:00+01:00
 
 ## Objectif de session : Phase 2 pour TOUS les pipelines (bottleneck strategy)
 
@@ -9,34 +9,34 @@
 | Pipeline | HF Space Status | Bottleneck restant | Fix applique | Status |
 |----------|----------------|-------------------|--------------|--------|
 | **Standard** | **200 OK** (11s) | AUCUN | — | PASS |
-| **Graph** | **200 OK** (54s) | AUCUN | — | PASS |
-| **Quantitative** | **200** (0.57s) mais erreur data | $env bloque pour TOUTES les HTTP Request nodes | FIX-33 (pending rebuild) | EN COURS |
-| **Orchestrator** | **200 vide** (19.7s) | $env bloque pour HTTP Request + sous-workflow return | FIX-33 (pending rebuild) | EN COURS |
+| **Graph** | **200 OK** (11s) | AUCUN | — | PASS |
+| **Quantitative** | **200 OK** (1.6s) | SQL logic (pas $env) | FIX-33 resolved $env | PASS (pipeline runs) |
+| **Orchestrator** | **200 vide** (14s) | Sub-workflow return vide | FIX-34 (pending rebuild) | EN COURS |
 
-### DECOUVERTE CRITIQUE — Session 27 (suite)
+### DECOUVERTES CRITIQUES — Session 27 (suite)
 
-**n8n 2.8.3 Task Runner bloque $env pour TOUS les types de noeuds, pas juste Code.**
+**1. n8n 2.8.3 Task Runner bloque $env pour TOUS les types de noeuds, pas juste Code.**
+- Preuve: Execution #8 (Quant) — les 4 HTTP Request nodes retournent `{"error": "access to env vars denied"}`
+- FIX-33 resolu: Script fix-env-refs.py remplace 38 $env refs a l'import → Quant fonctionne!
 
-- Preuve: Execution #8 (Quant) — les 4 HTTP Request nodes (Schema Introspection, Text-to-SQL Generator, SQL Executor, Interpretation Layer) retournent TOUTES `{"error": "access to env vars denied"}`
-- Preuve: Execution #9 (Orch) — Intent Analyzer HTTP Request retourne error, Postgres L2/L3 Memory echoue
-- C'est un changement par rapport a n8n < 2.8 ou seuls les Code nodes etaient affectes
-- 117 references $env a travers 5 workflows
+**2. executeWorkflow retourne vide quand sub-workflow utilise respondToWebhook.**
+- Preuve: Orchestrator exec #16 — `Invoke WF5: Standard` retourne `data.main: [[]]` (vide)
+- Le Standard workflow utilise respondToWebhook qui envoie la reponse au client HTTP, pas au noeud parent
+- Task Result Handler ne fire jamais → boucle rompue → pas de Response Builder → body vide
+- FIX-34: Remplace executeWorkflow par httpRequest POST vers localhost webhook
 
-**FIX-33** : Remplacement de TOUTES les references $env par valeurs reelles au moment de l'import (entrypoint.sh). Script Python remplace $env.X dans le texte brut AVANT JSON parsing. Commit 90fe71e pousse, attente rebuild.
+### Etat Orchestrator (details exec #16 post-FIX-33)
+- 28 noeuds executes, TOUS status=success (plus d'erreur $env!)
+- `Invoke WF5: Standard` a execute sub-workflows #17 et #18 (mode integrated, success)
+- MAIS: output = `data.main: [[]]` (vide) — Standard respondToWebhook envoie reponse au client HTTP, pas au parent
+- Task Result Handler jamais atteint (0 items en input)
+- Pas de Response Builder, Merge, Return Response V8 executes
+- FIX-34: Les 3 Invoke nodes deviennent httpRequest POST localhost:5678/webhook/...
 
-### Etat Orchestrator (details)
-- 28 noeuds executes dans exec #9
-- `Invoke WF5: Standard` a execute (Standard sub-workflow #10/#11 = success)
-- MAIS: pas de Task Result Handler, Merge, Return Response dans l'execution
-- L'execution s'arrete a `IF: Rate Limited?`
-- Les HTTP Request nodes (Intent Analyzer, etc.) ont $env → retournent error → pipeline deraille
-
-### Etat Quantitative (details)
-- 12 noeuds executes dans exec #8
-- Pipeline complete (Webhook → ... → Response Formatter)
-- MAIS: toutes les HTTP Request nodes retournent error "access to env vars denied"
-- Schema Introspection retourne erreur → schema vide → LLM ne genere pas de SQL valide
-- SQL Validator retourne fallback SQL → Interpretation = erreur
+### Etat Quantitative (post-FIX-33 — RESOLU)
+- Pipeline complete: Webhook → Schema → LLM → SQL → Interpret → Response
+- Erreur SQL logique: "Query must start with SELECT" — probleme de prompt LLM, pas d'infra
+- PROGRES MAJEUR: plus d'erreur $env, pipeline execut integralement
 
 ### Fixes session 27
 
@@ -46,7 +46,8 @@
 | FIX-30 | PostgreSQL local pour Orchestrator, HTTP v4.3, continueOnFail | 508f594, 918deaa, 11884c6, 8225c6d |
 | FIX-31 | Live diagnostic server (diag-server.py) + improved error tracking | 783230d, fc72dba |
 | FIX-32 | Quant $env Code nodes + Standard sub-workflow return | 810772e, 94949b2 |
-| FIX-33 | $env replace ALL refs at import time (n8n 2.8 blocks ALL) | 90fe71e |
+| FIX-33 | $env replace ALL refs at import time (n8n 2.8 blocks ALL) | 90fe71e, 72fb888 |
+| FIX-34 | Orchestrator: executeWorkflow → httpRequest (sub-wf return vide) | 618fc09 |
 
 ### Commits session 27
 
@@ -56,6 +57,7 @@
 | 2b039b6 | mon-ipad | fix(session-27): FIX-29 complete — fixes-library + session-state |
 | 0dfba3a | mon-ipad | docs: session-state update (FIX-31, FIX-32) |
 | c37f706 | mon-ipad | docs: fixes-library FIX-30/31/32 + anti-patterns |
+| 22de3f7 | mon-ipad | docs: FIX-33 documentation |
 | 68d113a | HF Space | fix(FIX-29): Quant REST API + Orch error handler + missing env vars |
 | 5cab714 | HF Space | fix(FIX-29b): Orch activeVersion + Init V8 error handling |
 | 91b3843 | HF Space | diag(FIX-29c): diagnostic tests in entrypoint |
@@ -68,3 +70,11 @@
 | 810772e | HF Space | fix(FIX-32): Quant $env fix + Standard sub-wf return |
 | 94949b2 | HF Space | fix(FIX-32b): patch activeVersion — Quant $env + Standard sub-wf |
 | 90fe71e | HF Space | fix(FIX-33): replace ALL $env refs at import time |
+| 72fb888 | HF Space | fix(FIX-33b): standalone fix-env-refs.py script |
+| 618fc09 | HF Space | feat(FIX-34): executeWorkflow → httpRequest for sub-wf calls |
+
+### Prochaines actions
+1. Verifier FIX-34 apres rebuild HF Space (~2min)
+2. Si Orch retourne des donnees → tester Orch avec question reelle
+3. Si Orch fonctionne → 4/4 pipelines UP → commencer validation Phase 1
+4. Documenter FIX-34 dans fixes-library
