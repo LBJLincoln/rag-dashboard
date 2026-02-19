@@ -20,9 +20,14 @@ VM Google Cloud (34.136.180.66) — PERMANENT (PILOTAGE UNIQUEMENT)
 HF Space (lbjlincoln-nomos-rag-engine.hf.space) — EXECUTION n8n distant
   n8n 2.8.3 : 16GB RAM, $0, SQLite + Redis
   Credentials : 12/12 importes
-  Workflows : 9 importes (seul Standard fonctionne — Graph/Orch 404, Quant 500)
+  Workflows : 9 importes, 3/4 pipelines FONCTIONNELS (session 27)
+    Standard : 200 OK, 100% accuracy (5/5)
+    Graph : 200 OK, 100% accuracy (5/5)
+    Orchestrator : 200 OK, 100% accuracy (5/5) — FIX-34 httpRequest
+    Quantitative : 200 OK, infra OK mais OpenRouter 429 rate limit
   REST API : BROKEN (FIX-15 — proxy HF strip POST body pour /api/)
   Keep-alive : cron VM */30 min
+  Fixes appliques : FIX-33 ($env), FIX-34 (executeWorkflow→httpRequest), FIX-35 (URL)
 
 GitHub — Source de verite
   n8n/live/     : Workflows Phase 1 (benchmark)
