@@ -1,73 +1,66 @@
-# Session State — 18 Fevrier 2026 (Session 24)
+# Session State — 19 Fevrier 2026 (Session 24 continuation)
 
-> Last updated: 2026-02-19T00:20:00+01:00
+> Last updated: 2026-02-19T03:10:00+01:00
 
-## Session 24 — Taches accomplies
+## Session 24 continuation — Taches accomplies
 
-### T1. HF Space nomos-rag-engine deploye
-- CONFIG_ERROR corrige (README.md + Dockerfile standalone)
-- 4 iterations du Dockerfile: DinD -> supervisord -> SQLite simplifie -> auto-setup
-- n8n 1.76.1 running sur `https://lbjlincoln-nomos-rag-engine.hf.space`
-- Healthz OK, webhooks fonctionnels (POST body preserve)
-- Space rendu public (proxy HF casse les POST body pour spaces prives)
-- Keep-alive cron configure (*/30 * * * *)
-- 16 secrets HF configures (API keys + model vars)
+### T1. HF Space n8n FULLY OPERATIONAL
+- **n8n 2.8.3 (latest)** running sur `https://lbjlincoln-nomos-rag-engine.hf.space`
+- **12/12 credentials** importees via CLI (4 postgres, 1 redis, 1 neo4j httpBasicAuth, 2 pinecone httpHeaderAuth, 4 openrouter httpHeaderAuth)
+- **9/9 workflows** importees + activees via REST API
+- **Webhooks fonctionnels**: POST /webhook/rag-multi-index-v3 → HTTP 200 + RAG response
+- Owner setup + login automatiques avec retry + REST readiness check
+- Keep-alive cron VM (*/30 * * * *)
 
-### T2. Audit et alignement credentials
-- 2 mismatches fixes: OpenRouter et Cohere aligns entre .env.local et .mcp.json
-- Verification complete: 18 vars .env.local, 7 MCP servers, 7 git remotes
-- Tous proteges par .gitignore
+### T2. 8 fixes documentes (FIX-13 to FIX-20)
+| Fix | Probleme | Resolution |
+|-----|----------|-----------|
+| FIX-13 | python3 manquant dans Docker | apt-get install python3 |
+| FIX-14 | import:workflow format array vs objet | Merger JSONs en array |
+| FIX-15 | HF proxy casse POST body /rest/ | Localhost bypass |
+| FIX-16 | import inactive + activation echoue (obsolete) | Resolu par FIX-18+19 |
+| FIX-17 | n8n 2.x login: email → emailOrLdapLoginId | Fix body JSON |
+| FIX-18 | SQLITE FK constraint (shared/activeVersion) | Strip FK fields avant import |
+| FIX-19 | n8n 2.8+ requires publish (versionId) | POST /activate avec versionId |
+| FIX-20 | REST API not ready after healthz | Wait for /rest/settings |
 
-### T3. Analyse faisabilite "5 HF Spaces avec Claude Code CLI"
-- **REPONSE: NON FAISABLE** — Claude Code est un outil terminal interactif, incompatible avec HF Spaces (web apps)
-- Architecture correcte: VM (Claude Code) + HF Space (n8n) + Codespaces (tests)
-
-### Limitation decouverte: HF proxy casse les POST body
-- Le proxy HuggingFace modifie les POST body pour les endpoints `/rest/` et `/api/`
-- Les webhooks `/webhook/` fonctionnent normalement (POST body preserve)
-- Consequence: impossible de creer des credential objects n8n depuis l'exterieur
-- Solution requise: creer les credentials depuis l'entrypoint (localhost, bypass proxy)
+### T3. Credential audit complet (session 24 debut)
+- 2 mismatches corriges: OpenRouter et Cohere dans .mcp.json
+- 18 vars .env.local verifiees
+- 7 MCP servers, 7 git remotes
 
 ## HF Space — Etat actuel
 | Composant | Etat |
 |-----------|------|
 | Space URL | https://lbjlincoln-nomos-rag-engine.hf.space |
 | Runtime | RUNNING (cpu-basic, 16GB RAM) |
-| n8n version | 1.76.1 |
-| Database | SQLite |
+| n8n version | 2.8.3 (latest) |
+| Database | SQLite (fresh on each boot) |
 | Owner | admin@mon-ipad.com / SotaRAG2026! |
-| Secrets | 16 vars configurees |
-| Workflows | Import + credentials via n8n CLI (5 creds: 4 postgres + 1 basicAuth) |
-| Webhooks | Route OK, POST body preserve |
+| Secrets | 16 vars HF configurees |
+| Credentials | 12/12 importees (auto-generate from HF secrets) |
+| Workflows | 9/9 importees + activees |
+| Webhooks | POST /webhook/rag-multi-index-v3 → HTTP 200 |
 | Keep-alive | Cron VM */30 min |
-
-### T4. Credentials n8n auto-importees via CLI
-- 5 credential objects crees dans l'entrypoint: USU8ngVzsUbED3mn, zEr7jPswZNv6lWKu, 0bf5AHN9S8qJTBr8, FZUFrHg9RgDR3MAB (postgres), n4K6ZIj6aa0dsiGN (basicAuth Neo4j)
-- Utilise `n8n import:credentials` (bypass proxy HF)
-- Workflows importes via `n8n import:workflow`
-- Activation automatique via REST localhost + cookie
-
-### T5. End-of-session checklist
-- env-vars-exhaustive.md MAJ (3 lignes log modifications)
-- credentials.md MAJ (audit session 24)
-- session-state.md MAJ
-- status.md MAJ
-- check-staleness: 26/26 fichiers OK
+| HF repo SHA | 84d713a |
 
 ## Commits session 24
 | Hash | Description |
 |------|-------------|
-| TBD | session 24: HF Space deploye + credentials audit + fin session |
+| c83378a | session 24: HF Space + credentials audit + fin session (pre-continuation) |
+| (HF repo) bb738d0 | FIX-18: strip FK fields |
+| (HF repo) 5d5e6f0 | FIX-19: orchestrator last + activate with versionId |
+| (HF repo) 84d713a | Final: webhook POST verification |
 
 ## Repos impactes
-- mon-ipad (T1-T5)
-- HF Space nomos-rag-engine (T1, T4)
+- mon-ipad (fixes-library, session-state, status)
+- HF Space nomos-rag-engine (Dockerfile, entrypoint, nginx, workflows)
 
 ## Prochaine action (Session 25)
-1. **Verifier HF Space**: `curl https://lbjlincoln-nomos-rag-engine.hf.space/healthz` + tester webhook
-2. **Tester end-to-end HF**: `N8N_HOST=https://lbjlincoln-nomos-rag-engine.hf.space python3 eval/quick-test.py --questions 1 --pipeline standard`
-3. Fix Graph 68.7%->70% (gap -1.3pp)
-4. Fix Quantitative 78.3%->85% (gap -6.7pp)
+1. **Tester end-to-end HF**: `N8N_HOST=https://lbjlincoln-nomos-rag-engine.hf.space python3 eval/quick-test.py --questions 1 --pipeline standard`
+2. Fix Graph 68.7%→70% (gap -1.3pp)
+3. Fix Quantitative 78.3%→85% (gap -6.7pp)
+4. Migration de tests vers HF Space (au lieu des Codespaces)
 
 ---
 

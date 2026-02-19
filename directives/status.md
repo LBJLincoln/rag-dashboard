@@ -1,42 +1,45 @@
-# Status — 18 Fevrier 2026 (Session 24)
+# Status — 19 Fevrier 2026 (Session 24 continuation)
 
-> Last updated: 2026-02-19T00:20:00+01:00
+> Last updated: 2026-02-19T03:10:00+01:00
 
-## Session 24 = HF Space deploye + Audit credentials (ZERO tests)
+## Session 24 continuation = HF Space FULLY OPERATIONAL (8 bugs fixes)
 
-Aucun test execute. Session dediee au deploiement HF Space, audit/alignement credentials, et analyse faisabilite.
+Session dediee a la resolution de 8 bugs (FIX-13 a FIX-20) pour rendre le HF Space n8n operationnel avec les 9 workflows actifs.
 
-### HF Space nomos-rag-engine — DEPLOYE
+### HF Space nomos-rag-engine — OPERATIONNEL
 | Element | Etat |
 |---------|------|
 | URL | https://lbjlincoln-nomos-rag-engine.hf.space |
 | Runtime | RUNNING (cpu-basic, 16GB RAM, $0) |
-| n8n | 1.76.1, SQLite, Redis |
-| Credentials | 5 objects importes via n8n CLI |
-| Workflows | 9 importes, activation automatique |
-| Webhooks | Fonctionnels (POST body preserve) |
+| n8n | **2.8.3 (latest)**, SQLite, Redis |
+| Credentials | **12/12** objects importes (postgres x4, redis, neo4j, pinecone x2, openrouter x4) |
+| Workflows | **9/9** importes + actives |
+| Webhooks | **POST /webhook/rag-multi-index-v3 → HTTP 200** (RAG response OK) |
 | Keep-alive | Cron VM */30 min |
-| REST API POST | CASSE via proxy HF (ne pas utiliser) |
+| REST API | Localhost only (HF proxy corrompt les POST /rest/) |
+| HF repo SHA | 84d713a |
 
-### Limitation technique decouverte
-Le proxy HuggingFace modifie les POST body pour `/rest/` et `/api/`. Les webhooks `/webhook/` fonctionnent. Contournement: toute config POST faite depuis localhost dans l'entrypoint.
-
-### Audit credentials — 2 mismatches corriges
-- `.mcp.json` OPENROUTER_API_KEY aligne sur `.env.local`
-- `.mcp.json` COHERE_API_KEY aligne sur `.env.local`
-- 18 vars .env.local, 7 MCP servers, 7 git remotes — tous verifies
-
-### Analyse faisabilite "5 HF Spaces + Claude Code CLI"
-**NON FAISABLE.** Claude Code est un outil terminal interactif (stdin/stdout, Anthropic Max). HF Spaces servent des web apps. Architecture correcte: VM (Claude Code) + HF Space (n8n) + Codespaces (tests).
+### Bugs resolus cette session (FIX-13 a FIX-20)
+| Fix | Probleme | Impact |
+|-----|----------|--------|
+| FIX-13 | python3 manquant (node:20-bookworm-slim) | CRITIQUE |
+| FIX-14 | import:workflow array vs objet | CRITIQUE |
+| FIX-15 | HF proxy POST body corruption | IMPORTANT |
+| FIX-16 | import inactive + activation (obsolete → FIX-18/19) | RESOLU |
+| FIX-17 | n8n 2.x login email → emailOrLdapLoginId | IMPORTANT |
+| FIX-18 | SQLITE FK constraint (shared/activeVersion) | CRITIQUE |
+| FIX-19 | n8n 2.8+ publish/activate with versionId | CRITIQUE |
+| FIX-20 | REST not ready after healthz | IMPORTANT |
 
 ### Fichiers modifies
 | Fichier | Changement |
 |---------|------------|
-| `.mcp.json` | OpenRouter + Cohere keys alignees |
-| `technicals/credentials.md` | Audit session 24, HF Space documente |
-| `technicals/env-vars-exhaustive.md` | 3 lignes log modifications |
-| `directives/session-state.md` | Session 24 complete |
+| `technicals/fixes-library.md` | FIX-13 a FIX-20 (20 fixes total) |
+| `directives/session-state.md` | Session 24 continuation |
 | `directives/status.md` | Ce fichier |
+| HF Space: entrypoint.sh | Import + activation complet |
+| HF Space: Dockerfile | python3 + n8n latest |
+| HF Space: nginx.conf | /startup-log diagnostic |
 
 ## Pipelines RAG — Accuracy (inchangee)
 
@@ -52,10 +55,10 @@ Le proxy HuggingFace modifie les POST body pour `/rest/` et `/api/`. Les webhook
 
 ## Prochaine session (25)
 
-**Priorite 1** : Verifier HF Space + tester end-to-end via webhook
-**Priorite 2** : Fix Graph 68.7%->70% (gap -1.3pp)
-**Priorite 3** : Fix Quantitative 78.3%->85% (CompactRAG + BM25)
-**Priorite 4** : Si gates passees -> Phase 2 (1000q HuggingFace)
+**Priorite 1** : Tester end-to-end HF Space: `N8N_HOST=https://lbjlincoln-nomos-rag-engine.hf.space python3 eval/quick-test.py --questions 5 --pipeline standard`
+**Priorite 2** : Fix Graph 68.7%→70% (gap -1.3pp)
+**Priorite 3** : Fix Quantitative 78.3%→85% (CompactRAG + BM25)
+**Priorite 4** : Si gates passees → Phase 2 (1000q HuggingFace)
 
 ## Etat des BDD (inchange)
 | BDD | Contenu | Pret Phase 2 |

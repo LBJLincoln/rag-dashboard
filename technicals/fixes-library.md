@@ -1,9 +1,9 @@
 # Fixes Library — Multi-RAG Orchestrator
 
-> Last updated: 2026-02-18T22:01:57+01:00
+> Last updated: 2026-02-19T02:30:00+01:00
 
 > **Bibliotheque permanente de tous les bugs resolus.** A consulter EN PREMIER avant tout debug.
-> Mise a jour obligatoire apres chaque fix reussi. Session courante : Session 17 (2026-02-18).
+> Mise a jour obligatoire apres chaque fix reussi. Session courante : Session 24 (2026-02-19).
 
 ---
 
@@ -23,6 +23,14 @@
 | 10 | CI/CD | n8n runners isolation → timeout 300s×2q = CI fail | 16 | CRITIQUE |
 | 11 | Graph Pipeline | Init & ACL multi-format (orchestrator support) | 14 | IMPORTANT |
 | 12 | Pinecone | Migration Cohere 1536d → Jina 1024d (index mismatch) | 7 | CRITIQUE |
+| 13 | HF Space | Docker python3 manquant (node:20-bookworm-slim) | 24 | CRITIQUE |
+| 14 | HF Space | n8n import:workflow format array vs objet | 24 | CRITIQUE |
+| 15 | HF Space | HF proxy casse POST body pour /rest/ et /api/ | 24 | IMPORTANT |
+| 16 | HF Space | n8n import:workflow toujours inactive + activation REST echoue | 24 | RESOLU par FIX-18 |
+| 17 | HF Space | n8n 2.x login API emailOrLdapLoginId (pas email) | 24 | IMPORTANT |
+| 18 | HF Space | SQLITE FK constraint — shared/activeVersion refs VM entities | 24 | CRITIQUE |
+| 19 | HF Space | n8n 2.8+ activation requires publish (versionId) | 24 | CRITIQUE |
+| 20 | HF Space | REST API not ready after healthz (timing) | 24 | IMPORTANT |
 
 ---
 
@@ -233,3 +241,135 @@ clean = {
 5. Appliquer le fix → tester 5/5 → commit + push
 6. Documenter le nouveau fix ici si nouveau
 ```
+
+---
+
+### FIX-13 — Docker python3 manquant (node:20-bookworm-slim)
+**Session** : 24 (2026-02-19)
+**Composant** : HF Space Dockerfile
+**Symptome** : Entrypoint utilise `python3 -c "..."` pour generer les credentials JSON et parser les reponses. `node:20-bookworm-slim` n'inclut PAS python3. Les commandes python echouent silencieusement (|| echo fallback).
+**Cause racine** : Image Docker `node:20-bookworm-slim` minimaliste, pas de Python pre-installe.
+**Fix** : Ajouter `python3` dans apt-get install du Dockerfile :
+```dockerfile
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl ca-certificates redis-server nginx python3 \
+    && rm -rf /var/lib/apt/lists/*
+```
+**Impact** : TOUTES les operations Python dans l'entrypoint echouaient (credentials, cookie parsing, activation).
+
+### FIX-14 — n8n import:workflow format array vs objet
+**Session** : 24 (2026-02-19)
+**Composant** : HF Space entrypoint
+**Symptome** : `n8n import:workflow --input=file.json` echoue avec `workflows.map is not a function` quand le fichier contient un seul workflow (objet JSON `{...}`).
+**Cause racine** : n8n 1.76.1 `import:workflow` attend un ARRAY `[{...}]`, pas un objet unique.
+**Fix** : Merger tous les workflows en un seul array JSON avant import :
+```python
+all_wfs = []
+for f in glob.glob('/app/n8n-workflows/*.json'):
+    wf = json.load(open(f))
+    all_wfs.append(wf)
+json.dump(all_wfs, open('/tmp/all-workflows.json','w'))
+```
+Puis : `n8n import:workflow --input=/tmp/all-workflows.json`
+**Note** : Avec n8n 2.8.3 (latest), l'import echoue aussi avec un message generique. Le format des workflows exportes depuis n8n 2.7.4 (VM) semble incompatible avec l'import CLI. Solution alternative : import via REST API depuis localhost apres demarrage n8n.
+
+### FIX-15 — HF proxy casse POST body
+**Session** : 24 (2026-02-19)
+**Composant** : HuggingFace Spaces proxy
+**Symptome** : Toute requete POST externe vers `/rest/` ou `/api/` retourne `Failed to parse request body`. Les webhooks `/webhook/` fonctionnent normalement.
+**Cause racine** : Le proxy HuggingFace (nginx front) modifie/corrompt le body des requetes POST pour certains paths. C'est une limitation infrastructure HF, pas un bug n8n.
+**Contournement** : Toute configuration POST (owner setup, login, activation) doit etre faite depuis LOCALHOST dans l'entrypoint, pas depuis l'exterieur.
+**Impact** : REST API POST ne peut PAS etre utilisee depuis l'exterieur. Seuls les webhooks (GET+POST) fonctionnent.
+
+### FIX-16 — n8n import:workflow toujours inactive + activation REST echoue (BLOQUANT)
+**Session** : 24 (2026-02-19)
+**Composant** : HF Space workflow activation
+**Symptome** : `n8n import:workflow` importe les workflows comme INACTIFS (active=0), meme si le JSON a `active:true`. La commande affiche "Deactivating workflow X. Remember to activate later." L'activation via REST API PATCH echoue avec `Cannot read properties of undefined (reading 'description')`.
+**Cause racine (n8n 1.76.1)** :
+1. `import:workflow` force `active=0` par design
+2. PATCH `/rest/workflows/{id}` avec `{"active":true}` echoue car n8n attend le workflow complet
+3. PATCH avec le workflow complet (GET puis PATCH) echoue car certains node types ne sont pas resolus (`@n8n/n8n-nodes-langchain.chatTrigger` non installe), ce qui fait que `nodeType.description` est undefined
+4. SQLite hack (`UPDATE workflow_entity SET active=1`) met le flag mais n8n ne registre PAS les webhooks pour les workflows actives par modification directe DB
+**Cause racine (n8n 2.8.3 latest)** :
+1. `import:workflow` echoue completement — format JSON des workflows exportes depuis n8n 2.7.4 (VM) incompatible avec le CLI import de n8n 2.8.3
+2. Erreur generique sans details
+**Etat actuel** : HF Space RUNNING avec n8n 2.8.3, 12 credentials OK, 0 workflows (import echoue)
+**Solutions a tester (session 25)** :
+1. **REST API import** : Apres demarrage n8n, utiliser `POST /rest/workflows` via localhost (cookie jar auth) pour creer les workflows un par un, puis activer. Pas de probleme de format CLI.
+2. **Re-export workflows** : Depuis le n8n VM (2.7.4), exporter via `n8n export:workflow --all --output=/tmp/export.json` pour avoir un format compatible, puis copier vers HF Space
+3. **Public API** : Utiliser l'API publique n8n `/api/v1/workflows` avec API key auth
+4. **Installer @n8n/n8n-nodes-langchain** : `npm install -g @n8n/n8n-nodes-langchain` dans le Dockerfile pour resoudre les node types manquants
+
+### FIX-17 — n8n 2.x login API change
+**Session** : 24 (2026-02-19)
+**Composant** : n8n REST API
+**Symptome** : Login via `POST /rest/login` avec `{"email":"...","password":"..."}` retourne erreur `{"code":"invalid_type","path":["emailOrLdapLoginId"]}`.
+**Cause racine** : n8n 2.x a renomme le champ `email` en `emailOrLdapLoginId` dans le body de login.
+**Fix** :
+```bash
+# n8n 1.x
+curl -d '{"email":"admin@mon-ipad.com","password":"..."}'
+# n8n 2.x
+curl -d '{"emailOrLdapLoginId":"admin@mon-ipad.com","password":"..."}'
+```
+
+---
+
+### FIX-18 — SQLITE FK constraint: shared/activeVersion references VM entities
+**Session** : 24 (2026-02-19)
+**Composant** : HF Space n8n import:workflow (n8n 2.8.3)
+**Symptome** : `n8n import:workflow` echoue avec `SQLITE_CONSTRAINT: FOREIGN KEY constraint failed`. Les credentials s'importent (12/12) mais 0 workflows.
+**Cause racine** : Les workflow JSONs exportes depuis la VM (n8n 2.7.4) contiennent des champs FK-dependants :
+- `shared` → reference `projectId` (JV7MbqBbWPTstXIo) et `userId` (215767e0-...) de la VM
+- `activeVersion` → reference un historique de versions inexistant
+- `activeVersionId` → FK vers `workflow_version` table
+- `versionId` → FK vers version history
+
+Dans la fresh DB du HF Space, ces entites n'existent pas → FK constraint violation.
+**Fix** : Nettoyer les JSONs avant import — supprimer `shared`, `activeVersion`, `activeVersionId`, `versionId`, `versionCounter`.
+```python
+FK_FIELDS = ['shared', 'activeVersion', 'activeVersionId', 'versionId', 'versionCounter']
+for field in FK_FIELDS:
+    if field in wf:
+        del wf[field]
+```
+**Verifie** : 9/9 workflows imported + activated (push 84d713a)
+**REGLE** : Tout export n8n destine a un import CLI sur une fresh DB DOIT etre nettoye des FK fields.
+**Fichier impacte** : `/tmp/hf-space-fix/entrypoint.sh` (HF Space repo)
+
+---
+
+### FIX-19 — n8n 2.8+ activation requires publish (versionId)
+**Session** : 24 (2026-02-19)
+**Composant** : HF Space n8n activation (n8n 2.8.3)
+**Symptome** : `PATCH /rest/workflows/{id}` avec `active: true` retourne 200 mais `active` reste `false`. `POST /rest/workflows/{id}/activate` retourne 400 : `{"code":"invalid_type","path":["versionId"],"message":"Required"}`.
+**Cause racine** : n8n 2.8+ a un systeme de versioning/publishing. Les workflows doivent etre "publies" (creant un `activeVersionId`) avant d'etre actives. Le PATCH `active:true` echoue silencieusement sans version publiee.
+**Fix** : Utiliser `POST /rest/workflows/{id}/activate` avec le `versionId` du workflow (le draft version). L'endpoint publie ET active en une seule operation.
+```python
+# GET workflow pour obtenir versionId
+wf = api_call('GET', f'/rest/workflows/{wf_id}')
+version_id = wf['data']['versionId']
+# POST /activate avec versionId
+api_call('POST', f'/rest/workflows/{wf_id}/activate', {'versionId': version_id})
+```
+**Ordre critique** : Les orchestrators qui referent des sub-workflows doivent etre actives EN DERNIER.
+**Verifie** : 9/9 workflows actives (push 5d5e6f0)
+**Fichier impacte** : `/tmp/hf-space-fix/entrypoint.sh` (HF Space repo)
+
+---
+
+### FIX-20 — REST API not ready after healthz (n8n 2.8+ timing)
+**Session** : 24 (2026-02-19)
+**Composant** : HF Space n8n REST API
+**Symptome** : `POST /rest/owner/setup` retourne `Cannot POST /rest/owner/setup` (Express 404) alors que `GET /healthz` retourne 200.
+**Cause racine** : n8n 2.8.3 enregistre `/healthz` avant les routes `/rest/`. Un `sleep 3` apres healthz ne suffit pas.
+**Fix** : Attendre que `GET /rest/settings` retourne 200 ou 401 (preuve que les routes REST sont enregistrees), avec retry.
+```bash
+for i in $(seq 1 30); do
+    HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "http://127.0.0.1:5678/rest/settings")
+    if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "401" ]; then break; fi
+    sleep 2
+done
+```
+**Verifie** : Owner setup + login reussissent au premier essai (push 371d23a)
+**Fichier impacte** : `/tmp/hf-space-fix/entrypoint.sh` (HF Space repo)
