@@ -1,40 +1,120 @@
-# Processus Team-Agentic Formel
+# Processus Team-Agentic Formel — Multi-Model Strategy 2026
 
-> Last updated: 2026-02-19T15:30:00+01:00
-> Definit les roles, la communication et les protocoles entre agents Claude Code
-> repartis sur la VM, HF Space et les Codespaces.
+> Last updated: 2026-02-19T18:00:00+01:00
+> Definit les roles, la communication, les protocoles et la **strategie multi-modele**
+> entre agents Claude Code repartis sur la VM, HF Space et les Codespaces.
 > **Decision Session 25** : VM = pilotage UNIQUEMENT. Tests et modifications → HF Space (16GB) ou Codespaces (8GB).
+> **Decision Session 26** : Multi-model delegation — Opus 4.6 analyse + Sonnet 4.5 execution.
+
+---
+
+## 0. PHILOSOPHIE MULTI-MODEL (Session 26 — Fev 2026)
+
+### Principe fondamental
+**Opus 4.6 est le cerveau. Sonnet 4.5 et Haiku 4.5 sont les bras.**
+
+Chaque agent Claude Code deploye (VM, Codespace, HF Space) tourne en **Opus 4.6** comme modele
+principal. Mais pour les taches d'**execution** (pas d'analyse), l'agent Opus delegue a des
+sous-agents plus rapides et moins couteux via le `Task` tool.
+
+### References 2026
+- **Kaxo Case Study** (Jan 2026) : 4 → 35 agents en 90 jours. Architecture : 1 Sonnet orchestrateur + 34 Haiku sous-agents. Cout total : $500/an.
+- **Anthropic "Effective harnesses for long-running agents"** : claude-progress.txt, git-based state, feature lists, error recovery patterns.
+- **Claude Agent SDK** : Delegation via subagents avec model parameter. `model: "haiku"` pour taches simples, `model: "sonnet"` pour taches complexes d'execution.
+- **Agent Teams** (experimental) : Sessions orchestrees multi-agents avec partage de contexte.
+
+### Arbre de decision — Quel modele pour quelle tache ?
+```
+                       TACHE RECUE
+                           |
+                    Analyse / Decision ?
+                    /              \
+                  OUI              NON (Execution)
+                   |                   |
+            OPUS 4.6 DIRECT      Complexite ?
+            (PAS de delegation)   /          \
+                              Simple      Moyen/Complexe
+                                |              |
+                          HAIKU 4.5      SONNET 4.5
+                          via Task       via Task
+                          tool           tool
+```
+
+### Quand Opus 4.6 delegue (UNIQUEMENT ces cas)
+| Tache | Modele delegue | Mecanisme | Justification |
+|-------|---------------|-----------|---------------|
+| Recherche internet/web | Sonnet 4.5 | `Task(model: "sonnet", subagent_type: "general-purpose")` | Pas besoin d'analyse profonde pour fetch+summarize |
+| Exploration codebase simple | Haiku 4.5 | `Task(model: "haiku", subagent_type: "Explore")` | Pattern matching rapide |
+| Glob/Grep paralleles | Haiku 4.5 | `Task(model: "haiku", subagent_type: "Explore")` | Recherches simples en batch |
+| Execution commandes batch | Sonnet 4.5 | `Task(model: "sonnet", subagent_type: "Bash")` | npm install, pip install, docker ops |
+| Reformattage/Generation repetitive | Sonnet 4.5 | `Task(model: "sonnet", subagent_type: "general-purpose")` | Generation de contenu standard |
+| Calculs / verifications numeriques | Haiku 4.5 | `Task(model: "haiku", subagent_type: "general-purpose")` | Arithmetique simple |
+
+### Quand Opus 4.6 NE delegue PAS (fait lui-meme)
+| Tache | Raison |
+|-------|--------|
+| Analyse de workflows n8n | Necessite comprehension architecturale |
+| Decisions de debug / fix | Necessite raisonnement causal |
+| Redaction de directives | Necessite coherence globale |
+| Pilotage de session | Necessite memoire de session |
+| Evaluation de resultats | Necessite jugement qualite |
+| Modification de code critique | Necessite precision + contexte |
+| Communication avec l'utilisateur | Necessite empathie + contexte |
+
+### Exemple concret
+```
+[Session type — Fix Quantitative pipeline]
+
+OPUS: Lit session-state.md → identifie objectif → plan d'action
+OPUS: Analyse node-by-node du workflow (decision complexe → PAS de delegation)
+OPUS: Decide du fix → edite le noeud n8n (precision → PAS de delegation)
+OPUS: Delegue 3 taches en parallele :
+  → SONNET: Rechercher "CompactRAG SQL generation 2026" sur le web
+  → HAIKU: Explorer le codebase pour trouver les fichiers de test quantitative
+  → HAIKU: Verifier les variables d'environnement presentes dans .env.local
+OPUS: Synthetise les resultats des sous-agents
+OPUS: Lance le test (decision → PAS de delegation)
+OPUS: Analyse les resultats (jugement → PAS de delegation)
+OPUS: Met a jour session-state.md et commit
+```
 
 ---
 
 ## 1. Roles
 
-| Agent | Repo | Localisation | Role | Modele |
-|-------|------|-------------|------|--------|
-| **Orchestrateur** | mon-ipad | VM Google Cloud (Termius) | Pilotage UNIQUEMENT, sync, directives, analyse. ZERO tests, ZERO fix workflow (Rule 28) | `claude-opus-4-6` |
-| **Testeur** | rag-tests | Codespace ephemere | Executer tests, mesurer accuracy, rapporter resultats | `claude-opus-4-6` |
-| **Developpeur Web** | rag-website | Codespace ephemere + Vercel | Construire site business, integrer chatbots sectoriels | `claude-opus-4-6` |
-| **Ingesteur** | rag-data-ingestion | Codespace ephemere | Telecharger datasets, ingerer dans BDD, enrichir | `claude-opus-4-6` |
-| **Dashboard** | rag-dashboard | Statique (GitHub Pages/Vercel) | Afficher metriques live (read-only) | N/A |
+| Agent | Repo | Localisation | Role | Modele Principal | Delegation |
+|-------|------|-------------|------|-----------------|------------|
+| **Orchestrateur** | mon-ipad | VM Google Cloud (Termius) | Pilotage UNIQUEMENT, sync, directives, analyse. ZERO tests, ZERO fix workflow (Rule 28) | `claude-opus-4-6` | Sonnet/Haiku pour recherches web + exploration |
+| **Testeur** | rag-tests | Codespace ephemere / HF Space | Executer tests, mesurer accuracy, rapporter resultats | `claude-opus-4-6` | Haiku pour exploration codebase rapide |
+| **Developpeur Web** | rag-website | Codespace ephemere + Vercel | Construire site business, integrer chatbots sectoriels | `claude-opus-4-6` | Sonnet pour generation composants repetitifs |
+| **Ingesteur** | rag-data-ingestion | Codespace ephemere | Telecharger datasets, ingerer dans BDD, enrichir | `claude-opus-4-6` | Sonnet pour batch downloads + transformations |
+| **Dashboard** | rag-dashboard | Statique (GitHub Pages/Vercel) | Afficher metriques live (read-only) | N/A | N/A |
 
 ### Hierarchie
 ```
-Orchestrateur (mon-ipad)
+Orchestrateur (mon-ipad) — Opus 4.6
   |
   +-- distribue les CLAUDE.md via push-directives.sh
-  +-- fixe les workflows n8n
+  +-- analyse les resultats (Opus — PAS de delegation)
+  +-- decide des fixes (Opus — PAS de delegation)
+  +-- delegue recherches web → Sonnet 4.5 sous-agents
+  +-- delegue exploration codebase → Haiku 4.5 sous-agents
   +-- publie technicals/fixes-library.md
   |
-  +-- Testeur (rag-tests)
-  |     +-- mesure les pipelines
+  +-- Testeur (rag-tests) — Opus 4.6
+  |     +-- mesure les pipelines (Opus)
+  |     +-- analyse les resultats (Opus)
+  |     +-- explore codebase → Haiku sous-agents
   |     +-- rapporte via git push
   |
-  +-- Dev Web (rag-website)
-  |     +-- construit le site
+  +-- Dev Web (rag-website) — Opus 4.6
+  |     +-- architecture decisions (Opus)
+  |     +-- generation composants → Sonnet sous-agents
   |     +-- deploie via Vercel
   |
-  +-- Ingesteur (rag-data-ingestion)
-        +-- ingere datasets
+  +-- Ingesteur (rag-data-ingestion) — Opus 4.6
+        +-- strategie ingestion (Opus)
+        +-- batch operations → Sonnet sous-agents
         +-- enrichit BDD
 ```
 
@@ -186,9 +266,9 @@ gh codespace list --json name,state,lastUsedAt,createdAt
 
 ---
 
-## 7. Opus 4.6 Obligatoire
+## 7. Strategie Multi-Model (Opus 4.6 + Sonnet 4.5 + Haiku 4.5)
 
-### Regle : tous les agents utilisent `claude-opus-4-6`
+### Regle : tous les agents principaux utilisent `claude-opus-4-6`
 
 ```bash
 # Au demarrage de chaque session / Codespace :
@@ -201,8 +281,80 @@ claude --model claude-opus-4-6
 ### Verification
 - `.claude/settings.json` contient `"model": "claude-opus-4-6"`
 - L'abonnement Max donne acces au modele Opus 4.6
-- NE JAMAIS utiliser Sonnet pour le pilotage ou les decisions complexes
-- Les sous-agents (Task tool) peuvent utiliser `haiku` pour taches simples (recherche rapide)
+- NE JAMAIS utiliser Sonnet ou Haiku comme modele PRINCIPAL d'un agent
+- Les sous-agents (Task tool) utilisent Sonnet/Haiku pour les taches d'EXECUTION delegees
+
+### Multi-model via Task tool (mecanisme de delegation)
+```javascript
+// Opus delegue a Sonnet pour une recherche web
+Task({
+  model: "sonnet",
+  subagent_type: "general-purpose",
+  prompt: "Rechercher les dernieres techniques CompactRAG 2026 sur le web",
+  description: "Web search CompactRAG"
+})
+
+// Opus delegue a Haiku pour exploration rapide
+Task({
+  model: "haiku",
+  subagent_type: "Explore",
+  prompt: "Trouver tous les fichiers contenant 'template_sql' dans le repo",
+  description: "Find template SQL files"
+})
+
+// Opus delegue a Sonnet pour batch commands
+Task({
+  model: "sonnet",
+  subagent_type: "Bash",
+  prompt: "Installer les dependances et build le projet Next.js",
+  description: "Build Next.js project"
+})
+```
+
+### Regles de delegation
+1. **Opus DECIDE** quand deleguer — jamais l'inverse
+2. **Opus ANALYSE** toujours les resultats des sous-agents
+3. **Sonnet** pour taches d'execution complexes (web, batch, generation)
+4. **Haiku** pour taches simples et rapides (exploration, verification)
+5. **Jamais** de delegation pour : decisions architecturales, debug, pilotage, evaluation
+6. **Paralleliser** les sous-agents quand possible (3+ taches independantes)
+7. **run_in_background: true** pour taches longues (recherches web, downloads)
+
+---
+
+## 7b. Agent Harness — Bonnes Pratiques 2026
+
+### Etat persistant (harness pattern)
+Chaque agent maintient son etat via des fichiers git-committed :
+
+| Fichier | Role | Mis a jour quand |
+|---------|------|-----------------|
+| `directives/session-state.md` | Memoire de session active | Apres chaque milestone |
+| `docs/status.json` | Metriques machine-readable | Apres chaque eval |
+| `directives/status.md` | Resume humain-lisible | Fin de session |
+| `technicals/knowledge-base.md` | Cerveau persistant | Pendant la session (pas fin) |
+| `technicals/fixes-library.md` | Bibliotheque de solutions | Apres chaque fix |
+
+### Error recovery (anti-boucle)
+```
+SI erreur detectee:
+  1. Chercher dans fixes-library.md (pattern connu ?)
+  2. SI connu → appliquer fix directement, SANS re-analyser
+  3. SI inconnu → double analyse (node-analyzer + analyze_n8n_executions)
+  4. SI 3 echecs consecutifs meme erreur → AUTO-STOP
+  5. Documenter dans logs/diagnostics/ + signaler a l'orchestrateur
+```
+
+### Supervision et monitoring
+- `scripts/codespace-control.sh` pour piloter les agents distants
+- `/tmp/eval-progress.json` pour le reporting en temps reel
+- GitHub commits comme canal de communication agent-to-agent
+- Webhook `/webhook/codespace-progress` pour notifications
+
+### Scalabilite (pattern Kaxo 2026)
+Architecture actuelle : 1 Opus orchestrateur + 4 agents specialises.
+Cible : jusqu'a 10+ agents avec sous-agents delegues.
+Cout cible : minimal grace a la delegation Haiku (>80% des taches simples).
 
 ---
 

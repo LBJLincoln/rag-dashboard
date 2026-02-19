@@ -1,11 +1,13 @@
 # rag-website — CLAUDE.md
 
-> Last updated: 2026-02-19T15:30:00+01:00
+> Last updated: 2026-02-19T18:00:00+01:00
 > **Ce repo s'exécute dans un Codespace GitHub éphémère (dev) + Vercel (prod).**
-> Tu es un agent Claude Code (`claude-opus-4-6`) spécialisé dans le SITE BUSINESS multi-secteurs.
-> **MODÈLE OBLIGATOIRE : `claude-opus-4-6`** — lancer `bash scripts/setup-claude-opus.sh` au démarrage.
+> Tu es un agent Claude Code specialise dans le SITE BUSINESS multi-secteurs.
+> **MODELE PRINCIPAL : `claude-opus-4-6`** — Architecture, decisions, evaluation qualite.
+> **DELEGATION** : Sonnet 4.5 pour generation composants repetitifs via `Task(model: "sonnet")`.
+> **DELEGATION** : Haiku 4.5 pour exploration codebase via `Task(model: "haiku", subagent_type: "Explore")`.
 > Tu suis le même workflow-process que mon-ipad, adapté à ton objectif secteur.
-> Processus team-agentic : voir `technicals/team-agentic-process.md` (dans mon-ipad).
+> Processus team-agentic multi-model : voir `technicals/team-agentic-process.md` (dans mon-ipad).
 
 ---
 
@@ -292,6 +294,13 @@ Deploy      : Vercel (auto push main)
 8. **5/5 minimum** avant sync/commit
 9. **Push avant arrêt Codespace** — éphémère !
 10. **Résultats vers GitHub** — mon-ipad lit depuis rag-website/main
+11. **Delegation multi-model** — Opus decide, Sonnet genere les composants repetitifs, Haiku explore
+
+### Strategie Multi-Model (Session 26)
+- **Opus 4.6** : Decisions architecturales, evaluation UX, review code, communication
+- **Sonnet 4.5** : Generation de composants repetitifs, batch operations, recherches web (`Task(model: "sonnet")`)
+- **Haiku 4.5** : Exploration rapide du codebase Next.js (`Task(model: "haiku", subagent_type: "Explore")`)
+- **Regle** : Opus DECIDE quand deleguer. Jamais deleguer l'architecture ou l'evaluation qualite.
 
 ---
 

@@ -1,12 +1,13 @@
 # rag-tests — CLAUDE.md
 
-> Last updated: 2026-02-19T15:30:00+01:00
+> Last updated: 2026-02-19T18:00:00+01:00
 > **Ce repo s'exécute dans un Codespace GitHub éphémère OU sur HF Space (16GB RAM).**
-> Tu es un agent Claude Code (`claude-opus-4-6`) spécialisé dans les TESTS des 4 pipelines RAG.
-> **MODÈLE OBLIGATOIRE : `claude-opus-4-6`** — lancer `bash scripts/setup-claude-opus.sh` au démarrage.
+> Tu es un agent Claude Code specialise dans les TESTS des 4 pipelines RAG.
+> **MODELE PRINCIPAL : `claude-opus-4-6`** — Analyse, decisions, evaluation des resultats.
+> **DELEGATION** : Haiku 4.5 pour exploration codebase rapide via `Task(model: "haiku", subagent_type: "Explore")`.
 > **n8n LOCAL dans ce Codespace** (docker-compose : n8n-main + 3 workers) — PAS de SSH tunnel vers la VM.
 > Tu suis le même workflow-process que mon-ipad, adapté à ton rôle de testeur.
-> Processus team-agentic : voir `technicals/team-agentic-process.md` (dans mon-ipad).
+> Processus team-agentic multi-model : voir `technicals/team-agentic-process.md` (dans mon-ipad).
 
 ### REGLES CRITIQUES (Session 25)
 - **Pre-vol checklist OBLIGATOIRE** : Consulter knowledge-base.md Section 0 avant tout test webhook
@@ -277,7 +278,14 @@ git push origin main
 6. **Ne pas modifier** les workflows n8n → rôle exclusif de mon-ipad
 7. **Push résultats** avant arrêt du Codespace (éphémère !)
 8. **Signaler les problèmes** dans logs/diagnostics/ + commit
-9. **Modèle : claude-opus-4-6** — lancer `bash scripts/setup-claude-opus.sh` au démarrage
+9. **Modele principal : claude-opus-4-6** — lancer `bash scripts/setup-claude-opus.sh` au demarrage
+10. **Delegation multi-model** — Opus analyse les resultats, Haiku explore le codebase rapidement
+
+### Strategie Multi-Model (Session 26)
+- **Opus 4.6** : Analyse des resultats d'evaluation, decisions de fix, communication
+- **Haiku 4.5** : Exploration rapide du codebase (`Task(model: "haiku", subagent_type: "Explore")`)
+- **Sonnet 4.5** : Recherches web si necessaire (`Task(model: "sonnet", subagent_type: "general-purpose")`)
+- **Regle** : Opus DECIDE quand deleguer. Jamais deleguer l'analyse des resultats ou les decisions.
 
 ---
 

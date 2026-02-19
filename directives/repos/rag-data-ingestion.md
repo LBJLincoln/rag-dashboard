@@ -1,11 +1,13 @@
 # rag-data-ingestion — CLAUDE.md
 
-> Last updated: 2026-02-19T15:30:00+01:00
+> Last updated: 2026-02-19T18:00:00+01:00
 > **Ce repo s'exécute dans un Codespace GitHub éphémère.**
-> Tu es un agent Claude Code (`claude-opus-4-6`) spécialisé dans l'INGESTION et l'ENRICHISSEMENT des BDD.
-> **MODÈLE OBLIGATOIRE : `claude-opus-4-6`** — lancer `bash scripts/setup-claude-opus.sh` au démarrage.
+> Tu es un agent Claude Code specialise dans l'INGESTION et l'ENRICHISSEMENT des BDD.
+> **MODELE PRINCIPAL : `claude-opus-4-6`** — Strategie ingestion, analyse qualite, decisions.
+> **DELEGATION** : Sonnet 4.5 pour batch downloads/transformations via `Task(model: "sonnet")`.
+> **DELEGATION** : Haiku 4.5 pour verification/exploration rapide via `Task(model: "haiku")`.
 > Tu suis le même workflow-process que mon-ipad, adapté à l'amélioration des pipelines d'ingestion.
-> Processus team-agentic : voir `technicals/team-agentic-process.md` (dans mon-ipad).
+> Processus team-agentic multi-model : voir `technicals/team-agentic-process.md` (dans mon-ipad).
 
 ---
 
@@ -355,6 +357,13 @@ git push origin main
 8. **Push résultats** avant arrêt du Codespace (éphémère !)
 9. **Documenter** chaque technique dans `research/papers-2026.md`
 10. **Signaler à mon-ipad** les workflows validés pour déploiement VM
+11. **Delegation multi-model** — Opus decide, Sonnet batch downloads, Haiku verifications
+
+### Strategie Multi-Model (Session 26)
+- **Opus 4.6** : Strategie d'ingestion, analyse qualite embeddings, decisions d'enrichissement
+- **Sonnet 4.5** : Batch downloads HuggingFace, transformations data, operations Docker (`Task(model: "sonnet")`)
+- **Haiku 4.5** : Verification datasets, exploration codebase (`Task(model: "haiku", subagent_type: "Explore")`)
+- **Regle** : Opus DECIDE quand deleguer. Jamais deleguer la strategie d'ingestion ou l'analyse qualite.
 
 ---
 

@@ -1,10 +1,11 @@
 # Multi-RAG Orchestrator — Tour de Contrôle Centrale
 
-> Last updated: 2026-02-19T15:30:00+01:00
+> Last updated: 2026-02-19T18:00:00+01:00
 
 > **CE REPO (`mon-ipad`) EST LA TOUR DE CONTRÔLE.**
 > VM Google Cloud permanente · Claude Code via Termius · Pilote 6 repos satellites
-> **MODÈLE OBLIGATOIRE : `claude-opus-4-6` (abonnement Max) — PAS Sonnet.**
+> **MODÈLE PRINCIPAL : `claude-opus-4-6` (abonnement Max) — Analyse, decisions, pilotage.**
+> **DELEGATION : Sonnet 4.5 (execution) + Haiku 4.5 (exploration) via Task tool — UNIQUEMENT quand Opus le juge pertinent.**
 > **Lire cette section EN PREMIER à chaque session.**
 
 ---
@@ -263,8 +264,11 @@ gh codespace start --codespace nomos-rag-website-jr7q9gr69qqfqp6r
 
 ## CE QUE TU ES ET CE QUE TU FAIS PRECISEMENT
 
-### MODÈLE OBLIGATOIRE — Opus 4.6
-**TOUJOURS utiliser `claude-opus-4-6` (jamais Sonnet).** L'abonnement Max donne accès au meilleur modèle Anthropic disponible.
+### STRATÉGIE MULTI-MODEL — Opus 4.6 + Delegation Sonnet/Haiku
+
+**Opus 4.6 = modèle PRINCIPAL (analyse, decisions, pilotage).**
+**Sonnet 4.5 = délégué pour EXECUTION (recherches web, batch commands, generation).**
+**Haiku 4.5 = délégué pour TACHES RAPIDES (exploration codebase, verifications).**
 
 ```bash
 # Au démarrage de chaque session / Codespace :
@@ -275,6 +279,16 @@ claude --model claude-opus-4-6
 
 Le fichier `.claude/settings.json` contient `"model": "claude-opus-4-6"`.
 Tous les repos satellites doivent faire de même (voir `directives/repos/*.md`).
+
+**Quand déléguer** (Opus décide, jamais l'inverse) :
+| Tache | Modele | Mecanisme |
+|-------|--------|-----------|
+| Recherche web / internet | Sonnet 4.5 | `Task(model: "sonnet", subagent_type: "general-purpose")` |
+| Exploration codebase | Haiku 4.5 | `Task(model: "haiku", subagent_type: "Explore")` |
+| Commandes batch | Sonnet 4.5 | `Task(model: "sonnet", subagent_type: "Bash")` |
+| Generation repetitive | Sonnet 4.5 | `Task(model: "sonnet", subagent_type: "general-purpose")` |
+
+**JAMAIS déléguer** : analyse workflows, decisions debug, redaction directives, evaluation résultats, communication utilisateur.
 
 ---
 
@@ -731,31 +745,44 @@ git diff --cached | grep -iE 'sk-or-|pcsk_|jV_zGdx|sbp_|hf_[A-Za-z]{10}|jina_[a-
 
 ---
 
-## Processus Team-Agentique (OBLIGATOIRE)
+## Processus Team-Agentique Multi-Model (OBLIGATOIRE)
 
 > Reference complete : `technicals/team-agentic-process.md`
 
 ### Principes
-1. **Parallélisation** : Taches independantes en parallele (sauf tests n8n → sequentiels)
-2. **Delegation specialisee** : Agent analyse, agent fix, agent test
-3. **Coordination** : L'agent principal ne duplique pas
-4. **Reference-based** : Comparer avec `snapshot/good/`
-5. **Auto-Stop** : 3 echecs consecutifs → STOP (voir `technicals/team-agentic-process.md`)
-6. **Fixes Library partagee** : master dans mon-ipad, copies vers satellites via `push-directives.sh`
+1. **Multi-model** : Opus 4.6 analyse + Sonnet/Haiku execution (delegation via Task tool)
+2. **Parallélisation** : Taches independantes en parallele (sauf tests n8n → sequentiels)
+3. **Delegation intelligente** : Opus DECIDE quand deleguer → Sonnet (execution) ou Haiku (exploration)
+4. **Coordination** : L'agent principal ne duplique pas le travail des sous-agents
+5. **Reference-based** : Comparer avec `snapshot/good/`
+6. **Auto-Stop** : 3 echecs consecutifs → STOP (voir `technicals/team-agentic-process.md`)
+7. **Fixes Library partagee** : master dans mon-ipad, copies vers satellites via `push-directives.sh`
+8. **Etat persistant** : session-state.md, knowledge-base.md, fixes-library.md — mis a jour PENDANT la session
+
+### Delegation Multi-Model (arbre de decision)
+```
+TACHE → Analyse/Decision ? → OUI → OPUS fait lui-meme
+                           → NON → Complexe ? → OUI → SONNET via Task tool
+                                              → NON → HAIKU via Task tool
+```
 
 ### Optimisations
-- `run_in_background: true` pour taches longues
-- `resume` pour reprendre un agent
-- `model: haiku` pour taches simples
-- `model: opus` pour decisions complexes
+- `run_in_background: true` pour taches longues (recherches web, downloads)
+- `resume` pour reprendre un agent apres interruption
+- `model: "haiku"` pour exploration codebase rapide (Glob/Grep patterns)
+- `model: "sonnet"` pour recherches web, generation, batch commands
+- `model: "opus"` (ou pas de model param) pour decisions et analyses complexes
+- Paralleliser 3+ sous-agents independants dans un seul message
 
 ### Architecture distribuee (par volume de tests)
 | Volume | Execution | Raison |
 |--------|-----------|--------|
-| 1-10 questions | VM directement | RAM suffisante |
-| 50-200 questions | VM avec queue mode | Redis present |
+| Pilotage + analyse | VM (Opus direct) | Decisions complexes |
+| 1-50 questions | HF Space (Opus + Haiku sous-agents) | 16GB RAM |
+| 50-200 questions | HF Space ou Codespace | RAM suffisante |
 | 500q+ | Codespace `rag-tests` | RAM 8GB, pas de contrainte |
 | Ingestion massive | Codespace `rag-data-ingestion` | n8n + 2 workers dedies |
+| Recherches web | VM (Opus delegue Sonnet) | Pas besoin de RAM |
 
 ---
 
