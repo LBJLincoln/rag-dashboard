@@ -1,6 +1,6 @@
-# Session State — 19 Fevrier 2026 (Session 27)
+# Session State — 19 Fevrier 2026 (Session 27 suite)
 
-> Last updated: 2026-02-19T21:15:00+01:00
+> Last updated: 2026-02-19T22:45:00+01:00
 
 ## Objectif de session : Phase 2 pour TOUS les pipelines (bottleneck strategy)
 
@@ -10,37 +10,33 @@
 |----------|----------------|-------------------|--------------|--------|
 | **Standard** | **200 OK** (11s) | AUCUN | — | PASS |
 | **Graph** | **200 OK** (54s) | AUCUN | — | PASS |
-| **Quantitative** | **500** (0.77s) | Code node echoue (quel node ? /diag va le dire) | FIX-29 + FIX-30b + FIX-31 | DIAGNOSTIC |
-| **Orchestrator** | **200 vide** (0.75s) | Respond to Webhook jamais atteint — Merge 4-inputs ou erreur Code node silencieuse | FIX-30 + FIX-31 | DIAGNOSTIC |
+| **Quantitative** | **200** (0.57s) mais erreur data | $env bloque pour TOUTES les HTTP Request nodes | FIX-33 (pending rebuild) | EN COURS |
+| **Orchestrator** | **200 vide** (19.7s) | $env bloque pour HTTP Request + sous-workflow return | FIX-33 (pending rebuild) | EN COURS |
 
-### Decouverte cle (session 27 suite)
-- Exec #13 (Quant, mode=webhook) = status=error — le VRAI probleme
-- Exec #14 (Quant, mode=error) = status=success — l'Error Trigger (inutile pour debug)
-- Le diagnostic precedent regardait exec #14 au lieu de #13
-- FIX-31: diag-server.py = serveur Python HTTP sur port 7861
-  - /diag : dernires executions avec details d'erreurs
-  - /test-quant : test + details execution
-  - /test-orch : test + details execution
-  - /test-all : test 4 pipelines
-  - /exec/<id> : details execution specifique
+### DECOUVERTE CRITIQUE — Session 27 (suite)
 
-### Progres Orchestrator
-- PostgreSQL 15 installe et demarre localement dans le container HF Space
-- Credential `zEr7jPswZNv6lWKu` redirige vers localhost:5432 (au lieu de Supabase port 6543)
-- Webhook V8 a `responseMode=responseNode` → attend un `respondToWebhook` node
-- Si aucun respondToWebhook ne fire → 200 empty body
-- Merge node (4 inputs) attend: Store RLHF, Update Context, Redis Cache, Redis Conv
-- Si un des 4 inputs ne fire pas → Merge bloque → Return Response V8 jamais atteint
-- Redis nodes (Store Conv, Set Cache) ont `continueOnFail=False` → si Redis echoue, chemin mort
-- Postgres Init Tasks, Insert Tasks etc. ont `onError=continueErrorOutput` → erreurs vers sortie #1 non connectee
+**n8n 2.8.3 Task Runner bloque $env pour TOUS les types de noeuds, pas juste Code.**
 
-### Progres Quantitative
-- HTTP Request nodes convertis (postgres → httpRequest v4.3)
-- SUPABASE_API_KEY corrigee (JWT anon, 208 chars)
-- Schema Context Builder et Result Aggregator adaptes pour format HTTP
-- TOUJOURS 500 (0.77s) — echec tres rapide, probablement un Code node au debut
-- Code nodes (Init & ACL, Schema Context Builder, etc.) n'ont PAS `continueOnFail=True`
-- SQL Error Handler utilise `$getWorkflowStaticData` — potentiellement problematique dans Task Runner
+- Preuve: Execution #8 (Quant) — les 4 HTTP Request nodes (Schema Introspection, Text-to-SQL Generator, SQL Executor, Interpretation Layer) retournent TOUTES `{"error": "access to env vars denied"}`
+- Preuve: Execution #9 (Orch) — Intent Analyzer HTTP Request retourne error, Postgres L2/L3 Memory echoue
+- C'est un changement par rapport a n8n < 2.8 ou seuls les Code nodes etaient affectes
+- 117 references $env a travers 5 workflows
+
+**FIX-33** : Remplacement de TOUTES les references $env par valeurs reelles au moment de l'import (entrypoint.sh). Script Python remplace $env.X dans le texte brut AVANT JSON parsing. Commit 90fe71e pousse, attente rebuild.
+
+### Etat Orchestrator (details)
+- 28 noeuds executes dans exec #9
+- `Invoke WF5: Standard` a execute (Standard sub-workflow #10/#11 = success)
+- MAIS: pas de Task Result Handler, Merge, Return Response dans l'execution
+- L'execution s'arrete a `IF: Rate Limited?`
+- Les HTTP Request nodes (Intent Analyzer, etc.) ont $env → retournent error → pipeline deraille
+
+### Etat Quantitative (details)
+- 12 noeuds executes dans exec #8
+- Pipeline complete (Webhook → ... → Response Formatter)
+- MAIS: toutes les HTTP Request nodes retournent error "access to env vars denied"
+- Schema Introspection retourne erreur → schema vide → LLM ne genere pas de SQL valide
+- SQL Validator retourne fallback SQL → Interpretation = erreur
 
 ### Fixes session 27
 
@@ -48,7 +44,9 @@
 |-----|-------------|------------|
 | FIX-29 | Quant postgres→REST API, Orch bitwiseHash, 16 env vars, JWT key | 68d113a, 5cab714 |
 | FIX-30 | PostgreSQL local pour Orchestrator, HTTP v4.3, continueOnFail | 508f594, 918deaa, 11884c6, 8225c6d |
-| FIX-31 | Live diagnostic server (diag-server.py) + improved error tracking | 783230d |
+| FIX-31 | Live diagnostic server (diag-server.py) + improved error tracking | 783230d, fc72dba |
+| FIX-32 | Quant $env Code nodes + Standard sub-workflow return | 810772e, 94949b2 |
+| FIX-33 | $env replace ALL refs at import time (n8n 2.8 blocks ALL) | 90fe71e |
 
 ### Commits session 27
 
@@ -56,6 +54,8 @@
 |------|------|-------------|
 | 01eb2d2 | mon-ipad | feat(session-27): FIX-29 script + bottleneck strategy started |
 | 2b039b6 | mon-ipad | fix(session-27): FIX-29 complete — fixes-library + session-state |
+| 0dfba3a | mon-ipad | docs: session-state update (FIX-31, FIX-32) |
+| c37f706 | mon-ipad | docs: fixes-library FIX-30/31/32 + anti-patterns |
 | 68d113a | HF Space | fix(FIX-29): Quant REST API + Orch error handler + missing env vars |
 | 5cab714 | HF Space | fix(FIX-29b): Orch activeVersion + Init V8 error handling |
 | 91b3843 | HF Space | diag(FIX-29c): diagnostic tests in entrypoint |
@@ -64,3 +64,7 @@
 | 11884c6 | HF Space | fix(FIX-30c): PostgreSQL minimal resources |
 | 8225c6d | HF Space | diag(FIX-29d): detailed execution error tracking |
 | 783230d | HF Space | fix(FIX-31): live diagnostic server + improved error tracking |
+| fc72dba | HF Space | fix(FIX-31b): diag-server list handling + /raw endpoint |
+| 810772e | HF Space | fix(FIX-32): Quant $env fix + Standard sub-wf return |
+| 94949b2 | HF Space | fix(FIX-32b): patch activeVersion — Quant $env + Standard sub-wf |
+| 90fe71e | HF Space | fix(FIX-33): replace ALL $env refs at import time |

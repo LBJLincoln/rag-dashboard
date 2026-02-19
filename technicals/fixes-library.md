@@ -43,6 +43,7 @@
 | 30 | Orchestrator | PostgreSQL local pour HF Space (port 6543 bloque) | 27 | IMPORTANT |
 | 31 | Infrastructure | Live diagnostic server (diag-server.py) sur port 7861 | 27 | IMPORTANT |
 | 32 | Quantitative + Standard | $env bloque dans Code nodes Task Runner + sub-workflow return | 27 | CRITIQUE |
+| 33 | TOUS workflows | $env bloque pour TOUS les types de noeuds n8n 2.8+ (pas juste Code) | 27 | CRITIQUE |
 
 ---
 
@@ -640,3 +641,16 @@ location /diag { proxy_pass http://127.0.0.1:7861/diag; }
 **REGLE** : `respondToWebhook` ne retourne PAS de donnees en mode sub-workflow. Ajouter un terminal Code node en parallele pour retourner les donnees au workflow parent.
 **REGLE** : Toujours patcher BOTH `nodes[]` ET `activeVersion.nodes[]` (rappel FIX-29).
 **Fichiers impactes** : `n8n-workflows/quantitative.json`, `n8n-workflows/standard.json` (HF Space)
+
+---
+
+### FIX-33 — n8n 2.8.3 $env bloque pour TOUS les types de noeuds (pas juste Code)
+**Session** : 27 (2026-02-19)
+**Composant** : HF Space — TOUS les workflows avec $env
+**Symptome** : Quantitative retourne 200 mais `interpretation: "Error: access to env vars denied"`. Orchestrator 200 body vide (Intent Analyzer HTTP Request retourne error au lieu de LLM response). TOUTES les HTTP Request nodes avec $env retournent `{"error": "access to env vars denied"}`.
+**Cause racine** : n8n 2.8.3 avec Task Runners TOUJOURS actifs evalue TOUTES les expressions (pas seulement les Code nodes) dans le sandbox du Task Runner. Le sandbox bloque l'acces a `$env` pour TOUS les types de noeuds : Code, HTTP Request, Postgres, etc. C'est un changement par rapport aux versions precedentes ou seuls les Code nodes etaient affectes.
+**Preuve** : Execution #8 (Quantitative) — items[169] = `"access to env vars denied"`. Schema Introspection, Text-to-SQL Generator, SQL Executor, Interpretation Layer (TOUTES HTTP Request nodes) retournent le meme error item.
+**Fix** : Remplacement de TOUTES les references `$env.X` par les valeurs reelles au moment de l'import dans entrypoint.sh. Un script Python parcourt le texte brut du JSON AVANT parsing et remplace chaque `$env.VAR_NAME` par la valeur de `os.environ.get(VAR_NAME, default)`. Couvre 30+ variables avec defaults.
+**Impact** : 117 references $env a travers 5 workflows (quantitative: 20, orchestrator: 27, ingestion: 22, enrichment: 24, benchmark-dataset-ingestion: 24). Standard et Graph = 0 (deja clean).
+**REGLE DEFINITIVE** : `$env` est INTERDIT dans n8n 2.8+ pour TOUS les types de noeuds. Ne JAMAIS utiliser $env dans les workflows. Injecter les valeurs a l'import ou utiliser des credentials n8n.
+**Fichiers impactes** : `entrypoint.sh` (HF Space) — section import Python

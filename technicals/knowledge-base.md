@@ -1,6 +1,6 @@
 # Knowledge Base — Cerveau Persistant Multi-RAG
 
-> Last updated: 2026-02-19T14:15:00+01:00
+> Last updated: 2026-02-19T22:50:00+01:00
 > **Ce document est VIVANT.** Il s'enrichit a CHAQUE session avec les solutions, patterns
 > et connaissances techniques decouvertes. A lire EN PREMIER avec `fixes-library.md`.
 > Objectif : ameliorer la performance de l'agent a chaque session.
@@ -256,10 +256,33 @@ Champs INTERDITS dans PUT : `id`, `createdAt`, `updatedAt`, `active`, `isArchive
 | Feature | n8n 2.7.4 (VM) | n8n 2.8.3 (HF Space) |
 |---------|----------------|----------------------|
 | Task Runners | Toujours ON (env var ignore) | Toujours ON |
+| **$env access** | **Bloque Code nodes** | **Bloque TOUS noeuds (FIX-33)** |
 | Login API | `emailOrLdapLoginId` | `emailOrLdapLoginId` |
 | Activation | PATCH active:true OK | Requires versionId (FIX-19) |
 | Import CLI | Fonctionne (array format) | Echoue souvent (FK issues) |
 | REST API | Stable | Stable apres warmup (FIX-20) |
+
+### 3.5 $env interdit dans n8n 2.8+ (CRITIQUE — FIX-33)
+```
+n8n 2.8.3 Task Runner evalue TOUTES les expressions dans le sandbox.
+$env est bloque pour TOUS les types de noeuds :
+- Code nodes (typeVersion 2)
+- HTTP Request (URL, headers, body expressions)
+- Postgres nodes
+- Tout noeud avec des expressions {{ }}
+
+ERREUR RUNTIME : "access to env vars denied"
+STACK : workflow-data-proxy-env-provider.js:59:27
+
+SOLUTION : Ne JAMAIS utiliser $env dans les workflows n8n 2.8+.
+Options :
+1. Injecter les valeurs au moment de l'import (FIX-33, recommande)
+2. Utiliser des credentials n8n (pour les secrets)
+3. Hardcoder les valeurs dans le JSON du workflow
+
+Le FIX-33 dans entrypoint.sh remplace $env.X par os.environ values
+AVANT le JSON parsing, couvrant 30+ variables.
+```
 
 ### 3.4 HTTP Request node — config recommandee
 ```json
