@@ -792,6 +792,8 @@ git diff --cached | grep -iE 'sk-or-|pcsk_|jV_zGdx|sbp_|hf_[A-Za-z]{10}|jina_[a-
 23. **Progress callback** — les scripts eval écrivent `/tmp/eval-progress.json` pour visibilité VM
 24. **MAJ `technicals/knowledge-base.md`** — cerveau persistant, enrichi PENDANT la session (pas en fin), patterns + solutions + LLM + APIs + commandes
 25. **NO operations VM** — aucun test (eval, quick-test) ne tourne sur la VM. Tests → HF Space ou Codespaces uniquement
+26. **Session max 2h** — chaque session Claude Code limitée à 2h pour conserver l'efficacité. A 1h45 : finaliser, push, MAJ session-state.md et status.md
+27. **Kill old processes** — au démarrage, vérifier `ps aux | grep claude | grep -v grep` et tuer les anciennes sessions Claude qui consomment de la RAM
 
 ---
 

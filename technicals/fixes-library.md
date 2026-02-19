@@ -35,6 +35,7 @@
 | 22 | Quantitative Pipeline | OpenRouter 429 rate-limit — retries + neverError + error serialization | 25 | CRITIQUE |
 | 23 | Datasets | HuggingFace dataset IDs incorrects (6/11 faux) | 25 | IMPORTANT |
 | 24 | n8n Infrastructure | N8N_RUNNERS_ENABLED deprecie dans n8n 2.7.4+ (toujours actif) | 25 | IMPORTANT |
+| 25 | VM Infrastructure | Anciennes sessions Claude Code zombies consomment RAM | 25 | IMPORTANT |
 
 ---
 
@@ -485,3 +486,22 @@ interpretation = '...Error: ' + (typeof $json.error === 'object'
 **Contournement VM** : Utiliser FIX-05 (Task Broker TTL 15s→120s) pour eviter les expirations de tokens sur la VM lente. Les task runners ne peuvent pas etre desactives.
 **REGLE** : Pour n8n >= 2.7.4, ne PAS compter sur N8N_RUNNERS_ENABLED. Les Code nodes tournent toujours en isolation. `$getWorkflowStaticData` peut ne pas fonctionner comme attendu entre iterations.
 **Fichier impacte** : `/home/termius/n8n/docker-compose.yml` (variable presente mais ignoree)
+
+---
+
+### FIX-25 — Anciennes sessions Claude Code zombies consomment RAM
+**Session** : 25 (2026-02-19)
+**Composant** : VM Google Cloud
+**Symptome** : VM saturee (~66 MB free, swap >1 GB). n8n retourne Internal Server Error sur REST API. MCP n8n retourne 0 workflows. Impression que "le probleme de RAM n'a pas ete regle".
+**Cause racine** : Les sessions precedentes de Claude Code (PID zombie) restent en memoire. Chaque session Claude Code consomme ~280 MB. Si 2 sessions sont actives simultanement = 560 MB + n8n 215 MB = 775 MB / 969 MB = saturation.
+**Fix** : Au demarrage de chaque session, verifier et killer les anciens processus :
+```bash
+# Lister les sessions Claude Code
+ps aux | grep claude | grep -v grep
+# Tuer les anciennes (garder seulement la session courante)
+kill <OLD_PID>
+# Liberer le cache filesystem
+sync && echo 3 | sudo tee /proc/sys/vm/drop_caches
+```
+**Prevention** : Session max 2h (regle 26 dans CLAUDE.md). Avant de quitter, s'assurer que le processus se termine proprement.
+**Fichier impacte** : CLAUDE.md (regle 27), `technicals/knowledge-base.md` (section 7.1)

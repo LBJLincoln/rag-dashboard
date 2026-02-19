@@ -310,10 +310,17 @@ sota-rag-jina-1024 : 10,411 vecteurs
 ## 7. INFRASTRUCTURE
 
 ### 7.1 VM Google Cloud — Contraintes
-- **RAM** : 969 MB total, ~104 MB libre. Claude Code = ~297 MB. n8n = ~68 MB.
+- **RAM** : 969 MB total, ~100 MB libre. Claude Code = ~280 MB. n8n = ~215 MB. Task runner = ~38 MB.
 - **REGLE** : Jamais de tests lourds sur la VM. Pilotage UNIQUEMENT.
 - **Swap** : ~1 GB utilise en permanence. Les operations memoire-intensives sont lentes.
 - **Disque** : 30 GB, 17 GB libres. Les datasets sectoriels font ~27 MB total — OK.
+- **PIEGE RECURRENT** : Les anciennes sessions Claude Code restent en memoire (PID zombie). Au demarrage de session : `ps aux | grep claude | grep -v grep` et killer les anciens PID. Chaque session = ~280 MB.
+- **Nettoyage RAM** : `sync && echo 3 | sudo tee /proc/sys/vm/drop_caches` libere 20-50 MB de cache filesystem.
+
+### 7.2 Session Claude Code — Limites
+- **Duree max** : 2h par session pour conserver l'efficacite (eviter context overflow)
+- **A 1h45** : finaliser les taches en cours, push, MAJ session-state.md et status.md
+- **Avant /compact** : TOUJOURS s'assurer que tous les fichiers technicals/ sont a jour et pushes dans GitHub
 
 ### 7.2 HF Space — Capacites
 - **RAM** : 16 GB (cpu-basic, $0)
