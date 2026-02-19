@@ -1,6 +1,6 @@
 # Alternatives Cloud Gratuites — Migration Infrastructure
 
-> Last updated: 2026-02-18T19:15:00Z
+> Last updated: 2026-02-19T15:30:00+01:00
 > Recherche internet poussee : 20+ providers analyses, papiers academiques + blogs labs
 
 ---

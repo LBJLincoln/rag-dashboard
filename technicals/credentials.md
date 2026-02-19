@@ -1,6 +1,6 @@
 # Credentials & Cles API
 
-> Last updated: 2026-02-18T23:50:00+01:00
+> Last updated: 2026-02-19T15:30:00+01:00
 
 > **Ce fichier DOIT etre mis a jour** apres chaque rotation de cle ou changement de service.
 > Derniere mise a jour : 2026-02-18 (audit credentials session 24, alignement .env.local/.mcp.json, HF Space)

@@ -1,6 +1,6 @@
 # Stack Technique Complete — Docker Era
 
-> Last updated: 2026-02-18T14:00:00Z
+> Last updated: 2026-02-19T15:30:00+01:00
 > Post-migration Docker (2026-02-12)
 
 ---
