@@ -1,6 +1,6 @@
 # Session State — 19 Fevrier 2026 (Session 27 suite)
 
-> Last updated: 2026-02-19T23:35:00+01:00
+> Last updated: 2026-02-19T23:50:00+01:00
 
 ## Objectif de session : Phase 2 pour TOUS les pipelines (bottleneck strategy)
 
@@ -10,10 +10,13 @@
 |----------|----------------|-------------------|--------------|--------|
 | **Standard** | **200 OK** (17s) | AUCUN | — | **PASS** |
 | **Graph** | **200 OK** (18.5s) | AUCUN | — | **PASS** |
-| **Quantitative** | **200 OK** (3.2s) | SQL logic (pas $env) | FIX-33 resolved $env | **PASS** (pipeline runs) |
+| **Quantitative** | **200 OK** (3-6s) | OpenRouter 429 rate limit | FIX-33+35 infra OK | **PARTIAL** (LLM rate limited) |
 | **Orchestrator** | **200 OK** (16-23s) | AUCUN | FIX-34 httpRequest | **PASS** (3/3 tests) |
 
-### MILESTONE ATTEINT — 4/4 pipelines fonctionnels sur HF Space
+### MILESTONE — 3/4 pipelines fonctionnels, 1/4 rate limited (pas infra)
+- Standard, Graph, Orchestrator: fonctionnels, réponses correctes
+- Quantitative: infra OK (12 noeuds executent), OpenRouter 429 rate limit (quota)
+- FIX-35b: URL OpenRouter corrigée, FIX-33: $env remplacés
 
 ### DECOUVERTES CRITIQUES — Session 27 (suite)
 
@@ -50,6 +53,7 @@
 | FIX-32 | Quant $env Code nodes + Standard sub-workflow return | 810772e, 94949b2 |
 | FIX-33 | $env replace ALL refs at import time (n8n 2.8 blocks ALL) | 90fe71e, 72fb888 |
 | FIX-34 | Orchestrator: executeWorkflow → httpRequest (sub-wf return vide) | 618fc09 |
+| FIX-35 | Quantitative: OPENROUTER_BASE_URL manquait /chat/completions | 7d378d9, 31e684b |
 
 ### Commits session 27
 
@@ -75,8 +79,14 @@
 | 72fb888 | HF Space | fix(FIX-33b): standalone fix-env-refs.py script |
 | 618fc09 | HF Space | feat(FIX-34): executeWorkflow → httpRequest for sub-wf calls |
 
+### Tests paralleles (nouveau script eval/parallel-pipeline-test.py)
+- 3 pipelines testes en parallele: Standard, Graph, Orchestrator
+- Resultat: 100% accuracy, 15/15 correct, avg 11.2s
+- HF Space gere bien 3 pipelines simultanes
+- Auto-stop apres N erreurs consecutives inclus
+
 ### Prochaines actions
-1. Verifier FIX-34 apres rebuild HF Space (~2min)
-2. Si Orch retourne des donnees → tester Orch avec question reelle
-3. Si Orch fonctionne → 4/4 pipelines UP → commencer validation Phase 1
-4. Documenter FIX-34 dans fixes-library
+1. Resoudre Quantitative 429 rate limit (attendre ou changer modele)
+2. Lancer test parallele 10+ questions pour validation complete
+3. Documenter infrastructure parallele dans technicals/
+4. Valider Phase 1 gates
