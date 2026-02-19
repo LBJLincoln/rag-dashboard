@@ -494,9 +494,11 @@ rag-pme-usecases   → github.com/LBJLincoln/rag-pme-usecases.git
 1. **Lire `directives/session-state.md`** — Mémoire de travail
 2. **Lire `directives/status.md`** — Résumé dernière session
 3. **Lire `docs/status.json`** — Métriques live
-4. `cat technicals/fixes-library.md | head -50` — Symptôme connu ?
+4. **Lire `technicals/knowledge-base.md`** — **CERVEAU PERSISTANT** (patterns, solutions, LLM, APIs)
+5. `cat technicals/fixes-library.md | head -50` — Symptôme connu ?
 
 **Règle** : Avant chaque action complexe, re-lire `directives/session-state.md`.
+**Règle** : Après chaque découverte technique, mettre à jour `technicals/knowledge-base.md` IMMÉDIATEMENT (pas en fin de session).
 
 ### 0.2 Mise à jour session-state.md (OBLIGATOIRE)
 ```markdown
@@ -554,9 +556,11 @@ bash scripts/check-staleness.sh  # Verifier staleness
 - `technicals/phases-overview.md` — 5 phases et gates
 - `technicals/infrastructure-plan.md` — Plan d'infrastructure distribuee + Docker par repo
 - `technicals/sector-datasets.md` — 1000+ types de documents par secteur
-- `technicals/fixes-library.md` — Bibliotheque des 12+ fixes documentes
+- `technicals/fixes-library.md` — Bibliotheque des 24+ fixes documentes
+- **`technicals/knowledge-base.md`** — **CERVEAU PERSISTANT** — patterns, solutions, LLM, APIs, commandes, schemas. S'enrichit a chaque session.
 - `directives/dataset-rationale.md` — Justification des 14 benchmarks
 - `directives/repos/` — Directives personnalisées par repo satellite
+- `directives/research-methodology.md` — Directive recherche internet/academique SOTA 2026
 
 ---
 
@@ -785,6 +789,8 @@ git diff --cached | grep -iE 'sk-or-|pcsk_|jV_zGdx|sbp_|hf_[A-Za-z]{10}|jina_[a-
 21. **MAJ `technicals/fixes-library.md`** — après chaque fix réussi (avant commit)
 22. **Pilotage live** — utiliser `codespace-control.sh` pour lancer/monitor/stopper les runs Codespace
 23. **Progress callback** — les scripts eval écrivent `/tmp/eval-progress.json` pour visibilité VM
+24. **MAJ `technicals/knowledge-base.md`** — cerveau persistant, enrichi PENDANT la session (pas en fin), patterns + solutions + LLM + APIs + commandes
+25. **NO operations VM** — aucun test (eval, quick-test) ne tourne sur la VM. Tests → HF Space ou Codespaces uniquement
 
 ---
 
