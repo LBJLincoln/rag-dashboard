@@ -7,13 +7,13 @@
 > **DELEGATION** : Haiku 4.5 pour exploration codebase rapide via `Task(model: "haiku", subagent_type: "Explore")`.
 > **n8n LOCAL dans ce Codespace** (docker-compose : n8n-main + 3 workers) — PAS de SSH tunnel vers la VM.
 > Tu suis le même workflow-process que mon-ipad, adapté à ton rôle de testeur.
-> Processus team-agentic multi-model : voir `technicals/team-agentic-process.md` (dans mon-ipad).
+> Processus team-agentic multi-model : voir `technicals/project/team-agentic-process.md` (dans mon-ipad).
 
 ### REGLES CRITIQUES (Session 25)
 - **Pre-vol checklist OBLIGATOIRE** : Consulter knowledge-base.md Section 0 avant tout test webhook
 - **ZERO test sur la VM** : Tests → HF Space (16GB) ou Codespace (8GB)
 - **Field name = `query`** (PAS `question`) pour les 4 pipelines
-- **27 fixes documentes** dans `technicals/fixes-library.md` — consulter AVANT tout debug
+- **27 fixes documentes** dans `technicals/debug/fixes-library.md` — consulter AVANT tout debug
 
 ---
 
@@ -152,10 +152,10 @@ python3 eval/phase_gates.py
 
 ## ETAPE 0 — Consulter la Bibliotheque de Fixes (OBLIGATOIRE)
 
-**AVANT tout debug, TOUJOURS consulter `technicals/fixes-library.md` en premier.**
+**AVANT tout debug, TOUJOURS consulter `technicals/debug/fixes-library.md` en premier.**
 
 ```bash
-cat technicals/fixes-library.md
+cat technicals/debug/fixes-library.md
 ```
 
 12 bugs critiques ont deja ete resolus (sessions 7–17). Chercher le symptome dans le tableau PIEGES RECURRENTS avant toute analyse. **Si symptome connu → appliquer directement SANS re-analyser.** Consulter les 2-3 dernieres versions reussies dans `n8n/validated/`. Si le symptome est nouveau → debugger, puis signaler a mon-ipad pour documentation dans la bibliotheque.
@@ -164,7 +164,7 @@ cat technicals/fixes-library.md
 3 echecs consecutifs sur le meme type d'erreur → STOP, documenter dans `logs/diagnostics/`, signaler a mon-ipad.
 
 ### Fixes Library Partagee
-La bibliotheque de fixes master est dans `mon-ipad/technicals/fixes-library.md`. Ce repo recoit une copie via `push-directives.sh`. Si tu decouvres un nouveau bug, documente-le dans `logs/diagnostics/` + commit + push. L'orchestrateur (mon-ipad) ajoutera le fix au master.
+La bibliotheque de fixes master est dans `mon-ipad/technicals/debug/fixes-library.md`. Ce repo recoit une copie via `push-directives.sh`. Si tu decouvres un nouveau bug, documente-le dans `logs/diagnostics/` + commit + push. L'orchestrateur (mon-ipad) ajoutera le fix au master.
 
 ---
 
@@ -270,7 +270,7 @@ git push origin main
 
 ## RÈGLES D'OR
 
-1. **Consulter fixes-library.md EN PREMIER** — avant tout debug (`technicals/fixes-library.md`)
+1. **Consulter fixes-library.md EN PREMIER** — avant tout debug (`technicals/debug/fixes-library.md`)
 2. **source .env.local** avant tout script Python
 3. **docker compose up -d** avant tout test (n8n LOCAL — PAS de SSH tunnel)
 4. **Tests séquentiels** — un pipeline à la fois (jamais de parallèles → 503)

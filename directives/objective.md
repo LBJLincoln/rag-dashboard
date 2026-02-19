@@ -94,7 +94,7 @@ PHASE D : Production & Deploiement
   Repos : rag-website + rag-dashboard (Vercel)
 ```
 
-Details complets : `technicals/phases-overview.md`
+Details complets : `technicals/project/phases-overview.md`
 
 ---
 
@@ -136,10 +136,10 @@ Details complets : `technicals/phases-overview.md`
 | **Dataset Ingestion** | Ingestion datasets HF | `YaHS9rVb1osRUJpE` |
 | **SQL Executor** | Execution SQL (sub-workflow) | `22k9541l9mHENlLD` |
 
-Supprimes (session 18) : Feedback V3.1, Monitoring, Orchestrator Tester, RAG Batch Tester — voir `technicals/architecture.md` pour raisons.
+Supprimes (session 18) : Feedback V3.1, Monitoring, Orchestrator Tester, RAG Batch Tester — voir `technicals/infra/architecture.md` pour raisons.
 
 ### Cible (16 workflows en 3 categories)
-Voir `technicals/architecture.md` section "Architecture 16 Workflows".
+Voir `technicals/infra/architecture.md` section "Architecture 16 Workflows".
 
 ---
 
@@ -228,7 +228,7 @@ Suivre le processus : `directives/workflow-process.md`
 
 ## Stack Technique
 
-Voir `technicals/stack.md` pour le detail complet.
+Voir `technicals/infra/stack.md` pour le detail complet.
 
 **Resume** :
 - **Workflows** : n8n Docker self-hosted (localhost:5678)

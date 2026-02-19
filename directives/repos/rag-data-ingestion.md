@@ -7,7 +7,7 @@
 > **DELEGATION** : Sonnet 4.5 pour batch downloads/transformations via `Task(model: "sonnet")`.
 > **DELEGATION** : Haiku 4.5 pour verification/exploration rapide via `Task(model: "haiku")`.
 > Tu suis le même workflow-process que mon-ipad, adapté à l'amélioration des pipelines d'ingestion.
-> Processus team-agentic multi-model : voir `technicals/team-agentic-process.md` (dans mon-ipad).
+> Processus team-agentic multi-model : voir `technicals/project/team-agentic-process.md` (dans mon-ipad).
 
 ---
 
@@ -65,7 +65,7 @@ puis ingérer les datasets sectoriels dans les BDD du projet.
 - Qualité d'ingestion : réduire les chunks parasites, améliorer la segmentation
 - Qualité des embeddings : meilleure représentation des documents sectoriels FR
 - Vitesse : réduire le temps d'ingestion par document
-- Couverture : 20+ datasets sectoriels ingérés (voir mon-ipad/technicals/sector-datasets.md)
+- Couverture : 20+ datasets sectoriels ingérés (voir mon-ipad/technicals/data/sector-datasets.md)
 
 ---
 
@@ -203,10 +203,10 @@ rag-ingestion-redis-1    redis:7-alpine        Port 6379 (queue)
 
 ## ETAPE 0 — Consulter la Bibliotheque de Fixes (OBLIGATOIRE)
 
-**AVANT tout debug, TOUJOURS consulter `technicals/fixes-library.md` en premier.**
+**AVANT tout debug, TOUJOURS consulter `technicals/debug/fixes-library.md` en premier.**
 
 ```bash
-cat technicals/fixes-library.md
+cat technicals/debug/fixes-library.md
 ```
 
 12 bugs critiques ont deja ete resolus (sessions 7–17). Chercher le symptome dans le tableau PIEGES RECURRENTS avant toute analyse. **Si symptome connu → appliquer directement SANS re-analyser.** Particulierement pertinent : FIX-06 (credentials manquantes), FIX-09 (PUT 400), FIX-12 (Pinecone dim mismatch). Si le symptome est nouveau → debugger, puis signaler a mon-ipad pour documentation.
@@ -215,7 +215,7 @@ cat technicals/fixes-library.md
 3 echecs consecutifs sur le meme type d'erreur → STOP, documenter dans `logs/diagnostics/`, signaler a mon-ipad.
 
 ### Fixes Library Partagee
-La bibliotheque de fixes master est dans `mon-ipad/technicals/fixes-library.md`. Ce repo recoit une copie via `push-directives.sh`. Si tu decouvres un nouveau bug, documente-le dans `logs/diagnostics/` + commit + push.
+La bibliotheque de fixes master est dans `mon-ipad/technicals/debug/fixes-library.md`. Ce repo recoit une copie via `push-directives.sh`. Si tu decouvres un nouveau bug, documente-le dans `logs/diagnostics/` + commit + push.
 
 ### BDD Separees (Ingestion)
 | BDD | Index/Schema mon-ipad (benchmark) | Index/Schema website (secteurs) |
@@ -278,7 +278,7 @@ python3 eval/run-eval-parallel.py --sector finance --label "financebench-ingest"
 
 ---
 
-## DATASETS À INGÉRER (depuis mon-ipad/technicals/sector-datasets.md)
+## DATASETS À INGÉRER (depuis mon-ipad/technicals/data/sector-datasets.md)
 
 ### Ordre de priorité
 ```
@@ -347,7 +347,7 @@ git push origin main
 
 ## RÈGLES D'OR
 
-1. **Consulter fixes-library.md EN PREMIER** — avant tout debug (`technicals/fixes-library.md`)
+1. **Consulter fixes-library.md EN PREMIER** — avant tout debug (`technicals/debug/fixes-library.md`)
 2. **Recherche papiers 2026 OBLIGATOIRE** avant tout développement
 3. **source .env.local** avant tout script Python
 4. **UN fix par itération** — jamais plusieurs changements simultanés

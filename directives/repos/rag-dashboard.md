@@ -6,7 +6,7 @@
 > **MODELE PRINCIPAL : `claude-opus-4-6`** — Decisions UI/UX, architecture, evaluation.
 > **DELEGATION** : Haiku 4.5 pour exploration rapide si necessaire.
 > Ce repo est en lecture seule vis-à-vis des pipelines RAG.
-> Processus team-agentic multi-model : voir `technicals/team-agentic-process.md` (dans mon-ipad).
+> Processus team-agentic multi-model : voir `technicals/project/team-agentic-process.md` (dans mon-ipad).
 
 ---
 

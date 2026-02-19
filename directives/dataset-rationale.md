@@ -498,7 +498,7 @@ Notre selection de 14 datasets couvre **toutes les dimensions** d'un systeme RAG
 Pour l'amelioration post-Phase 5, 50 datasets supplementaires ont ete identifies :
 - 10 techniques par secteur (BTP, Industrie, Finance, Juridique)
 - 10 generaux cross-secteur
-- Voir `technicals/sector-datasets.md` pour le detail complet
+- Voir `technicals/data/sector-datasets.md` pour le detail complet
 
 ### Candidats identifies
 

@@ -7,7 +7,7 @@
 > **DELEGATION** : Sonnet 4.5 pour generation composants repetitifs via `Task(model: "sonnet")`.
 > **DELEGATION** : Haiku 4.5 pour exploration codebase via `Task(model: "haiku", subagent_type: "Explore")`.
 > Tu suis le même workflow-process que mon-ipad, adapté à ton objectif secteur.
-> Processus team-agentic multi-model : voir `technicals/team-agentic-process.md` (dans mon-ipad).
+> Processus team-agentic multi-model : voir `technicals/project/team-agentic-process.md` (dans mon-ipad).
 
 ---
 
@@ -139,10 +139,10 @@ avec des bases de données **SÉPARÉES** de mon-ipad.
 
 ---
 
-## LES 20 DATASETS SECTORIELS (source : mon-ipad/technicals/sector-datasets.md)
+## LES 20 DATASETS SECTORIELS (source : mon-ipad/technicals/data/sector-datasets.md)
 
 5 datasets prioritaires par secteur = 20 datasets totaux.
-Voir la liste complète dans `technicals/sector-datasets.md` (sections 3.1 à 3.4).
+Voir la liste complète dans `technicals/data/sector-datasets.md` (sections 3.1 à 3.4).
 
 ### BTP/Construction (5 datasets prioritaires)
 | # | Dataset | Source HF | Utilité |
@@ -211,10 +211,10 @@ rag-website-postgres-1  postgres:15         Port 5432 (interne)
 
 ## ETAPE 0 — Consulter la Bibliotheque de Fixes (OBLIGATOIRE)
 
-**AVANT tout debug, TOUJOURS consulter `technicals/fixes-library.md` en premier.**
+**AVANT tout debug, TOUJOURS consulter `technicals/debug/fixes-library.md` en premier.**
 
 ```bash
-cat technicals/fixes-library.md
+cat technicals/debug/fixes-library.md
 ```
 
 12 bugs critiques ont deja ete resolus (sessions 7–17). Chercher le symptome dans le tableau PIEGES RECURRENTS avant toute analyse. **Si symptome connu → appliquer directement SANS re-analyser.** Particulierement pertinent : FIX-04 (Jina JSON), FIX-07 (Neo4j URL), FIX-09 (PUT 400), FIX-12 (Pinecone dim). Si le symptome est nouveau → debugger, puis signaler a mon-ipad.
@@ -223,7 +223,7 @@ cat technicals/fixes-library.md
 3 echecs consecutifs sur le meme type d'erreur → STOP, documenter dans `logs/diagnostics/`, signaler a mon-ipad.
 
 ### Fixes Library Partagee
-La bibliotheque de fixes master est dans `mon-ipad/technicals/fixes-library.md`. Ce repo recoit une copie via `push-directives.sh`. Si tu decouvres un nouveau bug, documente-le dans `logs/diagnostics/` + commit + push.
+La bibliotheque de fixes master est dans `mon-ipad/technicals/debug/fixes-library.md`. Ce repo recoit une copie via `push-directives.sh`. Si tu decouvres un nouveau bug, documente-le dans `logs/diagnostics/` + commit + push.
 
 ---
 
@@ -284,7 +284,7 @@ Deploy      : Vercel (auto push main)
 
 ## RÈGLES D'OR
 
-1. **Consulter fixes-library.md EN PREMIER** — avant tout debug (`technicals/fixes-library.md`)
+1. **Consulter fixes-library.md EN PREMIER** — avant tout debug (`technicals/debug/fixes-library.md`)
 2. **source .env.local** avant tout script Python
 3. **Bases de données SÉPARÉES** — ne jamais écrire dans les indexes de mon-ipad
 4. **Recherche papiers 2026 OBLIGATOIRE** avant développement

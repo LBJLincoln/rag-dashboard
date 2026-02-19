@@ -248,17 +248,17 @@ gh codespace start --codespace nomos-rag-website-jr7q9gr69qqfqp6r
 
 | # | Règle | Conséquence si violée |
 |---|-------|----------------------|
-| 1 | Consulter **`technicals/fixes-library.md`** avant tout debug | Re-débugger un bug déjà résolu |
+| 1 | Consulter **`technicals/debug/fixes-library.md`** avant tout debug | Re-débugger un bug déjà résolu |
 | 2 | Tests SEQUENTIELS (jamais parallèles) | 503 n8n |
 | 3 | source .env.local avant scripts Python | Variables manquantes |
 | 4 | ZERO credentials dans git | Leak API keys |
 | 5 | Commit + push après chaque fix | Travail perdu |
 | 6 | 5/5 minimum avant sync n8n | Régression |
 | 7 | MAJ session-state.md après milestone | Agent perdu au compactage |
-| 8 | MAJ **`technicals/fixes-library.md`** après chaque fix réussi | Bibliothèque incomplète |
+| 8 | MAJ **`technicals/debug/fixes-library.md`** après chaque fix réussi | Bibliothèque incomplète |
 | 9 | git config user.email = alexis.moret6@outlook.fr | Vercel rejette commits |
 | 10 | 1 fix par itération (pas plusieurs noeuds) | Impossible de débugger |
-| **11** | **CONSULTER `technicals/knowledge-base.md` Section 0 AVANT tout test webhook** | **Mauvais webhook path, mauvais field name, fausse itération** |
+| **11** | **CONSULTER `technicals/debug/knowledge-base.md` Section 0 AVANT tout test webhook** | **Mauvais webhook path, mauvais field name, fausse itération** |
 
 ---
 
@@ -375,7 +375,7 @@ n8n-postgres-1     postgres:15-alpine    Up (healthy)  0.0.0.0:5432->5432/tcp
 | Dataset Ingestion | `YaHS9rVb1osRUJpE` | OFF (prêt) |
 
 #### Supprimes (audit session 18)
-Feedback V3.1, Monitoring Dashboard, Orchestrator Tester, RAG Batch Tester — raisons dans `technicals/architecture.md`.
+Feedback V3.1, Monitoring Dashboard, Orchestrator Tester, RAG Batch Tester — raisons dans `technicals/infra/architecture.md`.
 
 #### Cible 16 workflows (3 categories)
 | Cat. | Workflows | Activation |
@@ -383,7 +383,7 @@ Feedback V3.1, Monitoring Dashboard, Orchestrator Tester, RAG Batch Tester — r
 | **A: Test-RAG** | 4 pipelines actuels | Actifs maintenant |
 | **B: Sector** | 4 pipelines sectoriels | Apres Phase 2 |
 | **C: Ingestion** | 2+2 ingestion/enrichment | Partiellement actifs |
-→ Details : `technicals/architecture.md`
+→ Details : `technicals/infra/architecture.md`
 
 ### Bases de données cloud (état au 2026-02-17)
 | BDD | Plan | Contenu | Limite |
@@ -454,7 +454,7 @@ Inclus      : Python 3.11, Node.js 20, Docker-in-Docker, Claude Code CLI
 - **Qui l'exécute** : Claude Code sur la VM permanente, via Termius
 - **Ce qu'il contient** : Directives, scripts eval, configs MCP, n8n sync, CLAUDE.md master
 - **Ce qu'il fait** : Piloter les 4 autres repos, lancer tests, fixer workflows n8n, analyser résultats
-- **n8n** : Permanent (9 workflows actifs, cible 16 — voir `technicals/architecture.md`)
+- **n8n** : Permanent (9 workflows actifs, cible 16 — voir `technicals/infra/architecture.md`)
 - **Git remotes** : 5 (origin + 4 satellites)
 - **Directive locale** : `/home/termius/mon-ipad/CLAUDE.md` (ce fichier)
 - **Directive pour agents satellites** : `directives/repos/*.md` → pushés vers chaque repo
@@ -525,11 +525,11 @@ rag-pme-usecases   → github.com/LBJLincoln/rag-pme-usecases.git
 1. **Lire `directives/session-state.md`** — Mémoire de travail
 2. **Lire `directives/status.md`** — Résumé dernière session
 3. **Lire `docs/status.json`** — Métriques live
-4. **Lire `technicals/knowledge-base.md`** — **CERVEAU PERSISTANT** (patterns, solutions, LLM, APIs)
-5. `cat technicals/fixes-library.md | head -50` — Symptôme connu ?
+4. **Lire `technicals/debug/knowledge-base.md`** — **CERVEAU PERSISTANT** (patterns, solutions, LLM, APIs)
+5. `cat technicals/debug/fixes-library.md | head -50` — Symptôme connu ?
 
 **Règle** : Avant chaque action complexe, re-lire `directives/session-state.md`.
-**Règle** : Après chaque découverte technique, mettre à jour `technicals/knowledge-base.md` IMMÉDIATEMENT (pas en fin de session).
+**Règle** : Après chaque découverte technique, mettre à jour `technicals/debug/knowledge-base.md` IMMÉDIATEMENT (pas en fin de session).
 
 ### 0.2 Mise à jour session-state.md (OBLIGATOIRE)
 ```markdown
@@ -556,7 +556,7 @@ rag-pme-usecases   → github.com/LBJLincoln/rag-pme-usecases.git
 3. `session-state.md` mis a jour APRES chaque milestone (pas juste fin de session)
 4. `status.md` mis a jour en DERNIERE action de chaque session
 5. Script : `bash scripts/check-staleness.sh` — scanne tous les .md pour dates obsoletes
-6. Reference : `technicals/team-agentic-process.md` pour le processus formel
+6. Reference : `technicals/project/team-agentic-process.md` pour le processus formel
 
 ---
 
@@ -579,17 +579,17 @@ bash scripts/check-staleness.sh  # Verifier staleness
 - `directives/n8n-endpoints.md` — Webhooks et API REST
 
 ### 1.4 Références techniques
-- `technicals/architecture.md` — 4 pipelines + 9 workflows actifs, cible 16 (categories A/B/C)
-- `technicals/stack.md` — Stack technique
-- `technicals/credentials.md` — Configuration services
-- `technicals/env-vars-exhaustive.md` — **33 vars documentees**, matrice workflow x var, log modifications
-- `technicals/team-agentic-process.md` — Processus team-agentic formel (roles, auto-stop, fixes-library)
-- `technicals/phases-overview.md` — 5 phases et gates
-- `technicals/infrastructure-plan.md` — Plan d'infrastructure distribuee + Docker par repo
-- `technicals/sector-datasets.md` — 1000+ types de documents par secteur
-- `technicals/fixes-library.md` — Bibliotheque des 24+ fixes documentes
-- **`technicals/knowledge-base.md`** — **CERVEAU PERSISTANT** — patterns, solutions, LLM, APIs, commandes, schemas. S'enrichit a chaque session.
-- **`technicals/improvements-roadmap.md`** — **ROADMAP CENTRALISEE** — 50+ ameliorations classees par categorie et priorite. Vision complete du projet.
+- `technicals/infra/architecture.md` — 4 pipelines + 9 workflows actifs, cible 16 (categories A/B/C)
+- `technicals/infra/stack.md` — Stack technique
+- `technicals/infra/credentials.md` — Configuration services
+- `technicals/infra/env-vars-exhaustive.md` — **33 vars documentees**, matrice workflow x var, log modifications
+- `technicals/project/team-agentic-process.md` — Processus team-agentic formel (roles, auto-stop, fixes-library)
+- `technicals/project/phases-overview.md` — 5 phases et gates
+- `technicals/infra/infrastructure-plan.md` — Plan d'infrastructure distribuee + Docker par repo
+- `technicals/data/sector-datasets.md` — 1000+ types de documents par secteur
+- `technicals/debug/fixes-library.md` — Bibliotheque des 24+ fixes documentes
+- **`technicals/debug/knowledge-base.md`** — **CERVEAU PERSISTANT** — patterns, solutions, LLM, APIs, commandes, schemas. S'enrichit a chaque session.
+- **`technicals/project/improvements-roadmap.md`** — **ROADMAP CENTRALISEE** — 50+ ameliorations classees par categorie et priorite. Vision complete du projet.
 - `directives/dataset-rationale.md` — Justification des 14 benchmarks
 - `directives/repos/` — Directives personnalisées par repo satellite
 - `directives/research-methodology.md` — Directive recherche internet/academique SOTA 2026
@@ -718,7 +718,7 @@ ssh -L 5678:localhost:5678 <user>@34.136.180.66 -N &
 2. Snapshot : `snapshot/current/`
 3. Status : `python3 eval/generate_status.py`
 4. Session-state : `directives/session-state.md`
-5. Fixes library : `technicals/fixes-library.md` — documenter le fix (symptôme, cause, solution)
+5. Fixes library : `technicals/debug/fixes-library.md` — documenter le fix (symptôme, cause, solution)
 6. **Commit + push IMMÉDIATEMENT** (origin + repos concernés)
 
 ### 3.3 Pushes réguliers (OBLIGATOIRE)
@@ -735,7 +735,7 @@ git diff --cached | grep -iE 'sk-or-|pcsk_|jV_zGdx|sbp_|hf_[A-Za-z]{10}|jina_[a-
 
 ### 3.5 En fin de session — Checklist
 1. `technicals/` — MAJ si changements
-2. `technicals/env-vars-exhaustive.md` — MAJ si credentials changees
+2. `technicals/infra/env-vars-exhaustive.md` — MAJ si credentials changees
 3. `snapshot/current/` — Sync workflows
 4. `docs/data.json` — Regenerer
 5. `directives/session-state.md` — Etat final
@@ -747,7 +747,7 @@ git diff --cached | grep -iE 'sk-or-|pcsk_|jV_zGdx|sbp_|hf_[A-Za-z]{10}|jina_[a-
 
 ## Processus Team-Agentique Multi-Model (OBLIGATOIRE)
 
-> Reference complete : `technicals/team-agentic-process.md`
+> Reference complete : `technicals/project/team-agentic-process.md`
 
 ### Principes
 1. **Multi-model** : Opus 4.6 analyse + Sonnet/Haiku execution (delegation via Task tool)
@@ -755,7 +755,7 @@ git diff --cached | grep -iE 'sk-or-|pcsk_|jV_zGdx|sbp_|hf_[A-Za-z]{10}|jina_[a-
 3. **Delegation intelligente** : Opus DECIDE quand deleguer → Sonnet (execution) ou Haiku (exploration)
 4. **Coordination** : L'agent principal ne duplique pas le travail des sous-agents
 5. **Reference-based** : Comparer avec `snapshot/good/`
-6. **Auto-Stop** : 3 echecs consecutifs → STOP (voir `technicals/team-agentic-process.md`)
+6. **Auto-Stop** : 3 echecs consecutifs → STOP (voir `technicals/project/team-agentic-process.md`)
 7. **Fixes Library partagee** : master dans mon-ipad, copies vers satellites via `push-directives.sh`
 8. **Etat persistant** : session-state.md, knowledge-base.md, fixes-library.md — mis a jour PENDANT la session
 
@@ -831,15 +831,15 @@ TACHE → Analyse/Decision ? → OUI → OPUS fait lui-meme
 18. **Codespaces = éphémère** — résultats pushés avant arrêt
 19. **RAM critique** — VM a seulement ~100MB dispo, éviter scripts mémoire-intensifs en parallèle
 20. **Directives repos** — MAJ `directives/repos/*.md` si changements d'architecture
-21. **MAJ `technicals/fixes-library.md`** — après chaque fix réussi (avant commit)
+21. **MAJ `technicals/debug/fixes-library.md`** — après chaque fix réussi (avant commit)
 22. **Pilotage live** — utiliser `codespace-control.sh` pour lancer/monitor/stopper les runs Codespace
 23. **Progress callback** — les scripts eval écrivent `/tmp/eval-progress.json` pour visibilité VM
-24. **MAJ `technicals/knowledge-base.md`** — cerveau persistant, enrichi PENDANT la session (pas en fin), patterns + solutions + LLM + APIs + commandes
+24. **MAJ `technicals/debug/knowledge-base.md`** — cerveau persistant, enrichi PENDANT la session (pas en fin), patterns + solutions + LLM + APIs + commandes
 25. **NO operations VM** — aucun test (eval, quick-test) ne tourne sur la VM. Tests → HF Space ou Codespaces uniquement
 26. **Session max 2h** — chaque session Claude Code limitée à 2h pour conserver l'efficacité. A 1h45 : finaliser, push, MAJ session-state.md et status.md
 27. **Kill old processes** — au démarrage, vérifier `ps aux | grep claude | grep -v grep` et tuer les anciennes sessions Claude qui consomment de la RAM
 28. **ZERO modification workflow sur VM** — le Task Runner cache le code compilé même après restart. Modifier les workflows UNIQUEMENT sur HF Space (16 GB RAM, API REST fonctionnelle). VM = pilotage UNIQUEMENT.
-29. **Pre-vol checklist** — AVANT tout test webhook, consulter `technicals/knowledge-base.md` Section 0 (webhook paths, field names, auth)
+29. **Pre-vol checklist** — AVANT tout test webhook, consulter `technicals/debug/knowledge-base.md` Section 0 (webhook paths, field names, auth)
 
 ---
 
@@ -878,7 +878,7 @@ Credentials   → .env.local (jamais dans git)
 | **Gemma 27B** | `google/gemma-3-27b-it:free` | Fast, Lite | $0 |
 | **Trinity** | `arcee-ai/trinity-large-preview:free` | Extraction entites, Community summaries | $0 |
 
-Details complets : `technicals/env-vars-exhaustive.md` (Section 2 : LLM Model Vars)
+Details complets : `technicals/infra/env-vars-exhaustive.md` (Section 2 : LLM Model Vars)
 
 ### Recherche Feb 2026 — Papers cles
 | Paper | arXiv | Action |
@@ -888,7 +888,7 @@ Details complets : `technicals/env-vars-exhaustive.md` (Section 2 : LLM Model Va
 | Late Chunking | 2409.04701 | Ré-ingestion Jina `late_chunking=True` |
 | RAG-Studio (Domain Adaptation) | ACL EMNLP 2024 | Synthetic data par secteur |
 
-→ Détails complets : `technicals/rag-research-2026.md`
+→ Détails complets : `technicals/project/rag-research-2026.md`
 
 ### Website/Dashboard — Livrés session 13 (2026-02-17)
 - **Hero** : problem-first, pain points cycliques, dual CTA + lien dashboard
@@ -917,7 +917,10 @@ Details complets : `technicals/env-vars-exhaustive.md` (Section 2 : LLM Model Va
 |---------|------|
 | `directives/` | Mission control (session-state, status, objective, process) |
 | `directives/repos/` | **Directives personnalisées par repo satellite** |
-| `technicals/` | Documentation technique (stack, archi, credentials, phases) |
+| `technicals/debug/` | **Debug & troubleshooting** — diagnostic-flowchart, fixes-library, knowledge-base |
+| `technicals/infra/` | **Infrastructure** — architecture, stack, n8n-topology, env-vars, credentials |
+| `technicals/project/` | **Gestion projet** — phases, roadmap, team-agentic, recherche, website |
+| `technicals/data/` | **Datasets** — master list, secteurs, types de documents |
 | `eval/` | Scripts d'évaluation Python |
 | `scripts/` | Utilitaires Python + scripts Bash + **codespace-control.sh** (pilotage live) |
 | `n8n/` | Workflows (live, validated, sync) |

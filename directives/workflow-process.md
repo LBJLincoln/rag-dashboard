@@ -6,7 +6,7 @@
 
 ### 0.A Pre-vol checklist (AVANT tout test webhook — Rule 29)
 
-**Consulter `technicals/knowledge-base.md` Section 0 QUICK REFERENCE** pour les webhook paths, field names et methodes d'authentification.
+**Consulter `technicals/debug/knowledge-base.md` Section 0 QUICK REFERENCE** pour les webhook paths, field names et methodes d'authentification.
 
 | Pipeline | Webhook Path | Field | Methode |
 |----------|-------------|-------|---------|
@@ -19,10 +19,10 @@
 
 ### 0.B Consulter la Bibliotheque de Fixes
 
-**AVANT tout debug, TOUJOURS consulter `technicals/fixes-library.md` en premier.**
+**AVANT tout debug, TOUJOURS consulter `technicals/debug/fixes-library.md` en premier.**
 
 ```bash
-cat technicals/fixes-library.md
+cat technicals/debug/fixes-library.md
 ```
 
 ### Pourquoi
@@ -40,10 +40,10 @@ Si un pipeline enchaine **3 echecs consecutifs** sur le meme type d'erreur :
 1. **STOP** — ne pas retenter le meme fix
 2. Documenter le pattern dans `logs/diagnostics/`
 3. Analyser avec les 2 outils (node-analyzer + analyze_n8n_executions)
-4. Consulter `technicals/team-agentic-process.md` pour la procedure complete
+4. Consulter `technicals/project/team-agentic-process.md` pour la procedure complete
 
 ### Mise a jour obligatoire
-Apres chaque fix reussi (5/5 PASS) → ajouter l'entree dans `technicals/fixes-library.md` :
+Apres chaque fix reussi (5/5 PASS) → ajouter l'entree dans `technicals/debug/fixes-library.md` :
 - Numero de fix suivant
 - Session + date
 - Pipeline concerne
@@ -237,7 +237,7 @@ python3 scripts/analyze_n8n_executions.py --pipeline <cible> --limit 5
 ---
 
 ### Avant TOUT fix, repondre a :
-- [ ] **Consulte technicals/fixes-library.md ?** → symptome deja connu ? (OBLIGATOIRE — ETAPE 0)
+- [ ] **Consulte technicals/debug/fixes-library.md ?** → symptome deja connu ? (OBLIGATOIRE — ETAPE 0)
 - [ ] Quel noeud exact cause le probleme ? **(confirme par les DEUX outils)**
 - [ ] Qu'est-ce que le noeud recoit en input ? **(via analyze_n8n_executions.py)**
 - [ ] Qu'est-ce qu'il produit en output ? **(via analyze_n8n_executions.py)**
@@ -273,7 +273,7 @@ WORKFLOW_IDS = {
 
 ## Regles d'Or
 
-1. **Consulter fixes-library.md EN PREMIER** — avant tout debug (`technicals/fixes-library.md`)
+1. **Consulter fixes-library.md EN PREMIER** — avant tout debug (`technicals/debug/fixes-library.md`)
 2. **UN fix par iteration** — jamais plusieurs noeuds/pipelines en meme temps
 3. **n8n est la source de verite** — editer dans n8n, sync vers GitHub
 4. **Analyse granulaire AVANT chaque fix** — **LES DEUX OUTILS sont OBLIGATOIRES**
