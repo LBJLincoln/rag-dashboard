@@ -1,48 +1,43 @@
 #!/usr/bin/env python3
 """
-Mass Parallel RAG Tester — v1.0
+Mass Parallel RAG Tester — v2.0 (stdlib only, zero dependencies)
 
 High-performance concurrent testing system for 100/500/10000 questions.
-Uses asyncio + aiohttp for true parallel HTTP requests.
+Uses ThreadPoolExecutor + urllib.request — NO external dependencies.
 
 Architecture:
-  - Async event loop with configurable concurrency (semaphore)
+  - ThreadPoolExecutor with configurable max_workers
   - Multiple pipelines tested simultaneously
   - Real-time progress tracking with /tmp/eval-progress.json
-  - Auto-commit results to GitHub every N minutes
-  - Graceful shutdown on errors
+  - Auto-save results every N minutes
+  - Graceful shutdown on errors or Ctrl+C
   - Batch processing with configurable batch sizes
+  - Per-pipeline auto-stop on consecutive errors
 
 Usage:
   python3 eval/mass-parallel-test.py --total 100 --concurrency 10
   python3 eval/mass-parallel-test.py --total 500 --concurrency 20 --pipelines standard,graph
-  python3 eval/mass-parallel-test.py --total 10000 --concurrency 50 --batch-size 100
+  python3 eval/mass-parallel-test.py --total 10000 --concurrency 50
 
 Concurrency guidelines:
   - HF Space cpu-basic: 5-10 concurrent requests safe
   - HF Space cpu-upgrade: 20-30 concurrent requests
-  - Local n8n (3 workers): 10-15 concurrent requests
   - Conservative start: --concurrency 5, increase if stable
 """
 
-import asyncio
 import json
 import os
 import sys
 import time
 import argparse
 import random
-import hashlib
+import threading
+import signal
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
-
-# Try to import aiohttp, fall back to manual install
-try:
-    import aiohttp
-except ImportError:
-    print("Installing aiohttp...")
-    os.system(f"{sys.executable} -m pip install aiohttp -q")
-    import aiohttp
+from urllib.request import Request, urlopen
+from urllib.error import URLError, HTTPError
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 PROGRESS_FILE = Path("/tmp/eval-progress.json")
@@ -57,13 +52,12 @@ PIPELINES = {
     "orchestrator": "/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0",
 }
 
-# Quantitative excluded by default (SQL generation broken)
 PIPELINES_ALL = {
     **PIPELINES,
     "quantitative": "/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9",
 }
 
-# Question bank — 50 diverse questions per pipeline type
+# 50+ diverse questions per pipeline type
 GENERAL_QUESTIONS = [
     ("What is the capital of France?", ["Paris"]),
     ("Who invented the telephone?", ["Bell", "Meucci"]),
@@ -144,15 +138,11 @@ GRAPH_QUESTIONS = [
 def generate_question_batch(pipeline, total_needed, seed=42):
     """Generate a batch of questions for a pipeline, cycling through the bank."""
     rng = random.Random(seed)
-    if pipeline == "graph":
-        bank = GRAPH_QUESTIONS
-    else:
-        bank = GENERAL_QUESTIONS
+    bank = GRAPH_QUESTIONS if pipeline == "graph" else GENERAL_QUESTIONS
 
     questions = []
     for i in range(total_needed):
         q, expected = bank[i % len(bank)]
-        # Add variation suffix for uniqueness when cycling
         cycle = i // len(bank)
         qid = f"{pipeline}-q{i+1:05d}"
         if cycle > 0:
@@ -178,7 +168,8 @@ def check_answer(response_text, expected_keywords):
 def extract_answer(response_body):
     """Extract answer text from JSON response."""
     try:
-        data = json.loads(response_body)
+        text = response_body if isinstance(response_body, str) else response_body.decode("utf-8", errors="replace")
+        data = json.loads(text)
         if isinstance(data, dict):
             for key in ("answer", "response", "result", "output", "text", "content", "interpretation"):
                 if key in data and data[key]:
@@ -198,164 +189,196 @@ def extract_answer(response_body):
         return str(response_body)[:500]
 
 
-class MassParallelTester:
-    def __init__(self, pipelines, total_per_pipeline, concurrency, batch_size, timeout, auto_commit_interval):
-        self.pipelines = pipelines
-        self.total_per_pipeline = total_per_pipeline
-        self.concurrency = concurrency
-        self.batch_size = batch_size
-        self.timeout = timeout
-        self.auto_commit_interval = auto_commit_interval
-        self.semaphore = None
-        self.start_time = time.time()
-        self.results = []
-        self.stats = {}
-        self.consecutive_errors = {}
-        self.lock = asyncio.Lock()
+def fire_single_question(question, timeout):
+    """Fire a single HTTP request (runs in thread)."""
+    url = f"{BASE_URL}{PIPELINES_ALL[question['pipeline']]}"
+    payload = json.dumps({"query": question["query"]}).encode("utf-8")
+    start = time.time()
 
-        for name in pipelines:
-            self.stats[name] = {
-                "tested": 0, "correct": 0, "errors": 0,
-                "total_latency": 0.0, "min_latency": float("inf"),
-                "max_latency": 0.0, "consecutive_errors": 0,
-            }
+    try:
+        req = Request(
+            url,
+            data=payload,
+            headers={
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            method="POST",
+        )
+        with urlopen(req, timeout=timeout) as resp:
+            body = resp.read()
+            elapsed = time.time() - start
+            status = resp.status
 
-    async def fire_question(self, session, question):
-        """Fire a single question with semaphore-controlled concurrency."""
-        async with self.semaphore:
-            url = f"{BASE_URL}{PIPELINES_ALL[question['pipeline']]}"
-            payload = json.dumps({"query": question["query"]})
-            start = time.time()
-
-            try:
-                async with session.post(
-                    url,
-                    data=payload,
-                    headers={"Content-Type": "application/json", "Accept": "application/json"},
-                    timeout=aiohttp.ClientTimeout(total=self.timeout),
-                ) as resp:
-                    body = await resp.read()
-                    elapsed = time.time() - start
-                    status = resp.status
-
-                    if status == 200:
-                        answer_text = extract_answer(body)
-                        correct = check_answer(answer_text, question["expected"])
-                        result = {
-                            "id": question["id"],
-                            "pipeline": question["pipeline"],
-                            "query": question["query"],
-                            "status": "pass" if correct else "fail",
-                            "correct": correct,
-                            "answer": answer_text[:200],
-                            "latency_ms": round(elapsed * 1000),
-                            "http_status": status,
-                            "timestamp": datetime.now(timezone.utc).isoformat(),
-                        }
-                    else:
-                        result = {
-                            "id": question["id"],
-                            "pipeline": question["pipeline"],
-                            "query": question["query"],
-                            "status": "error",
-                            "correct": False,
-                            "answer": "",
-                            "error": f"HTTP {status}",
-                            "latency_ms": round(elapsed * 1000),
-                            "http_status": status,
-                            "timestamp": datetime.now(timezone.utc).isoformat(),
-                        }
-            except asyncio.TimeoutError:
-                elapsed = time.time() - start
-                result = {
+            if status == 200:
+                answer_text = extract_answer(body)
+                correct = check_answer(answer_text, question["expected"])
+                return {
                     "id": question["id"],
                     "pipeline": question["pipeline"],
                     "query": question["query"],
-                    "status": "timeout",
-                    "correct": False,
-                    "answer": "",
-                    "error": f"Timeout after {self.timeout}s",
+                    "status": "pass" if correct else "fail",
+                    "correct": correct,
+                    "answer": answer_text[:200],
                     "latency_ms": round(elapsed * 1000),
+                    "http_status": status,
                     "timestamp": datetime.now(timezone.utc).isoformat(),
                 }
-            except Exception as e:
-                elapsed = time.time() - start
-                result = {
+            else:
+                return {
                     "id": question["id"],
                     "pipeline": question["pipeline"],
                     "query": question["query"],
                     "status": "error",
                     "correct": False,
                     "answer": "",
-                    "error": str(e)[:200],
+                    "error": f"HTTP {status}",
                     "latency_ms": round(elapsed * 1000),
+                    "http_status": status,
                     "timestamp": datetime.now(timezone.utc).isoformat(),
                 }
 
-            # Update stats
-            async with self.lock:
-                pipe = question["pipeline"]
-                s = self.stats[pipe]
-                s["tested"] += 1
-                s["total_latency"] += elapsed
-                s["min_latency"] = min(s["min_latency"], elapsed)
-                s["max_latency"] = max(s["max_latency"], elapsed)
+    except HTTPError as e:
+        elapsed = time.time() - start
+        return {
+            "id": question["id"],
+            "pipeline": question["pipeline"],
+            "query": question["query"],
+            "status": "error",
+            "correct": False,
+            "answer": "",
+            "error": f"HTTP {e.code}: {str(e.reason)[:100]}",
+            "latency_ms": round(elapsed * 1000),
+            "http_status": e.code,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+        }
 
-                if result["correct"]:
-                    s["correct"] += 1
-                    s["consecutive_errors"] = 0
-                elif result["status"] in ("error", "timeout"):
-                    s["errors"] += 1
-                    s["consecutive_errors"] += 1
-                else:
-                    s["consecutive_errors"] = 0
+    except (TimeoutError, URLError) as e:
+        elapsed = time.time() - start
+        err_str = str(e)[:200]
+        is_timeout = "timed out" in err_str.lower() or isinstance(e, TimeoutError)
+        return {
+            "id": question["id"],
+            "pipeline": question["pipeline"],
+            "query": question["query"],
+            "status": "timeout" if is_timeout else "error",
+            "correct": False,
+            "answer": "",
+            "error": f"Timeout after {timeout}s" if is_timeout else err_str,
+            "latency_ms": round(elapsed * 1000),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+        }
 
-                self.results.append(result)
+    except Exception as e:
+        elapsed = time.time() - start
+        return {
+            "id": question["id"],
+            "pipeline": question["pipeline"],
+            "query": question["query"],
+            "status": "error",
+            "correct": False,
+            "answer": "",
+            "error": str(e)[:200],
+            "latency_ms": round(elapsed * 1000),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+        }
 
-            # Log
-            icon = "+" if result["correct"] else "x" if result["status"] == "error" else "-"
-            pipe_short = question["pipeline"][:4].upper()
-            tested = self.stats[question["pipeline"]]["tested"]
-            total = self.total_per_pipeline
-            print(f"  [{icon}] {pipe_short} {tested}/{total} | {result['query'][:40]}... | {round(elapsed, 1)}s", flush=True)
 
-            return result
+class MassParallelTester:
+    def __init__(self, pipelines, total_per_pipeline, concurrency, timeout, auto_save_interval):
+        self.pipelines = pipelines
+        self.total_per_pipeline = total_per_pipeline
+        self.concurrency = concurrency
+        self.timeout = timeout
+        self.auto_save_interval = auto_save_interval
+        self.start_time = time.time()
+        self.results = []
+        self.stats = {}
+        self.lock = threading.Lock()
+        self.stopped = False
+
+        for name in pipelines:
+            self.stats[name] = {
+                "tested": 0, "correct": 0, "errors": 0,
+                "total_latency": 0.0, "min_latency": float("inf"),
+                "max_latency": 0.0, "consecutive_errors": 0,
+                "auto_stopped": False,
+            }
+
+    def record_result(self, result):
+        """Thread-safe result recording."""
+        with self.lock:
+            pipe = result["pipeline"]
+            s = self.stats[pipe]
+            elapsed = result["latency_ms"] / 1000.0
+
+            s["tested"] += 1
+            s["total_latency"] += elapsed
+            s["min_latency"] = min(s["min_latency"], elapsed)
+            s["max_latency"] = max(s["max_latency"], elapsed)
+
+            if result["correct"]:
+                s["correct"] += 1
+                s["consecutive_errors"] = 0
+            elif result["status"] in ("error", "timeout"):
+                s["errors"] += 1
+                s["consecutive_errors"] += 1
+                if s["consecutive_errors"] >= 5:
+                    s["auto_stopped"] = True
+            else:
+                s["consecutive_errors"] = 0
+
+            self.results.append(result)
+
+        # Log (outside lock for performance)
+        icon = "+" if result["correct"] else "x" if result["status"] in ("error", "timeout") else "-"
+        pipe_short = result["pipeline"][:4].upper()
+        tested = self.stats[result["pipeline"]]["tested"]
+        total = self.total_per_pipeline
+        lat = result["latency_ms"] / 1000.0
+        print(f"  [{icon}] {pipe_short} {tested}/{total} | {result['query'][:40]}... | {lat:.1f}s", flush=True)
+
+    def is_pipeline_stopped(self, pipeline):
+        """Check if pipeline should be auto-stopped."""
+        with self.lock:
+            return self.stats[pipeline].get("auto_stopped", False)
 
     def write_progress(self):
         """Write progress to file for external monitoring."""
         elapsed = time.time() - self.start_time
-        total_tested = sum(s["tested"] for s in self.stats.values())
-        total_correct = sum(s["correct"] for s in self.stats.values())
-        total_target = self.total_per_pipeline * len(self.pipelines)
+        with self.lock:
+            total_tested = sum(s["tested"] for s in self.stats.values())
+            total_correct = sum(s["correct"] for s in self.stats.values())
+            total_target = self.total_per_pipeline * len(self.pipelines)
 
-        progress = {
-            "status": "running",
-            "mode": "mass-parallel",
-            "concurrency": self.concurrency,
-            "batch_size": self.batch_size,
-            "elapsed_seconds": round(elapsed, 1),
-            "total_tested": total_tested,
-            "total_correct": total_correct,
-            "total_target": total_target,
-            "accuracy": round(total_correct / max(total_tested, 1) * 100, 1),
-            "progress_pct": round(total_tested / max(total_target, 1) * 100, 1),
-            "qps": round(total_tested / max(elapsed, 0.1), 2),
-            "eta_seconds": round((total_target - total_tested) * elapsed / max(total_tested, 1), 0) if total_tested > 0 else None,
-            "pipelines": {},
-            "timestamp": datetime.now(timezone.utc).isoformat(),
-        }
-
-        for name, s in self.stats.items():
-            progress["pipelines"][name] = {
-                "tested": s["tested"],
-                "correct": s["correct"],
-                "errors": s["errors"],
-                "accuracy": round(s["correct"] / max(s["tested"], 1) * 100, 1),
-                "avg_latency_s": round(s["total_latency"] / max(s["tested"], 1), 2),
-                "min_latency_s": round(s["min_latency"], 2) if s["min_latency"] != float("inf") else None,
-                "max_latency_s": round(s["max_latency"], 2),
-                "consecutive_errors": s["consecutive_errors"],
+            progress = {
+                "status": "running" if not self.stopped else "completed",
+                "mode": "mass-parallel-v2",
+                "concurrency": self.concurrency,
+                "elapsed_seconds": round(elapsed, 1),
+                "total_tested": total_tested,
+                "total_correct": total_correct,
+                "total_target": total_target,
+                "accuracy": round(total_correct / max(total_tested, 1) * 100, 1),
+                "progress_pct": round(total_tested / max(total_target, 1) * 100, 1),
+                "qps": round(total_tested / max(elapsed, 0.1), 2),
+                "eta_seconds": round((total_target - total_tested) * elapsed / max(total_tested, 1)) if total_tested > 0 else None,
+                "pipelines": {},
+                "timestamp": datetime.now(timezone.utc).isoformat(),
             }
+
+            for name, s in self.stats.items():
+                progress["pipelines"][name] = {
+                    "tested": s["tested"],
+                    "correct": s["correct"],
+                    "errors": s["errors"],
+                    "accuracy": round(s["correct"] / max(s["tested"], 1) * 100, 1),
+                    "avg_latency_s": round(s["total_latency"] / max(s["tested"], 1), 2),
+                    "min_latency_s": round(s["min_latency"], 2) if s["min_latency"] != float("inf") else None,
+                    "max_latency_s": round(s["max_latency"], 2),
+                    "consecutive_errors": s["consecutive_errors"],
+                    "auto_stopped": s["auto_stopped"],
+                }
 
         try:
             PROGRESS_FILE.write_text(json.dumps(progress, indent=2))
@@ -364,23 +387,15 @@ class MassParallelTester:
 
     def write_results(self):
         """Write full results to file."""
+        with self.lock:
+            data = list(self.results)
         try:
-            RESULTS_FILE.write_text(json.dumps(self.results, indent=2))
+            RESULTS_FILE.write_text(json.dumps(data, indent=2))
         except Exception:
             pass
 
-    def should_auto_stop(self, pipeline):
-        """Auto-stop if too many consecutive errors (pipeline-level)."""
-        return self.stats[pipeline]["consecutive_errors"] >= 5
-
-    async def run_batch(self, session, questions):
-        """Run a batch of questions concurrently."""
-        tasks = [self.fire_question(session, q) for q in questions]
-        return await asyncio.gather(*tasks, return_exceptions=True)
-
-    async def run(self):
-        """Main execution loop."""
-        self.semaphore = asyncio.Semaphore(self.concurrency)
+    def run(self):
+        """Main execution loop using ThreadPoolExecutor."""
         self.start_time = time.time()
 
         # Generate all questions upfront
@@ -390,16 +405,16 @@ class MassParallelTester:
 
         total_target = self.total_per_pipeline * len(self.pipelines)
         print(f"\n{'='*60}")
-        print(f"MASS PARALLEL TEST — {total_target} questions total")
+        print(f"MASS PARALLEL TEST v2.0 (stdlib) — {total_target} questions total")
         print(f"  Pipelines: {', '.join(self.pipelines.keys())}")
         print(f"  Per pipeline: {self.total_per_pipeline}")
-        print(f"  Concurrency: {self.concurrency}")
-        print(f"  Batch size: {self.batch_size}")
+        print(f"  Concurrency: {self.concurrency} threads")
         print(f"  Timeout: {self.timeout}s per question")
         print(f"  Target: {BASE_URL}")
+        print(f"  Auto-save: every {self.auto_save_interval}s")
         print(f"{'='*60}\n")
 
-        # Interleave questions from all pipelines
+        # Interleave questions from all pipelines for balanced testing
         interleaved = []
         max_len = max(len(qs) for qs in all_questions.values())
         for i in range(max_len):
@@ -408,73 +423,96 @@ class MassParallelTester:
                 if i < len(qs):
                     interleaved.append(qs[i])
 
-        # Create aiohttp session with connection pooling
-        connector = aiohttp.TCPConnector(
-            limit=self.concurrency + 5,
-            limit_per_host=self.concurrency,
-            ttl_dns_cache=300,
-            enable_cleanup_closed=True,
-        )
-
-        last_commit_time = time.time()
+        last_save_time = time.time()
         last_progress_time = time.time()
+        completed_count = 0
 
-        async with aiohttp.ClientSession(connector=connector) as session:
-            # Process in batches
-            for batch_start in range(0, len(interleaved), self.batch_size):
-                batch = interleaved[batch_start:batch_start + self.batch_size]
+        with ThreadPoolExecutor(max_workers=self.concurrency) as executor:
+            # Submit all questions
+            future_to_question = {}
+            for q in interleaved:
+                if self.stopped:
+                    break
+                if self.is_pipeline_stopped(q["pipeline"]):
+                    continue
+                future = executor.submit(fire_single_question, q, self.timeout)
+                future_to_question[future] = q
 
-                # Check auto-stop for each pipeline
-                active_batch = []
-                for q in batch:
-                    if not self.should_auto_stop(q["pipeline"]):
-                        active_batch.append(q)
-                    else:
-                        print(f"  [!] {q['pipeline'].upper()} auto-stopped (5 consecutive errors)")
-
-                if not active_batch:
-                    print("\n[!] ALL pipelines auto-stopped. Ending test.")
+            # Process results as they complete
+            for future in as_completed(future_to_question):
+                if self.stopped:
                     break
 
-                # Fire batch
-                await self.run_batch(session, active_batch)
+                question = future_to_question[future]
+                try:
+                    result = future.result()
+                    self.record_result(result)
+                except Exception as e:
+                    error_result = {
+                        "id": question["id"],
+                        "pipeline": question["pipeline"],
+                        "query": question["query"],
+                        "status": "error",
+                        "correct": False,
+                        "answer": "",
+                        "error": f"Future exception: {str(e)[:200]}",
+                        "latency_ms": 0,
+                        "timestamp": datetime.now(timezone.utc).isoformat(),
+                    }
+                    self.record_result(error_result)
 
-                # Update progress
-                if time.time() - last_progress_time >= 5:
+                completed_count += 1
+
+                # Progress update every 5s
+                now = time.time()
+                if now - last_progress_time >= 5:
                     self.write_progress()
-                    last_progress_time = time.time()
+                    last_progress_time = now
 
-                    total_tested = sum(s["tested"] for s in self.stats.values())
-                    total_correct = sum(s["correct"] for s in self.stats.values())
-                    elapsed = time.time() - self.start_time
+                    with self.lock:
+                        total_tested = sum(s["tested"] for s in self.stats.values())
+                        total_correct = sum(s["correct"] for s in self.stats.values())
+                    elapsed = now - self.start_time
                     qps = total_tested / max(elapsed, 0.1)
                     acc = total_correct / max(total_tested, 1) * 100
-                    print(f"\n  >>> Progress: {total_tested}/{total_target} ({acc:.1f}%) | {qps:.1f} q/s | {elapsed:.0f}s elapsed\n")
+                    eta = (total_target - total_tested) / max(qps, 0.01)
+                    print(f"\n  >>> Progress: {total_tested}/{total_target} ({acc:.1f}%) | {qps:.1f} q/s | {elapsed:.0f}s elapsed | ETA {eta:.0f}s\n")
 
-                # Auto-commit
-                if self.auto_commit_interval and time.time() - last_commit_time >= self.auto_commit_interval:
+                # Auto-save results
+                if now - last_save_time >= self.auto_save_interval:
                     self.write_results()
-                    total_tested = sum(s["tested"] for s in self.stats.values())
-                    print(f"\n  [GIT] Auto-saving results ({total_tested} questions)...")
-                    last_commit_time = time.time()
+                    self.write_progress()
+                    with self.lock:
+                        total_tested = sum(s["tested"] for s in self.stats.values())
+                    print(f"\n  [SAVE] Auto-saved {total_tested} results to {RESULTS_FILE}\n")
+                    last_save_time = now
 
-        # Final write
+                # Check if all pipelines auto-stopped
+                with self.lock:
+                    all_stopped = all(s["auto_stopped"] for s in self.stats.values())
+                if all_stopped:
+                    print("\n[!] ALL pipelines auto-stopped (5 consecutive errors each). Ending test.")
+                    self.stopped = True
+                    break
+
+        # Final writes
+        self.stopped = True
         self.write_progress()
         self.write_results()
 
-        # Summary
+        # Print summary
         elapsed = time.time() - self.start_time
-        total_tested = sum(s["tested"] for s in self.stats.values())
-        total_correct = sum(s["correct"] for s in self.stats.values())
-        total_errors = sum(s["errors"] for s in self.stats.values())
+        with self.lock:
+            total_tested = sum(s["tested"] for s in self.stats.values())
+            total_correct = sum(s["correct"] for s in self.stats.values())
+            total_errors = sum(s["errors"] for s in self.stats.values())
 
         summary = {
-            "test_type": "mass-parallel",
+            "test_type": "mass-parallel-v2",
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "config": {
                 "total_per_pipeline": self.total_per_pipeline,
                 "concurrency": self.concurrency,
-                "batch_size": self.batch_size,
                 "timeout": self.timeout,
                 "target": BASE_URL,
                 "pipelines": list(self.pipelines.keys()),
@@ -498,10 +536,12 @@ class MassParallelTester:
         print(f"  Duration: {elapsed:.1f}s ({total_tested/max(elapsed,0.1):.1f} q/s)")
         print()
 
-        for name, s in self.stats.items():
+        for name in self.pipelines:
+            s = self.stats[name]
             acc = s["correct"] / max(s["tested"], 1) * 100
             avg_lat = s["total_latency"] / max(s["tested"], 1)
-            print(f"  {name.upper():15s} | {s['tested']:5d} tested | {s['correct']:5d} correct | {acc:5.1f}% | avg {avg_lat:.1f}s")
+            stopped_tag = " [STOPPED]" if s["auto_stopped"] else ""
+            print(f"  {name.upper():15s} | {s['tested']:5d} tested | {s['correct']:5d} correct | {acc:5.1f}% | avg {avg_lat:.1f}s{stopped_tag}")
             summary["pipelines"][name] = {
                 "tested": s["tested"],
                 "correct": s["correct"],
@@ -510,34 +550,40 @@ class MassParallelTester:
                 "avg_latency_s": round(avg_lat, 2),
                 "min_latency_s": round(s["min_latency"], 2) if s["min_latency"] != float("inf") else None,
                 "max_latency_s": round(s["max_latency"], 2),
+                "auto_stopped": s["auto_stopped"],
             }
 
         print(f"\n  Results: {RESULTS_FILE}")
         print(f"  Progress: {PROGRESS_FILE}")
 
-        # Save summary
+        # Save summary to logs
         os.makedirs(SUMMARY_FILE.parent, exist_ok=True)
         SUMMARY_FILE.write_text(json.dumps(summary, indent=2))
         print(f"  Summary: {SUMMARY_FILE}")
 
         return summary
 
+    def shutdown(self):
+        """Graceful shutdown."""
+        print("\n[!] Shutting down... saving results.")
+        self.stopped = True
+        self.write_results()
+        self.write_progress()
+
 
 def main():
-    parser = argparse.ArgumentParser(description="Mass Parallel RAG Tester")
+    parser = argparse.ArgumentParser(description="Mass Parallel RAG Tester v2.0 (stdlib)")
     parser.add_argument("--total", type=int, default=100,
                         help="Total questions PER PIPELINE (default: 100)")
     parser.add_argument("--concurrency", type=int, default=10,
-                        help="Max concurrent requests (default: 10)")
-    parser.add_argument("--batch-size", type=int, default=20,
-                        help="Questions per batch (default: 20)")
+                        help="Max concurrent threads (default: 10)")
     parser.add_argument("--timeout", type=int, default=120,
                         help="Timeout per question in seconds (default: 120)")
     parser.add_argument("--pipelines", type=str, default="standard,graph,orchestrator",
                         help="Comma-separated pipelines (default: standard,graph,orchestrator)")
     parser.add_argument("--include-quant", action="store_true",
                         help="Include quantitative pipeline (broken)")
-    parser.add_argument("--auto-commit", type=int, default=600,
+    parser.add_argument("--auto-save", type=int, default=600,
                         help="Auto-save interval in seconds (default: 600 = 10min)")
     parser.add_argument("--target", type=str, default=None,
                         help="Override target URL")
@@ -564,18 +610,21 @@ def main():
         pipelines=selected,
         total_per_pipeline=args.total,
         concurrency=args.concurrency,
-        batch_size=args.batch_size,
         timeout=args.timeout,
-        auto_commit_interval=args.auto_commit,
+        auto_save_interval=args.auto_save,
     )
 
+    # Handle Ctrl+C gracefully
+    def sigint_handler(sig, frame):
+        tester.shutdown()
+        sys.exit(130)
+    signal.signal(signal.SIGINT, sigint_handler)
+
     try:
-        summary = asyncio.run(tester.run())
+        summary = tester.run()
         sys.exit(0 if summary["totals"]["accuracy_pct"] >= 70 else 1)
     except KeyboardInterrupt:
-        print("\n[!] Interrupted. Saving results...")
-        tester.write_results()
-        tester.write_progress()
+        tester.shutdown()
         sys.exit(130)
 
 
