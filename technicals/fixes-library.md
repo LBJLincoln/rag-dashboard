@@ -1,9 +1,9 @@
 # Fixes Library — Multi-RAG Orchestrator
 
-> Last updated: 2026-02-19T12:30:00+01:00
+> Last updated: 2026-02-19T22:30:00+01:00
 
 > **Bibliotheque permanente de tous les bugs resolus.** A consulter EN PREMIER avant tout debug.
-> Mise a jour obligatoire apres chaque fix reussi. Session courante : Session 24 (2026-02-19).
+> Mise a jour obligatoire apres chaque fix reussi. Session courante : Session 27 (2026-02-19).
 
 ---
 
@@ -40,6 +40,9 @@
 | 27 | n8n API | REST API 401 — pas de cle API configuree dans Docker | 25 | IMPORTANT |
 | 28 | HF Space | n8n $env vars non resolus — Quant+Orch 500 (OPENROUTER_API_KEY vide) | 26 | CRITIQUE |
 | 29 | Quantitative + Orchestrator | HF Space TCP port 6543 bloque + require('crypto') + API key type | 27 | CRITIQUE |
+| 30 | Orchestrator | PostgreSQL local pour HF Space (port 6543 bloque) | 27 | IMPORTANT |
+| 31 | Infrastructure | Live diagnostic server (diag-server.py) sur port 7861 | 27 | IMPORTANT |
+| 32 | Quantitative + Standard | $env bloque dans Code nodes Task Runner + sub-workflow return | 27 | CRITIQUE |
 
 ---
 
@@ -52,6 +55,8 @@
 | AP-3 | Tenter l'API REST n8n sans verifier que la cle API existe | FREQUENT | Consulter `knowledge-base.md` Section 0.3 |
 | AP-4 | Redebugger un probleme deja resolu dans cette librairie | OCCASIONAL | Lire ce fichier EN PREMIER |
 | AP-5 | Modifier plusieurs noeuds a la fois | OCCASIONAL | Regle 10 : 1 fix par iteration |
+| AP-6 | Patcher nodes[] mais pas activeVersion.nodes[] | CHAQUE FIX | Toujours patcher BOTH (FIX-29, FIX-32) |
+| AP-7 | Utiliser $env dans un Code node n8n 2.7+ | CRITIQUE | $env bloque par Task Runner — hardcoder (FIX-32) |
 
 ---
 
@@ -252,6 +257,9 @@ clean = {
 | Code node cache stale | Fixes presents dans JSON mais runtime ancien | FIX-21: PUT → Deactivate → Activate |
 | HF dataset ID faux | "Invalid username or password" ou 404 | FIX-23: verifier avec hf_search_datasets |
 | N8N_RUNNERS_ENABLED ignore | Log "Remove this env var" | FIX-24: deprecie n8n >= 2.7.4 |
+| $env dans Code node | "access to env vars denied" | FIX-32: hardcoder les valeurs (Task Runner bloque) |
+| activeVersion pas patche | Fix present dans JSON mais pas actif | FIX-29/32: patcher nodes[] ET activeVersion.nodes[] |
+| Sub-WF respondToWebhook | 200 vide depuis orchestrator | FIX-32: ajouter terminal Code node en parallele |
 
 ---
 
@@ -584,3 +592,51 @@ Plus : diagnostic logging qui affiche quelles vars sont SET/EMPTY au demarrage.
 **REGLE** : L'API REST Supabase necessite la cle JWT anon legacy, PAS les cles publishable. Verifier avec `get_publishable_keys` MCP tool.
 **REGLE** : Toujours patcher BOTH `nodes[]` ET `activeVersion.nodes[]` dans les JSON de workflow n8n.
 **Fichiers impactes** : `n8n-workflows/quantitative.json`, `n8n-workflows/orchestrator.json`, `entrypoint.sh` (HF Space), `scripts/fix-quant-rest-api.py`, `.env.local`
+
+### FIX-30 — PostgreSQL local pour Orchestrator HF Space
+**Session** : 27 (2026-02-19)
+**Composant** : HF Space Orchestrator pipeline
+**Symptome** : Orchestrator 200 empty body a 0.45-0.75s. Les nodes PostgreSQL (Init Tasks, Insert Tasks, etc.) utilisent credential `zEr7jPswZNv6lWKu` qui pointait vers Supabase port 6543 (bloque par HF, voir FIX-29).
+**Cause racine** : Le port TCP 6543 est bloque par HF Space (meme probleme que Quant). L'Orchestrator utilise PostgreSQL pour task management via n8n-nodes-base.postgres nodes.
+**Fix** : Installer PostgreSQL 15 localement dans le container HF Space, rediriger le credential vers localhost:5432.
+```dockerfile
+RUN apt-get install -y postgresql postgresql-client
+```
+Entrypoint demarre PostgreSQL avant n8n, cree la DB et le role.
+**Fichiers impactes** : `Dockerfile` (ajout postgresql), `entrypoint.sh` (demarrage PG local)
+
+---
+
+### FIX-31 — Live diagnostic server (diag-server.py)
+**Session** : 27 (2026-02-19)
+**Composant** : HF Space debugging infrastructure
+**Symptome** : Impossible de debugger les erreurs d'execution sur HF Space — l'ancien diagnostic inline dans entrypoint.sh ne parsait pas correctement le format API n8n (flattened list).
+**Cause racine** : L'API n8n retourne les executions dans un format liste aplati ou les donnees d'execution sont une liste avec des references d'index (pas un dict). Le parser inline Python dans entrypoint.sh echouait avec `'list' object has no attribute 'get'`.
+**Fix** : Creation d'un serveur HTTP Python (diag-server.py) sur port 7861 avec :
+- `/diag` : dernieres executions + details d'erreurs (mode=webhook filtre)
+- `/exec/<id>` : details parsed d'une execution specifique
+- `/raw/<id>` : reponse brute API pour debug
+- `/test-quant`, `/test-orch`, `/test-all` : tests automatises
+Proxy via nginx :
+```nginx
+location /diag { proxy_pass http://127.0.0.1:7861/diag; }
+```
+**REGLE** : Le format de donnees n8n peut etre une liste (inner[0] = root, string values = index references).
+**Fichiers impactes** : `diag-server.py` (nouveau), `nginx.conf`, `Dockerfile`, `entrypoint.sh`
+
+---
+
+### FIX-32 — Quant $env blocked in Task Runner + Standard sub-workflow return
+**Session** : 27 (2026-02-19)
+**Pipelines** : Quantitative + Standard (pour Orchestrator)
+**Symptome** : Quant 500 a 0.77s : `Cannot assign to read only property 'name' of object 'Error: access to env vars denied'`. Orch 200 body vide : sub-workflow Standard ne retourne rien via respondToWebhook.
+**Causes racines (2 problemes)** :
+1. **Quant — $env bloque dans Code nodes** : Le Task Runner sandbox de n8n 2.8.3 bloque l'acces a `$env` dans les Code nodes (typeVersion 2). Les expressions `$env` dans les HTTP Request nodes sont evaluees par le process principal et fonctionnent. Mais dans les Code nodes (evalues par le Task Runner JS), `$env.LLM_SQL_MODEL` leve `access to env vars denied`. Stack: `workflow-data-proxy-env-provider.js:59:27`.
+2. **Standard — respondToWebhook ne retourne pas en sub-workflow** : Quand Standard RAG est appele comme sub-workflow par l'Orchestrator (`executeWorkflow`), le node `Respond to Webhook` envoie la reponse HTTP au webhook ORIGINAL mais ne retourne PAS les donnees au workflow appelant. L'Orchestrator ne recoit rien → Merge node bloque → Return Response jamais atteint → 200 vide.
+**Fix** :
+1. Remplacement de `$env.LLM_SQL_MODEL` et `$env.LLM_FAST_MODEL` par les valeurs hardcodees dans les 3 Code nodes (Prepare SQL Request, Prepare Interpretation Request, Prepare SQL Repair Request). Dans **BOTH** `nodes[]` ET `activeVersion.nodes[]`.
+2. Ajout d'un node `Sub-Workflow Return` (Code node: `return $input.all()`) connecte en parallele de `Respond to Webhook` depuis `Response Formatter`. Dans **BOTH** `nodes[]` ET `activeVersion.nodes[]`.
+**REGLE** : `$env` est INTERDIT dans les Code nodes n8n 2.7.4+ (Task Runner sandbox). Utiliser des valeurs hardcodees ou passer par HTTP Request expressions.
+**REGLE** : `respondToWebhook` ne retourne PAS de donnees en mode sub-workflow. Ajouter un terminal Code node en parallele pour retourner les donnees au workflow parent.
+**REGLE** : Toujours patcher BOTH `nodes[]` ET `activeVersion.nodes[]` (rappel FIX-29).
+**Fichiers impactes** : `n8n-workflows/quantitative.json`, `n8n-workflows/standard.json` (HF Space)
