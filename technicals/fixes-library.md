@@ -39,6 +39,7 @@
 | 26 | Agent Process | Webhook path/field name incorrects — pre-vol checklist obligatoire | 25 | CRITIQUE |
 | 27 | n8n API | REST API 401 — pas de cle API configuree dans Docker | 25 | IMPORTANT |
 | 28 | HF Space | n8n $env vars non resolus — Quant+Orch 500 (OPENROUTER_API_KEY vide) | 26 | CRITIQUE |
+| 29 | Quantitative + Orchestrator | HF Space TCP port 6543 bloque + require('crypto') + API key type | 27 | CRITIQUE |
 
 ---
 
@@ -566,3 +567,20 @@ export NEO4J_URL="${NEO4J_URL:-https://38c949a2.databases.neo4j.io/db/neo4j/quer
 Plus : diagnostic logging qui affiche quelles vars sont SET/EMPTY au demarrage.
 **REGLE** : Tout workflow qui utilise `$env.X` doit avoir la variable X exportee dans entrypoint.sh. Ne JAMAIS supposer que les HF secrets sont automatiquement visibles par n8n `$env`.
 **Fichiers impactes** : `/tmp/hf-space-update/entrypoint.sh` (HF Space repo), `technicals/fixes-library.md`
+
+### FIX-29 — HF Space Quant TCP port bloque + Orch require('crypto') + API key type
+**Session** : 27 (2026-02-19)
+**Composant** : Quantitative (postgres→REST API) + Orchestrator (Code node) + Supabase API key
+**Symptome** : Apres FIX-28, Quantitative 500 a 0.7s (crash tres rapide = noeud precoce). Orchestrator 200 mais 0 bytes body a 0.45s.
+**Causes racines (3 problemes independants)** :
+1. **Quant — TCP port 6543 bloque** : HF Space bloque les ports TCP sortants non-HTTP. Le noeud `Schema Introspection` (n8n-nodes-base.postgres) tente une connexion TCP directe au pooler Supabase port 6543 → connexion refusee → 500 immediat. Le noeud `SQL Executor (Postgres)` a le meme probleme.
+2. **Orch — require('crypto') dans activeVersion** : Le fix bitwiseHash etait applique aux nodes[] principaux mais PAS a la section `activeVersion.nodes[]` du JSON. n8n 2.8.3 utilise peut-etre l'activeVersion. De plus, Init V8 Security & Analysis n'avait pas `continueOnFail`/`onError` → crash du noeud = execution entiere echoue. L'Error Handler V8 (errorTrigger) ne peut pas repondre au webhook original car il s'execute dans une execution separee.
+3. **Quant — SUPABASE_API_KEY type incorrect** : La cle `sb_publishable_...` (46 chars, format nouveau) n'est PAS acceptee par l'API REST Supabase. L'API exige la **cle JWT anon legacy** (`eyJhbG...`, 241 chars). HTTP 401 "No API key found in request".
+**Fix** :
+1. Conversion des 2 noeuds postgres en HTTP Request appelant `exec_sql` RPC via Supabase REST API (script `scripts/fix-quant-rest-api.py`)
+2. Remplacement de require('crypto') par bitwiseHash dans `activeVersion.nodes[]` aussi + ajout `continueOnFail: true` et `onError: continueRegularOutput` sur Init V8
+3. Remplacement SUPABASE_API_KEY par la cle JWT anon legacy (241 chars) dans HF Space secrets + .env.local
+4. Ajout de 16 vars d'environnement manquantes dans entrypoint.sh (LLM_INTENT_MODEL, SUPABASE_URL, etc.)
+**REGLE** : L'API REST Supabase necessite la cle JWT anon legacy, PAS les cles publishable. Verifier avec `get_publishable_keys` MCP tool.
+**REGLE** : Toujours patcher BOTH `nodes[]` ET `activeVersion.nodes[]` dans les JSON de workflow n8n.
+**Fichiers impactes** : `n8n-workflows/quantitative.json`, `n8n-workflows/orchestrator.json`, `entrypoint.sh` (HF Space), `scripts/fix-quant-rest-api.py`, `.env.local`
