@@ -38,6 +38,7 @@
 | 25 | VM Infrastructure | Anciennes sessions Claude Code zombies consomment RAM | 25 | IMPORTANT |
 | 26 | Agent Process | Webhook path/field name incorrects — pre-vol checklist obligatoire | 25 | CRITIQUE |
 | 27 | n8n API | REST API 401 — pas de cle API configuree dans Docker | 25 | IMPORTANT |
+| 28 | HF Space | n8n $env vars non resolus — Quant+Orch 500 (OPENROUTER_API_KEY vide) | 26 | CRITIQUE |
 
 ---
 
@@ -548,3 +549,20 @@ sync && echo 3 | sudo tee /proc/sys/vm/drop_caches
 3. Si besoin API REST : creer une cle dans l'UI n8n (Settings → API Keys)
 **REGLE** : Ne JAMAIS tenter l'API REST n8n sans avoir verifie qu'une cle API existe (Section 0.3 knowledge-base.md)
 **Fichier impacte** : `technicals/knowledge-base.md` (Section 0.3)
+
+### FIX-28 — HF Space n8n $env vars non resolus — Quant+Orch retournent 500
+**Session** : 26 (2026-02-19)
+**Composant** : HF Space entrypoint.sh / n8n workflows
+**Symptome** : Quantitative POST → HTTP 500 (0.5-2s). Orchestrator idem. Standard fonctionne (200 OK).
+**Cause racine** : Les workflows Quantitative et Orchestrator utilisent `$env.OPENROUTER_API_KEY` dans les headers HTTP Request. Standard a les cles **hardcodees** dans le JSON. Les HF Space secrets sont injectes comme env vars au container mais n'etaient pas explicitement **exportes** dans le shell avant le lancement de n8n. L'expression `$env.OPENROUTER_API_KEY` resolvait en `undefined` → `Bearer undefined` → workflow crash au premier appel LLM. De plus, le node Schema Introspection (Postgres) n'a pas `continueOnFail` — si la connexion Supabase echoue, 500 immediat.
+**Fix** : Ajouter dans entrypoint.sh (avant `n8n start`) des exports explicites de TOUTES les variables d'environnement que les workflows referencent via `$env`:
+```bash
+export OPENROUTER_API_KEY="${OPENROUTER_API_KEY:-}"
+export OPENROUTER_BASE_URL="${OPENROUTER_BASE_URL:-https://openrouter.ai/api/v1/chat/completions}"
+export PINECONE_API_KEY="${PINECONE_API_KEY:-}"
+export NEO4J_URL="${NEO4J_URL:-https://38c949a2.databases.neo4j.io/db/neo4j/query/v2}"
+# ... + 12 autres variables avec defaults
+```
+Plus : diagnostic logging qui affiche quelles vars sont SET/EMPTY au demarrage.
+**REGLE** : Tout workflow qui utilise `$env.X` doit avoir la variable X exportee dans entrypoint.sh. Ne JAMAIS supposer que les HF secrets sont automatiquement visibles par n8n `$env`.
+**Fichiers impactes** : `/tmp/hf-space-update/entrypoint.sh` (HF Space repo), `technicals/fixes-library.md`

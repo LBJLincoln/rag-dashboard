@@ -1,42 +1,42 @@
-# Status — 19 Fevrier 2026 (Session 26)
+# Status — 19 Fevrier 2026 (Session 26, fin)
 
-> Last updated: 2026-02-19T18:00:00+01:00
+> Last updated: 2026-02-19T19:30:00+01:00
 
-## Session 26 = Team-agentic multi-model + Graph PASSE + Phase 2 readiness
-
-Session focalisee sur 3 axes : refonte team-agentic multi-model dans tous les repos, confirmation Graph 10/10 PASS, et preparation du document Phase 2 readiness.
+## Session 26 = Team-agentic + Graph PASSE + FIX-28 + Phase 2 readiness
 
 ### Changements majeurs
 
 1. **Team-agentic multi-model deploye** — Opus 4.6 analyse + Sonnet 4.5 execution + Haiku 4.5 exploration
-   - `technicals/team-agentic-process.md` : Section 0 philosophie + arbre decision + Section 7b harness
-   - `CLAUDE.md` : Header + section modele + processus team-agentique
-   - 4 `directives/repos/*.md` : Multi-model delegation ajoutee
-   - Push vers les 4 repos satellites via `push-directives.sh`
+   - Deploye dans CLAUDE.md + 4 repos satellites + team-agentic-process.md
+2. **Graph pipeline CONFIRME** — 10/10 = 100% sur HF Space → Gate Phase 1 PASSEE
+3. **FIX-28 applique** — Export env vars pour n8n `$env` + 4 secrets HF Space configures + rebuild force
+4. **Executive summary cree** — `docs/executive-summary.md` (13 sections, reference complete)
+5. **Phase 2 readiness doc** — `docs/phase2-readiness.md` (pre-requis, protocole, risques)
 
-2. **Graph pipeline CONFIRME >=70%** — 10/10 = 100% sur HF Space
-   - Questions diversifiees : Alexander Fleming, Tokyo, Da Vinci, Apple, Jupiter, Shakespeare, Gold, Armstrong, France, H2O
-   - Gate Phase 1 Graph : PASSEE
+### HF Space nomos-rag-engine — Etat apres FIX-28
 
-3. **Document Phase 2 readiness cree** — `docs/phase2-readiness.md`
-   - Inventaire complet : datasets, DBs, webhooks, protocole de lancement
-   - Bloqueur unique identifie : Quantitative 500 sur HF Space
-
-### HF Space nomos-rag-engine — Etat mis a jour
-
-| Pipeline | Etat | HTTP |
-|----------|------|------|
-| **Standard** | **OK** | 200 |
-| **Graph** | **OK** (10/10 PASS) | 200 |
-| **Quantitative** | **FAIL** (crash workflow) | 500 |
-| **Orchestrator** | **Timeout** | — |
+| Pipeline | HTTP | Notes |
+|----------|------|-------|
+| **Standard** | **200 OK** | Fonctionne parfaitement (7-10s) |
+| **Graph** | **200 OK** | 10/10 = 100% (30-35s) |
+| **Quantitative** | **500** → **A RETESTER** | Rebuild force avec secrets. Tester en session 27 |
+| **Orchestrator** | **200 (vide)** | HTTP 200 mais body 0 bytes. Investigate Respond node |
 
 ### Commits session 26
 
 | Hash | Description |
 |------|-------------|
 | e031df3 | team-agentic multi-model strategy + Graph 10/10 PASS |
-| (en cours) | Phase 2 readiness document + status updates |
+| 8f37f25 | Phase 2 readiness document + status updates |
+| 60d33bc | executive summary — comprehensive project reference |
+| (session-end) | FIX-28 + status updates + session-state final |
+
+### HF Space commits
+
+| SHA | Description |
+|-----|-------------|
+| 07291d6 | fix(FIX-28): export env vars for n8n $env workflow access |
+| 3648046 | force rebuild: credentials import with secrets now set |
 
 ## Pipelines RAG — Accuracy
 
@@ -44,41 +44,35 @@ Session focalisee sur 3 axes : refonte team-agentic multi-model dans tous les re
 |----------|-------|--------|--------|
 | Standard | 85.5% | 85% | PASS |
 | Graph | **100%** (10/10 HF Space) | 70% | **PASS** |
-| Quantitative | 78.3%* | 85% | FAIL (HF Space 500 — credential Supabase ?) |
+| Quantitative | 78.3%* | 85% | FAIL (HF Space 500 → FIX-28 applique) |
 | Orchestrator | 80.0% | 70% | PASS |
 | **Overall** | **85.9%** | **75%** | **PASS** |
 
-*Accuracy Quantitative basee sur eval precedente. Workflow crash sur HF Space.
+*Quant accuracy basee sur eval precedente. Pipeline crash sur HF Space.
 
-## Etat des BDD (verifie session 26 via MCP)
+## Strategie Session 27 — Bottleneck-by-Bottleneck
 
-| BDD | Contenu | Pret Phase 2 |
-|-----|---------|--------------|
-| Pinecone `sota-rag-jina-1024` | 10,411 vecteurs, 12 ns | Oui |
-| Pinecone `sota-rag-phase2-graph` | 1,248 vecteurs, 1 ns (musique) | Oui |
-| Neo4j Aura Free | 19,788 nodes, 76,717 relations, 20 labels | Oui |
-| Supabase | 40 tables, ~17,600 lignes (dont finqa/tatqa/convfinqa tables) | Oui |
+**COMMANDE** : "Fais en sorte que la Phase 2 soit atteinte pour tous"
 
-## Datasets prepares
+1. Lire 15-16 docs (liste dans session-state.md)
+2. Tester 4 pipelines HF Space → identifier bottlenecks
+3. Pour chaque bottleneck : diagnostiquer → fixer → valider
+4. Ne PAS bloquer sur un pipeline — avancer sur les autres
+5. Une fois 4/4 OK → lancer Phase 1 full eval (200q)
+6. Si gates passees → Phase 2 (3,000q)
 
-| Dataset | Questions | Fichier | Status |
-|---------|-----------|---------|--------|
-| Phase 1 | 200 | `datasets/phase-1/*.json` | PRET |
-| Phase 2 (graph+quant) | 1,000 | `datasets/phase-2/hf-1000.json` | PRET |
-| Phase 2 (std+orch) | 2,000 | `datasets/phase-2/standard-orch-1000x2.json` | PRET |
-| Secteurs | 7,609 | `datasets/sectors/**/*.jsonl` | TELECHARGE |
-| **Total** | **10,809** | | |
+### Bottlenecks identifies
 
-## Prochaine session (27)
-
-**Priorite 1** : Diagnostiquer + fixer Quantitative 500 sur HF Space (credential Supabase)
-**Priorite 2** : Si Quant fixe → Full eval Phase 1 (200q, 4 pipelines) pour valider gates
-**Priorite 3** : Si gates passees → Lancer Phase 2 (3,000q) selon protocole docs/phase2-readiness.md
-**Priorite 4** : Monitoring continu + commits reguliers
+| # | Bottleneck | Severite | Action Session 27 |
+|---|-----------|----------|-------------------|
+| 1 | Quant 500 HF Space | CRITIQUE | Tester apres rebuild force. Si 500: lire logs HF, verifier credential Supabase |
+| 2 | Orchestrator body vide | MOYEN | Verifier Respond to Webhook node config |
+| 3 | Quant accuracy 78.3% < 85% | IMPORTANT | Si pipeline marche: optimiser SQL prompt |
+| 4 | 3 iterations stables | PREREQ | Lancer 3 eval consecutives apres fixes |
 
 ## Problemes non resolus
 
-1. **Quantitative 500 sur HF Space** — Workflow crash, probablement credential Supabase mal configuree
-2. **HF Space REST API broken** — FIX-15 (proxy strip POST body) empeche modifications via API
-3. **Orchestrator timeout HF Space** — Non teste formellement, probablement OK si Graph marche
-4. **3 iterations stables consecutives** — Non encore atteint (pre-requis Phase 1 gates)
+1. **Quant 500** — FIX-28 + secrets + rebuild force. A tester session 27
+2. **Orch body vide** — HTTP 200 mais 0 bytes. Workflow actif mais Respond node ?
+3. **HF Space REST API broken** — FIX-15 (proxy strip POST body) empeche modifications via API
+4. **3 iterations stables** — Pre-requis Phase 1 gates non encore atteint
