@@ -558,6 +558,7 @@ bash scripts/check-staleness.sh  # Verifier staleness
 - `technicals/sector-datasets.md` — 1000+ types de documents par secteur
 - `technicals/fixes-library.md` — Bibliotheque des 24+ fixes documentes
 - **`technicals/knowledge-base.md`** — **CERVEAU PERSISTANT** — patterns, solutions, LLM, APIs, commandes, schemas. S'enrichit a chaque session.
+- **`technicals/improvements-roadmap.md`** — **ROADMAP CENTRALISEE** — 50+ ameliorations classees par categorie et priorite. Vision complete du projet.
 - `directives/dataset-rationale.md` — Justification des 14 benchmarks
 - `directives/repos/` — Directives personnalisées par repo satellite
 - `directives/research-methodology.md` — Directive recherche internet/academique SOTA 2026
