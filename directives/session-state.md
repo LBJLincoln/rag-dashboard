@@ -1,310 +1,75 @@
-# Session State — 19 Fevrier 2026 (Session 24 continuation)
+# Session State — 19 Fevrier 2026 (Session 25)
 
-> Last updated: 2026-02-19T03:10:00+01:00
-
-## Session 24 continuation — Taches accomplies
-
-### T1. HF Space n8n FULLY OPERATIONAL
-- **n8n 2.8.3 (latest)** running sur `https://lbjlincoln-nomos-rag-engine.hf.space`
-- **12/12 credentials** importees via CLI (4 postgres, 1 redis, 1 neo4j httpBasicAuth, 2 pinecone httpHeaderAuth, 4 openrouter httpHeaderAuth)
-- **9/9 workflows** importees + activees via REST API
-- **Webhooks fonctionnels**: POST /webhook/rag-multi-index-v3 → HTTP 200 + RAG response
-- Owner setup + login automatiques avec retry + REST readiness check
-- Keep-alive cron VM (*/30 * * * *)
-
-### T2. 8 fixes documentes (FIX-13 to FIX-20)
-| Fix | Probleme | Resolution |
-|-----|----------|-----------|
-| FIX-13 | python3 manquant dans Docker | apt-get install python3 |
-| FIX-14 | import:workflow format array vs objet | Merger JSONs en array |
-| FIX-15 | HF proxy casse POST body /rest/ | Localhost bypass |
-| FIX-16 | import inactive + activation echoue (obsolete) | Resolu par FIX-18+19 |
-| FIX-17 | n8n 2.x login: email → emailOrLdapLoginId | Fix body JSON |
-| FIX-18 | SQLITE FK constraint (shared/activeVersion) | Strip FK fields avant import |
-| FIX-19 | n8n 2.8+ requires publish (versionId) | POST /activate avec versionId |
-| FIX-20 | REST API not ready after healthz | Wait for /rest/settings |
-
-### T3. Credential audit complet (session 24 debut)
-- 2 mismatches corriges: OpenRouter et Cohere dans .mcp.json
-- 18 vars .env.local verifiees
-- 7 MCP servers, 7 git remotes
-
-## HF Space — Etat actuel
-| Composant | Etat |
-|-----------|------|
-| Space URL | https://lbjlincoln-nomos-rag-engine.hf.space |
-| Runtime | RUNNING (cpu-basic, 16GB RAM) |
-| n8n version | 2.8.3 (latest) |
-| Database | SQLite (fresh on each boot) |
-| Owner | admin@mon-ipad.com / SotaRAG2026! |
-| Secrets | 16 vars HF configurees |
-| Credentials | 12/12 importees (auto-generate from HF secrets) |
-| Workflows | 9/9 importees + activees |
-| Webhooks | POST /webhook/rag-multi-index-v3 → HTTP 200 |
-| Keep-alive | Cron VM */30 min |
-| HF repo SHA | 84d713a |
-
-## Commits session 24
-| Hash | Description |
-|------|-------------|
-| c83378a | session 24: HF Space + credentials audit + fin session (pre-continuation) |
-| (HF repo) bb738d0 | FIX-18: strip FK fields |
-| (HF repo) 5d5e6f0 | FIX-19: orchestrator last + activate with versionId |
-| (HF repo) 84d713a | Final: webhook POST verification |
-
-## Repos impactes
-- mon-ipad (fixes-library, session-state, status)
-- HF Space nomos-rag-engine (Dockerfile, entrypoint, nginx, workflows)
-
-## Prochaine action (Session 25)
-1. **Tester end-to-end HF**: `N8N_HOST=https://lbjlincoln-nomos-rag-engine.hf.space python3 eval/quick-test.py --questions 1 --pipeline standard`
-2. Fix Graph 68.7%→70% (gap -1.3pp)
-3. Fix Quantitative 78.3%→85% (gap -6.7pp)
-4. Migration de tests vers HF Space (au lieu des Codespaces)
-
----
+> Last updated: 2026-02-19T12:45:00+01:00
 
 ## Objectif de session
-Pilotage live Codespaces depuis VM, push websites PME, clarification architecture n8n, création 2 repos PME séparés.
+1. Faire passer Phase 1 (Graph >=70%, Quantitative >=85%) pour debloquer Phase 2
+2. Telecharger les datasets sectoriels pour rag-website (4 secteurs)
 
-## Session 23 — Taches accomplies
+## Session 25 — Taches accomplies
 
-### T1. Systeme de pilotage live Codespaces
-- Cree `scripts/codespace-control.sh` (220+ lignes) avec 8 commandes : list/launch/status/logs/stream/stop/results/monitor
-- Cree `eval/progress_callback.py` — ProgressReporter ecrit `/tmp/eval-progress.json` apres chaque question
-- Integre dans `eval/run-eval-parallel.py` : reporter.start(), reporter.update() par question, reporter.pipeline_done(), reporter.finish()
-- Architecture : VM → `gh codespace ssh` → lecture progress.json / kill PID / tail -f logs
+### T1. Datasets sectoriels telecharges (7,609 items, 4 secteurs)
+| Secteur | Fichiers | Items | Taille |
+|---------|----------|-------|--------|
+| Finance | 6 (financebench, convfinqa, tatqa, sec_qa, tatqa_ragbench, finqa_ragbench) | 2,250 | 6.5MB |
+| Juridique | 5 (french_case_law_juri, french_case_law_cetat, cold_french_law, cail2018, hotpotqa_ragbench) | 2,500 | 13MB |
+| BTP | 4 (code_accord_entities, code_accord_relations, ragbench_techqa, docie) | 1,844 | 5.7MB |
+| Industrie | 3 (manufacturing_qa, ragbench_emanual, additive_manufacturing) | 1,015 | 1.6MB |
 
-### T2. Clarification architecture n8n
-- Pas besoin d'un n8n Docker separe pour les 16+ workflows
-- Definitions workflows = ~500KB dans PostgreSQL, aucun impact RAM
-- VM stocke + expose webhooks, Codespaces executent
-- Documente dans CLAUDE.md
+### T2. 4 nouveaux fixes documentes (FIX-21 a FIX-24)
+| Fix | Probleme | Impact |
+|-----|----------|--------|
+| FIX-21 | n8n Code node cache — PUT + Activate cycle obligatoire | CRITIQUE |
+| FIX-22 | OpenRouter 429 rate-limit dans Quantitative — retries + neverError + error serialization | CRITIQUE |
+| FIX-23 | HuggingFace dataset IDs incorrects (6/11 faux) | IMPORTANT |
+| FIX-24 | N8N_RUNNERS_ENABLED deprecie dans n8n 2.7.4+ | IMPORTANT |
 
-### T3. Creation 2 repos PME separes
-- `rag-pme-connectors` : 45 fichiers, Next.js, site 12 connecteurs apps
-- `rag-pme-usecases` : 46 fichiers, Next.js, catalogue 200 cas d'usage
-- Remotes ajoutes dans mon-ipad (total 7 repos)
-- Vercel a configurer pour auto-deploy
+### T3. Script download-sectors.py corrige
+- 6 IDs HuggingFace corriges (sec_qa, eurlex, cail2018, code_accord, ragbench, manufacturing_qa)
+- Support `config` ajoute dans load_dataset (pour datasets multi-config)
+- `trust_remote_code` retire (deprecie)
+- Splits corriges (tatqa: test, sec_qa: test, cail2018: first_stage_train, docie: test)
+- Datasets avec loading scripts depreciees remplaces (legalbench → hotpotqa_ragbench, eurlex → hotpotqa_ragbench, financial_phrasebank → tatqa_ragbench)
 
-### T4. Mise a jour CLAUDE.md complete
-- Passage de 5 a 7 repos
-- Section pilotage live Codespaces (architecture, commandes, callback)
-- Section clarification archi n8n
-- Tables deployements Vercel mise a jour
-- Regles d'or 22 + 23 ajoutees
+### T4. Quantitative pipeline fixes appliques
+- Text-to-SQL Generator: timeout 25s→60s, retries 1→3, neverError=true
+- SQL Validator: $json.error check avant parsing
+- Response Formatter: typeof check pour eviter [object Object]
+- SQL Repair LLM: memes fixes timeout/retry
+- Cycle PUT → Deactivate → Activate effectue (FIX-21)
+- Execution 2029 confirme fixes actifs en runtime
 
-## Commits session 23
+## Taches en cours
+
+### Graph pipeline (68.7% → cible 70%)
+- Quick-test 5/5 PASS (apres FIX-07 session 17)
+- Besoin: eval complete 50q sur HF Space ou Codespace pour confirmer >=70%
+
+### Quantitative pipeline (78.3% → cible 85%)
+- Fixes resilience appliques (FIX-22), mais le probleme de fond = OpenRouter rate-limit
+- Le LLM free tier retourne 429/400 regulierement → SQL generation echoue
+- Pour atteindre 85%, il faudrait: modeles avec meilleur quota OU delais entre requetes OU fallback models
+
+## Decisions prises
+1. NO operations from VM — tests doivent tourner sur HF Space ou Codespace
+2. Fixes library mise a jour IMMEDIATEMENT apres chaque fix (pas en fin de session)
+3. Datasets avec loading scripts HF depreciees remplaces par alternatives RAGBench
+
+## Prochaine action
+1. **Sync n8n workflows** : python3 n8n/sync.py (sauver les fixes Quantitative)
+2. **Full eval Graph** : 50q sur HF Space pour confirmer >=70%
+3. **Fix Quantitative fond** : ajouter delais/backoff entre requetes LLM, ou fallback model
+4. **Commit + push** : tous les changements
+
+## Commits session 25
 | Hash | Description |
 |------|-------------|
-| dd2a930 | pilotage live Codespaces + push websites PME |
-| 1c5fbf3 | 2 repos PME crees + remotes ajoutes + CLAUDE.md 7 repos |
+| (pending) | datasets + fixes-library + download-sectors.py |
 
 ## Repos impactes
-- mon-ipad (T1-T4)
-- rag-pme-connectors (T3 — nouveau)
-- rag-pme-usecases (T3 — nouveau)
+- mon-ipad (datasets, fixes-library, download-sectors.py, session-state)
 
-## Decisions prises
-1. PAS de n8n Docker separe — VM n8n stocke les definitions, Codespaces executent
-2. Repos PME separes (pas dans rag-website) pour deploiement Vercel independant
-3. Pilotage live via `gh codespace ssh` — pas de webhook obligatoire
-4. Progress callback ecrit en local (/tmp/eval-progress.json), VM lit via SSH
-
-### T5. Configuration Vercel pour 2 repos PME
-- Projets Vercel créés via API (prj_SXyOzloroHkQoEOyAB2fbBCsaOMq, prj_XjAAWoZCdF8XulyXtW2rNn22zHeH)
-- Région cdg1 (Paris) configurée
-- SSO désactivé sur les 4 projets
-- 4/4 sites HTTP 200 (ETI + PME Connectors + PME UseCases + Dashboard)
-
-### T6. Analyse migration Codespaces → HuggingFace Spaces
-- Vérifié: workflow-process aligné sur tous les repos (4-step loop)
-- Bottleneck 150K questions = OpenRouter 20req/min (pas RAM)
-- Script migration créé: scripts/migrate-to-hf-spaces.sh
-- Architecture cible: VM (pilotage) + HF Space (n8n 16GB + 3 workers)
-
-### T7. Migration HF Spaces exécutée
-- Space créé: https://huggingface.co/spaces/LBJLincoln/nomos-rag-engine
-- Dockerfile standalone (supervisord, pas Docker-in-Docker) — compatible HF Spaces
-- Services: n8n main + 2 workers (concurrency=3 chacun) + PostgreSQL + Redis + Nginx
-- 9 workflows importés automatiquement
-- Keep-alive crontab VM: */30 * * * * curl healthz
-- Build Docker en cours sur HF (5-10 min)
-
-### T8. Audit credentials complet
-- 18 vars dans .env.local, toutes présentes et correctes
-- .gitignore protège .env.local, .mcp.json, .claude/settings.json
-- Aucun secret dans git (vérifié)
-- 7 remotes GitHub tous avec token ghp_ intégré
-
-## Commits session 23
-| Hash | Description |
-|------|-------------|
-| dd2a930 | pilotage live Codespaces + push websites PME |
-| 1c5fbf3 | 2 repos PME créés + remotes ajoutés + CLAUDE.md 7 repos |
-| c4ccaa1 | session-state MAJ session 23 |
-| b8b3ca5 | Vercel configuré — 4 sites live HTTP 200 |
-| 4fdc7f2 | script migration HF Spaces + session-state |
-
-## Prochaine action (Session 24)
-1. **Vérifier HF Space up** : `curl https://LBJLincoln-nomos-rag-engine.hf.space/healthz`
-2. **Importer API keys** dans n8n HF Space (env vars via HF Settings)
-3. **Tester** : `N8N_HOST=https://LBJLincoln-nomos-rag-engine.hf.space python3 eval/quick-test.py --questions 1 --pipeline standard`
-4. Fix Graph 68.7%→70%
-5. Fix Quantitative 78.3%→85%
-
----
-
-## Session 22 — Taches accomplies (precedente)
-
-### T1. Diagnostic RAM VM
-- 83Mi free, 188Mi available (OK pour pilotage)
-- Docker: 176Mi (n8n+redis+pg)
-- Claude Code: 209Mi
-- Verdict: conforme a l'architecture (pilotage only, tests → Codespaces)
-
-### T2. Migration timestamps UTC→Paris (Europe/Paris)
-- Cree eval/tz_utils.py (paris_now, paris_iso, paris_strftime)
-- Modifie 5 scripts eval: run-eval.py, generate_status.py, live-writer.py, run-eval-parallel.py, iterative-eval.py
-- Modifie scripts/check-staleness.sh (regex accepte +01:00 et Z)
-- Mis a jour 26 fichiers .md headers vers heure Paris
-- 26/26 fichiers passent le check-staleness.sh
-
-### T3. Ajout retry + backoff dans call_rag()
-- call_rag() dans eval/run-eval.py: 3 retries avec backoff exponentiel (2s, 5s, 9s)
-- Retry sur: 429, 502, 503, 504, timeout, connection errors
-- Impact: elimine les faux negatifs dus aux 503 n8n transitoires
-
-### T4. Fix docker-compose rag-data-ingestion workers
-- Ajoute API keys completes (OpenRouter, Jina, Pinecone, Neo4j, Supabase) aux 2 workers
-- Ajoute LLM models + embedding config
-- Ajoute healthchecks + mem_limit 1g par worker
-- Workers passent de concurrency implicite a --concurrency=3
-
-### T5. Ajout healthchecks + memory limits docker-compose rag-tests
-- n8n-main: healthcheck curl /healthz, mem_limit 2g
-- Workers 1-3: healthcheck node, mem_limit 1536m chacun
-- Prevents OOM crashes et auto-recovery
-
-### T6. Script inventaire automatise cross-repos
-- Cree scripts/inventory-update.sh
-- Compte fichiers de chaque repo via git ls-tree
-- Resultat: 1418 fichiers (683+344+84+10+297)
-- Genere infra/inventory.md automatiquement
-
-### T7. Finalisation 3 sites web PME (EN COURS)
-- website/ (ETI 4 secteurs): enrichi session 21
-- website-pme-connectors/ (12 connecteurs apps): cree session 21, pas deploye
-- website-pme-usecases/ (catalogue 200 cas): cree session 21, pas deploye
-
-## Decisions prises
-1. Timestamps heure Paris partout (eval, directives, staleness)
-2. Retry 3x avec backoff dans call_rag() (0 faux negatifs 503)
-3. Workers ingestion ont les memes API keys que main
-4. Memory limits sur tous les containers Codespace
-
-## Analyse architecture 500q parallele
-**Status: possible en theorie, pas encore en pratique.**
-- Actuel: 3 workers × concurrency=2 = 6 exec paralleles max
-- Bottleneck: OpenRouter free tier (~20 req/min)
-- Pour 500q/pipeline: besoin asyncio.Semaphore + aiohttp (decrit dans infrastructure-plan.md mais PAS implemente)
-- Estimation: 500q × 4 pipelines = 2000q → 5.5-11h sur Codespace
-- La VM ne fait QUE du pilotage (correct)
-
-## Commits session 22
-
-## Taches accomplies
-
-### T1. Desactivation 4 workflows n8n Docker (API REST)
-- Feedback V3.1 (`F70g14jMxIGCZnFz`) → desactive
-- Monitoring (`tLNh3wTty7sEprLj`) → desactive
-- Orchestrator Tester (`m9jaYzWMSVbBFeSf`) → desactive
-- RAG Batch Tester (`y2FUkI5SZfau67dN`) → desactive
-
-### T2. Suppression 4 fichiers workflow n8n/live/
-- Supprimes : feedback.json, benchmark-monitoring.json, benchmark-orchestrator-tester.json, benchmark-rag-tester.json
-- Resultat : 9 fichiers restants dans n8n/live/
-
-### T3. Correction fichiers outdated
-- `technicals/phases-overview.md` : Neo4j 110→19,788, Supabase 88→17,000+, workflows 13→9
-- `docs/data.json` : workflow IDs Docker corriges (4 pipelines)
-- `CLAUDE.md` : 3 support workflows marques OFF (pret)
-- `directives/dataset-rationale.md` : timestamp ajoute
-
-### T4. Anti-staleness complet
-- 10 fichiers .md sans timestamp → tous corriges
-- 25/25 fichiers passent le check-staleness.sh
-
-### T5. Push directives vers satellites
-- `bash scripts/push-directives.sh` execute → 4 repos MAJ
-
-### T6. Specialisation repos satellites (grande suppression)
-- Script `scripts/specialize-repos.sh` cree (170 lignes)
-- rag-tests : 31 items supprimes (website/, mcp/, n8n/, db/, etc.)
-- rag-website : 17 items supprimes (eval/, scripts/, datasets/, etc.)
-- rag-dashboard : 22 items supprimes (quasi tout sauf docs/)
-- rag-data-ingestion : 30 items supprimes (website/, eval/, etc.)
-
-### T7. Creation dossier infra/
-- 8 fichiers : 6 copies depuis technicals/ + inventory.md + cloud-alternatives.md
-- Mermaid diagrams architecture 5 repos + infra + workflows
-
-### T8. Inventaire complet (infra/inventory.md)
-- mon-ipad : 504 fichiers core
-- rag-tests : 326 fichiers (post-specialisation)
-- rag-website : 83 fichiers
-- rag-dashboard : 9 fichiers
-- rag-data-ingestion : 295 fichiers
-
-### T9. Recherche alternatives cloud gratuites (infra/cloud-alternatives.md)
-- 20+ providers analyses (HF Spaces, Azure, AWS, Fly.io, Railway, Koyeb, Render, Hetzner)
-- **Decouverte majeure** : Hugging Face Spaces = 16 GB RAM, 2 CPU, $0 permanent
-- Strategie multi-provider : HF Spaces + Supabase + Codespaces = $0 total, 25 GB RAM distribuee
-- Estimation Phase 5 : 1M questions / 1,200 req/h = ~35 jours 24/7
-
-### T10. Directive recherche internet centralisee (directives/research-methodology.md)
-- 4 tiers de sources (arXiv → Labs blogs → Docs officielles → Leaderboards)
-- Suivi obligatoire : Anthropic, OpenAI, Google DeepMind, xAI, Meta AI
-- Contrainte $0 absolue : toute technique payante → chercher alternative gratuite
-- Template de documentation avec references verifiables
-
-### T11. Verification fixes-library dans satellites
-- rag-tests : OK (technicals/fixes-library.md present)
-- rag-data-ingestion : OK (technicals/fixes-library.md present)
-- rag-website : N/A (pas de debug pipeline)
-- rag-dashboard : N/A (statique)
-
-### T12. Review rag-research-2026.md
-- 11 papiers arXiv cites, structure solide
-- Garde dans technicals/ (source de verite academique)
-- Idees integrees dans cloud-alternatives.md et research-methodology.md
-
-## Decisions prises
-1. VM GCloud = pilotage uniquement (RAM non compromise, ~400 MB Docker + Claude Code)
-2. HF Spaces = option migration moyen terme (16 GB RAM gratuit)
-3. Research-methodology.md = directive centralisee pour TOUS les repos
-4. Specialisation repos = chaque repo ne garde que ce qui le concerne
-
-## Commits session 20
-| Hash | Description |
-|------|-------------|
-| 724c596 | nettoyage massif + staleness + specialisation repos |
-| 1bc6002 | infra/ dossier + inventaire + alternatives cloud + directive recherche |
-
-## Repos impactes
-- mon-ipad (T1-T12)
-- rag-tests (T5 directives + T6 specialisation)
-- rag-website (T5 directives + T6 specialisation)
-- rag-dashboard (T5 directives + T6 specialisation)
-- rag-data-ingestion (T5 directives + T6 specialisation)
-
-## Prochaine action (Session 21)
-1. **Fix Graph 68.7%→70%** (gap -1.3pp, plus petit gap) dans Codespace rag-tests
-2. **Fix Quantitative 78.3%→85%** (CompactRAG + BM25) dans Codespace rag-tests
-3. **Si gates passees** : Phase 2 (1000q HuggingFace)
-4. **Optionnel** : Deployer n8n sur HF Spaces si besoin plus de RAM
-
-## Accuracy actuelle (inchangee — aucun test cette session)
+## Accuracy actuelle (inchangee — retester)
 | Pipeline | Accuracy | Target | Status |
 |----------|----------|--------|--------|
 | Standard | 85.5% | 85% | PASS |

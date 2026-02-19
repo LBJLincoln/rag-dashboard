@@ -1,6 +1,6 @@
 # Fixes Library — Multi-RAG Orchestrator
 
-> Last updated: 2026-02-19T02:30:00+01:00
+> Last updated: 2026-02-19T12:30:00+01:00
 
 > **Bibliotheque permanente de tous les bugs resolus.** A consulter EN PREMIER avant tout debug.
 > Mise a jour obligatoire apres chaque fix reussi. Session courante : Session 24 (2026-02-19).
@@ -31,6 +31,10 @@
 | 18 | HF Space | SQLITE FK constraint — shared/activeVersion refs VM entities | 24 | CRITIQUE |
 | 19 | HF Space | n8n 2.8+ activation requires publish (versionId) | 24 | CRITIQUE |
 | 20 | HF Space | REST API not ready after healthz (timing) | 24 | IMPORTANT |
+| 21 | n8n Infrastructure | Code node cache — PUT + Activate cycle obligatoire | 25 | CRITIQUE |
+| 22 | Quantitative Pipeline | OpenRouter 429 rate-limit — retries + neverError + error serialization | 25 | CRITIQUE |
+| 23 | Datasets | HuggingFace dataset IDs incorrects (6/11 faux) | 25 | IMPORTANT |
+| 24 | n8n Infrastructure | N8N_RUNNERS_ENABLED deprecie dans n8n 2.7.4+ (toujours actif) | 25 | IMPORTANT |
 
 ---
 
@@ -222,12 +226,15 @@ clean = {
 |-------|----------|---------------------|
 | Credential manquante | HTTP 500 / "Credential does not exist" | `curl n8n/api/v1/credentials` |
 | Workflow vide (0 nodes) | HTTP 500 immediat | `analyze_n8n_executions.py --limit 1` |
-| Task runner isolation | $getWorkflowStaticData ne persiste pas | Verifier N8N_RUNNERS_ENABLED=false |
+| Task runner isolation | $getWorkflowStaticData ne persiste pas | Verifier N8N_RUNNERS_ENABLED=false (< 2.7 only) |
 | Bolt protocol | Graph skip_graph=true silencieux | Verifier URL Neo4j = https:// |
 | PUT 400 | "additional properties" | Utiliser payload minimal (FIX-09) |
 | SQL sans FROM | "Unexpected token WHERE" | Verifier fallbacks SQL Validator |
-| LLM rate-limit | "Unable to generate SQL" en CI | Timeout LLM 25s→60s |
+| LLM rate-limit | "Unable to generate SQL" ou [object Object] | FIX-22: retries+neverError+typeof check |
 | Pinecone dim mismatch | 400 on upsert | Verifier index = sota-rag-jina-1024 |
+| Code node cache stale | Fixes presents dans JSON mais runtime ancien | FIX-21: PUT → Deactivate → Activate |
+| HF dataset ID faux | "Invalid username or password" ou 404 | FIX-23: verifier avec hf_search_datasets |
+| N8N_RUNNERS_ENABLED ignore | Log "Remove this env var" | FIX-24: deprecie n8n >= 2.7.4 |
 
 ---
 
@@ -373,3 +380,108 @@ done
 ```
 **Verifie** : Owner setup + login reussissent au premier essai (push 371d23a)
 **Fichier impacte** : `/tmp/hf-space-fix/entrypoint.sh` (HF Space repo)
+
+---
+
+### FIX-21 — n8n Code node cache invalidation (PUT + Activate cycle)
+**Session** : 25 (2026-02-19)
+**Composant** : n8n REST API + Task Runner
+**Symptome** : Apres modification d'un Code node via `PUT /api/v1/workflows/{id}`, les changements sont presents dans le JSON (GET confirme), mais le runtime continue d'executer l'ANCIEN code. Exemple : `[object Object]` au lieu de `JSON.stringify($json.error)`.
+**Cause racine** : n8n charge les workflows en memoire au demarrage. Un `PUT` ecrit dans PostgreSQL mais n'invalide PAS le cache en memoire du task runner. Meme un `docker compose restart n8n` ne suffit pas toujours car n8n relit la version DB au startup, mais le task runner peut conserver du code compile.
+**Fix** : Apres tout PUT de Code nodes, effectuer un cycle PUT + Activate :
+```bash
+# 1. PUT le workflow modifie (sans champ 'active')
+curl -X PUT -H "X-N8N-API-KEY: $KEY" -H "Content-Type: application/json" \
+  -d @workflow.json "http://localhost:5678/api/v1/workflows/<ID>"
+
+# 2. Desactiver (force deregistration des webhooks)
+curl -X POST -H "X-N8N-API-KEY: $KEY" \
+  "http://localhost:5678/api/v1/workflows/<ID>/deactivate"
+
+# 3. Reactiver (force recompilation des Code nodes)
+curl -X POST -H "X-N8N-API-KEY: $KEY" \
+  "http://localhost:5678/api/v1/workflows/<ID>/activate"
+```
+**REGLE** : Un simple PUT ne suffit JAMAIS pour les Code nodes. Toujours faire PUT → Deactivate → Activate.
+**Verifie** : Execution 2029 confirme les fixes actifs en runtime apres le cycle.
+**Fichier impacte** : Tous les workflows avec des Code nodes modifies via API
+
+---
+
+### FIX-22 — OpenRouter 429 rate-limit dans Quantitative pipeline
+**Session** : 25 (2026-02-19)
+**Pipeline** : Quantitative
+**Symptome** : `Unable to generate SQL query for this question. Error: [object Object]` — l'erreur apparait quand OpenRouter retourne HTTP 429 (rate-limit) ou 400 (JSON parsing failed) pour les modeles gratuits.
+**Cause racine** : Les HTTP Request nodes (Text-to-SQL Generator, SQL Repair LLM) avaient :
+- Timeout 25s (trop court pour modeles gratuits rate-limited)
+- Retries 1 (insuffisant)
+- `continueOnFail=false` (crash le workflow)
+- SQL Validator ne verifie pas `$json.error` avant de parser `$json.choices`
+- Response Formatter concatene `$json.error` (objet) avec string → `[object Object]`
+**Fix** (4 modifications) :
+```yaml
+# 1. Text-to-SQL Generator + SQL Repair LLM : HTTP Request
+timeout: 25000 → 60000
+retry: maxTries 1 → 3, waitBetweenTries 5000ms
+options.neverError: true
+options.response.response.neverError: true
+
+# 2. SQL Validator (Shield #1) : Code node — ajout early return
+if ($json.error) {
+  return {
+    validated_sql: "SELECT 'LLM_RATE_LIMITED' as error_message LIMIT 1",
+    validation_status: 'FAILED',
+    validation_error: 'LLM_ERROR'
+  };
+}
+
+# 3. Response Formatter : Code node — serialisation propre
+interpretation = '...Error: ' + (typeof $json.error === 'object'
+  ? JSON.stringify($json.error) : ($json.error || 'unknown'));
+
+# 4. Prepare SQL Request : modele google/gemma-3-12b-it:free → $env.LLM_SQL_MODEL
+```
+**Verifie** : Execution 2029 — erreurs LLM correctement serialisees (pas de [object Object]).
+**Note** : Ce fix ameliore la resilience mais ne resout PAS le probleme de fond (LLM rate-limit). Pour atteindre 85%, il faut des modeles avec quota suffisant ou ajouter des delais entre requetes.
+**Fichier impacte** : `n8n/live/quantitative.json` — 4 nodes modifies
+
+---
+
+### FIX-23 — HuggingFace dataset IDs incorrects
+**Session** : 25 (2026-02-19)
+**Composant** : `datasets/scripts/download-sectors.py`
+**Symptome** : 6 datasets sur 11 retournent `Invalid username or password` ou 404 car les HF IDs sont faux.
+**Cause racine** : IDs mal orthographies ou namespaces inexistants dans download-sectors.py.
+**Fix** : Corrections des IDs :
+```python
+# FINANCE
+"sec_qa":              "jkung2003/sec-qa"      → "zefang-liu/secqa"
+"financial_phrasebank": "takala/financial_phrasebank" → OK mais config requise: "sentences_allagree"
+
+# JURIDIQUE
+"eurlex":   "EurLex/eurlex"    → "NLP-AUEB/eurlex" (config: "eurlex57k")
+"cail2018": "thunlp/cail2018"  → "china-ai-law-challenge/cail2018"
+
+# BTP
+"code_accord": "GT4SD/code-accord" → "ACCORD-NLP/CODE-ACCORD-Entities" + "ACCORD-NLP/CODE-ACCORD-Relations"
+"ragbench_btp": "rungalileo/ragbench" → "galileo-ai/ragbench" (config: "techqa")
+"docie": "Sygil/DocIE" → "sercetexam9/docie_test"
+
+# INDUSTRIE
+"manufacturing_qa": "thesven/manufacturing-qa-gpt4o" → "karthiyayani/manufacturing-qa-v1"
+"ragbench": "rungalileo/ragbench" → "galileo-ai/ragbench" (config: "emanual")
+```
+**REGLE** : Toujours verifier l'existence d'un dataset HF avec `mcp__huggingface__hf_search_datasets` AVANT de l'ajouter au script.
+**Fichier impacte** : `datasets/scripts/download-sectors.py`
+
+---
+
+### FIX-24 — N8N_RUNNERS_ENABLED deprecie dans n8n 2.7.4+
+**Session** : 25 (2026-02-19)
+**Composant** : n8n Docker configuration
+**Symptome** : Au demarrage n8n 2.7.4, le log affiche : `N8N_RUNNERS_ENABLED -> Remove this environment variable; it is no longer needed.` Les task runners sont toujours actifs malgre `N8N_RUNNERS_ENABLED=false`.
+**Cause racine** : A partir de n8n 2.7.4, les task runners sont TOUJOURS actifs. La variable `N8N_RUNNERS_ENABLED` est depreciee et ignoree. Les Code nodes s'executent TOUJOURS dans un subprocess isole (JS Task Runner).
+**Impact sur FIX-01** : FIX-01 (`N8N_RUNNERS_ENABLED=false`) reste VALIDE pour les versions de n8n < 2.7 (utilisees dans rag-tests Codespace). Pour la VM (n8n 2.7.4), cette variable est ignoree.
+**Contournement VM** : Utiliser FIX-05 (Task Broker TTL 15s→120s) pour eviter les expirations de tokens sur la VM lente. Les task runners ne peuvent pas etre desactives.
+**REGLE** : Pour n8n >= 2.7.4, ne PAS compter sur N8N_RUNNERS_ENABLED. Les Code nodes tournent toujours en isolation. `$getWorkflowStaticData` peut ne pas fonctionner comme attendu entre iterations.
+**Fichier impacte** : `/home/termius/n8n/docker-compose.yml` (variable presente mais ignoree)

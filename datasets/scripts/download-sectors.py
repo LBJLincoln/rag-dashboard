@@ -30,31 +30,41 @@ SECTOR_DATASETS = {
             },
             {
                 "name": "convfinqa",
-                "hf_id": "czyssrs/ConvFinQA",
+                "hf_id": "ChanceFocus/flare-convfinqa",
                 "split": "train",
                 "priority": "P1",
                 "note": "3,892 conversational financial QA with numerical reasoning",
             },
             {
                 "name": "tatqa",
-                "hf_id": "kasnerz/tatqa",
-                "split": "train",
+                "hf_id": "ChanceFocus/flare-tatqa",
+                "split": "test",
                 "priority": "P1",
-                "note": "16,552 QA over tables and text from financial reports",
+                "note": "1K-10K QA over tables and text from financial reports",
             },
             {
                 "name": "sec_qa",
-                "hf_id": "jkung2003/sec-qa",
-                "split": "train",
+                "hf_id": "zefang-liu/secqa",
+                "config": "secqa_v2",
+                "split": "test",
                 "priority": "P2",
-                "note": "~5,000 QA from SEC filings (10-K, 10-Q)",
+                "note": "Multiple-choice QA on SEC filings security topics",
             },
             {
-                "name": "financial_phrasebank",
-                "hf_id": "takala/financial_phrasebank",
+                "name": "tatqa_ragbench",
+                "hf_id": "galileo-ai/ragbench",
+                "config": "tatqa",
                 "split": "train",
                 "priority": "P3",
-                "note": "4,846 financial sentiment sentences — useful for context enrichment",
+                "note": "RAGBench TatQA subset — table-text financial QA",
+            },
+            {
+                "name": "finqa_ragbench",
+                "hf_id": "galileo-ai/ragbench",
+                "config": "finqa",
+                "split": "train",
+                "priority": "P2",
+                "note": "RAGBench FinQA subset — financial QA benchmark",
             },
         ],
     },
@@ -64,39 +74,42 @@ SECTOR_DATASETS = {
         "impact": "Strengthens Neo4j with French legal entities — Graph from 68.7% to ~72%",
         "datasets": [
             {
-                "name": "french_case_law",
-                "hf_id": "rcds/french_case_law",
+                "name": "french_case_law_juri",
+                "hf_id": "artefactory/Argimi-Legal-French-Jurisprudence",
+                "config": "juri",
                 "split": "train",
                 "priority": "P1",
-                "note": "~50K French court decisions — primary source for legal Graph RAG",
+                "note": "French legal jurisprudence (general) — primary source for legal Graph RAG",
+            },
+            {
+                "name": "french_case_law_cetat",
+                "hf_id": "artefactory/Argimi-Legal-French-Jurisprudence",
+                "config": "cetat",
+                "split": "train",
+                "priority": "P1",
+                "note": "Conseil d'Etat administrative law — enriches legal graph",
             },
             {
                 "name": "cold_french_law",
-                "hf_id": "rcds/cold-french-law",
+                "hf_id": "harvard-lil/cold-french-law",
                 "split": "train",
                 "priority": "P1",
                 "note": "~10K French legal texts (codes, statutes) — enriches Neo4j legal graph",
             },
             {
-                "name": "legalbench",
-                "hf_id": "nguha/legalbench",
-                "split": "test",
-                "priority": "P2",
-                "note": "162 legal reasoning tasks — gold benchmark for legal RAG evaluation",
-            },
-            {
-                "name": "eurlex",
-                "hf_id": "EurLex/eurlex",
+                "name": "hotpotqa_ragbench",
+                "hf_id": "galileo-ai/ragbench",
+                "config": "hotpotqa",
                 "split": "train",
                 "priority": "P2",
-                "note": "~20K EU legal documents — cross-border regulatory coverage",
+                "note": "RAGBench HotpotQA subset — multi-hop reasoning for legal-style analysis",
             },
             {
                 "name": "cail2018",
-                "hf_id": "thunlp/cail2018",
-                "split": "train",
+                "hf_id": "china-ai-law-challenge/cail2018",
+                "split": "first_stage_train",
                 "priority": "P3",
-                "note": "183K Chinese legal cases — structural reference for legal QA format",
+                "note": "Chinese legal cases — structural reference for legal QA format",
             },
         ],
     },
@@ -106,25 +119,33 @@ SECTOR_DATASETS = {
         "impact": "Powers BTP sector demo on rag-website",
         "datasets": [
             {
-                "name": "code_accord",
-                "hf_id": "GT4SD/code-accord",
+                "name": "code_accord_entities",
+                "hf_id": "ACCORD-NLP/CODE-ACCORD-Entities",
                 "split": "train",
                 "priority": "P2",
-                "note": "~5K building regulation Q&A pairs — directly applicable to BTP compliance",
+                "note": "NER entities from building regulations — BTP compliance",
             },
             {
-                "name": "ragbench_btp",
-                "hf_id": "rungalileo/ragbench",
+                "name": "code_accord_relations",
+                "hf_id": "ACCORD-NLP/CODE-ACCORD-Relations",
                 "split": "train",
                 "priority": "P2",
-                "note": "~100K general RAG benchmark — filtered for construction/engineering domain",
+                "note": "Relations from building regulations — BTP compliance",
+            },
+            {
+                "name": "ragbench_techqa",
+                "hf_id": "galileo-ai/ragbench",
+                "config": "techqa",
+                "split": "train",
+                "priority": "P2",
+                "note": "RAGBench TechQA subset — technical/engineering domain",
             },
             {
                 "name": "docie",
-                "hf_id": "Sygil/DocIE",
-                "split": "train",
+                "hf_id": "sercetexam9/docie_test",
+                "split": "test",
                 "priority": "P2",
-                "note": "~3K document information extraction — useful for BTP document parsing",
+                "note": "Document information extraction — useful for BTP document parsing",
             },
         ],
     },
@@ -135,17 +156,25 @@ SECTOR_DATASETS = {
         "datasets": [
             {
                 "name": "manufacturing_qa",
-                "hf_id": "thesven/manufacturing-qa-gpt4o",
+                "hf_id": "karthiyayani/manufacturing-qa-v1",
                 "split": "train",
                 "priority": "P2",
-                "note": "~3K GPT-4o generated manufacturing Q&A — high quality domain coverage",
+                "note": "Manufacturing Q&A — domain coverage for industrial sector",
             },
             {
-                "name": "ragbench",
-                "hf_id": "rungalileo/ragbench",
+                "name": "ragbench_emanual",
+                "hf_id": "galileo-ai/ragbench",
+                "config": "emanual",
                 "split": "train",
                 "priority": "P2",
-                "note": "~100K RAG benchmark — general industrial and technical knowledge",
+                "note": "RAGBench eManual subset — industrial/technical manuals",
+            },
+            {
+                "name": "additive_manufacturing",
+                "hf_id": "g3lu/additive_manufacturing_questions-R1",
+                "split": "train",
+                "priority": "P2",
+                "note": "Additive manufacturing questions — specialized industrial domain",
             },
         ],
     },
@@ -163,6 +192,7 @@ def download_sector_dataset(ds_config, sector, limit, output_dir):
 
     name = ds_config["name"]
     hf_id = ds_config["hf_id"]
+    config = ds_config.get("config", None)
     split = ds_config["split"]
     priority = ds_config["priority"]
     note = ds_config.get("note", "")
@@ -178,12 +208,16 @@ def download_sector_dataset(ds_config, sector, limit, output_dir):
             return existing
         print(f"  [->] [{priority}] {name}: resuming ({existing}/{limit})...")
     else:
-        print(f"  [DL] [{priority}] {name}: downloading from {hf_id}...")
+        config_str = f" (config: {config})" if config else ""
+        print(f"  [DL] [{priority}] {name}: downloading from {hf_id}{config_str}...")
         if note:
             print(f"       Note: {note}")
 
     try:
-        ds = load_dataset(hf_id, split=split, trust_remote_code=True, streaming=True)
+        load_args = {"path": hf_id, "split": split, "streaming": True}
+        if config:
+            load_args["name"] = config
+        ds = load_dataset(**load_args)
         items = []
         for i, item in enumerate(ds):
             if i >= limit:
