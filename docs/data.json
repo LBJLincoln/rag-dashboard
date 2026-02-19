@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-02-19T12:55:01+01:00",
+    "generated_at": "2026-02-19T23:18:31+01:00",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
@@ -28877,16 +28877,6 @@
   },
   "quick_tests": [
     {
-      "timestamp": "2026-02-18T12:44:06.873175Z",
-      "pipeline": "graph",
-      "query": "What did Alexander Fleming discover?",
-      "status": "pass",
-      "latency_ms": 75755,
-      "response_preview": "Penicillin",
-      "trigger": "manual",
-      "error": null
-    },
-    {
       "timestamp": "2026-02-18T12:46:22.123177Z",
       "pipeline": "graph",
       "query": "Who founded Microsoft?",
@@ -29373,6 +29363,16 @@
       "status": "pass",
       "latency_ms": 51013,
       "response_preview": "Malaria",
+      "trigger": "manual",
+      "error": null
+    },
+    {
+      "timestamp": "2026-02-19T23:18:31+01:00",
+      "pipeline": "quantitative",
+      "query": "What was TechVision Inc's total revenue in fiscal year 2023?",
+      "status": "pass",
+      "latency_ms": 181492,
+      "response_preview": "Unable to generate SQL query for this question. Error: {\"message\":\"JSON parsing failed\",\"code\":400}",
       "trigger": "manual",
       "error": null
     }

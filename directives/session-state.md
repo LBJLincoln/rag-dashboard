@@ -96,8 +96,35 @@ Key: Standard rock solid at any load. Orchestrator must run sequential.
 | (pending) | docs: document-index + executive-summary update + session-state |
 
 ### Prochaines actions (session 28)
-1. Deployer Qwen 2.5 Coder 32B comme LLM_SQL_MODEL sur HF Space (pool RPM separe)
-2. Implementer rotation 3 modeles dans le Code node Quantitative (60 RPM combines)
-3. Tester Quantitative avec nouveau modele (5 questions minimum)
-4. Valider Phase 1 gates (4/4 pipelines + 3 iterations stables)
-5. Lancer Phase 2 (3,000 questions) si Phase 1 validee
+1. ✅ **DONE** — HF Space env vars updated (LLM_SQL_MODEL, LLM_SQL_FALLBACK_MODEL)
+2. ❌ **BLOCKED** — SQL generation failing on BOTH VM + HF Space (workflow bug, not model issue)
+3. **TODO** — Debug Quantitative workflow SQL generation node (check OpenRouter API call)
+4. **TODO** — Fix workflow logic, then test with new models
+5. **TODO** — Valider Phase 1 gates (4/4 pipelines + 3 iterations stables)
+
+### Session 28 Progress (2026-02-19)
+
+**Task**: Fix Quantitative 429 rate limit by switching from Llama 70B to Qwen 2.5 Coder 32B
+
+**Actions completed**:
+1. ✅ Created HF API scripts: update-hf-space-vars.py, delete-hf-space-secrets.py, restart-hf-space.py, check-hf-space-status-v2.py
+2. ✅ Updated HF Space variables via API:
+   - `LLM_SQL_MODEL=qwen/qwen-2.5-coder-32b-instruct:free`
+   - `LLM_SQL_FALLBACK_MODEL=deepseek/deepseek-chat-v3-0324:free`
+3. ✅ Verified HF Space RUNNING with variables set
+4. ✅ Tested Quantitative pipeline: **NO MORE 429 errors** (rate limit fixed!)
+5. ❌ **NEW ISSUE**: SQL generation failing with "Query must start with SELECT" error
+6. ❌ Tested on VM n8n: same failure (times out, workflow bug confirmed)
+
+**Root cause**: The Quantitative workflow has a bug in the SQL generation logic, NOT the LLM model.
+The error suggests the workflow is returning a fallback error SQL instead of calling the LLM.
+
+**Evidence**:
+- HF Space returns: `"sql_executed": "SELECT 'Query must start with SELECT' as error_message..."`
+- This is the FALLBACK error SQL, not a generated query
+- Happens even with direct SQL queries (bypassing LLM should work but doesn't)
+- VM n8n test times out after 45s (same issue)
+
+**Report created**: `/home/termius/mon-ipad/docs/session-26-hf-space-fix-report.md`
+
+**Next step**: Debug the Quantitative workflow Text-to-SQL Generator node (likely OpenRouter API call is broken)
