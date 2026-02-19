@@ -1,6 +1,6 @@
 # rag-data-ingestion — CLAUDE.md
 
-> Last updated: 2026-02-19T18:00:00+01:00
+> Last updated: 2026-02-20T01:30:00+01:00
 > **Ce repo s'exécute dans un Codespace GitHub éphémère.**
 > Tu es un agent Claude Code specialise dans l'INGESTION et l'ENRICHISSEMENT des BDD.
 > **MODELE PRINCIPAL : `claude-opus-4-6`** — Strategie ingestion, analyse qualite, decisions.
@@ -209,7 +209,7 @@ rag-ingestion-redis-1    redis:7-alpine        Port 6379 (queue)
 cat technicals/debug/fixes-library.md
 ```
 
-12 bugs critiques ont deja ete resolus (sessions 7–17). Chercher le symptome dans le tableau PIEGES RECURRENTS avant toute analyse. **Si symptome connu → appliquer directement SANS re-analyser.** Particulierement pertinent : FIX-06 (credentials manquantes), FIX-09 (PUT 400), FIX-12 (Pinecone dim mismatch). Si le symptome est nouveau → debugger, puis signaler a mon-ipad pour documentation.
+35 bugs documentes ont deja ete resolus (sessions 7–27). Chercher le symptome dans le tableau PIEGES RECURRENTS avant toute analyse. **Si symptome connu → appliquer directement SANS re-analyser.** Particulierement pertinent : FIX-06 (credentials manquantes), FIX-09 (PUT 400), FIX-12 (Pinecone dim mismatch). Si le symptome est nouveau → debugger, puis signaler a mon-ipad pour documentation.
 
 ### Protocole Auto-Stop
 3 echecs consecutifs sur le meme type d'erreur → STOP, documenter dans `logs/diagnostics/`, signaler a mon-ipad.
@@ -341,6 +341,48 @@ git push origin main
 
 # 3. mon-ipad importe via API REST n8n (sur la VM)
 # → Ce déploiement est fait depuis mon-ipad, pas depuis ce Codespace
+```
+
+---
+
+## DATASETS & QUESTIONS — INVENTAIRE COMPLET A INGERER
+
+### Vue globale des datasets
+| Categorie | Datasets | Questions/items | Taille | Destination BDD | Status |
+|-----------|----------|----------------|--------|----------------|--------|
+| **Benchmarks Phase 2** | 14 datasets HuggingFace | 3,000 | ~4 GB | Pinecone `sota-rag-jina-1024` + Neo4j + Supabase | NON INGERE |
+| **Finance** | 6 fichiers (convfinqa, financebench, finqa, sec_qa, tatqa) | 2,250 | 6.5 MB | Supabase `website_*` + Pinecone `website-sectors-jina-1024` | TELECHARGE, NON INGERE |
+| **Juridique** | 5 fichiers (french_case_law, cold_french_law, cail2018, hotpotqa) | 2,500 | 13 MB | Neo4j labels `WEB_*` + Pinecone `website-sectors-jina-1024` | TELECHARGE, NON INGERE |
+| **BTP** | 4 fichiers (code_accord, docie, ragbench_techqa) | 1,844 | 5.7 MB | Pinecone `website-sectors-jina-1024` | TELECHARGE, NON INGERE |
+| **Industrie** | 3 fichiers (manufacturing_qa, ragbench) | 1,015 | 1.6 MB | Pinecone `website-sectors-jina-1024` | TELECHARGE, NON INGERE |
+| **Total** | **32+ datasets** | **10,609+ items** | **~5.4 GB** | | |
+
+### Dependances Phase 2 (qui attend quoi)
+| Repo | Attend de rag-data-ingestion | Bloquant pour |
+|------|------------------------------|---------------|
+| **rag-tests** | 14 benchmarks HF ingeres dans les BDD | Lancer Phase 2 (3,000q) |
+| **rag-website** | Datasets sectoriels ingeres dans BDD separees | Demos chatbot avec vrais docs sectoriels |
+| **rag-dashboard** | Rien directement | Affiche les metriques post-ingestion |
+
+### Methodes de test qualite ingestion
+| Methode | Commande | Usage |
+|---------|----------|-------|
+| Verification chunks | `python3 scripts/verify-ingestion.py --last 1` | Apres chaque ingestion unitaire |
+| Test retrieval post-ingestion | `python3 eval/quick-test.py --questions 5 --pipeline standard` | Valider que les docs ingeres sont retrouves |
+| Stats Pinecone | MCP pinecone → `describe-index-stats` | Verifier nb vecteurs par namespace |
+| Stats Neo4j | MCP neo4j → `get-schema` | Verifier labels et relations |
+| Stats Supabase | MCP supabase → `execute_sql` (SELECT count) | Verifier nb lignes par table |
+
+### HF Space — Test des pipelines apres ingestion
+Apres ingestion, tester que les pipelines RAG retrouvent les documents ingeres :
+```
+Standard     : https://lbjlincoln-nomos-rag-engine.hf.space/webhook/rag-multi-index-v3
+Graph        : https://lbjlincoln-nomos-rag-engine.hf.space/webhook/ff622742-6d71-4e91-af71-b5c666088717
+Quantitative : https://lbjlincoln-nomos-rag-engine.hf.space/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9
+Orchestrator : https://lbjlincoln-nomos-rag-engine.hf.space/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0
+```
+Appel : `curl -X POST "<url>" -H "Content-Type: application/json" -d '{"query": "..."}'`
+**IMPORTANT** : Le champ est `query` (PAS `question`).
 ```
 
 ---

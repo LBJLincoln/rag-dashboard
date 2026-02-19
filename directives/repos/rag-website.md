@@ -1,6 +1,6 @@
 # rag-website — CLAUDE.md
 
-> Last updated: 2026-02-19T18:00:00+01:00
+> Last updated: 2026-02-20T01:30:00+01:00
 > **Ce repo s'exécute dans un Codespace GitHub éphémère (dev) + Vercel (prod).**
 > Tu es un agent Claude Code specialise dans le SITE BUSINESS multi-secteurs.
 > **MODELE PRINCIPAL : `claude-opus-4-6`** — Architecture, decisions, evaluation qualite.
@@ -217,7 +217,7 @@ rag-website-postgres-1  postgres:15         Port 5432 (interne)
 cat technicals/debug/fixes-library.md
 ```
 
-12 bugs critiques ont deja ete resolus (sessions 7–17). Chercher le symptome dans le tableau PIEGES RECURRENTS avant toute analyse. **Si symptome connu → appliquer directement SANS re-analyser.** Particulierement pertinent : FIX-04 (Jina JSON), FIX-07 (Neo4j URL), FIX-09 (PUT 400), FIX-12 (Pinecone dim). Si le symptome est nouveau → debugger, puis signaler a mon-ipad.
+35 bugs documentes ont deja ete resolus (sessions 7–27). Chercher le symptome dans le tableau PIEGES RECURRENTS avant toute analyse. **Si symptome connu → appliquer directement SANS re-analyser.** Particulierement pertinent : FIX-04 (Jina JSON), FIX-07 (Neo4j URL), FIX-09 (PUT 400), FIX-12 (Pinecone dim). Si le symptome est nouveau → debugger, puis signaler a mon-ipad.
 
 ### Protocole Auto-Stop
 3 echecs consecutifs sur le meme type d'erreur → STOP, documenter dans `logs/diagnostics/`, signaler a mon-ipad.
@@ -353,6 +353,53 @@ git push origin main  # → déclenche Vercel auto-deploy
 - HowItWorks "Sous le capot"
 - DashboardCTA section transparence
 - Dashboard SSE live (/dashboard)
+
+---
+
+## DATASETS & QUESTIONS — VUE SECTORIELLE
+
+### Inventaire des datasets sectoriels (pour les demos chatbot)
+| Secteur | Datasets | Questions/items | Taille | Status ingestion |
+|---------|----------|----------------|--------|-----------------|
+| **BTP** | CODE-ACCORD, ConstructionSite VQA, Engineering Drawings, DesignQA, SQuAD filtered | 1,844 items telecharges | 5.7 MB | NON INGERE |
+| **Industrie** | Manufacturing QA, TAT-QA, QuALITY, RAGBench, CRAG | 1,015 items telecharges | 1.6 MB | NON INGERE |
+| **Finance** | FinanceBench, ConvFinQA, FinQA, TAT-QA, Finance-Instruct | 2,250 items telecharges | 6.5 MB | NON INGERE |
+| **Juridique** | French Case Law, COLD French Law, MultiEURLEX, LegalBench, Contrats | 2,500 items telecharges | 13 MB | NON INGERE |
+| **Total** | **20 datasets** | **7,609 items** | **26.8 MB** | |
+
+**DEPENDANCE** : L'ingestion des datasets sectoriels est faite par le repo `rag-data-ingestion`.
+Les datasets sont telecharges dans `datasets/sectors/` (mon-ipad) mais pas encore ingeres dans les BDD separees.
+
+### Methodes de test par secteur
+| Methode | Commande | Usage |
+|---------|----------|-------|
+| Test rapide sectoriel | `python3 eval/quick-test.py --questions 5 --pipeline standard --sector btp` | Validation post-ingestion |
+| Test batch sectoriel | `python3 eval/run-eval-parallel.py --sector finance --label "finance-baseline"` | Evaluation complete |
+
+### HF Space — Endpoints pour chatbot integration
+Les chatbots du site peuvent appeler les pipelines RAG sur HF Space :
+```
+Standard     : https://lbjlincoln-nomos-rag-engine.hf.space/webhook/rag-multi-index-v3
+Graph        : https://lbjlincoln-nomos-rag-engine.hf.space/webhook/ff622742-6d71-4e91-af71-b5c666088717
+Quantitative : https://lbjlincoln-nomos-rag-engine.hf.space/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9
+Orchestrator : https://lbjlincoln-nomos-rag-engine.hf.space/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0
+```
+Appel depuis le frontend Next.js :
+```javascript
+const response = await fetch('https://lbjlincoln-nomos-rag-engine.hf.space/webhook/rag-multi-index-v3', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ query: userQuestion })
+});
+const data = await response.json();
+```
+**IMPORTANT** : Le champ est `query` (PAS `question`).
+
+### Etat HF Space (session 27)
+- Standard : 200 OK, 100% accuracy (rock solid)
+- Graph : 200 OK, 100% accuracy
+- Orchestrator : 200 OK, 100% accuracy (sequential only)
+- Quantitative : 200 OK, infra OK mais OpenRouter 429 rate limit
 
 ---
 

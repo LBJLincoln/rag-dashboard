@@ -1,6 +1,6 @@
 # Phase 2 Readiness Report — Pre-Launch Checklist
 
-> Last updated: 2026-02-19T18:00:00+01:00
+> Last updated: 2026-02-20T01:30:00+01:00
 > Ce document recense TOUTES les reponses, datasets et BDD preparees pour la Phase 2.
 > La session suivante doit pouvoir lancer les 4 pipelines RAG en direct.
 
@@ -13,7 +13,7 @@
 |----------|----------|----------------|--------|--------|
 | Standard | **85.5%** | >= 85% | PASS | Stable depuis session 17 |
 | Graph | **100%** (10/10 HF Space) | >= 70% | **PASS** | 10 questions diversifiees, 10/10 correct (session 26) |
-| Quantitative | **78.3%** | >= 85% | **FAIL** | HF Space retourne 500 — workflow crash |
+| Quantitative | **78.3%** | >= 85% | **FAIL** | HF Space 200 OK mais OpenRouter 429 rate limit |
 | Orchestrator | **80.0%** | >= 70% | PASS | Stable depuis session 17 |
 | **Overall** | **85.9%** | >= 75% | **PASS** | |
 
@@ -27,12 +27,12 @@
 | Orchestrator >= 70% | 80.0% | PASS |
 | 3 iterations stables consecutives | Non atteint | **FAIL** |
 
-### Bloqueur unique : Quantitative 78.3% < 85%
-- **Cause** : Workflow crash (HTTP 500) sur HF Space
-- **Donnees Supabase** : PRESENTES (financials: 24 rows, TechVision/GreenEnergy/HealthPlus)
-- **Template SQL code** : ECRIT dans PostgreSQL VM (nodes 20+4 du workflow)
-- **Task Runner cache** : Empeche l'execution du nouveau code sur la VM
-- **Fix requis** : Reimporter le workflow Quantitative sur HF Space avec les credentials Supabase correctes
+### Bloqueur restant : Quantitative 78.3% < 85% (rate limit, pas crash)
+- **Infra OK** : HF Space retourne 200 OK, 12 noeuds executent (FIX-29 a FIX-35 appliques)
+- **Probleme** : OpenRouter 429 rate limit — 6 env vars partagent le meme compteur RPM Llama 70B (20 RPM)
+- **Solution identifiee** : Changer LLM_SQL_MODEL vers `qwen/qwen-2.5-coder-32b-instruct:free` (pool RPM separe, HumanEval 85%)
+- **Fallback chain** : Qwen Coder → DeepSeek V3 → Llama 70B (voir `technicals/infra/llm-models-and-fallbacks.md`)
+- **FIX requis** : Deployer le nouveau modele sur HF Space (entrypoint.sh ou secret)
 
 ---
 

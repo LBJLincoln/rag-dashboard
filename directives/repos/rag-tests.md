@@ -1,6 +1,6 @@
 # rag-tests — CLAUDE.md
 
-> Last updated: 2026-02-19T18:00:00+01:00
+> Last updated: 2026-02-20T01:30:00+01:00
 > **Ce repo s'exécute dans un Codespace GitHub éphémère OU sur HF Space (16GB RAM).**
 > Tu es un agent Claude Code specialise dans les TESTS des 4 pipelines RAG.
 > **MODELE PRINCIPAL : `claude-opus-4-6`** — Analyse, decisions, evaluation des resultats.
@@ -13,19 +13,19 @@
 - **Pre-vol checklist OBLIGATOIRE** : Consulter knowledge-base.md Section 0 avant tout test webhook
 - **ZERO test sur la VM** : Tests → HF Space (16GB) ou Codespace (8GB)
 - **Field name = `query`** (PAS `question`) pour les 4 pipelines
-- **27 fixes documentes** dans `technicals/debug/fixes-library.md` — consulter AVANT tout debug
+- **35 fixes documentes** dans `technicals/debug/fixes-library.md` — consulter AVANT tout debug
 
 ---
 
-## ÉTAT ACTUEL — 19 fév 2026 (Session 25)
+## ÉTAT ACTUEL — 20 fév 2026 (Session 27)
 
 | | |
 |-|-|
 | **Dernier commit** | 9f5a53dd — 17 fév 2026 |
 | **Déployé / en cours** | Scripts eval à jour, 932 questions testées sur 42 itérations |
 | **Codespace** | Shutdown — nomos-rag-tests-5g6g5q9vjjwjf5g4 (à redémarrer pour tests 50q+) |
-| **HF Space** | https://lbjlincoln-nomos-rag-engine.hf.space (Standard OK, Graph/Orch 404, Quant 500) |
-| **Prochain objectif immédiat** | Deployer Quant fixe sur HF Space + Full eval Graph 50q pour confirmer >=70% |
+| **HF Space** | https://lbjlincoln-nomos-rag-engine.hf.space — **3/4 pipelines fonctionnels** (Standard 100%, Graph 100%, Orchestrator 100%). Quantitative: infra OK mais OpenRouter 429 rate limit |
+| **Prochain objectif** | Deployer Qwen 2.5 Coder 32B pour Quantitative + Valider Phase 1 gates |
 
 ### Commandes clés pour cette session
 ```bash
@@ -53,8 +53,8 @@ python3 eval/iterative-eval.py --label "Phase1-fix-quant"
 | Pipeline | Accuracy | Target | Gap | Priorité |
 |----------|----------|--------|-----|----------|
 | Standard | **85.5%** | >= 85% | +0.5pp | Maintenir |
-| Graph | **68.7%** | >= 70% | -1.3pp | P2 — entity disambiguation |
-| Quantitative | **78.3%** | >= 85% | -6.7pp | **P1 — CompactRAG + BM25** |
+| Graph | **100%** (10/10 HF Space) | >= 70% | +30pp | PASS — validated |
+| Quantitative | **78.3%** | >= 85% | -6.7pp | **P1 — OpenRouter rate limit (infra OK)** |
 | Orchestrator | **80.0%** | >= 70% | +10pp | Maintenir |
 
 ---
@@ -158,7 +158,7 @@ python3 eval/phase_gates.py
 cat technicals/debug/fixes-library.md
 ```
 
-12 bugs critiques ont deja ete resolus (sessions 7–17). Chercher le symptome dans le tableau PIEGES RECURRENTS avant toute analyse. **Si symptome connu → appliquer directement SANS re-analyser.** Consulter les 2-3 dernieres versions reussies dans `n8n/validated/`. Si le symptome est nouveau → debugger, puis signaler a mon-ipad pour documentation dans la bibliotheque.
+35 bugs documentes ont deja ete resolus (sessions 7–27). Chercher le symptome dans le tableau PIEGES RECURRENTS avant toute analyse. **Si symptome connu → appliquer directement SANS re-analyser.** Consulter les 2-3 dernieres versions reussies dans `n8n/validated/`. Si le symptome est nouveau → debugger, puis signaler a mon-ipad pour documentation dans la bibliotheque.
 
 ### Protocole Auto-Stop
 3 echecs consecutifs sur le meme type d'erreur → STOP, documenter dans `logs/diagnostics/`, signaler a mon-ipad.
@@ -249,6 +249,60 @@ Les workflows n8n doivent être importés depuis `n8n/` (sync depuis mon-ipad).
 1. **Quantitative** : 78.3% → 85% (gap -6.7pp — SQL edge cases, multi-table JOINs)
 2. **Graph** : 68.7% → 70% (gap -1.3pp — entity extraction)
 3. **Phase 2** : 1000q (hf-1000.json) quand les gates Phase 1 passent
+
+---
+
+## DATASETS & QUESTIONS — INVENTAIRE COMPLET
+
+### Questions disponibles par phase
+| Phase | Fichier(s) | Questions | Pipelines |
+|-------|-----------|-----------|-----------|
+| **Phase 1** | `datasets/phase-1/standard-orch-50x2.json` | 100 | Standard (50) + Orchestrator (50) |
+| **Phase 1** | `datasets/phase-1/graph-quant-50x2.json` | 100 | Graph (50) + Quantitative (50) |
+| **Phase 2** | `datasets/phase-2/hf-1000.json` | 1,000 | Graph (500) + Quantitative (500) |
+| **Phase 2** | `datasets/phase-2/standard-orch-1000x2.json` | 2,000 | Standard (1,000) + Orchestrator (1,000) |
+| **Sectoriels** | `datasets/sectors/*.jsonl` | 7,609 | Finance (2,250) + Juridique (2,500) + BTP (1,844) + Industrie (1,015) |
+| **Total** | | **10,809** | |
+
+### Sources des questions (14 benchmarks)
+SQuAD v2, HotpotQA, MuSiQue, 2WikiMultiHopQA, NarrativeQA, QuALITY, TriviaQA, Natural Questions, FinQA, TatQA, ConvFinQA, WikiTableQuestions, IIRC, Bamboogle
+
+### Methodes de test
+| Methode | Commande | Quand l'utiliser |
+|---------|----------|-----------------|
+| Test rapide (1-10q) | `python3 eval/quick-test.py --questions 5 --pipeline <cible>` | Debug, validation rapide |
+| Test parallele multi-pipeline | `python3 eval/parallel-pipeline-test.py --questions 10 --concurrency 3` | Validation concurrence |
+| Test iteratif | `python3 eval/iterative-eval.py --label "Phase1-fix"` | Boucle d'amelioration |
+| Test batch | `python3 eval/run-eval-parallel.py --reset --label "phase1-200q"` | Evaluation complete |
+| Phase gates | `python3 eval/phase_gates.py` | Verification seuils |
+
+### HF Space — Endpoints de test (alternative au Codespace)
+Les pipelines sont aussi accessibles directement sur HF Space (16 GB RAM) :
+```
+Standard     : https://lbjlincoln-nomos-rag-engine.hf.space/webhook/rag-multi-index-v3
+Graph        : https://lbjlincoln-nomos-rag-engine.hf.space/webhook/ff622742-6d71-4e91-af71-b5c666088717
+Quantitative : https://lbjlincoln-nomos-rag-engine.hf.space/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9
+Orchestrator : https://lbjlincoln-nomos-rag-engine.hf.space/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0
+```
+Appel : `curl -X POST "<url>" -H "Content-Type: application/json" -d '{"query": "..."}'`
+
+### Limites de concurrence (session 27)
+| Pipeline | Max concurrent | Note |
+|----------|---------------|------|
+| Standard | 5 | Rock solid |
+| Graph | 3 | Leger degrade au-dela |
+| Orchestrator | 1 | Degrade sous charge (delegue aux sous-pipelines) |
+| Quantitative | non teste | Rate limited OpenRouter |
+
+### Pilotage live depuis la VM (codespace-control.sh)
+```bash
+scripts/codespace-control.sh launch <codespace> --max 50 --label "Phase1-fix"
+scripts/codespace-control.sh status <codespace>    # progression en temps reel
+scripts/codespace-control.sh stream <codespace>    # stream live des logs
+scripts/codespace-control.sh stop <codespace>      # arret d'urgence
+scripts/codespace-control.sh results <codespace>   # recuperer resultats JSON
+```
+Progress callback : les scripts eval ecrivent `/tmp/eval-progress.json` apres chaque question.
 
 ---
 

@@ -1,6 +1,6 @@
 # rag-dashboard — CLAUDE.md
 
-> Last updated: 2026-02-19T18:00:00+01:00
+> Last updated: 2026-02-20T01:30:00+01:00
 > **Ce repo est statique — déployé sur GitHub Pages ou Vercel.**
 > Tu es un agent Claude Code specialise dans le DASHBOARD DE MONITORING live.
 > **MODELE PRINCIPAL : `claude-opus-4-6`** — Decisions UI/UX, architecture, evaluation.
@@ -103,6 +103,45 @@ git push origin main
 3. **Polling 30s max** — ne pas surcharger le webhook VM
 4. **Fallback GitHub** si le webhook VM ne répond pas
 5. **Push → auto-deploy** GitHub Pages ou Vercel
+
+---
+
+## DATASETS & METRIQUES — CE QUE LE DASHBOARD AFFICHE
+
+### Metriques actuelles (Phase 1)
+| Pipeline | Accuracy | Target | Pass |
+|----------|----------|--------|------|
+| Standard | 85.5% | >= 85% | PASS |
+| Graph | 100% (10/10) | >= 70% | PASS |
+| Quantitative | 78.3% | >= 85% | FAIL (rate limited) |
+| Orchestrator | 80.0% | >= 70% | PASS |
+| Overall | 85.9% | >= 75% | PASS |
+
+### Metriques Phase 2 (a ajouter)
+| Metrique | Source | Format |
+|----------|--------|--------|
+| Questions testees | `status.json → total_questions` | Nombre (actuellement 932) |
+| Accuracy par pipeline | `status.json → pipelines.<name>.accuracy` | Pourcentage |
+| Phase gates | `status.json → gates_passed` | Booleen |
+| Iterations stables | `status.json → stable_iterations` | Nombre (cible: 3) |
+| Latence moyenne | A ajouter | Secondes |
+| Concurrence max testee | A ajouter | Nombre de questions simultanées |
+
+### Total datasets du projet
+| Phase | Questions |
+|-------|-----------|
+| Phase 1 | 200 |
+| Phase 2 | 3,000 |
+| Sectoriels | 7,609 |
+| **Total disponible** | **10,809** |
+
+### HF Space status (pour monitoring)
+```
+URL Health  : https://lbjlincoln-nomos-rag-engine.hf.space/healthz
+Status API  : http://34.136.180.66:5678/webhook/nomos-status
+Fallback    : https://raw.githubusercontent.com/LBJLincoln/mon-ipad/main/docs/status.json
+```
+Le dashboard peut afficher un indicateur de sante HF Space en interrogeant le healthcheck.
 
 ---
 
