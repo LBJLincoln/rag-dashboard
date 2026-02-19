@@ -1,6 +1,6 @@
 # Session State — 19 Fevrier 2026 (Session 27 suite)
 
-> Last updated: 2026-02-19T23:50:00+01:00
+> Last updated: 2026-02-20T00:15:00+01:00
 
 ## Objectif de session : Phase 2 pour TOUS les pipelines (bottleneck strategy)
 
@@ -8,51 +8,42 @@
 
 | Pipeline | HF Space Status | Bottleneck restant | Fix applique | Status |
 |----------|----------------|-------------------|--------------|--------|
-| **Standard** | **200 OK** (17s) | AUCUN | — | **PASS** |
-| **Graph** | **200 OK** (18.5s) | AUCUN | — | **PASS** |
+| **Standard** | **200 OK** (9-29s) | AUCUN | — | **PASS** |
+| **Graph** | **200 OK** (18-44s) | AUCUN | — | **PASS** |
 | **Quantitative** | **200 OK** (3-6s) | OpenRouter 429 rate limit | FIX-33+35 infra OK | **PARTIAL** (LLM rate limited) |
-| **Orchestrator** | **200 OK** (16-23s) | AUCUN | FIX-34 httpRequest | **PASS** (3/3 tests) |
+| **Orchestrator** | **200 OK** (14-35s) | Degrades under concurrent load | FIX-34 httpRequest | **PASS** (sequential) |
 
 ### MILESTONE — 3/4 pipelines fonctionnels, 1/4 rate limited (pas infra)
-- Standard, Graph, Orchestrator: fonctionnels, réponses correctes
+- Standard, Graph, Orchestrator: fonctionnels, reponses correctes
 - Quantitative: infra OK (12 noeuds executent), OpenRouter 429 rate limit (quota)
-- FIX-35b: URL OpenRouter corrigée, FIX-33: $env remplacés
+- FIX-35b: URL OpenRouter corrigee, FIX-33: $env remplaces
 
-### DECOUVERTES CRITIQUES — Session 27 (suite)
+### CONCURRENCY TESTING (session 27 suite)
 
-**1. n8n 2.8.3 Task Runner bloque $env pour TOUS les types de noeuds, pas juste Code.**
-- Preuve: Execution #8 (Quant) — les 4 HTTP Request nodes retournent `{"error": "access to env vars denied"}`
-- FIX-33 resolu: Script fix-env-refs.py remplace 38 $env refs a l'import → Quant fonctionne!
+| Config | Pipelines | Concurrency | Standard | Graph | Orchestrator |
+|--------|-----------|-------------|----------|-------|--------------|
+| Baseline | 3 | 1 | 100% (9s) | 100% (18s) | 100% (14s) |
+| Moderate | 3 | 3 | 100% (23s) | 90% (26s) | 70% (35s) |
+| Stress | 3 | 5 | 100% (29s) | 90% (44s) | 0% AUTO-STOP |
 
-**2. executeWorkflow retourne vide quand sub-workflow utilise respondToWebhook.**
-- Preuve: Orchestrator exec #16 — `Invoke WF5: Standard` retourne `data.main: [[]]` (vide)
-- Le Standard workflow utilise respondToWebhook qui envoie la reponse au client HTTP, pas au noeud parent
-- Task Result Handler ne fire jamais → boucle rompue → pas de Response Builder → body vide
-- FIX-34: Remplace executeWorkflow par httpRequest POST vers localhost webhook
+Key: Standard rock solid at any load. Orchestrator must run sequential.
 
-### Etat Orchestrator (details exec #16 post-FIX-33)
-- 28 noeuds executes, TOUS status=success (plus d'erreur $env!)
-- `Invoke WF5: Standard` a execute sub-workflows #17 et #18 (mode integrated, success)
-- MAIS: output = `data.main: [[]]` (vide) — Standard respondToWebhook envoie reponse au client HTTP, pas au parent
-- Task Result Handler jamais atteint (0 items en input)
-- Pas de Response Builder, Merge, Return Response V8 executes
-- FIX-34: Les 3 Invoke nodes deviennent httpRequest POST localhost:5678/webhook/...
-
-### Etat Quantitative (post-FIX-33 — RESOLU)
-- Pipeline complete: Webhook → Schema → LLM → SQL → Interpret → Response
-- Erreur SQL logique: "Query must start with SELECT" — probleme de prompt LLM, pas d'infra
-- PROGRES MAJEUR: plus d'erreur $env, pipeline execut integralement
+### DOCUMENTATION CREATED (session 27 suite)
+- `technicals/diagnostic-flowchart.md` — 6 decision trees for recurring problems
+- `technicals/knowledge-base.md` Section 7.4 — Concurrent load testing results
+- `technicals/architecture.md` — Updated HF Space state (3/4 pipelines working)
+- `eval/parallel-pipeline-test.py` v2 — concurrent questions support (--concurrency flag)
 
 ### Fixes session 27
 
 | Fix | Description | Commits HF |
 |-----|-------------|------------|
-| FIX-29 | Quant postgres→REST API, Orch bitwiseHash, 16 env vars, JWT key | 68d113a, 5cab714 |
+| FIX-29 | Quant postgres->REST API, Orch bitwiseHash, 16 env vars, JWT key | 68d113a, 5cab714 |
 | FIX-30 | PostgreSQL local pour Orchestrator, HTTP v4.3, continueOnFail | 508f594, 918deaa, 11884c6, 8225c6d |
 | FIX-31 | Live diagnostic server (diag-server.py) + improved error tracking | 783230d, fc72dba |
 | FIX-32 | Quant $env Code nodes + Standard sub-workflow return | 810772e, 94949b2 |
 | FIX-33 | $env replace ALL refs at import time (n8n 2.8 blocks ALL) | 90fe71e, 72fb888 |
-| FIX-34 | Orchestrator: executeWorkflow → httpRequest (sub-wf return vide) | 618fc09 |
+| FIX-34 | Orchestrator: executeWorkflow -> httpRequest (sub-wf return vide) | 618fc09 |
 | FIX-35 | Quantitative: OPENROUTER_BASE_URL manquait /chat/completions | 7d378d9, 31e684b |
 
 ### Commits session 27
@@ -64,6 +55,11 @@
 | 0dfba3a | mon-ipad | docs: session-state update (FIX-31, FIX-32) |
 | c37f706 | mon-ipad | docs: fixes-library FIX-30/31/32 + anti-patterns |
 | 22de3f7 | mon-ipad | docs: FIX-33 documentation |
+| 3d10e2e | mon-ipad | docs: FIX-33/34 session-state + fixes-library |
+| 4723d01 | mon-ipad | docs: FIX-34/35 fixes-library + session-state |
+| 9b21b96 | mon-ipad | feat: parallel-pipeline-test.py v1 |
+| 5b1c29e | mon-ipad | docs: diagnostic-flowchart + architecture update |
+| a45189d | mon-ipad | feat: parallel-pipeline-test.py v2 (concurrent questions) |
 | 68d113a | HF Space | fix(FIX-29): Quant REST API + Orch error handler + missing env vars |
 | 5cab714 | HF Space | fix(FIX-29b): Orch activeVersion + Init V8 error handling |
 | 91b3843 | HF Space | diag(FIX-29c): diagnostic tests in entrypoint |
@@ -77,16 +73,13 @@
 | 94949b2 | HF Space | fix(FIX-32b): patch activeVersion — Quant $env + Standard sub-wf |
 | 90fe71e | HF Space | fix(FIX-33): replace ALL $env refs at import time |
 | 72fb888 | HF Space | fix(FIX-33b): standalone fix-env-refs.py script |
-| 618fc09 | HF Space | feat(FIX-34): executeWorkflow → httpRequest for sub-wf calls |
-
-### Tests paralleles (nouveau script eval/parallel-pipeline-test.py)
-- 3 pipelines testes en parallele: Standard, Graph, Orchestrator
-- Resultat: 100% accuracy, 15/15 correct, avg 11.2s
-- HF Space gere bien 3 pipelines simultanes
-- Auto-stop apres N erreurs consecutives inclus
+| 618fc09 | HF Space | feat(FIX-34): executeWorkflow -> httpRequest for sub-wf calls |
+| 7d378d9 | HF Space | fix(FIX-35): OPENROUTER_BASE_URL /chat/completions |
+| 31e684b | HF Space | fix(FIX-35b): bash case statements for URL fix |
 
 ### Prochaines actions
-1. Resoudre Quantitative 429 rate limit (attendre ou changer modele)
-2. Lancer test parallele 10+ questions pour validation complete
-3. Documenter infrastructure parallele dans technicals/
-4. Valider Phase 1 gates
+1. Resoudre Quantitative 429 rate limit — tester modele alternatif (Qwen, DeepSeek)
+2. Ajouter model fallback dans entrypoint.sh (LLM_SQL_MODEL env var)
+3. Lancer eval parallele 20+ questions pour validation complete
+4. Documenter concurrency limits dans architecture.md
+5. Valider Phase 1 gates

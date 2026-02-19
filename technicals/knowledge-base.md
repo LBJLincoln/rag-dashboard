@@ -456,6 +456,30 @@ sota-rag-jina-1024 : 10,411 vecteurs
 | Ingestion massive | Codespace rag-data-ingestion |
 | Pilotage / monitoring | VM (ce repo) |
 
+### 7.4 Concurrent Load Testing Results (Session 27)
+
+Tested on HF Space (cpu-basic, 16GB RAM) with parallel-pipeline-test.py v2.
+
+| Config | Pipelines | Concurrency | Total Concurrent | Standard | Graph | Orchestrator |
+|--------|-----------|-------------|-----------------|----------|-------|--------------|
+| Baseline | 3 | 1 | 3 | 100% (9s) | 100% (18s) | 100% (14s) |
+| Moderate | 3 | 3 | 9 | 100% (23s) | 90% (26s) | 70% (35s) |
+| Stress | 3 | 5 | 15 | 100% (29s) | 90% (44s) | 0% AUTO-STOP |
+| Solo | 1 | 5 | 5 | 100% (16s) | N/A | N/A |
+
+Key findings:
+- **Standard pipeline is rock solid** at any concurrency level (100% even at 15 concurrent)
+- **Graph pipeline** drops 1 question (keyword mismatch, test data issue, not pipeline issue)
+- **Orchestrator degrades under concurrent load** because it delegates to sub-pipelines that are already serving direct requests → empty responses → auto-stop
+- **Latency scales linearly** with concurrency: ~2-3x at concurrency=5
+- **HF Space cpu-basic handles 15 concurrent n8n workflow executions** without crashing (16GB RAM is sufficient)
+
+Recommended concurrency for production testing:
+- Standard: concurrency=5 (safe)
+- Graph: concurrency=3 (safe)
+- Orchestrator: concurrency=1 (must not compete with sub-pipelines)
+- Cross-pipeline: max 9 concurrent total (3 pipelines x 3 questions)
+
 ---
 
 ## HISTORIQUE DES AJOUTS
@@ -464,6 +488,7 @@ sota-rag-jina-1024 : 10,411 vecteurs
 |---------|--------|------|
 | 25 | Creation du document, modeles LLM, 8 patterns, APIs, schemas | 2026-02-19 |
 | 27 | $env interdit tous noeuds (3.5), executeWorkflow vide (3.6) | 2026-02-19 |
+| 27 | Concurrent load testing results (7.4), Orchestrator concurrency limits | 2026-02-19 |
 
 ---
 
