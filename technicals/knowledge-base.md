@@ -204,6 +204,12 @@ L'eval complete a des expected values precises.
 **Frequence** : TRES ELEVEE — se reproduit presque chaque session.
 **Prevention** : Ajouter un pre-flight check automatique dans les scripts eval.
 
+### 2.11 Pattern : "n8n Task Runner execute l'ancien code malgre restart complet"
+**Symptome** : Le code du Code node a ete mis a jour dans PostgreSQL (verifie via psql). n8n a ete redemarre (docker restart ou docker compose restart). Mais l'execution utilise toujours l'ANCIEN code.
+**Cause** : Le Task Runner (subprocess isole, n8n >= 2.7.4) cache le code compile. Meme un redemarrage complet du container ne garantit PAS la recompilation. Le cycle PUT → Deactivate → Activate (FIX-21) ne fonctionne pas via PostgreSQL direct car il faut passer par l'API REST n8n qui n'a pas de cle API configuree sur la VM.
+**Solution** : NE PLUS MODIFIER LES WORKFLOWS SUR LA VM. Modifier directement sur le HF Space n8n (16 GB RAM, API REST fonctionnelle, pas de cache issue car fresh import).
+**Prevention** : Regle architecturale — VM = pilotage UNIQUEMENT. Modifications workflow = HF Space.
+
 ### 2.10 Pattern : "n8n REST API 401 — header required"
 **Symptome** : `{"message":"'X-N8N-API-KEY' header required"}` lors d'appels REST API.
 **Cause** : La VM n8n n'a pas de `N8N_PUBLIC_API_KEY` configuree dans Docker. L'API publique est activee (`N8N_PUBLIC_API_DISABLED=false`) mais sans cle.

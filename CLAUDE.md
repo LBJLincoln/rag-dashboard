@@ -795,6 +795,8 @@ git diff --cached | grep -iE 'sk-or-|pcsk_|jV_zGdx|sbp_|hf_[A-Za-z]{10}|jina_[a-
 25. **NO operations VM** — aucun test (eval, quick-test) ne tourne sur la VM. Tests → HF Space ou Codespaces uniquement
 26. **Session max 2h** — chaque session Claude Code limitée à 2h pour conserver l'efficacité. A 1h45 : finaliser, push, MAJ session-state.md et status.md
 27. **Kill old processes** — au démarrage, vérifier `ps aux | grep claude | grep -v grep` et tuer les anciennes sessions Claude qui consomment de la RAM
+28. **ZERO modification workflow sur VM** — le Task Runner cache le code compilé même après restart. Modifier les workflows UNIQUEMENT sur HF Space (16 GB RAM, API REST fonctionnelle). VM = pilotage UNIQUEMENT.
+29. **Pre-vol checklist** — AVANT tout test webhook, consulter `technicals/knowledge-base.md` Section 0 (webhook paths, field names, auth)
 
 ---
 
