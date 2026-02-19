@@ -1,6 +1,6 @@
 # Fixes Library — Multi-RAG Orchestrator
 
-> Last updated: 2026-02-19T22:30:00+01:00
+> Last updated: 2026-02-19T23:45:00+01:00
 
 > **Bibliotheque permanente de tous les bugs resolus.** A consulter EN PREMIER avant tout debug.
 > Mise a jour obligatoire apres chaque fix reussi. Session courante : Session 27 (2026-02-19).
@@ -45,6 +45,7 @@
 | 32 | Quantitative + Standard | $env bloque dans Code nodes Task Runner + sub-workflow return | 27 | CRITIQUE |
 | 33 | TOUS workflows | $env bloque pour TOUS les types de noeuds n8n 2.8+ (pas juste Code) | 27 | CRITIQUE |
 | 34 | Orchestrator | executeWorkflow retourne vide (sub-wf respondToWebhook) → httpRequest | 27 | CRITIQUE |
+| 35 | Quantitative | OPENROUTER_BASE_URL sans /chat/completions → HTML au lieu de JSON | 27 | CRITIQUE |
 
 ---
 
@@ -61,6 +62,7 @@
 | AP-7 | Utiliser $env dans un Code node n8n 2.7+ | CRITIQUE | $env bloque par Task Runner — hardcoder (FIX-32) |
 | AP-8 | Utiliser $env dans N'IMPORTE QUEL noeud n8n 2.8+ | CRITIQUE | $env bloque PARTOUT — injecter a l'import (FIX-33) |
 | AP-9 | Utiliser executeWorkflow quand sub-wf a respondToWebhook | CRITIQUE | executeWorkflow retourne vide — utiliser httpRequest (FIX-34) |
+| AP-10 | URL OpenRouter sans /chat/completions | CRITIQUE | API retourne HTML au lieu de JSON (FIX-35) |
 
 ---
 
@@ -674,3 +676,16 @@ Le body est `{ "query": "<task_query>" }`. Le timeout est 30s. La reponse JSON d
 **Avantage** : Les sub-workflows fonctionnent parfaitement en mode webhook (testes). Pas besoin de modifier les sub-workflows, juste l'Orchestrator.
 **REGLE** : Ne JAMAIS utiliser `executeWorkflow` pour appeler un workflow qui utilise `respondToWebhook`. Utiliser `httpRequest` POST vers le webhook a la place.
 **Fichiers impactes** : `n8n-workflows/orchestrator.json` (HF Space)
+
+---
+
+### FIX-35 — Quantitative OPENROUTER_BASE_URL sans /chat/completions
+**Session** : 27 (2026-02-19)
+**Pipeline** : Quantitative V2.0
+**Symptome** : Text-to-SQL Generator retourne une page HTML (`<!DOCTYPE html>...`) au lieu d'une reponse JSON LLM. Le SQL Validator recoit du HTML, ne trouve pas de SQL → fallback "Query must start with SELECT". Pipeline complete en 3s au lieu de 15-20s (trop rapide = court-circuit error).
+**Cause racine** : Le HF Space secret `OPENROUTER_BASE_URL` etait `https://openrouter.ai/api/v1` (sans `/chat/completions`). Le script fix-env-refs.py remplace `$env.OPENROUTER_BASE_URL` par la valeur reelle de l'env var, qui est FAUSSE. L'expression `$env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1/chat/completions'` est remplacee par `'https://openrouter.ai/api/v1'` (env var prend precedence sur le fallback).
+**Preuve** : Execution #65, noeud Text-to-SQL Generator output: `data: <!DOCTYPE html>...` (page HTML de openrouter.ai/api/v1, pas une reponse API).
+**Fix** : Boucle dans entrypoint.sh qui detecte les URLs OpenRouter sans `/chat/completions` et les corrige AVANT l'appel a fix-env-refs.py. Variables corrigees: `OPENROUTER_BASE_URL`, `LLM_API_URL`, `ENTITY_EXTRACTION_API_URL`, `CONTEXTUAL_RETRIEVAL_API_URL`.
+**REGLE** : Les URLs OpenRouter API DOIVENT finir par `/chat/completions`. URL de base seule (`/api/v1`) retourne une page HTML.
+**Detection rapide** : Si un pipeline quantitatif/LLM complete en < 5s avec erreur, verifier que l'URL API ne retourne pas du HTML.
+**Fichiers impactes** : `entrypoint.sh` (HF Space)

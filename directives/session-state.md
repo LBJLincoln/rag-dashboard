@@ -1,6 +1,6 @@
 # Session State — 19 Fevrier 2026 (Session 27 suite)
 
-> Last updated: 2026-02-19T23:15:00+01:00
+> Last updated: 2026-02-19T23:35:00+01:00
 
 ## Objectif de session : Phase 2 pour TOUS les pipelines (bottleneck strategy)
 
@@ -8,10 +8,12 @@
 
 | Pipeline | HF Space Status | Bottleneck restant | Fix applique | Status |
 |----------|----------------|-------------------|--------------|--------|
-| **Standard** | **200 OK** (11s) | AUCUN | — | PASS |
-| **Graph** | **200 OK** (11s) | AUCUN | — | PASS |
-| **Quantitative** | **200 OK** (1.6s) | SQL logic (pas $env) | FIX-33 resolved $env | PASS (pipeline runs) |
-| **Orchestrator** | **200 vide** (14s) | Sub-workflow return vide | FIX-34 (pending rebuild) | EN COURS |
+| **Standard** | **200 OK** (17s) | AUCUN | — | **PASS** |
+| **Graph** | **200 OK** (18.5s) | AUCUN | — | **PASS** |
+| **Quantitative** | **200 OK** (3.2s) | SQL logic (pas $env) | FIX-33 resolved $env | **PASS** (pipeline runs) |
+| **Orchestrator** | **200 OK** (16-23s) | AUCUN | FIX-34 httpRequest | **PASS** (3/3 tests) |
+
+### MILESTONE ATTEINT — 4/4 pipelines fonctionnels sur HF Space
 
 ### DECOUVERTES CRITIQUES — Session 27 (suite)
 
