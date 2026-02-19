@@ -1,14 +1,67 @@
 # Knowledge Base — Cerveau Persistant Multi-RAG
 
-> Last updated: 2026-02-19T13:00:00+01:00
+> Last updated: 2026-02-19T14:15:00+01:00
 > **Ce document est VIVANT.** Il s'enrichit a CHAQUE session avec les solutions, patterns
 > et connaissances techniques decouvertes. A lire EN PREMIER avec `fixes-library.md`.
 > Objectif : ameliorer la performance de l'agent a chaque session.
 
 ---
 
+## SECTION 0 — QUICK REFERENCE (CONSULTER AVANT TOUT TEST)
+
+> **REGLE ABSOLUE** : Avant chaque curl/webhook test, verifier cette section.
+> Ne JAMAIS deviner un webhook path, un field name, ou une methode d'auth.
+
+### 0.1 Webhook Paths — Pipelines RAG (VM localhost:5678)
+
+| Pipeline | Workflow ID | Webhook Path | Field Name | Methode |
+|----------|-------------|--------------|------------|---------|
+| **Standard** | `TmgyRP20N4JFd9CB` | `/webhook/rag-multi-index-v3` | `query` | POST |
+| **Graph** | `6257AfT1l4FMC6lY` | `/webhook/ff622742-f2f3-4134-94e1-ebc9b7b3c2c2` | `query` | POST |
+| **Quantitative** | `e465W7V9Q8uK6zJE` | `/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9` | `query` | POST |
+| **Orchestrator** | `aGsYnJY9nNCaTM82` | `/webhook/92217bb8-7e0f-4d85-bcde-c0e52e91d432` | `query` | POST |
+
+### 0.2 Format d'appel standard
+
+```bash
+# TOUJOURS utiliser 'query' (jamais 'question')
+curl -s -X POST "http://localhost:5678/webhook/<PATH>" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "votre question ici"}'
+
+# Avec formatage JSON
+curl -s -X POST "http://localhost:5678/webhook/<PATH>" \
+  -H "Content-Type: application/json" \
+  -d '{"query": "votre question ici"}' | python3 -m json.tool
+```
+
+### 0.3 n8n API Authentication (VM)
+
+```bash
+# L'API publique n8n sur la VM n'a PAS de cle API configuree.
+# Methode 1 : MCP n8n (prefere — mais parfois vide sous pression memoire)
+# Methode 2 : PostgreSQL direct
+docker exec n8n-postgres-1 psql -U n8n -d n8n -t -A -c "SELECT ..."
+# Methode 3 : Si besoin API REST, creer une API key dans l'UI n8n
+# JAMAIS utiliser Authorization: Bearer ou X-N8N-API-KEY sans avoir verifie que la cle existe
+```
+
+### 0.4 Protocole de pre-vol AVANT tout test
+
+```
+CHECKLIST PRE-TEST :
+[ ] 1. Webhook path verifie dans Section 0.1 ci-dessus
+[ ] 2. Field name = 'query' (pas 'question')
+[ ] 3. Content-Type: application/json
+[ ] 4. n8n est up : curl -s http://localhost:5678/healthz
+[ ] 5. Workflow est actif : docker exec n8n-postgres-1 psql -U n8n -d n8n -t -A -c "SELECT active FROM workflow_entity WHERE id = '<ID>';"
+```
+
+---
+
 ## TABLE DES MATIERES
 
+0. [Quick Reference — Pre-vol](#section-0--quick-reference-consulter-avant-tout-test)
 1. [Modeles LLM — Catalogue & Comportement](#1-modeles-llm)
 2. [Patterns de Resolution — Solutions Recurrentes](#2-patterns-de-resolution)
 3. [n8n — Pieges & Best Practices](#3-n8n-pieges--best-practices)
@@ -143,6 +196,19 @@
 **Cause** : Quick-test utilise des questions "faciles" avec `expected_contains: ""` (vide).
 L'eval complete a des expected values precises.
 **Solution** : Toujours valider avec eval complete (50q minimum) avant de declarer un fix reussi.
+
+### 2.9 Pattern : "Test webhook avec mauvais path ou field name"
+**Symptome** : 404 "webhook not registered" ou VALIDATION_ERROR "query is required".
+**Cause** : Webhook path tape de memoire (ou copie d'une ancienne session), ou field name incorrect (`question` au lieu de `query`).
+**Solution** : TOUJOURS consulter Section 0.1 QUICK REFERENCE avant tout test.
+**Frequence** : TRES ELEVEE — se reproduit presque chaque session.
+**Prevention** : Ajouter un pre-flight check automatique dans les scripts eval.
+
+### 2.10 Pattern : "n8n REST API 401 — header required"
+**Symptome** : `{"message":"'X-N8N-API-KEY' header required"}` lors d'appels REST API.
+**Cause** : La VM n8n n'a pas de `N8N_PUBLIC_API_KEY` configuree dans Docker. L'API publique est activee (`N8N_PUBLIC_API_DISABLED=false`) mais sans cle.
+**Solution** : Utiliser PostgreSQL direct (`docker exec n8n-postgres-1 psql ...`) ou MCP n8n.
+**Prevention** : Section 0.3 QUICK REFERENCE — ne jamais tenter l'API REST sans verifier l'auth.
 
 ### 2.8 Pattern : "curl retourne 200 mais body vide"
 **Symptome** : HTTP 200 mais pas de contenu dans la reponse.

@@ -36,6 +36,20 @@
 | 23 | Datasets | HuggingFace dataset IDs incorrects (6/11 faux) | 25 | IMPORTANT |
 | 24 | n8n Infrastructure | N8N_RUNNERS_ENABLED deprecie dans n8n 2.7.4+ (toujours actif) | 25 | IMPORTANT |
 | 25 | VM Infrastructure | Anciennes sessions Claude Code zombies consomment RAM | 25 | IMPORTANT |
+| 26 | Agent Process | Webhook path/field name incorrects — pre-vol checklist obligatoire | 25 | CRITIQUE |
+| 27 | n8n API | REST API 401 — pas de cle API configuree dans Docker | 25 | IMPORTANT |
+
+---
+
+## PIEGES RECURRENTS — ANTI-PATTERNS A ELIMINER
+
+| # | Anti-Pattern | Frequence | Prevention |
+|---|-------------|-----------|------------|
+| AP-1 | Tester un webhook avec un path tape de memoire | CHAQUE SESSION | Consulter `knowledge-base.md` Section 0.1 |
+| AP-2 | Utiliser `question` au lieu de `query` comme field name | FREQUENT | Consulter `knowledge-base.md` Section 0.2 |
+| AP-3 | Tenter l'API REST n8n sans verifier que la cle API existe | FREQUENT | Consulter `knowledge-base.md` Section 0.3 |
+| AP-4 | Redebugger un probleme deja resolu dans cette librairie | OCCASIONAL | Lire ce fichier EN PREMIER |
+| AP-5 | Modifier plusieurs noeuds a la fois | OCCASIONAL | Regle 10 : 1 fix par iteration |
 
 ---
 
@@ -505,3 +519,32 @@ sync && echo 3 | sudo tee /proc/sys/vm/drop_caches
 ```
 **Prevention** : Session max 2h (regle 26 dans CLAUDE.md). Avant de quitter, s'assurer que le processus se termine proprement.
 **Fichier impacte** : CLAUDE.md (regle 27), `technicals/knowledge-base.md` (section 7.1)
+
+---
+
+### FIX-26 — Webhook path/field name incorrects (pre-vol checklist)
+**Session** : 25 (2026-02-19)
+**Composant** : Processus de test agent
+**Symptome** : Test webhook retourne 404 (mauvais path) ou VALIDATION_ERROR (mauvais field name). Se reproduit presque CHAQUE SESSION car les paths/fields sont tapes de memoire.
+**Cause racine** : Pas de reference centralisee des webhook paths et field names. L'agent "devine" au lieu de consulter une source de verite.
+**Fix** : Ajout de la Section 0 QUICK REFERENCE dans `technicals/knowledge-base.md` :
+- Table 0.1 : Webhook paths exacts pour les 4 pipelines
+- Table 0.2 : Format d'appel standard (field = `query`, pas `question`)
+- Table 0.3 : Methode d'auth n8n API
+- Checklist 0.4 : Pre-vol obligatoire avant tout test
+**Prevention** : Regle 11 dans CLAUDE.md : "CONSULTER knowledge-base.md Section 0 AVANT tout test webhook"
+**Fichier impacte** : `technicals/knowledge-base.md` (Section 0), CLAUDE.md (Regle 11)
+
+---
+
+### FIX-27 — n8n REST API 401 — pas de cle API configuree
+**Session** : 25 (2026-02-19)
+**Composant** : n8n Docker VM
+**Symptome** : `{"message":"'X-N8N-API-KEY' header required"}` HTTP 401 sur toutes les routes /api/v1/.
+**Cause racine** : Le conteneur n8n a `N8N_PUBLIC_API_DISABLED=false` (API activee) mais aucune `N8N_PUBLIC_API_KEY` n'est definie. L'API est accessible mais rejette TOUTES les requetes car elle exige un header API key qui n'a jamais ete cree.
+**Fix** : Utiliser des alternatives a l'API REST :
+1. **PostgreSQL direct** : `docker exec n8n-postgres-1 psql -U n8n -d n8n -t -A -c "..."`
+2. **MCP n8n** (quand VM pas sous pression memoire)
+3. Si besoin API REST : creer une cle dans l'UI n8n (Settings → API Keys)
+**REGLE** : Ne JAMAIS tenter l'API REST n8n sans avoir verifie qu'une cle API existe (Section 0.3 knowledge-base.md)
+**Fichier impacte** : `technicals/knowledge-base.md` (Section 0.3)

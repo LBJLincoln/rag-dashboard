@@ -241,6 +241,7 @@ gh codespace start --codespace nomos-rag-website-jr7q9gr69qqfqp6r
 | 8 | MAJ **`technicals/fixes-library.md`** après chaque fix réussi | Bibliothèque incomplète |
 | 9 | git config user.email = alexis.moret6@outlook.fr | Vercel rejette commits |
 | 10 | 1 fix par itération (pas plusieurs noeuds) | Impossible de débugger |
+| **11** | **CONSULTER `technicals/knowledge-base.md` Section 0 AVANT tout test webhook** | **Mauvais webhook path, mauvais field name, fausse itération** |
 
 ---
 
