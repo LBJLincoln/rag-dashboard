@@ -17,9 +17,9 @@
 | Pipeline | Workflow ID | Webhook Path | Field Name | Methode |
 |----------|-------------|--------------|------------|---------|
 | **Standard** | `TmgyRP20N4JFd9CB` | `/webhook/rag-multi-index-v3` | `query` | POST |
-| **Graph** | `6257AfT1l4FMC6lY` | `/webhook/ff622742-f2f3-4134-94e1-ebc9b7b3c2c2` | `query` | POST |
+| **Graph** | `6257AfT1l4FMC6lY` | `/webhook/ff622742-6d71-4e91-af71-b5c666088717` | `query` | POST |
 | **Quantitative** | `e465W7V9Q8uK6zJE` | `/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9` | `query` | POST |
-| **Orchestrator** | `aGsYnJY9nNCaTM82` | `/webhook/92217bb8-7e0f-4d85-bcde-c0e52e91d432` | `query` | POST |
+| **Orchestrator** | `aGsYnJY9nNCaTM82` | `/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0` | `query` | POST |
 
 ### 0.2 Format d'appel standard
 

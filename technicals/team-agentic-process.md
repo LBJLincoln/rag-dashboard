@@ -1,8 +1,9 @@
 # Processus Team-Agentic Formel
 
-> Last updated: 2026-02-18T22:01:57+01:00
+> Last updated: 2026-02-19T15:30:00+01:00
 > Definit les roles, la communication et les protocoles entre agents Claude Code
-> repartis sur la VM et les Codespaces.
+> repartis sur la VM, HF Space et les Codespaces.
+> **Decision Session 25** : VM = pilotage UNIQUEMENT. Tests et modifications → HF Space (16GB) ou Codespaces (8GB).
 
 ---
 
@@ -10,7 +11,7 @@
 
 | Agent | Repo | Localisation | Role | Modele |
 |-------|------|-------------|------|--------|
-| **Orchestrateur** | mon-ipad | VM Google Cloud (Termius) | Pilotage, fix workflows n8n, sync, directives, analyse | `claude-opus-4-6` |
+| **Orchestrateur** | mon-ipad | VM Google Cloud (Termius) | Pilotage UNIQUEMENT, sync, directives, analyse. ZERO tests, ZERO fix workflow (Rule 28) | `claude-opus-4-6` |
 | **Testeur** | rag-tests | Codespace ephemere | Executer tests, mesurer accuracy, rapporter resultats | `claude-opus-4-6` |
 | **Developpeur Web** | rag-website | Codespace ephemere + Vercel | Construire site business, integrer chatbots sectoriels | `claude-opus-4-6` |
 | **Ingesteur** | rag-data-ingestion | Codespace ephemere | Telecharger datasets, ingerer dans BDD, enrichir | `claude-opus-4-6` |

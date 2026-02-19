@@ -1,23 +1,30 @@
 # rag-tests — CLAUDE.md
 
-> Last updated: 2026-02-18T22:01:57+01:00
-> **Ce repo s'exécute dans un Codespace GitHub éphémère.**
+> Last updated: 2026-02-19T15:30:00+01:00
+> **Ce repo s'exécute dans un Codespace GitHub éphémère OU sur HF Space (16GB RAM).**
 > Tu es un agent Claude Code (`claude-opus-4-6`) spécialisé dans les TESTS des 4 pipelines RAG.
 > **MODÈLE OBLIGATOIRE : `claude-opus-4-6`** — lancer `bash scripts/setup-claude-opus.sh` au démarrage.
 > **n8n LOCAL dans ce Codespace** (docker-compose : n8n-main + 3 workers) — PAS de SSH tunnel vers la VM.
 > Tu suis le même workflow-process que mon-ipad, adapté à ton rôle de testeur.
 > Processus team-agentic : voir `technicals/team-agentic-process.md` (dans mon-ipad).
 
+### REGLES CRITIQUES (Session 25)
+- **Pre-vol checklist OBLIGATOIRE** : Consulter knowledge-base.md Section 0 avant tout test webhook
+- **ZERO test sur la VM** : Tests → HF Space (16GB) ou Codespace (8GB)
+- **Field name = `query`** (PAS `question`) pour les 4 pipelines
+- **27 fixes documentes** dans `technicals/fixes-library.md` — consulter AVANT tout debug
+
 ---
 
-## ÉTAT ACTUEL — 17 fév 2026
+## ÉTAT ACTUEL — 19 fév 2026 (Session 25)
 
 | | |
 |-|-|
 | **Dernier commit** | 9f5a53dd — 17 fév 2026 |
-| **Déployé / en cours** | Scripts eval à jour, tunnel SSH configuré, 932 questions testées sur 42 itérations |
+| **Déployé / en cours** | Scripts eval à jour, 932 questions testées sur 42 itérations |
 | **Codespace** | Shutdown — nomos-rag-tests-5g6g5q9vjjwjf5g4 (à redémarrer pour tests 50q+) |
-| **Prochain objectif immédiat** | Fix Quantitative pipeline : 78.3% → 85% (gap -6.7pp, priorité absolue) |
+| **HF Space** | https://lbjlincoln-nomos-rag-engine.hf.space (Standard OK, Graph/Orch 404, Quant 500) |
+| **Prochain objectif immédiat** | Deployer Quant fixe sur HF Space + Full eval Graph 50q pour confirmer >=70% |
 
 ### Commandes clés pour cette session
 ```bash

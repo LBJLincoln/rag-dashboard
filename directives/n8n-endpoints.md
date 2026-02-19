@@ -1,6 +1,6 @@
 # n8n API Endpoints & Reference Complete
 
-> Last updated: 2026-02-18T22:01:57+01:00
+> Last updated: 2026-02-19T15:30:00+01:00
 
 > **Ce fichier est la reference unique** pour les scripts Python de test.
 > Les scripts doivent s'y referer pour formater les requetes et utiliser les bons points d'entree.
@@ -22,14 +22,18 @@ source .env.local  # charge N8N_API_KEY
 
 ## Format de Requete pour Scripts Python (REFERENCE)
 
-### Format de body webhook (VERIFIE FONCTIONNEL)
+### Format de body webhook (VERIFIE FONCTIONNEL — Session 25)
 
 ```python
-# Format qui FONCTIONNE — verifie le 2026-02-12 a 11:19:49 CET (Paris)
-payload = {"question": "Your question here"}
+# Format qui FONCTIONNE — verifie le 2026-02-19 (Session 25)
+# ATTENTION : le field name est "query" (PAS "question")
+payload = {"query": "Your question here"}
 # Content-Type: application/json
 # Method: POST
 ```
+
+> **PIEGE RECURRENT** : Utiliser `question` au lieu de `query` provoque une VALIDATION_ERROR.
+> Toujours utiliser `query` pour les 4 pipelines.
 
 ### Timestamps — Fuseau horaire Paris (CET/CEST)
 
@@ -52,7 +56,7 @@ PARIS_TZ = timezone(timedelta(hours=1))  # CET (hiver), +2 pour CEST (ete)
 def call_webhook(path, question, timeout=120):
     """Appel webhook n8n avec timestamp Paris."""
     url = f"{N8N_HOST}{path}"
-    payload = json.dumps({"question": question}).encode()
+    payload = json.dumps({"query": question}).encode()
     req = urllib.request.Request(url, data=payload, method="POST",
         headers={"Content-Type": "application/json"})
     timestamp_paris = datetime.now(PARIS_TZ).strftime("%Y-%m-%dT%H:%M:%S")
@@ -128,22 +132,22 @@ curl -s -X POST "$N8N_HOST/api/v1/variables" \
 # Standard RAG
 curl -s -X POST "$N8N_HOST/webhook/rag-multi-index-v3" \
   -H "Content-Type: application/json" \
-  -d '{"question": "What is the capital of Japan?"}'
+  -d '{"query": "What is the capital of Japan?"}'
 
 # Graph RAG
 curl -s -X POST "$N8N_HOST/webhook/ff622742-6d71-4e91-af71-b5c666088717" \
   -H "Content-Type: application/json" \
-  -d '{"question": "Who founded Microsoft?"}'
+  -d '{"query": "Who founded Microsoft?"}'
 
 # Quantitative RAG
 curl -s -X POST "$N8N_HOST/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9" \
   -H "Content-Type: application/json" \
-  -d '{"question": "What was Apple revenue in 2023?"}'
+  -d '{"query": "What was Apple revenue in 2023?"}'
 
 # Orchestrator (route vers les 3)
 curl -s -X POST "$N8N_HOST/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0" \
   -H "Content-Type: application/json" \
-  -d '{"question": "What is the capital of Japan?"}'
+  -d '{"query": "What is the capital of Japan?"}'
 ```
 
 ---

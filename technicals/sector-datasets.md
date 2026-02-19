@@ -1,10 +1,21 @@
 # Sector Datasets & Document Types — Multi-RAG SOTA 2026
 
-> Last updated: 2026-02-18T22:01:57+01:00
+> Last updated: 2026-02-19T15:30:00+01:00
 
 > Reference documentaire pour le Multi-RAG Orchestrator ciblant les ETI et Grands Groupes francais.
 > 4 secteurs verticaux, 50 datasets identifies, ~2.6M questions disponibles.
-> Derniere mise a jour : 2026-02-16
+> **7,609 items telecharges** en Session 25 (19 fev 2026) — voir Section 8.
+
+### Datasets telecharges (Session 25 — 19 fev 2026)
+| Secteur | Fichiers HF | Items | Taille |
+|---------|-------------|-------|--------|
+| Finance | 6 (financebench, convfinqa, tatqa, sec_qa, tatqa_ragbench, finqa_ragbench) | 2,250 | 6.5 MB |
+| Juridique | 5 (french_case_law_juri, french_case_law_cetat, cold_french_law, cail2018, hotpotqa_ragbench) | 2,500 | 13 MB |
+| BTP | 4 (code_accord_entities, code_accord_relations, ragbench_techqa, docie) | 1,844 | 5.7 MB |
+| Industrie | 3 (manufacturing_qa, ragbench_emanual, additive_manufacturing) | 1,015 | 1.6 MB |
+| **Total** | **18 fichiers** | **7,609** | **~27 MB** |
+
+Script : `scripts/download-sectors.py` (6 IDs HF corriges — FIX-23)
 
 ---
 

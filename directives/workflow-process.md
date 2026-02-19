@@ -1,8 +1,23 @@
 # Processus Standard de Session Claude Code
 
-> Last updated: 2026-02-18T22:01:57+01:00
+> Last updated: 2026-02-19T15:30:00+01:00
 
-## ETAPE 0 — Consulter la Bibliotheque de Fixes (OBLIGATOIRE)
+## ETAPE 0 — Pre-vol checklist + Bibliotheque de Fixes (OBLIGATOIRE)
+
+### 0.A Pre-vol checklist (AVANT tout test webhook — Rule 29)
+
+**Consulter `technicals/knowledge-base.md` Section 0 QUICK REFERENCE** pour les webhook paths, field names et methodes d'authentification.
+
+| Pipeline | Webhook Path | Field | Methode |
+|----------|-------------|-------|---------|
+| Standard | `/webhook/rag-multi-index-v3` | query | POST |
+| Graph | `/webhook/ff622742-6d71-4e91-af71-b5c666088717` | query | POST |
+| Quantitative | `/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9` | query | POST |
+| Orchestrator | `/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0` | query | POST |
+
+**IMPORTANT** : Ne JAMAIS modifier de workflow sur la VM (Rule 28 — Task Runner cache). Utiliser HF Space ou Codespace.
+
+### 0.B Consulter la Bibliotheque de Fixes
 
 **AVANT tout debug, TOUJOURS consulter `technicals/fixes-library.md` en premier.**
 
@@ -11,7 +26,7 @@ cat technicals/fixes-library.md
 ```
 
 ### Pourquoi
-12 bugs critiques ont deja ete resolus sur ce projet (sessions 7–17). La majorite des nouveaux symptomes sont des recurrences ou des variantes de bugs connus. Consulter la bibliotheque evite de re-debugger des problemes deja resolus.
+27 bugs critiques ont ete resolus sur ce projet (sessions 7–25). La majorite des nouveaux symptomes sont des recurrences ou des variantes de bugs connus. Consulter la bibliotheque evite de re-debugger des problemes deja resolus.
 
 ### Utilisation
 1. Identifier le symptome (HTTP 500, boucle infinie, credential manquante, skip_graph, PUT 400...)

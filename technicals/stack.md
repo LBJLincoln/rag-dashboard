@@ -1,23 +1,35 @@
 # Stack Technique Complete — Docker Era
 
-> Last updated: 2026-02-18T22:01:57+01:00
-> Post-migration Docker (2026-02-12)
+> Last updated: 2026-02-19T15:30:00+01:00
+> Post-migration Docker (2026-02-12) — Decision VM=pilotage only (Session 25)
 
 ---
 
 ## Infrastructure
 
-### VM Google Cloud (free tier)
+### VM Google Cloud (free tier) — PILOTAGE UNIQUEMENT
 - **IP** : 34.136.180.66
 - **Acces** : SSH via Termius (iPad)
-- **Docker** : n8n + Redis
+- **Docker** : n8n + Redis + PostgreSQL
+- **RAM** : 969 MB total, ~100 MB dispo (CRITIQUE)
+- **Role** : Pilotage UNIQUEMENT. ZERO tests, ZERO modifications workflow (Rule 28)
+- **MCP Servers** : ~6MB total (negligeable — neo4j 2.5MB, pinecone 1.4MB, HF 0.8MB, jina 0.7MB, cohere 0.6MB)
 
-### n8n Docker Self-Hosted
+### n8n Docker Self-Hosted (VM)
 - **Host** : `http://localhost:5678` (interne VM)
 - **UI** : `admin@mon-ipad.com` / SotaRAG2026!
 - **PostgreSQL** : localhost:5432 (n8n / n8n_password_secure_2026) — n8n internal DB
 - **Redis** : localhost:6379 — queue mode (Bull queues, pas cache)
 - **9 workflows actifs** (4 pipelines + 5 support), cible 16
+- **⚠️ Task Runner cache** : le code compile n'est pas rafraichi meme apres restart (Pattern 2.11)
+
+### HF Space n8n (execution distante — 16GB RAM)
+- **URL** : https://lbjlincoln-nomos-rag-engine.hf.space
+- **n8n** : 2.8.3 (latest), SQLite + Redis, 12/12 credentials
+- **RAM** : 16 GB ($0, cpu-basic)
+- **Etat** : Standard 200 OK, Graph/Orch 404, Quant 500
+- **REST API** : BROKEN (FIX-15 — proxy HF strip POST body pour /api/)
+- **Keep-alive** : cron VM */30 min
 
 ---
 

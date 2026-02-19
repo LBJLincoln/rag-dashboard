@@ -1,6 +1,6 @@
 # rag-website — CLAUDE.md
 
-> Last updated: 2026-02-18T22:01:57+01:00
+> Last updated: 2026-02-19T15:30:00+01:00
 > **Ce repo s'exécute dans un Codespace GitHub éphémère (dev) + Vercel (prod).**
 > Tu es un agent Claude Code (`claude-opus-4-6`) spécialisé dans le SITE BUSINESS multi-secteurs.
 > **MODÈLE OBLIGATOIRE : `claude-opus-4-6`** — lancer `bash scripts/setup-claude-opus.sh` au démarrage.

@@ -1,18 +1,28 @@
 # Architecture Reference — Multi-RAG Orchestrator SOTA 2026
 
-> Last updated: 2026-02-18T22:01:57+01:00
+> Last updated: 2026-02-19T15:30:00+01:00
 > Reference detaillee. Pour demarrage rapide, utiliser `docs/status.json`.
 
 ---
 
-## Architecture globale (Session 18 — 18 fev 2026)
+## Architecture globale (Session 25 — 19 fev 2026)
 
 ```
-VM Google Cloud (34.136.180.66) — PERMANENT (pilotage + n8n)
-  n8n Docker : Up (9 workflows actifs, cible 16)
+VM Google Cloud (34.136.180.66) — PERMANENT (PILOTAGE UNIQUEMENT)
+  n8n Docker : Up (9 workflows actifs, cible 16) — STOCKAGE + WEBHOOKS
   Redis : Up (queue mode)
   PostgreSQL : Up (n8n DB)
   Claude Code : Termius terminal (pilotage uniquement)
+  ⚠️ ZERO modification workflow sur VM (Task Runner cache — Pattern 2.11)
+  ⚠️ ZERO test eval sur VM (RAM ~100MB dispo)
+  MCP Servers : ~6MB total (negligeable)
+
+HF Space (lbjlincoln-nomos-rag-engine.hf.space) — EXECUTION n8n distant
+  n8n 2.8.3 : 16GB RAM, $0, SQLite + Redis
+  Credentials : 12/12 importes
+  Workflows : 9 importes (seul Standard fonctionne — Graph/Orch 404, Quant 500)
+  REST API : BROKEN (FIX-15 — proxy HF strip POST body pour /api/)
+  Keep-alive : cron VM */30 min
 
 GitHub — Source de verite
   n8n/live/     : Workflows Phase 1 (benchmark)
@@ -34,18 +44,30 @@ Codespace rag-data-ingestion — Ingestion benchmarks
   → Pinecone sota-rag-jina-1024, Neo4j, Supabase
 ```
 
+### Decision architecturale critique (Session 25)
+
+**VM = PILOTAGE UNIQUEMENT** — Regles 25, 28, 29
+
+| Action | Ou l'executer | Pourquoi |
+|--------|---------------|----------|
+| Modifier un workflow n8n | HF Space ou Codespace | Task Runner VM cache le code compile (Pattern 2.11) |
+| Tester un pipeline (1/1, 5/5) | HF Space (16GB) | RAM VM insuffisante + Task Runner cache |
+| Full eval (50q+) | Codespace rag-tests (8GB) | Docker-compose 3 workers |
+| Piloter, committer, analyser | VM | Claude Code CLI + git + MCP |
+| Stocker workflows | VM n8n | PostgreSQL permanent |
+
 ---
 
 ## n8n Docker Workflows (Phase 1 — Codespace rag-tests)
 
 ### Pipelines RAG (4)
 
-| Workflow | Webhook Path | DB | Docker ID |
-|---|---|---|---|
-| Standard RAG V3.4 | `/webhook/rag-multi-index-v3` | Pinecone | `TmgyRP20N4JFd9CB` |
-| Graph RAG V3.3 | `/webhook/ff622742-...` | Neo4j + Supabase | `6257AfT1l4FMC6lY` |
-| Quantitative V2.0 | `/webhook/3e0f8010-...` | Supabase REST API (exec_sql RPC) | `e465W7V9Q8uK6zJE` |
-| Orchestrator V10.1 | `/webhook/92217bb8-...` | Routes to above | `aGsYnJY9nNCaTM82` |
+| Workflow | Webhook Path (COMPLET) | Field | DB | Docker ID |
+|---|---|---|---|---|
+| Standard RAG V3.4 | `/webhook/rag-multi-index-v3` | query | Pinecone | `TmgyRP20N4JFd9CB` |
+| Graph RAG V3.3 | `/webhook/ff622742-6d71-4e91-af71-b5c666088717` | query | Neo4j + Supabase | `6257AfT1l4FMC6lY` |
+| Quantitative V2.0 | `/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9` | query | Supabase REST API (exec_sql RPC) | `e465W7V9Q8uK6zJE` |
+| Orchestrator V10.1 | `/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0` | query | Routes to above | `aGsYnJY9nNCaTM82` |
 
 ### Support Workflows — Actifs (5 apres audit session 18)
 
@@ -255,7 +277,7 @@ mon-ipad/
 
 ## Phase Gates (Targets)
 
-### Phase 1 — Baseline (200q) — PASSED
+### Phase 1 — Baseline (200q) — BLOQUEE (Graph 68.7% < 70%, Quant 78.3% < 85%)
 | Pipeline | Target |
 |---|---|
 | Standard | >=85% |

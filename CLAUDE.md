@@ -1,5 +1,7 @@
 # Multi-RAG Orchestrator — Tour de Contrôle Centrale
 
+> Last updated: 2026-02-19T15:30:00+01:00
+
 > **CE REPO (`mon-ipad`) EST LA TOUR DE CONTRÔLE.**
 > VM Google Cloud permanente · Claude Code via Termius · Pilote 6 repos satellites
 > **MODÈLE OBLIGATOIRE : `claude-opus-4-6` (abonnement Max) — PAS Sonnet.**
@@ -16,14 +18,28 @@
 | **n8n VM** | localhost:5678 | **Up** (webhooks + orchestration, RAM ~104MB dispo) |
 | Redis | localhost:6379 | Up (queue) |
 | PostgreSQL | localhost:5432 | Up (n8n DB) |
-| Claude Code | Termius terminal | Ce repo — pilotage uniquement |
+| Claude Code | Termius terminal | Ce repo — **pilotage UNIQUEMENT** |
 
-**Principe : VM = n8n permanent (stockage workflows + webhooks). Tests → Codespaces (docker-compose).** Tests lourds (100q+) → Codespace rag-tests. VM RAM limitée (~100MB dispo) → jamais run tests directement dessus.
+### HF Space — n8n distant (16 GB RAM, execution)
+| Composant | Adresse | État |
+|-----------|---------|------|
+| **n8n HF Space** | https://lbjlincoln-nomos-rag-engine.hf.space | RUNNING (cpu-basic, 16GB RAM, $0) |
+| n8n version | 2.8.3 (latest) | SQLite + Redis |
+| Credentials | 12/12 importes | postgres x4, redis, neo4j, pinecone x2, openrouter x4 |
+| Workflows | 9 importes | **Seul Standard fonctionne (200 OK)** — Graph+Orchestrator: 404, Quantitative: 500 |
+| Keep-alive | Cron VM */30 min | Empêche HF sleep |
+| REST API | **BROKEN** (FIX-15 : proxy HF strip POST body pour /api/) | Webhooks OK |
+
+**DECISION SESSION 25** : VM = pilotage UNIQUEMENT. ZERO modification workflow sur VM (Task Runner cache le code compile — Pattern 2.11). Modifications → HF Space ou Codespace.
+
+**Principe : VM = pilotage + n8n permanent (stockage). Tests → HF Space (16GB) ou Codespaces (8GB).**
+VM RAM limitée (~100MB dispo) → jamais run tests directement dessus.
 
 **Architecture n8n clarifiée (session 23)** : PAS besoin d'un n8n Docker séparé pour les 16+ workflows.
 Les définitions de workflows pèsent ~500KB dans PostgreSQL — aucun impact RAM.
-Le n8n VM stocke + expose les webhooks. L'exécution lourde se fait dans les Codespaces.
-Chaque Codespace a son propre n8n Docker (avec workers) pour l'exécution parallèle.
+Le n8n VM stocke + expose les webhooks. L'exécution lourde se fait sur HF Space ou Codespaces.
+
+**MCP Servers** : Empreinte mémoire negligeable (~6MB total). neo4j 2.5MB, pinecone 1.4MB, huggingface 0.8MB, jina 0.7MB, cohere 0.6MB. PAS un problème RAM.
 
 ### Déploiements Vercel (production live — tous HTTP 200)
 | Site | URL | Repo GitHub | Région | État |
@@ -814,9 +830,9 @@ Credentials   → .env.local (jamais dans git)
 | Pipeline | Webhook Path | DB | Cible Phase 1 | Accuracy actuelle |
 |----------|-------------|-----|----------------|-------------------|
 | Standard | `/webhook/rag-multi-index-v3` | Pinecone | >= 85% | **85.5% PASS** |
-| Graph | `/webhook/ff622742-...` | Neo4j + Supabase | >= 70% | **68.7% FAIL** |
-| Quantitative | `/webhook/3e0f8010-...` | Supabase | >= 85% | **78.3% FAIL** |
-| Orchestrator | `/webhook/92217bb8-...` | Meta | >= 70% | **80.0% PASS** |
+| Graph | `/webhook/ff622742-6d71-4e91-af71-b5c666088717` | Neo4j + Supabase | >= 70% | **68.7% FAIL** |
+| Quantitative | `/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9` | Supabase | >= 85% | **78.3% FAIL** |
+| Orchestrator | `/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0` | Meta | >= 70% | **80.0% PASS** |
 | **Overall** | | | **>= 75%** | **78.1% PASS** |
 
 ### Enterprise Production Gates 2026 (requis pour Phase Gate eligibility)

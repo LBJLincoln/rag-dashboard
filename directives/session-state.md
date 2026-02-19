@@ -1,6 +1,6 @@
 # Session State — 19 Fevrier 2026 (Session 25)
 
-> Last updated: 2026-02-19T14:30:00+01:00
+> Last updated: 2026-02-19T15:30:00+01:00
 
 ## Objectif de session
 1. Faire passer Phase 1 (Graph >=70%, Quantitative >=85%) pour debloquer Phase 2
@@ -79,6 +79,7 @@
 | d60f871 | improvements-roadmap.md |
 | 5d4d937 | pre-vol checklist + FIX-26/27 |
 | f56a17c | workflow template fix + execution archives |
+| b945aa3 | architecture decision — VM pilotage only, workflows on HF Space |
 
 ## Repos impactes
 - mon-ipad (datasets, technicals/, CLAUDE.md, directives/)

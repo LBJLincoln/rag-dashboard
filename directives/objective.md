@@ -1,6 +1,6 @@
 # Objectif Final & Situation Actuelle
 
-> Last updated: 2026-02-18T22:01:57+01:00
+> Last updated: 2026-02-19T15:30:00+01:00
 
 ---
 
@@ -147,26 +147,38 @@ Voir `technicals/architecture.md` section "Architecture 16 Workflows".
 
 > **Lire `docs/status.json` pour les metriques live.**
 
-### Session 18 fev 2026 (Session 18 — Restructuration)
+### Session 25 (19 fev 2026) — Architecture + Template + Datasets
+- **DECISION CRITIQUE : VM = pilotage UNIQUEMENT** (Rule 28) — Task Runner cache le code compile (Pattern 2.11)
+- **7 fixes documentes** (FIX-21 a FIX-27) — total 27 fixes
+- **7,609 datasets sectoriels telecharges** (Finance 2250, Juridique 2500, BTP 1844, Industrie 1015)
+- **Template SQL matching code ecrit** — pret a deployer sur HF Space
+- **Graph teste avec succes sur VM** — "Who founded Microsoft?" → "Bill Gates and Paul Allen" (200 OK)
+- **Pre-vol checklist creee** (knowledge-base.md Section 0) — webhook paths + field names + auth
+- **Webhook paths corriges** — Graph et Orchestrator avaient de mauvais paths dans CLAUDE.md
+- **HF Space partiellement operationnel** — Standard 200 OK, Graph/Orch 404, Quant 500
+
+### Session 24 (19 fev 2026 — 3h10)
+- **HF Space n8n DEPLOYE** — 9/9 workflows importes + 8 bugs resolus (FIX-13 a FIX-20)
+- **n8n 2.8.3** (latest) + 12/12 credentials importes
+
+### Session 18 (18 fev 2026 — Restructuration)
 - **Restructuration profonde** documentation + directives + processus
 - **Audit 13→9 workflows** (4 supprimes : feedback, monitoring, orch-tester, rag-tester)
 - **Architecture 16 workflows** documentee (A: Test-RAG, B: Sector, C: Ingestion)
-- **Env-vars exhaustif** cree (technicals/env-vars-exhaustive.md)
-- **Team-agentic formel** cree (technicals/team-agentic-process.md)
-- **Anti-staleness** protocole ajoute
 
 ### Session 17 (18 fev 2026)
 - **CI smoke test ALL GREEN** (commit 630f81f) — 4/4 pipelines 5/5 via GitHub Actions
 - **Graph bolt→https fix APPLIED** — Neo4j URL corrigee
 - **Quantitative 0-nodes fix APPLIED** — workflow live restaure
-- **fixes-library.md cree** — 12 fixes documentes
 
 ### Prochaine action prioritaire
 
-#### Priorites pipeline
-1. **Graph RAG** : 68.7% → 70% (entity disambiguation Neo4j — bolt fix applique, retester)
-2. **Quantitative** : 78.3% → 85% (CompactRAG pattern + BM25 pour colonnes)
-3. **RAGAS metrics** : Ajouter faithfulness + context_recall aux eval scripts
+#### Priorites pipeline (Session 26+)
+1. **Deployer workflow Quantitative fixe sur HF Space** — template SQL matching
+2. **Importer Graph + Orchestrator sur HF Space** avec les bons webhook paths
+3. **Full eval Graph 50q** sur HF Space pour confirmer >=70%
+4. **Full eval Quantitative 50q** sur HF Space apres template fix
+5. **Si gates passees → Phase 2** (1000q HuggingFace)
 
 #### Website/Dashboard (livres en session 13)
 - Hero redesigne (problem-first, dual CTA, pain points cycliques)
