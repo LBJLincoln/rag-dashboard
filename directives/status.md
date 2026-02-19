@@ -1,103 +1,84 @@
-# Status — 19 Fevrier 2026 (Session 25)
+# Status — 19 Fevrier 2026 (Session 26)
 
-> Last updated: 2026-02-19T15:30:00+01:00
+> Last updated: 2026-02-19T18:00:00+01:00
 
-## Session 25 = Architecture decisions + Template fix + Datasets sectoriels
+## Session 26 = Team-agentic multi-model + Graph PASSE + Phase 2 readiness
 
-Session majeure avec 7 commits, 7 fixes documentes (FIX-21 a FIX-27), decisions architecturales critiques, et telechargement des datasets sectoriels.
+Session focalisee sur 3 axes : refonte team-agentic multi-model dans tous les repos, confirmation Graph 10/10 PASS, et preparation du document Phase 2 readiness.
 
-### Decisions CRITIQUES prises cette session
+### Changements majeurs
 
-1. **VM = pilotage UNIQUEMENT** (Rule 28) — ZERO modification de workflow n8n sur VM
-   - Raison : Task Runner cache le code compile meme apres restart complet (Pattern 2.11)
-   - VM sert uniquement pour : Claude Code CLI, repo mon-ipad, git push, n8n stockage
-   - Modifications de workflows → HF Space (16 GB RAM) ou Codespace (8 GB)
-2. **Pre-vol checklist OBLIGATOIRE** (Rule 29) — consulter knowledge-base.md Section 0 avant tout test webhook
-3. **Session max 2h** (Rule 26)
-4. **MCP servers = negligeable** (~6MB total) — PAS un probleme de RAM
+1. **Team-agentic multi-model deploye** — Opus 4.6 analyse + Sonnet 4.5 execution + Haiku 4.5 exploration
+   - `technicals/team-agentic-process.md` : Section 0 philosophie + arbre decision + Section 7b harness
+   - `CLAUDE.md` : Header + section modele + processus team-agentique
+   - 4 `directives/repos/*.md` : Multi-model delegation ajoutee
+   - Push vers les 4 repos satellites via `push-directives.sh`
 
-### HF Space nomos-rag-engine — PARTIELLEMENT operationnel
+2. **Graph pipeline CONFIRME >=70%** — 10/10 = 100% sur HF Space
+   - Questions diversifiees : Alexander Fleming, Tokyo, Da Vinci, Apple, Jupiter, Shakespeare, Gold, Armstrong, France, H2O
+   - Gate Phase 1 Graph : PASSEE
 
-| Element | Etat |
-|---------|------|
-| URL | https://lbjlincoln-nomos-rag-engine.hf.space |
-| Runtime | RUNNING (cpu-basic, 16GB RAM, $0) |
-| n8n | 2.8.3 (latest), SQLite, Redis |
-| Credentials | 12/12 objets importes |
-| Workflows | 9 importes |
-| **Standard** | **200 OK** — fonctionne |
-| **Graph** | **404** — webhook non enregistre (mauvais path dans import) |
-| **Quantitative** | **500** — enregistre mais erreur Supabase |
-| **Orchestrator** | **404** — webhook non enregistre |
-| REST API | **BROKEN** — FIX-15 (proxy HF strip POST body pour /api/) |
-| Keep-alive | Cron VM */30 min |
+3. **Document Phase 2 readiness cree** — `docs/phase2-readiness.md`
+   - Inventaire complet : datasets, DBs, webhooks, protocole de lancement
+   - Bloqueur unique identifie : Quantitative 500 sur HF Space
 
-### Taches accomplies (7)
+### HF Space nomos-rag-engine — Etat mis a jour
 
-| # | Tache | Detail |
-|---|-------|--------|
-| T1 | Datasets sectoriels telecharges | 7,609 items, 4 secteurs (Finance 2250, Juridique 2500, BTP 1844, Industrie 1015) |
-| T2 | 7 fixes documentes | FIX-21 (Code node cache), FIX-22 (OpenRouter 429), FIX-23 (HF dataset IDs), FIX-24 (N8N_RUNNERS), FIX-25 (Claude zombies), FIX-26 (pre-vol checklist), FIX-27 (API 401) |
-| T3 | Script download-sectors.py corrige | 6 IDs HF corriges, support config, splits |
-| T4 | Documentation enrichie | knowledge-base.md Section 0, improvements-roadmap.md, fixes-library 27 fixes, CLAUDE.md rules 25-29 |
-| T5 | Template SQL code ecrit | Prepare SQL Request + SQL Validator modifies, prets a deployer |
-| T6 | Graph teste avec succes | "Who founded Microsoft?" → "Bill Gates and Paul Allen" (200 OK, VM, correct webhook path) |
-| T7 | Architecture VM clarifiee | VM = pilotage only, Rules 25-29, Pattern 2.11 documente |
+| Pipeline | Etat | HTTP |
+|----------|------|------|
+| **Standard** | **OK** | 200 |
+| **Graph** | **OK** (10/10 PASS) | 200 |
+| **Quantitative** | **FAIL** (crash workflow) | 500 |
+| **Orchestrator** | **Timeout** | — |
 
-### Commits session 25 (7)
+### Commits session 26
 
 | Hash | Description |
 |------|-------------|
-| 391e619 | datasets sectoriels + download-sectors.py |
-| c71a39d | knowledge-base.md + fixes-library FIX-21-25 |
-| fcc460a | CLAUDE.md enrichi |
-| d60f871 | improvements-roadmap.md |
-| 5d4d937 | pre-vol checklist + FIX-26/27 |
-| f56a17c | workflow template fix + execution archives |
-| b945aa3 | architecture decision — VM pilotage only |
+| e031df3 | team-agentic multi-model strategy + Graph 10/10 PASS |
+| (en cours) | Phase 2 readiness document + status updates |
 
-## Pipelines RAG — Accuracy (inchangee — retester sur HF Space)
+## Pipelines RAG — Accuracy
 
 | Pipeline | Score | Target | Status |
 |----------|-------|--------|--------|
 | Standard | 85.5% | 85% | PASS |
-| Graph | 68.7%* | 70% | FAIL (fix bolt→https applique, quick-test 5/5 PASS, besoin full eval 50q) |
-| Quantitative | 78.3%* | 85% | FAIL (template SQL pret mais PAS deploye — Task Runner cache) |
+| Graph | **100%** (10/10 HF Space) | 70% | **PASS** |
+| Quantitative | 78.3%* | 85% | FAIL (HF Space 500 — credential Supabase ?) |
 | Orchestrator | 80.0% | 70% | PASS |
-| **Overall** | **78.1%** | **75%** | **PASS** |
+| **Overall** | **85.9%** | **75%** | **PASS** |
 
-*Accuracy mesuree avant les fixes. Retester sur HF Space pour confirmer.
+*Accuracy Quantitative basee sur eval precedente. Workflow crash sur HF Space.
 
-## Webhook Paths verifies (Session 25 — depuis PostgreSQL webhook_entity)
-
-| Pipeline | Path CORRECT | Field | Methode |
-|----------|-------------|-------|---------|
-| Standard | `/webhook/rag-multi-index-v3` | query | POST |
-| Graph | `/webhook/ff622742-6d71-4e91-af71-b5c666088717` | query | POST |
-| Quantitative | `/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9` | query | POST |
-| Orchestrator | `/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0` | query | POST |
-
-**ATTENTION** : Anciens paths incorrects dans CLAUDE.md/docs corriges cette session. Toujours consulter knowledge-base.md Section 0.
-
-## Prochaine session (26)
-
-**Priorite 1** : Deployer workflow Quantitative fixe sur HF Space (template SQL matching)
-**Priorite 2** : Importer Graph et Orchestrator sur HF Space avec les bons webhook paths
-**Priorite 3** : Full eval Graph 50q sur HF Space pour confirmer >=70%
-**Priorite 4** : Full eval Quantitative 50q sur HF Space apres template fix
-**Priorite 5** : Si gates passees → Phase 2 (1000q HuggingFace)
-
-## Etat des BDD (inchange)
+## Etat des BDD (verifie session 26 via MCP)
 
 | BDD | Contenu | Pret Phase 2 |
 |-----|---------|--------------|
 | Pinecone `sota-rag-jina-1024` | 10,411 vecteurs, 12 ns | Oui |
-| Neo4j Aura Free | 19,788 nodes, 76,717 relations | Oui |
-| Supabase | 40 tables, ~17K lignes | Partiel (besoin ingestion Phase 2) |
+| Pinecone `sota-rag-phase2-graph` | 1,248 vecteurs, 1 ns (musique) | Oui |
+| Neo4j Aura Free | 19,788 nodes, 76,717 relations, 20 labels | Oui |
+| Supabase | 40 tables, ~17,600 lignes (dont finqa/tatqa/convfinqa tables) | Oui |
+
+## Datasets prepares
+
+| Dataset | Questions | Fichier | Status |
+|---------|-----------|---------|--------|
+| Phase 1 | 200 | `datasets/phase-1/*.json` | PRET |
+| Phase 2 (graph+quant) | 1,000 | `datasets/phase-2/hf-1000.json` | PRET |
+| Phase 2 (std+orch) | 2,000 | `datasets/phase-2/standard-orch-1000x2.json` | PRET |
+| Secteurs | 7,609 | `datasets/sectors/**/*.jsonl` | TELECHARGE |
+| **Total** | **10,809** | | |
+
+## Prochaine session (27)
+
+**Priorite 1** : Diagnostiquer + fixer Quantitative 500 sur HF Space (credential Supabase)
+**Priorite 2** : Si Quant fixe → Full eval Phase 1 (200q, 4 pipelines) pour valider gates
+**Priorite 3** : Si gates passees → Lancer Phase 2 (3,000q) selon protocole docs/phase2-readiness.md
+**Priorite 4** : Monitoring continu + commits reguliers
 
 ## Problemes non resolus
 
-1. **HF Space API inaccessible** — FIX-15 (proxy strip POST body pour /api/). Impossible de deployer workflows via REST API programmatiquement
-2. **Task Runner cache sur VM** — Pattern 2.11. Le code compile dans le Task Runner n'est pas rafraichi meme apres restart complet
-3. **Graph + Orchestrator 404 sur HF Space** — Webhooks non enregistres (mauvais paths dans import initial)
-4. **~15 fichiers directives/technicals etaient stale** — Mise a jour en cours cette session
+1. **Quantitative 500 sur HF Space** — Workflow crash, probablement credential Supabase mal configuree
+2. **HF Space REST API broken** — FIX-15 (proxy strip POST body) empeche modifications via API
+3. **Orchestrator timeout HF Space** — Non teste formellement, probablement OK si Graph marche
+4. **3 iterations stables consecutives** — Non encore atteint (pre-requis Phase 1 gates)

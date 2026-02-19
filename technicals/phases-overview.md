@@ -1,6 +1,6 @@
 # Incremental Evaluation Plan — SOTA 2026
 
-> Last updated: 2026-02-19T15:30:00+01:00
+> Last updated: 2026-02-19T18:00:00+01:00
 
 ## Vue d'ensemble
 
@@ -188,7 +188,9 @@ Analyser les techniques de pointe 2025-2026 en RAG, ingestion, et enrichissement
 |---------|-----------|------------|
 | `datasets/phase-1/standard-orch-50x2.json` | 100 | Phase 1 |
 | `datasets/phase-1/graph-quant-50x2.json` | 100 | Phase 1 |
-| `datasets/phase-2/hf-1000.json` | 1,000 | Phase 2 |
+| `datasets/phase-2/hf-1000.json` | 1,000 | Phase 2 (Graph 500 + Quant 500) |
+| `datasets/phase-2/standard-orch-1000x2.json` | 2,000 | Phase 2 (Standard 1000 + Orch 1000) |
+| `datasets/sectors/*.jsonl` | 7,609 | Secteurs (Finance 2250, Juridique 2500, BTP 1844, Industrie 1015) |
 | **Manquant** | Phase 3-5 | A generer via `db/populate/push-datasets.py` |
 
 ---
