@@ -1,6 +1,6 @@
 # Multi-RAG Orchestrator — Tour de Contrôle Centrale
 
-> Last updated: 2026-02-19T18:00:00+01:00
+> Last updated: 2026-02-20T00:15:00+01:00
 
 > **CE REPO (`mon-ipad`) EST LA TOUR DE CONTRÔLE.**
 > VM Google Cloud permanente · Claude Code via Termius · Pilote 6 repos satellites
@@ -27,7 +27,7 @@
 | **n8n HF Space** | https://lbjlincoln-nomos-rag-engine.hf.space | RUNNING (cpu-basic, 16GB RAM, $0) |
 | n8n version | 2.8.3 (latest) | SQLite + Redis |
 | Credentials | 12/12 importes | postgres x4, redis, neo4j, pinecone x2, openrouter x4 |
-| Workflows | 9 importes | **Seul Standard fonctionne (200 OK)** — Graph+Orchestrator: 404, Quantitative: 500 |
+| Workflows | 9 importes | **Standard+Graph+Orchestrator OK (200)** — Quantitative: SQL gen broken (FIX-36 requis) |
 | Keep-alive | Cron VM */30 min | Empêche HF sleep |
 | REST API | **BROKEN** (FIX-15 : proxy HF strip POST body pour /api/) | Webhooks OK |
 
@@ -842,6 +842,9 @@ TACHE → Analyse/Decision ? → OUI → OPUS fait lui-meme
 27. **Kill old processes** — au démarrage, vérifier `ps aux | grep claude | grep -v grep` et tuer les anciennes sessions Claude qui consomment de la RAM
 28. **ZERO modification workflow sur VM** — le Task Runner cache le code compilé même après restart. Modifier les workflows UNIQUEMENT sur HF Space (16 GB RAM, API REST fonctionnelle). VM = pilotage UNIQUEMENT.
 29. **Pre-vol checklist** — AVANT tout test webhook, consulter `technicals/debug/knowledge-base.md` Section 0 (webhook paths, field names, auth)
+30. **Agent Continuation** — Sous-agents (Sonnet/Haiku) continuent automatiquement apres succes (5q→10q→50q). Auto-stop sur 3 echecs consecutifs. Rapport structure a Opus pour analyse et decision. Details : `technicals/project/team-agentic-process.md` Section 3b.
+31. **Push regulier GitHub** — commit + push toutes les 15-20 minutes minimum, pour chaque agent actif. Resultats JAMAIS perdus.
+32. **Consulter document-index** — Au demarrage, consulter `docs/document-index.md` pour la carte complete des fichiers projet. `docs/executive-summary.md` pour le resume global.
 
 ---
 

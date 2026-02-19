@@ -1,6 +1,6 @@
 # Session State — 19 Fevrier 2026 (Session 27 suite)
 
-> Last updated: 2026-02-20T01:00:00+01:00
+> Last updated: 2026-02-20T00:30:00+01:00
 
 ## Objectif de session : Phase 2 pour TOUS les pipelines (bottleneck strategy)
 
@@ -128,3 +128,35 @@ The error suggests the workflow is returning a fallback error SQL instead of cal
 **Report created**: `/home/termius/mon-ipad/docs/session-26-hf-space-fix-report.md`
 
 **Next step**: Debug the Quantitative workflow Text-to-SQL Generator node (likely OpenRouter API call is broken)
+
+### Session 28 — Continuation (2026-02-20T00:30:00+01:00)
+
+**CLAUDE.md updated with 3 new rules**:
+- Rule 30: Agent Continuation Protocol (5q→10q→50q auto-escalation)
+- Rule 31: Push regulier GitHub (15-20 min minimum)
+- Rule 32: Consulter document-index au demarrage
+
+**team-agentic-process.md updated**:
+- Added Section 3b: Agent Continuation Protocol — Auto-Escalation
+- Sous-agents continuent automatiquement apres succes
+- Auto-stop sur 3 echecs consecutifs
+- Rapport structure a Opus pour analyse
+
+**Pipeline test results (session 28)**:
+- Standard: PASS (HF Space, HTTP 200, correct answer)
+- Graph: PASS (HF Space, HTTP 200, correct answer)
+- Orchestrator: PASS (HF Space, HTTP 200, response generated)
+- Quantitative: FAIL (SQL generation broken — workflow bug, not rate limit)
+
+**Dashboard v2**: Deployed to rag-dashboard (commit fb11951) + mon-ipad (commit 4cb138d)
+
+**Agent acaef70** (Quantitative fix): Running — discovered SQL generation is broken at workflow level
+**Agent a0cec3b** (5q tests): Completed — timed out (HF Space responses too slow)
+**Agent a6dafe4** (Pipeline tests): Completed — Standard/Graph/Orch PASS, Quant FAIL
+
+**Commits session 28**:
+| Hash | Description |
+|------|-------------|
+| 4cb138d | Dashboard v2 — comprehensive monitoring dashboard |
+| c5f9aba | HF Space scripts + pipeline test logs + quant fix report |
+| (pending) | CLAUDE.md rules 30-32 + team-agentic continuation protocol |

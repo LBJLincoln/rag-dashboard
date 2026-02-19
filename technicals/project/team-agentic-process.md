@@ -172,6 +172,71 @@ Le smoke test CI (5/5 par pipeline via GitHub Actions) NE suit PAS l'auto-stop c
 
 ---
 
+## 3b. Agent Continuation Protocol — Auto-Escalation
+
+### Regle : Succes → continuer. Echec → analyser et deleguer.
+
+Les sous-agents (Sonnet/Haiku) ne s'arretent PAS apres un batch reussi.
+Ils suivent la **boucle d'escalation** suivante :
+
+```
+BATCH TERMINE (ex: 5 questions)
+       |
+   Tous PASS ?
+   /        \
+ OUI        NON
+  |           |
+Continuer    Echecs >= 3 consecutifs ?
+avec le      /             \
+batch       OUI            NON
+suivant    STOP +          Continuer
+(5→10→50)  Rapport         avec note
+  |        a Opus          d'erreur
+  |           |
+  v           v
+5/5 PASS   RAPPORT vers Opus :
+→ 10/10    - Pipeline(s) echoue(s)
+→ 50/50    - Pattern d'erreur
+→ deleguent- Logs complets
+  analyse  - Suggestion de fix
+  a Opus   Opus DECIDE la suite
+```
+
+### Sous-agent autonome — Regles
+1. **Continuer tant que >= 80% accuracy** sur le batch courant
+2. **Escalader les resultats** vers batch superieur : 5q → 10q → 50q
+3. **Chaque batch complete** → commit + push resultats vers GitHub
+4. **Rapport structure** en fin de batch ou sur auto-stop
+5. **NE PAS tenter de fixer** — reporter a Opus pour decision
+6. **Parallele** : tester les 3-4 pipelines sequentiellement (pas en parallele)
+
+### Format du rapport sous-agent → Opus
+```markdown
+## Rapport Test [Pipeline] — [Date]
+- **Questions testees** : X/Y
+- **Accuracy** : XX.X%
+- **Pipelines** :
+  - Standard: X/Y (XX%)
+  - Graph: X/Y (XX%)
+  - Quantitative: X/Y (XX%) [ou SKIP si broken]
+  - Orchestrator: X/Y (XX%)
+- **Erreurs notables** : [description]
+- **Recommandation** : CONTINUER / STOP / FIX REQUIS [pipeline]
+- **Logs** : [chemin vers logs]
+```
+
+### Quand le sous-agent delegue a Opus
+| Evenement | Action du sous-agent | Opus recoit |
+|-----------|---------------------|-------------|
+| 5/5 PASS tous pipelines | Lancer 10/10 automatiquement | Notification progress |
+| 10/10 PASS | Lancer 50/50 automatiquement | Notification progress |
+| 50/50 PASS | STOP + rapport complet | Rapport pour Phase 2 decision |
+| 3 echecs consecutifs | STOP + diagnostic | Rapport erreur pour fix |
+| Accuracy < 80% | STOP + rapport | Rapport pour analyse Opus |
+| Pipeline timeout/crash | STOP + logs | Logs + trace_id pour debug |
+
+---
+
 ## 4. Fixes Library Partagee
 
 ### Architecture
