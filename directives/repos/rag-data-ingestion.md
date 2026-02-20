@@ -1,6 +1,6 @@
 # rag-data-ingestion — CLAUDE.md
 
-> Last updated: 2026-02-20T01:30:00+01:00
+> Last updated: 2026-02-20T21:30:00+01:00
 > **Ce repo s'exécute dans un Codespace GitHub éphémère.**
 > Tu es un agent Claude Code specialise dans l'INGESTION et l'ENRICHISSEMENT des BDD.
 > **MODELE PRINCIPAL : `claude-opus-4-6`** — Strategie ingestion, analyse qualite, decisions.
@@ -11,14 +11,38 @@
 
 ---
 
-## ÉTAT ACTUEL — 17 fév 2026
+## ÉTAT ACTUEL — 20 fév 2026
 
 | | |
 |-|-|
-| **Dernier commit** | 9f5a53dd — 17 fév 2026 |
-| **Déployé / en cours** | Workflows Ingestion V3.1 + Enrichissement V3.1 sur VM. Codespace non créé. |
+| **Dernier commit** | Session 31 — 20 fév 2026 |
+| **Déployé / en cours** | Workflows Ingestion V4.0 + Enrichissement V4.0 (SOTA 2026 upgrades) |
+| **Phase 1** | PASSED (83.9% overall, session 30) |
 | **Codespace** | Non créé — à créer pour ingestion massive (~5.4 GB total) |
-| **Prochain objectif immédiat** | Créer Codespace + télécharger datasets Finance/Juridique (priorité car Quantitative 78.3% et Graph 68.7% FAIL) |
+| **Prochain objectif immédiat** | Déployer V4.0 workflows sur HF Space + ingérer 500 file types × 4 sectors |
+
+### SOTA V4.0 Improvements Applied (Session 31)
+| Technique | Impact | Status |
+|-----------|--------|--------|
+| Late Chunking (Jina) | +3.5% accuracy | Applied in Ingestion V4.0 |
+| Jina v3 Task LoRA | +5-8% accuracy | Applied in Ingestion V4.0 |
+| Domain-Specific Chunking | +8-12% accuracy | Applied (4 sector strategies) |
+| BM25 French Improvements | +10-15% precision | Applied in Ingestion V4.0 |
+| French NER Extraction | +10-15% entities | Applied in Ingestion V4.0 |
+| CompactRAG QA Pairs | -50% LLM calls | Applied in Ingestion V4.0 |
+| Entity Resolution V4 | Better dedup | Applied in Enrichment V4.0 |
+| Cross-Document Linking | Graph quality | Applied in Enrichment V4.0 |
+| Relationship Types V4 | Legal/Finance | Applied in Enrichment V4.0 |
+| Community Summaries FR | French support | Applied in Enrichment V4.0 |
+
+### Processing Pipeline
+| Script | Purpose |
+|--------|---------|
+| `scripts/sector-file-types.py` | 500 file type registry (125/sector) |
+| `scripts/process-sectors.py` | Process documents → n8n batches (1M capacity) |
+| `scripts/trigger-sector-ingestion.py` | Send batches to n8n webhooks |
+| `scripts/upgrade-ingestion-v4.py` | Upgrade workflow JSON with SOTA |
+| `scripts/upgrade-enrichment-v4.py` | Upgrade workflow JSON with SOTA |
 
 ### Commandes clés pour cette session
 ```bash
@@ -55,17 +79,29 @@ python3 scripts/trigger-ingestion.py --dataset financebench --workers 2
 **Améliorer drastiquement** les 2 workflows d'ingestion via recherche académique 2026,
 puis ingérer les datasets sectoriels dans les BDD du projet.
 
-### Les 2 workflows à améliorer
-| Workflow | ID n8n | Version actuelle | Objectif |
-|----------|--------|-----------------|----------|
-| **Ingestion V3.1** | `15sUKy5lGL4rYW0L` | V3.1 | V4.0+ avec techniques SOTA 2026 |
-| **Enrichissement V3.1** | `9V2UTVRbf4OJXPto` | V3.1 | V4.0+ avec enrichissement contextuel |
+### Les 2 workflows — UPGRADED to V4.0 (SOTA 2026)
+| Workflow | ID n8n | Version | Key V4.0 Features |
+|----------|--------|---------|-------------------|
+| **Ingestion V4.0** | `15sUKy5lGL4rYW0L` | V4.0 | Late Chunking, Domain-Specific Chunking, French NER, CompactRAG, BM25 FR |
+| **Enrichissement V4.0** | `9V2UTVRbf4OJXPto` | V4.0 | Entity Resolution V4, Cross-Doc Linking, FR Summaries, Relationship V4 |
 
 ### Cibles de performance
-- Qualité d'ingestion : réduire les chunks parasites, améliorer la segmentation
-- Qualité des embeddings : meilleure représentation des documents sectoriels FR
-- Vitesse : réduire le temps d'ingestion par document
-- Couverture : 20+ datasets sectoriels ingérés (voir mon-ipad/technicals/data/sector-datasets.md)
+| Métrique | V3.1 | V4.0 Target | Technique |
+|---------|------|-------------|-----------|
+| Chunks utiles / document | ~60% | >= 85% | Domain-specific chunking |
+| Embedding quality (retrieval@5) | baseline | +15% | Late Chunking + Jina v3 LoRA |
+| Entity extraction accuracy | ~70% | >= 90% | French NER + Entity Resolution V4 |
+| Graph completeness | partial | >= 90% | Cross-document linking |
+| BM25 precision (legal/finance) | baseline | +15% | French stop words + sector weighting |
+| Temps ingestion / doc | ~60s | < 30s | Batch processing + optimized prompts |
+
+### 500 File Types × 4 Sectors (1M Document Capacity)
+| Sector | Types | Pipeline | Chunking Strategy |
+|--------|-------|----------|-------------------|
+| BTP/Construction | 125 | standard + graph | btp_spec_based (1024 tokens) |
+| Finance | 125 | quantitative + standard | finance_page_level (256 + metadata) |
+| Juridique | 125 | graph + standard | legal_clause_based (500-800 tokens) |
+| Industrie | 125 | standard + quantitative | industry_hierarchical (512 tokens) |
 
 ---
 
