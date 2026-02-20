@@ -38,12 +38,28 @@ PHASE_1_TARGETS = {
 }
 PHASE_1_OVERALL = 75.0
 
+# Phase 2 question ID patterns — these are NOT Phase 1 baseline questions
+PHASE2_PATTERNS = ("musique", "finqa", "phase2")
 
-def compute_registry_accuracy(data):
-    """Compute per-pipeline accuracy from question_registry (source of truth)."""
+
+def _is_phase1_question(qid):
+    """Return True if question belongs to Phase 1 baseline (not Phase 2 HF datasets)."""
+    qid_lower = qid.lower()
+    return not any(pat in qid_lower for pat in PHASE2_PATTERNS)
+
+
+def compute_registry_accuracy(data, phase1_only=True):
+    """Compute per-pipeline accuracy from question_registry (source of truth).
+
+    Args:
+        data: Parsed data.json
+        phase1_only: If True, exclude Phase 2 questions (musique, finqa) from calculation.
+    """
     reg = data.get("question_registry", {})
     stats = {}
     for qid, qdata in reg.items():
+        if phase1_only and not _is_phase1_question(qid):
+            continue
         rt = qdata.get("rag_type", "")
         runs = qdata.get("runs", [])
         if not runs or not rt:

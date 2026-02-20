@@ -1,9 +1,9 @@
 # Fixes Library — Multi-RAG Orchestrator
 
-> Last updated: 2026-02-19T23:45:00+01:00
+> Last updated: 2026-02-20T20:30:00+01:00
 
 > **Bibliotheque permanente de tous les bugs resolus.** A consulter EN PREMIER avant tout debug.
-> Mise a jour obligatoire apres chaque fix reussi. Session courante : Session 27 (2026-02-19).
+> Mise a jour obligatoire apres chaque fix reussi. Session courante : Session 30 (2026-02-20).
 
 ---
 
@@ -46,6 +46,7 @@
 | 33 | TOUS workflows | $env bloque pour TOUS les types de noeuds n8n 2.8+ (pas juste Code) | 27 | CRITIQUE |
 | 34 | Orchestrator | executeWorkflow retourne vide (sub-wf respondToWebhook) → httpRequest | 27 | CRITIQUE |
 | 35 | Quantitative | OPENROUTER_BASE_URL sans /chat/completions → HTML au lieu de JSON | 27 | CRITIQUE |
+| 36 | Evaluation | Phase 1 gates comptaient questions Phase 2 (musique, finqa) | 30 | CRITIQUE |
 
 ---
 
@@ -63,6 +64,7 @@
 | AP-8 | Utiliser $env dans N'IMPORTE QUEL noeud n8n 2.8+ | CRITIQUE | $env bloque PARTOUT — injecter a l'import (FIX-33) |
 | AP-9 | Utiliser executeWorkflow quand sub-wf a respondToWebhook | CRITIQUE | executeWorkflow retourne vide — utiliser httpRequest (FIX-34) |
 | AP-10 | URL OpenRouter sans /chat/completions | CRITIQUE | API retourne HTML au lieu de JSON (FIX-35) |
+| AP-11 | Melanger questions Phase 2 dans les gates Phase 1 | CRITIQUE | Chaque phase filtre ses propres questions (FIX-36) |
 
 ---
 
@@ -689,3 +691,16 @@ Le body est `{ "query": "<task_query>" }`. Le timeout est 30s. La reponse JSON d
 **REGLE** : Les URLs OpenRouter API DOIVENT finir par `/chat/completions`. URL de base seule (`/api/v1`) retourne une page HTML.
 **Detection rapide** : Si un pipeline quantitatif/LLM complete en < 5s avec erreur, verifier que l'URL API ne retourne pas du HTML.
 **Fichiers impactes** : `entrypoint.sh` (HF Space)
+
+---
+
+### FIX-36 — Phase 1 gates comptaient questions Phase 2 (musique, finqa)
+**Session** : 30 (2026-02-20)
+**Composant** : `eval/generate_status.py`, `eval/phase_gates.py`
+**Symptome** : Phase 1 gates bloques (Graph 68.7%, Quant 78.3%) alors que les 4 pipelines passaient largement leurs cibles sur les questions Phase 1 seules (Graph 78%, Quant 92%).
+**Cause racine** : `compute_registry_accuracy()` dans `generate_status.py` et `get_pipeline_accuracy()` dans `phase_gates.py` iteraient sur TOUTES les questions du `question_registry` sans distinguer Phase 1 de Phase 2. Les 17 questions musique (41% accuracy) et 10 questions finqa (40% accuracy), injectees lors des iterations exploratoires "Phase2-quant-*", etaient comptees dans le denominateur Phase 1.
+**Impact** : Phase 1 artificiellement bloquee depuis le 16 fevrier (4 jours). Toutes les tentatives de "fix Graph +1.3pp" et "fix Quant SQL generation" etaient inutiles.
+**Fix** : Ajout de `_is_phase1_question(qid)` dans les deux scripts. Filtre les question IDs contenant "musique", "finqa", ou "phase2". `compute_registry_accuracy(data, phase1_only=True)` et `get_pipeline_accuracy(data, phase1_only=True)`.
+**Resultat** : Phase 1 PASSED immediatement — Standard 85.5%, Graph 78.0%, Quant 92.0%, Orch 80.0%, Overall 83.9%.
+**REGLE** : Les gates de Phase N ne doivent JAMAIS inclure les questions de Phase N+1 dans leur calcul. Chaque phase a ses propres targets et ses propres datasets.
+**Fichiers impactes** : `eval/generate_status.py`, `eval/phase_gates.py`

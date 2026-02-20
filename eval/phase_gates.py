@@ -100,9 +100,20 @@ def load_data_json():
         return json.load(f)
 
 
-def get_pipeline_accuracy(data):
+def _is_phase1_question(qid):
+    """Return True if question belongs to Phase 1 baseline (not Phase 2 HF datasets)."""
+    qid_lower = qid.lower()
+    return not any(pat in qid_lower for pat in ("musique", "finqa", "phase2"))
+
+
+def get_pipeline_accuracy(data, phase1_only=True):
     """Extract current pipeline accuracies from data.json.
-    Returns dict: {pipeline_name: accuracy_pct}"""
+    Returns dict: {pipeline_name: accuracy_pct}
+
+    Args:
+        data: Parsed data.json
+        phase1_only: If True, exclude Phase 2 questions (musique, finqa) for Phase 1 gate check.
+    """
     accuracies = {}
     pipelines = data.get("pipelines", {})
     for name, info in pipelines.items():
@@ -117,6 +128,8 @@ def get_pipeline_accuracy(data):
         pipe_correct = {}
         pipe_total = {}
         for qid, qdata in registry.items():
+            if phase1_only and not _is_phase1_question(qid):
+                continue
             runs = qdata.get("runs", [])
             if not runs:
                 continue

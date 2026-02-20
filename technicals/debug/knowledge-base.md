@@ -1,6 +1,6 @@
 # Knowledge Base — Cerveau Persistant Multi-RAG
 
-> Last updated: 2026-02-19T23:20:00+01:00
+> Last updated: 2026-02-20T20:30:00+01:00
 > **Ce document est VIVANT.** Il s'enrichit a CHAQUE session avec les solutions, patterns
 > et connaissances techniques decouvertes. A lire EN PREMIER avec `fixes-library.md`.
 > Objectif : ameliorer la performance de l'agent a chaque session.
@@ -416,6 +416,19 @@ sota-rag-jina-1024 : 10,411 vecteurs
 - n8n 503 transitoire → timeout → FAIL
 - Matching trop strict (ex: "6.7 billion" vs "6,745,000,000")
 
+### 6.4 CRITIQUE — Filtrage Phase 1 vs Phase 2 dans les scripts eval (FIX-36, Session 30)
+**Symptome** : Phase 1 gates bloques (Graph 68.7%, Quant 78.3%) alors que les pipelines
+passent largement leurs cibles sur les questions Phase 1.
+**Cause racine** : `generate_status.py` et `phase_gates.py` comptaient TOUTES les questions
+du `question_registry` (y compris musique, finqa = datasets Phase 2) dans le calcul
+des gates Phase 1. Les 17 questions musique (41% acc) et 10 questions finqa (40% acc)
+trainaient les scores vers le bas.
+**Fix** : Ajout de `_is_phase1_question(qid)` qui exclut les IDs contenant "musique",
+"finqa", ou "phase2" du calcul Phase 1. Les deux scripts filtrent maintenant correctement.
+**Resultat** : Phase 1 PASSED — Standard 85.5%, Graph 78.0%, Quant 92.0%, Orch 80.0%, Overall 83.9%.
+**REGLE** : Les questions Phase 2 (HF datasets) NE DOIVENT JAMAIS etre incluses dans le
+calcul Phase 1. Phase 2 a ses propres targets (Graph 60%, Quant 70%, Overall 65%).
+
 ### 6.3 Delais recommandes entre questions
 | Pipeline | Delai | Raison |
 |----------|-------|--------|
@@ -489,6 +502,7 @@ Recommended concurrency for production testing:
 | 25 | Creation du document, modeles LLM, 8 patterns, APIs, schemas | 2026-02-19 |
 | 27 | $env interdit tous noeuds (3.5), executeWorkflow vide (3.6) | 2026-02-19 |
 | 27 | Concurrent load testing results (7.4), Orchestrator concurrency limits | 2026-02-19 |
+| 30 | Phase1 vs Phase2 question filtering (6.4), FIX-36 | 2026-02-20 |
 
 ---
 
