@@ -1,432 +1,757 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Check, X, AlertTriangle, Clock, Brain, ChevronDown, Flame } from 'lucide-react'
-
-// TODO: Replace MOCK_QUESTIONS with real API data from /api/dashboard/questions
+import {
+  Check,
+  X,
+  AlertTriangle,
+  Clock,
+  Brain,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Search,
+  LayoutGrid,
+  LayoutList,
+  Filter,
+  SlidersHorizontal,
+  ExternalLink,
+  TrendingUp,
+  Zap,
+  Hash,
+} from 'lucide-react'
 
 // ---- Types ---------------------------------------------------------------
 
-interface MockQuestion {
-  id: number
-  question: string
-  correct: boolean
-  pipeline: 'standard' | 'graph' | 'quantitative' | 'orchestrator'
-  score: number
-  duration_ms: number
-  iteration: number
-}
-
-interface Question {
+interface QuestionData {
+  id?: string
   question_id?: string
   question?: string
   expected?: string
   got?: string
+  answer?: string
   correct?: boolean
   f1?: number
   latency_ms?: number
   rag_type?: string
+  match_type?: string
   match_method?: string
   error_type?: string
   iteration_label?: string
+  iteration_number?: number
+}
+
+interface IterationData {
+  id?: string | null
+  number: number
+  label: string
+  timestamp_start?: string
+  total_tested: number
+  total_correct: number
+  overall_accuracy_pct: number
+  results_summary: Record<string, {
+    tested: number
+    correct: number
+    accuracy_pct: number
+    avg_latency_ms?: number
+    avg_f1?: number
+  }>
+  questions: QuestionData[]
 }
 
 interface Props {
   questions: Record<string, unknown>[]
 }
 
-// ---- Mock data -----------------------------------------------------------
-
-const MOCK_QUESTIONS: MockQuestion[] = [
-  { id: 1,  question: "Quelles sont les normes DTU pour les fondations en zone sismique?",          correct: true,  pipeline: "standard",     score: 0.91, duration_ms: 3200,  iteration: 42 },
-  { id: 2,  question: "Calculer le LCR (Liquidity Coverage Ratio) selon Basel III?",               correct: false, pipeline: "quantitative", score: 0.43, duration_ms: 4800,  iteration: 42 },
-  { id: 3,  question: "Quelle relation lie la societe Renault a ses fournisseurs tier-1?",         correct: true,  pipeline: "graph",        score: 0.87, duration_ms: 5100,  iteration: 42 },
-  { id: 4,  question: "Comment calculer le ratio de solvabilite Tier 1 selon CRR2?",               correct: true,  pipeline: "quantitative", score: 0.79, duration_ms: 3900,  iteration: 42 },
-  { id: 5,  question: "Quelle est la procedure de recouvrement d'une creance commerciale?",        correct: true,  pipeline: "standard",     score: 0.93, duration_ms: 2700,  iteration: 42 },
-  { id: 6,  question: "Quel pipeline choisir pour une question sur les brevets d'entreprise?",     correct: true,  pipeline: "orchestrator", score: 0.88, duration_ms: 6200,  iteration: 42 },
-  { id: 7,  question: "Decrire le processus de certification CE pour equipements industriels.",    correct: false, pipeline: "standard",     score: 0.51, duration_ms: 3100,  iteration: 42 },
-  { id: 8,  question: "Quels liens existent entre Total Energies et ses filiales offshore?",       correct: true,  pipeline: "graph",        score: 0.82, duration_ms: 4700,  iteration: 42 },
-  { id: 9,  question: "Calculer l'amortissement lineaire d'un actif de 50 000 EUR sur 5 ans.",    correct: true,  pipeline: "quantitative", score: 0.96, duration_ms: 2100,  iteration: 42 },
-  { id: 10, question: "Quelles sont les obligations RGPD pour un sous-traitant de donnees?",      correct: false, pipeline: "standard",     score: 0.38, duration_ms: 3400,  iteration: 42 },
-  { id: 11, question: "Identifier les parties prenantes liees a un contrat de maintenance.",       correct: true,  pipeline: "graph",        score: 0.76, duration_ms: 5500,  iteration: 42 },
-  { id: 12, question: "Quel est le delai legal de prescription pour un contrat commercial?",       correct: true,  pipeline: "orchestrator", score: 0.90, duration_ms: 4100,  iteration: 41 },
-  { id: 13, question: "Norme ISO 9001 : quelles exigences pour la revue de direction?",           correct: true,  pipeline: "standard",     score: 0.85, duration_ms: 2900,  iteration: 41 },
-  { id: 14, question: "Calculer le taux de rendement interne (TRI) d'un investissement.",        correct: false, pipeline: "quantitative", score: 0.47, duration_ms: 5300,  iteration: 41 },
-  { id: 15, question: "Quels sont les actionnaires majoritaires de BNP Paribas en 2024?",         correct: true,  pipeline: "graph",        score: 0.78, duration_ms: 4600,  iteration: 41 },
-]
-
 // ---- Pipeline config -----------------------------------------------------
 
-const PIPELINE_META: Record<string, { label: string; color: string }> = {
-  standard:     { label: 'Standard',     color: '#0a84ff' },
-  graph:        { label: 'Graph',        color: '#bf5af2' },
-  quantitative: { label: 'Quantitative', color: '#ffd60a' },
-  orchestrator: { label: 'Orchestrator', color: '#30d158' },
+const PIPELINE_META: Record<string, { label: string; color: string; icon: string }> = {
+  standard:     { label: 'Standard',     color: '#0a84ff', icon: '◆' },
+  graph:        { label: 'Graph',        color: '#bf5af2', icon: '◈' },
+  quantitative: { label: 'Quantitative', color: '#ffd60a', icon: '◇' },
+  orchestrator: { label: 'Orchestrator', color: '#30d158', icon: '◉' },
 }
 
 const PIPELINES = ['standard', 'graph', 'quantitative', 'orchestrator'] as const
-type PipelineName = typeof PIPELINES[number]
+type PipelineName = (typeof PIPELINES)[number]
 
-// ---- Animated counter ----------------------------------------------------
+const PAGE_SIZES = [10, 25, 50, 100] as const
 
-function AnimatedCounter({ value, decimals = 1, suffix = '' }: { value: number; decimals?: number; suffix?: string }) {
-  const [displayed, setDisplayed] = useState(0)
-  const frameRef = useRef<number | null>(null)
-  const startRef = useRef<number | null>(null)
+// ---- Data loader ---------------------------------------------------------
+
+function useDataJson() {
+  const [iterations, setIterations] = useState<IterationData[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const duration = 1200
-    startRef.current = null
-
-    function step(ts: number) {
-      if (startRef.current === null) startRef.current = ts
-      const elapsed = ts - startRef.current
-      const progress = Math.min(elapsed / duration, 1)
-      // Ease out cubic
-      const eased = 1 - Math.pow(1 - progress, 3)
-      setDisplayed(eased * value)
-      if (progress < 1) frameRef.current = requestAnimationFrame(step)
+    async function load() {
+      try {
+        const res = await fetch('/data.json')
+        if (!res.ok) throw new Error('fetch failed')
+        const json = await res.json()
+        const iters: IterationData[] = (json.iterations ?? [])
+          .filter((it: IterationData) => it.questions && it.questions.length > 0)
+          .map((it: IterationData, idx: number) => ({
+            ...it,
+            number: it.number ?? idx + 1,
+            questions: it.questions.map((q: QuestionData) => ({
+              ...q,
+              iteration_number: it.number ?? idx + 1,
+              iteration_label: it.label,
+            })),
+          }))
+        setIterations(iters)
+      } catch {
+        // Fallback: empty
+      } finally {
+        setLoading(false)
+      }
     }
+    load()
+  }, [])
 
-    frameRef.current = requestAnimationFrame(step)
-    return () => { if (frameRef.current) cancelAnimationFrame(frameRef.current) }
-  }, [value])
+  return { iterations, loading }
+}
 
+// ---- Stats badge ---------------------------------------------------------
+
+function StatBadge({ label, value, color }: { label: string; value: string | number; color?: string }) {
   return (
-    <span className="font-mono tabular-nums">
-      {displayed.toFixed(decimals)}{suffix}
-    </span>
+    <div className="flex flex-col items-center px-4 py-3">
+      <span
+        className="text-[22px] font-bold font-mono tabular-nums leading-none"
+        style={{ color: color ?? 'var(--tx)' }}
+      >
+        {value}
+      </span>
+      <span className="text-[10px] text-white/40 mt-1 uppercase tracking-wider">{label}</span>
+    </div>
   )
 }
 
-// ---- Streak computation --------------------------------------------------
+// ---- Question card (grid mode) ------------------------------------------
 
-function computeStreak(questions: MockQuestion[]): number {
-  let streak = 0
-  for (let i = questions.length - 1; i >= 0; i--) {
-    if (questions[i].correct) streak++
-    else break
-  }
-  return streak
-}
-
-// ---- Question card -------------------------------------------------------
-
-function QuestionCard({ q, index }: { q: MockQuestion; index: number }) {
+function QuestionCardGrid({ q }: { q: QuestionData }) {
+  const meta = q.rag_type ? PIPELINE_META[q.rag_type] : null
   const [expanded, setExpanded] = useState(false)
-  const meta = PIPELINE_META[q.pipeline]
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, delay: index * 0.025 }}
-      className="rounded-xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.035] transition-colors overflow-hidden"
+      layout
+      className="rounded-2xl border border-white/[0.06] bg-white/[0.015] hover:bg-white/[0.03] transition-all duration-200 overflow-hidden cursor-pointer"
+      style={{ minHeight: expanded ? 'auto' : '160px' }}
+      onClick={() => setExpanded(e => !e)}
     >
-      <button
-        className="w-full text-left p-4"
-        onClick={() => setExpanded(e => !e)}
-      >
-        <div className="flex items-start gap-3">
-          {/* Status icon */}
-          <div className="mt-0.5 flex-shrink-0">
+      <div className="p-5">
+        {/* Top: pipeline + status */}
+        <div className="flex items-center justify-between mb-3">
+          {meta && (
+            <span
+              className="text-[10px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full"
+              style={{
+                backgroundColor: `${meta.color}12`,
+                color: meta.color,
+                border: `1px solid ${meta.color}20`,
+              }}
+            >
+              {meta.label}
+            </span>
+          )}
+          <div className="flex items-center gap-2">
+            {q.f1 != null && (
+              <span
+                className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-lg"
+                style={{
+                  backgroundColor: q.correct ? 'rgba(48,209,88,0.08)' : 'rgba(255,69,58,0.08)',
+                  color: q.correct ? '#30d158' : '#ff453a',
+                }}
+              >
+                {(q.f1 * 100).toFixed(0)}%
+              </span>
+            )}
             {q.correct ? (
               <div
-                className="w-5 h-5 rounded-full flex items-center justify-center"
+                className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
                 style={{ backgroundColor: 'rgba(48,209,88,0.12)', border: '1px solid rgba(48,209,88,0.25)' }}
               >
                 <Check className="w-3 h-3" style={{ color: '#30d158' }} />
               </div>
+            ) : q.error_type ? (
+              <AlertTriangle className="w-4 h-4 flex-shrink-0" style={{ color: '#ff9f0a' }} />
             ) : (
               <div
-                className="w-5 h-5 rounded-full flex items-center justify-center"
+                className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
                 style={{ backgroundColor: 'rgba(255,69,58,0.12)', border: '1px solid rgba(255,69,58,0.25)' }}
               >
                 <X className="w-3 h-3" style={{ color: '#ff453a' }} />
               </div>
             )}
           </div>
-
-          {/* Question text */}
-          <div className="flex-1 min-w-0">
-            <p
-              className="text-[13px] text-tx leading-snug"
-              style={{ WebkitLineClamp: expanded ? undefined : 1, overflow: 'hidden', display: expanded ? 'block' : '-webkit-box', WebkitBoxOrient: 'vertical' }}
-            >
-              {q.question}
-            </p>
-          </div>
-
-          {/* Right side metrics */}
-          <div className="flex items-center gap-2 flex-shrink-0 ml-2">
-            {/* Score badge */}
-            <span
-              className="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-lg"
-              style={{
-                backgroundColor: q.correct ? 'rgba(48,209,88,0.08)' : 'rgba(255,69,58,0.08)',
-                color: q.correct ? '#30d158' : '#ff453a',
-              }}
-            >
-              {(q.score * 100).toFixed(0)}%
-            </span>
-            <ChevronDown
-              className="w-3.5 h-3.5 text-white/30 transition-transform"
-              style={{ transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)' }}
-            />
-          </div>
         </div>
+
+        {/* Question text */}
+        <p
+          className="text-[13px] text-tx leading-relaxed mb-3"
+          style={{
+            display: expanded ? 'block' : '-webkit-box',
+            WebkitLineClamp: expanded ? undefined : 3,
+            WebkitBoxOrient: 'vertical',
+            overflow: expanded ? 'visible' : 'hidden',
+          }}
+        >
+          {q.question ?? q.id ?? q.question_id ?? '—'}
+        </p>
 
         {/* Meta row */}
-        <div className="flex items-center gap-3 mt-2.5 ml-8">
-          {/* Pipeline dot + label */}
-          <div className="flex items-center gap-1.5">
-            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: meta.color }} />
-            <span className="text-[10px]" style={{ color: meta.color }}>{meta.label}</span>
-          </div>
-          {/* Score */}
-          <span className="flex items-center gap-1 text-[10px] text-white/30">
-            <Brain className="w-3 h-3" />
-            <span className="font-mono text-tx3">F1: {q.score.toFixed(2)}</span>
-          </span>
-          {/* Duration */}
-          <span className="flex items-center gap-1 text-[10px] text-white/30">
-            <Clock className="w-3 h-3" />
-            <span className="font-mono text-tx3">{(q.duration_ms / 1000).toFixed(1)}s</span>
-          </span>
-          {/* Iter */}
-          <span className="text-[10px] text-white/20 font-mono">iter #{q.iteration}</span>
+        <div className="flex items-center gap-3 text-[10px] text-white/30">
+          {q.latency_ms != null && (
+            <span className="flex items-center gap-1">
+              <Clock className="w-3 h-3" />
+              <span className="font-mono text-tx3">{(q.latency_ms / 1000).toFixed(1)}s</span>
+            </span>
+          )}
+          {q.match_type && (
+            <span className="font-mono text-tx3">{q.match_type.replace(/_/g, ' ').toLowerCase()}</span>
+          )}
+          {q.iteration_number && (
+            <span className="flex items-center gap-1">
+              <Hash className="w-3 h-3" />
+              <span className="font-mono text-tx3">{q.iteration_number}</span>
+            </span>
+          )}
         </div>
-      </button>
+
+        {/* Expanded: expected vs got */}
+        {expanded && (q.expected || q.answer || q.got) && (
+          <div className="mt-4 pt-3 border-t border-white/[0.06] space-y-2">
+            {q.expected && (
+              <div>
+                <span className="text-[10px] uppercase tracking-wider text-white/30">Attendu</span>
+                <p className="text-[12px] text-tx2 mt-0.5 font-mono">{q.expected}</p>
+              </div>
+            )}
+            {(q.answer || q.got) && (
+              <div>
+                <span className="text-[10px] uppercase tracking-wider text-white/30">Obtenu</span>
+                <p className="text-[12px] text-tx2 mt-0.5 font-mono line-clamp-4">{q.answer ?? q.got}</p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </motion.div>
   )
 }
 
-// ---- Real-question card (from API prop) ----------------------------------
+// ---- Question row (list mode) -------------------------------------------
 
-function RealQuestionCard({ q, index }: { q: Question; index: number }) {
+function QuestionCardList({ q }: { q: QuestionData }) {
   const meta = q.rag_type ? PIPELINE_META[q.rag_type] : null
+  const [expanded, setExpanded] = useState(false)
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, delay: index * 0.025 }}
-      className="p-4 rounded-xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.04] transition-colors"
+      layout
+      className="rounded-xl border border-white/[0.05] bg-white/[0.015] hover:bg-white/[0.025] transition-colors overflow-hidden"
     >
-      <div className="flex items-start gap-3">
-        <div className="mt-0.5 flex-shrink-0">
-          {q.error_type ? (
-            <AlertTriangle className="w-4 h-4 text-or" />
-          ) : q.correct ? (
-            <div className="w-5 h-5 rounded-full flex items-center justify-center" style={{ backgroundColor: 'rgba(48,209,88,0.12)', border: '1px solid rgba(48,209,88,0.25)' }}>
+      <button className="w-full text-left px-4 py-3" onClick={() => setExpanded(e => !e)}>
+        <div className="flex items-center gap-3">
+          {/* Status */}
+          {q.correct ? (
+            <div
+              className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
+              style={{ backgroundColor: 'rgba(48,209,88,0.1)', border: '1px solid rgba(48,209,88,0.2)' }}
+            >
               <Check className="w-3 h-3" style={{ color: '#30d158' }} />
             </div>
+          ) : q.error_type ? (
+            <AlertTriangle className="w-4 h-4 flex-shrink-0" style={{ color: '#ff9f0a' }} />
           ) : (
-            <div className="w-5 h-5 rounded-full flex items-center justify-center" style={{ backgroundColor: 'rgba(255,69,58,0.12)', border: '1px solid rgba(255,69,58,0.25)' }}>
+            <div
+              className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
+              style={{ backgroundColor: 'rgba(255,69,58,0.1)', border: '1px solid rgba(255,69,58,0.2)' }}
+            >
               <X className="w-3 h-3" style={{ color: '#ff453a' }} />
             </div>
           )}
-        </div>
-        <div className="flex-1 min-w-0">
-          <p className="text-[13px] text-tx leading-snug mb-2 line-clamp-2">
-            {q.question ?? q.question_id}
+
+          {/* Question */}
+          <p className="flex-1 min-w-0 text-[13px] text-tx leading-snug truncate">
+            {q.question ?? q.id ?? q.question_id ?? '—'}
           </p>
-          <div className="flex items-center gap-3 text-[10px]">
+
+          {/* Right side */}
+          <div className="flex items-center gap-2 flex-shrink-0">
             {meta && (
-              <div className="flex items-center gap-1.5">
-                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: meta.color }} />
-                <span style={{ color: meta.color }}>{meta.label}</span>
-              </div>
+              <span
+                className="text-[9px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full hidden sm:inline-flex"
+                style={{ backgroundColor: `${meta.color}10`, color: meta.color }}
+              >
+                {meta.label}
+              </span>
             )}
             {q.f1 != null && (
-              <span className="flex items-center gap-1 text-tx3">
-                <Brain className="w-3 h-3" />
-                F1: <span className="font-mono text-tx">{q.f1.toFixed(2)}</span>
+              <span
+                className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-lg"
+                style={{
+                  backgroundColor: q.correct ? 'rgba(48,209,88,0.06)' : 'rgba(255,69,58,0.06)',
+                  color: q.correct ? '#30d158' : '#ff453a',
+                }}
+              >
+                {(q.f1 * 100).toFixed(0)}%
               </span>
             )}
             {q.latency_ms != null && (
-              <span className="flex items-center gap-1 text-tx3">
-                <Clock className="w-3 h-3" />
-                <span className="font-mono text-tx">{(q.latency_ms / 1000).toFixed(1)}s</span>
+              <span className="text-[10px] font-mono text-tx3 hidden md:inline">
+                {(q.latency_ms / 1000).toFixed(1)}s
               </span>
             )}
+            <ChevronDown
+              className="w-3.5 h-3.5 text-white/20 transition-transform"
+              style={{ transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)' }}
+            />
           </div>
         </div>
-      </div>
+      </button>
+
+      {/* Expanded details */}
+      <AnimatePresence>
+        {expanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="overflow-hidden"
+          >
+            <div className="px-4 pb-3 pt-1 border-t border-white/[0.04] space-y-2">
+              <div className="flex items-center gap-3 text-[10px] text-white/30">
+                {meta && (
+                  <span className="flex items-center gap-1.5">
+                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: meta.color }} />
+                    <span style={{ color: meta.color }}>{meta.label}</span>
+                  </span>
+                )}
+                {q.match_type && <span className="font-mono">{q.match_type}</span>}
+                {q.iteration_number && <span className="font-mono">iter #{q.iteration_number}</span>}
+              </div>
+              {q.expected && (
+                <div>
+                  <span className="text-[10px] uppercase tracking-wider text-white/25">Attendu</span>
+                  <p className="text-[12px] text-tx2 font-mono mt-0.5">{q.expected}</p>
+                </div>
+              )}
+              {(q.answer || q.got) && (
+                <div>
+                  <span className="text-[10px] uppercase tracking-wider text-white/25">Obtenu</span>
+                  <p className="text-[12px] text-tx2 font-mono mt-0.5 line-clamp-3">{q.answer ?? q.got}</p>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
+  )
+}
+
+// ---- Pagination ----------------------------------------------------------
+
+function Pagination({
+  page,
+  totalPages,
+  onPageChange,
+}: {
+  page: number
+  totalPages: number
+  onPageChange: (p: number) => void
+}) {
+  if (totalPages <= 1) return null
+
+  const pages: (number | '...')[] = []
+  if (totalPages <= 7) {
+    for (let i = 1; i <= totalPages; i++) pages.push(i)
+  } else {
+    pages.push(1)
+    if (page > 3) pages.push('...')
+    for (let i = Math.max(2, page - 1); i <= Math.min(totalPages - 1, page + 1); i++) pages.push(i)
+    if (page < totalPages - 2) pages.push('...')
+    pages.push(totalPages)
+  }
+
+  return (
+    <div className="flex items-center justify-center gap-1 mt-4">
+      <button
+        onClick={() => onPageChange(page - 1)}
+        disabled={page <= 1}
+        className="p-1.5 rounded-lg hover:bg-white/[0.06] disabled:opacity-20 transition-colors"
+      >
+        <ChevronLeft className="w-4 h-4 text-tx3" />
+      </button>
+      {pages.map((p, i) =>
+        p === '...' ? (
+          <span key={`dots-${i}`} className="px-2 text-[11px] text-white/20">...</span>
+        ) : (
+          <button
+            key={p}
+            onClick={() => onPageChange(p)}
+            className="min-w-[32px] h-8 rounded-lg text-[12px] font-mono transition-all"
+            style={{
+              backgroundColor: p === page ? 'rgba(10,132,255,0.15)' : 'transparent',
+              color: p === page ? '#0a84ff' : 'rgba(255,255,255,0.35)',
+              border: p === page ? '1px solid rgba(10,132,255,0.3)' : '1px solid transparent',
+            }}
+          >
+            {p}
+          </button>
+        )
+      )}
+      <button
+        onClick={() => onPageChange(page + 1)}
+        disabled={page >= totalPages}
+        className="p-1.5 rounded-lg hover:bg-white/[0.06] disabled:opacity-20 transition-colors"
+      >
+        <ChevronRight className="w-4 h-4 text-tx3" />
+      </button>
+    </div>
   )
 }
 
 // ---- Main component ------------------------------------------------------
 
 export function QuestionViewer({ questions }: Props) {
-  const typedQuestions = questions as unknown as Question[]
+  const { iterations, loading } = useDataJson()
 
-  // Choose data source: prefer real API data if available, else mock
-  const hasRealData = typedQuestions.length > 0
+  // All questions flattened
+  const allQuestions = useMemo(() => {
+    if (iterations.length > 0) {
+      return iterations.flatMap(it => it.questions)
+    }
+    // Fallback to props
+    return (questions as unknown as QuestionData[]) ?? []
+  }, [iterations, questions])
+
+  // Available iterations (desc)
+  const availableIterations = useMemo(
+    () => iterations.map(it => ({ number: it.number, label: it.label, count: it.questions.length })).reverse(),
+    [iterations]
+  )
 
   // State
   const [selectedPipeline, setSelectedPipeline] = useState<'all' | PipelineName>('all')
   const [selectedIteration, setSelectedIteration] = useState<'all' | number>('all')
+  const [selectedResult, setSelectedResult] = useState<'all' | 'correct' | 'wrong'>('all')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
+  const [pageSize, setPageSize] = useState<number>(25)
+  const [page, setPage] = useState(1)
+  const [showFilters, setShowFilters] = useState(false)
 
-  // Derived mock data
-  const mockIterations = [...new Set(MOCK_QUESTIONS.map(q => q.iteration))].sort((a, b) => b - a)
+  // Filter logic
+  const filtered = useMemo(() => {
+    let result = allQuestions
+    if (selectedPipeline !== 'all') result = result.filter(q => q.rag_type === selectedPipeline)
+    if (selectedIteration !== 'all') result = result.filter(q => q.iteration_number === selectedIteration)
+    if (selectedResult === 'correct') result = result.filter(q => q.correct === true)
+    if (selectedResult === 'wrong') result = result.filter(q => q.correct === false)
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase()
+      result = result.filter(q =>
+        (q.question ?? q.id ?? '').toLowerCase().includes(query) ||
+        (q.expected ?? '').toLowerCase().includes(query) ||
+        (q.answer ?? q.got ?? '').toLowerCase().includes(query)
+      )
+    }
+    return result
+  }, [allQuestions, selectedPipeline, selectedIteration, selectedResult, searchQuery])
 
-  const filteredMock = MOCK_QUESTIONS.filter(q => {
-    if (selectedPipeline !== 'all' && q.pipeline !== selectedPipeline) return false
-    if (selectedIteration !== 'all' && q.iteration !== selectedIteration) return false
-    return true
-  })
+  // Reset page on filter change
+  useEffect(() => { setPage(1) }, [selectedPipeline, selectedIteration, selectedResult, searchQuery, pageSize])
 
-  // Accuracy for selected iteration's mocks
-  const iterationMock = selectedIteration === 'all'
-    ? MOCK_QUESTIONS.filter(q => q.iteration === mockIterations[0])
-    : MOCK_QUESTIONS.filter(q => q.iteration === selectedIteration)
+  // Pagination
+  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize))
+  const paged = filtered.slice((page - 1) * pageSize, page * pageSize)
 
-  const correctCount = iterationMock.filter(q => q.correct).length
-  const totalCount = iterationMock.length
-  const accuracyPct = totalCount > 0 ? (correctCount / totalCount) * 100 : 0
-  const streak = computeStreak(MOCK_QUESTIONS.filter(q => q.iteration === (selectedIteration === 'all' ? mockIterations[0] : selectedIteration)))
+  // Stats
+  const stats = useMemo(() => {
+    const total = filtered.length
+    const correct = filtered.filter(q => q.correct).length
+    const accuracy = total > 0 ? (correct / total) * 100 : 0
+    const avgF1 = total > 0
+      ? filtered.reduce((sum, q) => sum + (q.f1 ?? 0), 0) / total
+      : 0
+    const avgLatency = total > 0
+      ? filtered.filter(q => q.latency_ms != null).reduce((sum, q) => sum + (q.latency_ms ?? 0), 0) / Math.max(1, filtered.filter(q => q.latency_ms != null).length)
+      : 0
+    return { total, correct, accuracy, avgF1, avgLatency }
+  }, [filtered])
 
-  // Real questions filter
-  const filteredReal = typedQuestions.filter(q => {
-    if (selectedPipeline !== 'all' && q.rag_type !== selectedPipeline) return false
-    return true
-  })
+  // Pipeline counts
+  const pipelineCounts = useMemo(() => {
+    const counts: Record<string, number> = { all: allQuestions.length }
+    for (const p of PIPELINES) counts[p] = allQuestions.filter(q => q.rag_type === p).length
+    return counts
+  }, [allQuestions])
+
+  const handlePageChange = useCallback((p: number) => {
+    setPage(Math.max(1, Math.min(p, totalPages)))
+    // Scroll to top of viewer
+    document.getElementById('question-viewer-top')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [totalPages])
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-16">
+        <div className="w-6 h-6 border-2 border-ac/30 border-t-ac rounded-full animate-spin" />
+      </div>
+    )
+  }
 
   return (
     <motion.section
+      id="question-viewer-top"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.6 }}
+      transition={{ duration: 0.5, delay: 0.3 }}
     >
-      {/* Gaming header */}
-      <div className="p-5 rounded-2xl border border-white/[0.06] bg-white/[0.02] mb-4">
-        <div className="flex items-start justify-between flex-wrap gap-4">
-          {/* Accuracy counter */}
-          <div>
-            <div className="text-[11px] uppercase tracking-[0.1em] text-white/40 mb-1">Precision cette iteration</div>
-            <div className="flex items-end gap-1">
-              <span className="text-[32px] font-bold font-mono tabular-nums" style={{ color: accuracyPct >= 75 ? '#30d158' : '#ff453a', lineHeight: 1 }}>
-                <AnimatedCounter value={accuracyPct} decimals={1} suffix="%" />
-              </span>
-            </div>
-            <div className="mt-1 text-[11px] text-white/40">
-              {correctCount}/{totalCount} questions correctes
-            </div>
-            {/* Mini progress bar */}
-            <div className="mt-2 h-1.5 w-40 rounded-full overflow-hidden" style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}>
-              <motion.div
-                className="h-full rounded-full"
-                style={{ backgroundColor: accuracyPct >= 75 ? '#30d158' : '#ff453a' }}
-                initial={{ width: 0 }}
-                animate={{ width: `${accuracyPct}%` }}
-                transition={{ duration: 1, ease: 'easeOut', delay: 0.3 }}
-              />
-            </div>
+      {/* ---- Stats bar ---- */}
+      <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] mb-5 overflow-hidden">
+        <div className="flex items-center justify-between divide-x divide-white/[0.06]">
+          <StatBadge label="Questions" value={stats.total} />
+          <StatBadge
+            label="Accuracy"
+            value={`${stats.accuracy.toFixed(1)}%`}
+            color={stats.accuracy >= 75 ? '#30d158' : stats.accuracy >= 50 ? '#ffd60a' : '#ff453a'}
+          />
+          <StatBadge label="Correctes" value={stats.correct} color="#30d158" />
+          <StatBadge
+            label="F1 moyen"
+            value={stats.avgF1.toFixed(2)}
+            color={stats.avgF1 >= 0.7 ? '#0a84ff' : '#ff9f0a'}
+          />
+          <div className="hidden md:flex">
+            <StatBadge
+              label="Latence moy."
+              value={`${(stats.avgLatency / 1000).toFixed(1)}s`}
+              color={stats.avgLatency <= 5000 ? '#30d158' : '#ff9f0a'}
+            />
           </div>
+        </div>
 
-          {/* Streak counter */}
-          <div className="flex flex-col items-end gap-1">
-            <div className="text-[11px] uppercase tracking-[0.1em] text-white/40">Serie en cours</div>
-            <div className="flex items-center gap-2">
-              {streak > 0 && <Flame className="w-5 h-5" style={{ color: streak >= 4 ? '#ff9f0a' : '#ff6b35' }} />}
+        {/* Progression bar: scale 1q → 1000q */}
+        <div className="px-5 pb-4 pt-2">
+          <div className="flex items-center justify-between text-[9px] text-white/25 mb-1">
+            {[1, 5, 10, 50, 100, 500, 1000].map(milestone => (
               <span
-                className="text-[28px] font-bold font-mono tabular-nums"
-                style={{
-                  color: streak >= 4 ? '#ff9f0a' : streak > 0 ? '#30d158' : 'rgba(255,255,255,0.2)',
-                  lineHeight: 1,
-                }}
+                key={milestone}
+                className="font-mono"
+                style={{ color: allQuestions.length >= milestone ? '#0a84ff' : undefined }}
               >
-                {streak}
+                {milestone}q
               </span>
-            </div>
-            <div className="text-[10px] text-white/30">correctes d'affile</div>
+            ))}
           </div>
-
-          {/* Iteration selector */}
-          <div className="flex flex-col gap-1">
-            <div className="text-[11px] uppercase tracking-[0.1em] text-white/40 mb-0.5">Iteration</div>
-            <div className="relative">
-              <select
-                value={selectedIteration === 'all' ? 'all' : String(selectedIteration)}
-                onChange={e => setSelectedIteration(e.target.value === 'all' ? 'all' : Number(e.target.value))}
-                className="appearance-none text-[12px] font-mono bg-white/[0.06] border border-white/[0.08] text-tx rounded-lg px-3 py-1.5 pr-7 focus:outline-none focus:border-white/20 cursor-pointer"
-              >
-                <option value="all">Toutes</option>
-                {mockIterations.map(it => (
-                  <option key={it} value={it}>Iteration #{it}</option>
-                ))}
-              </select>
-              <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/40 pointer-events-none" />
-            </div>
+          <div className="h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: 'rgba(255,255,255,0.06)' }}>
+            <motion.div
+              className="h-full rounded-full"
+              style={{ backgroundColor: '#0a84ff' }}
+              initial={{ width: 0 }}
+              animate={{ width: `${Math.min(100, (allQuestions.length / 1000) * 100)}%` }}
+              transition={{ duration: 1, ease: 'easeOut' }}
+            />
           </div>
         </div>
       </div>
 
-      {/* Pipeline filter tabs */}
-      <div className="flex gap-1.5 mb-4 flex-wrap">
-        {(['all', ...PIPELINES] as const).map(p => {
-          const meta = p === 'all' ? null : PIPELINE_META[p]
-          const isActive = selectedPipeline === p
-          return (
-            <button
-              key={p}
-              onClick={() => setSelectedPipeline(p)}
-              className="px-3 py-1 text-[11px] font-medium rounded-lg border transition-all"
-              style={{
-                borderColor: isActive
-                  ? meta ? `${meta.color}40` : 'rgba(255,255,255,0.2)'
-                  : 'rgba(255,255,255,0.06)',
-                backgroundColor: isActive
-                  ? meta ? `${meta.color}12` : 'rgba(255,255,255,0.08)'
-                  : 'transparent',
-                color: isActive
-                  ? meta ? meta.color : 'var(--tx)'
-                  : 'rgba(255,255,255,0.35)',
-              }}
-            >
-              {p === 'all' ? 'Tous' : meta!.label}
-            </button>
-          )
-        })}
+      {/* ---- Toolbar ---- */}
+      <div className="flex items-center gap-2 mb-4 flex-wrap">
+        {/* Search */}
+        <div className="relative flex-1 min-w-[200px]">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/25" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            placeholder="Rechercher une question..."
+            className="w-full pl-9 pr-3 py-2 text-[12px] rounded-xl border border-white/[0.08] bg-white/[0.03] text-tx placeholder:text-white/20 focus:outline-none focus:border-white/[0.15] transition-colors"
+          />
+        </div>
+
+        {/* View toggle */}
+        <div className="flex rounded-xl border border-white/[0.08] overflow-hidden">
+          <button
+            onClick={() => setViewMode('grid')}
+            className="p-2 transition-colors"
+            style={{ backgroundColor: viewMode === 'grid' ? 'rgba(255,255,255,0.08)' : 'transparent' }}
+          >
+            <LayoutGrid className="w-4 h-4" style={{ color: viewMode === 'grid' ? '#0a84ff' : 'rgba(255,255,255,0.3)' }} />
+          </button>
+          <button
+            onClick={() => setViewMode('list')}
+            className="p-2 transition-colors"
+            style={{ backgroundColor: viewMode === 'list' ? 'rgba(255,255,255,0.08)' : 'transparent' }}
+          >
+            <LayoutList className="w-4 h-4" style={{ color: viewMode === 'list' ? '#0a84ff' : 'rgba(255,255,255,0.3)' }} />
+          </button>
+        </div>
+
+        {/* Filters toggle */}
+        <button
+          onClick={() => setShowFilters(f => !f)}
+          className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-white/[0.08] text-[11px] font-medium transition-colors hover:bg-white/[0.04]"
+          style={{
+            backgroundColor: showFilters ? 'rgba(10,132,255,0.1)' : 'transparent',
+            color: showFilters ? '#0a84ff' : 'rgba(255,255,255,0.4)',
+            borderColor: showFilters ? 'rgba(10,132,255,0.25)' : undefined,
+          }}
+        >
+          <SlidersHorizontal className="w-3.5 h-3.5" />
+          Filtres
+        </button>
+
+        {/* Page size */}
+        <select
+          value={pageSize}
+          onChange={e => setPageSize(Number(e.target.value))}
+          className="appearance-none text-[11px] font-mono bg-white/[0.03] border border-white/[0.08] text-tx3 rounded-xl px-3 py-2 pr-7 focus:outline-none cursor-pointer"
+        >
+          {PAGE_SIZES.map(size => (
+            <option key={size} value={size}>{size}/page</option>
+          ))}
+        </select>
       </div>
 
-      {/* Question list */}
-      {hasRealData ? (
-        /* Real API data */
-        <div className="space-y-2 max-h-[600px] overflow-y-auto pr-1">
-          <AnimatePresence mode="popLayout">
-            {filteredReal.length === 0 ? (
-              <div className="text-center text-tx3 text-[13px] py-8">Aucune question trouvee.</div>
-            ) : (
-              filteredReal.slice(-50).map((q, i) => (
-                <RealQuestionCard key={q.question_id ?? i} q={q} index={i} />
-              ))
-            )}
-          </AnimatePresence>
-          <div className="mt-3 text-center text-[10px] text-white/25">
-            {filteredReal.length} questions affichees sur {typedQuestions.length}
-          </div>
+      {/* ---- Filters panel ---- */}
+      <AnimatePresence>
+        {showFilters && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden mb-4"
+          >
+            <div className="p-4 rounded-2xl border border-white/[0.06] bg-white/[0.015] space-y-4">
+              {/* Pipeline filter */}
+              <div>
+                <span className="text-[10px] uppercase tracking-wider text-white/30 mb-2 block">Pipeline</span>
+                <div className="flex gap-1.5 flex-wrap">
+                  {(['all', ...PIPELINES] as const).map(p => {
+                    const meta = p === 'all' ? null : PIPELINE_META[p]
+                    const isActive = selectedPipeline === p
+                    const count = pipelineCounts[p] ?? 0
+                    return (
+                      <button
+                        key={p}
+                        onClick={() => setSelectedPipeline(p)}
+                        className="px-3 py-1.5 text-[11px] font-medium rounded-xl border transition-all"
+                        style={{
+                          borderColor: isActive
+                            ? meta ? `${meta.color}40` : 'rgba(255,255,255,0.2)'
+                            : 'rgba(255,255,255,0.06)',
+                          backgroundColor: isActive
+                            ? meta ? `${meta.color}12` : 'rgba(255,255,255,0.08)'
+                            : 'transparent',
+                          color: isActive
+                            ? meta ? meta.color : 'var(--tx)'
+                            : 'rgba(255,255,255,0.35)',
+                        }}
+                      >
+                        {p === 'all' ? 'Tous' : meta!.label}
+                        <span className="ml-1.5 text-[9px] opacity-60">{count}</span>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* Iteration filter */}
+              <div>
+                <span className="text-[10px] uppercase tracking-wider text-white/30 mb-2 block">Itération</span>
+                <select
+                  value={selectedIteration === 'all' ? 'all' : String(selectedIteration)}
+                  onChange={e => setSelectedIteration(e.target.value === 'all' ? 'all' : Number(e.target.value))}
+                  className="appearance-none text-[12px] font-mono bg-white/[0.04] border border-white/[0.08] text-tx rounded-xl px-3 py-2 focus:outline-none cursor-pointer max-w-xs"
+                >
+                  <option value="all">Toutes les itérations ({iterations.length})</option>
+                  {availableIterations.map(it => (
+                    <option key={it.number} value={it.number}>
+                      #{it.number} — {it.label} ({it.count}q)
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Result filter */}
+              <div>
+                <span className="text-[10px] uppercase tracking-wider text-white/30 mb-2 block">Résultat</span>
+                <div className="flex gap-1.5">
+                  {[
+                    { key: 'all', label: 'Tous', color: undefined },
+                    { key: 'correct', label: 'Correctes', color: '#30d158' },
+                    { key: 'wrong', label: 'Incorrectes', color: '#ff453a' },
+                  ].map(opt => {
+                    const isActive = selectedResult === opt.key
+                    return (
+                      <button
+                        key={opt.key}
+                        onClick={() => setSelectedResult(opt.key as 'all' | 'correct' | 'wrong')}
+                        className="px-3 py-1.5 text-[11px] font-medium rounded-xl border transition-all"
+                        style={{
+                          borderColor: isActive ? (opt.color ? `${opt.color}40` : 'rgba(255,255,255,0.2)') : 'rgba(255,255,255,0.06)',
+                          backgroundColor: isActive ? (opt.color ? `${opt.color}10` : 'rgba(255,255,255,0.06)') : 'transparent',
+                          color: isActive ? (opt.color ?? 'var(--tx)') : 'rgba(255,255,255,0.35)',
+                        }}
+                      >
+                        {opt.label}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ---- Question count + info ---- */}
+      <div className="flex items-center justify-between mb-3">
+        <span className="text-[11px] text-white/30">
+          {filtered.length} question{filtered.length !== 1 ? 's' : ''} —
+          page {page}/{totalPages}
+        </span>
+        <a
+          href="/docs/executive-summary"
+          className="flex items-center gap-1 text-[10px] text-white/25 hover:text-white/50 transition-colors"
+        >
+          <ExternalLink className="w-3 h-3" />
+          Executive Summary
+        </a>
+      </div>
+
+      {/* ---- Questions ---- */}
+      {paged.length === 0 ? (
+        <div className="text-center py-16">
+          <Search className="w-8 h-8 text-white/10 mx-auto mb-3" />
+          <p className="text-[13px] text-white/30">Aucune question trouvée pour ces filtres.</p>
+        </div>
+      ) : viewMode === 'grid' ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+          {paged.map((q, i) => (
+            <QuestionCardGrid key={`${q.id ?? q.question_id ?? i}-${q.iteration_number}`} q={q} />
+          ))}
         </div>
       ) : (
-        /* Mock data */
-        <div className="space-y-2 max-h-[600px] overflow-y-auto pr-1">
-          <AnimatePresence mode="popLayout">
-            {filteredMock.length === 0 ? (
-              <div className="text-center text-tx3 text-[13px] py-8">Aucune question pour ce filtre.</div>
-            ) : (
-              filteredMock.map((q, i) => (
-                <QuestionCard key={q.id} q={q} index={i} />
-              ))
-            )}
-          </AnimatePresence>
-          <div className="mt-3 pb-1 text-center text-[10px] text-white/25">
-            {filteredMock.length} questions affichees — donnees de demonstration
-          </div>
+        <div className="space-y-1.5">
+          {paged.map((q, i) => (
+            <QuestionCardList key={`${q.id ?? q.question_id ?? i}-${q.iteration_number}`} q={q} />
+          ))}
         </div>
       )}
+
+      {/* ---- Pagination ---- */}
+      <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />
     </motion.section>
   )
 }
