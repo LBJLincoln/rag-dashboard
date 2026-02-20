@@ -1,58 +1,62 @@
-# Session State — 20 Fevrier 2026 (Session 30)
+# Session State — 20 Fevrier 2026 (Session 31)
 
-> Last updated: 2026-02-20T20:35:00+01:00
+> Last updated: 2026-02-20T21:15:00+01:00
 
-## Objectif de session : Passer Phase 1 + Fin de session
+## Objectif de session : Ingestion V4.0 SOTA + Sector Processing 500 types × 4 secteurs
 
 ### Accompli cette session
 
-#### 1. PHASE 1 PASSED — FIX-36 (CRITIQUE)
-- **Decouverte** : `generate_status.py` et `phase_gates.py` incluaient les questions Phase 2 (musique, finqa) dans le calcul des gates Phase 1
-- **Impact** : Phase 1 etait artificiellement bloquee depuis 4 jours (16 fev)
-- **Fix** : Ajout de `_is_phase1_question(qid)` filtrant les IDs contenant "musique", "finqa", "phase2"
-- **Resultat immediat** :
-  - Standard: 85.5% (47/55) >= 85% ✅
-  - Graph: **78.0%** (39/50) >= 70% ✅ (etait reporte 68.7% avec questions musique)
-  - Quantitative: **92.0%** (46/50) >= 85% ✅ (etait reporte 78.3% avec questions finqa)
-  - Orchestrator: 80.0% (40/50) >= 70% ✅
-  - Overall: **83.9%** >= 75% ✅
+#### 1. ANALYSE SOTA COMPLETE — Ingestion V3.1 + Enrichment V3.1
+- Analyse complete des 28 nodes Ingestion V3.1 (chunking, embeddings, BM25, PII, metadata)
+- Analyse complete des 29 nodes Enrichment V3.1 (entity extraction, graph upsert, community detection)
+- Recherche SOTA 2026 : 10 techniques prioritaires identifiees
+  - Late Chunking (Jina, +3.5% accuracy) — IMMEDIATE
+  - Jina v3 Matryoshka + Task LoRA (+5-8%) — IMMEDIATE
+  - BM25 Hybrid Search (+10-15%) — HIGH
+  - Contextual Retrieval (Anthropic, -49% failed retrievals) — HIGH
+  - Domain-Specific Chunking (+8-12%) — HIGH
+  - Graph Enrichment Patterns (+15-20%) — HIGH
+  - CompactRAG (-50% LLM calls) — MEDIUM
+  - Metadata Enrichment (+5-10%) — HIGH
+  - French NER (+10-15% entities) — MEDIUM
 
-#### 2. Fichiers mis a jour
-- `eval/generate_status.py` — filtrage Phase 1 only
-- `eval/phase_gates.py` — filtrage Phase 1 only
-- `docs/status.json` — regenere, gates_passed: true
-- `technicals/debug/knowledge-base.md` — Section 6.4 + historique
-- `technicals/debug/fixes-library.md` — FIX-36 + AP-11
+#### 2. V4.0 UPGRADE SCRIPTS — EN COURS
+- scripts/upgrade-ingestion-v4.py — building (Late Chunking, domain chunking, CompactRAG, French NER, BM25 improvements)
+- scripts/upgrade-enrichment-v4.py — building (entity resolution, cross-doc linking, FR community summaries, relationship extraction)
+- scripts/sector-file-types.py — building (500 types × 4 sectors registry)
+- scripts/process-sectors.py — building (1M doc processing pipeline)
+- scripts/trigger-sector-ingestion.py — building (n8n webhook triggers)
 
-### Etat des 4 pipelines (Phase 1 ONLY — questions Phase 2 exclues)
+#### 3. DOCUMENTATION CREATED
+- technicals/debug/ingestion-v3.1-analysis.md — complete workflow analysis
+- technicals/debug/ingestion-v3.1-summary.txt — quick reference
+- technicals/debug/enrichment-workflow-analysis.md — complete analysis
+- technicals/debug/enrichment-node-diagram.md — visual architecture
+- technicals/debug/enrichment-quick-reference.md — debugging guide
+- technicals/debug/ENRICHMENT-V3.1-INDEX.md — master index
+
+### Etat des 4 pipelines (Phase 1 PASSED — session 30)
 
 | Pipeline | Accuracy | Target | Status |
 |----------|----------|--------|--------|
-| Standard | 85.5% (47/55) | 85% | ✅ PASS |
-| Graph | 78.0% (39/50) | 70% | ✅ PASS |
-| Quantitative | 92.0% (46/50) | 85% | ✅ PASS |
-| Orchestrator | 80.0% (40/50) | 70% | ✅ PASS |
-| **Overall** | **83.9%** | 75% | ✅ PASS |
+| Standard | 85.5% (47/55) | 85% | PASS |
+| Graph | 78.0% (39/50) | 70% | PASS |
+| Quantitative | 92.0% (46/50) | 85% | PASS |
+| Orchestrator | 80.0% (40/50) | 70% | PASS |
+| **Overall** | **83.9%** | 75% | PASS |
 
-### Phase 1 → Phase 2 : DEBLOQUE ✅
+### Phase 2 : NEXT — prérequis ingestion en cours
 
-Phase 1 gates PASSED. Prochaine etape : Phase 2 (1,000q HuggingFace).
-
-### Resultats Phase 2 exploratoires (pour info — PAS des gates)
-- Graph + Musique: 7/17 = 41.2% (besoin 60% en Phase 2)
-- Quant + FinQA: ~4/10 = 40% (besoin 70% en Phase 2)
-- Ces resultats indiquent le travail necessaire pour Phase 2
-
-### Commits session 30
+### Commits session 31
 
 | Hash | Repo | Description |
 |------|------|-------------|
-| TBD | origin | fix(eval): Phase 1 gate calculation excludes Phase 2 questions + FIX-36 |
+| TBD | origin | feat(ingestion): SOTA V4.0 analysis + upgrade scripts + sector processing |
+| TBD | rag-data-ingestion | feat(ingestion): V4.0 workflows + 500 file types registry |
 
-### Prochaines actions (session 31)
+### Prochaines actions (reste 30 min)
 
-1. **Lancer Phase 2** (1,000q) sur Codespace rag-tests
-2. **Fix Graph pour Musique** : ingerer dataset musique dans Neo4j
-3. **Fix Quant pour FinQA** : adapter schema Supabase ou prompts SQL
-4. **Creer workflows 15 apps dirigeants** (recherche faite session 29)
-5. **Phase 2 targets** : Graph >= 60%, Quant >= 70%, Overall >= 65%
+1. Terminer les 3 scripts V4.0 (agents en background)
+2. Push vers origin + rag-data-ingestion
+3. Mettre a jour les directives rag-data-ingestion
+4. Push toutes les 10 min
