@@ -1,0 +1,334 @@
+{
+  "name": "Multi-Canal Gateway",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "pme-assistant-gateway",
+        "options": {}
+      },
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "webhookId": "pme-assistant-gateway"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Detect and normalize incoming channel\nconst body = $input.item.json.body || $input.item.json;\n\nlet channel = 'unknown';\nlet message = '';\nlet userId = '';\nlet metadata = {};\n\n// WhatsApp detection\nif (body.object === 'whatsapp_business_account' && body.entry) {\n  channel = 'whatsapp';\n  const msg = body.entry[0]?.changes[0]?.value?.messages?.[0];\n  message = msg?.text?.body || '';\n  userId = msg?.from || '';\n  metadata = {\n    messageId: msg?.id,\n    timestamp: msg?.timestamp\n  };\n}\n// Telegram detection\nelse if (body.message && body.message.chat) {\n  channel = 'telegram';\n  message = body.message.text || '';\n  userId = body.message.from.id.toString();\n  metadata = {\n    chatId: body.message.chat.id,\n    messageId: body.message.message_id,\n    username: body.message.from.username\n  };\n}\n// Email/Gmail detection\nelse if (body.from && body.subject) {\n  channel = 'email';\n  message = body.subject + '\\n\\n' + (body.body || body.textPlain || '');\n  userId = body.from;\n  metadata = {\n    messageId: body.messageId,\n    to: body.to,\n    cc: body.cc\n  };\n}\n// Direct API call\nelse if (body.query || body.message) {\n  channel = 'api';\n  message = body.query || body.message;\n  userId = body.user_id || body.userId || 'anonymous';\n  metadata = body.metadata || {};\n}\n\nreturn {\n  channel,\n  message,\n  userId,\n  metadata,\n  timestamp: new Date().toISOString()\n};"
+      },
+      "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+      "name": "Channel Detector",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.OPENROUTER_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "meta-llama/llama-3.3-70b-instruct:free"
+            },
+            {
+              "name": "messages",
+              "value": "={{ [{\"role\": \"system\", \"content\": \"You are an intent classifier for an executive assistant. Classify the user message into one of three categories: 'query' (information search/RAG), 'action' (calendar/email/file operations), or 'report' (summary/analysis). Respond with JSON: {\\\"intent\\\": \\\"query|action|report\\\", \\\"confidence\\\": 0.0-1.0, \\\"details\\\": {}}\"}, {\"role\": \"user\", \"content\": $json.message}] }}"
+            },
+            {
+              "name": "temperature",
+              "value": "0.2"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+      "name": "Intent Classifier",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        750,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "rules": [
+            {
+              "conditions": {
+                "conditions": [
+                  {
+                    "leftValue": "={{ JSON.parse($json.choices[0].message.content).intent }}",
+                    "rightValue": "query",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ]
+              },
+              "output": 0
+            },
+            {
+              "conditions": {
+                "conditions": [
+                  {
+                    "leftValue": "={{ JSON.parse($json.choices[0].message.content).intent }}",
+                    "rightValue": "action",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ]
+              },
+              "output": 1
+            },
+            {
+              "conditions": {
+                "conditions": [
+                  {
+                    "leftValue": "={{ JSON.parse($json.choices[0].message.content).intent }}",
+                    "rightValue": "report",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ]
+              },
+              "output": 2
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d4e5f6a7-b8c9-0123-def0-234567890123",
+      "name": "Switch Router",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1000,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": "TODO_STANDARD_RAG_ID",
+        "options": {}
+      },
+      "id": "e5f6a7b8-c9d0-1234-ef01-345678901234",
+      "name": "RAG Search Sub-Workflow",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1250,
+        200
+      ],
+      "notes": "Calls the Standard RAG V3.4 workflow"
+    },
+    {
+      "parameters": {
+        "workflowId": "TODO_ACTION_EXECUTOR_ID",
+        "options": {}
+      },
+      "id": "f6a7b8c9-d0e1-2345-f012-456789012345",
+      "name": "Action Executor Sub-Workflow",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1250,
+        300
+      ],
+      "notes": "Calls the Action Executor workflow"
+    },
+    {
+      "parameters": {
+        "workflowId": "TODO_REPORT_GENERATOR_ID",
+        "options": {}
+      },
+      "id": "a7b8c9d0-e1f2-3456-0123-567890123456",
+      "name": "Report Generator Sub-Workflow",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        1250,
+        400
+      ],
+      "notes": "Future: report generation workflow"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format response for the original channel\nconst channelData = $('Channel Detector').item.json;\nconst channel = channelData.channel;\nconst result = $input.item.json;\n\nlet formattedResponse = {};\n\nswitch (channel) {\n  case 'whatsapp':\n    formattedResponse = {\n      messaging_product: 'whatsapp',\n      to: channelData.userId,\n      type: 'text',\n      text: {\n        body: result.answer || result.result || 'Désolé, je n\\'ai pas pu traiter votre demande.'\n      }\n    };\n    break;\n\n  case 'telegram':\n    formattedResponse = {\n      chat_id: channelData.metadata.chatId,\n      text: result.answer || result.result || 'Désolé, je n\\'ai pas pu traiter votre demande.',\n      parse_mode: 'Markdown'\n    };\n    break;\n\n  case 'email':\n    formattedResponse = {\n      to: channelData.userId,\n      subject: 'Re: ' + (channelData.metadata.subject || 'Votre demande'),\n      body: result.answer || result.result || 'Désolé, je n\\'ai pas pu traiter votre demande.',\n      inReplyTo: channelData.metadata.messageId\n    };\n    break;\n\n  case 'api':\n  default:\n    formattedResponse = {\n      success: true,\n      channel,\n      userId: channelData.userId,\n      response: result.answer || result.result,\n      metadata: {\n        intent: result.intent,\n        confidence: result.confidence,\n        timestamp: new Date().toISOString()\n      }\n    };\n    break;\n}\n\nreturn formattedResponse;"
+      },
+      "id": "b8c9d0e1-f2a3-4567-1234-678901234567",
+      "name": "Response Formatter",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1500,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "c9d0e1f2-a3b4-5678-2345-789012345678",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1750,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Channel Detector",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Channel Detector": {
+      "main": [
+        [
+          {
+            "node": "Intent Classifier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Intent Classifier": {
+      "main": [
+        [
+          {
+            "node": "Switch Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch Router": {
+      "main": [
+        [
+          {
+            "node": "RAG Search Sub-Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Action Executor Sub-Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Report Generator Sub-Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RAG Search Sub-Workflow": {
+      "main": [
+        [
+          {
+            "node": "Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Action Executor Sub-Workflow": {
+      "main": [
+        [
+          {
+            "node": "Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Report Generator Sub-Workflow": {
+      "main": [
+        [
+          {
+            "node": "Response Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Response Formatter": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-02-20T00:00:00.000Z",
+  "versionId": "1",
+  "active": false
+}

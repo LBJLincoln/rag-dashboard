@@ -1,0 +1,356 @@
+{
+  "name": "WhatsApp Telegram Bridge",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ]
+      },
+      "id": "d1e2f3a4-b5c6-7890-abcd-ef1234567890",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        200
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "TODO_TELEGRAM_CREDENTIAL",
+          "name": "Telegram API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "whatsapp-incoming",
+        "options": {}
+      },
+      "id": "e2f3a4b5-c6d7-8901-bcde-f12345678901",
+      "name": "WhatsApp Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        400
+      ],
+      "webhookId": "whatsapp-incoming"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract and normalize WhatsApp Cloud API payload\nconst body = $input.item.json.body || $input.item.json;\n\nlet normalized = {\n  source: 'whatsapp',\n  success: false\n};\n\ntry {\n  // WhatsApp Cloud API structure\n  if (body.object === 'whatsapp_business_account' && body.entry) {\n    const entry = body.entry[0];\n    const changes = entry?.changes?.[0];\n    const value = changes?.value;\n    const message = value?.messages?.[0];\n    \n    if (message) {\n      normalized = {\n        source: 'whatsapp',\n        query: message.text?.body || message.button?.text || '',\n        channel: 'whatsapp',\n        user_id: message.from,\n        metadata: {\n          messageId: message.id,\n          timestamp: message.timestamp,\n          type: message.type,\n          phoneNumberId: value.metadata?.phone_number_id,\n          displayPhoneNumber: value.metadata?.display_phone_number\n        },\n        success: true\n      };\n    }\n  }\n  \n  // Verification webhook (WhatsApp setup)\n  if (body['hub.mode'] === 'subscribe' && body['hub.verify_token']) {\n    normalized = {\n      source: 'whatsapp_verify',\n      challenge: body['hub.challenge'],\n      success: true\n    };\n  }\n} catch (error) {\n  normalized.error = error.message;\n}\n\nreturn normalized;"
+      },
+      "id": "f3a4b5c6-d7e8-9012-cdef-123456789012",
+      "name": "Normalize WhatsApp",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract and normalize Telegram update\nconst update = $input.item.json;\n\nlet normalized = {\n  source: 'telegram',\n  success: false\n};\n\ntry {\n  if (update.message) {\n    normalized = {\n      source: 'telegram',\n      query: update.message.text || '',\n      channel: 'telegram',\n      user_id: update.message.from.id.toString(),\n      metadata: {\n        chatId: update.message.chat.id,\n        messageId: update.message.message_id,\n        username: update.message.from.username || '',\n        firstName: update.message.from.first_name || '',\n        lastName: update.message.from.last_name || '',\n        chatType: update.message.chat.type,\n        date: update.message.date\n      },\n      success: true\n    };\n  }\n} catch (error) {\n  normalized.error = error.message;\n}\n\nreturn normalized;"
+      },
+      "id": "a4b5c6d7-e8f9-0123-def0-234567890123",
+      "name": "Normalize Telegram",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "multiplex",
+        "options": {}
+      },
+      "id": "b5c6d7e8-f9a0-1234-ef01-345678901234",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2.1,
+      "position": [
+        750,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:5678/webhook/pme-assistant-gateway",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "query",
+              "value": "={{ $json.query }}"
+            },
+            {
+              "name": "channel",
+              "value": "={{ $json.channel }}"
+            },
+            {
+              "name": "user_id",
+              "value": "={{ $json.user_id }}"
+            },
+            {
+              "name": "metadata",
+              "value": "={{ $json.metadata }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "c6d7e8f9-a0b1-2345-f012-456789012345",
+      "name": "Forward to Gateway",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1000,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Normalize Telegram').item.json.metadata.chatId }}",
+        "text": "={{ $json.response || $json.answer || 'Réponse reçue' }}",
+        "parseMode": "Markdown",
+        "options": {
+          "disable_web_page_preview": true
+        }
+      },
+      "id": "d7e8f9a0-b1c2-3456-0123-567890123456",
+      "name": "Send Telegram Response",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1250,
+        200
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "TODO_TELEGRAM_CREDENTIAL",
+          "name": "Telegram API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v19.0/{{ $env.WHATSAPP_PHONE_NUMBER_ID }}/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.WHATSAPP_ACCESS_TOKEN }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "messaging_product",
+              "value": "whatsapp"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('Normalize WhatsApp').item.json.user_id }}"
+            },
+            {
+              "name": "type",
+              "value": "text"
+            },
+            {
+              "name": "text",
+              "value": "={{ { body: $json.response || $json.answer || 'Réponse reçue' } }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "e8f9a0b1-c2d3-4567-1234-678901234567",
+      "name": "Send WhatsApp Response",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1250,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "rules": [
+            {
+              "conditions": {
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.source }}",
+                    "rightValue": "telegram",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ]
+              },
+              "output": 0
+            },
+            {
+              "conditions": {
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.source }}",
+                    "rightValue": "whatsapp",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ]
+              },
+              "output": 1
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f9a0b1c2-d3e4-5678-2345-789012345678",
+      "name": "Route Response",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        1000,
+        500
+      ]
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Normalize Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WhatsApp Webhook": {
+      "main": [
+        [
+          {
+            "node": "Normalize WhatsApp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize WhatsApp": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Normalize Telegram": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Forward to Gateway",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Forward to Gateway": {
+      "main": [
+        [
+          {
+            "node": "Route Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Response": {
+      "main": [
+        [
+          {
+            "node": "Send Telegram Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send WhatsApp Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2026-02-20T00:00:00.000Z",
+  "versionId": "1",
+  "active": false
+}

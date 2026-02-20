@@ -1,0 +1,405 @@
+{
+  "name": "Action Executor",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse action type and extract parameters from the intent classifier output\nconst intentData = $input.item.json;\n\n// Extract intent details from the classifier response\nlet intentContent = {};\ntry {\n  if (typeof intentData.choices?.[0]?.message?.content === 'string') {\n    intentContent = JSON.parse(intentData.choices[0].message.content);\n  } else {\n    intentContent = intentData;\n  }\n} catch (e) {\n  intentContent = intentData;\n}\n\nconst details = intentContent.details || {};\nconst message = intentData.message || '';\n\n// Determine action type from details or message content\nlet actionType = 'unknown';\nlet params = {};\n\n// Calendar operations\nif (message.match(/créer.*rendez-vous|ajouter.*calendrier|planifier|rdv/i) || details.action === 'calendar_create') {\n  actionType = 'calendar_create';\n  params = {\n    summary: details.title || 'Rendez-vous',\n    description: details.description || message,\n    start: details.start_time || new Date(Date.now() + 86400000).toISOString(), // +24h default\n    end: details.end_time || new Date(Date.now() + 90000000).toISOString(), // +25h default\n    attendees: details.attendees || []\n  };\n}\n\n// Email send\nelse if (message.match(/envoyer.*email|mail à|écrire à/i) || details.action === 'email_send') {\n  actionType = 'email_send';\n  params = {\n    to: details.recipient || '',\n    subject: details.subject || 'Message automatique',\n    body: details.body || message,\n    attachments: details.attachments || []\n  };\n}\n\n// Email summary\nelse if (message.match(/résumer.*emails|synthèse.*messages|derniers mails/i) || details.action === 'email_summary') {\n  actionType = 'email_summary';\n  params = {\n    maxResults: details.max_results || 20,\n    query: details.query || 'is:unread',\n    afterDate: details.after_date || new Date(Date.now() - 7 * 86400000).toISOString() // -7 days\n  };\n}\n\n// File search\nelse if (message.match(/chercher.*fichier|trouver.*document|recherche.*drive/i) || details.action === 'file_search') {\n  actionType = 'file_search';\n  params = {\n    query: details.search_query || message.replace(/chercher|trouver|recherche/gi, '').trim(),\n    mimeType: details.mime_type || null,\n    folder: details.folder_id || null\n  };\n}\n\nreturn {\n  actionType,\n  params,\n  originalMessage: message,\n  intentDetails: intentContent\n};"
+      },
+      "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+      "name": "Action Parser",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "rules": [
+            {
+              "conditions": {
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.actionType }}",
+                    "rightValue": "calendar_create",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ]
+              },
+              "output": 0
+            },
+            {
+              "conditions": {
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.actionType }}",
+                    "rightValue": "email_send",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ]
+              },
+              "output": 1
+            },
+            {
+              "conditions": {
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.actionType }}",
+                    "rightValue": "email_summary",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ]
+              },
+              "output": 2
+            },
+            {
+              "conditions": {
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.actionType }}",
+                    "rightValue": "file_search",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ]
+              },
+              "output": 3
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+      "name": "Action Router",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        750,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "event",
+        "operation": "create",
+        "calendarId": {
+          "__rl": true,
+          "value": "primary",
+          "mode": "list",
+          "cachedResultName": "Primary"
+        },
+        "start": "={{ $json.params.start }}",
+        "end": "={{ $json.params.end }}",
+        "summary": "={{ $json.params.summary }}",
+        "additionalFields": {
+          "description": "={{ $json.params.description }}",
+          "attendees": "={{ $json.params.attendees }}"
+        }
+      },
+      "id": "d4e5f6a7-b8c9-0123-def0-234567890123",
+      "name": "Google Calendar Create",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        200
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "TODO_GOOGLE_CREDENTIAL",
+          "name": "Google Calendar OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "message": "={{ $json.params.body }}",
+        "subject": "={{ $json.params.subject }}",
+        "toEmail": "={{ $json.params.to }}",
+        "options": {}
+      },
+      "id": "e5f6a7b8-c9d0-1234-ef01-345678901234",
+      "name": "Gmail Send",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1000,
+        300
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "TODO_GMAIL_CREDENTIAL",
+          "name": "Gmail OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "returnAll": false,
+        "limit": "={{ $json.params.maxResults }}",
+        "filters": {
+          "q": "={{ $json.params.query }}",
+          "after": "={{ $json.params.afterDate }}"
+        },
+        "options": {
+          "attachPrefix": "attachment_",
+          "dataPropertyAttachmentsPrefixName": "attachment_",
+          "format": "simplified"
+        }
+      },
+      "id": "f6a7b8c9-d0e1-2345-f012-456789012345",
+      "name": "Gmail Read",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1000,
+        400
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "TODO_GMAIL_CREDENTIAL",
+          "name": "Gmail OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "q": "={{ $json.params.query }}",
+        "options": {
+          "fields": "files(id,name,mimeType,webViewLink,size,modifiedTime)",
+          "spaces": "drive"
+        }
+      },
+      "id": "a7b8c9d0-e1f2-3456-0123-567890123456",
+      "name": "Google Drive Search",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1000,
+        500
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "TODO_GOOGLE_CREDENTIAL",
+          "name": "Google Drive OAuth2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.OPENROUTER_API_KEY }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "meta-llama/llama-3.3-70b-instruct:free"
+            },
+            {
+              "name": "messages",
+              "value": "={{ [{\"role\": \"system\", \"content\": \"Tu es un assistant qui résume des emails de manière concise. Liste les points clés et les actions requises.\"}, {\"role\": \"user\", \"content\": \"Voici \" + $items().length + \" emails à résumer:\\n\\n\" + $items().map((item, i) => `Email ${i+1}:\\nDe: ${item.json.from}\\nSujet: ${item.json.subject}\\nDate: ${item.json.date}\\nContenu: ${item.json.snippet || item.json.textPlain?.substring(0, 500)}\\n`).join('\\n---\\n')}] }}"
+            },
+            {
+              "name": "temperature",
+              "value": "0.3"
+            },
+            {
+              "name": "max_tokens",
+              "value": "1000"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "b8c9d0e1-f2a3-4567-1234-678901234567",
+      "name": "LLM Summarize Emails",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1250,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Aggregate action results into a structured response\nconst actionType = $('Action Parser').item.json.actionType;\nconst originalMessage = $('Action Parser').item.json.originalMessage;\n\nlet result = {\n  success: true,\n  actionType,\n  originalMessage,\n  result: '',\n  data: {}\n};\n\ntry {\n  switch (actionType) {\n    case 'calendar_create':\n      const calEvent = $input.item.json;\n      result.result = `✅ Rendez-vous créé avec succès:\\n📅 ${calEvent.summary}\\n🕐 ${new Date(calEvent.start.dateTime).toLocaleString('fr-FR')}\\n🔗 ${calEvent.htmlLink}`;\n      result.data = {\n        eventId: calEvent.id,\n        link: calEvent.htmlLink,\n        start: calEvent.start.dateTime\n      };\n      break;\n\n    case 'email_send':\n      const email = $input.item.json;\n      result.result = `✅ Email envoyé avec succès\\n📧 À: ${email.to || 'destinataire'}\\n📝 Sujet: ${email.subject}`;\n      result.data = {\n        messageId: email.id,\n        threadId: email.threadId\n      };\n      break;\n\n    case 'email_summary':\n      const summary = $input.item.json;\n      result.result = `📬 Résumé des emails:\\n\\n${summary.choices?.[0]?.message?.content || 'Aucun email récent'}`;\n      result.data = {\n        emailCount: $items('Gmail Read').length,\n        summary: summary.choices?.[0]?.message?.content\n      };\n      break;\n\n    case 'file_search':\n      const files = $input.all();\n      if (files.length === 0) {\n        result.result = '🔍 Aucun fichier trouvé pour cette recherche.';\n      } else {\n        const fileList = files.slice(0, 10).map((f, i) => \n          `${i+1}. ${f.json.name} (${(f.json.size / 1024).toFixed(1)} KB)\\n   🔗 ${f.json.webViewLink}`\n        ).join('\\n');\n        result.result = `🔍 ${files.length} fichier(s) trouvé(s):\\n\\n${fileList}`;\n        result.data = {\n          fileCount: files.length,\n          files: files.slice(0, 10).map(f => ({\n            id: f.json.id,\n            name: f.json.name,\n            link: f.json.webViewLink,\n            size: f.json.size,\n            mimeType: f.json.mimeType\n          }))\n        };\n      }\n      break;\n\n    default:\n      result.success = false;\n      result.result = '❌ Type d\\'action non reconnu.';\n      break;\n  }\n} catch (error) {\n  result.success = false;\n  result.result = `❌ Erreur lors de l'exécution: ${error.message}`;\n  result.error = error.message;\n}\n\nreturn result;"
+      },
+      "id": "c9d0e1f2-a3b4-5678-2345-789012345678",
+      "name": "Result Aggregator",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1500,
+        400
+      ]
+    }
+  ],
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Action Parser",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Action Parser": {
+      "main": [
+        [
+          {
+            "node": "Action Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Action Router": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar Create",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Gmail Send",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Gmail Read",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Google Drive Search",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar Create": {
+      "main": [
+        [
+          {
+            "node": "Result Aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail Send": {
+      "main": [
+        [
+          {
+            "node": "Result Aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail Read": {
+      "main": [
+        [
+          {
+            "node": "LLM Summarize Emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive Search": {
+      "main": [
+        [
+          {
+            "node": "Result Aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Summarize Emails": {
+      "main": [
+        [
+          {
+            "node": "Result Aggregator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-02-20T00:00:00.000Z",
+  "versionId": "1",
+  "active": false
+}
