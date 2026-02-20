@@ -79,8 +79,8 @@ export function HeroPME({ onOpenChatbot }: HeroPMEProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.24, ease: [0.4, 0, 0.2, 1] }}
         >
-          Connectez WhatsApp, Gmail, Slack, votre CRM et 200+ outils.
-          Decrivez ce que vous voulez faire — le chatbot agit pour vous.
+          15 apps connectees nativement : WhatsApp, Telegram, Gmail, Slack, CRM, Drive et plus.
+          Decrivez ce que vous voulez — l&apos;IA orchestre tout.
         </motion.p>
 
         {/* CTA */}

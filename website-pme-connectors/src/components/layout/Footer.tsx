@@ -17,7 +17,7 @@ export function Footer() {
           <div className="flex items-center gap-4 text-[11px] text-tx3">
             <span className="flex items-center gap-1">
               <Link className="w-3 h-3" />
-              12+ connecteurs
+              15 connecteurs natifs
             </span>
             <span className="w-[3px] h-[3px] rounded-full bg-tx3/50" />
             <span className="flex items-center gap-1">

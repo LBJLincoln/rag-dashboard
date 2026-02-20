@@ -1,8 +1,8 @@
 export interface AppConnector {
   id: string
   name: string
-  category: 'communication' | 'crm' | 'productivite' | 'finance'
+  category: 'communication' | 'crm' | 'productivite' | 'finance' | 'stockage'
   color: string
-  icon: string
+  abbr: string
   capabilities: string[]
 }

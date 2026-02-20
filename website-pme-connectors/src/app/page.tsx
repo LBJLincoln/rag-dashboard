@@ -6,6 +6,7 @@ import { Footer } from '@/components/layout/Footer'
 import { HeroPME } from '@/components/landing/HeroPME'
 import { HowItWorksPME } from '@/components/landing/HowItWorksPME'
 import { AppConnectorsGrid } from '@/components/landing/AppConnectorsGrid'
+import { WorkflowPatterns } from '@/components/landing/WorkflowPatterns'
 import { MacBookCard } from '@/components/macbook/MacBookCard'
 import { TermiusModal } from '@/components/modal/TermiusModal'
 import { PME_SECTOR } from '@/lib/constants-pme'
@@ -22,18 +23,21 @@ export default function Home() {
     <>
       <Header />
       <main>
-        {/* 1. Hero PME: pain points + headline */}
+        {/* 1. Hero: pain points + headline */}
         <HeroPME onOpenChatbot={handleOpenChatbot} />
 
         {/* 2. How it works: 3 steps */}
         <HowItWorksPME />
 
-        {/* 3. App connectors grid */}
+        {/* 3. App connectors grid — 15 apps */}
         <AppConnectorsGrid />
 
-        {/* 4. MacBook + Spotlight */}
+        {/* 4. Workflow patterns — under the hood */}
+        <WorkflowPatterns />
+
+        {/* 5. MacBook + Spotlight CTA */}
         <MacBookCard
-          spotlightPlaceholder="Decrivez a notre chatbot une tache redondante a laquelle vous etes souvent confrontes ou une idee d'automatisation."
+          spotlightPlaceholder="Decrivez une tache quotidienne que vous aimeriez automatiser..."
           description="Pas besoin de syntaxe. Parlez normalement. Le chatbot comprend et agit."
           onSpotlightClick={handleOpenChatbot}
         />
