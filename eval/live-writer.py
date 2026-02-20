@@ -76,13 +76,25 @@ def _load():
 
 
 def _save(data):
-    """Save data.json atomically, then regenerate docs/status.json."""
+    """Save data.json atomically, then regenerate docs/status.json and sync eval-data.json."""
     data["meta"]["generated_at"] = paris_iso()
     tmp = DATA_FILE + f".tmp.{threading.get_ident()}"
     with open(tmp, "w") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
     os.replace(tmp, DATA_FILE)
+    _sync_eval_data()
     _regenerate_status()
+
+
+def _sync_eval_data():
+    """Sync docs/data.json to website/public/eval-data.json for live SSE dashboard."""
+    try:
+        eval_data_dst = os.path.join(REPO_ROOT, "website", "public", "eval-data.json")
+        if os.path.isdir(os.path.dirname(eval_data_dst)):
+            import shutil
+            shutil.copy2(DATA_FILE, eval_data_dst)
+    except Exception:
+        pass  # non-critical — dashboard sync failure should not block eval
 
 
 def _regenerate_status():

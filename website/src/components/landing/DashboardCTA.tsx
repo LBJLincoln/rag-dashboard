@@ -1,16 +1,58 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { BarChart3, ArrowUpRight, ShieldCheck } from 'lucide-react'
 
-const LIVE_METRICS = [
-  { label: 'Accuracy globale', value: '78.1%', color: 'var(--gn)' },
-  { label: 'Standard RAG', value: '85.5%', color: 'var(--ac)' },
-  { label: 'Tests effectués', value: '232+', color: 'var(--pp)' },
-  { label: 'Benchmarks', value: '14', color: 'var(--yl)' },
-]
+interface DashboardStatus {
+  overall?: { accuracy: number }
+  pipelines?: { standard?: { accuracy: number } }
+  totals?: { unique_questions: number }
+}
+
+function useLiveMetrics() {
+  const [metrics, setMetrics] = useState({
+    accuracy: '83.9%',
+    standard: '85.5%',
+    tests: '232+',
+    benchmarks: '14',
+  })
+
+  useEffect(() => {
+    const controller = new AbortController()
+    fetch('/api/dashboard', { signal: controller.signal, cache: 'no-store' })
+      .then(r => r.json())
+      .then((data: { status?: DashboardStatus }) => {
+        const s = data?.status
+        if (s) {
+          setMetrics({
+            accuracy: s.overall?.accuracy ? `${s.overall.accuracy}%` : '83.9%',
+            standard: s.pipelines?.standard?.accuracy ? `${s.pipelines.standard.accuracy}%` : '85.5%',
+            tests: s.totals?.unique_questions ? `${s.totals.unique_questions}+` : '232+',
+            benchmarks: '14',
+          })
+        }
+      })
+      .catch(() => {})
+    return () => controller.abort()
+  }, [])
+
+  return metrics
+}
+
+function buildLiveMetrics(m: ReturnType<typeof useLiveMetrics>) {
+  return [
+    { label: 'Accuracy globale', value: m.accuracy, color: 'var(--gn)' },
+    { label: 'Standard RAG', value: m.standard, color: 'var(--ac)' },
+    { label: 'Tests effectués', value: m.tests, color: 'var(--pp)' },
+    { label: 'Benchmarks', value: m.benchmarks, color: 'var(--yl)' },
+  ]
+}
 
 export function DashboardCTA() {
+  const metrics = useLiveMetrics()
+  const LIVE_METRICS = buildLiveMetrics(metrics)
+
   return (
     <section className="py-16 md:py-20" style={{ background: 'var(--s1)' }}>
       <div className="max-w-5xl mx-auto px-6">

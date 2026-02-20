@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server'
 
-// Port 5678 (n8n) is externally accessible; port 8080 blocked by GCP firewall
+// Port 5678 (n8n) is externally accessible
 const STATUS_API_URL = process.env.STATUS_API_URL ?? 'http://34.136.180.66:5678/webhook/nomos-status'
-const DATA_API_URL = process.env.DATA_API_URL ?? 'http://34.136.180.66:5678/webhook/nomos-data'
-// Fallback: local status file served by Python HTTP on VM (port 8080, internal only)
-const STATUS_FALLBACK_URL = 'http://34.136.180.66:8080/status.json'
+// Fallback: GitHub raw status.json (always available, updated on each push)
+const STATUS_FALLBACK_URL = 'https://raw.githubusercontent.com/LBJLincoln/mon-ipad/main/docs/status.json'
 
 export const dynamic = 'force-dynamic'
 
@@ -35,7 +34,7 @@ async function fetchJSON<T>(url: string, timeoutMs = 10000): Promise<T | null> {
 
 export async function GET() {
   try {
-    // Fetch from n8n webhook (5678, externally accessible) with fallback to local HTTP (8080)
+    // Fetch from n8n webhook (5678, externally accessible) with fallback to GitHub raw
     const [ragStatus, fallbackStatus] = await Promise.all([
       fetchJSON<SourceStatus>(STATUS_API_URL),
       fetchJSON<SourceStatus>(STATUS_FALLBACK_URL),
@@ -49,7 +48,7 @@ export async function GET() {
       status,
       // Metadata
       meta: {
-        source: ragStatus ? 'n8n-webhook' : fallbackStatus ? 'status-file' : 'unavailable',
+        source: ragStatus ? 'n8n-webhook' : fallbackStatus ? 'github-raw' : 'unavailable',
         fetched_at: new Date().toISOString(),
         total_unique_questions: status.totals?.unique_questions ?? 0,
         total_test_runs: status.totals?.test_runs ?? 0,
