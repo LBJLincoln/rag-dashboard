@@ -1,12 +1,12 @@
 {
   "meta": {
-    "generated_at": "2026-02-21T01:38:31+01:00",
+    "generated_at": "2026-02-21T01:39:22+01:00",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
-    "total_unique_questions": 349,
-    "total_test_runs": 1092,
-    "total_iterations": 91,
+    "total_unique_questions": 356,
+    "total_test_runs": 1103,
+    "total_iterations": 98,
     "status": "running",
     "current_session": "2026-02-21T01-38-08"
   },
@@ -16808,6 +16808,360 @@
           "timestamp": "2026-02-21T01:38:31+01:00"
         }
       ]
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 92,
+      "timestamp_start": "2026-02-21T01:38:43+01:00",
+      "timestamp_end": "2026-02-21T01:38:45+01:00",
+      "label": "Iteration 92",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 21519,
+          "p95_latency_ms": 21519,
+          "avg_f1": 0.9
+        },
+        "graph": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 21352,
+          "p95_latency_ms": 21352,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 2,
+      "total_correct": 1,
+      "overall_accuracy_pct": 50.0,
+      "questions": [
+        {
+          "id": "std-60",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 21519,
+          "answer": "The medical name for the thigh bone, which is the longest bone in the human body, is the femur.",
+          "expected": "The Femur",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:38:43+01:00"
+        },
+        {
+          "id": "graph-musique-61",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 21352,
+          "answer": "No answer provided in context.",
+          "expected": "38",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:38:45+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-37-06",
+      "number": 93,
+      "timestamp_start": "2026-02-21T01:38:46+01:00",
+      "timestamp_end": "2026-02-21T01:38:46+01:00",
+      "label": "Iteration 93",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 15877,
+          "p95_latency_ms": 15877,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "p2-std-10",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 15877,
+          "answer": "Joey Richardson is Vanessa Redgrave's daughter.",
+          "expected": "Daughter",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:38:46+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 94,
+      "timestamp_start": "2026-02-21T01:38:54+01:00",
+      "timestamp_end": "2026-02-21T01:39:01+01:00",
+      "label": "Iteration 94",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 10036,
+          "p95_latency_ms": 10036,
+          "avg_f1": 0.9
+        },
+        "graph": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 15536,
+          "p95_latency_ms": 15536,
+          "avg_f1": 0.4
+        }
+      },
+      "total_tested": 2,
+      "total_correct": 2,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "std-61",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 10036,
+          "answer": "Blade Runner is the cult film starring Harrison Ford that was based on the story \"Do Androids Dream of Electric Sheep?\"",
+          "expected": "Blade Runner",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:38:54+01:00"
+        },
+        {
+          "id": "graph-musique-62",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.4,
+          "latency_ms": 15536,
+          "answer": "Harrison County",
+          "expected": "Pearl River County",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:39:01+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-38-08",
+      "number": 95,
+      "timestamp_start": "2026-02-21T01:39:03+01:00",
+      "timestamp_end": "2026-02-21T01:39:03+01:00",
+      "label": "Iteration 95",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 30522,
+          "p95_latency_ms": 30522,
+          "avg_f1": 0.0526
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "orch-6",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0526,
+          "latency_ms": 30522,
+          "answer": "Ritchie Valens was the third musician who died in the plane crash with Buddy Holly and the Big Bopper in February 1959.\n\n---\n**Sources:**\n[1] Wikipedia (42%)\n[2] wikihop (37%)\n[3] strategyqa (32%)\n[4] musique (29%)\n[5] hotpotqa (23%)",
+          "expected": "Richie Valens",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:39:03+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-33-20",
+      "number": 96,
+      "timestamp_start": "2026-02-21T01:39:04+01:00",
+      "timestamp_end": "2026-02-21T01:39:04+01:00",
+      "label": "Iteration 96",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 48010,
+          "p95_latency_ms": 48010,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "p2-orch-18",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 48010,
+          "answer": "Einstein received the Nobel Prize in Physics in 1921 for his discovery of the law of the photoelectric effect.\n\n---\n**Sources:**\n[1] Wikipedia (59%)\n[2] hotpotqa (56%)",
+          "expected": "The photoelectric effect",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:39:04+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-37-06",
+      "number": 97,
+      "timestamp_start": "2026-02-21T01:39:13+01:00",
+      "timestamp_end": "2026-02-21T01:39:14+01:00",
+      "label": "Iteration 97",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 27912,
+          "p95_latency_ms": 27912,
+          "avg_f1": 0
+        },
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 26915,
+          "p95_latency_ms": 26915,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 2,
+      "total_correct": 1,
+      "overall_accuracy_pct": 50.0,
+      "questions": [
+        {
+          "id": "graph-musique-19",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 27912,
+          "answer": "1543",
+          "expected": "as early as the 3rd century BC",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:39:13+01:00"
+        },
+        {
+          "id": "p2-std-11",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 26915,
+          "answer": "Melanie Molitor is the mother of Martina Hingis, who was ranked world No. 1 in tennis.",
+          "expected": "Martina Hingis",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:39:14+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 98,
+      "timestamp_start": "2026-02-21T01:39:19+01:00",
+      "timestamp_end": "2026-02-21T01:39:22+01:00",
+      "label": "Iteration 98",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 25087,
+          "p95_latency_ms": 25087,
+          "avg_f1": 0.9
+        },
+        "graph": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 21187,
+          "p95_latency_ms": 21187,
+          "avg_f1": 0.5
+        }
+      },
+      "total_tested": 2,
+      "total_correct": 2,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "std-62",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 25087,
+          "answer": "Magpie was the ITV magazine-style show that ran from 1968 to 1980 and featured presenters including Jenny Hanley, Mick Robertson, and Tommy Boyd.",
+          "expected": "Magpie",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:39:19+01:00"
+        },
+        {
+          "id": "graph-musique-63",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.5,
+          "latency_ms": 21187,
+          "answer": "Francis Bacon",
+          "expected": "Nicholas Bacon",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:39:22+01:00"
+        }
+      ]
     }
   ],
   "question_registry": {
@@ -32739,13 +33093,25 @@
           "error_type": null,
           "answer": "1543",
           "timestamp": "2026-02-21T01:28:38+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-37-06",
+          "iteration_number": 97,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 27912,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1543",
+          "timestamp": "2026-02-21T01:39:13+01:00"
         }
       ],
-      "total_runs": 2,
+      "total_runs": 3,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-21T01:28:38+01:00",
+      "last_tested": "2026-02-21T01:39:13+01:00",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -33424,13 +33790,25 @@
           "error_type": null,
           "answer": "Joey Richardson is Vanessa Redgrave's daughter.",
           "timestamp": "2026-02-21T01:28:12+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-37-06",
+          "iteration_number": 93,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 15877,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Joey Richardson is Vanessa Redgrave's daughter.",
+          "timestamp": "2026-02-21T01:38:46+01:00"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-21T01:28:12+01:00",
+      "last_tested": "2026-02-21T01:38:46+01:00",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -33455,13 +33833,25 @@
           "error_type": null,
           "answer": "Melanie Molitor is the mother of Martina Hingis, who reached world No. 1 in tennis.",
           "timestamp": "2026-02-21T01:28:24+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-37-06",
+          "iteration_number": 97,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 26915,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Melanie Molitor is the mother of Martina Hingis, who was ranked world No. 1 in tennis.",
+          "timestamp": "2026-02-21T01:39:14+01:00"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-21T01:28:24+01:00",
+      "last_tested": "2026-02-21T01:39:14+01:00",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -35203,13 +35593,25 @@
           "error_type": null,
           "answer": "Ritchie Valens\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
           "timestamp": "2026-02-21T01:34:47+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-38-08",
+          "iteration_number": 95,
+          "correct": false,
+          "f1": 0.0526,
+          "latency_ms": 30522,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Ritchie Valens was the third musician who died in the plane crash with Buddy Holly and the Big Bopper in February 1959.\n\n---\n**Sources:**\n[1] Wikipedia (42%)\n[2] wikihop (37%)\n[3] strategyqa (32%)\n[4] musique (29%)\n[5] hotpotqa (23%)",
+          "timestamp": "2026-02-21T01:39:03+01:00"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-21T01:34:47+01:00",
+      "last_tested": "2026-02-21T01:39:03+01:00",
       "best_f1": 0.25,
       "trend": "stable"
     },
@@ -36545,6 +36947,223 @@
       "last_tested": "2026-02-21T01:38:24+01:00",
       "best_f1": 0.9,
       "trend": "stable"
+    },
+    "std-60": {
+      "id": "std-60",
+      "question": "More commonly known as the thigh bone, what is the medical name for the longest bone in the human body?",
+      "expected": "The Femur",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 92,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 21519,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The medical name for the thigh bone, which is the longest bone in the human body, is the femur.",
+          "timestamp": "2026-02-21T01:38:43+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:38:43+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-61": {
+      "id": "graph-musique-61",
+      "question": "How many games do team in the league where Barcelona won titles in 1948 and 1949 play?",
+      "expected": "38",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 92,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 21352,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No answer provided in context.",
+          "timestamp": "2026-02-21T01:38:45+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:38:45+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-61": {
+      "id": "std-61",
+      "question": "Which cult film, starring Harrison Ford, was based on the story Do Androids Dream of Electric Sheep?",
+      "expected": "Blade Runner",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 94,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 10036,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Blade Runner is the cult film starring Harrison Ford that was based on the story \"Do Androids Dream of Electric Sheep?\"",
+          "timestamp": "2026-02-21T01:38:54+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:38:54+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-62": {
+      "id": "graph-musique-62",
+      "question": "In which county was Larkin I. Smith born?",
+      "expected": "Pearl River County",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 94,
+          "correct": true,
+          "f1": 0.4,
+          "latency_ms": 15536,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Harrison County",
+          "timestamp": "2026-02-21T01:39:01+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:39:01+01:00",
+      "best_f1": 0.4,
+      "trend": "stable"
+    },
+    "p2-orch-18": {
+      "id": "p2-orch-18",
+      "question": "For what did Einstien gat Nobel prize in Physics?",
+      "expected": "The photoelectric effect",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-33-20",
+          "iteration_number": 96,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 48010,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Einstein received the Nobel Prize in Physics in 1921 for his discovery of the law of the photoelectric effect.\n\n---\n**Sources:**\n[1] Wikipedia (59%)\n[2] hotpotqa (56%)",
+          "timestamp": "2026-02-21T01:39:04+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:39:04+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-62": {
+      "id": "std-62",
+      "question": "Which ITV magazine style show ran from 1968 to 1980 and featured presenters including Jenny Hanley, Mick Robertson and Tommy Boyd?",
+      "expected": "Magpie",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 98,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 25087,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Magpie was the ITV magazine-style show that ran from 1968 to 1980 and featured presenters including Jenny Hanley, Mick Robertson, and Tommy Boyd.",
+          "timestamp": "2026-02-21T01:39:19+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:39:19+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-63": {
+      "id": "graph-musique-63",
+      "question": "Who was the father of The Portrait of George Dyer Talking's creator?",
+      "expected": "Nicholas Bacon",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 98,
+          "correct": true,
+          "f1": 0.5,
+          "latency_ms": 21187,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Francis Bacon",
+          "timestamp": "2026-02-21T01:39:22+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:39:22+01:00",
+      "best_f1": 0.5,
+      "trend": "stable"
     }
   },
   "quick_tests": [
@@ -37050,199 +37669,6 @@
     }
   ],
   "execution_logs": [
-    {
-      "timestamp": "2026-02-16T10:19:42.132765Z",
-      "question_id": "quantitative-finqa-0",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 34527,
-      "error_type": "TIMEOUT",
-      "error_preview": "Expecting value: line 1 column 1 (char 0)",
-      "answer_preview": "",
-      "confidence": null,
-      "pipeline_details_summary": null
-    },
-    {
-      "timestamp": "2026-02-16T10:25:54.858350Z",
-      "question_id": "quantitative-finqa-0",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 104523,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The SQL results do not contain the specific data needed to calculate the percentage of Brazilian pap",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T10:29:30.619336Z",
-      "question_id": "quantitative-finqa-0",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 60010,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The SQL results do not contain the specific data needed to calculate the percentage of Brazilian pap",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T10:30:05.891401Z",
-      "question_id": "quantitative-finqa-1",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 31260,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The SQL query did not find the specific pension contribution data needed to calculate the ratio. The",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T10:30:36.887385Z",
-      "question_id": "quantitative-finqa-2",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 26006,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "15.7%",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T10:31:42.617883Z",
-      "question_id": "quantitative-finqa-3",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 49232,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The SQL results do not contain the specific data needed to calculate the growth rate in the price of",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T10:34:00.640853Z",
-      "question_id": "quantitative-finqa-4",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 122486,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "27 million shares",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T10:39:45.131122Z",
-      "question_id": "quantitative-finqa-0",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 43516,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "7170",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T10:40:14.409056Z",
-      "question_id": "quantitative-finqa-1",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 26504,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The table does not contain any data about company contributions or US pension contributions for 2011",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T10:40:42.141098Z",
-      "question_id": "quantitative-finqa-2",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.5,
-      "latency_ms": 24258,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "19.7%",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T10:42:59.889919Z",
-      "question_id": "quantitative-finqa-3",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 128250,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The table does not provide the price of shares purchased by employees for 2006 and 2007. It only sho",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
     {
       "timestamp": "2026-02-16T10:44:32.887060Z",
       "question_id": "quantitative-finqa-4",
@@ -40444,6 +40870,190 @@
       "pipeline_details_summary": {
         "sub_pipelines": [],
         "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:38:43+01:00",
+      "question_id": "std-60",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 21519,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The medical name for the thigh bone, which is the longest bone in the human body, is the femur.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:38:45+01:00",
+      "question_id": "graph-musique-61",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 21352,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No answer provided in context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:38:47+01:00",
+      "question_id": "p2-std-10",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 15877,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Joey Richardson is Vanessa Redgrave's daughter.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:38:54+01:00",
+      "question_id": "std-61",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 10036,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Blade Runner is the cult film starring Harrison Ford that was based on the story \"Do Androids Dream ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:39:01+01:00",
+      "question_id": "graph-musique-62",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.4,
+      "latency_ms": 15536,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Harrison County",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:39:03+01:00",
+      "question_id": "orch-6",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0526,
+      "latency_ms": 30522,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Ritchie Valens was the third musician who died in the plane crash with Buddy Holly and the Big Boppe",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:39:04+01:00",
+      "question_id": "p2-orch-18",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 48010,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Einstein received the Nobel Prize in Physics in 1921 for his discovery of the law of the photoelectr",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:39:13+01:00",
+      "question_id": "graph-musique-19",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 27912,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1543",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:39:14+01:00",
+      "question_id": "p2-std-11",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 26915,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Melanie Molitor is the mother of Martina Hingis, who was ranked world No. 1 in tennis.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:39:19+01:00",
+      "question_id": "std-62",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 25087,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Magpie was the ITV magazine-style show that ran from 1968 to 1980 and featured presenters including ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:39:22+01:00",
+      "question_id": "graph-musique-63",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.5,
+      "latency_ms": 21187,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Francis Bacon",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
       }
     }
   ],
