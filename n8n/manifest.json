@@ -89,10 +89,10 @@
       }
     },
     "graph": {
-      "version": 7,
-      "hash": "4fa23329f2913001",
-      "timestamp": "2026-02-17T21:23:31.407282Z",
-      "snapshot_file": "graph-2026-02-17T21-23-26-4fa23329f2913001.json",
+      "version": 8,
+      "hash": "7025aefa948cb6eb",
+      "timestamp": "2026-02-21T05:50:59.602938Z",
+      "snapshot_file": "graph-2026-02-21T05-50-58-7025aefa948cb6eb.json",
       "name": "WF2 Graph RAG V3.3",
       "webhook": "/webhook/ff622742-6d71-4e91-af71-b5c666088717",
       "summary": {
@@ -143,22 +143,22 @@
         "removed_nodes": [],
         "modified_nodes": [
           {
-            "node": "LLM Answer Synthesis",
+            "node": "WF3: HyDE & Entity Extraction",
             "changes": [
               {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}"
+                "param": "jsonBody",
+                "old": "={\n  \"model\": \"arcee-ai/trinity-large-preview:free\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"IMPORTANT: Respond ONLY with valid JSON, no prose or markdown.\\n\\nGenerate a hypoth",
+                "new": "={\n  \"model\": \"arcee-ai/trinity-large-preview:free\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Generate a hypothetical document that would perfectly answer the question. This doc"
               }
             ]
           },
           {
-            "node": "WF3: HyDE & Entity Extraction",
+            "node": "Neo4j Query Builder (Deep Traversal V2)",
             "changes": [
               {
-                "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}"
+                "param": "jsCode",
+                "old": "// Neo4j Query Builder (Deep Traversal V2) - with NLP entity extraction fallback\nconst initData = $node['OTEL Init'].json;\nconst rawContent = $json.choices?.[0]?.message?.content || '';\n\nlet hydeDocum",
+                "new": "// Neo4j Query Builder (Deep Traversal V2) - with NLP entity extraction fallback\nconst initData = $node['OTEL Init'].json;\nconst rawContent = $json.choices?.[0]?.message?.content || '';\n\nlet hydeDocum"
               }
             ]
           }
@@ -168,24 +168,24 @@
       }
     },
     "quantitative": {
-      "version": 10,
-      "hash": "41f6bbfee57201c3",
-      "timestamp": "2026-02-17T21:23:37.173862Z",
-      "snapshot_file": "quantitative-2026-02-17T21-23-26-41f6bbfee57201c3.json",
+      "version": 11,
+      "hash": "4a55fe6d31f190cf",
+      "timestamp": "2026-02-21T05:51:00.785933Z",
+      "snapshot_file": "quantitative-2026-02-21T05-50-58-4a55fe6d31f190cf.json",
       "name": "WF4 Quantitative V2.0",
       "webhook": "/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9",
       "summary": {
-        "total_nodes": 26,
+        "total_nodes": 25,
         "node_types": {
           "code": 13,
-          "httpRequest": 6,
+          "postgres": 2,
+          "httpRequest": 4,
           "errorTrigger": 1,
           "if": 1,
           "stickyNote": 1,
           "executeWorkflowTrigger": 1,
           "chatTrigger": 1,
-          "webhook": 1,
-          "respondToWebhook": 1
+          "webhook": 1
         },
         "models_used": [],
         "node_names": [
@@ -213,21 +213,242 @@
           "Prepare Interpretation Request",
           "Prepare SQL Repair Request",
           "GitHub Error Logger (quantitative)",
-          "SQL Execution Logger",
-          "Respond to Webhook"
+          "SQL Execution Logger"
         ]
       },
       "diff_from_previous": {
         "added_nodes": [],
-        "removed_nodes": [],
+        "removed_nodes": [
+          "Respond to Webhook"
+        ],
         "modified_nodes": [
           {
-            "node": "Text-to-SQL Generator (CoT Enhanced)",
+            "node": "SQL Error Handler (Self-Healing)",
             "changes": [
               {
+                "param": "jsCode",
+                "old": "// SQL Error Handler - Self-Healing (MAX 3 REPAIRS)\nconst MAX_REPAIRS = 3;\nconst currentAttempt = ($json.repair_attempts || 0) + 1;\n\nif (currentAttempt > MAX_REPAIRS) {\n  // Give up - return error res",
+                "new": "// SQL Error Handler - Self-Healing (MAX 2 REPAIRS)\n// Counter via $execution.id key + $getWorkflowStaticData (requires N8N_RUNNERS_ENABLED=false)\nconst MAX_REPAIRS = 2;\n\nconst staticData = $getWorkfl"
+              }
+            ]
+          },
+          {
+            "node": "OTEL Export (Shield #9)",
+            "changes": [
+              {
+                "param": "url",
+                "old": "https://disabled.otel.io/v1/traces",
+                "new": "https://otel-collector.internal/v1/traces"
+              },
+              {
+                "param": "authentication",
+                "old": "none",
+                "new": ""
+              },
+              {
+                "param": "options",
+                "old": "{'retry': {'maxTries': 3, 'waitBetweenTries': 3000}, 'timeout': 30000}",
+                "new": "{'timeout': 5000}"
+              }
+            ]
+          },
+          {
+            "node": "Response Formatter",
+            "changes": [
+              {
+                "param": "jsCode",
+                "old": "// Response Formatter - handles both success and error paths\n// May receive data from Interpretation Layer (success) or Needs SQL Repair? (error)\nlet aggregatorData = {};\nlet initData = {};\nlet interp",
+                "new": "// Response Formatter - handles both success and error paths\n// May receive data from Interpretation Layer (success) or Needs SQL Repair? (error)\nlet aggregatorData = {};\nlet initData = {};\nlet interp"
+              }
+            ]
+          },
+          {
+            "node": "Webhook",
+            "changes": [
+              {
+                "param": "responseMode",
+                "old": "responseNode",
+                "new": "lastNode"
+              }
+            ]
+          },
+          {
+            "node": "Init & ACL",
+            "changes": [
+              {
+                "param": "jsCode",
+                "old": "// ============================================\n// PATCH #1: INIT & ACL - ORCHESTRATOR SUPPORT\n// ============================================\n// Pour: WF4 Quantitative & WF2 Graph\n// Bug: Workflows é",
+                "new": "// ============================================\n// PATCH #1: INIT & ACL - ORCHESTRATOR SUPPORT\n// ============================================\n// Pour: WF4 Quantitative & WF2 Graph\n// Bug: Workflows é"
+              }
+            ]
+          },
+          {
+            "node": "Prepare SQL Repair Request",
+            "changes": [
+              {
+                "param": "jsCode",
+                "old": "// Prepare SQL Repair Request - null-safe guard\nconst errorHandlerData = $json;\nconst repairContext = errorHandlerData.repair_context || {};\n\nif (!repairContext.failed_sql) {\n  return { json: { ...err",
+                "new": "// Prepare SQL Repair Request - null-safe guard\nconst errorHandlerData = $json;\nconst repairContext = errorHandlerData.repair_context || {};\n\nif (!repairContext.failed_sql) {\n  return { json: { ...err"
+              }
+            ]
+          },
+          {
+            "node": "Schema Introspection",
+            "changes": [
+              {
+                "param": "url",
+                "old": "https://ayqviqmxifzmhphiqfmj.supabase.co/rest/v1/rpc/exec_sql",
+                "new": ""
+              },
+              {
+                "param": "operation",
+                "old": "",
+                "new": "executeQuery"
+              },
+              {
+                "param": "sendHeaders",
+                "old": "True",
+                "new": ""
+              },
+              {
+                "param": "jsonBody",
+                "old": "{\"sql_query\": \"SELECT table_name, column_name, data_type, is_nullable FROM information_schema.columns WHERE table_schema = 'public' AND table_name IN ('financials', 'balance_sheet', 'sales_data', 'pro",
+                "new": ""
+              },
+              {
+                "param": "authentication",
+                "old": "none",
+                "new": ""
+              },
+              {
                 "param": "headerParameters",
-                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}"
+                "old": "{'parameters': [{'name': 'apikey', 'value': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF5cXZpcW14aWZ6bWhwaGlxZm1qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkwMjM1NTgsImV4cCI6MjA4ND",
+                "new": ""
+              },
+              {
+                "param": "method",
+                "old": "POST",
+                "new": ""
+              },
+              {
+                "param": "specifyBody",
+                "old": "json",
+                "new": ""
+              },
+              {
+                "param": "options",
+                "old": "{'timeout': 15000, 'response': {'response': {'responseFormat': 'json'}}}",
+                "new": "{'ssl': False, 'queryTimeout': 30000}"
+              },
+              {
+                "param": "query",
+                "old": "",
+                "new": "SELECT table_name, column_name, data_type, is_nullable \nFROM information_schema.columns \nWHERE table_schema = 'public'\n  AND table_name IN ('financials', 'balance_sheet', 'sales_data', 'products', 'em"
+              },
+              {
+                "param": "sendBody",
+                "old": "True",
+                "new": ""
+              }
+            ]
+          },
+          {
+            "node": "Schema Context Builder",
+            "changes": [
+              {
+                "param": "jsCode",
+                "old": "// Build schema context for LLM\nconst FALLBACK_SCHEMA = `Table: financials\\nColumns: id bigint NOT NULL, tenant_id text, company_id text, company_name text NOT NULL, fiscal_year integer NOT NULL, peri",
+                "new": "// Build schema context for LLM\nconst inputData = $input.all();\nif (!inputData || inputData.length === 0) {\n  return {\n    ...$node['Init & ACL'].json,\n    schema_context: \"Aucune table trouvée dans l"
+              }
+            ]
+          },
+          {
+            "node": "Repair Parser",
+            "changes": [
+              {
+                "param": "jsCode",
+                "old": "// Parse SQL Repair response and prepare for retry\nconst repairResponse = $json;\nlet repairedSql = '';\n\ntry {\n  const content = repairResponse.choices?.[0]?.message?.content || repairResponse.body?.ch",
+                "new": "// Parse SQL Repair response and prepare for retry\nconst repairResponse = $json;\nlet repairedSql = '';\n\ntry {\n  const content = repairResponse.choices?.[0]?.message?.content || repairResponse.body?.ch"
+              }
+            ]
+          },
+          {
+            "node": "Prepare SQL Request",
+            "changes": [
+              {
+                "param": "jsCode",
+                "old": "// Prepare SQL Request v6b - Phase 2 bypass + Phase 1 LLM SQL\nconst initData = $node['Schema Context Builder'].json;\nconst query = (initData.query || '').toLowerCase();\nconst PHASE1_COMPANIES = ['tech",
+                "new": "// Prepare SQL Request - Safe JSON Building + SQL Templates + Sample Data\nconst initData = $node['Schema Context Builder'].json;\n\n// ============================================\n// SQL Template matchi"
+              }
+            ]
+          },
+          {
+            "node": "Prepare Interpretation Request",
+            "changes": [
+              {
+                "param": "jsCode",
+                "old": "// Prepare Interpretation Request v5 - Gemma 3 27b + clean text\nconst aggregatorData = $node['Result Aggregator'].json;\nconst isBypass = (aggregatorData.validation_status === 'BYPASSED');\n\nlet userCon",
+                "new": "// Prepare Interpretation Request - Safe JSON Building\nconst aggregatorData = $node['Result Aggregator'].json;\n\nconst requestBody = {\n  model: 'google/gemma-3-27b-it:free',\n  messages: [\n    {\n      r"
+              }
+            ]
+          },
+          {
+            "node": "SQL Executor (Postgres)",
+            "changes": [
+              {
+                "param": "url",
+                "old": "https://ayqviqmxifzmhphiqfmj.supabase.co/rest/v1/rpc/exec_sql",
+                "new": ""
+              },
+              {
+                "param": "operation",
+                "old": "",
+                "new": "executeQuery"
+              },
+              {
+                "param": "sendHeaders",
+                "old": "True",
+                "new": ""
+              },
+              {
+                "param": "jsonBody",
+                "old": "={{ JSON.stringify({ sql_query: $json.validated_sql }) }}",
+                "new": ""
+              },
+              {
+                "param": "authentication",
+                "old": "none",
+                "new": ""
+              },
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'apikey', 'value': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF5cXZpcW14aWZ6bWhwaGlxZm1qIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjkwMjM1NTgsImV4cCI6MjA4ND",
+                "new": ""
+              },
+              {
+                "param": "method",
+                "old": "POST",
+                "new": ""
+              },
+              {
+                "param": "specifyBody",
+                "old": "json",
+                "new": ""
+              },
+              {
+                "param": "options",
+                "old": "{'timeout': 30000, 'response': {'response': {'responseFormat': 'json'}}}",
+                "new": "{'ssl': False, 'queryTimeout': 30000}"
+              },
+              {
+                "param": "query",
+                "old": "",
+                "new": "={{ $json.validated_sql }}"
+              },
+              {
+                "param": "sendBody",
+                "old": "True",
+                "new": ""
               }
             ]
           },
@@ -235,9 +456,29 @@
             "node": "Interpretation Layer (LLM Analyst)",
             "changes": [
               {
+                "param": "jsonBody",
+                "old": "={{ $json.requestBody }}",
+                "new": ""
+              },
+              {
                 "param": "headerParameters",
                 "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}"
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}, {'name': 'Content-Type', 'value': 'application/json'}]}"
+              },
+              {
+                "param": "specifyBody",
+                "old": "json",
+                "new": "raw"
+              },
+              {
+                "param": "options",
+                "old": "{'retry': {'maxTries': 3, 'waitBetweenTries': 3000}, 'timeout': 30000}",
+                "new": "{'retry': {'maxTries': 3, 'waitBetweenTries': 8000}, 'timeout': 90000, 'response': {'response': {'neverError': True}}}"
+              },
+              {
+                "param": "body",
+                "old": "",
+                "new": "={{ JSON.stringify($json.requestBody) }}"
               }
             ]
           },
@@ -245,15 +486,75 @@
             "node": "SQL Repair LLM",
             "changes": [
               {
+                "param": "jsonBody",
+                "old": "={{ $json.requestBody }}",
+                "new": ""
+              },
+              {
                 "param": "headerParameters",
                 "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}",
-                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}"
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}, {'name': 'Content-Type', 'value': 'application/json'}]}"
+              },
+              {
+                "param": "specifyBody",
+                "old": "json",
+                "new": "raw"
+              },
+              {
+                "param": "options",
+                "old": "{'retry': {'maxTries': 3, 'waitBetweenTries': 3000}, 'timeout': 30000}",
+                "new": "{'retry': {'maxTries': 3, 'waitBetweenTries': 8000}, 'timeout': 90000, 'response': {'response': {'neverError': True}}}"
+              },
+              {
+                "param": "body",
+                "old": "",
+                "new": "={{ JSON.stringify($json.requestBody) }}"
+              }
+            ]
+          },
+          {
+            "node": "Text-to-SQL Generator (CoT Enhanced)",
+            "changes": [
+              {
+                "param": "jsonBody",
+                "old": "={{ JSON.stringify($json.requestBody) }}\n",
+                "new": ""
+              },
+              {
+                "param": "headerParameters",
+                "old": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}]}",
+                "new": "{'parameters': [{'name': 'Authorization', 'value': 'Bearer [REDACTED]'}, {'name': 'Content-Type', 'value': 'application/json'}]}"
+              },
+              {
+                "param": "specifyBody",
+                "old": "json",
+                "new": "raw"
+              },
+              {
+                "param": "options",
+                "old": "{'retry': {'maxTries': 3, 'waitBetweenTries': 3000}, 'timeout': 60000}",
+                "new": "{'retry': {'maxTries': 3, 'waitBetweenTries': 8000}, 'timeout': 90000, 'response': {'response': {'neverError': True}}}"
+              },
+              {
+                "param": "body",
+                "old": "",
+                "new": "={{ JSON.stringify($json.requestBody) }}"
+              }
+            ]
+          },
+          {
+            "node": "SQL Validator (Shield #1)",
+            "changes": [
+              {
+                "param": "jsCode",
+                "old": "// SQL Validator v6 - Security Shield + Phase 2 Bypass\nconst contextData = $node['Schema Context Builder'].json;\n\n// === PHASE 2 BYPASS ===\ntry {\n  const prepareData = $node['Prepare SQL Request'].jso",
+                "new": "// CRITICAL: SQL Validator - Security Shield (ERROR-SAFE VERSION + TEMPLATE SUPPORT)\n// Never throws - returns error data that flows through pipeline\nconst contextData = $node['Schema Context Builder'"
               }
             ]
           }
         ],
         "has_changes": true,
-        "summary": "+0 -0 ~3 nodes"
+        "summary": "+0 -1 ~16 nodes"
       }
     },
     "orchestrator": {
@@ -625,6 +926,22 @@
       "hash": "f9b161f90ba19093",
       "diff_summary": "+0 -0 ~4 nodes",
       "snapshot_file": "orchestrator-2026-02-17T21-23-26-f9b161f90ba19093.json"
+    },
+    {
+      "timestamp": "2026-02-21T05:50:59.602956Z",
+      "pipeline": "graph",
+      "version": 8,
+      "hash": "7025aefa948cb6eb",
+      "diff_summary": "+0 -0 ~2 nodes",
+      "snapshot_file": "graph-2026-02-21T05-50-58-7025aefa948cb6eb.json"
+    },
+    {
+      "timestamp": "2026-02-21T05:51:00.785956Z",
+      "pipeline": "quantitative",
+      "version": 11,
+      "hash": "4a55fe6d31f190cf",
+      "diff_summary": "+0 -1 ~16 nodes",
+      "snapshot_file": "quantitative-2026-02-21T05-50-58-4a55fe6d31f190cf.json"
     }
   ]
 }

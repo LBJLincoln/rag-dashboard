@@ -1,10 +1,29 @@
-# Session State — 21 Fevrier 2026 (Session 34)
+# Session State — 21 Fevrier 2026 (Session 35)
 
-> Last updated: 2026-02-21T07:00:00+01:00
+> Last updated: 2026-02-21T07:20:00+01:00
 
-## Objectif de session : Fix Quantitative pipeline for Phase 2
+## Objectif de session : Execute todo file + Phase 2 testing + PME connectors
 
-### Accompli cette session (Session 34)
+### Accompli cette session (Session 35)
+
+#### 0. TODO FILE EXECUTED ✅
+- Merged branch `claude/fix-dashboard-n8n-workflows-s4KVQ` (24 commits, 337K lines)
+- Pushed to 4/7 satellite repos (rag-website, rag-data-ingestion, rag-pme-connectors, origin)
+- n8n sync: Graph UPDATED (v8), Quantitative UPDATED (v11)
+- Neo4j ingestion: 750 entities + 3,308 relationships for Phase 2 graph questions
+- Supabase ingestion: 450 rows (finqa 200, tatqa 150, convfinqa 100)
+
+#### 1. PHASE 2 TESTS LAUNCHED ✅ (running via HF Space)
+- VM n8n Task Runner unstable → switched to HF Space (16GB RAM)
+- 3 pipelines running: Standard, Graph, Orchestrator (100q each)
+- Initial results: Standard 5/5 ✓, Graph 2/5 (40%)
+- PID: 1010392, log: /tmp/phase2-eval.log
+
+#### 2. PME CONNECTORS VERIFIED ✅
+- Already has 15 apps (not 12): WhatsApp, Telegram, Gmail, Outlook, Slack, Drive, OneDrive, Dropbox, Calendar, Notion, Trello, HubSpot, Salesforce, Stripe, QuickBooks
+- Site live: nomos-pme-connectors-alexis-morets-projects.vercel.app (HTTP 200)
+
+### Accompli session precedente (Session 34)
 
 #### 0. QUANTITATIVE PIPELINE FIXED FOR PHASE 2 ✅ (FIX-37)
 - **Root cause**: Phase 2 questions (finqa, tatqa, convfinqa, wikitablequestions) embed financial context + tables in the question text. The SQL pipeline tried to generate SQL → failed because data isn't in Supabase.
