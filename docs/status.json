@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-20T20:29:24+01:00",
+  "generated_at": "2026-02-21T05:28:16+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -7,13 +7,13 @@
   },
   "pipelines": {
     "standard": {
-      "accuracy": 85.5,
-      "tested": 55,
-      "correct": 47,
+      "accuracy": 92.0,
+      "tested": 50,
+      "correct": 46,
       "errors": 1,
       "target": 85.0,
       "met": true,
-      "gap": 0.5
+      "gap": 7.0
     },
     "graph": {
       "accuracy": 78.0,
@@ -44,29 +44,29 @@
     }
   },
   "overall": {
-    "accuracy": 83.9,
+    "accuracy": 85.5,
     "target": 75.0,
     "met": true
   },
   "blockers": [],
   "next_action": "Phase 1 COMPLETE \u2014 run Phase 2: python3 eval/run-eval-parallel.py --dataset phase-2 --reset",
   "last_iteration": {
-    "id": "iter-2026-02-16T11-28-16",
-    "label": "Phase2-quant-5q-v6e-gemma27b",
-    "timestamp": "2026-02-16T11:28:16.903945Z",
-    "total_tested": 5,
-    "overall_accuracy_pct": 0.0,
+    "id": "iter-2026-02-21T02-17-35",
+    "label": "Iteration 272",
+    "timestamp": "2026-02-21T02:25:51+01:00",
+    "total_tested": 1,
+    "overall_accuracy_pct": 100.0,
     "pipelines": {
-      "quantitative": {
-        "tested": 5,
-        "correct": 0,
-        "accuracy": 0.0
+      "orchestrator": {
+        "tested": 1,
+        "correct": 1,
+        "accuracy": 100.0
       }
     }
   },
   "totals": {
-    "unique_questions": 232,
-    "test_runs": 932,
-    "iterations": 42
+    "unique_questions": 791,
+    "test_runs": 1568,
+    "iterations": 272
   }
 }

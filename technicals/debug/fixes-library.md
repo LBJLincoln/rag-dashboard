@@ -1,9 +1,9 @@
 # Fixes Library — Multi-RAG Orchestrator
 
-> Last updated: 2026-02-20T20:30:00+01:00
+> Last updated: 2026-02-21T07:00:00+01:00
 
 > **Bibliotheque permanente de tous les bugs resolus.** A consulter EN PREMIER avant tout debug.
-> Mise a jour obligatoire apres chaque fix reussi. Session courante : Session 30 (2026-02-20).
+> Mise a jour obligatoire apres chaque fix reussi. Session courante : Session 34 (2026-02-21).
 
 ---
 
@@ -47,6 +47,7 @@
 | 34 | Orchestrator | executeWorkflow retourne vide (sub-wf respondToWebhook) → httpRequest | 27 | CRITIQUE |
 | 35 | Quantitative | OPENROUTER_BASE_URL sans /chat/completions → HTML au lieu de JSON | 27 | CRITIQUE |
 | 36 | Evaluation | Phase 1 gates comptaient questions Phase 2 (musique, finqa) | 30 | CRITIQUE |
+| 37 | Quantitative Pipeline | Phase 2 context-based questions need LLM reasoning, not SQL | 34 | CRITIQUE |
 
 ---
 
@@ -65,6 +66,7 @@
 | AP-9 | Utiliser executeWorkflow quand sub-wf a respondToWebhook | CRITIQUE | executeWorkflow retourne vide — utiliser httpRequest (FIX-34) |
 | AP-10 | URL OpenRouter sans /chat/completions | CRITIQUE | API retourne HTML au lieu de JSON (FIX-35) |
 | AP-11 | Melanger questions Phase 2 dans les gates Phase 1 | CRITIQUE | Chaque phase filtre ses propres questions (FIX-36) |
+| AP-12 | Envoyer des questions context-rich au SQL pipeline | CRITIQUE | Classifier detecte le format et route vers context reasoning (FIX-37) |
 
 ---
 
@@ -268,6 +270,7 @@ clean = {
 | $env dans Code node | "access to env vars denied" | FIX-32: hardcoder les valeurs (Task Runner bloque) |
 | activeVersion pas patche | Fix present dans JSON mais pas actif | FIX-29/32: patcher nodes[] ET activeVersion.nodes[] |
 | Sub-WF respondToWebhook | 200 vide depuis orchestrator | FIX-32: ajouter terminal Code node en parallele |
+| Phase 2 quant context questions | SQL generation echoue (pas de table) | FIX-37: Question Type Classifier route vers context reasoning |
 
 ---
 
@@ -704,3 +707,28 @@ Le body est `{ "query": "<task_query>" }`. Le timeout est 30s. La reponse JSON d
 **Resultat** : Phase 1 PASSED immediatement — Standard 85.5%, Graph 78.0%, Quant 92.0%, Orch 80.0%, Overall 83.9%.
 **REGLE** : Les gates de Phase N ne doivent JAMAIS inclure les questions de Phase N+1 dans leur calcul. Chaque phase a ses propres targets et ses propres datasets.
 **Fichiers impactes** : `eval/generate_status.py`, `eval/phase_gates.py`
+
+---
+
+### FIX-37 — Quantitative Phase 2 : context-based questions need LLM reasoning, not SQL
+**Session** : 34 (2026-02-21)
+**Pipeline** : Quantitative V2.1
+**Symptome** : Phase 2 accuracy 10% (1/10). Questions finqa/tatqa/convfinqa/wikitablequestions contiennent du contexte financier + tableaux inline dans le champ `query`. Le pipeline essaie de generer du SQL pour ces questions → echec car les donnees ne sont pas dans Supabase.
+**Cause racine** : Les questions Phase 2 quantitatives (datasets HuggingFace) ont un format different des questions Phase 1 :
+- Phase 1 : questions simples sur des tables existantes dans Supabase ("What was TechVision's revenue?")
+- Phase 2 : questions avec contexte financier complet inline ("Please answer the given financial question based on the context. Context: [long text + tables]. Question: what is the net change?")
+Le pipeline Phase 1 (Text-to-SQL → Execute SQL → Interpret) ne fonctionne pas pour les questions Phase 2 qui ne necessitent PAS de SQL mais du raisonnement direct sur le contexte fourni.
+**Fix** (3 corrections independantes) :
+1. **Architecture : ajout branche context reasoning** — 5 nouveaux noeuds :
+   - `Question Type Classifier` (Code) — detecte si la question contient `Context:` + tables
+   - `Route by Question Type` (IF) — branche context_reasoning vs sql_query
+   - `Prepare Context Reasoning` (Code) — construit le prompt LLM avec contexte + question
+   - `Context Reasoning LLM` (HTTP Request) — appelle OpenRouter Llama 70B
+   - `Context Response Formatter` (Code) — formate la reponse dans le format standard
+   Connections : Init & ACL → Classifier → Router → (Context path | SQL path)
+2. **FIX-32 applique** : `$env.LLM_SQL_MODEL` et `$env.LLM_FAST_MODEL` remplaces par valeurs hardcodees dans 3 Code nodes (Prepare SQL Request, Prepare Interpretation Request, Prepare SQL Repair Request)
+3. **FIX-22 applique** : Timeouts 25s→60s, retries 1→3, waitBetweenTries 1s→5s sur 3 HTTP Request nodes (Text-to-SQL Generator, Interpretation Layer, SQL Repair LLM)
+**Bonus** : Nettoyage de 9,276 cles stale `retry_sql-repair-*` dans staticData (472KB → 99KB)
+**Script** : `scripts/fix-quant-phase2.py` — applique les 3 corrections + nettoie staticData + patche activeVersion
+**REGLE** : Les datasets Phase 2+ peuvent avoir des formats differents des questions Phase 1. Le pipeline doit detecter le format et router vers le traitement adapte.
+**Fichiers impactes** : `n8n/live/quantitative.json`, `n8n/live/quantitative-v2-template-fix.json`, `snapshot/current/quantitative.json`

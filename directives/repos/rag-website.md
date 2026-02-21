@@ -8,6 +8,8 @@
 > **DELEGATION** : Haiku 4.5 pour exploration codebase via `Task(model: "haiku", subagent_type: "Explore")`.
 > Tu suis le même workflow-process que mon-ipad, adapté à ton objectif secteur.
 > Processus team-agentic multi-model : voir `technicals/project/team-agentic-process.md` (dans mon-ipad).
+> **Bottleneck-first** : Builds/tests fonctionnels en background. Se concentrer sur les problèmes et blocages.
+> **Push régulier** : Commit + push toutes les 15-20 min. Ne jamais perdre de travail.
 
 ---
 

@@ -1,74 +1,85 @@
-# Session State — 20 Fevrier 2026 (Session 31)
+# Session State — 21 Fevrier 2026 (Session 34)
 
-> Last updated: 2026-02-20T22:05:00+01:00
+> Last updated: 2026-02-21T07:00:00+01:00
 
-## Objectif de session : Ingestion V4.0 SOTA + Sector Processing 500 types × 4 secteurs
+## Objectif de session : Fix Quantitative pipeline for Phase 2
 
-### Accompli cette session
+### Accompli cette session (Session 34)
 
-#### 1. ANALYSE SOTA COMPLETE — Ingestion V3.1 + Enrichment V3.1 ✅
-- Analyse complete des 28 nodes Ingestion V3.1 (chunking, embeddings, BM25, PII, metadata)
-- Analyse complete des 29 nodes Enrichment V3.1 (entity extraction, graph upsert, community detection)
-- Recherche SOTA 2026 : 10 techniques prioritaires identifiees
-  - Late Chunking (Jina, +3.5% accuracy) — IMMEDIATE ✅ APPLIQUÉ V4.0
-  - Jina v3 Matryoshka + Task LoRA (+5-8%) — IMMEDIATE ✅ APPLIQUÉ V4.0
-  - BM25 Hybrid Search (+10-15%) — HIGH ✅ APPLIQUÉ V4.0
-  - Contextual Retrieval (Anthropic, -49% failed retrievals) — HIGH (déjà en V3.1)
-  - Domain-Specific Chunking (+8-12%) — HIGH ✅ APPLIQUÉ V4.0
-  - Graph Enrichment Patterns (+15-20%) — HIGH (Enrichment V4 à venir)
-  - CompactRAG (-50% LLM calls) — MEDIUM ✅ APPLIQUÉ V4.0
-  - Metadata Enrichment (+5-10%) — HIGH ✅ APPLIQUÉ V4.0
-  - French NER (+10-15% entities) — MEDIUM ✅ APPLIQUÉ V4.0
+#### 0. QUANTITATIVE PIPELINE FIXED FOR PHASE 2 ✅ (FIX-37)
+- **Root cause**: Phase 2 questions (finqa, tatqa, convfinqa, wikitablequestions) embed financial context + tables in the question text. The SQL pipeline tried to generate SQL → failed because data isn't in Supabase.
+- **Fix**: Added context reasoning branch — 5 new nodes:
+  - Question Type Classifier (detects context-rich questions)
+  - Route by Question Type (IF node)
+  - Prepare Context Reasoning (LLM prompt builder)
+  - Context Reasoning LLM (OpenRouter Llama 70B)
+  - Context Response Formatter (standard output format)
+- **Also applied**: FIX-32 ($env in Code nodes), FIX-22 (timeouts 25s→60s, retries 1→3)
+- **Bonus**: Cleaned 9,276 stale staticData keys (472KB → 99KB)
+- **Script**: `scripts/fix-quant-phase2.py`
 
-#### 2. INGESTION V4.0 UPGRADE — ✅ COMPLET
-- ✅ scripts/upgrade-ingestion-v4.py — CRÉÉ ET EXÉCUTÉ AVEC SUCCÈS
-  - A. Late Chunking (Jina embeddings v3)
-  - B. Sector-Aware Router V4 (NEW node)
-  - C. CompactRAG QA Pairs (3→5 for finance/industry)
-  - D. Enhanced Metadata (sector, language, doc_type, semantic_tags)
-  - E. French NER Extractor V4 (NEW node)
-  - F. BM25 Improvements (French stop words + sector weighting)
-- ✅ n8n/live/ingestion.json — UPGRADED (28→30 nodes)
-- ✅ n8n/validated/ingestion-v3.1-backup.json — BACKUP CREATED
-- ✅ docs/ingestion-v4-upgrade-summary.md — COMPLETE DOCUMENTATION
+### Accompli session precedente (Session 33)
 
-#### 3. V4.0 UPGRADE SCRIPTS — EN COURS
-- ⏳ scripts/upgrade-enrichment-v4.py — building (entity resolution, cross-doc linking, FR community summaries, relationship extraction)
-- ⏳ scripts/sector-file-types.py — building (500 types × 4 sectors registry)
-- ⏳ scripts/process-sectors.py — building (1M doc processing pipeline)
-- ⏳ scripts/trigger-sector-ingestion.py — building (n8n webhook triggers)
+#### 1. DATASETS DOWNLOADED — 16 HF benchmarks + 4 sectors ✅
+- 10 benchmark datasets downloaded: squad_v2, triviaqa, popqa, narrativeqa, msmarco, asqa, frames, pubmedqa, natural_questions, hotpotqa (9,772 items)
+- 4 quantitative datasets (finqa, tatqa, convfinqa, wikitablequestions) — download script fixed for HF API v4.5
+- Graph datasets (musique, 2wikimultihopqa) — download script fixed with fallback IDs
+- 4 sector datasets: finance (6 datasets), juridique (5), btp (4), industrie (3) — 7,609 items total
 
-#### 4. DOCUMENTATION CREATED
-- technicals/debug/ingestion-v3.1-analysis.md — complete workflow analysis
-- technicals/debug/ingestion-v3.1-summary.txt — quick reference
-- technicals/debug/enrichment-workflow-analysis.md — complete analysis
-- technicals/debug/enrichment-node-diagram.md — visual architecture
-- technicals/debug/enrichment-quick-reference.md — debugging guide
-- technicals/debug/ENRICHMENT-V3.1-INDEX.md — master index
-- ✅ docs/ingestion-v4-upgrade-summary.md — COMPLETE V4.0 DOCUMENTATION (6 SOTA improvements)
+#### 2. PME CONNECTOR WORKFLOWS FIXED ✅ (FIX-33, FIX-34)
+- **multi-canal-gateway.json**: executeWorkflow → httpRequest to Orchestrator V10.1 (FIX-34)
+- **action-executor.json**: executeWorkflowTrigger → webhook trigger (`/webhook/pme-action-executor`)
+- **whatsapp-telegram-bridge.json**: $env references removed, credential-based auth (FIX-33)
+- All 3 workflows: error objects serialized with JSON.stringify (no more [object Object])
+- Gateway now works in API mode without Telegram/WhatsApp credentials
+
+#### 3. PHASE 3-5 DATASETS GENERATED ✅
+- Phase 3: 10,272 questions (standard: 8,272, graph: 1,500, quant: 500)
+- Phase 4: 15,272 questions (limited by current downloads — will scale with full HF pull)
+- Generation script: `datasets/scripts/generate-phase-datasets.py`
+
+#### 4. VM INGESTION RUNNER CREATED ✅
+- `scripts/run-all-phases.sh` — master orchestrator for download + generate + ingest + commit
+- Dry-run tested: Neo4j extraction works (750 entities, 3,308 relations from 50 questions)
+- Dry-run tested: Supabase tables ready (finqa: 200, tatqa: 150, convfinqa: 100 = 450 rows)
+- Live ingestion blocked in sandbox (no network access to Supabase/Neo4j) — must run on VM
+
+#### 5. DOWNLOAD SCRIPT FIXED ✅
+- `datasets/scripts/download-benchmarks.py` updated with:
+  - Fallback HF IDs for datasets that changed
+  - Removed `trust_remote_code=True` (deprecated in datasets v4.5)
+  - Support for `fallback_ids` list in dataset config
 
 ### Etat des 4 pipelines (Phase 1 PASSED — session 30)
 
-| Pipeline | Accuracy | Target | Status |
-|----------|----------|--------|--------|
-| Standard | 85.5% (47/55) | 85% | PASS |
-| Graph | 78.0% (39/50) | 70% | PASS |
-| Quantitative | 92.0% (46/50) | 85% | PASS |
-| Orchestrator | 80.0% (40/50) | 70% | PASS |
-| **Overall** | **83.9%** | 75% | PASS |
+| Pipeline | Phase 1 | Phase 2 (in progress) | Target P2 |
+|----------|---------|----------------------|-----------|
+| Standard | 85.5% (47/55) PASS | 66.8% (163/244) | 65% |
+| Graph | 78.0% (39/50) PASS | 21.2% (48/226) | 60% |
+| Quantitative | 92.0% (46/50) PASS | 10.0% (1/10) FIX-37 APPLIED | 70% |
+| Orchestrator | 80.0% (40/50) PASS | 67.6% (75/111) | 65% |
+| **Overall P2** | **83.9%** PASS | **48.6%** (287/591) | 65% |
 
-### Phase 2 : NEXT — prérequis ingestion en cours
+### Phase 3-5 Readiness
 
-### Commits session 31
+| Phase | Questions Generated | Datasets Ready | DB Ingestion | Testing |
+|-------|-------------------|----------------|--------------|---------|
+| Phase 3 | 10,272 ✅ | 16/16 (10 downloaded) | Pending (run on VM) | Pending |
+| Phase 4 | 15,272 ✅ | 16/16 (limited data) | Pending (run on VM) | Pending |
+| Phase 5 | N/A | Requires paid infra | Requires paid infra | Pending |
+
+### Commits session 33
 
 | Hash | Repo | Description |
 |------|------|-------------|
-| TBD | origin | feat(ingestion): SOTA V4.0 analysis + upgrade scripts + sector processing |
-| TBD | rag-data-ingestion | feat(ingestion): V4.0 workflows + 500 file types registry |
+| TBD | origin | Session 33: datasets + PME workflows + phase generation |
 
-### Prochaines actions (reste 30 min)
-
-1. Terminer les 3 scripts V4.0 (agents en background)
-2. Push vers origin + rag-data-ingestion
-3. Mettre a jour les directives rag-data-ingestion
-4. Push toutes les 10 min
+### Prochaines actions (pour la VM)
+1. **Deploy fixed Quantitative V2.1** to n8n VM (PUT + deactivate/activate cycle — FIX-21)
+2. **Test Phase 2 quantitative** with finqa/tatqa questions (verify context reasoning path)
+3. **Run on VM**: `bash scripts/run-all-phases.sh --all` (downloads + ingestion + status)
+4. Ingest graph entities into Neo4j (750+ entities from musique/2wiki)
+5. Ingest financial tables into Supabase (450 rows for finqa/tatqa/convfinqa)
+6. Import PME connector workflows to n8n and activate
+7. Continue Phase 2 tests to 1,000 questions
+8. Run Phase 3 evaluation after ingestion

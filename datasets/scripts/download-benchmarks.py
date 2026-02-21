@@ -27,14 +27,20 @@ DATASETS = {
     ],
     "graph": [
         {"name": "hotpotqa",            "hf_id": "hotpot_qa",                              "split": "validation", "config": "distractor", "text_field": "question", "answer_field": "answer"},
-        {"name": "musique",             "hf_id": "StanfordNLP/musique",                    "split": "validation", "text_field": "question", "answer_field": "answer"},
-        {"name": "2wikimultihopqa",     "hf_id": "xanhho/2WikiMultihopQA",                 "split": "dev",        "text_field": "question", "answer_field": "answer"},
+        {"name": "musique",             "hf_id": "drt/musique",                            "split": "validation", "text_field": "question", "answer_field": "answer",
+         "fallback_ids": ["StanfordNLP/musique"]},
+        {"name": "2wikimultihopqa",     "hf_id": "drt/2wikimultihopqa",                    "split": "validation", "text_field": "question", "answer_field": "answer",
+         "fallback_ids": ["xanhho/2WikiMultihopQA"]},
     ],
     "quantitative": [
-        {"name": "finqa",               "hf_id": "ibm/finqa",                              "split": "test",       "text_field": "question", "answer_field": "answer"},
-        {"name": "tatqa",               "hf_id": "kasnerz/tatqa",                          "split": "test",       "text_field": "question", "answer_field": "answer"},
-        {"name": "convfinqa",           "hf_id": "czyssrs/ConvFinQA",                      "split": "test",       "text_field": "question", "answer_field": "answer"},
-        {"name": "wikitablequestions",  "hf_id": "wikitablequestions",                     "split": "test",       "text_field": "question", "answer_field": "answers"},
+        {"name": "finqa",               "hf_id": "ChanceFocus/flare-finqa",                "split": "test",       "text_field": "question", "answer_field": "answer",
+         "fallback_ids": ["ibm/finqa", "dreamerdeo/finqa"]},
+        {"name": "tatqa",               "hf_id": "ChanceFocus/flare-tatqa",                "split": "test",       "text_field": "question", "answer_field": "answer",
+         "fallback_ids": ["kasnerz/tatqa"]},
+        {"name": "convfinqa",           "hf_id": "ChanceFocus/flare-convfinqa",            "split": "test",       "text_field": "question", "answer_field": "answer",
+         "fallback_ids": ["czyssrs/ConvFinQA"]},
+        {"name": "wikitablequestions",  "hf_id": "Stanford/web_questions",                 "split": "test",       "text_field": "question", "answer_field": "answers",
+         "fallback_ids": ["TableSenseAI/WikiTableQuestions", "wikitablequestions"]},
     ],
 }
 
@@ -65,37 +71,44 @@ def download_dataset(ds_config, limit, output_dir):
     else:
         print(f"  [DL] {name}: downloading up to {limit} items from {hf_id}...")
 
-    try:
-        kwargs = {"path": hf_id, "split": split, "trust_remote_code": True}
-        if config:
-            kwargs["name"] = config
-        ds = load_dataset(**kwargs, streaming=True)
+    # Try primary HF ID, then fallback IDs
+    hf_ids_to_try = [hf_id] + ds_config.get("fallback_ids", [])
 
-        items = []
-        for i, item in enumerate(ds):
-            if i >= limit:
-                break
-            # Flatten to simple dict
-            flat = {"id": f"{name}_{i}", "dataset": name, "pipeline": "unknown"}
-            for k, v in item.items():
-                if isinstance(v, (str, int, float, bool)):
-                    flat[k] = v
-                elif isinstance(v, list) and len(v) > 0 and isinstance(v[0], str):
-                    flat[k] = v[0]  # Take first element for simple lists
-                elif isinstance(v, dict):
-                    flat[str(k)] = str(v)
-            items.append(flat)
+    for try_hf_id in hf_ids_to_try:
+        try:
+            kwargs = {"path": try_hf_id, "split": split, "streaming": True}
+            if config:
+                kwargs["name"] = config
+            ds = load_dataset(**kwargs)
 
-        with open(out_file, "w", encoding="utf-8") as f:
-            for item in items:
-                f.write(json.dumps(item, ensure_ascii=False) + "\n")
+            items = []
+            for i, item in enumerate(ds):
+                if i >= limit:
+                    break
+                # Flatten to simple dict
+                flat = {"id": f"{name}_{i}", "dataset": name, "pipeline": "unknown"}
+                for k, v in item.items():
+                    if isinstance(v, (str, int, float, bool)):
+                        flat[k] = v
+                    elif isinstance(v, list) and len(v) > 0 and isinstance(v[0], str):
+                        flat[k] = v[0]  # Take first element for simple lists
+                    elif isinstance(v, dict):
+                        flat[str(k)] = str(v)
+                items.append(flat)
 
-        print(f"  [OK] {name}: {len(items)} items saved to {out_file}")
-        return len(items)
+            with open(out_file, "w", encoding="utf-8") as f:
+                for item in items:
+                    f.write(json.dumps(item, ensure_ascii=False) + "\n")
 
-    except Exception as e:
-        print(f"  [ERR] {name}: ERROR — {e}")
-        return 0
+            print(f"  [OK] {name}: {len(items)} items saved to {out_file} (from {try_hf_id})")
+            return len(items)
+
+        except Exception as e:
+            print(f"  [WARN] {name}: failed with {try_hf_id} — {e}")
+            continue
+
+    print(f"  [ERR] {name}: all HF IDs failed")
+    return 0
 
 
 def main():

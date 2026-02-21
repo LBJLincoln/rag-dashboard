@@ -322,3 +322,38 @@ Si un pipeline enchaine 4+ echecs consecutifs au-dela des 4 premieres questions,
 - Lancer plusieurs instances de quick-test.py en parallele (bash background) → 503
 - Lancer `--pipelines standard --questions 5 &` en meme temps que `--pipelines graph --questions 5 &` → 503
 - Tester l'orchestrator en meme temps qu'un autre pipeline → contention sub-workflow
+
+### Background Testing (OBLIGATOIRE pour runs 50q+)
+
+**Principe** : Les tests qui passent tournent en background. L'agent se concentre sur les problèmes.
+
+```bash
+# Pattern : lancer les pipelines fonctionnels en background
+N8N_HOST="$HF_SPACE_URL" nohup python3 eval/run-eval-parallel.py \
+  --dataset phase-2 --types standard,graph,orchestrator \
+  --force --early-stop 0 --workers 3 \
+  --label "Phase2-background" \
+  > /tmp/phase2-run.log 2>&1 &
+
+# Auto-commit périodique (toutes les 15 min)
+nohup bash -c 'while true; do sleep 900; \
+  python3 eval/generate_status.py > /dev/null 2>&1 && \
+  git add docs/ && git commit -m "auto-commit" && git push; done' \
+  > /tmp/periodic-commit.log 2>&1 &
+
+# Monitorer : tail -f /tmp/phase2-run.log
+# Compter : python3 -c "import json; ..."
+```
+
+**Quand un pipeline est bloqué** :
+1. L'exclure du `--types` (ex: `--types standard,graph,orchestrator` sans quantitative)
+2. Documenter le blocage dans knowledge-base.md
+3. Lancer les autres pipelines en background
+4. Se concentrer sur le diagnostic et la résolution du pipeline bloqué
+5. Une fois fixé, relancer ce pipeline séparément avec dedup
+
+**Supervision des processus background** :
+- `ps aux | grep run-eval | grep -v grep` → vérifier que les processus sont vivants
+- `tail -5 /tmp/phase2-run.log` → voir la dernière progression
+- Si un processus a des zombies (`Z` dans `ps`) → kill + relancer avec dedup reconstruit
+- Reconstruire le dedup depuis data.json si nécessaire (source de vérité)

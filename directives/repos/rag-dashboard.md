@@ -7,6 +7,8 @@
 > **DELEGATION** : Haiku 4.5 pour exploration rapide si necessaire.
 > Ce repo est en lecture seule vis-à-vis des pipelines RAG.
 > Processus team-agentic multi-model : voir `technicals/project/team-agentic-process.md` (dans mon-ipad).
+> **Bottleneck-first** : Builds fonctionnels en background. Se concentrer sur les problèmes d'affichage et de data.
+> **Push régulier** : Commit + push toutes les 15-20 min.
 
 ---
 

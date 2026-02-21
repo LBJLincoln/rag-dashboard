@@ -9,11 +9,14 @@
 > Tu suis le même workflow-process que mon-ipad, adapté à ton rôle de testeur.
 > Processus team-agentic multi-model : voir `technicals/project/team-agentic-process.md` (dans mon-ipad).
 
-### REGLES CRITIQUES (Session 25)
+### REGLES CRITIQUES (Session 25+31)
 - **Pre-vol checklist OBLIGATOIRE** : Consulter knowledge-base.md Section 0 avant tout test webhook
 - **ZERO test sur la VM** : Tests → HF Space (16GB) ou Codespace (8GB)
 - **Field name = `query`** (PAS `question`) pour les 4 pipelines
 - **35 fixes documentes** dans `technicals/debug/fixes-library.md` — consulter AVANT tout debug
+- **Background testing** : Les tests qui passent tournent en `nohup` background avec auto-commit toutes les 15 min. L'agent se concentre sur la résolution des pipelines bloqués.
+- **Bottleneck-first** : Toujours résoudre le blocage principal avant d'optimiser ce qui fonctionne. Prioriser : Infrastructure > Rate-limits > Code > Data > Modèle.
+- **Pipeline isolation** : Si un pipeline est bloqué, l'exclure et lancer les autres en parallèle. Ne JAMAIS bloquer tous les tests pour un seul pipeline.
 
 ---
 

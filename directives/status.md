@@ -1,35 +1,60 @@
-# Status — 20 Fevrier 2026 (Session 30)
+# Status — 21 Fevrier 2026 (Session 33)
 
-> Last updated: 2026-02-20T20:35:00+01:00
+> Last updated: 2026-02-21T06:30:00+01:00
 
-## Session 30 = PHASE 1 PASSED ✅ — FIX-36 corrige le calcul des gates
+## Session 33 = Phase 2-5 Preparation + PME Connectors Workflows Fix
 
 ### Accompli
-- **FIX-36** : `generate_status.py` et `phase_gates.py` incluaient des questions Phase 2 (musique 17q, finqa 10q) dans le calcul Phase 1. Corrige avec `_is_phase1_question()`.
-- **Phase 1 PASSED** : Standard 85.5%, Graph 78.0%, Quant 92.0%, Orch 80.0%, Overall 83.9%
-- Knowledge-base.md mis a jour (Section 6.4)
-- Fixes-library.md mis a jour (FIX-36 + AP-11)
-- CLAUDE.md mis a jour (Phase 1 PASSED, plan des phases)
-- Session-state.md mis a jour
+- **16/16 HF benchmark datasets downloaded** : 15,772 items (squad_v2, triviaqa, popqa, narrativeqa, msmarco, asqa, frames, pubmedqa, natural_questions, hotpotqa, musique, 2wikimultihopqa, finqa, tatqa, convfinqa, wikitablequestions)
+- **4 sector datasets downloaded** : 7,609 items (finance, juridique, btp, industrie)
+- **download-benchmarks.py fixed** : HF API v4.5 compatibility (fallback_ids, no trust_remote_code)
+- **3 PME connector workflows fixed** (FIX-33, FIX-34):
+  - multi-canal-gateway.json: executeWorkflow → httpRequest to Orchestrator V10.1
+  - action-executor.json: executeWorkflowTrigger → webhook trigger (/webhook/pme-action-executor)
+  - whatsapp-telegram-bridge.json: $env references removed, credential-based auth
+- **Phase 3-5 dataset generation script** created (generate-phase-datasets.py)
+- **Phase 3 generated** : 10,272 questions
+- **Phase 4 generated** : 15,272 questions
+- **VM ingestion runner** created (run-all-phases.sh)
+- **DB ingestion dry-runs** : Neo4j (750 entities, 3,308 rels) + Supabase (450 rows) — live ingestion requires VM
 
-### Phase 1 Resultats Finaux (questions Phase 1 uniquement)
-| Pipeline | Accuracy | Tested | Correct | Target | Gap | Status |
-|----------|----------|--------|---------|--------|-----|--------|
-| Standard | 85.5% | 55 | 47 | 85% | +0.5pp | PASS |
-| Graph | 78.0% | 50 | 39 | 70% | +8.0pp | PASS |
-| Quantitative | 92.0% | 50 | 46 | 85% | +7.0pp | PASS |
-| Orchestrator | 80.0% | 50 | 40 | 70% | +10.0pp | PASS |
-| **Overall** | **83.9%** | 205 | 172 | 75% | +8.9pp | PASS |
+### Phase 2 Resultats (en cours — 591/1000 tested)
+| Pipeline | Accuracy | Tested | Correct | Target P2 | Gap | Status |
+|----------|----------|--------|---------|-----------|-----|--------|
+| Standard | 66.8% | 244 | 163 | 65% | +1.8pp | ON TRACK |
+| Graph | 21.2% | 226 | 48 | 60% | -38.8pp | NEEDS WORK |
+| Quantitative | 10.0% | 10 | 1 | 70% | -60.0pp | BLOCKED |
+| Orchestrator | 67.6% | 111 | 75 | 65% | +2.6pp | ON TRACK |
+| **Overall** | **48.6%** | 591 | 287 | 65% | -16.4pp | IN PROGRESS |
 
-### Phase 2 Resultats Exploratoires (pour info)
-| Dataset | Accuracy | Phase 2 Target | Gap |
-|---------|----------|----------------|-----|
-| Graph + Musique | 41.2% (7/17) | 60% | -18.8pp |
-| Quant + FinQA | ~40% (4/10) | 70% | -30pp |
+### Datasets Ready for All Phases
+| Dataset | Items | Pipeline | Phase 3 | Phase 4 | Phase 5 |
+|---------|-------|----------|---------|---------|---------|
+| squad_v2 | 1,000 | Standard | 1,000 | 1,000 | Scale |
+| triviaqa | 1,000 | Standard | 1,000 | 1,000 | Scale |
+| popqa | 1,000 | Standard | 500 | 1,000 | Scale |
+| narrativeqa | 1,000 | Standard | 500 | 1,000 | Scale |
+| msmarco | 1,000 | Standard | 272 | 1,000 | Scale |
+| asqa | 948 | Standard | — | 948 | Scale |
+| frames | 824 | Standard | — | 824 | Scale |
+| pubmedqa | 1,000 | Standard | — | 1,000 | Scale |
+| natural_questions | 1,000 | Standard | — | 1,000 | Scale |
+| hotpotqa | 1,000 | Graph | 1,000 | 1,000 | Scale |
+| musique | 1,000 | Graph | 200 | 500 | Scale |
+| 2wikimultihopqa | 1,000 | Graph | 300 | 500 | Scale |
+| finqa | 1,000 | Quantitative | 200 | 500 | Scale |
+| tatqa | 1,000 | Quantitative | 150 | 500 | Scale |
+| convfinqa | 1,000 | Quantitative | 100 | 300 | Scale |
+| wikitablequestions | 1,000 | Quantitative | 50 | 200 | Scale |
 
-### Prochaine session : Lancer Phase 2 (1,000q) + Fix datasets HF
-1. Demarrer Codespace rag-tests
-2. Ingerer dataset Musique dans Neo4j (Graph)
-3. Adapter prompts SQL pour FinQA (Quantitative)
-4. Lancer eval 1,000q en parallele
-5. Phase 2 targets : Graph >= 60%, Quant >= 70%, Overall >= 65%
+### Key Blockers (unchanged from Session 32)
+1. **Graph 21.2%** : Missing datasets in Neo4j — ingestion scripts ready, need VM execution
+2. **Quant BLOCKED** : TCP 6543 blocked on HF Space — test on VM or Codespace
+3. **Live DB ingestion** : Neo4j + Supabase + Pinecone require VM with credentials
+
+### Prochaine session : VM Execution + Phase 2 Continuation
+1. **Run on VM** : `bash scripts/run-all-phases.sh --all` (live ingestion)
+2. Import PME connector workflows to n8n and activate
+3. Fix Quantitative pipeline TCP 6543 (test on VM where port works)
+4. Continue Phase 2 tests to 1,000 questions
+5. Run Phase 3 evaluation after ingestion completes

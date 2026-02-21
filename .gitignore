@@ -48,5 +48,10 @@ __pycache__/
 *.tmp
 *.temp
 snapshot/pre-jina-migration/
+
+# Large HF dataset files (>100MB — re-downloadable)
+datasets/hf/natural_questions.jsonl
+datasets/hf/narrativeqa.jsonl
+datasets/hf/triviaqa.jsonl
 website-pme-connectors/.next/
 website-pme-usecases/.next/

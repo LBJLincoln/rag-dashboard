@@ -237,6 +237,57 @@ suivant    STOP +          Continuer
 
 ---
 
+## 3c. Bottleneck Resolution Protocol — Focus sur les Problèmes
+
+### Principe : Tests en background, agent sur les problèmes
+
+**L'agent ne doit JAMAIS rester passif pendant qu'un test tourne.**
+Les pipelines fonctionnels sont lancés en `nohup` background avec auto-commit.
+Le temps de l'agent est consacré à :
+1. Diagnostiquer et résoudre les pipelines bloqués
+2. Améliorer la documentation (CLAUDE.md, knowledge-base, fixes-library)
+3. Préparer la phase suivante
+
+### Classification des bottlenecks
+| Type | Priorité | Temps résolution | Exemples |
+|------|----------|-----------------|----------|
+| **Infrastructure** | P0 — Immédiat | 10-30 min | TCP bloqué, OOM, Docker crash, n8n down |
+| **Rate-limit** | P1 — Court terme | 5-15 min | OpenRouter 429, Jina quota, API throttle |
+| **Code workflow** | P2 — Moyen terme | 30-60 min | [object Object], node crash, cache stale (FIX-21) |
+| **Data** | P3 — Ponctuel | 10-20 min | IDs collision, dedup cassé, dataset manquant |
+| **Modèle LLM** | P4 — Long terme | 1h+ | Hallucinations, mauvais scores, prompt tuning |
+
+### Procédure de résolution
+```
+BOTTLENECK DÉTECTÉ
+    |
+    ├─ Est-ce dans fixes-library ? → OUI → Appliquer le fix documenté
+    |                              → NON → Investiguer
+    |
+    ├─ Classification (P0-P4)
+    |
+    ├─ P0/P1 : Résoudre IMMÉDIATEMENT
+    |   ├─ Contourner si possible (autre host, autre modèle)
+    |   └─ Documenter le contournement
+    |
+    ├─ P2/P3 : Résoudre pendant que les tests tournent en background
+    |   ├─ Isoler le pipeline bloqué
+    |   ├─ Lancer les autres en background
+    |   └─ Diagnostiquer avec node-analyzer + analyze_n8n_executions
+    |
+    └─ P4 : Planifier pour la session suivante
+        ├─ Documenter dans improvements-roadmap.md
+        └─ Continuer avec les pipelines actuels
+```
+
+### Métriques de suivi bottleneck
+À chaque milestone, évaluer :
+- **Throughput** : questions/minute par pipeline (cible : Standard 4q/min, Graph 4q/min, Orch 2q/min)
+- **Error rate** : % de questions avec erreur workflow (cible : <5%)
+- **Zombie rate** : processus qui meurent silencieusement (cible : 0, mitigation : surveillance + restart)
+
+---
+
 ## 4. Fixes Library Partagee
 
 ### Architecture
