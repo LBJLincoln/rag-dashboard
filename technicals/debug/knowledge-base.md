@@ -1,6 +1,6 @@
 # Knowledge Base — Cerveau Persistant Multi-RAG
 
-> Last updated: 2026-02-20T20:30:00+01:00
+> Last updated: 2026-02-21T15:45:00+01:00
 > **Ce document est VIVANT.** Il s'enrichit a CHAQUE session avec les solutions, patterns
 > et connaissances techniques decouvertes. A lire EN PREMIER avec `fixes-library.md`.
 > Objectif : ameliorer la performance de l'agent a chaque session.
@@ -495,6 +495,72 @@ Recommended concurrency for production testing:
 
 ---
 
+## 8. NEO4J — GRAPH DATA QUALITY (SESSION 35)
+
+### 8.1 Critical Finding: Neo4j 98.27% Generic Relationships
+
+**Diagnostic run revealed**:
+- **19,788 nodes** (8,531 Person, 8,331 Entity, 1,775 Organization, etc.)
+- **76,769 relationships** total
+- **75,442 CONNECTE** (generic) = **98.27%** of all relationships
+- Only **1,327 semantic relationships** (1.73%) — A_CREE, UTILISE, ETEND, ETUDIE, etc.
+
+**Impact on Graph pipeline**:
+- Phase 2 accuracy = **0%** (0/58 questions)
+- Root cause: No semantic signal in graph. CONNECTE edges are noise.
+- Example: "Who voiced SpongeBob?" requires VOICED_BY relationship, not CONNECTE.
+
+### 8.2 Entity Disambiguation Failure
+
+Sample findings:
+- "Plankton" entity exists with biological description ("organisms in water column")
+- Same database has SpongeBob-related entities (show, episodes, cast)
+- Plankton is incorrectly linked to SpongeBob via CONNECTE (false connection)
+- Movie titles labeled as :Person nodes (e.g., "The SpongeBob SquarePants Movie")
+
+**Solution**: Re-ingestion with:
+1. Fine-grained entity labels (:Person:Actor, :Entity:Movie, :Entity:TV_Show)
+2. Semantic relationship extraction (VOICED_BY, DIRECTED_BY, WRITTEN_BY, etc.)
+3. Entity disambiguation via dbpedia_uri or wikidata_id
+4. Deduplication logic to prevent duplicate "Plankton" entities
+
+### 8.3 Semantic Relationships That DO Exist
+
+Distribution of 1,327 semantic relationships:
+- A_CREE (created by): 497 — good quality (Michelangelo → Sistine Chapel)
+- SOUS_ENSEMBLE_DE (subset): 554 — good quality
+- UTILISE (uses): 99 — Technology-to-Technology mostly
+- ETEND (extends): 66 — rare, some incorrect (Entity ETEND City)
+- CIBLE (targets): 52 — sparse
+- ETUDIE (studies): 38 — sparse
+- Others (6 types): 21 total
+
+**Quality**: A_CREE and SOUS_ENSEMBLE_DE are solid. Others are sparse and sometimes incorrect.
+
+### 8.4 Re-ingestion Strategy
+
+Full analysis: `/home/termius/mon-ipad/technicals/debug/neo4j-data-quality-analysis.md`
+
+**Target** (after re-ingestion):
+- Semantic relationships >= 50% of total
+- Generic CONNECTE <= 30%
+- 20+ relationship types with clear semantics
+- Fine-grained entity labels (12+ types)
+- Graph RAG accuracy: 0% → 60%+
+
+**Effort**: 5-8 hours (Codespace rag-data-ingestion)
+
+**Steps**:
+1. Export current graph for analysis
+2. Re-ingest Phase 2 graph datasets (musique, 2wikimultihopqa) with semantic extraction
+3. Import to Neo4j with proper relationship typing
+4. Validate with diagnostic queries
+5. Re-test Graph pipeline
+
+**Decision required**: Proceed with re-ingestion? (Blocking Phase 2 overall accuracy)
+
+---
+
 ## HISTORIQUE DES AJOUTS
 
 | Session | Ajouts | Date |
@@ -503,6 +569,7 @@ Recommended concurrency for production testing:
 | 27 | $env interdit tous noeuds (3.5), executeWorkflow vide (3.6) | 2026-02-19 |
 | 27 | Concurrent load testing results (7.4), Orchestrator concurrency limits | 2026-02-19 |
 | 30 | Phase1 vs Phase2 question filtering (6.4), FIX-36 | 2026-02-20 |
+| 35 | Neo4j data quality analysis (8.1-8.4), 98% generic relationships critical issue | 2026-02-21 |
 
 ---
 
