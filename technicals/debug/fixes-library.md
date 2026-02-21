@@ -48,6 +48,8 @@
 | 35 | Quantitative | OPENROUTER_BASE_URL sans /chat/completions → HTML au lieu de JSON | 27 | CRITIQUE |
 | 36 | Evaluation | Phase 1 gates comptaient questions Phase 2 (musique, finqa) | 30 | CRITIQUE |
 | 37 | Quantitative Pipeline | Phase 2 context-based questions need LLM reasoning, not SQL | 34 | CRITIQUE |
+| 38 | Evaluation | load_questions() broke 2wikimultihopqa context (wrong JSON format) | 35 | CRITIQUE |
+| 39h | Data Validation | Permanent data validator + preflight checks + all context formats | 35 | CRITIQUE |
 
 ---
 
@@ -732,3 +734,32 @@ Le pipeline Phase 1 (Text-to-SQL → Execute SQL → Interpret) ne fonctionne pa
 **Script** : `scripts/fix-quant-phase2.py` — applique les 3 corrections + nettoie staticData + patche activeVersion
 **REGLE** : Les datasets Phase 2+ peuvent avoir des formats differents des questions Phase 1. Le pipeline doit detecter le format et router vers le traitement adapte.
 **Fichiers impactes** : `n8n/live/quantitative.json`, `n8n/live/quantitative-v2-template-fix.json`, `snapshot/current/quantitative.json`
+
+---
+
+### FIX-38 — 2wikimultihopqa context format not parsed (Graph 27% accuracy)
+**Session** : 35 (2026-02-21)
+**Pipeline** : Graph RAG (Phase 2 eval)
+**Symptome** : Graph accuracy on 2wikimultihopqa = 27.3% vs musique = 46.0%. Massive NO_MATCH rate (50%).
+**Root cause** : `load_questions()` only handled musique context format `[{"title":..., "paragraph_text":...}]` but NOT 2wikimultihopqa format `{"title": [...], "sentences": [[...],...]}`. The code checked `ctx.startswith('[')` — 2wikimultihopqa starts with `{` so `paragraphs = []`, context was empty, LLM had no data to reason from.
+**Fix** : Created `_embed_graph_context()` function that handles ALL known formats:
+- Format 1: `[{"title":..., "paragraph_text":...}]` (musique, hotpotqa)
+- Format 2: `{"title": [...], "sentences": [[...],...]}` (2wikimultihopqa)
+- Format 3: Plain text
+**Files** : `eval/run-eval.py`
+**Verification** : All 500 graph questions now have `Reference context:` embedded (was ~200 before).
+
+---
+
+### FIX-39h — Permanent data validation + preflight checks
+**Session** : 35 (2026-02-21)
+**Pipeline** : ALL (eval infrastructure)
+**Symptome** : Recurring data issues across eval runs: stripped context, wrong formats, silent failures.
+**Root cause** : No validation layer between datasets and eval scripts.
+**Fix** (3 new files):
+1. `eval/data_validator.py` — Validates ALL datasets: checks context formats, table_data, ID uniqueness, expected_answer, rag_target. Detects 5 context formats. Can run standalone.
+2. `eval/preflight.py` — Pre-flight checks: validates data + env vars + connectivity + disk space. Auto-loads .env.local.
+3. `eval/run-eval-parallel.py` — Now auto-runs preflight before every eval. Blocks on fatal errors (unless --force).
+4. `eval/run-eval.py` — Refactored `load_questions()` into modular helpers: `_embed_graph_context()`, `_embed_quant_context()`, `_load_dataset_file()`. Logs data quality summary after loading.
+**Also fixed** : Quantitative table_data now formatted as readable text (pipe-delimited) instead of raw JSON string.
+**RULE** : NEVER run eval without data validation. The preflight check is automatic — respect it.
