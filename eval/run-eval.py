@@ -69,9 +69,14 @@ def call_local_reasoning(question_text, rag_type="quantitative", timeout=30):
 
     elif rag_type == "graph":
         system_prompt = (
-            "You are a knowledgeable assistant. Answer the question based on the provided reference context.\n"
-            "For multi-hop questions, trace the connections step by step through the context.\n"
-            "Give a concise, direct answer."
+            "You are a knowledgeable assistant. Answer the question based ONLY on the provided reference context.\n"
+            "IMPORTANT: Many questions require MULTI-HOP reasoning — connecting facts from DIFFERENT paragraphs.\n"
+            "Steps:\n"
+            "1. Identify the key entities in the question\n"
+            "2. Find information about each entity in the context (they may be in different paragraphs)\n"
+            "3. Connect the facts to answer the question\n"
+            "4. Give ONLY the final answer on the first line — a name, date, number, or short phrase\n"
+            "If the answer is clearly in the context, give it directly. Do NOT say 'not found' if the info exists."
         )
         parts = question_text.split("\n\nReference context:", 1)
         if len(parts) == 2:
@@ -82,6 +87,13 @@ def call_local_reasoning(question_text, rag_type="quantitative", timeout=30):
             context = ""
 
         user_prompt = f"Reference context:\n{context}\n\nQuestion: {question_part}\n\nAnswer:" if context else question_text
+
+    elif rag_type == "standard":
+        system_prompt = (
+            "You are a knowledgeable assistant. Answer the question concisely and accurately.\n"
+            "Give ONLY the final answer on the first line — a name, fact, or short phrase."
+        )
+        user_prompt = f"Question: {question_text}\n\nAnswer:"
 
     else:
         system_prompt = "Answer the question concisely and accurately."
@@ -378,18 +390,18 @@ def load_questions(include_1000=False, dataset="phase-1"):
                                 import json as _json
                                 try:
                                     paragraphs = _json.loads(ctx) if ctx.startswith('[') else []
-                                    # Extract relevant paragraphs (first 3000 chars)
+                                    # Extract relevant paragraphs (first 6000 chars, up to 15 paragraphs)
                                     ctx_text = ""
-                                    for p in paragraphs[:10]:
+                                    for p in paragraphs[:15]:
                                         if isinstance(p, dict):
                                             title = p.get("title", "")
                                             text = p.get("paragraph_text", "")
                                             ctx_text += f"\n[{title}] {text}"
                                     if ctx_text:
-                                        question_text = f"{question_text}\n\nReference context:{ctx_text[:3000]}"
+                                        question_text = f"{question_text}\n\nReference context:{ctx_text[:6000]}"
                                 except:
                                     # Plain text context
-                                    question_text = f"{question_text}\n\nReference context:\n{ctx[:3000]}"
+                                    question_text = f"{question_text}\n\nReference context:\n{ctx[:6000]}"
                         questions[rag_target].append({
                             "id": q["id"],
                             "question": question_text,

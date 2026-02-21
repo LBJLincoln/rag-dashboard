@@ -195,10 +195,10 @@ def run_pipeline(rag_type, questions, tested_ids_by_type, label=""):
         else:
             answer = extract_answer(resp["data"])
 
-        # Hybrid fallback: if HF Space returned empty/error/wrong for quant/graph, try local LLM
-        if not used_local and rag_type in ("quantitative", "graph"):
+        # Hybrid fallback: if HF Space returned empty/error/wrong, try local LLM
+        if not used_local and rag_type in ("quantitative", "graph", "standard"):
             hf_eval = evaluate_answer(answer, q["expected"]) if answer else {"f1": 0}
-            if not answer or len(answer.strip()) < 3 or hf_eval["f1"] == 0:
+            if not answer or len(answer.strip()) < 3 or hf_eval["f1"] < 0.3:
                 local_resp = call_local_reasoning(q["question"], rag_type=rag_type, timeout=60)
                 if not local_resp["error"]:
                     local_answer = extract_answer(local_resp["data"])
