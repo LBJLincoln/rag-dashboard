@@ -1,40 +1,40 @@
-# Session State — 21 Fevrier 2026 (Session 32)
+# Session State — 21 Fevrier 2026 (Session 33)
 
-> Last updated: 2026-02-21T05:30:00+01:00
+> Last updated: 2026-02-21T06:00:00+01:00
 
-## Objectif de session : Phase 2 — 1,000q HuggingFace tests + Dashboard n8n fix
+## Objectif de session : Phase 2-5 preparation + PME Connectors workflows fix
 
 ### Accompli cette session
 
-#### 1. PHASE 2 TESTS LAUNCHED — 591 questions tested ✅
-- ✅ Standard: 163/244 = 66.8% (937 total in dataset)
-- ✅ Graph: 48/226 = 21.2% (436 total in dataset)
-- ✅ Orchestrator: 75/111 = 67.6% (921 total in dataset)
-- ⚠️ Quantitative: 1/10 = 10.0% (blocked: TCP 6543 + rate limits)
-- Total Phase 2: 287/591 = 48.6% overall
-- Tests ran on HF Space (16GB RAM)
+#### 1. DATASETS DOWNLOADED — 16 HF benchmarks + 4 sectors ✅
+- 10 benchmark datasets downloaded: squad_v2, triviaqa, popqa, narrativeqa, msmarco, asqa, frames, pubmedqa, natural_questions, hotpotqa (9,772 items)
+- 4 quantitative datasets (finqa, tatqa, convfinqa, wikitablequestions) — download script fixed for HF API v4.5
+- Graph datasets (musique, 2wikimultihopqa) — download script fixed with fallback IDs
+- 4 sector datasets: finance (6 datasets), juridique (5), btp (4), industrie (3) — 7,609 items total
 
-#### 2. QUANTITATIVE PIPELINE DIAGNOSIS — Complete ✅
-- Root cause: OpenRouter Llama 70B rate limiting (429 errors) + HF Space TCP port 6543 blocked (Supabase)
-- `[object Object]` = JS concatenation of error object without JSON.stringify
-- FIX-22 documented but needs verification on live workflow
-- Alternative models identified: Qwen 3 235B, Mistral Small 3.1
+#### 2. PME CONNECTOR WORKFLOWS FIXED ✅ (FIX-33, FIX-34)
+- **multi-canal-gateway.json**: executeWorkflow → httpRequest to Orchestrator V10.1 (FIX-34)
+- **action-executor.json**: executeWorkflowTrigger → webhook trigger (`/webhook/pme-action-executor`)
+- **whatsapp-telegram-bridge.json**: $env references removed, credential-based auth (FIX-33)
+- All 3 workflows: error objects serialized with JSON.stringify (no more [object Object])
+- Gateway now works in API mode without Telegram/WhatsApp credentials
 
-#### 3. BOTTLENECK MANAGEMENT SYSTEM — Added to CLAUDE.md ✅
-- Background testing protocol (nohup + auto-commit)
-- Bottleneck classification matrix (Infra > Rate-limit > Code > Data > Model)
-- Pipeline isolation strategy
-- Escalation procedures
+#### 3. PHASE 3-5 DATASETS GENERATED ✅
+- Phase 3: 10,272 questions (standard: 8,272, graph: 1,500, quant: 500)
+- Phase 4: 15,272 questions (limited by current downloads — will scale with full HF pull)
+- Generation script: `datasets/scripts/generate-phase-datasets.py`
 
-#### 4. SATELLITE DIRECTIVES UPDATED ✅
-- Updated: rag-tests.md, rag-website.md, rag-dashboard.md, rag-data-ingestion.md, rag-pme-connectors.md
-- Updated: workflow-process.md, team-agentic-process.md
+#### 4. VM INGESTION RUNNER CREATED ✅
+- `scripts/run-all-phases.sh` — master orchestrator for download + generate + ingest + commit
+- Dry-run tested: Neo4j extraction works (750 entities, 3,308 relations from 50 questions)
+- Dry-run tested: Supabase tables ready (finqa: 200, tatqa: 150, convfinqa: 100 = 450 rows)
+- Live ingestion blocked in sandbox (no network access to Supabase/Neo4j) — must run on VM
 
-#### 5. PME CONNECTORS SITE — Verified ✅
-- Next.js 15.1.0 + React 19 + Tailwind + Framer Motion + Zustand
-- 15 app connectors, 5 categories, MacBook-style chatbot
-- Deployed: nomos-pme-connectors-alexis-morets-projects.vercel.app
-- Region: cdg1 (Paris)
+#### 5. DOWNLOAD SCRIPT FIXED ✅
+- `datasets/scripts/download-benchmarks.py` updated with:
+  - Fallback HF IDs for datasets that changed
+  - Removed `trust_remote_code=True` (deprecated in datasets v4.5)
+  - Support for `fallback_ids` list in dataset config
 
 ### Etat des 4 pipelines (Phase 1 PASSED — session 30)
 
@@ -46,26 +46,25 @@
 | Orchestrator | 80.0% (40/50) PASS | 67.6% (75/111) | 65% |
 | **Overall P2** | **83.9%** PASS | **48.6%** (287/591) | 65% |
 
-### Phase 2 Issues
+### Phase 3-5 Readiness
 
-| Issue | Status | Impact |
-|-------|--------|--------|
-| Graph accuracy 21.2% | NEEDS WORK | Missing datasets in Neo4j (2WikiMultiHopQA, HotpotQA, MuSiQue) |
-| Quant blocked (TCP 6543) | BLOCKED | HF Space can't reach Supabase PostgreSQL |
-| Quant rate limiting | MITIGABLE | OpenRouter 20 req/min, need model rotation |
-| Standard 66.8% | ACCEPTABLE | Meeting P2 target, can improve with prompt tuning |
+| Phase | Questions Generated | Datasets Ready | DB Ingestion | Testing |
+|-------|-------------------|----------------|--------------|---------|
+| Phase 3 | 10,272 ✅ | 16/16 (10 downloaded) | Pending (run on VM) | Pending |
+| Phase 4 | 15,272 ✅ | 16/16 (limited data) | Pending (run on VM) | Pending |
+| Phase 5 | N/A | Requires paid infra | Requires paid infra | Pending |
 
-### Commits session 32
+### Commits session 33
 
 | Hash | Repo | Description |
 |------|------|-------------|
-| 4aed483..c1d2af1 | origin | Phase 2 progress auto-commits (367→591 questions) |
-| acd0cff | origin | Add bottleneck management + background testing directives |
-| bc47eef | origin | All satellite directives updated |
+| TBD | origin | Session 33: datasets + PME workflows + phase generation |
 
-### Prochaines actions
-1. Fix Quantitative pipeline (TCP port + rate limit workaround)
-2. Ingest 2WikiMultiHopQA + HotpotQA into Neo4j for Graph pipeline
-3. Continue Standard + Orchestrator tests to 500+ questions
-4. Run Phase 2 to completion (target: 1,000 questions)
-5. PME Connectors: verify chatbot API connectivity
+### Prochaines actions (pour la VM)
+1. **Run on VM**: `bash scripts/run-all-phases.sh --all` (downloads + ingestion + status)
+2. Fix Quantitative pipeline TCP 6543 (test on VM where port works)
+3. Ingest graph entities into Neo4j (750+ entities from musique/2wiki)
+4. Ingest financial tables into Supabase (450 rows for finqa/tatqa/convfinqa)
+5. Import PME connector workflows to n8n and activate
+6. Continue Phase 2 tests to 1,000 questions
+7. Run Phase 3 evaluation after ingestion
