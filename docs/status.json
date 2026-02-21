@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-21T17:23:47+01:00",
+  "generated_at": "2026-02-21T17:34:09+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -54,29 +54,29 @@
     "id": "iter-2026-02-21T16-29-18",
     "label": "Phase2-v8-WiderRescue-ExpandedCtx",
     "timestamp": "2026-02-21T16:29:19+01:00",
-    "total_tested": 240,
-    "overall_accuracy_pct": 49.6,
+    "total_tested": 302,
+    "overall_accuracy_pct": 53.0,
     "pipelines": {
       "quantitative": {
-        "tested": 82,
-        "correct": 29,
-        "accuracy": 35.4
+        "tested": 103,
+        "correct": 40,
+        "accuracy": 38.8
       },
       "graph": {
-        "tested": 90,
-        "correct": 33,
-        "accuracy": 36.7
+        "tested": 115,
+        "correct": 48,
+        "accuracy": 41.7
       },
       "standard": {
-        "tested": 68,
-        "correct": 57,
-        "accuracy": 83.8
+        "tested": 84,
+        "correct": 72,
+        "accuracy": 85.7
       }
     }
   },
   "totals": {
-    "unique_questions": 1200,
-    "test_runs": 3761,
+    "unique_questions": 1203,
+    "test_runs": 3823,
     "iterations": 447
   }
 }
