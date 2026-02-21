@@ -326,102 +326,211 @@ def extract_pipeline_details(response_data, rag_type):
     return {"rag_type": rag_type, "response_keys": list(response_data.keys())}
 
 
+def _embed_graph_context(question_text, context_str):
+    """Embed graph context into question text, handling ALL known formats.
+
+    Supported formats (FIX-39h — permanent fix):
+      - musique/hotpotqa: [{"title":..., "paragraph_text":...}]
+      - 2wikimultihopqa: {"title": [...], "sentences": [[...],...]}
+      - plain text context
+    """
+    if not context_str or len(context_str) < 50:
+        return question_text
+
+    ctx = context_str.strip()
+    ctx_text = ""
+
+    try:
+        # Format 1: Array of objects — musique, hotpotqa
+        if ctx.startswith('['):
+            paragraphs = json.loads(ctx)
+            parts = []
+            for p in paragraphs[:15]:
+                if isinstance(p, dict):
+                    title = p.get("title", "")
+                    text = p.get("paragraph_text", p.get("text", ""))
+                    if title and text:
+                        parts.append(f"[{title}] {text}")
+                    elif text:
+                        parts.append(text)
+            ctx_text = "\n".join(parts)
+
+        # Format 2: Dict with title+sentences — 2wikimultihopqa (FIX-39h)
+        elif ctx.startswith('{'):
+            parsed = json.loads(ctx)
+            if isinstance(parsed, dict):
+                titles = parsed.get("title", [])
+                sentences = parsed.get("sentences", [])
+                parts = []
+                for i, title in enumerate(titles):
+                    if i < len(sentences):
+                        sents = sentences[i]
+                        if isinstance(sents, list):
+                            text = " ".join(str(s) for s in sents)
+                        else:
+                            text = str(sents)
+                        parts.append(f"[{title}] {text}")
+                    else:
+                        parts.append(f"[{title}]")
+                ctx_text = "\n".join(parts)
+
+        # Format 3: Plain text
+        else:
+            ctx_text = ctx
+
+    except (json.JSONDecodeError, TypeError, KeyError):
+        # Fallback: use raw context as-is
+        ctx_text = ctx
+
+    if ctx_text:
+        return f"{question_text}\n\nReference context:\n{ctx_text[:6000]}"
+    return question_text
+
+
+def _embed_quant_context(question_text, context_str, table_data):
+    """Embed quantitative context + table into question text (FIX-39).
+
+    Handles table_data as: str (JSON), list, dict, or None.
+    """
+    if not context_str and not table_data:
+        return question_text
+
+    parts = [question_text]
+
+    if context_str and context_str.strip():
+        parts.append(f"\n\nContext:\n{context_str}")
+
+    if table_data:
+        if isinstance(table_data, str):
+            # Try to parse as JSON array-of-arrays for readable formatting
+            try:
+                parsed = json.loads(table_data)
+                if isinstance(parsed, list):
+                    lines = []
+                    for row in parsed:
+                        if isinstance(row, list):
+                            lines.append(" | ".join(str(cell) for cell in row))
+                        else:
+                            lines.append(str(row))
+                    table_str = "\n".join(lines)
+                else:
+                    table_str = table_data
+            except json.JSONDecodeError:
+                table_str = table_data
+        elif isinstance(table_data, list):
+            lines = []
+            for row in table_data:
+                if isinstance(row, list):
+                    lines.append(" | ".join(str(cell) for cell in row))
+                elif isinstance(row, dict):
+                    lines.append(" | ".join(f"{k}: {v}" for k, v in row.items()))
+                else:
+                    lines.append(str(row))
+            table_str = "\n".join(lines)
+        else:
+            table_str = json.dumps(table_data)
+        parts.append(f"\n\nTable data:\n{table_str}")
+
+    return "".join(parts)
+
+
+def _load_dataset_file(filepath, questions, embed_context=False):
+    """Load questions from a single dataset file.
+
+    Args:
+        filepath: Path to JSON dataset file
+        questions: defaultdict(list) to append to
+        embed_context: If True, embed context/table into question text
+    """
+    if not os.path.exists(filepath):
+        print(f"  WARNING: Dataset file not found: {filepath}")
+        return 0
+
+    with open(filepath) as f:
+        data = json.load(f)
+
+    loaded = 0
+    skipped = 0
+    for q in data.get("questions", []):
+        rag_target = q.get("rag_target", "unknown")
+        if rag_target not in ("standard", "graph", "quantitative", "orchestrator"):
+            skipped += 1
+            continue
+
+        question_text = q.get("question", "")
+        if not question_text.strip():
+            skipped += 1
+            continue
+
+        # Embed context for rich datasets (Phase 2 HF questions)
+        if embed_context:
+            if rag_target == "quantitative":
+                question_text = _embed_quant_context(
+                    question_text,
+                    q.get("context", ""),
+                    q.get("table_data")
+                )
+            elif rag_target == "graph":
+                question_text = _embed_graph_context(
+                    question_text,
+                    q.get("context", "")
+                )
+
+        questions[rag_target].append({
+            "id": q["id"],
+            "question": question_text,
+            "expected": q.get("expected_answer", ""),
+            "rag_type": rag_target,
+        })
+        loaded += 1
+
+    print(f"  Loaded {loaded} questions from {os.path.basename(filepath)}"
+          + (f" (skipped {skipped})" if skipped else ""))
+    return loaded
+
+
 def load_questions(include_1000=False, dataset="phase-1"):
+    """Load questions from specified dataset files.
+
+    Handles ALL known context formats for graph and quantitative questions.
+    Context is embedded into question text for Phase 2 (HF datasets have rich context).
+    Phase 1 questions are simple knowledge questions (no context needed).
     """
-    Loads questions from specified dataset files.
-    """
-    questions = defaultdict(list) # Use defaultdict for easier appending
+    questions = defaultdict(list)
 
     if dataset == "phase-1":
-        phase1_files = [
+        _load_dataset_file(
             os.path.join(DATASETS_DIR, "phase-1", "standard-orch-50x2.json"),
+            questions, embed_context=False)
+        _load_dataset_file(
             os.path.join(DATASETS_DIR, "phase-1", "graph-quant-50x2.json"),
-        ]
-        
-        for pf in phase1_files:
-            if os.path.exists(pf):
-                with open(pf) as f:
-                    data = json.load(f)
-                    for q in data.get("questions", []):
-                        # Use 'rag_target' to group questions
-                        rag_target = q.get("rag_target", "unknown")
-                        questions[rag_target].append({
-                            "id": q["id"],
-                            "question": q["question"],
-                            "expected": q["expected_answer"], # Use expected_answer
-                            "rag_type": rag_target # Store for later use
-                        })
-            else:
-                print(f"Warning: Dataset file not found: {pf}")
+            questions, embed_context=False)
 
     elif dataset == "phase-2":
-        phase2_files = [
+        # HF-1000: graph + quantitative with rich context
+        _load_dataset_file(
             os.path.join(DATASETS_DIR, "phase-2", "hf-1000.json"),
+            questions, embed_context=True)
+        # Standard + orchestrator: knowledge questions (no context)
+        _load_dataset_file(
             os.path.join(DATASETS_DIR, "phase-2", "standard-orch-1000x2.json"),
-        ]
-        for phase2_file in phase2_files:
-            if os.path.exists(phase2_file):
-                with open(phase2_file) as f:
-                    data = json.load(f)
-                    for q in data.get("questions", []):
-                        rag_target = q.get("rag_target", "unknown")
-                        # For quantitative questions, embed context + table_data
-                        # in the question text so the context reasoning branch
-                        # has data to compute from (FIX-39)
-                        question_text = q["question"]
-                        if rag_target == "quantitative":
-                            ctx = q.get("context", "")
-                            table = q.get("table_data")
-                            if table or ctx:
-                                parts = [question_text]
-                                if ctx and ctx.strip():
-                                    parts.append(f"\n\nContext:\n{ctx}")
-                                if table:
-                                    import json as _json
-                                    table_str = _json.dumps(table) if not isinstance(table, str) else table
-                                    parts.append(f"\n\nTable data:\n{table_str}")
-                                question_text = "".join(parts)
-                        # For graph questions, embed compact context paragraphs (FIX-39d)
-                        # so the pipeline has fallback data when Neo4j traversal fails
-                        if rag_target == "graph":
-                            ctx = q.get("context", "")
-                            if ctx and len(ctx) > 50:
-                                # Parse JSON context if needed
-                                import json as _json
-                                try:
-                                    paragraphs = _json.loads(ctx) if ctx.startswith('[') else []
-                                    # Extract relevant paragraphs (first 6000 chars, up to 15 paragraphs)
-                                    ctx_text = ""
-                                    for p in paragraphs[:15]:
-                                        if isinstance(p, dict):
-                                            title = p.get("title", "")
-                                            text = p.get("paragraph_text", "")
-                                            ctx_text += f"\n[{title}] {text}"
-                                    if ctx_text:
-                                        question_text = f"{question_text}\n\nReference context:{ctx_text[:6000]}"
-                                except:
-                                    # Plain text context
-                                    question_text = f"{question_text}\n\nReference context:\n{ctx[:6000]}"
-                        questions[rag_target].append({
-                            "id": q["id"],
-                            "question": question_text,
-                            "expected": q["expected_answer"],
-                            "rag_type": rag_target
-                        })
-                print(f"  Loaded {len(data.get('questions', []))} questions from {os.path.basename(phase2_file)}")
-            else:
-                print(f"Warning: Dataset file not found: {phase2_file}")
-    
-    # Handle "all" dataset explicitly
-    if dataset == "all":
-        # Recursively call for phase-1 and phase-2 and merge
+            questions, embed_context=False)
+
+    elif dataset == "all":
         phase1_q = load_questions(dataset="phase-1")
         phase2_q = load_questions(dataset="phase-2")
-        
         for p_type, q_list in phase1_q.items():
-            questions.setdefault(p_type, []).extend(q_list)
+            questions[p_type].extend(q_list)
         for p_type, q_list in phase2_q.items():
-            questions.setdefault(p_type, []).extend(q_list)
+            questions[p_type].extend(q_list)
+
+    # Log data quality summary
+    total = sum(len(v) for v in questions.values())
+    print(f"  Total: {total} questions across {len(questions)} pipelines")
+    for pipe, qs in sorted(questions.items()):
+        ctx_count = sum(1 for q in qs if "\n\nReference context:" in q["question"]
+                        or "\n\nContext:\n" in q["question"])
+        print(f"    {pipe}: {len(qs)} questions ({ctx_count} with embedded context)")
 
     return questions
 

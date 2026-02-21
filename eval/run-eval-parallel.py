@@ -394,6 +394,24 @@ def main():
     requested_types = [t.strip() for t in args.types.split(",")]
     dataset_label = args.dataset or ("phase-1+2" if args.include_1000 else "phase-1")
 
+    # PRE-FLIGHT: Validate datasets before running (FIX-39h — permanent data guard)
+    try:
+        from preflight import run_preflight
+        print("\n  Running pre-flight checks...")
+        pf_ok, pf_issues, pf_warnings = run_preflight(
+            dataset=args.dataset, quick=True)
+        if not pf_ok and not args.force:
+            print("  PRE-FLIGHT FAILED — fix data issues before running eval.")
+            for issue in pf_issues[:5]:
+                print(f"    [BLOCK] {issue}")
+            print("  Use --force to skip pre-flight checks.")
+            sys.exit(1)
+        if pf_warnings:
+            for w in pf_warnings[:3]:
+                print(f"    [WARN] {w}")
+    except ImportError:
+        print("  WARN: preflight.py not found — skipping data validation")
+
     # Phase gate enforcement for Phase 2+
     if args.dataset and args.dataset != "phase-1":
         try:
