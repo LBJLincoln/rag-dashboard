@@ -1,12 +1,12 @@
 {
   "meta": {
-    "generated_at": "2026-02-21T02:20:31+01:00",
+    "generated_at": "2026-02-21T02:20:42+01:00",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
-    "total_unique_questions": 751,
-    "total_test_runs": 1528,
-    "total_iterations": 256,
+    "total_unique_questions": 754,
+    "total_test_runs": 1531,
+    "total_iterations": 257,
     "status": "running",
     "current_session": "2026-02-21T02-17-35"
   },
@@ -27070,6 +27070,79 @@
           "error": null,
           "error_type": null,
           "timestamp": "2026-02-21T02:20:30+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-39-47",
+      "number": 257,
+      "timestamp_start": "2026-02-21T02:20:32+01:00",
+      "timestamp_end": "2026-02-21T02:20:42+01:00",
+      "label": "Iteration 257",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 2,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 10087,
+          "p95_latency_ms": 10494,
+          "avg_f1": 0
+        },
+        "graph": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 13305,
+          "p95_latency_ms": 13305,
+          "avg_f1": 1.0
+        }
+      },
+      "total_tested": 3,
+      "total_correct": 1,
+      "overall_accuracy_pct": 33.3,
+      "questions": [
+        {
+          "id": "std-235",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10494,
+          "answer": "Władysław Sławny's occupation is not mentioned in the provided context.",
+          "expected": "photographer",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:20:32+01:00"
+        },
+        {
+          "id": "graph-2wikimultihopqa-15",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 13305,
+          "answer": "Yes",
+          "expected": "yes",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:20:39+01:00"
+        },
+        {
+          "id": "std-236",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9681,
+          "answer": "Pierre Chatenet's occupation is not mentioned in the provided context.",
+          "expected": "politician",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:20:42+01:00"
         }
       ]
     }
@@ -59679,6 +59752,99 @@
       "last_tested": "2026-02-21T02:20:30+01:00",
       "best_f1": 0.0,
       "trend": "stable"
+    },
+    "std-235": {
+      "id": "std-235",
+      "question": "What is Władysław Sławny's occupation?",
+      "expected": "photographer",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 257,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10494,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Władysław Sławny's occupation is not mentioned in the provided context.",
+          "timestamp": "2026-02-21T02:20:32+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:20:32+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-2wikimultihopqa-15": {
+      "id": "graph-2wikimultihopqa-15",
+      "question": "Do both directors of films Dangerous To Know and Les Côtelettes have the same nationality?",
+      "expected": "yes",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 257,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 13305,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Yes",
+          "timestamp": "2026-02-21T02:20:39+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:20:39+01:00",
+      "best_f1": 1.0,
+      "trend": "stable"
+    },
+    "std-236": {
+      "id": "std-236",
+      "question": "What is Pierre Chatenet's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 257,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9681,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Pierre Chatenet's occupation is not mentioned in the provided context.",
+          "timestamp": "2026-02-21T02:20:42+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:20:42+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
     }
   },
   "quick_tests": [
@@ -60184,56 +60350,6 @@
     }
   ],
   "execution_logs": [
-    {
-      "timestamp": "2026-02-21T01:57:01+01:00",
-      "question_id": "std-147",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 13308,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Nathan Purdee is an actor.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:57:07+01:00",
-      "question_id": "graph-musique-141",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 48431,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Science Fiction and Fantasy Writers of America",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:57:12+01:00",
-      "question_id": "std-148",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 10596,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Joseph Weydemeyer was a military officer, journalist, and politician who served as a Union Army offi",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
     {
       "timestamp": "2026-02-21T01:57:21+01:00",
       "question_id": "graph-musique-142",
@@ -63528,6 +63644,56 @@
       "pipeline_details_summary": {
         "sub_pipelines": [],
         "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:20:32+01:00",
+      "question_id": "std-235",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 10494,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Władysław Sławny's occupation is not mentioned in the provided context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:20:39+01:00",
+      "question_id": "graph-2wikimultihopqa-15",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 13305,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Yes",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:20:42+01:00",
+      "question_id": "std-236",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 9681,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Pierre Chatenet's occupation is not mentioned in the provided context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
       }
     }
   ],
