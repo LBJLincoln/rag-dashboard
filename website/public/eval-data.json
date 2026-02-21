@@ -1,12 +1,12 @@
 {
   "meta": {
-    "generated_at": "2026-02-21T01:35:02+01:00",
+    "generated_at": "2026-02-21T01:35:33+01:00",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
-    "total_unique_questions": 310,
-    "total_test_runs": 1042,
-    "total_iterations": 56,
+    "total_unique_questions": 313,
+    "total_test_runs": 1045,
+    "total_iterations": 58,
     "status": "running",
     "current_session": "2026-02-21T01-33-20"
   },
@@ -15164,22 +15164,22 @@
       "id": "iter-2026-02-21T01-27-09",
       "number": 56,
       "timestamp_start": "2026-02-21T01:35:02+01:00",
-      "timestamp_end": "2026-02-21T01:35:02+01:00",
+      "timestamp_end": "2026-02-21T01:35:23+01:00",
       "label": "Iteration 56",
       "description": "",
       "changes_applied": [],
       "results_summary": {
         "graph": {
-          "tested": 1,
+          "tested": 2,
           "correct": 0,
           "errors": 0,
           "accuracy_pct": 0.0,
-          "avg_latency_ms": 12375,
-          "p95_latency_ms": 12375,
+          "avg_latency_ms": 16930,
+          "p95_latency_ms": 21485,
           "avg_f1": 0
         }
       },
-      "total_tested": 1,
+      "total_tested": 2,
       "total_correct": 0,
       "overall_accuracy_pct": 0.0,
       "questions": [
@@ -15195,6 +15195,95 @@
           "error": null,
           "error_type": null,
           "timestamp": "2026-02-21T01:35:02+01:00"
+        },
+        {
+          "id": "graph-musique-46",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 21485,
+          "answer": "Aleksei Saltykov",
+          "expected": "Chen Zheng",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:35:23+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-33-20",
+      "number": 57,
+      "timestamp_start": "2026-02-21T01:35:26+01:00",
+      "timestamp_end": "2026-02-21T01:35:26+01:00",
+      "label": "Iteration 57",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 27717,
+          "p95_latency_ms": 27717,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "orch-8",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 27717,
+          "answer": "Mammals produce milk to feed their young, which differentiates them from other animal families.\n\n---\n**Sources:**\n[1] triviaqa (44%)\n[2] strategyqa (38%)\n[3] musique (35%)\n[4] hotpotqa (33%)\n[5] squad (27%)",
+          "expected": "Milk",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:35:26+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 58,
+      "timestamp_start": "2026-02-21T01:35:33+01:00",
+      "timestamp_end": "2026-02-21T01:35:33+01:00",
+      "label": "Iteration 58",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 44013,
+          "p95_latency_ms": 44013,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "p2-std-46",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 44013,
+          "answer": "The reptile with only two species, one in the Mississippi and one in China, is the alligator.",
+          "expected": "Alligator",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:35:33+01:00"
         }
       ]
     }
@@ -33593,6 +33682,99 @@
       "last_tested": "2026-02-21T01:35:02+01:00",
       "best_f1": 0.0,
       "trend": "stable"
+    },
+    "graph-musique-46": {
+      "id": "graph-musique-46",
+      "question": "Who led the military expedition to where now Min dialects are spoken on border with Zhejiang?",
+      "expected": "Chen Zheng",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 56,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 21485,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Aleksei Saltykov",
+          "timestamp": "2026-02-21T01:35:23+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:35:23+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "orch-8": {
+      "id": "orch-8",
+      "question": "Apart from being warm blooded and giving birth to live young, what do mammals produce to differentiate them from other families of animals?",
+      "expected": "Milk",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-33-20",
+          "iteration_number": 57,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 27717,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Mammals produce milk to feed their young, which differentiates them from other animal families.\n\n---\n**Sources:**\n[1] triviaqa (44%)\n[2] strategyqa (38%)\n[3] musique (35%)\n[4] hotpotqa (33%)\n[5] squad (27%)",
+          "timestamp": "2026-02-21T01:35:26+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:35:26+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "p2-std-46": {
+      "id": "p2-std-46",
+      "question": "Of which reptile are there only two species, one living in the Mississippi and the other in China?",
+      "expected": "Alligator",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 58,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 44013,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The reptile with only two species, one in the Mississippi and one in China, is the alligator.",
+          "timestamp": "2026-02-21T01:35:33+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:35:33+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
     }
   },
   "quick_tests": [
@@ -34098,54 +34280,6 @@
     }
   ],
   "execution_logs": [
-    {
-      "timestamp": "2026-02-16T03:00:46.368054Z",
-      "question_id": "orch-04",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 95989,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The Q4 2023 revenue for GreenEnergy Corp is $1,021,500,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-16T03:04:15.624401Z",
-      "question_id": "orch-05",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 200494,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Stephen Hawking, Rosalind Franklin, Charles Darwin, James Watson, Francis Crick, Alan Turing\n\n---\n**",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-16T03:06:13.603813Z",
-      "question_id": "orch-06",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 107485,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The capital city of France is Paris.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
     {
       "timestamp": "2026-02-16T03:08:13.362985Z",
       "question_id": "orch-07",
@@ -37488,6 +37622,56 @@
         "neo4j_paths": 0,
         "traversal_depth": 0,
         "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:35:23+01:00",
+      "question_id": "graph-musique-46",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 21485,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Aleksei Saltykov",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:35:26+01:00",
+      "question_id": "orch-8",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 27717,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Mammals produce milk to feed their young, which differentiates them from other animal families.\n\n---",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:35:33+01:00",
+      "question_id": "p2-std-46",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 44013,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The reptile with only two species, one in the Mississippi and one in China, is the alligator.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
       }
     }
   ],
