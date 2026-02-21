@@ -1,12 +1,12 @@
 {
   "meta": {
-    "generated_at": "2026-02-21T02:19:05+01:00",
+    "generated_at": "2026-02-21T02:20:31+01:00",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
-    "total_unique_questions": 733,
-    "total_test_runs": 1510,
-    "total_iterations": 246,
+    "total_unique_questions": 751,
+    "total_test_runs": 1528,
+    "total_iterations": 256,
     "status": "running",
     "current_session": "2026-02-21T02-17-35"
   },
@@ -26559,6 +26559,517 @@
           "error": null,
           "error_type": null,
           "timestamp": "2026-02-21T02:19:05+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-39-47",
+      "number": 247,
+      "timestamp_start": "2026-02-21T02:19:08+01:00",
+      "timestamp_end": "2026-02-21T02:19:18+01:00",
+      "label": "Iteration 247",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 2,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 50.0,
+          "avg_latency_ms": 9452,
+          "p95_latency_ms": 10004,
+          "avg_f1": 0.9
+        },
+        "graph": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 133085,
+          "p95_latency_ms": 133085,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 3,
+      "total_correct": 1,
+      "overall_accuracy_pct": 33.3,
+      "questions": [
+        {
+          "id": "std-226",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8901,
+          "answer": "Bill Kintner is a politician who served as a member of the Nebraska Legislature.",
+          "expected": "politician",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:19:08+01:00"
+        },
+        {
+          "id": "graph-2wikimultihopqa-11",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 133085,
+          "answer": "No information available.",
+          "expected": "Yi Jiang",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:19:18+01:00"
+        },
+        {
+          "id": "std-227",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10004,
+          "answer": "Based on the provided context, there is no information about Francesco Vettori's occupation. The documents discuss various topics like historical figures, geography, art, and politics, but do not mention Francesco Vettori or his occupation.",
+          "expected": "diplomat",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:19:18+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T02-17-35",
+      "number": 248,
+      "timestamp_start": "2026-02-21T02:19:18+01:00",
+      "timestamp_end": "2026-02-21T02:19:18+01:00",
+      "label": "Iteration 248",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 11869,
+          "p95_latency_ms": 11869,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "orch-86",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11869,
+          "answer": "Lillian Lawrence's occupation is not mentioned in the provided context.\n\n---\n**Sources:**\n[1] wikihop (44%)\n[2] gsm8k (26%)",
+          "expected": "actor",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:19:18+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-39-47",
+      "number": 249,
+      "timestamp_start": "2026-02-21T02:19:28+01:00",
+      "timestamp_end": "2026-02-21T02:19:41+01:00",
+      "label": "Iteration 249",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 2,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 11047,
+          "p95_latency_ms": 12094,
+          "avg_f1": 0
+        },
+        "standard": {
+          "tested": 2,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 11015,
+          "p95_latency_ms": 11118,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 4,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "graph-2wikimultihopqa-12",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10000,
+          "answer": "The Face Of Fu Manchu",
+          "expected": "The Hidden One",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:19:28+01:00"
+        },
+        {
+          "id": "std-228",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10913,
+          "answer": "Melinda Mullins's occupation is not mentioned in the provided context.",
+          "expected": "actor",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:19:29+01:00"
+        },
+        {
+          "id": "graph-2wikimultihopqa-13",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12094,
+          "answer": "No",
+          "expected": "New Brunswick, New Jersey",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:19:40+01:00"
+        },
+        {
+          "id": "std-229",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11118,
+          "answer": "Tachibana no Moroe was a Japanese noble and statesman who served as a minister during the Nara period.",
+          "expected": "poet",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:19:41+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T02-17-35",
+      "number": 250,
+      "timestamp_start": "2026-02-21T02:19:45+01:00",
+      "timestamp_end": "2026-02-21T02:19:45+01:00",
+      "label": "Iteration 250",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 25418,
+          "p95_latency_ms": 25418,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "orch-87",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 25418,
+          "answer": "Based on the provided context, there is no information about Philip Rosenberg's occupation. The documents only contain math problems about Maria reading books and a question about the author of Jurassic Park.\n\n---\n**Sources:**\n[1] musique (39%)\n[2] gsm8k (35%)",
+          "expected": "production designer",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:19:45+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-39-47",
+      "number": 251,
+      "timestamp_start": "2026-02-21T02:19:49+01:00",
+      "timestamp_end": "2026-02-21T02:19:49+01:00",
+      "label": "Iteration 251",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 8644,
+          "p95_latency_ms": 8644,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "std-230",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 8644,
+          "answer": "Susan Kent's occupation is not mentioned in the provided context.",
+          "expected": "actor",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:19:49+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T02-17-35",
+      "number": 252,
+      "timestamp_start": "2026-02-21T02:19:56+01:00",
+      "timestamp_end": "2026-02-21T02:19:56+01:00",
+      "label": "Iteration 252",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 9679,
+          "p95_latency_ms": 9679,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "orch-88",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 9679,
+          "answer": "Sudarshan Faakir is a poet and lyricist.\n\n---\n**Sources:**\n[1] spider2 (42%)\n[2] bigbench_hard (38%)\n[3] triviaqa (35%)\n[4] musique (31%)",
+          "expected": "lyricist",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:19:56+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-39-47",
+      "number": 253,
+      "timestamp_start": "2026-02-21T02:19:58+01:00",
+      "timestamp_end": "2026-02-21T02:20:11+01:00",
+      "label": "Iteration 253",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 3,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 33.3,
+          "avg_latency_ms": 7025,
+          "p95_latency_ms": 8055,
+          "avg_f1": 0.5409
+        }
+      },
+      "total_tested": 3,
+      "total_correct": 1,
+      "overall_accuracy_pct": 33.3,
+      "questions": [
+        {
+          "id": "std-231",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8055,
+          "answer": "Meyer Lutz was a composer.",
+          "expected": "composer",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:19:58+01:00"
+        },
+        {
+          "id": "std-232",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 6827,
+          "answer": "Based on the provided context, Ludwig Lichtschein's occupation is not mentioned or discussed in any of the given documents.",
+          "expected": "rabbi",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:20:05+01:00"
+        },
+        {
+          "id": "std-233",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.1818,
+          "latency_ms": 6194,
+          "answer": "Will Smith is an actor, rapper, and film producer.",
+          "expected": "record producer",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:20:11+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T02-17-35",
+      "number": 254,
+      "timestamp_start": "2026-02-21T02:20:19+01:00",
+      "timestamp_end": "2026-02-21T02:20:19+01:00",
+      "label": "Iteration 254",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 22319,
+          "p95_latency_ms": 22319,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "orch-89",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 22319,
+          "answer": "Shonali Bose is a film director.\n\n---\n**Sources:**\n[1] Code_Commerce (38%)\n[2] spider2 (35%)\n[3] french_business (31%)\n[4] musique (29%)\n[5] tabfact (22%)",
+          "expected": "film director",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:20:19+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-39-47",
+      "number": 255,
+      "timestamp_start": "2026-02-21T02:20:22+01:00",
+      "timestamp_end": "2026-02-21T02:20:26+01:00",
+      "label": "Iteration 255",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 10221,
+          "p95_latency_ms": 10221,
+          "avg_f1": 0.9
+        },
+        "graph": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 44842,
+          "p95_latency_ms": 44842,
+          "avg_f1": 1.0
+        }
+      },
+      "total_tested": 2,
+      "total_correct": 2,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "std-234",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 10221,
+          "answer": "Marjorie Margolies-Mezvinsky is a former U.S. Representative and journalist.",
+          "expected": "journalist",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:20:22+01:00"
+        },
+        {
+          "id": "graph-2wikimultihopqa-14",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 44842,
+          "answer": "The Great Flamarion",
+          "expected": "The Great Flamarion",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:20:26+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T02-17-35",
+      "number": 256,
+      "timestamp_start": "2026-02-21T02:20:30+01:00",
+      "timestamp_end": "2026-02-21T02:20:30+01:00",
+      "label": "Iteration 256",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 10114,
+          "p95_latency_ms": 10114,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "orch-90",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10114,
+          "answer": "Bruce Cockburn is a Canadian singer-songwriter and guitarist.\n\n---\n**Sources:**\n[1] strategyqa (41%)\n[2] webhook_raw (35%)\n[3] wikihop (29%)",
+          "expected": "composer",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:20:30+01:00"
         }
       ]
     }
@@ -58610,6 +59121,564 @@
       "last_tested": "2026-02-21T02:19:05+01:00",
       "best_f1": 0.0,
       "trend": "stable"
+    },
+    "std-226": {
+      "id": "std-226",
+      "question": "What is Bill Kintner's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 247,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8901,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Bill Kintner is a politician who served as a member of the Nebraska Legislature.",
+          "timestamp": "2026-02-21T02:19:08+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:19:08+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-2wikimultihopqa-11": {
+      "id": "graph-2wikimultihopqa-11",
+      "question": "Who is the paternal grandmother of King Kang Of Zhou?",
+      "expected": "Yi Jiang",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 247,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 133085,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No information available.",
+          "timestamp": "2026-02-21T02:19:18+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:19:18+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-227": {
+      "id": "std-227",
+      "question": "What is Francesco Vettori's occupation?",
+      "expected": "diplomat",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 247,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10004,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the provided context, there is no information about Francesco Vettori's occupation. The documents discuss various topics like historical figures, geography, art, and politics, but do not mention Francesco Vettori or his occupation.",
+          "timestamp": "2026-02-21T02:19:18+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:19:18+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "orch-86": {
+      "id": "orch-86",
+      "question": "What is Lillian Lawrence's occupation?",
+      "expected": "actor",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 248,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11869,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Lillian Lawrence's occupation is not mentioned in the provided context.\n\n---\n**Sources:**\n[1] wikihop (44%)\n[2] gsm8k (26%)",
+          "timestamp": "2026-02-21T02:19:18+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:19:18+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-2wikimultihopqa-12": {
+      "id": "graph-2wikimultihopqa-12",
+      "question": "Which film has the director who died first, The Face Of Fu Manchu or The Hidden One?",
+      "expected": "The Hidden One",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 249,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10000,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The Face Of Fu Manchu",
+          "timestamp": "2026-02-21T02:19:28+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:19:28+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-228": {
+      "id": "std-228",
+      "question": "What is Melinda Mullins's occupation?",
+      "expected": "actor",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 249,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10913,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Melinda Mullins's occupation is not mentioned in the provided context.",
+          "timestamp": "2026-02-21T02:19:29+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:19:29+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-2wikimultihopqa-13": {
+      "id": "graph-2wikimultihopqa-13",
+      "question": "What is the place of birth of the director of film Double Or Nothing (1940 Film)?",
+      "expected": "New Brunswick, New Jersey",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 249,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12094,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No",
+          "timestamp": "2026-02-21T02:19:40+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:19:40+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-229": {
+      "id": "std-229",
+      "question": "What is Tachibana no Moroe's occupation?",
+      "expected": "poet",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 249,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11118,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Tachibana no Moroe was a Japanese noble and statesman who served as a minister during the Nara period.",
+          "timestamp": "2026-02-21T02:19:41+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:19:41+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "orch-87": {
+      "id": "orch-87",
+      "question": "What is Philip Rosenberg's occupation?",
+      "expected": "production designer",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 250,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 25418,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the provided context, there is no information about Philip Rosenberg's occupation. The documents only contain math problems about Maria reading books and a question about the author of Jurassic Park.\n\n---\n**Sources:**\n[1] musique (39%)\n[2] gsm8k (35%)",
+          "timestamp": "2026-02-21T02:19:45+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:19:45+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-230": {
+      "id": "std-230",
+      "question": "What is Susan Kent's occupation?",
+      "expected": "actor",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 251,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 8644,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Susan Kent's occupation is not mentioned in the provided context.",
+          "timestamp": "2026-02-21T02:19:49+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:19:49+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "orch-88": {
+      "id": "orch-88",
+      "question": "What is Sudarshan Faakir's occupation?",
+      "expected": "lyricist",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 252,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 9679,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Sudarshan Faakir is a poet and lyricist.\n\n---\n**Sources:**\n[1] spider2 (42%)\n[2] bigbench_hard (38%)\n[3] triviaqa (35%)\n[4] musique (31%)",
+          "timestamp": "2026-02-21T02:19:56+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:19:56+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-231": {
+      "id": "std-231",
+      "question": "What is Meyer Lutz's occupation?",
+      "expected": "composer",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 253,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8055,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Meyer Lutz was a composer.",
+          "timestamp": "2026-02-21T02:19:58+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:19:58+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-232": {
+      "id": "std-232",
+      "question": "What is Ludwig Lichtschein's occupation?",
+      "expected": "rabbi",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 253,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 6827,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the provided context, Ludwig Lichtschein's occupation is not mentioned or discussed in any of the given documents.",
+          "timestamp": "2026-02-21T02:20:05+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:20:05+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-233": {
+      "id": "std-233",
+      "question": "What is Will Smith's occupation?",
+      "expected": "record producer",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 253,
+          "correct": false,
+          "f1": 0.1818,
+          "latency_ms": 6194,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Will Smith is an actor, rapper, and film producer.",
+          "timestamp": "2026-02-21T02:20:11+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:20:11+01:00",
+      "best_f1": 0.1818,
+      "trend": "stable"
+    },
+    "orch-89": {
+      "id": "orch-89",
+      "question": "What is Shonali Bose's occupation?",
+      "expected": "film director",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 254,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 22319,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Shonali Bose is a film director.\n\n---\n**Sources:**\n[1] Code_Commerce (38%)\n[2] spider2 (35%)\n[3] french_business (31%)\n[4] musique (29%)\n[5] tabfact (22%)",
+          "timestamp": "2026-02-21T02:20:19+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:20:19+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-234": {
+      "id": "std-234",
+      "question": "What is Marjorie Margolies-Mezvinsky's occupation?",
+      "expected": "journalist",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 255,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 10221,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Marjorie Margolies-Mezvinsky is a former U.S. Representative and journalist.",
+          "timestamp": "2026-02-21T02:20:22+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:20:22+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-2wikimultihopqa-14": {
+      "id": "graph-2wikimultihopqa-14",
+      "question": "Which film whose director was born first, The Great Flamarion or The Hollars?",
+      "expected": "The Great Flamarion",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 255,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 44842,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The Great Flamarion",
+          "timestamp": "2026-02-21T02:20:26+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:20:26+01:00",
+      "best_f1": 1.0,
+      "trend": "stable"
+    },
+    "orch-90": {
+      "id": "orch-90",
+      "question": "What is Bruce Cockburn's occupation?",
+      "expected": "composer",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 256,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10114,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Bruce Cockburn is a Canadian singer-songwriter and guitarist.\n\n---\n**Sources:**\n[1] strategyqa (41%)\n[2] webhook_raw (35%)\n[3] wikihop (29%)",
+          "timestamp": "2026-02-21T02:20:30+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:20:30+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
     }
   },
   "quick_tests": [
@@ -59115,272 +60184,6 @@
     }
   ],
   "execution_logs": [
-    {
-      "timestamp": "2026-02-21T01:55:18+01:00",
-      "question_id": "std-136",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 8350,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Thomas McMurtry is a test pilot.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:55:26+01:00",
-      "question_id": "graph-musique-136",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 14329,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Soundsigns",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:55:29+01:00",
-      "question_id": "std-137",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 10459,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Albert Bates is an author, permaculture instructor, and environmental activist.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:55:36+01:00",
-      "question_id": "graph-musique-137",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 9756,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Polydor Records",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:55:42+01:00",
-      "question_id": "std-138",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 12709,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Stevie Cameron is a Canadian investigative journalist and author.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:55:51+01:00",
-      "question_id": "std-139",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 8487,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Brendan Canty is a musician and filmmaker.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:55:56+01:00",
-      "question_id": "graph-musique-138",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 20012,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "PepsiCo",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:55:58+01:00",
-      "question_id": "std-140",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 6778,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Michael Arad is an architect and designer, best known for designing the World Trade Center Memorial ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:56:05+01:00",
-      "question_id": "std-141",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 7384,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Ole Krarup is a Danish politician and former Member of the European Parliament.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:56:08+01:00",
-      "question_id": "graph-musique-139",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 11450,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "QBB-95",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:56:14+01:00",
-      "question_id": "std-142",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 8443,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Boutheina Jabnoun's occupation is not mentioned in the provided context.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:56:18+01:00",
-      "question_id": "graph-musique-140",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 10630,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Robert's American Gourmet Food",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:56:21+01:00",
-      "question_id": "std-143",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 7053,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Tyler, the Creator is a rapper, singer, songwriter, record producer, music video director, and fashi",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:56:30+01:00",
-      "question_id": "std-144",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 8897,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Edwin E. Ellis's occupation is not mentioned in the provided context.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:56:41+01:00",
-      "question_id": "std-145",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.1538,
-      "latency_ms": 10616,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Muhammad Ali Luqman's occupation is not mentioned in the provided context.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:56:48+01:00",
-      "question_id": "std-146",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 6609,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Ivo Perilli's occupation is not mentioned in the provided context.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
     {
       "timestamp": "2026-02-21T01:57:01+01:00",
       "question_id": "std-147",
@@ -62459,6 +63262,268 @@
       "error_type": null,
       "error_preview": null,
       "answer_preview": "Gerard Kennedy's occupation is not mentioned in the provided contexts.\n\n---\n**Sources:**\n[1] triviaq",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:19:08+01:00",
+      "question_id": "std-226",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 8901,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Bill Kintner is a politician who served as a member of the Nebraska Legislature.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:19:18+01:00",
+      "question_id": "orch-86",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 11869,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Lillian Lawrence's occupation is not mentioned in the provided context.\n\n---\n**Sources:**\n[1] wikiho",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:19:28+01:00",
+      "question_id": "graph-2wikimultihopqa-12",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 10000,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The Face Of Fu Manchu",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:19:29+01:00",
+      "question_id": "std-228",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 10913,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Melinda Mullins's occupation is not mentioned in the provided context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:19:41+01:00",
+      "question_id": "graph-2wikimultihopqa-13",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 12094,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:19:41+01:00",
+      "question_id": "std-229",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 11118,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Tachibana no Moroe was a Japanese noble and statesman who served as a minister during the Nara perio",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:19:45+01:00",
+      "question_id": "orch-87",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 25418,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the provided context, there is no information about Philip Rosenberg's occupation. The docu",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:19:50+01:00",
+      "question_id": "std-230",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 8644,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Susan Kent's occupation is not mentioned in the provided context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:19:56+01:00",
+      "question_id": "orch-88",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 9679,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Sudarshan Faakir is a poet and lyricist.\n\n---\n**Sources:**\n[1] spider2 (42%)\n[2] bigbench_hard (38%)",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:19:58+01:00",
+      "question_id": "std-231",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 8055,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Meyer Lutz was a composer.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:20:05+01:00",
+      "question_id": "std-232",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 6827,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the provided context, Ludwig Lichtschein's occupation is not mentioned or discussed in any ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:20:11+01:00",
+      "question_id": "std-233",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.1818,
+      "latency_ms": 6194,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Will Smith is an actor, rapper, and film producer.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:20:19+01:00",
+      "question_id": "orch-89",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 22319,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Shonali Bose is a film director.\n\n---\n**Sources:**\n[1] Code_Commerce (38%)\n[2] spider2 (35%)\n[3] fre",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:20:22+01:00",
+      "question_id": "std-234",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 10221,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Marjorie Margolies-Mezvinsky is a former U.S. Representative and journalist.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:20:26+01:00",
+      "question_id": "graph-2wikimultihopqa-14",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 44842,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The Great Flamarion",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:20:30+01:00",
+      "question_id": "orch-90",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 10114,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Bruce Cockburn is a Canadian singer-songwriter and guitarist.\n\n---\n**Sources:**\n[1] strategyqa (41%)",
       "confidence": null,
       "pipeline_details_summary": {
         "sub_pipelines": [],
