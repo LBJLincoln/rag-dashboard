@@ -1,10 +1,24 @@
-# Session State — 21 Fevrier 2026 (Session 33)
+# Session State — 21 Fevrier 2026 (Session 34)
 
-> Last updated: 2026-02-21T06:00:00+01:00
+> Last updated: 2026-02-21T07:00:00+01:00
 
-## Objectif de session : Phase 2-5 preparation + PME Connectors workflows fix
+## Objectif de session : Fix Quantitative pipeline for Phase 2
 
-### Accompli cette session
+### Accompli cette session (Session 34)
+
+#### 0. QUANTITATIVE PIPELINE FIXED FOR PHASE 2 ✅ (FIX-37)
+- **Root cause**: Phase 2 questions (finqa, tatqa, convfinqa, wikitablequestions) embed financial context + tables in the question text. The SQL pipeline tried to generate SQL → failed because data isn't in Supabase.
+- **Fix**: Added context reasoning branch — 5 new nodes:
+  - Question Type Classifier (detects context-rich questions)
+  - Route by Question Type (IF node)
+  - Prepare Context Reasoning (LLM prompt builder)
+  - Context Reasoning LLM (OpenRouter Llama 70B)
+  - Context Response Formatter (standard output format)
+- **Also applied**: FIX-32 ($env in Code nodes), FIX-22 (timeouts 25s→60s, retries 1→3)
+- **Bonus**: Cleaned 9,276 stale staticData keys (472KB → 99KB)
+- **Script**: `scripts/fix-quant-phase2.py`
+
+### Accompli session precedente (Session 33)
 
 #### 1. DATASETS DOWNLOADED — 16 HF benchmarks + 4 sectors ✅
 - 10 benchmark datasets downloaded: squad_v2, triviaqa, popqa, narrativeqa, msmarco, asqa, frames, pubmedqa, natural_questions, hotpotqa (9,772 items)
@@ -42,7 +56,7 @@
 |----------|---------|----------------------|-----------|
 | Standard | 85.5% (47/55) PASS | 66.8% (163/244) | 65% |
 | Graph | 78.0% (39/50) PASS | 21.2% (48/226) | 60% |
-| Quantitative | 92.0% (46/50) PASS | 10.0% (1/10) BLOCKED | 70% |
+| Quantitative | 92.0% (46/50) PASS | 10.0% (1/10) FIX-37 APPLIED | 70% |
 | Orchestrator | 80.0% (40/50) PASS | 67.6% (75/111) | 65% |
 | **Overall P2** | **83.9%** PASS | **48.6%** (287/591) | 65% |
 
@@ -61,10 +75,11 @@
 | TBD | origin | Session 33: datasets + PME workflows + phase generation |
 
 ### Prochaines actions (pour la VM)
-1. **Run on VM**: `bash scripts/run-all-phases.sh --all` (downloads + ingestion + status)
-2. Fix Quantitative pipeline TCP 6543 (test on VM where port works)
-3. Ingest graph entities into Neo4j (750+ entities from musique/2wiki)
-4. Ingest financial tables into Supabase (450 rows for finqa/tatqa/convfinqa)
-5. Import PME connector workflows to n8n and activate
-6. Continue Phase 2 tests to 1,000 questions
-7. Run Phase 3 evaluation after ingestion
+1. **Deploy fixed Quantitative V2.1** to n8n VM (PUT + deactivate/activate cycle — FIX-21)
+2. **Test Phase 2 quantitative** with finqa/tatqa questions (verify context reasoning path)
+3. **Run on VM**: `bash scripts/run-all-phases.sh --all` (downloads + ingestion + status)
+4. Ingest graph entities into Neo4j (750+ entities from musique/2wiki)
+5. Ingest financial tables into Supabase (450 rows for finqa/tatqa/convfinqa)
+6. Import PME connector workflows to n8n and activate
+7. Continue Phase 2 tests to 1,000 questions
+8. Run Phase 3 evaluation after ingestion
