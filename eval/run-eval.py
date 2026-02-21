@@ -236,9 +236,46 @@ def load_questions(include_1000=False, dataset="phase-1"):
                     data = json.load(f)
                     for q in data.get("questions", []):
                         rag_target = q.get("rag_target", "unknown")
+                        # For quantitative questions, embed context + table_data
+                        # in the question text so the context reasoning branch
+                        # has data to compute from (FIX-39)
+                        question_text = q["question"]
+                        if rag_target == "quantitative":
+                            ctx = q.get("context", "")
+                            table = q.get("table_data")
+                            if table or ctx:
+                                parts = [question_text]
+                                if ctx and ctx.strip():
+                                    parts.append(f"\n\nContext:\n{ctx}")
+                                if table:
+                                    import json as _json
+                                    table_str = _json.dumps(table) if not isinstance(table, str) else table
+                                    parts.append(f"\n\nTable data:\n{table_str}")
+                                question_text = "".join(parts)
+                        # For graph questions, embed compact context paragraphs (FIX-39d)
+                        # so the pipeline has fallback data when Neo4j traversal fails
+                        if rag_target == "graph":
+                            ctx = q.get("context", "")
+                            if ctx and len(ctx) > 50:
+                                # Parse JSON context if needed
+                                import json as _json
+                                try:
+                                    paragraphs = _json.loads(ctx) if ctx.startswith('[') else []
+                                    # Extract relevant paragraphs (first 3000 chars)
+                                    ctx_text = ""
+                                    for p in paragraphs[:10]:
+                                        if isinstance(p, dict):
+                                            title = p.get("title", "")
+                                            text = p.get("paragraph_text", "")
+                                            ctx_text += f"\n[{title}] {text}"
+                                    if ctx_text:
+                                        question_text = f"{question_text}\n\nReference context:{ctx_text[:3000]}"
+                                except:
+                                    # Plain text context
+                                    question_text = f"{question_text}\n\nReference context:\n{ctx[:3000]}"
                         questions[rag_target].append({
                             "id": q["id"],
-                            "question": q["question"],
+                            "question": question_text,
                             "expected": q["expected_answer"],
                             "rag_type": rag_target
                         })
