@@ -1,14 +1,14 @@
 {
   "meta": {
-    "generated_at": "2026-02-21T01:35:55+01:00",
+    "generated_at": "2026-02-21T01:38:18+01:00",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
-    "total_unique_questions": 317,
-    "total_test_runs": 1049,
-    "total_iterations": 60,
+    "total_unique_questions": 347,
+    "total_test_runs": 1088,
+    "total_iterations": 88,
     "status": "running",
-    "current_session": "2026-02-21T01-33-20"
+    "current_session": "2026-02-21T01-38-08"
   },
   "reference_cloud_executions": {
     "note": "Executions reussies sur n8n Cloud (avant migration Docker). Servent de reference uniquement.",
@@ -15406,6 +15406,1272 @@
           "timestamp": "2026-02-21T01:35:55+01:00"
         }
       ]
+    },
+    {
+      "id": "iter-2026-02-21T01-33-20",
+      "number": 61,
+      "timestamp_start": "2026-02-21T01:36:03+01:00",
+      "timestamp_end": "2026-02-21T01:36:03+01:00",
+      "label": "Iteration 61",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 18903,
+          "p95_latency_ms": 18903,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "p2-orch-10",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 18903,
+          "answer": "Albert Einstein was Time magazine's \"Person of the 20th Century.\"\n\n---\n**Sources:**\n[1] Wikipedia (55%)\n[2] hotpotqa (49%)",
+          "expected": "Albert Einstein",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:36:03+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 62,
+      "timestamp_start": "2026-02-21T01:36:07+01:00",
+      "timestamp_end": "2026-02-21T01:36:07+01:00",
+      "label": "Iteration 62",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 12971,
+          "p95_latency_ms": 12971,
+          "avg_f1": 0
+        },
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 12712,
+          "p95_latency_ms": 12712,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 2,
+      "total_correct": 1,
+      "overall_accuracy_pct": 50.0,
+      "questions": [
+        {
+          "id": "graph-musique-49",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12971,
+          "answer": "No answer available.",
+          "expected": "Chen Zheng",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:36:07+01:00"
+        },
+        {
+          "id": "p2-std-48",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 12712,
+          "answer": "Myoglobin is found in muscle tissue of vertebrates, where it stores oxygen for use during periods of intense activity.",
+          "expected": "Muscle tissue",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:36:07+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-33-20",
+      "number": 63,
+      "timestamp_start": "2026-02-21T01:36:15+01:00",
+      "timestamp_end": "2026-02-21T01:36:15+01:00",
+      "label": "Iteration 63",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 11614,
+          "p95_latency_ms": 11614,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "p2-orch-11",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 11614,
+          "answer": "Neil Ruddock was nicknamed \"Razor\" during his premiership football career.\n\n---\n**Sources:**\n[1] squad (42%)\n[2] hotpotqa (38%)\n[3] bigbench_hard (32%)",
+          "expected": "Razor",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:36:15+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 64,
+      "timestamp_start": "2026-02-21T01:36:19+01:00",
+      "timestamp_end": "2026-02-21T01:36:36+01:00",
+      "label": "Iteration 64",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 2,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 14498,
+          "p95_latency_ms": 16703,
+          "avg_f1": 0
+        },
+        "standard": {
+          "tested": 2,
+          "correct": 2,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 13128,
+          "p95_latency_ms": 13870,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 4,
+      "total_correct": 2,
+      "overall_accuracy_pct": 50.0,
+      "questions": [
+        {
+          "id": "graph-musique-50",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12293,
+          "answer": "No information provided about military expedition or fight between Ming loyalists and Manchus.",
+          "expected": "Chen Zheng",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:36:19+01:00"
+        },
+        {
+          "id": "p2-std-49",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 13870,
+          "answer": "Cellulose is the most abundant substance in the plant kingdom that no mammal produces the enzyme to digest.",
+          "expected": "Cellulose",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:36:21+01:00"
+        },
+        {
+          "id": "p2-std-50",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 12387,
+          "answer": "Ants have species named 'drivers', 'weavers', and 'soldiers'.",
+          "expected": "Ant",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:36:34+01:00"
+        },
+        {
+          "id": "graph-musique-51",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 16703,
+          "answer": "No answer provided in context.",
+          "expected": "Chen Zheng",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:36:36+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-33-20",
+      "number": 65,
+      "timestamp_start": "2026-02-21T01:36:42+01:00",
+      "timestamp_end": "2026-02-21T01:36:42+01:00",
+      "label": "Iteration 65",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 25367,
+          "p95_latency_ms": 25367,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "p2-orch-12",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 25367,
+          "answer": "Je n'ai pas pu trouver d'information pertinente pour répondre à votre question. Pourriez-vous reformuler ?\n\n*⚠️ Confiance modérée - vérifiez les informations.*",
+          "expected": "Bologna, Italy",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:36:42+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 66,
+      "timestamp_start": "2026-02-21T01:36:44+01:00",
+      "timestamp_end": "2026-02-21T01:36:45+01:00",
+      "label": "Iteration 66",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 9944,
+          "p95_latency_ms": 9944,
+          "avg_f1": 0.9
+        },
+        "graph": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 8729,
+          "p95_latency_ms": 8729,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 2,
+      "total_correct": 1,
+      "overall_accuracy_pct": 50.0,
+      "questions": [
+        {
+          "id": "std-51",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 9944,
+          "answer": "The study of animal behavior is called ethology.",
+          "expected": "Ethology",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:36:44+01:00"
+        },
+        {
+          "id": "graph-musique-52",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 8729,
+          "answer": "Mary Poppins",
+          "expected": "The Hateful Eight",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:36:45+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-33-20",
+      "number": 67,
+      "timestamp_start": "2026-02-21T01:36:55+01:00",
+      "timestamp_end": "2026-02-21T01:36:55+01:00",
+      "label": "Iteration 67",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 11774,
+          "p95_latency_ms": 11774,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "p2-orch-13",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 11774,
+          "answer": "Wayne Rooney signed for Manchester United from Everton.\n\n---\n**Sources:**\n[1] wikihop (42%)\n[2] spider2 (35%)\n[3] tabfact (32%)\n[4] gsm8k (23%)",
+          "expected": "Everton",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:36:55+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 68,
+      "timestamp_start": "2026-02-21T01:36:57+01:00",
+      "timestamp_end": "2026-02-21T01:37:04+01:00",
+      "label": "Iteration 68",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 2,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 50.0,
+          "avg_latency_ms": 9945,
+          "p95_latency_ms": 12671,
+          "avg_f1": 0.9
+        },
+        "graph": {
+          "tested": 2,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 50.0,
+          "avg_latency_ms": 9568,
+          "p95_latency_ms": 13326,
+          "avg_f1": 0.6667
+        }
+      },
+      "total_tested": 4,
+      "total_correct": 2,
+      "overall_accuracy_pct": 50.0,
+      "questions": [
+        {
+          "id": "std-52",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 12671,
+          "answer": "Mosses are classified as belonging to the division Bryophyta in the plant kingdom.",
+          "expected": "Bryophyta",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:36:57+01:00"
+        },
+        {
+          "id": "graph-musique-53",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 13326,
+          "answer": "Escape from L.A.",
+          "expected": "The Hateful Eight",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:36:58+01:00"
+        },
+        {
+          "id": "graph-musique-54",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.6667,
+          "latency_ms": 5810,
+          "answer": "Major League Soccer",
+          "expected": "United Soccer League",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:37:04+01:00"
+        },
+        {
+          "id": "std-53",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 7219,
+          "answer": "Dwight D. Eisenhower was the American President when the Berlin Wall was constructed in 1961.",
+          "expected": "John F Kennedy",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:37:04+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-37-06",
+      "number": 69,
+      "timestamp_start": "2026-02-21T01:37:06+01:00",
+      "timestamp_end": null,
+      "label": "Phase2-resume-3parallel-hfspace",
+      "description": "Phase 2 resume all 3 pipelines truly parallel",
+      "changes_applied": [],
+      "results_summary": {},
+      "total_tested": 0,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0,
+      "questions": []
+    },
+    {
+      "id": "iter-2026-02-21T01-33-20",
+      "number": 70,
+      "timestamp_start": "2026-02-21T01:37:08+01:00",
+      "timestamp_end": "2026-02-21T01:37:08+01:00",
+      "label": "Iteration 70",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 12038,
+          "p95_latency_ms": 12038,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "p2-orch-14",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 12038,
+          "answer": "The Yalu River forms a natural border between China and North Korea.\n\n---\n**Sources:**\n[1] wikihop (43%)\n[2] musique (39%)\n[3] Wikipedia (36%)\n[4] triviaqa (33%)\n[5] hotpotqa (23%)",
+          "expected": "North Korea",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:37:08+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 71,
+      "timestamp_start": "2026-02-21T01:37:13+01:00",
+      "timestamp_end": "2026-02-21T01:37:15+01:00",
+      "label": "Iteration 71",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 8460,
+          "p95_latency_ms": 8460,
+          "avg_f1": 0.9
+        },
+        "graph": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 10898,
+          "p95_latency_ms": 10898,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 2,
+      "total_correct": 1,
+      "overall_accuracy_pct": 50.0,
+      "questions": [
+        {
+          "id": "std-54",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8460,
+          "answer": "The minimum number of darts needed to complete a leg from 501 is 9, achieved by scoring three consecutive 167s (three triple 20s, one triple 19, and one double bullseye).",
+          "expected": "9",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:37:13+01:00"
+        },
+        {
+          "id": "graph-musique-55",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10898,
+          "answer": "The Fox and the Hound",
+          "expected": "The Hateful Eight",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:37:15+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-37-06",
+      "number": 72,
+      "timestamp_start": "2026-02-21T01:37:16+01:00",
+      "timestamp_end": "2026-02-21T01:37:16+01:00",
+      "label": "Iteration 72",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 8584,
+          "p95_latency_ms": 8584,
+          "avg_f1": 0.4
+        },
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 9293,
+          "p95_latency_ms": 9293,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 2,
+      "total_correct": 2,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "graph-musique-13",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.4,
+          "latency_ms": 8584,
+          "answer": "No major river",
+          "expected": "River Thames",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:37:16+01:00"
+        },
+        {
+          "id": "std-5",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 9293,
+          "answer": "Joan Crawford's career revived in \"Whatever Happened to Baby Jane?\"",
+          "expected": "Crawford",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:37:16+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 73,
+      "timestamp_start": "2026-02-21T01:37:22+01:00",
+      "timestamp_end": "2026-02-21T01:37:22+01:00",
+      "label": "Iteration 73",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 8885,
+          "p95_latency_ms": 8885,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "std-55",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8885,
+          "answer": "Celtic was the first British football team to win the European Cup, achieving this feat in 1967.",
+          "expected": "Celtic",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:37:22+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-33-20",
+      "number": 74,
+      "timestamp_start": "2026-02-21T01:37:26+01:00",
+      "timestamp_end": "2026-02-21T01:37:26+01:00",
+      "label": "Iteration 74",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 16831,
+          "p95_latency_ms": 16831,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "p2-orch-15",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 16831,
+          "answer": "Jimmy Carr presents both 8 Out Of 10 Cats and Distraction.\n\n---\n**Sources:**\n[1] spider2 (43%)\n[2] gsm8k (35%)\n[3] strategyqa (28%)\n[4] bigbench_hard (22%)\n[5] commonsenseqa (20%)",
+          "expected": "Jimmy Carr",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:37:26+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 75,
+      "timestamp_start": "2026-02-21T01:37:30+01:00",
+      "timestamp_end": "2026-02-21T01:37:30+01:00",
+      "label": "Iteration 75",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 14904,
+          "p95_latency_ms": 14904,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "graph-musique-56",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 14904,
+          "answer": "127 Hours",
+          "expected": "The Hateful Eight",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:37:30+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-37-06",
+      "number": 76,
+      "timestamp_start": "2026-02-21T01:37:32+01:00",
+      "timestamp_end": "2026-02-21T01:37:32+01:00",
+      "label": "Iteration 76",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 16293,
+          "p95_latency_ms": 16293,
+          "avg_f1": 0
+        },
+        "standard": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 15603,
+          "p95_latency_ms": 15603,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 2,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "graph-musique-14",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 16293,
+          "answer": "Yes",
+          "expected": "River Thames",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:37:32+01:00"
+        },
+        {
+          "id": "std-6",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 15603,
+          "answer": "Cary Grant won the Best Actor Oscar for The Philadelphia Story.",
+          "expected": "James Stewart",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:37:32+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 77,
+      "timestamp_start": "2026-02-21T01:37:36+01:00",
+      "timestamp_end": "2026-02-21T01:37:36+01:00",
+      "label": "Iteration 77",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 13657,
+          "p95_latency_ms": 13657,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "std-56",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 13657,
+          "answer": "The longest word that can be typed using only the top row of letters on a typewriter is \"typewriter\" itself, with 10 letters.",
+          "expected": "Typewriter",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:37:36+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-37-06",
+      "number": 78,
+      "timestamp_start": "2026-02-21T01:37:43+01:00",
+      "timestamp_end": "2026-02-21T01:37:43+01:00",
+      "label": "Iteration 78",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 10325,
+          "p95_latency_ms": 10325,
+          "avg_f1": 0.8
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "graph-musique-15",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.8,
+          "latency_ms": 10325,
+          "answer": "Thames",
+          "expected": "River Thames",
+          "match_type": "SUBSET_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:37:43+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 79,
+      "timestamp_start": "2026-02-21T01:37:43+01:00",
+      "timestamp_end": "2026-02-21T01:37:43+01:00",
+      "label": "Iteration 79",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 12955,
+          "p95_latency_ms": 12955,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "graph-musique-57",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12955,
+          "answer": "Unknown",
+          "expected": "Rockland County",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:37:43+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-33-20",
+      "number": 80,
+      "timestamp_start": "2026-02-21T01:37:46+01:00",
+      "timestamp_end": "2026-02-21T01:37:46+01:00",
+      "label": "Iteration 80",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 19180,
+          "p95_latency_ms": 19180,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "p2-orch-16",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 19180,
+          "answer": "Fort Boyard\n\n---\n**Sources:**\n[1] hotpotqa (42%)\n[2] strategyqa (38%)\n[3] natural_questions (32%)\n[4] bigbench_hard (18%)",
+          "expected": "Fort Boyard",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:37:46+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 81,
+      "timestamp_start": "2026-02-21T01:37:53+01:00",
+      "timestamp_end": "2026-02-21T01:37:57+01:00",
+      "label": "Iteration 81",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 16821,
+          "p95_latency_ms": 16821,
+          "avg_f1": 0.9
+        },
+        "graph": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 13376,
+          "p95_latency_ms": 13376,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 2,
+      "total_correct": 2,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "std-57",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 16821,
+          "answer": "O'Hare International Airport is located in Chicago.",
+          "expected": "Chicago",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:37:53+01:00"
+        },
+        {
+          "id": "graph-musique-58",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 13376,
+          "answer": "38 games",
+          "expected": "38",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:37:57+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-37-06",
+      "number": 82,
+      "timestamp_start": "2026-02-21T01:37:57+01:00",
+      "timestamp_end": "2026-02-21T01:38:01+01:00",
+      "label": "Iteration 82",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 24995,
+          "p95_latency_ms": 24995,
+          "avg_f1": 0.9
+        },
+        "graph": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 18020,
+          "p95_latency_ms": 18020,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 2,
+      "total_correct": 1,
+      "overall_accuracy_pct": 50.0,
+      "questions": [
+        {
+          "id": "std-7",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 24995,
+          "answer": "Fred Astaire was the legendary dancer who received an Oscar nomination for his role in The Towering Inferno.",
+          "expected": "Fred Astaire",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:37:57+01:00"
+        },
+        {
+          "id": "graph-musique-16",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 18020,
+          "answer": "1543",
+          "expected": "as early as the 3rd century BC",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:38:01+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 83,
+      "timestamp_start": "2026-02-21T01:38:07+01:00",
+      "timestamp_end": "2026-02-21T01:38:07+01:00",
+      "label": "Iteration 83",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 9587,
+          "p95_latency_ms": 9587,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "graph-musique-59",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9587,
+          "answer": "25",
+          "expected": "38",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:38:07+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-38-08",
+      "number": 84,
+      "timestamp_start": "2026-02-21T01:38:08+01:00",
+      "timestamp_end": null,
+      "label": "Phase2-orch-resume-hfspace",
+      "description": "Phase 2 orchestrator resume parallel",
+      "changes_applied": [],
+      "results_summary": {},
+      "total_tested": 0,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0,
+      "questions": []
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 85,
+      "timestamp_start": "2026-02-21T01:38:13+01:00",
+      "timestamp_end": "2026-02-21T01:38:13+01:00",
+      "label": "Iteration 85",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 19820,
+          "p95_latency_ms": 19820,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "std-58",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 19820,
+          "answer": "The second most common word in written English is \"of\".",
+          "expected": "Of",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:38:13+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-37-06",
+      "number": 86,
+      "timestamp_start": "2026-02-21T01:38:14+01:00",
+      "timestamp_end": "2026-02-21T01:38:14+01:00",
+      "label": "Iteration 86",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 16911,
+          "p95_latency_ms": 16911,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "std-8",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 16911,
+          "answer": "The brothel in The Best Little Whorehouse in Texas was called the Chicken Ranch.",
+          "expected": "Chicken Ranch",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:38:14+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-33-20",
+      "number": 87,
+      "timestamp_start": "2026-02-21T01:38:15+01:00",
+      "timestamp_end": "2026-02-21T01:38:15+01:00",
+      "label": "Iteration 87",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 27823,
+          "p95_latency_ms": 27823,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "p2-orch-17",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 27823,
+          "answer": "Je n'ai pas pu trouver d'information pertinente pour répondre à votre question. Pourriez-vous reformuler ?\n\n*⚠️ Confiance modérée - vérifiez les informations.*",
+          "expected": "Max Bygraves",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:38:15+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-37-06",
+      "number": 88,
+      "timestamp_start": "2026-02-21T01:38:18+01:00",
+      "timestamp_end": "2026-02-21T01:38:18+01:00",
+      "label": "Iteration 88",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 17454,
+          "p95_latency_ms": 17454,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "graph-musique-17",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 17454,
+          "answer": "1543",
+          "expected": "as early as the 3rd century BC",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:38:18+01:00"
+        }
+      ]
     }
   ],
   "question_registry": {
@@ -30289,13 +31555,25 @@
           "error_type": null,
           "answer": "No major river",
           "timestamp": "2026-02-21T01:27:16+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-37-06",
+          "iteration_number": 72,
+          "correct": true,
+          "f1": 0.4,
+          "latency_ms": 8584,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "No major river",
+          "timestamp": "2026-02-21T01:37:16+01:00"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 1,
-      "pass_rate": 0.333,
+      "total_runs": 4,
+      "pass_count": 2,
+      "pass_rate": 0.5,
       "current_status": "pass",
-      "last_tested": "2026-02-21T01:27:16+01:00",
+      "last_tested": "2026-02-21T01:37:16+01:00",
       "best_f1": 0.4,
       "trend": "improving"
     },
@@ -30344,13 +31622,25 @@
           "error_type": null,
           "answer": "Yes",
           "timestamp": "2026-02-21T01:27:24+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-37-06",
+          "iteration_number": 76,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 16293,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Yes",
+          "timestamp": "2026-02-21T01:37:32+01:00"
         }
       ],
-      "total_runs": 3,
+      "total_runs": 4,
       "pass_count": 1,
-      "pass_rate": 0.333,
+      "pass_rate": 0.25,
       "current_status": "fail",
-      "last_tested": "2026-02-21T01:27:24+01:00",
+      "last_tested": "2026-02-21T01:37:32+01:00",
       "best_f1": 0.8,
       "trend": "stable"
     },
@@ -30399,14 +31689,26 @@
           "error_type": null,
           "answer": "No major river",
           "timestamp": "2026-02-21T01:27:35+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-37-06",
+          "iteration_number": 78,
+          "correct": true,
+          "f1": 0.8,
+          "latency_ms": 10325,
+          "match_type": "SUBSET_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Thames",
+          "timestamp": "2026-02-21T01:37:43+01:00"
         }
       ],
-      "total_runs": 3,
-      "pass_count": 1,
-      "pass_rate": 0.333,
+      "total_runs": 4,
+      "pass_count": 2,
+      "pass_rate": 0.5,
       "current_status": "pass",
-      "last_tested": "2026-02-21T01:27:35+01:00",
-      "best_f1": 0.4,
+      "last_tested": "2026-02-21T01:37:43+01:00",
+      "best_f1": 0.8,
       "trend": "improving"
     },
     "graph-musique-16": {
@@ -30454,13 +31756,25 @@
           "error_type": null,
           "answer": "1543",
           "timestamp": "2026-02-21T01:27:47+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-37-06",
+          "iteration_number": 82,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 18020,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1543",
+          "timestamp": "2026-02-21T01:38:01+01:00"
         }
       ],
-      "total_runs": 3,
+      "total_runs": 4,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-21T01:27:47+01:00",
+      "last_tested": "2026-02-21T01:38:01+01:00",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -31191,13 +32505,25 @@
           "error_type": null,
           "answer": "1543",
           "timestamp": "2026-02-21T01:28:15+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-37-06",
+          "iteration_number": 88,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 17454,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1543",
+          "timestamp": "2026-02-21T01:38:18+01:00"
         }
       ],
-      "total_runs": 2,
+      "total_runs": 3,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-21T01:28:15+01:00",
+      "last_tested": "2026-02-21T01:38:18+01:00",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -31747,13 +33073,25 @@
           "error_type": null,
           "answer": "Joan Crawford's career revived in \"Whatever Happened to Baby Jane?\"",
           "timestamp": "2026-02-21T01:27:21+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-37-06",
+          "iteration_number": 72,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 9293,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Joan Crawford's career revived in \"Whatever Happened to Baby Jane?\"",
+          "timestamp": "2026-02-21T01:37:16+01:00"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-21T01:27:21+01:00",
+      "last_tested": "2026-02-21T01:37:16+01:00",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -31778,15 +33116,27 @@
           "error_type": null,
           "answer": "James Stewart won the Best Actor Oscar for The Philadelphia Story.",
           "timestamp": "2026-02-21T01:27:32+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-37-06",
+          "iteration_number": 76,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 15603,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Cary Grant won the Best Actor Oscar for The Philadelphia Story.",
+          "timestamp": "2026-02-21T01:37:32+01:00"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 1,
-      "pass_rate": 1.0,
-      "current_status": "pass",
-      "last_tested": "2026-02-21T01:27:32+01:00",
+      "pass_rate": 0.5,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:37:32+01:00",
       "best_f1": 0.9,
-      "trend": "stable"
+      "trend": "regressing"
     },
     "std-7": {
       "id": "std-7",
@@ -31809,13 +33159,25 @@
           "error_type": null,
           "answer": "Fred Astaire was the legendary dancer who received an Oscar nomination for his role in The Towering Inferno.",
           "timestamp": "2026-02-21T01:27:43+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-37-06",
+          "iteration_number": 82,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 24995,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Fred Astaire was the legendary dancer who received an Oscar nomination for his role in The Towering Inferno.",
+          "timestamp": "2026-02-21T01:37:57+01:00"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-21T01:27:43+01:00",
+      "last_tested": "2026-02-21T01:37:57+01:00",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -31840,13 +33202,25 @@
           "error_type": null,
           "answer": "The brothel in The Best Little Whorehouse in Texas was called the Chicken Ranch.",
           "timestamp": "2026-02-21T01:27:53+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-37-06",
+          "iteration_number": 86,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 16911,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The brothel in The Best Little Whorehouse in Texas was called the Chicken Ranch.",
+          "timestamp": "2026-02-21T01:38:14+01:00"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-21T01:27:53+01:00",
+      "last_tested": "2026-02-21T01:38:14+01:00",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -34019,6 +35393,936 @@
       "last_tested": "2026-02-21T01:35:55+01:00",
       "best_f1": 0.9,
       "trend": "stable"
+    },
+    "p2-orch-10": {
+      "id": "p2-orch-10",
+      "question": "Which scientist was Time magazine's \"Person of the 20th Century\"?",
+      "expected": "Albert Einstein",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-33-20",
+          "iteration_number": 61,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 18903,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Albert Einstein was Time magazine's \"Person of the 20th Century.\"\n\n---\n**Sources:**\n[1] Wikipedia (55%)\n[2] hotpotqa (49%)",
+          "timestamp": "2026-02-21T01:36:03+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:36:03+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-49": {
+      "id": "graph-musique-49",
+      "question": "Who led the military expedition in the province where Gong Beibi was born?",
+      "expected": "Chen Zheng",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 62,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12971,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No answer available.",
+          "timestamp": "2026-02-21T01:36:07+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:36:07+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "p2-std-48": {
+      "id": "p2-std-48",
+      "question": "Where in a vertebrate would you find the protein myoglobin?",
+      "expected": "Muscle tissue",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 62,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 12712,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Myoglobin is found in muscle tissue of vertebrates, where it stores oxygen for use during periods of intense activity.",
+          "timestamp": "2026-02-21T01:36:07+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:36:07+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "p2-orch-11": {
+      "id": "p2-orch-11",
+      "question": "What was the nickname given to premiership footballer Neil Ruddock?",
+      "expected": "Razor",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-33-20",
+          "iteration_number": 63,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 11614,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Neil Ruddock was nicknamed \"Razor\" during his premiership football career.\n\n---\n**Sources:**\n[1] squad (42%)\n[2] hotpotqa (38%)\n[3] bigbench_hard (32%)",
+          "timestamp": "2026-02-21T01:36:15+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:36:15+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-50": {
+      "id": "graph-musique-50",
+      "question": "Who led the military expedition in the place where the fight between Ming loyalists and Manchus occurred?",
+      "expected": "Chen Zheng",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 64,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12293,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No information provided about military expedition or fight between Ming loyalists and Manchus.",
+          "timestamp": "2026-02-21T01:36:19+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:36:19+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "p2-std-49": {
+      "id": "p2-std-49",
+      "question": "What is the most abundant substance in the plant kingdom, which no mammal produces the enzyme to digest?",
+      "expected": "Cellulose",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 64,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 13870,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Cellulose is the most abundant substance in the plant kingdom that no mammal produces the enzyme to digest.",
+          "timestamp": "2026-02-21T01:36:21+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:36:21+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "p2-std-50": {
+      "id": "p2-std-50",
+      "question": "Which family of insects has species named 'drivers', 'weavers', 'and even individuals called 'soldiers'?",
+      "expected": "Ant",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 64,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 12387,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Ants have species named 'drivers', 'weavers', and 'soldiers'.",
+          "timestamp": "2026-02-21T01:36:34+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:36:34+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-51": {
+      "id": "graph-musique-51",
+      "question": "Who led the military expedition in the province that borders Zhejiang to the south?",
+      "expected": "Chen Zheng",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 64,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 16703,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No answer provided in context.",
+          "timestamp": "2026-02-21T01:36:36+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:36:36+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "p2-orch-12": {
+      "id": "p2-orch-12",
+      "question": "The Ducati is manufactured in which city and what country?",
+      "expected": "Bologna, Italy",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-33-20",
+          "iteration_number": 65,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 25367,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Je n'ai pas pu trouver d'information pertinente pour répondre à votre question. Pourriez-vous reformuler ?\n\n*⚠️ Confiance modérée - vérifiez les informations.*",
+          "timestamp": "2026-02-21T01:36:42+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:36:42+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-51": {
+      "id": "std-51",
+      "question": "What name is given to the study of animal behavior?",
+      "expected": "Ethology",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 66,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 9944,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The study of animal behavior is called ethology.",
+          "timestamp": "2026-02-21T01:36:44+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:36:44+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-52": {
+      "id": "graph-musique-52",
+      "question": "What other film is the cast member of Now You See Him, Now You Don't a character for?",
+      "expected": "The Hateful Eight",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 66,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 8729,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Mary Poppins",
+          "timestamp": "2026-02-21T01:36:45+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:36:45+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "p2-orch-13": {
+      "id": "p2-orch-13",
+      "question": "Wayne Rooney signed for Manchester United from which other Premiership Club?",
+      "expected": "Everton",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-33-20",
+          "iteration_number": 67,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 11774,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Wayne Rooney signed for Manchester United from Everton.\n\n---\n**Sources:**\n[1] wikihop (42%)\n[2] spider2 (35%)\n[3] tabfact (32%)\n[4] gsm8k (23%)",
+          "timestamp": "2026-02-21T01:36:55+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:36:55+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-52": {
+      "id": "std-52",
+      "question": "Mosses are classified as belonging to which part of the plant kingdom?",
+      "expected": "Bryophyta",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 68,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 12671,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Mosses are classified as belonging to the division Bryophyta in the plant kingdom.",
+          "timestamp": "2026-02-21T01:36:57+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:36:57+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-53": {
+      "id": "graph-musique-53",
+      "question": "What other movie did the cast member of Escape from L.A. play a character in?",
+      "expected": "The Hateful Eight",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 68,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 13326,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Escape from L.A.",
+          "timestamp": "2026-02-21T01:36:58+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:36:58+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-54": {
+      "id": "graph-musique-54",
+      "question": "In what league did Jose Miranda's team compete?",
+      "expected": "United Soccer League",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 68,
+          "correct": true,
+          "f1": 0.6667,
+          "latency_ms": 5810,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Major League Soccer",
+          "timestamp": "2026-02-21T01:37:04+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:37:04+01:00",
+      "best_f1": 0.6667,
+      "trend": "stable"
+    },
+    "std-53": {
+      "id": "std-53",
+      "question": "Who was the American President when the Berlin Wall was constructed?",
+      "expected": "John F Kennedy",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 68,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 7219,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Dwight D. Eisenhower was the American President when the Berlin Wall was constructed in 1961.",
+          "timestamp": "2026-02-21T01:37:04+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:37:04+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "p2-orch-14": {
+      "id": "p2-orch-14",
+      "question": "The Yalu river forms a sort of natural border between China and which of its neighbours?",
+      "expected": "North Korea",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-33-20",
+          "iteration_number": 70,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 12038,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The Yalu River forms a natural border between China and North Korea.\n\n---\n**Sources:**\n[1] wikihop (43%)\n[2] musique (39%)\n[3] Wikipedia (36%)\n[4] triviaqa (33%)\n[5] hotpotqa (23%)",
+          "timestamp": "2026-02-21T01:37:08+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:37:08+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-54": {
+      "id": "std-54",
+      "question": "What is the minimum number of darts a person needs to throw to complete a leg from 501?",
+      "expected": "9",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 71,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8460,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The minimum number of darts needed to complete a leg from 501 is 9, achieved by scoring three consecutive 167s (three triple 20s, one triple 19, and one double bullseye).",
+          "timestamp": "2026-02-21T01:37:13+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:37:13+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-55": {
+      "id": "graph-musique-55",
+      "question": "The actor who plays copper in Fox and the Hound is a character in which film?",
+      "expected": "The Hateful Eight",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 71,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10898,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The Fox and the Hound",
+          "timestamp": "2026-02-21T01:37:15+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:37:15+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-55": {
+      "id": "std-55",
+      "question": "What was the first British football team to win the European Cup?",
+      "expected": "Celtic",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 73,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8885,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Celtic was the first British football team to win the European Cup, achieving this feat in 1967.",
+          "timestamp": "2026-02-21T01:37:22+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:37:22+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "p2-orch-15": {
+      "id": "p2-orch-15",
+      "question": "Which stand-up comedian presents 8 Out Of 10 Cats and Distraction?",
+      "expected": "Jimmy Carr",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-33-20",
+          "iteration_number": 74,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 16831,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Jimmy Carr presents both 8 Out Of 10 Cats and Distraction.\n\n---\n**Sources:**\n[1] spider2 (43%)\n[2] gsm8k (35%)\n[3] strategyqa (28%)\n[4] bigbench_hard (22%)\n[5] commonsenseqa (20%)",
+          "timestamp": "2026-02-21T01:37:26+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:37:26+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-56": {
+      "id": "graph-musique-56",
+      "question": "This cast member in \"Search for the Gods\" also plays a character in which film?",
+      "expected": "The Hateful Eight",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 75,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 14904,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "127 Hours",
+          "timestamp": "2026-02-21T01:37:30+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:37:30+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-56": {
+      "id": "std-56",
+      "question": "What is the longest word can be typed using only the top row of letters on a typewriter?",
+      "expected": "Typewriter",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 77,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 13657,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The longest word that can be typed using only the top row of letters on a typewriter is \"typewriter\" itself, with 10 letters.",
+          "timestamp": "2026-02-21T01:37:36+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:37:36+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-57": {
+      "id": "graph-musique-57",
+      "question": "What county is Erik Hort's birthplace a part of?",
+      "expected": "Rockland County",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 79,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12955,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Unknown",
+          "timestamp": "2026-02-21T01:37:43+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:37:43+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "p2-orch-16": {
+      "id": "p2-orch-16",
+      "question": "Name the game show, presented by Leslie Grantham and Melinda Messenger, where contestants were set physical and mental challenges?",
+      "expected": "Fort Boyard",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-33-20",
+          "iteration_number": 80,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 19180,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Fort Boyard\n\n---\n**Sources:**\n[1] hotpotqa (42%)\n[2] strategyqa (38%)\n[3] natural_questions (32%)\n[4] bigbench_hard (18%)",
+          "timestamp": "2026-02-21T01:37:46+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:37:46+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-57": {
+      "id": "std-57",
+      "question": "In which city would you find O'Hare International Airport?",
+      "expected": "Chicago",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 81,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 16821,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "O'Hare International Airport is located in Chicago.",
+          "timestamp": "2026-02-21T01:37:53+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:37:53+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-58": {
+      "id": "graph-musique-58",
+      "question": "How many games in a season of the league in which Barcelona won titles in 1948 and 1949?",
+      "expected": "38",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 81,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 13376,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "38 games",
+          "timestamp": "2026-02-21T01:37:57+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:37:57+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-59": {
+      "id": "graph-musique-59",
+      "question": "How many games does the team play that had the most champion league wins between 1992 and 2013?",
+      "expected": "38",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 83,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9587,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "25",
+          "timestamp": "2026-02-21T01:38:07+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:38:07+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-58": {
+      "id": "std-58",
+      "question": "What is the second most common word in written English?",
+      "expected": "Of",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 85,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 19820,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The second most common word in written English is \"of\".",
+          "timestamp": "2026-02-21T01:38:13+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:38:13+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "p2-orch-17": {
+      "id": "p2-orch-17",
+      "question": "Who presented Family Fortunes in the two years between Bob Monkhouse and Les Dennis?",
+      "expected": "Max Bygraves",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-33-20",
+          "iteration_number": 87,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 27823,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Je n'ai pas pu trouver d'information pertinente pour répondre à votre question. Pourriez-vous reformuler ?\n\n*⚠️ Confiance modérée - vérifiez les informations.*",
+          "timestamp": "2026-02-21T01:38:15+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:38:15+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
     }
   },
   "quick_tests": [
@@ -34524,663 +36828,6 @@
     }
   ],
   "execution_logs": [
-    {
-      "timestamp": "2026-02-16T03:18:18.375998Z",
-      "question_id": "orch-11",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 100501,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The net income for TechVision Inc in fiscal year 2022 is $1,337,550,000.\n\n---\n**Sources:**\n[1] SQL R",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-16T03:21:01.863898Z",
-      "question_id": "orch-14",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.25,
-      "latency_ms": 152761,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "At standard atmospheric pressure (1 atm), water boils at 100 °C (212 °F).",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-16T03:24:29.860129Z",
-      "question_id": "orch-17",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.3889,
-      "latency_ms": 198983,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Winston Churchill (1874–1965) was a British politician, military officer, and author who served as P",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-16T03:26:46.363849Z",
-      "question_id": "orch-23",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.3125,
-      "latency_ms": 127751,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "DNA (deoxyribonucleic acid) is a double‑stranded molecule composed of nucleotide units that stores a",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-16T03:31:57.115943Z",
-      "question_id": "orch-27",
-      "rag_type": "orchestrator",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 301510,
-      "error_type": "TIMEOUT",
-      "error_preview": "timed out",
-      "answer_preview": "",
-      "confidence": null,
-      "pipeline_details_summary": null
-    },
-    {
-      "timestamp": "2026-02-16T03:34:38.106855Z",
-      "question_id": "orch-32",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.3404,
-      "latency_ms": 152765,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The quarterly revenue figures for HealthPlus Labs in 2023 are as follows:\n\n- Q1: $253,440,000\n- Q2: ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-16T03:36:57.115310Z",
-      "question_id": "orch-35",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.4,
-      "latency_ms": 129986,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The average salary across all departments at GreenEnergy is $146,800.\n\n---\n**Sources:**\n[1] SQL Resu",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-16T03:40:22.127304Z",
-      "question_id": "orch-39",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 196254,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Prominent universities known for AI research include the Massachusetts Institute of Technology (MIT)",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-16T03:42:44.623031Z",
-      "question_id": "orch-45",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 134753,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "GreenEnergy Corp's cost of goods sold for 2022 was $1,544,400,000.\n\n---\n**Sources:**\n[1] SQL Result ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-16T03:45:19.634226Z",
-      "question_id": "orch-47",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.2609,
-      "latency_ms": 148014,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The French Revolution (1789‑1799) was a period of radical social and political upheaval in France th",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-16T03:47:16.130379Z",
-      "question_id": "orch-49",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 107754,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The retained earnings for GreenEnergy Corp at the end of 2023 is $2,776,000,000.\n\n---\n**Sources:**\n[",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:10:03.803912Z",
-      "question_id": "std-0",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 64255,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Brandon Lee died while filming the movie **The Crow**.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:11:08.802195Z",
-      "question_id": "std-1",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 56753,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Unable to generate answer",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:12:34.539019Z",
-      "question_id": "std-2",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 69739,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Unable to generate answer",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:13:54.817611Z",
-      "question_id": "std-3",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 74519,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Unable to generate answer",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:15:05.566466Z",
-      "question_id": "std-4",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 65736,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Unable to generate answer",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:28:26.598295Z",
-      "question_id": "graph-musique-0",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.5,
-      "latency_ms": 83011,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Doug Lawrence",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:32:07.106794Z",
-      "question_id": "graph-musique-1",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 77265,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Styria, Austria",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:33:50.368007Z",
-      "question_id": "graph-musique-2",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 91743,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "1572",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:35:04.621346Z",
-      "question_id": "graph-musique-3",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 59742,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "1572",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:36:45.850576Z",
-      "question_id": "graph-musique-4",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 87501,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "1572",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:41:24.351618Z",
-      "question_id": "graph-musique-5",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 120500,
-      "error_type": "TIMEOUT",
-      "error_preview": "timed out",
-      "answer_preview": "",
-      "confidence": null,
-      "pipeline_details_summary": null
-    },
-    {
-      "timestamp": "2026-02-16T08:43:05.344765Z",
-      "question_id": "graph-musique-6",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 85996,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "1586",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:44:43.856053Z",
-      "question_id": "graph-musique-7",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 84752,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "1156",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:46:04.347489Z",
-      "question_id": "graph-musique-8",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.8,
-      "latency_ms": 71247,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Rooster Cogburn",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:47:15.352178Z",
-      "question_id": "graph-musique-9",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.2857,
-      "latency_ms": 60758,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "John Wayne played Reuben J. \"Rooster\" Cogburn in True Grit.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:52:33.097337Z",
-      "question_id": "graph-musique-10",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.3333,
-      "latency_ms": 104486,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "John Wayne played Rooster Cogburn in True Grit.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:53:42.850244Z",
-      "question_id": "graph-musique-11",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.8,
-      "latency_ms": 61499,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Rooster Cogburn",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:55:02.869062Z",
-      "question_id": "graph-musique-12",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.5,
-      "latency_ms": 73251,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Mississippi River",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:56:18.115408Z",
-      "question_id": "graph-musique-13",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 65490,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Information not available in the knowledge graph.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:58:13.601594Z",
-      "question_id": "graph-musique-14",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 103750,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Information not available in the knowledge graph.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T08:59:38.344223Z",
-      "question_id": "graph-musique-15",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 73483,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Information not available in the knowledge graph.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T09:01:13.359212Z",
-      "question_id": "graph-musique-16",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 82734,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Information not available in the knowledge graph.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-16T09:14:44.593731Z",
-      "question_id": "quantitative-finqa-0",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 121517,
-      "error_type": "TIMEOUT",
-      "error_preview": "timed out",
-      "answer_preview": "",
-      "confidence": null,
-      "pipeline_details_summary": null
-    },
-    {
-      "timestamp": "2026-02-16T09:20:28.113777Z",
-      "question_id": "quantitative-finqa-0",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 117505,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Based on the SQL query results, there is no data available to answer the question about Brazilian pa",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T09:21:26.119749Z",
-      "question_id": "quantitative-finqa-1",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 48242,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The SQL query executed returned an error message indicating that the query must start with \"SELECT\".",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T09:23:47.846916Z",
-      "question_id": "quantitative-finqa-2",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 128008,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The SQL query executed to calculate the percentage of Americans labor-related claims as part of tota",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T09:25:21.365268Z",
-      "question_id": "quantitative-finqa-3",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 75497,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The SQL query executed to determine the growth rate in the price of shares purchased by employees fr",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T09:27:14.611172Z",
-      "question_id": "quantitative-finqa-4",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 98739,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The SQL query executed to determine the reduction in shares outstanding due to the stock repurchase ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
     {
       "timestamp": "2026-02-16T09:37:33.365940Z",
       "question_id": "quantitative-finqa-0",
@@ -37920,6 +39567,662 @@
       "pipeline_details_summary": {
         "topK": null,
         "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:36:03+01:00",
+      "question_id": "p2-orch-10",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 18903,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Albert Einstein was Time magazine's \"Person of the 20th Century.\"\n\n---\n**Sources:**\n[1] Wikipedia (5",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:36:07+01:00",
+      "question_id": "graph-musique-49",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 12971,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No answer available.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:36:07+01:00",
+      "question_id": "p2-std-48",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 12712,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Myoglobin is found in muscle tissue of vertebrates, where it stores oxygen for use during periods of",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:36:15+01:00",
+      "question_id": "p2-orch-11",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 11614,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Neil Ruddock was nicknamed \"Razor\" during his premiership football career.\n\n---\n**Sources:**\n[1] squ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:36:19+01:00",
+      "question_id": "graph-musique-50",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 12293,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No information provided about military expedition or fight between Ming loyalists and Manchus.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:36:21+01:00",
+      "question_id": "p2-std-49",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 13870,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Cellulose is the most abundant substance in the plant kingdom that no mammal produces the enzyme to ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:36:34+01:00",
+      "question_id": "p2-std-50",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 12387,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Ants have species named 'drivers', 'weavers', and 'soldiers'.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:36:36+01:00",
+      "question_id": "graph-musique-51",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 16703,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No answer provided in context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:36:42+01:00",
+      "question_id": "p2-orch-12",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 25367,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Je n'ai pas pu trouver d'information pertinente pour répondre à votre question. Pourriez-vous reform",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:36:44+01:00",
+      "question_id": "std-51",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 9944,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The study of animal behavior is called ethology.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:36:45+01:00",
+      "question_id": "graph-musique-52",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 8729,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Mary Poppins",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:36:55+01:00",
+      "question_id": "p2-orch-13",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 11774,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Wayne Rooney signed for Manchester United from Everton.\n\n---\n**Sources:**\n[1] wikihop (42%)\n[2] spid",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:36:57+01:00",
+      "question_id": "std-52",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 12671,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Mosses are classified as belonging to the division Bryophyta in the plant kingdom.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:36:58+01:00",
+      "question_id": "graph-musique-53",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 13326,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Escape from L.A.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:37:04+01:00",
+      "question_id": "graph-musique-54",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.6667,
+      "latency_ms": 5810,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Major League Soccer",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:37:04+01:00",
+      "question_id": "std-53",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 7219,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Dwight D. Eisenhower was the American President when the Berlin Wall was constructed in 1961.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:37:08+01:00",
+      "question_id": "p2-orch-14",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 12038,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The Yalu River forms a natural border between China and North Korea.\n\n---\n**Sources:**\n[1] wikihop (",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:37:13+01:00",
+      "question_id": "std-54",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 8460,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The minimum number of darts needed to complete a leg from 501 is 9, achieved by scoring three consec",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:37:15+01:00",
+      "question_id": "graph-musique-55",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 10898,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The Fox and the Hound",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:37:16+01:00",
+      "question_id": "graph-musique-13",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.4,
+      "latency_ms": 8584,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No major river",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:37:16+01:00",
+      "question_id": "std-5",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 9293,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Joan Crawford's career revived in \"Whatever Happened to Baby Jane?\"",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:37:22+01:00",
+      "question_id": "std-55",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 8885,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Celtic was the first British football team to win the European Cup, achieving this feat in 1967.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:37:26+01:00",
+      "question_id": "p2-orch-15",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 16831,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Jimmy Carr presents both 8 Out Of 10 Cats and Distraction.\n\n---\n**Sources:**\n[1] spider2 (43%)\n[2] g",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:37:30+01:00",
+      "question_id": "graph-musique-56",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 14904,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "127 Hours",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:37:32+01:00",
+      "question_id": "graph-musique-14",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 16293,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Yes",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:37:32+01:00",
+      "question_id": "std-6",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 15603,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Cary Grant won the Best Actor Oscar for The Philadelphia Story.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:37:36+01:00",
+      "question_id": "std-56",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 13657,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The longest word that can be typed using only the top row of letters on a typewriter is \"typewriter\"",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:37:43+01:00",
+      "question_id": "graph-musique-15",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.8,
+      "latency_ms": 10325,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Thames",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:37:43+01:00",
+      "question_id": "graph-musique-57",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 12955,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Unknown",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:37:46+01:00",
+      "question_id": "p2-orch-16",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 19180,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Fort Boyard\n\n---\n**Sources:**\n[1] hotpotqa (42%)\n[2] strategyqa (38%)\n[3] natural_questions (32%)\n[4",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:37:53+01:00",
+      "question_id": "std-57",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 16821,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "O'Hare International Airport is located in Chicago.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:37:57+01:00",
+      "question_id": "graph-musique-58",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 13376,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "38 games",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:37:57+01:00",
+      "question_id": "std-7",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 24995,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Fred Astaire was the legendary dancer who received an Oscar nomination for his role in The Towering ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:38:01+01:00",
+      "question_id": "graph-musique-16",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 18020,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1543",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:38:07+01:00",
+      "question_id": "graph-musique-59",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 9587,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "25",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:38:13+01:00",
+      "question_id": "std-58",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 19820,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The second most common word in written English is \"of\".",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:38:14+01:00",
+      "question_id": "std-8",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 16911,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The brothel in The Best Little Whorehouse in Texas was called the Chicken Ranch.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:38:15+01:00",
+      "question_id": "p2-orch-17",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 27823,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Je n'ai pas pu trouver d'information pertinente pour répondre à votre question. Pourriez-vous reform",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:38:18+01:00",
+      "question_id": "graph-musique-17",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 17454,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1543",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
       }
     }
   ],
