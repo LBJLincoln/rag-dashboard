@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-21T19:55:49+01:00",
+  "generated_at": "2026-02-21T20:05:37+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -54,29 +54,29 @@
     "id": "iter-2026-02-21T19-16-48",
     "label": "Phase2-v9-FIX39h-overnight",
     "timestamp": "2026-02-21T19:16:50+01:00",
-    "total_tested": 118,
-    "overall_accuracy_pct": 51.7,
+    "total_tested": 144,
+    "overall_accuracy_pct": 50.0,
     "pipelines": {
       "quantitative": {
-        "tested": 40,
-        "correct": 15,
-        "accuracy": 37.5
+        "tested": 49,
+        "correct": 18,
+        "accuracy": 36.7
       },
       "graph": {
-        "tested": 43,
-        "correct": 19,
-        "accuracy": 44.2
+        "tested": 52,
+        "correct": 22,
+        "accuracy": 42.3
       },
       "standard": {
-        "tested": 35,
-        "correct": 27,
-        "accuracy": 77.1
+        "tested": 43,
+        "correct": 32,
+        "accuracy": 74.4
       }
     }
   },
   "totals": {
     "unique_questions": 1254,
-    "test_runs": 4415,
+    "test_runs": 4441,
     "iterations": 448
   }
 }
