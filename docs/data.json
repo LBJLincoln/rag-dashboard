@@ -1,12 +1,12 @@
 {
   "meta": {
-    "generated_at": "2026-02-21T02:20:42+01:00",
+    "generated_at": "2026-02-21T02:21:28+01:00",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
-    "total_unique_questions": 754,
-    "total_test_runs": 1531,
-    "total_iterations": 257,
+    "total_unique_questions": 763,
+    "total_test_runs": 1540,
+    "total_iterations": 259,
     "status": "running",
     "current_session": "2026-02-21T02-17-35"
   },
@@ -27077,33 +27077,33 @@
       "id": "iter-2026-02-21T01-39-47",
       "number": 257,
       "timestamp_start": "2026-02-21T02:20:32+01:00",
-      "timestamp_end": "2026-02-21T02:20:42+01:00",
+      "timestamp_end": "2026-02-21T02:20:58+01:00",
       "label": "Iteration 257",
       "description": "",
       "changes_applied": [],
       "results_summary": {
         "standard": {
-          "tested": 2,
-          "correct": 0,
-          "errors": 0,
-          "accuracy_pct": 0.0,
-          "avg_latency_ms": 10087,
-          "p95_latency_ms": 10494,
-          "avg_f1": 0
-        },
-        "graph": {
-          "tested": 1,
+          "tested": 3,
           "correct": 1,
           "errors": 0,
+          "accuracy_pct": 33.3,
+          "avg_latency_ms": 11897,
+          "p95_latency_ms": 15517,
+          "avg_f1": 0.9
+        },
+        "graph": {
+          "tested": 2,
+          "correct": 2,
+          "errors": 0,
           "accuracy_pct": 100.0,
-          "avg_latency_ms": 13305,
-          "p95_latency_ms": 13305,
+          "avg_latency_ms": 14049,
+          "p95_latency_ms": 14794,
           "avg_f1": 1.0
         }
       },
-      "total_tested": 3,
-      "total_correct": 1,
-      "overall_accuracy_pct": 33.3,
+      "total_tested": 5,
+      "total_correct": 3,
+      "overall_accuracy_pct": 60.0,
       "questions": [
         {
           "id": "std-235",
@@ -27143,6 +27143,182 @@
           "error": null,
           "error_type": null,
           "timestamp": "2026-02-21T02:20:42+01:00"
+        },
+        {
+          "id": "graph-2wikimultihopqa-16",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 14794,
+          "answer": "Yes",
+          "expected": "yes",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:20:54+01:00"
+        },
+        {
+          "id": "std-237",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 15517,
+          "answer": "Friedrich Carl von Savigny was a German jurist and legal scholar who served as a professor of law at the University of Berlin and is considered one of the founders of the German Historical School of Jurisprudence.",
+          "expected": "jurist",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:20:58+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T02-17-35",
+      "number": 258,
+      "timestamp_start": "2026-02-21T02:21:03+01:00",
+      "timestamp_end": "2026-02-21T02:21:03+01:00",
+      "label": "Iteration 258",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 31687,
+          "p95_latency_ms": 31687,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "orch-91",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 31687,
+          "answer": "Based on the provided context, there is no information about Archibald Thomas Pechey's occupation.\n\n---\n**Sources:**\n[1] triviaqa (38%)\n[2] natural_questions (23%)\n[3] Wikipedia (18%)",
+          "expected": "lyricist",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:21:03+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-39-47",
+      "number": 259,
+      "timestamp_start": "2026-02-21T02:21:05+01:00",
+      "timestamp_end": "2026-02-21T02:21:28+01:00",
+      "label": "Iteration 259",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 3,
+          "correct": 3,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 9295,
+          "p95_latency_ms": 12131,
+          "avg_f1": 0.9
+        },
+        "graph": {
+          "tested": 3,
+          "correct": 2,
+          "errors": 0,
+          "accuracy_pct": 66.7,
+          "avg_latency_ms": 10949,
+          "p95_latency_ms": 13144,
+          "avg_f1": 0.7857
+        }
+      },
+      "total_tested": 6,
+      "total_correct": 5,
+      "overall_accuracy_pct": 83.3,
+      "questions": [
+        {
+          "id": "std-238",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 6933,
+          "answer": "Luciano Vincenzoni was an Italian screenwriter and film director.",
+          "expected": "screenwriter",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:21:05+01:00"
+        },
+        {
+          "id": "graph-2wikimultihopqa-17",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12553,
+          "answer": "India",
+          "expected": "Bombay",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:21:07+01:00"
+        },
+        {
+          "id": "std-239",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8822,
+          "answer": "Thandiswa Mazwai is a South African musician and singer-songwriter.",
+          "expected": "songwriter",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:21:14+01:00"
+        },
+        {
+          "id": "graph-2wikimultihopqa-18",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.5714,
+          "latency_ms": 7151,
+          "answer": "Lodz Film School",
+          "expected": "National Film School in Łódź",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:21:14+01:00"
+        },
+        {
+          "id": "std-240",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 12131,
+          "answer": "Ameer Sultan is a film director and actor.",
+          "expected": "film director",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:21:26+01:00"
+        },
+        {
+          "id": "graph-2wikimultihopqa-19",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 13144,
+          "answer": "London",
+          "expected": "London",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:21:28+01:00"
         }
       ]
     }
@@ -59845,6 +60021,285 @@
       "last_tested": "2026-02-21T02:20:42+01:00",
       "best_f1": 0.0,
       "trend": "stable"
+    },
+    "graph-2wikimultihopqa-16": {
+      "id": "graph-2wikimultihopqa-16",
+      "question": "Are both villages, Mavrolithari and Ampelakia, Evros, located in the same country?",
+      "expected": "yes",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 257,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 14794,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Yes",
+          "timestamp": "2026-02-21T02:20:54+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:20:54+01:00",
+      "best_f1": 1.0,
+      "trend": "stable"
+    },
+    "std-237": {
+      "id": "std-237",
+      "question": "What is Friedrich Carl von Savigny's occupation?",
+      "expected": "jurist",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 257,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 15517,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Friedrich Carl von Savigny was a German jurist and legal scholar who served as a professor of law at the University of Berlin and is considered one of the founders of the German Historical School of Jurisprudence.",
+          "timestamp": "2026-02-21T02:20:58+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:20:58+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "orch-91": {
+      "id": "orch-91",
+      "question": "What is Archibald Thomas Pechey's occupation?",
+      "expected": "lyricist",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 258,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 31687,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the provided context, there is no information about Archibald Thomas Pechey's occupation.\n\n---\n**Sources:**\n[1] triviaqa (38%)\n[2] natural_questions (23%)\n[3] Wikipedia (18%)",
+          "timestamp": "2026-02-21T02:21:03+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:21:03+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-238": {
+      "id": "std-238",
+      "question": "What is Luciano Vincenzoni's occupation?",
+      "expected": "screenwriter",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 259,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 6933,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Luciano Vincenzoni was an Italian screenwriter and film director.",
+          "timestamp": "2026-02-21T02:21:05+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:21:05+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-2wikimultihopqa-17": {
+      "id": "graph-2wikimultihopqa-17",
+      "question": "Where was the place of death of the director of film Kathputli (1971 Film)?",
+      "expected": "Bombay",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 259,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12553,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "India",
+          "timestamp": "2026-02-21T02:21:07+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:21:07+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-239": {
+      "id": "std-239",
+      "question": "What is Thandiswa Mazwai's occupation?",
+      "expected": "songwriter",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 259,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8822,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Thandiswa Mazwai is a South African musician and singer-songwriter.",
+          "timestamp": "2026-02-21T02:21:14+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:21:14+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-2wikimultihopqa-18": {
+      "id": "graph-2wikimultihopqa-18",
+      "question": "Where did the director of film Ręce Do Góry study?",
+      "expected": "National Film School in Łódź",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 259,
+          "correct": true,
+          "f1": 0.5714,
+          "latency_ms": 7151,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Lodz Film School",
+          "timestamp": "2026-02-21T02:21:14+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:21:14+01:00",
+      "best_f1": 0.5714,
+      "trend": "stable"
+    },
+    "std-240": {
+      "id": "std-240",
+      "question": "What is Ameer Sultan's occupation?",
+      "expected": "film director",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 259,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 12131,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Ameer Sultan is a film director and actor.",
+          "timestamp": "2026-02-21T02:21:26+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:21:26+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-2wikimultihopqa-19": {
+      "id": "graph-2wikimultihopqa-19",
+      "question": "Where was the place of death of Suzanne Farrington's mother?",
+      "expected": "London",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 259,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 13144,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "London",
+          "timestamp": "2026-02-21T02:21:28+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:21:28+01:00",
+      "best_f1": 1.0,
+      "trend": "stable"
     }
   },
   "quick_tests": [
@@ -60350,156 +60805,6 @@
     }
   ],
   "execution_logs": [
-    {
-      "timestamp": "2026-02-21T01:57:21+01:00",
-      "question_id": "graph-musique-142",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 14068,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Coming Home Jamaica",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:57:22+01:00",
-      "question_id": "std-149",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 10379,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Based on the provided context, AI does not have an occupation as it is an artificial intelligence sy",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:57:35+01:00",
-      "question_id": "std-150",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 12503,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Based on the provided context, there is no information about Rinaldo del Mel's occupation.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:57:38+01:00",
-      "question_id": "graph-musique-143",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 16154,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "No answer available.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:57:44+01:00",
-      "question_id": "std-151",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 8676,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Scooter Braun is a music executive and entrepreneur.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:57:51+01:00",
-      "question_id": "graph-musique-144",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 13533,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "No information provided.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:57:52+01:00",
-      "question_id": "std-152",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 7355,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Leona Detiège's occupation is not mentioned in the provided context.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:58:00+01:00",
-      "question_id": "std-153",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 8193,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "William Murray, 1st Earl of Mansfield, was a British barrister, politician, and judge who served as ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:58:01+01:00",
-      "question_id": "p2-orch-50",
-      "rag_type": "orchestrator",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 12730,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The pub with the longest name in the UK has 75 letters in it.\n\n---\n**Sources:**\n[1] triviaqa (42%)\n[",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
     {
       "timestamp": "2026-02-21T01:58:03+01:00",
       "question_id": "graph-musique-145",
@@ -63694,6 +63999,158 @@
       "pipeline_details_summary": {
         "topK": null,
         "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:20:54+01:00",
+      "question_id": "graph-2wikimultihopqa-16",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 14794,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Yes",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:20:58+01:00",
+      "question_id": "std-237",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 15517,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Friedrich Carl von Savigny was a German jurist and legal scholar who served as a professor of law at",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:21:03+01:00",
+      "question_id": "orch-91",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 31687,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the provided context, there is no information about Archibald Thomas Pechey's occupation.\n\n",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:21:05+01:00",
+      "question_id": "std-238",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 6933,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Luciano Vincenzoni was an Italian screenwriter and film director.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:21:07+01:00",
+      "question_id": "graph-2wikimultihopqa-17",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 12553,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "India",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:21:14+01:00",
+      "question_id": "std-239",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 8822,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Thandiswa Mazwai is a South African musician and singer-songwriter.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:21:14+01:00",
+      "question_id": "graph-2wikimultihopqa-18",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.5714,
+      "latency_ms": 7151,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Lodz Film School",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:21:26+01:00",
+      "question_id": "std-240",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 12131,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Ameer Sultan is a film director and actor.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:21:28+01:00",
+      "question_id": "graph-2wikimultihopqa-19",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 13144,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "London",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
       }
     }
   ],
