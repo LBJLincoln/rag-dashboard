@@ -1,14 +1,14 @@
 {
   "meta": {
-    "generated_at": "2026-02-21T01:39:22+01:00",
+    "generated_at": "2026-02-21T01:39:54+01:00",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
-    "total_unique_questions": 356,
-    "total_test_runs": 1103,
-    "total_iterations": 98,
+    "total_unique_questions": 358,
+    "total_test_runs": 1108,
+    "total_iterations": 104,
     "status": "running",
-    "current_session": "2026-02-21T01-38-08"
+    "current_session": "2026-02-21T01-39-47"
   },
   "reference_cloud_executions": {
     "note": "Executions reussies sur n8n Cloud (avant migration Docker). Servent de reference uniquement.",
@@ -17162,6 +17162,210 @@
           "timestamp": "2026-02-21T01:39:22+01:00"
         }
       ]
+    },
+    {
+      "id": "iter-2026-02-21T01-33-20",
+      "number": 99,
+      "timestamp_start": "2026-02-21T01:39:43+01:00",
+      "timestamp_end": "2026-02-21T01:39:43+01:00",
+      "label": "Iteration 99",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 37368,
+          "p95_latency_ms": 37368,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "p2-orch-19",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 37368,
+          "answer": "The plastic bit on the end of shoelaces is called an aglet.\n\n---\n**Sources:**\n[1] bigbench_hard (42%)\n[2] gsm8k (31%)\n[3] commonsenseqa (28%)",
+          "expected": "An aglet",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:39:43+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-37-06",
+      "number": 100,
+      "timestamp_start": "2026-02-21T01:39:44+01:00",
+      "timestamp_end": "2026-02-21T01:39:44+01:00",
+      "label": "Iteration 100",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 31002,
+          "p95_latency_ms": 31002,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "graph-musique-20",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 31002,
+          "answer": "1543",
+          "expected": "as early as the 3rd century BC",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:39:44+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-38-08",
+      "number": 101,
+      "timestamp_start": "2026-02-21T01:39:45+01:00",
+      "timestamp_end": "2026-02-21T01:39:45+01:00",
+      "label": "Iteration 101",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 41363,
+          "p95_latency_ms": 41363,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "orch-7",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 41363,
+          "answer": "Fruit, cricket, and horseshoe are varieties of beetles.\n\n---\n**Sources:**\n[1] strategyqa (43%)\n[2] commonsenseqa (39%)\n[3] bigbench_hard (36%)\n[4] musique (26%)",
+          "expected": "Bat",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:39:45+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-37-06",
+      "number": 102,
+      "timestamp_start": "2026-02-21T01:39:47+01:00",
+      "timestamp_end": "2026-02-21T01:39:47+01:00",
+      "label": "Iteration 102",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 32871,
+          "p95_latency_ms": 32871,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "p2-std-12",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 32871,
+          "answer": "Marc Dutroux hit the headlines over a 'house of horrors' in Belgium.",
+          "expected": "Belgium",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:39:47+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-39-47",
+      "number": 103,
+      "timestamp_start": "2026-02-21T01:39:47+01:00",
+      "timestamp_end": null,
+      "label": "Phase2-resume-dedup-fixed",
+      "description": "Phase 2 resume with rebuilt dedup",
+      "changes_applied": [],
+      "results_summary": {},
+      "total_tested": 0,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0,
+      "questions": []
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 104,
+      "timestamp_start": "2026-02-21T01:39:54+01:00",
+      "timestamp_end": "2026-02-21T01:39:54+01:00",
+      "label": "Iteration 104",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 31328,
+          "p95_latency_ms": 31328,
+          "avg_f1": 0.5
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "graph-musique-64",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.5,
+          "latency_ms": 31328,
+          "answer": "Francis Bacon",
+          "expected": "Nicholas Bacon",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:39:54+01:00"
+        }
+      ]
     }
   ],
   "question_registry": {
@@ -33148,13 +33352,25 @@
           "error_type": null,
           "answer": "1543",
           "timestamp": "2026-02-21T01:28:52+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-37-06",
+          "iteration_number": 100,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 31002,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1543",
+          "timestamp": "2026-02-21T01:39:44+01:00"
         }
       ],
-      "total_runs": 2,
+      "total_runs": 3,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-21T01:28:52+01:00",
+      "last_tested": "2026-02-21T01:39:44+01:00",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -33876,13 +34092,25 @@
           "error_type": null,
           "answer": "Marc Dutroux hit the headlines over a 'house of horrors' in Belgium.",
           "timestamp": "2026-02-21T01:28:35+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-37-06",
+          "iteration_number": 102,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 32871,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Marc Dutroux hit the headlines over a 'house of horrors' in Belgium.",
+          "timestamp": "2026-02-21T01:39:47+01:00"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-21T01:28:35+01:00",
+      "last_tested": "2026-02-21T01:39:47+01:00",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -35698,13 +35926,25 @@
           "error_type": null,
           "answer": "Fruit, cricket, and horseshoe are varieties of beetles.\n\n---\n**Sources:**\n[1] commonsenseqa (42%)\n[2] strategyqa (39%)\n[3] musique (32%)\n[4] bigbench_hard (23%)",
           "timestamp": "2026-02-21T01:34:57+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-38-08",
+          "iteration_number": 101,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 41363,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Fruit, cricket, and horseshoe are varieties of beetles.\n\n---\n**Sources:**\n[1] strategyqa (43%)\n[2] commonsenseqa (39%)\n[3] bigbench_hard (36%)\n[4] musique (26%)",
+          "timestamp": "2026-02-21T01:39:45+01:00"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-21T01:34:57+01:00",
+      "last_tested": "2026-02-21T01:39:45+01:00",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -37164,6 +37404,68 @@
       "last_tested": "2026-02-21T01:39:22+01:00",
       "best_f1": 0.5,
       "trend": "stable"
+    },
+    "p2-orch-19": {
+      "id": "p2-orch-19",
+      "question": "What is the name of the plastic bit on the end of shoelaces?",
+      "expected": "An aglet",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-33-20",
+          "iteration_number": 99,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 37368,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The plastic bit on the end of shoelaces is called an aglet.\n\n---\n**Sources:**\n[1] bigbench_hard (42%)\n[2] gsm8k (31%)\n[3] commonsenseqa (28%)",
+          "timestamp": "2026-02-21T01:39:43+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:39:43+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-64": {
+      "id": "graph-musique-64",
+      "question": "Who is the father of the author of Novum Organum?",
+      "expected": "Nicholas Bacon",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 104,
+          "correct": true,
+          "f1": 0.5,
+          "latency_ms": 31328,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Francis Bacon",
+          "timestamp": "2026-02-21T01:39:54+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:39:54+01:00",
+      "best_f1": 0.5,
+      "trend": "stable"
     }
   },
   "quick_tests": [
@@ -37669,91 +37971,6 @@
     }
   ],
   "execution_logs": [
-    {
-      "timestamp": "2026-02-16T10:44:32.887060Z",
-      "question_id": "quantitative-finqa-4",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 84250,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "27",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T10:45:49.400564Z",
-      "question_id": "quantitative-finqa-5",
-      "rag_type": "quantitative",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 69249,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "11.24 - 10.79 = 0.45\n0.45 / 10.79 = 0.0417\n0.0417 * 100 = 4.17%\n\n4.17",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T10:46:45.414130Z",
-      "question_id": "quantitative-finqa-6",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 49499,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The table provided does not contain rental expense data for 2000-2002. It only shows data from 2003 ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T10:48:05.650245Z",
-      "question_id": "quantitative-finqa-7",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 65239,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "9.2%",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T10:48:13.673154Z",
-      "question_id": "quantitative-finqa-8",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 4481,
-      "error_type": "SERVER_ERROR",
-      "error_preview": "HTTP Error 503: Service Unavailable",
-      "answer_preview": "",
-      "confidence": null,
-      "pipeline_details_summary": null
-    },
     {
       "timestamp": "2026-02-16T10:49:01.916296Z",
       "question_id": "quantitative-finqa-9",
@@ -41045,6 +41262,90 @@
       "correct": true,
       "f1": 0.5,
       "latency_ms": 21187,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Francis Bacon",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:39:43+01:00",
+      "question_id": "p2-orch-19",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 37368,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The plastic bit on the end of shoelaces is called an aglet.\n\n---\n**Sources:**\n[1] bigbench_hard (42%",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:39:45+01:00",
+      "question_id": "graph-musique-20",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 31002,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1543",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:39:45+01:00",
+      "question_id": "orch-7",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 41363,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Fruit, cricket, and horseshoe are varieties of beetles.\n\n---\n**Sources:**\n[1] strategyqa (43%)\n[2] c",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:39:47+01:00",
+      "question_id": "p2-std-12",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 32871,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Marc Dutroux hit the headlines over a 'house of horrors' in Belgium.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:39:54+01:00",
+      "question_id": "graph-musique-64",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.5,
+      "latency_ms": 31328,
       "error_type": null,
       "error_preview": null,
       "answer_preview": "Francis Bacon",
