@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-21T19:10:59+01:00",
+  "generated_at": "2026-02-21T19:25:10+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -51,32 +51,32 @@
   "blockers": [],
   "next_action": "Phase 1 COMPLETE \u2014 run Phase 2: python3 eval/run-eval-parallel.py --dataset phase-2 --reset",
   "last_iteration": {
-    "id": "iter-2026-02-21T16-29-18",
-    "label": "Phase2-v8-WiderRescue-ExpandedCtx",
-    "timestamp": "2026-02-21T16:29:19+01:00",
-    "total_tested": 752,
-    "overall_accuracy_pct": 53.2,
+    "id": "iter-2026-02-21T19-16-48",
+    "label": "Phase2-v9-FIX39h-overnight",
+    "timestamp": "2026-02-21T19:16:50+01:00",
+    "total_tested": 26,
+    "overall_accuracy_pct": 65.4,
     "pipelines": {
       "quantitative": {
-        "tested": 254,
-        "correct": 116,
-        "accuracy": 45.7
+        "tested": 9,
+        "correct": 4,
+        "accuracy": 44.4
       },
       "graph": {
-        "tested": 285,
-        "correct": 123,
-        "accuracy": 43.2
+        "tested": 10,
+        "correct": 6,
+        "accuracy": 60.0
       },
       "standard": {
-        "tested": 213,
-        "correct": 161,
-        "accuracy": 75.6
+        "tested": 7,
+        "correct": 7,
+        "accuracy": 100.0
       }
     }
   },
   "totals": {
-    "unique_questions": 1251,
-    "test_runs": 4273,
-    "iterations": 447
+    "unique_questions": 1254,
+    "test_runs": 4323,
+    "iterations": 448
   }
 }
