@@ -1,12 +1,12 @@
 {
   "meta": {
-    "generated_at": "2026-02-21T02:24:43+01:00",
+    "generated_at": "2026-02-21T02:25:51+01:00",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
-    "total_unique_questions": 784,
-    "total_test_runs": 1561,
-    "total_iterations": 268,
+    "total_unique_questions": 791,
+    "total_test_runs": 1568,
+    "total_iterations": 272,
     "status": "running",
     "current_session": "2026-02-21T02-17-35"
   },
@@ -27756,24 +27756,24 @@
       "id": "iter-2026-02-21T02-17-35",
       "number": 268,
       "timestamp_start": "2026-02-21T02:24:06+01:00",
-      "timestamp_end": "2026-02-21T02:24:43+01:00",
+      "timestamp_end": "2026-02-21T02:25:05+01:00",
       "label": "Iteration 268",
       "description": "",
       "changes_applied": [],
       "results_summary": {
         "orchestrator": {
-          "tested": 4,
-          "correct": 2,
+          "tested": 5,
+          "correct": 3,
           "errors": 0,
-          "accuracy_pct": 50.0,
-          "avg_latency_ms": 11349,
-          "p95_latency_ms": 12936,
+          "accuracy_pct": 60.0,
+          "avg_latency_ms": 13400,
+          "p95_latency_ms": 21601,
           "avg_f1": 0.9
         }
       },
-      "total_tested": 4,
-      "total_correct": 2,
-      "overall_accuracy_pct": 50.0,
+      "total_tested": 5,
+      "total_correct": 3,
+      "overall_accuracy_pct": 60.0,
       "questions": [
         {
           "id": "orch-104",
@@ -27826,6 +27826,197 @@
           "error": null,
           "error_type": null,
           "timestamp": "2026-02-21T02:24:43+01:00"
+        },
+        {
+          "id": "orch-108",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 21601,
+          "answer": "Javad Maroufi was a renowned Iranian composer and pianist.\n\n---\n**Sources:**\n[1] wikihop (38%)\n[2] strategyqa (31%)\n[3] hotpotqa (25%)\n[4] squad (22%)",
+          "expected": "composer",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:25:05+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-39-47",
+      "number": 269,
+      "timestamp_start": "2026-02-21T02:25:14+01:00",
+      "timestamp_end": "2026-02-21T02:25:23+01:00",
+      "label": "Iteration 269",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 2,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 15229,
+          "p95_latency_ms": 21436,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 2,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "graph-2wikimultihopqa-22",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 21436,
+          "answer": "Honolulu, Hawaii",
+          "expected": "Davao",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:25:14+01:00"
+        },
+        {
+          "id": "graph-2wikimultihopqa-23",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9022,
+          "answer": "American Sniper",
+          "expected": "Befikre",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:25:23+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T02-17-35",
+      "number": 270,
+      "timestamp_start": "2026-02-21T02:25:32+01:00",
+      "timestamp_end": "2026-02-21T02:25:32+01:00",
+      "label": "Iteration 270",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 25199,
+          "p95_latency_ms": 25199,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "orch-109",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 25199,
+          "answer": "Franz Seitz Sr. was a German film director and screenwriter.\n\n---\n**Sources:**\n[1] hotpotqa (39%)\n[2] wikihop (32%)",
+          "expected": "film director",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:25:32+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-39-47",
+      "number": 271,
+      "timestamp_start": "2026-02-21T02:25:33+01:00",
+      "timestamp_end": "2026-02-21T02:25:47+01:00",
+      "label": "Iteration 271",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 2,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 11897,
+          "p95_latency_ms": 13571,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 2,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "graph-2wikimultihopqa-24",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10223,
+          "answer": "1808",
+          "expected": "15 November 1784",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:25:33+01:00"
+        },
+        {
+          "id": "graph-2wikimultihopqa-25",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 13571,
+          "answer": "I Met You In Naples",
+          "expected": "Toolbox Murders",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:25:47+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T02-17-35",
+      "number": 272,
+      "timestamp_start": "2026-02-21T02:25:51+01:00",
+      "timestamp_end": "2026-02-21T02:25:51+01:00",
+      "label": "Iteration 272",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 17495,
+          "p95_latency_ms": 17495,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "orch-110",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 17495,
+          "answer": "Chris Jericho is a professional wrestler, musician, and actor.\n\n---\n**Sources:**\n[1] msmarco (42%)\n[2] musique (38%)\n[3] wikihop (36%)\n[4] strategyqa (31%)",
+          "expected": "actor",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:25:51+01:00"
         }
       ]
     }
@@ -61458,6 +61649,223 @@
       "last_tested": "2026-02-21T02:24:43+01:00",
       "best_f1": 0.0,
       "trend": "stable"
+    },
+    "orch-108": {
+      "id": "orch-108",
+      "question": "What is Javad Maroufi's occupation?",
+      "expected": "composer",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 268,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 21601,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Javad Maroufi was a renowned Iranian composer and pianist.\n\n---\n**Sources:**\n[1] wikihop (38%)\n[2] strategyqa (31%)\n[3] hotpotqa (25%)\n[4] squad (22%)",
+          "timestamp": "2026-02-21T02:25:05+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:25:05+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-2wikimultihopqa-22": {
+      "id": "graph-2wikimultihopqa-22",
+      "question": "What is the place of birth of the director of film Aurora (2018 Film)?",
+      "expected": "Davao",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 269,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 21436,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Honolulu, Hawaii",
+          "timestamp": "2026-02-21T02:25:14+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:25:14+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-2wikimultihopqa-23": {
+      "id": "graph-2wikimultihopqa-23",
+      "question": "Which film has the director born later, Befikre or American Sniper?",
+      "expected": "Befikre",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 269,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9022,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "American Sniper",
+          "timestamp": "2026-02-21T02:25:23+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:25:23+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "orch-109": {
+      "id": "orch-109",
+      "question": "What is Franz Seitz Sr.'s occupation?",
+      "expected": "film director",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 270,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 25199,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Franz Seitz Sr. was a German film director and screenwriter.\n\n---\n**Sources:**\n[1] hotpotqa (39%)\n[2] wikihop (32%)",
+          "timestamp": "2026-02-21T02:25:32+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:25:32+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-2wikimultihopqa-24": {
+      "id": "graph-2wikimultihopqa-24",
+      "question": "When is Prince Napoléon Bonaparte's father's birthday?",
+      "expected": "15 November 1784",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 271,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10223,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1808",
+          "timestamp": "2026-02-21T02:25:33+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:25:33+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-2wikimultihopqa-25": {
+      "id": "graph-2wikimultihopqa-25",
+      "question": "Which film was released more recently, Toolbox Murders or I Met You In Naples?",
+      "expected": "Toolbox Murders",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 271,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 13571,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "I Met You In Naples",
+          "timestamp": "2026-02-21T02:25:47+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:25:47+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "orch-110": {
+      "id": "orch-110",
+      "question": "What is Chris Jericho's occupation?",
+      "expected": "actor",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 272,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 17495,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Chris Jericho is a professional wrestler, musician, and actor.\n\n---\n**Sources:**\n[1] msmarco (42%)\n[2] musique (38%)\n[3] wikihop (36%)\n[4] strategyqa (31%)",
+          "timestamp": "2026-02-21T02:25:51+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:25:51+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
     }
   },
   "quick_tests": [
@@ -61963,118 +62371,6 @@
     }
   ],
   "execution_logs": [
-    {
-      "timestamp": "2026-02-21T02:01:14+01:00",
-      "question_id": "std-160",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 10854,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Veronica Franco was a Venetian courtesan and poet.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T02:01:22+01:00",
-      "question_id": "orch-59",
-      "rag_type": "orchestrator",
-      "correct": false,
-      "f1": 0.0769,
-      "latency_ms": 15972,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Jermaine Jackson appeared in Celebrity Big Brother in January 2009.\n\n---\n**Sources:**\n[1] triviaqa (",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T02:01:27+01:00",
-      "question_id": "std-161",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 13117,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Maev-Ann Wren is a health economist and journalist.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T02:01:39+01:00",
-      "question_id": "orch-60",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 15526,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Andrew Jackson was the seventh president of the United States.\n\n---\n**Sources:**\n[1] musique (49%)\n[",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T02:01:45+01:00",
-      "question_id": "std-162",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 17376,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Norman Crowther Hunt, Baron Crowther-Hunt was a British politician and academic who served as a Labo",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T02:01:51+01:00",
-      "question_id": "std-163",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 5844,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Vincenzo Di Nicola is a psychiatrist and family therapist.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T02:01:57+01:00",
-      "question_id": "orch-61",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 16883,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Angel Falls is located in Venezuela.\n\n---\n**Sources:**\n[1] strategyqa (42%)\n[2] wikihop (39%)\n[3] tr",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
     {
       "timestamp": "2026-02-21T02:02:00+01:00",
       "question_id": "std-164",
@@ -65295,6 +65591,126 @@
       "error_type": null,
       "error_preview": null,
       "answer_preview": "Hate Man is a street person who lives in People's Park in Berkeley, California.\n\n---\n**Sources:**\n[1",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:25:06+01:00",
+      "question_id": "orch-108",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 21601,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Javad Maroufi was a renowned Iranian composer and pianist.\n\n---\n**Sources:**\n[1] wikihop (38%)\n[2] s",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:25:14+01:00",
+      "question_id": "graph-2wikimultihopqa-22",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 21436,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Honolulu, Hawaii",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:25:23+01:00",
+      "question_id": "graph-2wikimultihopqa-23",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 9022,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "American Sniper",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:25:32+01:00",
+      "question_id": "orch-109",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 25199,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Franz Seitz Sr. was a German film director and screenwriter.\n\n---\n**Sources:**\n[1] hotpotqa (39%)\n[2",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:25:33+01:00",
+      "question_id": "graph-2wikimultihopqa-24",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 10223,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1808",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:25:47+01:00",
+      "question_id": "graph-2wikimultihopqa-25",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 13571,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "I Met You In Naples",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:25:51+01:00",
+      "question_id": "orch-110",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 17495,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Chris Jericho is a professional wrestler, musician, and actor.\n\n---\n**Sources:**\n[1] msmarco (42%)\n[",
       "confidence": null,
       "pipeline_details_summary": {
         "sub_pipelines": [],

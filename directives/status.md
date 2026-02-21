@@ -1,35 +1,36 @@
-# Status — 20 Fevrier 2026 (Session 30)
+# Status — 21 Fevrier 2026 (Session 32)
 
-> Last updated: 2026-02-20T20:35:00+01:00
+> Last updated: 2026-02-21T05:30:00+01:00
 
-## Session 30 = PHASE 1 PASSED ✅ — FIX-36 corrige le calcul des gates
+## Session 32 = Phase 2 Launch — 591/1000 questions tested
 
 ### Accompli
-- **FIX-36** : `generate_status.py` et `phase_gates.py` incluaient des questions Phase 2 (musique 17q, finqa 10q) dans le calcul Phase 1. Corrige avec `_is_phase1_question()`.
-- **Phase 1 PASSED** : Standard 85.5%, Graph 78.0%, Quant 92.0%, Orch 80.0%, Overall 83.9%
-- Knowledge-base.md mis a jour (Section 6.4)
-- Fixes-library.md mis a jour (FIX-36 + AP-11)
-- CLAUDE.md mis a jour (Phase 1 PASSED, plan des phases)
-- Session-state.md mis a jour
+- **Phase 2 launched** : 591 questions tested across 3 pipelines (Standard, Graph, Orchestrator)
+- **Standard** : 66.8% (163/244) — meeting P2 target (65%)
+- **Graph** : 21.2% (48/226) — far below P2 target (60%), missing datasets in Neo4j
+- **Orchestrator** : 67.6% (75/111) — meeting P2 target (65%)
+- **Quantitative** : BLOCKED (1/10 = 10.0%) — TCP 6543 blocked on HF Space + rate limits
+- **Quant diagnosis** : [object Object] = OpenRouter 429 + bad JS serialization (FIX-22)
+- **Bottleneck system** : Added to CLAUDE.md (background testing, prioritization, escalation)
+- **Satellite directives** : All 5 repos updated
+- **PME Connectors** : Verified live (Next.js 15, 15 apps, Vercel cdg1)
 
-### Phase 1 Resultats Finaux (questions Phase 1 uniquement)
-| Pipeline | Accuracy | Tested | Correct | Target | Gap | Status |
-|----------|----------|--------|---------|--------|-----|--------|
-| Standard | 85.5% | 55 | 47 | 85% | +0.5pp | PASS |
-| Graph | 78.0% | 50 | 39 | 70% | +8.0pp | PASS |
-| Quantitative | 92.0% | 50 | 46 | 85% | +7.0pp | PASS |
-| Orchestrator | 80.0% | 50 | 40 | 70% | +10.0pp | PASS |
-| **Overall** | **83.9%** | 205 | 172 | 75% | +8.9pp | PASS |
+### Phase 2 Resultats (en cours — 591/1000 tested)
+| Pipeline | Accuracy | Tested | Correct | Target P2 | Gap | Status |
+|----------|----------|--------|---------|-----------|-----|--------|
+| Standard | 66.8% | 244 | 163 | 65% | +1.8pp | ON TRACK |
+| Graph | 21.2% | 226 | 48 | 60% | -38.8pp | NEEDS WORK |
+| Quantitative | 10.0% | 10 | 1 | 70% | -60.0pp | BLOCKED |
+| Orchestrator | 67.6% | 111 | 75 | 65% | +2.6pp | ON TRACK |
+| **Overall** | **48.6%** | 591 | 287 | 65% | -16.4pp | IN PROGRESS |
 
-### Phase 2 Resultats Exploratoires (pour info)
-| Dataset | Accuracy | Phase 2 Target | Gap |
-|---------|----------|----------------|-----|
-| Graph + Musique | 41.2% (7/17) | 60% | -18.8pp |
-| Quant + FinQA | ~40% (4/10) | 70% | -30pp |
+### Key Blockers
+1. **Graph 21.2%** : Phase 2 questions (2WikiMultiHopQA, HotpotQA) not in Neo4j → retrieval fails
+2. **Quant BLOCKED** : HF Space TCP port 6543 blocked → can't reach Supabase PostgreSQL
+3. **Quant rate limit** : OpenRouter 20 req/min → 429 errors → [object Object]
 
-### Prochaine session : Lancer Phase 2 (1,000q) + Fix datasets HF
-1. Demarrer Codespace rag-tests
-2. Ingerer dataset Musique dans Neo4j (Graph)
-3. Adapter prompts SQL pour FinQA (Quantitative)
-4. Lancer eval 1,000q en parallele
-5. Phase 2 targets : Graph >= 60%, Quant >= 70%, Overall >= 65%
+### Prochaine session : Continue Phase 2 + Fix Graph + Unblock Quant
+1. Ingest 2WikiMultiHopQA + HotpotQA datasets into Neo4j (Graph pipeline)
+2. Fix Quantitative: test on VM n8n (port 6543 works locally) or use Codespace
+3. Continue Standard + Orchestrator to 500+ questions
+4. Target: 1,000 total questions, Overall >= 50%
