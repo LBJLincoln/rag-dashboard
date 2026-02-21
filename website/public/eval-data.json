@@ -1,12 +1,12 @@
 {
   "meta": {
-    "generated_at": "2026-02-21T01:38:18+01:00",
+    "generated_at": "2026-02-21T01:38:31+01:00",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
-    "total_unique_questions": 347,
-    "total_test_runs": 1088,
-    "total_iterations": 88,
+    "total_unique_questions": 349,
+    "total_test_runs": 1092,
+    "total_iterations": 91,
     "status": "running",
     "current_session": "2026-02-21T01-38-08"
   },
@@ -16672,6 +16672,142 @@
           "timestamp": "2026-02-21T01:38:18+01:00"
         }
       ]
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 89,
+      "timestamp_start": "2026-02-21T01:38:22+01:00",
+      "timestamp_end": "2026-02-21T01:38:24+01:00",
+      "label": "Iteration 89",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 8930,
+          "p95_latency_ms": 8930,
+          "avg_f1": 0.9
+        },
+        "graph": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 16935,
+          "p95_latency_ms": 16935,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 2,
+      "total_correct": 2,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "std-59",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8930,
+          "answer": "You would find ghosts called Inky, Pinky, Blinky, and Clyde in the arcade game Pac-Man.",
+          "expected": "Pac-Man",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:38:22+01:00"
+        },
+        {
+          "id": "graph-musique-60",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 16935,
+          "answer": "38 games",
+          "expected": "38",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:38:24+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-37-06",
+      "number": 90,
+      "timestamp_start": "2026-02-21T01:38:30+01:00",
+      "timestamp_end": "2026-02-21T01:38:30+01:00",
+      "label": "Iteration 90",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 15875,
+          "p95_latency_ms": 15875,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "std-9",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 15875,
+          "answer": "Peter O'Toole was the male star of the movie The Man of La Mancha.",
+          "expected": "Peter O'Toole",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:38:30+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-38-08",
+      "number": 91,
+      "timestamp_start": "2026-02-21T01:38:31+01:00",
+      "timestamp_end": "2026-02-21T01:38:31+01:00",
+      "label": "Iteration 91",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 22585,
+          "p95_latency_ms": 22585,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "orch-5",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 22585,
+          "answer": "The third Chancellor of the Exchequer during Margaret Thatcher's tenure as Prime Minister was John Major, who served from 1989 to 1990.\n\n---\n**Sources:**\n[1] wikihop (43%)\n[2] musique (36%)\n[3] climatefever (28%)\n[4] Wikipedia (25%)",
+          "expected": "John Major",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:38:31+01:00"
+        }
+      ]
     }
   ],
   "question_registry": {
@@ -33245,13 +33381,25 @@
           "error_type": null,
           "answer": "Peter O'Toole was the male star of the movie The Man of La Mancha.",
           "timestamp": "2026-02-21T01:28:03+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-37-06",
+          "iteration_number": 90,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 15875,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Peter O'Toole was the male star of the movie The Man of La Mancha.",
+          "timestamp": "2026-02-21T01:38:30+01:00"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-21T01:28:03+01:00",
+      "last_tested": "2026-02-21T01:38:30+01:00",
       "best_f1": 0.9,
       "trend": "stable"
     },
@@ -34795,15 +34943,27 @@
           "error_type": null,
           "answer": "Nigel Lawson\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
           "timestamp": "2026-02-21T01:33:46+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-38-08",
+          "iteration_number": 91,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 22585,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The third Chancellor of the Exchequer during Margaret Thatcher's tenure as Prime Minister was John Major, who served from 1989 to 1990.\n\n---\n**Sources:**\n[1] wikihop (43%)\n[2] musique (36%)\n[3] climatefever (28%)\n[4] Wikipedia (25%)",
+          "timestamp": "2026-02-21T01:38:31+01:00"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-21T01:33:46+01:00",
-      "best_f1": 0.0,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:38:31+01:00",
+      "best_f1": 0.9,
+      "trend": "improving"
     },
     "p2-std-41": {
       "id": "p2-std-41",
@@ -36323,6 +36483,68 @@
       "last_tested": "2026-02-21T01:38:15+01:00",
       "best_f1": 0.0,
       "trend": "stable"
+    },
+    "std-59": {
+      "id": "std-59",
+      "question": "In which arcade game, would you find ghosts called Inky, Pinky, Blinky and Clyde?",
+      "expected": "Pac-Man",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 89,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8930,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "You would find ghosts called Inky, Pinky, Blinky, and Clyde in the arcade game Pac-Man.",
+          "timestamp": "2026-02-21T01:38:22+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:38:22+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-60": {
+      "id": "graph-musique-60",
+      "question": "How many games are in a season for the league that had the most Champions League wins between 1992 and 2013?",
+      "expected": "38",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 89,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 16935,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "38 games",
+          "timestamp": "2026-02-21T01:38:24+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:38:24+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
     }
   },
   "quick_tests": [
@@ -36828,73 +37050,6 @@
     }
   ],
   "execution_logs": [
-    {
-      "timestamp": "2026-02-16T09:37:33.365940Z",
-      "question_id": "quantitative-finqa-0",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 59494,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Based on the SQL query results, there is no data available to calculate the percentage of Brazilian ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T09:45:41.854783Z",
-      "question_id": "quantitative-finqa-0",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 73736,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "0%",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T09:55:05.638406Z",
-      "question_id": "quantitative-finqa-0",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 178278,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The SQL query failed due to a detected SQL injection attempt, resulting in no data being returned. T",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sql": null,
-        "sql_status": null,
-        "result_count": 0,
-        "null_agg": false
-      }
-    },
-    {
-      "timestamp": "2026-02-16T10:03:02.144370Z",
-      "question_id": "quantitative-finqa-0",
-      "rag_type": "quantitative",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 181271,
-      "error_type": "TIMEOUT",
-      "error_preview": "timed out",
-      "answer_preview": "",
-      "confidence": null,
-      "pipeline_details_summary": null
-    },
     {
       "timestamp": "2026-02-16T10:19:42.132765Z",
       "question_id": "quantitative-finqa-0",
@@ -40223,6 +40378,72 @@
         "neo4j_paths": 0,
         "traversal_depth": 0,
         "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:38:22+01:00",
+      "question_id": "std-59",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 8930,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "You would find ghosts called Inky, Pinky, Blinky, and Clyde in the arcade game Pac-Man.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:38:24+01:00",
+      "question_id": "graph-musique-60",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 16935,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "38 games",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:38:31+01:00",
+      "question_id": "std-9",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 15875,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Peter O'Toole was the male star of the movie The Man of La Mancha.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:38:31+01:00",
+      "question_id": "orch-5",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 22585,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The third Chancellor of the Exchequer during Margaret Thatcher's tenure as Prime Minister was John M",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
       }
     }
   ],
