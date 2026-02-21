@@ -284,7 +284,16 @@
     "std-231",
     "std-232",
     "std-233",
-    "std-234"
+    "std-234",
+    "std-235",
+    "std-236",
+    "std-237",
+    "std-238",
+    "std-239",
+    "std-240",
+    "std-241",
+    "std-242",
+    "std-243"
   ],
   "graph": [
     "graph-01",
@@ -551,7 +560,14 @@
     "graph-2wikimultihopqa-11",
     "graph-2wikimultihopqa-12",
     "graph-2wikimultihopqa-13",
-    "graph-2wikimultihopqa-14"
+    "graph-2wikimultihopqa-14",
+    "graph-2wikimultihopqa-15",
+    "graph-2wikimultihopqa-16",
+    "graph-2wikimultihopqa-17",
+    "graph-2wikimultihopqa-18",
+    "graph-2wikimultihopqa-19",
+    "graph-2wikimultihopqa-20",
+    "graph-2wikimultihopqa-21"
   ],
   "quantitative": [
     "quant-01",
@@ -756,6 +772,23 @@
     "orch-87",
     "orch-88",
     "orch-89",
-    "orch-90"
+    "orch-90",
+    "orch-91",
+    "orch-92",
+    "orch-93",
+    "orch-94",
+    "orch-95",
+    "orch-96",
+    "orch-97",
+    "orch-98",
+    "orch-99",
+    "orch-100",
+    "orch-101",
+    "orch-102",
+    "orch-103",
+    "orch-104",
+    "orch-105",
+    "orch-106",
+    "orch-107"
   ]
 }

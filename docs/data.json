@@ -1,12 +1,12 @@
 {
   "meta": {
-    "generated_at": "2026-02-21T02:21:50+01:00",
+    "generated_at": "2026-02-21T02:24:43+01:00",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
-    "total_unique_questions": 768,
-    "total_test_runs": 1545,
-    "total_iterations": 263,
+    "total_unique_questions": 784,
+    "total_test_runs": 1561,
+    "total_iterations": 268,
     "status": "running",
     "current_session": "2026-02-21T02-17-35"
   },
@@ -27493,6 +27493,339 @@
           "error": null,
           "error_type": null,
           "timestamp": "2026-02-21T02:21:50+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T02-17-35",
+      "number": 264,
+      "timestamp_start": "2026-02-21T02:21:57+01:00",
+      "timestamp_end": "2026-02-21T02:23:40+01:00",
+      "label": "Iteration 264",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 9,
+          "correct": 2,
+          "errors": 0,
+          "accuracy_pct": 22.2,
+          "avg_latency_ms": 11425,
+          "p95_latency_ms": 16520,
+          "avg_f1": 0.497
+        }
+      },
+      "total_tested": 9,
+      "total_correct": 2,
+      "overall_accuracy_pct": 22.2,
+      "questions": [
+        {
+          "id": "orch-94",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9010,
+          "answer": "Based on the provided context, there is no information about Huntington Wilson's occupation.\n\n---\n**Sources:**\n[1] musique (42%)\n[2] triviaqa (38%)\n[3] wikihop (35%)",
+          "expected": "diplomat",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:21:57+01:00"
+        },
+        {
+          "id": "orch-95",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 11562,
+          "answer": "Gaziza Zhubanova is a composer.\n\n---\n**Sources:**\n[1] wikihop (42%)\n[2] musique (38%)\n[3] strategyqa (25%)\n[4] hotpotqa (22%)",
+          "expected": "composer",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:22:09+01:00"
+        },
+        {
+          "id": "orch-96",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10325,
+          "answer": "Based on the provided context, there is no information about Ek Yi Oun's occupation.\n\n---\n**Sources:**\n[1] musique (38%)\n[2] hotpotqa (35%)\n[3] triviaqa (32%)\n[4] Code_Travail (28%)",
+          "expected": "politician",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:22:21+01:00"
+        },
+        {
+          "id": "orch-97",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11206,
+          "answer": "Benjamin Mount's occupation is not mentioned in the provided context.\n\n---\n**Sources:**\n[1] hotpotqa (42%)\n[2] triviaqa (35%)\n[3] strategyqa (32%)\n[4] musique (28%)",
+          "expected": "record producer",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:22:33+01:00"
+        },
+        {
+          "id": "orch-98",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12943,
+          "answer": "Ivan Mládek is a Czech musician, comedian, and songwriter.\n\n---\n**Sources:**\n[1] musique (42%)\n[2] bigbench_hard (38%)\n[3] strategyqa (19%)\n[4] Code_Travail (17%)",
+          "expected": "composer",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:22:47+01:00"
+        },
+        {
+          "id": "orch-99",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 16520,
+          "answer": "Bala's occupation is not mentioned in the provided context.\n\n---\n**Sources:**\n[1] hotpotqa (42%)\n[2] Wikipedia (38%)\n[3] triviaqa (28%)",
+          "expected": "film director",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:23:05+01:00"
+        },
+        {
+          "id": "orch-100",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8832,
+          "answer": "Steve Tom is an American actor.\n\n---\n**Sources:**\n[1] gsm8k (35%)",
+          "expected": "actor",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:23:15+01:00"
+        },
+        {
+          "id": "orch-101",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.1111,
+          "latency_ms": 12844,
+          "answer": "Ilja Rosendahl is a German actor and producer.\n\n---\n**Sources:**\n[1] hotpotqa (42%)\n[2] Wikipedia (28%)",
+          "expected": "record producer",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:23:29+01:00"
+        },
+        {
+          "id": "orch-102",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0769,
+          "latency_ms": 9590,
+          "answer": "Ron Nyswaner is a screenwriter and director.\n\n---\n**Sources:**\n[1] triviaqa (42%)\n[2] hotpotqa (35%)\n[3] pubmed (31%)\n[4] musique (29%)\n[5] wikihop (26%)",
+          "expected": "film director",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:23:40+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-39-47",
+      "number": 265,
+      "timestamp_start": "2026-02-21T02:23:49+01:00",
+      "timestamp_end": "2026-02-21T02:23:49+01:00",
+      "label": "Iteration 265",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 7689,
+          "p95_latency_ms": 7689,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "std-242",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 7689,
+          "answer": "Maurizio Belpietro is an Italian journalist and television presenter.",
+          "expected": "journalist",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:23:49+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T02-17-35",
+      "number": 266,
+      "timestamp_start": "2026-02-21T02:23:52+01:00",
+      "timestamp_end": "2026-02-21T02:23:52+01:00",
+      "label": "Iteration 266",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 11205,
+          "p95_latency_ms": 11205,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "orch-103",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 11205,
+          "answer": "Thanasis Pafilis is a Greek politician and Member of the European Parliament (MEP) representing the Communist Party of Greece.\n\n---\n**Sources:**\n[1] hotpotqa (35%)\n[2] musique (31%)\n[3] wikihop (28%)\n[4] bigbench_hard (17%)",
+          "expected": "politician",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:23:52+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-39-47",
+      "number": 267,
+      "timestamp_start": "2026-02-21T02:23:55+01:00",
+      "timestamp_end": "2026-02-21T02:23:55+01:00",
+      "label": "Iteration 267",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 6041,
+          "p95_latency_ms": 6041,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "std-243",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 6041,
+          "answer": "Based on the provided context, there is no information about Dash's occupation.",
+          "expected": "record producer",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:23:55+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T02-17-35",
+      "number": 268,
+      "timestamp_start": "2026-02-21T02:24:06+01:00",
+      "timestamp_end": "2026-02-21T02:24:43+01:00",
+      "label": "Iteration 268",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 4,
+          "correct": 2,
+          "errors": 0,
+          "accuracy_pct": 50.0,
+          "avg_latency_ms": 11349,
+          "p95_latency_ms": 12936,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 4,
+      "total_correct": 2,
+      "overall_accuracy_pct": 50.0,
+      "questions": [
+        {
+          "id": "orch-104",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 12680,
+          "answer": "Nicholas Sanduleak was an American astronomer and astrophysicist who worked at Case Western Reserve University.\n\n---\n**Sources:**\n[1] spider2 (41%)\n[2] musique (38%)\n[3] triviaqa (35%)\n[4] hotpotqa (23%)",
+          "expected": "astronomer",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:24:06+01:00"
+        },
+        {
+          "id": "orch-105",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9894,
+          "answer": "Christopher Butson is a professor of biomedical engineering at the University of Utah.\n\n---\n**Sources:**\n[1] msmarco (41%)\n[2] Wikipedia (35%)\n[3] bigbench_hard (31%)\n[4] spider2 (22%)",
+          "expected": "priest",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:24:17+01:00"
+        },
+        {
+          "id": "orch-106",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 9889,
+          "answer": "Otto Frankel was a geneticist and plant breeder.\n\n---\n**Sources:**\n[1] triviaqa (42%)\n[2] natural_questions (39%)\n[3] arc (31%)\n[4] Wikipedia (29%)\n[5] squad (25%)",
+          "expected": "geneticist",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:24:29+01:00"
+        },
+        {
+          "id": "orch-107",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12936,
+          "answer": "Hate Man is a street person who lives in People's Park in Berkeley, California.\n\n---\n**Sources:**\n[1] musique (42%)\n[2] wikihop (38%)\n[3] bigbench_hard (29%)\n[4] commonsenseqa (14%)",
+          "expected": "philosopher",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:24:43+01:00"
         }
       ]
     }
@@ -60629,6 +60962,502 @@
       "last_tested": "2026-02-21T02:21:50+01:00",
       "best_f1": 0.0,
       "trend": "stable"
+    },
+    "orch-94": {
+      "id": "orch-94",
+      "question": "What is Huntington Wilson's occupation?",
+      "expected": "diplomat",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 264,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9010,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the provided context, there is no information about Huntington Wilson's occupation.\n\n---\n**Sources:**\n[1] musique (42%)\n[2] triviaqa (38%)\n[3] wikihop (35%)",
+          "timestamp": "2026-02-21T02:21:57+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:21:57+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "orch-95": {
+      "id": "orch-95",
+      "question": "What is Gaziza Zhubanova's occupation?",
+      "expected": "composer",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 264,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 11562,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Gaziza Zhubanova is a composer.\n\n---\n**Sources:**\n[1] wikihop (42%)\n[2] musique (38%)\n[3] strategyqa (25%)\n[4] hotpotqa (22%)",
+          "timestamp": "2026-02-21T02:22:09+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:22:09+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "orch-96": {
+      "id": "orch-96",
+      "question": "What is Ek Yi Oun's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 264,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10325,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the provided context, there is no information about Ek Yi Oun's occupation.\n\n---\n**Sources:**\n[1] musique (38%)\n[2] hotpotqa (35%)\n[3] triviaqa (32%)\n[4] Code_Travail (28%)",
+          "timestamp": "2026-02-21T02:22:21+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:22:21+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "orch-97": {
+      "id": "orch-97",
+      "question": "What is Benjamin Mount's occupation?",
+      "expected": "record producer",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 264,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11206,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Benjamin Mount's occupation is not mentioned in the provided context.\n\n---\n**Sources:**\n[1] hotpotqa (42%)\n[2] triviaqa (35%)\n[3] strategyqa (32%)\n[4] musique (28%)",
+          "timestamp": "2026-02-21T02:22:33+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:22:33+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "orch-98": {
+      "id": "orch-98",
+      "question": "What is Ivan Mládek's occupation?",
+      "expected": "composer",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 264,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12943,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Ivan Mládek is a Czech musician, comedian, and songwriter.\n\n---\n**Sources:**\n[1] musique (42%)\n[2] bigbench_hard (38%)\n[3] strategyqa (19%)\n[4] Code_Travail (17%)",
+          "timestamp": "2026-02-21T02:22:47+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:22:47+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "orch-99": {
+      "id": "orch-99",
+      "question": "What is Bala's occupation?",
+      "expected": "film director",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 264,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 16520,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Bala's occupation is not mentioned in the provided context.\n\n---\n**Sources:**\n[1] hotpotqa (42%)\n[2] Wikipedia (38%)\n[3] triviaqa (28%)",
+          "timestamp": "2026-02-21T02:23:05+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:23:05+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "orch-100": {
+      "id": "orch-100",
+      "question": "What is Steve Tom's occupation?",
+      "expected": "actor",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 264,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8832,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Steve Tom is an American actor.\n\n---\n**Sources:**\n[1] gsm8k (35%)",
+          "timestamp": "2026-02-21T02:23:15+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:23:15+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "orch-101": {
+      "id": "orch-101",
+      "question": "What is Ilja Rosendahl's occupation?",
+      "expected": "record producer",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 264,
+          "correct": false,
+          "f1": 0.1111,
+          "latency_ms": 12844,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Ilja Rosendahl is a German actor and producer.\n\n---\n**Sources:**\n[1] hotpotqa (42%)\n[2] Wikipedia (28%)",
+          "timestamp": "2026-02-21T02:23:29+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:23:29+01:00",
+      "best_f1": 0.1111,
+      "trend": "stable"
+    },
+    "orch-102": {
+      "id": "orch-102",
+      "question": "What is Ron Nyswaner's occupation?",
+      "expected": "film director",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 264,
+          "correct": false,
+          "f1": 0.0769,
+          "latency_ms": 9590,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Ron Nyswaner is a screenwriter and director.\n\n---\n**Sources:**\n[1] triviaqa (42%)\n[2] hotpotqa (35%)\n[3] pubmed (31%)\n[4] musique (29%)\n[5] wikihop (26%)",
+          "timestamp": "2026-02-21T02:23:40+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:23:40+01:00",
+      "best_f1": 0.0769,
+      "trend": "stable"
+    },
+    "std-242": {
+      "id": "std-242",
+      "question": "What is Maurizio Belpietro's occupation?",
+      "expected": "journalist",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 265,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 7689,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Maurizio Belpietro is an Italian journalist and television presenter.",
+          "timestamp": "2026-02-21T02:23:49+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:23:49+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "orch-103": {
+      "id": "orch-103",
+      "question": "What is Thanasis Pafilis's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 266,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 11205,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Thanasis Pafilis is a Greek politician and Member of the European Parliament (MEP) representing the Communist Party of Greece.\n\n---\n**Sources:**\n[1] hotpotqa (35%)\n[2] musique (31%)\n[3] wikihop (28%)\n[4] bigbench_hard (17%)",
+          "timestamp": "2026-02-21T02:23:52+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:23:52+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-243": {
+      "id": "std-243",
+      "question": "What is Dash's occupation?",
+      "expected": "record producer",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 267,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 6041,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the provided context, there is no information about Dash's occupation.",
+          "timestamp": "2026-02-21T02:23:55+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:23:55+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "orch-104": {
+      "id": "orch-104",
+      "question": "What is Nicholas Sanduleak's occupation?",
+      "expected": "astronomer",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 268,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 12680,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Nicholas Sanduleak was an American astronomer and astrophysicist who worked at Case Western Reserve University.\n\n---\n**Sources:**\n[1] spider2 (41%)\n[2] musique (38%)\n[3] triviaqa (35%)\n[4] hotpotqa (23%)",
+          "timestamp": "2026-02-21T02:24:06+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:24:06+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "orch-105": {
+      "id": "orch-105",
+      "question": "What is Christopher Butson's occupation?",
+      "expected": "priest",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 268,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9894,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Christopher Butson is a professor of biomedical engineering at the University of Utah.\n\n---\n**Sources:**\n[1] msmarco (41%)\n[2] Wikipedia (35%)\n[3] bigbench_hard (31%)\n[4] spider2 (22%)",
+          "timestamp": "2026-02-21T02:24:17+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:24:17+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "orch-106": {
+      "id": "orch-106",
+      "question": "What is Otto Frankel's occupation?",
+      "expected": "geneticist",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 268,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 9889,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Otto Frankel was a geneticist and plant breeder.\n\n---\n**Sources:**\n[1] triviaqa (42%)\n[2] natural_questions (39%)\n[3] arc (31%)\n[4] Wikipedia (29%)\n[5] squad (25%)",
+          "timestamp": "2026-02-21T02:24:29+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:24:29+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "orch-107": {
+      "id": "orch-107",
+      "question": "What is Hate Man's occupation?",
+      "expected": "philosopher",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 268,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12936,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Hate Man is a street person who lives in People's Park in Berkeley, California.\n\n---\n**Sources:**\n[1] musique (42%)\n[2] wikihop (38%)\n[3] bigbench_hard (29%)\n[4] commonsenseqa (14%)",
+          "timestamp": "2026-02-21T02:24:43+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:24:43+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
     }
   },
   "quick_tests": [
@@ -61134,272 +61963,6 @@
     }
   ],
   "execution_logs": [
-    {
-      "timestamp": "2026-02-21T01:58:23+01:00",
-      "question_id": "graph-musique-147",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 8940,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Nephalion's father",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:58:25+01:00",
-      "question_id": "std-156",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 5803,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Sachiko Kokubu is a Japanese actress and model.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:58:33+01:00",
-      "question_id": "graph-musique-148",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 9931,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Princess Olga of Hanover",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:58:34+01:00",
-      "question_id": "orch-52",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 16154,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "In 1961, Denis Law famously scored six goals for Manchester City in an FA Cup tie against Luton Town",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:58:37+01:00",
-      "question_id": "std-157",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 11847,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "William Lescaze was an architect.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:58:55+01:00",
-      "question_id": "graph-musique-149",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 21261,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Julio Maglione",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:59:01+01:00",
-      "question_id": "graph-musique-150",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 6017,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "No answer available.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:59:24+01:00",
-      "question_id": "graph-musique-151",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 22372,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "No answer available.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:59:31+01:00",
-      "question_id": "orch-53",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 55682,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Adam Smith wrote The Wealth of Nations.\n\n---\n**Sources:**\n[1] hotpotqa (42%)\n[2] triviaqa (25%)\n[3] ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:59:56+01:00",
-      "question_id": "orch-54",
-      "rag_type": "orchestrator",
-      "correct": false,
-      "f1": 0.1538,
-      "latency_ms": 23999,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Macbeth belonged to the House of Moray.\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T02:00:12+01:00",
-      "question_id": "orch-55",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 15071,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "James II was not known as James The Bald, Fiery Face, or The Red King.\n\n---\n**Sources:**\n[1] squad (",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T02:00:25+01:00",
-      "question_id": "orch-56",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 11198,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Harry had to defeat a Hungarian Horntail dragon in the first task of the Triwizard Tournament.\n\n---\n",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T02:00:39+01:00",
-      "question_id": "orch-57",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 12994,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Tony Hadley was the lead singer of the 1980s new romantic band Spandau Ballet.\n\n---\n**Sources:**\n[1]",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T02:00:50+01:00",
-      "question_id": "std-158",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 10556,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Based on the provided context, there is no information about Modou Dia's occupation.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T02:01:03+01:00",
-      "question_id": "std-159",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 12761,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Alex Krieps is a Luxembourgish politician who served as Deputy Prime Minister and Minister of State ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T02:01:05+01:00",
-      "question_id": "orch-58",
-      "rag_type": "orchestrator",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 24673,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Je n'ai pas pu trouver d'information pertinente pour répondre à votre question. Pourriez-vous reform",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
     {
       "timestamp": "2026-02-21T02:01:14+01:00",
       "question_id": "std-160",
@@ -64480,6 +65043,262 @@
         "neo4j_paths": 0,
         "traversal_depth": 0,
         "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:21:57+01:00",
+      "question_id": "orch-94",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 9010,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the provided context, there is no information about Huntington Wilson's occupation.\n\n---\n**",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:22:09+01:00",
+      "question_id": "orch-95",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 11562,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Gaziza Zhubanova is a composer.\n\n---\n**Sources:**\n[1] wikihop (42%)\n[2] musique (38%)\n[3] strategyqa",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:22:21+01:00",
+      "question_id": "orch-96",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 10325,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the provided context, there is no information about Ek Yi Oun's occupation.\n\n---\n**Sources:",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:22:33+01:00",
+      "question_id": "orch-97",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 11206,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Benjamin Mount's occupation is not mentioned in the provided context.\n\n---\n**Sources:**\n[1] hotpotqa",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:22:48+01:00",
+      "question_id": "orch-98",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 12943,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Ivan Mládek is a Czech musician, comedian, and songwriter.\n\n---\n**Sources:**\n[1] musique (42%)\n[2] b",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:23:05+01:00",
+      "question_id": "orch-99",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 16520,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Bala's occupation is not mentioned in the provided context.\n\n---\n**Sources:**\n[1] hotpotqa (42%)\n[2]",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:23:15+01:00",
+      "question_id": "orch-100",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 8832,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Steve Tom is an American actor.\n\n---\n**Sources:**\n[1] gsm8k (35%)",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:23:29+01:00",
+      "question_id": "orch-101",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.1111,
+      "latency_ms": 12844,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Ilja Rosendahl is a German actor and producer.\n\n---\n**Sources:**\n[1] hotpotqa (42%)\n[2] Wikipedia (2",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:23:40+01:00",
+      "question_id": "orch-102",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0769,
+      "latency_ms": 9590,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Ron Nyswaner is a screenwriter and director.\n\n---\n**Sources:**\n[1] triviaqa (42%)\n[2] hotpotqa (35%)",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:23:49+01:00",
+      "question_id": "std-242",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 7689,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Maurizio Belpietro is an Italian journalist and television presenter.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:23:53+01:00",
+      "question_id": "orch-103",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 11205,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Thanasis Pafilis is a Greek politician and Member of the European Parliament (MEP) representing the ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:23:55+01:00",
+      "question_id": "std-243",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 6041,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the provided context, there is no information about Dash's occupation.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:24:06+01:00",
+      "question_id": "orch-104",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 12680,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Nicholas Sanduleak was an American astronomer and astrophysicist who worked at Case Western Reserve ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:24:18+01:00",
+      "question_id": "orch-105",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 9894,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Christopher Butson is a professor of biomedical engineering at the University of Utah.\n\n---\n**Source",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:24:29+01:00",
+      "question_id": "orch-106",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 9889,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Otto Frankel was a geneticist and plant breeder.\n\n---\n**Sources:**\n[1] triviaqa (42%)\n[2] natural_qu",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:24:43+01:00",
+      "question_id": "orch-107",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 12936,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Hate Man is a street person who lives in People's Park in Berkeley, California.\n\n---\n**Sources:**\n[1",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
       }
     }
   ],
