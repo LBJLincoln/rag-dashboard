@@ -1,12 +1,12 @@
 {
   "meta": {
-    "generated_at": "2026-02-21T02:21:28+01:00",
+    "generated_at": "2026-02-21T02:21:50+01:00",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
-    "total_unique_questions": 763,
-    "total_test_runs": 1540,
-    "total_iterations": 259,
+    "total_unique_questions": 768,
+    "total_test_runs": 1545,
+    "total_iterations": 263,
     "status": "running",
     "current_session": "2026-02-21T02-17-35"
   },
@@ -27319,6 +27319,180 @@
           "error": null,
           "error_type": null,
           "timestamp": "2026-02-21T02:21:28+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T02-17-35",
+      "number": 260,
+      "timestamp_start": "2026-02-21T02:21:34+01:00",
+      "timestamp_end": "2026-02-21T02:21:34+01:00",
+      "label": "Iteration 260",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 29572,
+          "p95_latency_ms": 29572,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "orch-92",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 29572,
+          "answer": "Thomas Challis's occupation is not mentioned in the provided context.\n\n---\n**Sources:**\n[1] Wikipedia (43%)\n[2] triviaqa (39%)\n[3] french_business (36%)\n[4] Code_Travail (32%)",
+          "expected": "politician",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:21:34+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-39-47",
+      "number": 261,
+      "timestamp_start": "2026-02-21T02:21:38+01:00",
+      "timestamp_end": "2026-02-21T02:21:39+01:00",
+      "label": "Iteration 261",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 10437,
+          "p95_latency_ms": 10437,
+          "avg_f1": 0
+        },
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 12551,
+          "p95_latency_ms": 12551,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 2,
+      "total_correct": 1,
+      "overall_accuracy_pct": 50.0,
+      "questions": [
+        {
+          "id": "graph-2wikimultihopqa-20",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10437,
+          "answer": "Unknown",
+          "expected": "Swedish",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:21:38+01:00"
+        },
+        {
+          "id": "std-241",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 12551,
+          "answer": "Wenceslao Vinzons was a Filipino politician and resistance leader during World War II.",
+          "expected": "politician",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:21:39+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T02-17-35",
+      "number": 262,
+      "timestamp_start": "2026-02-21T02:21:46+01:00",
+      "timestamp_end": "2026-02-21T02:21:46+01:00",
+      "label": "Iteration 262",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 11098,
+          "p95_latency_ms": 11098,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "orch-93",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11098,
+          "answer": "Mariana Vicente is a model and actress.\n\n---\n**Sources:**\n[1] triviaqa (35%)\n[2] pubmed (31%)\n[3] musique (25%)\n[4] gsm8k (22%)",
+          "expected": "actor",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:21:46+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-39-47",
+      "number": 263,
+      "timestamp_start": "2026-02-21T02:21:50+01:00",
+      "timestamp_end": "2026-02-21T02:21:50+01:00",
+      "label": "Iteration 263",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 11517,
+          "p95_latency_ms": 11517,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "graph-2wikimultihopqa-21",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11517,
+          "answer": "No",
+          "expected": "yes",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:21:50+01:00"
         }
       ]
     }
@@ -60300,6 +60474,161 @@
       "last_tested": "2026-02-21T02:21:28+01:00",
       "best_f1": 1.0,
       "trend": "stable"
+    },
+    "orch-92": {
+      "id": "orch-92",
+      "question": "What is Thomas Challis's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 260,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 29572,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Thomas Challis's occupation is not mentioned in the provided context.\n\n---\n**Sources:**\n[1] Wikipedia (43%)\n[2] triviaqa (39%)\n[3] french_business (36%)\n[4] Code_Travail (32%)",
+          "timestamp": "2026-02-21T02:21:34+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:21:34+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-2wikimultihopqa-20": {
+      "id": "graph-2wikimultihopqa-20",
+      "question": "What nationality is the director of film Name The Man?",
+      "expected": "Swedish",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 261,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10437,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Unknown",
+          "timestamp": "2026-02-21T02:21:38+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:21:38+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-241": {
+      "id": "std-241",
+      "question": "What is Wenceslao Vinzons's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 261,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 12551,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Wenceslao Vinzons was a Filipino politician and resistance leader during World War II.",
+          "timestamp": "2026-02-21T02:21:39+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:21:39+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "orch-93": {
+      "id": "orch-93",
+      "question": "What is Mariana Vicente's occupation?",
+      "expected": "actor",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T02-17-35",
+          "iteration_number": 262,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11098,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Mariana Vicente is a model and actress.\n\n---\n**Sources:**\n[1] triviaqa (35%)\n[2] pubmed (31%)\n[3] musique (25%)\n[4] gsm8k (22%)",
+          "timestamp": "2026-02-21T02:21:46+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:21:46+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-2wikimultihopqa-21": {
+      "id": "graph-2wikimultihopqa-21",
+      "question": "Do Kreesha Turner and Samantha Jo share the same nationality?",
+      "expected": "yes",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 263,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11517,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No",
+          "timestamp": "2026-02-21T02:21:50+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:21:50+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
     }
   },
   "quick_tests": [
@@ -60805,90 +61134,6 @@
     }
   ],
   "execution_logs": [
-    {
-      "timestamp": "2026-02-21T01:58:03+01:00",
-      "question_id": "graph-musique-145",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 11593,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Freikorps",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:58:13+01:00",
-      "question_id": "std-154",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 12433,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Þorsteinn Bachmann is an Icelandic actor.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:58:14+01:00",
-      "question_id": "graph-musique-146",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 10900,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "German units",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:58:17+01:00",
-      "question_id": "orch-51",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 14662,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Michael Caine starred as a murderous transvestite psychiatrist in the 1980 film \"Dressed to Kill.\"\n\n",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:58:19+01:00",
-      "question_id": "std-155",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 6173,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "John Floyd is a mystery writer and former special agent with the Naval Criminal Investigative Servic",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
     {
       "timestamp": "2026-02-21T01:58:23+01:00",
       "question_id": "graph-musique-147",
@@ -64145,6 +64390,90 @@
       "error_type": null,
       "error_preview": null,
       "answer_preview": "London",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:21:34+01:00",
+      "question_id": "orch-92",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 29572,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Thomas Challis's occupation is not mentioned in the provided context.\n\n---\n**Sources:**\n[1] Wikipedi",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:21:38+01:00",
+      "question_id": "graph-2wikimultihopqa-20",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 10437,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Unknown",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:21:39+01:00",
+      "question_id": "std-241",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 12551,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Wenceslao Vinzons was a Filipino politician and resistance leader during World War II.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:21:46+01:00",
+      "question_id": "orch-93",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 11098,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Mariana Vicente is a model and actress.\n\n---\n**Sources:**\n[1] triviaqa (35%)\n[2] pubmed (31%)\n[3] mu",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:21:50+01:00",
+      "question_id": "graph-2wikimultihopqa-21",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 11517,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No",
       "confidence": null,
       "pipeline_details_summary": {
         "entities": [],
