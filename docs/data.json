@@ -1,12 +1,12 @@
 {
   "meta": {
-    "generated_at": "2026-02-21T02:06:00+01:00",
+    "generated_at": "2026-02-21T02:09:52+01:00",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
-    "total_unique_questions": 629,
-    "total_test_runs": 1406,
-    "total_iterations": 232,
+    "total_unique_questions": 658,
+    "total_test_runs": 1435,
+    "total_iterations": 234,
     "status": "running",
     "current_session": "2026-02-21T01-57-47"
   },
@@ -24786,7 +24786,7 @@
       "id": "iter-2026-02-21T01-39-47",
       "number": 232,
       "timestamp_start": "2026-02-21T02:05:57+01:00",
-      "timestamp_end": "2026-02-21T02:06:00+01:00",
+      "timestamp_end": "2026-02-21T02:06:22+01:00",
       "label": "Iteration 232",
       "description": "",
       "changes_applied": [],
@@ -24801,16 +24801,16 @@
           "avg_f1": 0
         },
         "graph": {
-          "tested": 1,
+          "tested": 3,
           "correct": 0,
           "errors": 0,
           "accuracy_pct": 0.0,
-          "avg_latency_ms": 14681,
+          "avg_latency_ms": 12298,
           "p95_latency_ms": 14681,
           "avg_f1": 0
         }
       },
-      "total_tested": 2,
+      "total_tested": 4,
       "total_correct": 0,
       "overall_accuracy_pct": 0.0,
       "questions": [
@@ -24839,6 +24839,442 @@
           "error": null,
           "error_type": null,
           "timestamp": "2026-02-21T02:06:00+01:00"
+        },
+        {
+          "id": "graph-musique-168",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11644,
+          "answer": "No information provided.",
+          "expected": "crystallized the rebellious demand for independence from Great Britain",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:06:11+01:00"
+        },
+        {
+          "id": "graph-musique-169",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10569,
+          "answer": "influenced American Revolution",
+          "expected": "crystallized the rebellious demand for independence from Great Britain",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:06:22+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-57-47",
+      "number": 233,
+      "timestamp_start": "2026-02-21T02:06:29+01:00",
+      "timestamp_end": "2026-02-21T02:06:29+01:00",
+      "label": "Iteration 233",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 32617,
+          "p95_latency_ms": 32617,
+          "avg_f1": 0.2857
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "orch-74",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.2857,
+          "latency_ms": 32617,
+          "answer": "Prince Edward and Sophie, Countess of Wessex\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "expected": "The Earl and Countess of Wessex",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:06:29+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-39-47",
+      "number": 234,
+      "timestamp_start": "2026-02-21T02:06:38+01:00",
+      "timestamp_end": "2026-02-21T02:09:52+01:00",
+      "label": "Iteration 234",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 20,
+          "correct": 10,
+          "errors": 0,
+          "accuracy_pct": 50.0,
+          "avg_latency_ms": 11539,
+          "p95_latency_ms": 41261,
+          "avg_f1": 0.8333
+        },
+        "graph": {
+          "tested": 6,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 16.7,
+          "avg_latency_ms": 34226,
+          "p95_latency_ms": 145821,
+          "avg_f1": 1.0
+        }
+      },
+      "total_tested": 26,
+      "total_correct": 11,
+      "overall_accuracy_pct": 42.3,
+      "questions": [
+        {
+          "id": "std-177",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 41261,
+          "answer": "Marco Ameglio's occupation is not mentioned in the provided context.",
+          "expected": "politician",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:06:38+01:00"
+        },
+        {
+          "id": "graph-musique-170",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 16336,
+          "answer": "Yes",
+          "expected": "crystallized the rebellious demand for independence from Great Britain",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:06:39+01:00"
+        },
+        {
+          "id": "std-178",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 14959,
+          "answer": "Mohd Sharkar Shamsudin's occupation is not mentioned in the provided context.",
+          "expected": "politician",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:06:54+01:00"
+        },
+        {
+          "id": "std-179",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 9064,
+          "answer": "Anthony Sharp is an actor.",
+          "expected": "actor",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:07:03+01:00"
+        },
+        {
+          "id": "std-180",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10402,
+          "answer": "Valgerður Bjarnadóttir's occupation is not mentioned in the provided context.",
+          "expected": "politician",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:07:13+01:00"
+        },
+        {
+          "id": "std-181",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8802,
+          "answer": "Wallace Dollase is a horse trainer.",
+          "expected": "horse trainer",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:07:22+01:00"
+        },
+        {
+          "id": "std-182",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 9317,
+          "answer": "Claire Berlinski is a journalist and author.",
+          "expected": "journalist",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:07:32+01:00"
+        },
+        {
+          "id": "std-183",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9559,
+          "answer": "James Cook was a British explorer, navigator, and cartographer who made three voyages to the Pacific Ocean, mapping many areas and making contact with various indigenous peoples.",
+          "expected": "sailor",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:07:42+01:00"
+        },
+        {
+          "id": "std-184",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 6864,
+          "answer": "Russell Stokes's occupation is not mentioned in the provided context.",
+          "expected": "politician",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:07:49+01:00"
+        },
+        {
+          "id": "std-185",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8107,
+          "answer": "Henk Bleker is a Dutch politician who served as State Secretary for Economic Affairs, Agriculture and Innovation from 2010 to 2012.",
+          "expected": "politician",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:07:57+01:00"
+        },
+        {
+          "id": "std-186",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12037,
+          "answer": "Jim Brown's occupation is not mentioned in the provided context.",
+          "expected": "radio personality",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:08:09+01:00"
+        },
+        {
+          "id": "std-187",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.1667,
+          "latency_ms": 6151,
+          "answer": "Christoph Schlingensief was a German film director, actor, and author.",
+          "expected": "theatrical director",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:08:16+01:00"
+        },
+        {
+          "id": "std-188",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 6884,
+          "answer": "Based on the provided context, there is no information about C. E. Webber's occupation.",
+          "expected": "playwright",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:08:23+01:00"
+        },
+        {
+          "id": "std-189",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 9147,
+          "answer": "Gladwyn Jebb was a British diplomat and politician who served as Acting Secretary-General of the United Nations from 1945 to 1946.",
+          "expected": "diplomat",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:08:32+01:00"
+        },
+        {
+          "id": "std-190",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 7550,
+          "answer": "Dean Alfange was a lawyer and politician.",
+          "expected": "politician",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:08:40+01:00"
+        },
+        {
+          "id": "std-191",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 14193,
+          "answer": "Francis Howard, 5th Baron Howard of Effingham, was an English nobleman and military officer who served as Lord Lieutenant of Surrey and as a member of Parliament.",
+          "expected": "politician",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:08:54+01:00"
+        },
+        {
+          "id": "graph-musique-171",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 145821,
+          "answer": "Encouraged American Revolution",
+          "expected": "crystallized the rebellious demand for independence from Great Britain",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:09:05+01:00"
+        },
+        {
+          "id": "std-192",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 13992,
+          "answer": "Luís Marques Guedes is a Portuguese politician who served as Minister of Parliamentary Affairs in Portugal.",
+          "expected": "politician",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:09:08+01:00"
+        },
+        {
+          "id": "graph-musique-172",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 6369,
+          "answer": "Yes",
+          "expected": "Dougray Scott",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:09:11+01:00"
+        },
+        {
+          "id": "std-193",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8370,
+          "answer": "Nigel Sheinwald is a British diplomat who served as the UK Ambassador to the United States from 2007 to 2012.",
+          "expected": "diplomat",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:09:17+01:00"
+        },
+        {
+          "id": "graph-musique-173",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9089,
+          "answer": "No information provided.",
+          "expected": "August",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:09:21+01:00"
+        },
+        {
+          "id": "std-194",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 7241,
+          "answer": "Suzanne Lilar was a Belgian playwright, essayist, novelist, and lawyer.",
+          "expected": "playwright",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:09:24+01:00"
+        },
+        {
+          "id": "graph-musique-174",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 15545,
+          "answer": "August",
+          "expected": "August",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:09:36+01:00"
+        },
+        {
+          "id": "std-195",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 17341,
+          "answer": "Karen Redman is a Canadian politician who served as a Member of Parliament.",
+          "expected": "politician",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:09:42+01:00"
+        },
+        {
+          "id": "graph-musique-175",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12201,
+          "answer": "No answer available.",
+          "expected": "Somersby",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:09:49+01:00"
+        },
+        {
+          "id": "std-196",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9542,
+          "answer": "Jean-Yves Daniel-Lesur's occupation is not mentioned in the provided context.",
+          "expected": "composer",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:09:52+01:00"
         }
       ]
     }
@@ -53666,6 +54102,905 @@
       "last_tested": "2026-02-21T02:06:00+01:00",
       "best_f1": 0.0,
       "trend": "stable"
+    },
+    "graph-musique-168": {
+      "id": "graph-musique-168",
+      "question": "Why was Common Sense, written by the same author as The Rights of Man, an important work?",
+      "expected": "crystallized the rebellious demand for independence from Great Britain",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 232,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11644,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No information provided.",
+          "timestamp": "2026-02-21T02:06:11+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:06:11+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-169": {
+      "id": "graph-musique-169",
+      "question": "Common Sense which was written by the author of The Age of Reason was an important work because?",
+      "expected": "crystallized the rebellious demand for independence from Great Britain",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 232,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10569,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "influenced American Revolution",
+          "timestamp": "2026-02-21T02:06:22+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:06:22+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "orch-74": {
+      "id": "orch-74",
+      "question": "Which well known couple live at Bagshot Park in Surrey?",
+      "expected": "The Earl and Countess of Wessex",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-57-47",
+          "iteration_number": 233,
+          "correct": true,
+          "f1": 0.2857,
+          "latency_ms": 32617,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Prince Edward and Sophie, Countess of Wessex\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "timestamp": "2026-02-21T02:06:29+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:06:29+01:00",
+      "best_f1": 0.2857,
+      "trend": "stable"
+    },
+    "std-177": {
+      "id": "std-177",
+      "question": "What is Marco Ameglio's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 41261,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Marco Ameglio's occupation is not mentioned in the provided context.",
+          "timestamp": "2026-02-21T02:06:38+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:06:38+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-170": {
+      "id": "graph-musique-170",
+      "question": "Why was Common Sense, by the same author as Rights of Man, an important work?",
+      "expected": "crystallized the rebellious demand for independence from Great Britain",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 16336,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Yes",
+          "timestamp": "2026-02-21T02:06:39+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:06:39+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-178": {
+      "id": "std-178",
+      "question": "What is Mohd Sharkar Shamsudin's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 14959,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Mohd Sharkar Shamsudin's occupation is not mentioned in the provided context.",
+          "timestamp": "2026-02-21T02:06:54+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:06:54+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-179": {
+      "id": "std-179",
+      "question": "What is Anthony Sharp's occupation?",
+      "expected": "actor",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 9064,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Anthony Sharp is an actor.",
+          "timestamp": "2026-02-21T02:07:03+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:07:03+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-180": {
+      "id": "std-180",
+      "question": "What is Valgerður Bjarnadóttir's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10402,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Valgerður Bjarnadóttir's occupation is not mentioned in the provided context.",
+          "timestamp": "2026-02-21T02:07:13+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:07:13+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-181": {
+      "id": "std-181",
+      "question": "What is Wallace Dollase's occupation?",
+      "expected": "horse trainer",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8802,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Wallace Dollase is a horse trainer.",
+          "timestamp": "2026-02-21T02:07:22+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:07:22+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-182": {
+      "id": "std-182",
+      "question": "What is Claire Berlinski's occupation?",
+      "expected": "journalist",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 9317,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Claire Berlinski is a journalist and author.",
+          "timestamp": "2026-02-21T02:07:32+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:07:32+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-183": {
+      "id": "std-183",
+      "question": "What is James Cook's occupation?",
+      "expected": "sailor",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9559,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "James Cook was a British explorer, navigator, and cartographer who made three voyages to the Pacific Ocean, mapping many areas and making contact with various indigenous peoples.",
+          "timestamp": "2026-02-21T02:07:42+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:07:42+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-184": {
+      "id": "std-184",
+      "question": "What is Russell Stokes's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 6864,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Russell Stokes's occupation is not mentioned in the provided context.",
+          "timestamp": "2026-02-21T02:07:49+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:07:49+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-185": {
+      "id": "std-185",
+      "question": "What is Henk Bleker's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8107,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Henk Bleker is a Dutch politician who served as State Secretary for Economic Affairs, Agriculture and Innovation from 2010 to 2012.",
+          "timestamp": "2026-02-21T02:07:57+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:07:57+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-186": {
+      "id": "std-186",
+      "question": "What is Jim Brown's occupation?",
+      "expected": "radio personality",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12037,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Jim Brown's occupation is not mentioned in the provided context.",
+          "timestamp": "2026-02-21T02:08:09+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:08:09+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-187": {
+      "id": "std-187",
+      "question": "What is Christoph Schlingensief's occupation?",
+      "expected": "theatrical director",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.1667,
+          "latency_ms": 6151,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Christoph Schlingensief was a German film director, actor, and author.",
+          "timestamp": "2026-02-21T02:08:16+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:08:16+01:00",
+      "best_f1": 0.1667,
+      "trend": "stable"
+    },
+    "std-188": {
+      "id": "std-188",
+      "question": "What is C. E. Webber's occupation?",
+      "expected": "playwright",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 6884,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the provided context, there is no information about C. E. Webber's occupation.",
+          "timestamp": "2026-02-21T02:08:23+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:08:23+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-189": {
+      "id": "std-189",
+      "question": "What is Gladwyn Jebb's occupation?",
+      "expected": "diplomat",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 9147,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Gladwyn Jebb was a British diplomat and politician who served as Acting Secretary-General of the United Nations from 1945 to 1946.",
+          "timestamp": "2026-02-21T02:08:32+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:08:32+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-190": {
+      "id": "std-190",
+      "question": "What is Dean Alfange's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 7550,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Dean Alfange was a lawyer and politician.",
+          "timestamp": "2026-02-21T02:08:40+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:08:40+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-191": {
+      "id": "std-191",
+      "question": "What is Francis Howard, 5th Baron Howard of Effingham's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 14193,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Francis Howard, 5th Baron Howard of Effingham, was an English nobleman and military officer who served as Lord Lieutenant of Surrey and as a member of Parliament.",
+          "timestamp": "2026-02-21T02:08:54+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:08:54+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-171": {
+      "id": "graph-musique-171",
+      "question": "Why is Common Sense, which was written by an author who encouraged revolt, an important work?",
+      "expected": "crystallized the rebellious demand for independence from Great Britain",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 145821,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Encouraged American Revolution",
+          "timestamp": "2026-02-21T02:09:05+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:09:05+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-192": {
+      "id": "std-192",
+      "question": "What is Luís Marques Guedes's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 13992,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Luís Marques Guedes is a Portuguese politician who served as Minister of Parliamentary Affairs in Portugal.",
+          "timestamp": "2026-02-21T02:09:08+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:09:08+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-172": {
+      "id": "graph-musique-172",
+      "question": "Who is married to the cast member of Carolina Moon?",
+      "expected": "Dougray Scott",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 6369,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Yes",
+          "timestamp": "2026-02-21T02:09:11+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:09:11+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-193": {
+      "id": "std-193",
+      "question": "What is Nigel Sheinwald's occupation?",
+      "expected": "diplomat",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8370,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Nigel Sheinwald is a British diplomat who served as the UK Ambassador to the United States from 2007 to 2012.",
+          "timestamp": "2026-02-21T02:09:17+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:09:17+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-173": {
+      "id": "graph-musique-173",
+      "question": "When does the river that pumps the engine flood every year?",
+      "expected": "August",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9089,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No information provided.",
+          "timestamp": "2026-02-21T02:09:21+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:09:21+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-194": {
+      "id": "std-194",
+      "question": "What is Suzanne Lilar's occupation?",
+      "expected": "playwright",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 7241,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Suzanne Lilar was a Belgian playwright, essayist, novelist, and lawyer.",
+          "timestamp": "2026-02-21T02:09:24+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:09:24+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-174": {
+      "id": "graph-musique-174",
+      "question": "When does the river that the majority of Egyptians live near flood each year?",
+      "expected": "August",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 15545,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "August",
+          "timestamp": "2026-02-21T02:09:36+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:09:36+01:00",
+      "best_f1": 1.0,
+      "trend": "stable"
+    },
+    "std-195": {
+      "id": "std-195",
+      "question": "What is Karen Redman's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 17341,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Karen Redman is a Canadian politician who served as a Member of Parliament.",
+          "timestamp": "2026-02-21T02:09:42+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:09:42+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-175": {
+      "id": "graph-musique-175",
+      "question": "What is the birthplace of St. Simeon Stylites' author?",
+      "expected": "Somersby",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12201,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No answer available.",
+          "timestamp": "2026-02-21T02:09:49+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:09:49+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-196": {
+      "id": "std-196",
+      "question": "What is Jean-Yves Daniel-Lesur's occupation?",
+      "expected": "composer",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9542,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Jean-Yves Daniel-Lesur's occupation is not mentioned in the provided context.",
+          "timestamp": "2026-02-21T02:09:52+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:09:52+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
     }
   },
   "quick_tests": [
@@ -54171,490 +55506,6 @@
     }
   ],
   "execution_logs": [
-    {
-      "timestamp": "2026-02-21T01:47:07+01:00",
-      "question_id": "graph-musique-95",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 14655,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Jane Fonda",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:47:10+01:00",
-      "question_id": "p2-orch-29",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 30675,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Enrico Caruso\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:47:11+01:00",
-      "question_id": "std-95",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 14562,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The device made of wood and horsehair used to play a violin is called a bow.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:47:19+01:00",
-      "question_id": "std-96",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 8031,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The bottom stripe on the U.S. flag is red.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:47:25+01:00",
-      "question_id": "p2-orch-30",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 13176,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "In Greek mythology, righteous souls go to the Elysian Fields (Elysium) after death.\n\n---\n**Sources:*",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:47:25+01:00",
-      "question_id": "graph-musique-96",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 18620,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Yes",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:47:32+01:00",
-      "question_id": "std-97",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 12720,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The largest bee in a hive is called the queen bee.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:47:35+01:00",
-      "question_id": "graph-musique-97",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 9611,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Sam Elliott",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:47:36+01:00",
-      "question_id": "p2-orch-31",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 10586,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The scientific name for tea is Camellia sinensis.\n\n---\n**Sources:**\n[1] musique (45%)\n[2] tabfact (4",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:47:41+01:00",
-      "question_id": "std-98",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 9018,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Maria Sharapova won the Ladies singles title at Wimbledon in 2004.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:47:47+01:00",
-      "question_id": "graph-musique-98",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.8,
-      "latency_ms": 11992,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Pulitzer Prize",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:47:51+01:00",
-      "question_id": "std-99",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 9347,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The alcoholic ingredient in Irish coffee is whiskey.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:47:56+01:00",
-      "question_id": "graph-musique-99",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 8822,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "No information provided.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:48:00+01:00",
-      "question_id": "std-100",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 8802,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "St George died in the year 303 AD.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:48:03+01:00",
-      "question_id": "p2-orch-32",
-      "rag_type": "orchestrator",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 25489,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Je n'ai pas pu trouver d'information pertinente pour répondre à votre question. Pourriez-vous reform",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:48:07+01:00",
-      "question_id": "graph-musique-100",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 10198,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "No",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:48:07+01:00",
-      "question_id": "std-101",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.1667,
-      "latency_ms": 7496,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Dick Cheney was the Vice President for George W. Bush.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:48:19+01:00",
-      "question_id": "p2-orch-33",
-      "rag_type": "orchestrator",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 14396,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Suger Mice was a 1987 single for the British rock band Genesis.\n\n---\n**Sources:**\n[1] strategyqa (41",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:48:22+01:00",
-      "question_id": "std-102",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 14500,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The surname of the woman who inspired the Rolling Stones song \"Angie\" was BOWIE.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:48:25+01:00",
-      "question_id": "graph-musique-101",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 17754,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Washington",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:48:32+01:00",
-      "question_id": "p2-orch-34",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 12052,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "ZIP codes were introduced in the United States in the 1960s, specifically in 1963.\n\n---\n**Sources:**",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:48:38+01:00",
-      "question_id": "graph-musique-102",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 13273,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Mendoza",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:48:40+01:00",
-      "question_id": "std-103",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.1667,
-      "latency_ms": 17257,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The final event in a decathlon is the 1500-meter run.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:48:48+01:00",
-      "question_id": "p2-orch-35",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 14722,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The shape-shifting foxes of Japanese folklore are called kitsune, supernatural beings known for thei",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:48:48+01:00",
-      "question_id": "graph-musique-103",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 9967,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "No answer provided in context.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:48:52+01:00",
-      "question_id": "std-104",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 11828,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Peter Simple, Jack Horner, and Ben Nevis have all won the Grand National, a famous horse racing stee",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:48:58+01:00",
-      "question_id": "std-105",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 6185,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Istanbul is the largest city in Turkey, with a population exceeding 15 million people.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:49:01+01:00",
-      "question_id": "graph-musique-104",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.8,
-      "latency_ms": 12200,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Hey Jude",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:49:15+01:00",
-      "question_id": "std-106",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 16693,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Ken Bates bought Chelsea football club for £1 in 1982.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
     {
       "timestamp": "2026-02-21T01:49:15+01:00",
       "question_id": "p2-orch-36",
@@ -57515,6 +58366,486 @@
         "neo4j_paths": 0,
         "traversal_depth": 0,
         "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:06:11+01:00",
+      "question_id": "graph-musique-168",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 11644,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No information provided.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:06:22+01:00",
+      "question_id": "graph-musique-169",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 10569,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "influenced American Revolution",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:06:29+01:00",
+      "question_id": "orch-74",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.2857,
+      "latency_ms": 32617,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Prince Edward and Sophie, Countess of Wessex\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:06:38+01:00",
+      "question_id": "std-177",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 41261,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Marco Ameglio's occupation is not mentioned in the provided context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:06:39+01:00",
+      "question_id": "graph-musique-170",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 16336,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Yes",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:06:54+01:00",
+      "question_id": "std-178",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 14959,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Mohd Sharkar Shamsudin's occupation is not mentioned in the provided context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:07:03+01:00",
+      "question_id": "std-179",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 9064,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Anthony Sharp is an actor.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:07:13+01:00",
+      "question_id": "std-180",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 10402,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Valgerður Bjarnadóttir's occupation is not mentioned in the provided context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:07:22+01:00",
+      "question_id": "std-181",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 8802,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Wallace Dollase is a horse trainer.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:07:32+01:00",
+      "question_id": "std-182",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 9317,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Claire Berlinski is a journalist and author.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:07:42+01:00",
+      "question_id": "std-183",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 9559,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "James Cook was a British explorer, navigator, and cartographer who made three voyages to the Pacific",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:07:49+01:00",
+      "question_id": "std-184",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 6864,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Russell Stokes's occupation is not mentioned in the provided context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:07:57+01:00",
+      "question_id": "std-185",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 8107,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Henk Bleker is a Dutch politician who served as State Secretary for Economic Affairs, Agriculture an",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:08:09+01:00",
+      "question_id": "std-186",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 12037,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Jim Brown's occupation is not mentioned in the provided context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:08:16+01:00",
+      "question_id": "std-187",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.1667,
+      "latency_ms": 6151,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Christoph Schlingensief was a German film director, actor, and author.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:08:23+01:00",
+      "question_id": "std-188",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 6884,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the provided context, there is no information about C. E. Webber's occupation.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:08:32+01:00",
+      "question_id": "std-189",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 9147,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Gladwyn Jebb was a British diplomat and politician who served as Acting Secretary-General of the Uni",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:08:40+01:00",
+      "question_id": "std-190",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 7550,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Dean Alfange was a lawyer and politician.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:08:54+01:00",
+      "question_id": "std-191",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 14193,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Francis Howard, 5th Baron Howard of Effingham, was an English nobleman and military officer who serv",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:09:05+01:00",
+      "question_id": "graph-musique-171",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 145821,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Encouraged American Revolution",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:09:08+01:00",
+      "question_id": "std-192",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 13992,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Luís Marques Guedes is a Portuguese politician who served as Minister of Parliamentary Affairs in Po",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:09:11+01:00",
+      "question_id": "graph-musique-172",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 6369,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Yes",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:09:17+01:00",
+      "question_id": "std-193",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 8370,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Nigel Sheinwald is a British diplomat who served as the UK Ambassador to the United States from 2007",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:09:21+01:00",
+      "question_id": "graph-musique-173",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 9089,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No information provided.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:09:24+01:00",
+      "question_id": "std-194",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 7241,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Suzanne Lilar was a Belgian playwright, essayist, novelist, and lawyer.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:09:36+01:00",
+      "question_id": "graph-musique-174",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 15545,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "August",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:09:42+01:00",
+      "question_id": "std-195",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 17341,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Karen Redman is a Canadian politician who served as a Member of Parliament.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:09:49+01:00",
+      "question_id": "graph-musique-175",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 12201,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No answer available.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:09:52+01:00",
+      "question_id": "std-196",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 9542,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Jean-Yves Daniel-Lesur's occupation is not mentioned in the provided context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
       }
     }
   ],

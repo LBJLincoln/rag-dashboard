@@ -226,7 +226,27 @@
     "std-173",
     "std-174",
     "std-175",
-    "std-176"
+    "std-176",
+    "std-177",
+    "std-178",
+    "std-179",
+    "std-180",
+    "std-181",
+    "std-182",
+    "std-183",
+    "std-184",
+    "std-185",
+    "std-186",
+    "std-187",
+    "std-188",
+    "std-189",
+    "std-190",
+    "std-191",
+    "std-192",
+    "std-193",
+    "std-194",
+    "std-195",
+    "std-196"
   ],
   "graph": [
     "graph-01",
@@ -446,7 +466,15 @@
     "graph-musique-164",
     "graph-musique-165",
     "graph-musique-166",
-    "graph-musique-167"
+    "graph-musique-167",
+    "graph-musique-168",
+    "graph-musique-169",
+    "graph-musique-170",
+    "graph-musique-171",
+    "graph-musique-172",
+    "graph-musique-173",
+    "graph-musique-174",
+    "graph-musique-175"
   ],
   "quantitative": [
     "quant-01",
@@ -634,6 +662,7 @@
     "orch-70",
     "orch-71",
     "orch-72",
-    "orch-73"
+    "orch-73",
+    "orch-74"
   ]
 }
