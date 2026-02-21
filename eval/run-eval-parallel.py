@@ -149,19 +149,86 @@ def save_pipeline_results(rag_type, results, label=""):
     return filepath
 
 
+def _process_question(rag_type, q, i, total, endpoint, rag_timeout):
+    """Process a single question. Thread-safe — designed for batch parallel execution."""
+    qid = q["id"]
+    used_local = False
+
+    # Use local LLM reasoning for designated pipelines
+    if rag_type in _local_pipelines:
+        resp = call_local_reasoning(q["question"], rag_type=rag_type, timeout=rag_timeout)
+        used_local = True
+    else:
+        resp = call_rag(endpoint, q["question"], timeout=rag_timeout)
+
+    if resp["error"]:
+        answer = ""
+    else:
+        answer = extract_answer(resp["data"])
+
+    # Hybrid fallback: if HF Space returned empty/error/wrong, try local LLM
+    if not used_local and rag_type in ("quantitative", "graph", "standard"):
+        hf_eval = evaluate_answer(answer, q["expected"]) if answer else {"f1": 0}
+        if not answer or len(answer.strip()) < 3 or hf_eval["f1"] < 0.3:
+            local_resp = call_local_reasoning(q["question"], rag_type=rag_type, timeout=60)
+            if not local_resp["error"]:
+                local_answer = extract_answer(local_resp["data"])
+                if local_answer and len(local_answer.strip()) >= 3:
+                    local_eval = evaluate_answer(local_answer, q["expected"])
+                    if local_eval["f1"] > hf_eval["f1"]:
+                        resp = local_resp
+                        answer = local_answer
+                        used_local = True
+
+    if resp["error"]:
+        answer = ""
+        evaluation = {"correct": False, "method": "NO_ANSWER", "f1": 0.0,
+                      "detail": resp["error"]}
+        pipeline_details = {}
+    else:
+        if not answer:
+            answer = extract_answer(resp["data"])
+        evaluation = evaluate_answer(answer, q["expected"])
+        pipeline_details = extract_pipeline_details(resp["data"], rag_type)
+
+    is_correct = evaluation.get("correct", False)
+    f1_val = evaluation.get("f1", compute_f1(answer, q["expected"]))
+    has_error = resp["error"] is not None
+
+    # Thread-safe print
+    symbol = "[+]" if is_correct else "[-]"
+    local_tag = " LOCAL" if used_local else ""
+    tprint(f"  [{rag_type.upper()} {i+1}/{total}] {symbol} {qid} | "
+           f"F1={f1_val:.3f} | {resp['latency_ms']}ms | {evaluation['method']}{local_tag}")
+
+    return {
+        "qid": qid,
+        "question": q["question"],
+        "expected": q["expected"],
+        "answer": answer,
+        "is_correct": is_correct,
+        "f1_val": f1_val,
+        "has_error": has_error,
+        "used_local": used_local,
+        "resp": resp,
+        "evaluation": evaluation,
+        "pipeline_details": pipeline_details,
+    }
+
+
 def run_pipeline(rag_type, questions, tested_ids_by_type, label=""):
     """Run a single pipeline's evaluation. Designed to run in a thread.
     Returns (rag_type, totals_dict, per_question_results).
-    Early-stop: halts after N consecutive failures (default 4)."""
-    # Per-pipeline timeouts (seconds) — each pipeline has different latency profiles
+    Early-stop: halts after N consecutive failures (default 4).
+    Batch-size: processes N questions in parallel within the pipeline (E5 improvement)."""
     PIPELINE_TIMEOUTS = {
-        "standard": 120,       # avg ~30s, max ~90s, margin +30s
-        "graph": 180,          # avg ~70s, max ~120s, margin +60s (multi-hop needs more time)
-        "quantitative": 180,   # avg ~60s, max ~120s, margin +60s (financial QA needs more time)
-        "orchestrator": 360,   # avg ~200s, max ~300s, margin +60s
+        "standard": 120,
+        "graph": 180,
+        "quantitative": 180,
+        "orchestrator": 360,
     }
-    # Early-stop: consecutive failures threshold
     EARLY_STOP_THRESHOLD = getattr(run_pipeline, '_early_stop', 4)
+    BATCH_SIZE = getattr(run_pipeline, '_batch_size', 1)
 
     endpoint = RAG_ENDPOINTS[rag_type]
     already_tested = tested_ids_by_type.get(rag_type, set())
@@ -171,158 +238,114 @@ def run_pipeline(rag_type, questions, tested_ids_by_type, label=""):
         tprint(f"\n  [{rag_type.upper()}] SKIPPED (all {len(questions)} already tested)")
         return rag_type, {"tested": 0, "correct": 0, "errors": 0}, []
 
-    tprint(f"\n  [{rag_type.upper()}] Starting {len(untested)} questions "
+    batch_label = f" (batch={BATCH_SIZE})" if BATCH_SIZE > 1 else ""
+    tprint(f"\n  [{rag_type.upper()}] Starting {len(untested)} questions{batch_label} "
            f"(skipping {len(already_tested)} already tested)")
 
     totals = {"tested": 0, "correct": 0, "errors": 0}
     per_question_results = []
     consecutive_failures = 0
+    rag_timeout = PIPELINE_TIMEOUTS.get(rag_type, 120)
+    stop_flag = False
 
-    for i, q in enumerate(untested):
-        qid = q["id"]
-        rag_timeout = PIPELINE_TIMEOUTS.get(rag_type, 120)
-        used_local = False
-
-        # Use local LLM reasoning for designated pipelines (bypasses HF Space rate limits)
-        if rag_type in _local_pipelines:
-            resp = call_local_reasoning(q["question"], rag_type=rag_type, timeout=rag_timeout)
-            used_local = True
-        else:
-            resp = call_rag(endpoint, q["question"], timeout=rag_timeout)
-
-        if resp["error"]:
-            answer = ""
-        else:
-            answer = extract_answer(resp["data"])
-
-        # Hybrid fallback: if HF Space returned empty/error/wrong, try local LLM
-        if not used_local and rag_type in ("quantitative", "graph", "standard"):
-            hf_eval = evaluate_answer(answer, q["expected"]) if answer else {"f1": 0}
-            if not answer or len(answer.strip()) < 3 or hf_eval["f1"] < 0.3:
-                local_resp = call_local_reasoning(q["question"], rag_type=rag_type, timeout=60)
-                if not local_resp["error"]:
-                    local_answer = extract_answer(local_resp["data"])
-                    if local_answer and len(local_answer.strip()) >= 3:
-                        local_eval = evaluate_answer(local_answer, q["expected"])
-                        # Use local if it's better than HF Space
-                        if local_eval["f1"] > hf_eval["f1"]:
-                            resp = local_resp
-                            answer = local_answer
-                            used_local = True
-
-        if resp["error"]:
-            answer = ""
-            evaluation = {"correct": False, "method": "NO_ANSWER", "f1": 0.0,
-                          "detail": resp["error"]}
-            pipeline_details = {}
-        else:
-            if not answer:
-                answer = extract_answer(resp["data"])
-            evaluation = evaluate_answer(answer, q["expected"])
-            pipeline_details = extract_pipeline_details(resp["data"], rag_type)
-
-        is_correct = evaluation.get("correct", False)
-        f1_val = evaluation.get("f1", compute_f1(answer, q["expected"]))
-        has_error = resp["error"] is not None
-
-        # Thread-safe print
-        symbol = "[+]" if is_correct else "[-]"
-        local_tag = " LOCAL" if used_local else ""
-        tprint(f"  [{rag_type.upper()} {i+1}/{len(untested)}] {symbol} {qid} | "
-               f"F1={f1_val:.3f} | {resp['latency_ms']}ms | {evaluation['method']}{local_tag}")
-
-        # Record to dashboard (thread-safe via live-writer lock)
-        writer.record_question(
-            rag_type=rag_type,
-            question_id=qid,
-            question_text=q["question"],
-            correct=is_correct,
-            f1=f1_val,
-            latency_ms=resp["latency_ms"],
-            error=resp["error"],
-            cost_usd=0,
-            expected=q["expected"],
-            answer=answer,
-            match_type=evaluation.get("method", "")
-        )
-
-        # Record detailed execution trace
-        writer.record_execution(
-            rag_type=rag_type,
-            question_id=qid,
-            question_text=q["question"],
-            expected=q["expected"],
-            input_payload=resp.get("input_payload"),
-            raw_response=resp.get("raw_response"),
-            extracted_answer=answer,
-            correct=is_correct,
-            f1=f1_val,
-            match_type=evaluation.get("method", ""),
-            latency_ms=resp["latency_ms"],
-            http_status=resp.get("http_status"),
-            response_size=resp.get("response_size", 0),
-            error=resp["error"],
-            cost_usd=0,
-            pipeline_details=pipeline_details
-        )
-
-        # Track as tested (thread-safe)
-        with _dedup_lock:
-            tested_ids_by_type.setdefault(rag_type, set()).add(qid)
-
-        totals["tested"] += 1
-        if is_correct:
-            totals["correct"] += 1
-            consecutive_failures = 0  # Reset on success
-        else:
-            consecutive_failures += 1
-        if has_error:
-            totals["errors"] += 1
-
-        # Early-stop: if N consecutive failures, halt this pipeline
-        if consecutive_failures >= EARLY_STOP_THRESHOLD and totals["tested"] > EARLY_STOP_THRESHOLD:
-            tprint(f"  [{rag_type.upper()}] EARLY STOP: {consecutive_failures} consecutive failures "
-                   f"at question {i+1}/{len(untested)}. Stopping pipeline.")
+    # Process in batches of BATCH_SIZE
+    for batch_start in range(0, len(untested), BATCH_SIZE):
+        if stop_flag:
             break
 
-        # Adaptive rate-limit: only delay on rate-limit errors or for orchestrator spacing
-        if i < len(untested) - 1:
-            custom_delay = getattr(run_pipeline, '_delay', None)
-            if custom_delay is not None:
-                time.sleep(custom_delay)
-            elif has_error and resp["error"] and ("429" in resp["error"] or "rate" in resp["error"].lower() or "credit" in resp["error"].lower()):
-                time.sleep(3)  # Back off on rate limit
-            elif rag_type == "orchestrator":
-                time.sleep(1)  # Minimal spacing for sub-workflow contention
+        batch = untested[batch_start:batch_start + BATCH_SIZE]
 
-        # Report progress for live monitoring
-        if _reporter:
-            _reporter.update(
-                pipeline=rag_type,
-                question_id=qid,
-                correct=is_correct,
-                latency_ms=resp["latency_ms"],
-                error=resp["error"],
-            )
+        if BATCH_SIZE > 1 and len(batch) > 1:
+            # PARALLEL: process batch questions concurrently
+            from concurrent.futures import ThreadPoolExecutor as BatchPool, as_completed as batch_done
+            batch_results = []
+            with BatchPool(max_workers=min(len(batch), BATCH_SIZE)) as batch_pool:
+                futures = {}
+                for j, q in enumerate(batch):
+                    idx = batch_start + j
+                    future = batch_pool.submit(
+                        _process_question, rag_type, q, idx, len(untested), endpoint, rag_timeout
+                    )
+                    futures[future] = (j, q)
 
-        # Per-question result for pipeline snapshot
-        per_question_results.append({
-            "id": qid,
-            "question": q["question"][:200],
-            "expected": q["expected"][:200],
-            "answer": answer[:300],
-            "correct": is_correct,
-            "f1": round(f1_val, 4),
-            "latency_ms": resp["latency_ms"],
-            "method": evaluation.get("method", ""),
-            "error": resp["error"][:200] if resp["error"] else None,
-        })
+                for future in batch_done(futures):
+                    j, q = futures[future]
+                    try:
+                        result = future.result()
+                        batch_results.append((j, result))
+                    except Exception as e:
+                        tprint(f"  [{rag_type.upper()}] Batch error: {e}")
+
+            # Process batch results in order
+            batch_results.sort(key=lambda x: x[0])
+            for _, result in batch_results:
+                _record_result(rag_type, result, tested_ids_by_type, totals,
+                               per_question_results)
+                if result["is_correct"]:
+                    consecutive_failures = 0
+                else:
+                    consecutive_failures += 1
+                if result["has_error"]:
+                    totals["errors"] += 1
+
+                if _reporter:
+                    _reporter.update(
+                        pipeline=rag_type,
+                        question_id=result["qid"],
+                        correct=result["is_correct"],
+                        latency_ms=result["resp"]["latency_ms"],
+                        error=result["resp"]["error"],
+                    )
+
+        else:
+            # SEQUENTIAL: single question (batch_size=1 or last partial batch)
+            for j, q in enumerate(batch):
+                idx = batch_start + j
+                result = _process_question(rag_type, q, idx, len(untested), endpoint, rag_timeout)
+                _record_result(rag_type, result, tested_ids_by_type, totals,
+                               per_question_results)
+                if result["is_correct"]:
+                    consecutive_failures = 0
+                else:
+                    consecutive_failures += 1
+                if result["has_error"]:
+                    totals["errors"] += 1
+
+                if _reporter:
+                    _reporter.update(
+                        pipeline=rag_type,
+                        question_id=result["qid"],
+                        correct=result["is_correct"],
+                        latency_ms=result["resp"]["latency_ms"],
+                        error=result["resp"]["error"],
+                    )
+
+                # Adaptive delay (only in sequential mode)
+                if idx < len(untested) - 1:
+                    custom_delay = getattr(run_pipeline, '_delay', None)
+                    if custom_delay is not None:
+                        time.sleep(custom_delay)
+                    elif result["has_error"] and result["resp"]["error"] and \
+                         ("429" in result["resp"]["error"] or "rate" in result["resp"]["error"].lower()):
+                        time.sleep(3)
+                    elif rag_type == "orchestrator":
+                        time.sleep(1)
+
+        # Early-stop check after each batch
+        if consecutive_failures >= EARLY_STOP_THRESHOLD and totals["tested"] > EARLY_STOP_THRESHOLD:
+            tprint(f"  [{rag_type.upper()}] EARLY STOP: {consecutive_failures} consecutive failures "
+                   f"at question {batch_start + len(batch)}/{len(untested)}. Stopping pipeline.")
+            stop_flag = True
+
+        # Brief pause between batches to avoid overwhelming APIs
+        if BATCH_SIZE > 1 and not stop_flag and batch_start + BATCH_SIZE < len(untested):
+            time.sleep(0.5)
 
     # Save per-pipeline results snapshot
     if per_question_results:
         save_pipeline_results(rag_type, per_question_results, label=label)
 
-    # Save dedup after pipeline completes (thread-safe)
+    # Save dedup after pipeline completes
     with _dedup_lock:
         save_tested_ids({k: v for k, v in tested_ids_by_type.items()})
 
@@ -330,7 +353,6 @@ def run_pipeline(rag_type, questions, tested_ids_by_type, label=""):
     tprint(f"\n  [{rag_type.upper()}] DONE: {totals['correct']}/{totals['tested']} "
            f"({acc}%) | {totals['errors']} errors")
 
-    # Report pipeline completion for live monitoring
     if _reporter:
         _reporter.pipeline_done(
             pipeline=rag_type,
@@ -340,6 +362,57 @@ def run_pipeline(rag_type, questions, tested_ids_by_type, label=""):
         )
 
     return rag_type, totals, per_question_results
+
+
+def _record_result(rag_type, result, tested_ids_by_type, totals, per_question_results):
+    """Record a processed question result to dashboard and tracking."""
+    writer.record_question(
+        rag_type=rag_type,
+        question_id=result["qid"],
+        question_text=result["question"],
+        correct=result["is_correct"],
+        f1=result["f1_val"],
+        latency_ms=result["resp"]["latency_ms"],
+        error=result["resp"]["error"],
+        cost_usd=0,
+        expected=result["expected"],
+        answer=result["answer"],
+        match_type=result["evaluation"].get("method", "")
+    )
+    writer.record_execution(
+        rag_type=rag_type,
+        question_id=result["qid"],
+        question_text=result["question"],
+        expected=result["expected"],
+        input_payload=result["resp"].get("input_payload"),
+        raw_response=result["resp"].get("raw_response"),
+        extracted_answer=result["answer"],
+        correct=result["is_correct"],
+        f1=result["f1_val"],
+        match_type=result["evaluation"].get("method", ""),
+        latency_ms=result["resp"]["latency_ms"],
+        http_status=result["resp"].get("http_status"),
+        response_size=result["resp"].get("response_size", 0),
+        error=result["resp"]["error"],
+        cost_usd=0,
+        pipeline_details=result["pipeline_details"]
+    )
+    with _dedup_lock:
+        tested_ids_by_type.setdefault(rag_type, set()).add(result["qid"])
+    totals["tested"] += 1
+    if result["is_correct"]:
+        totals["correct"] += 1
+    per_question_results.append({
+        "id": result["qid"],
+        "question": result["question"][:200],
+        "expected": result["expected"][:200],
+        "answer": result["answer"][:300],
+        "correct": result["is_correct"],
+        "f1": round(result["f1_val"], 4),
+        "latency_ms": result["resp"]["latency_ms"],
+        "method": result["evaluation"].get("method", ""),
+        "error": result["resp"]["error"][:200] if result["resp"]["error"] else None,
+    })
 
 
 def main():
@@ -373,12 +446,17 @@ def main():
     parser.add_argument("--local-pipelines", type=str, default="",
                         help="Comma-separated pipelines to run via local LLM (OpenRouter direct from VM). "
                              "Bypasses HF Space n8n for rate-limited pipelines. E.g.: quantitative,graph")
+    parser.add_argument("--batch-size", type=int, default=1,
+                        help="Questions processed in parallel WITHIN each pipeline (E5 improvement). "
+                             "Default: 1 (sequential). Use 3-5 for local LLM pipelines. "
+                             "Caution: HF Space n8n has 1 worker, so batch>1 queues there.")
     args = parser.parse_args()
 
-    # Pass delay and early-stop to run_pipeline via function attributes
+    # Pass delay, early-stop, and batch-size to run_pipeline via function attributes
     if args.delay is not None:
         run_pipeline._delay = args.delay
     run_pipeline._early_stop = args.early_stop if args.early_stop > 0 else 999
+    run_pipeline._batch_size = args.batch_size
 
     # Set up local pipelines (bypass HF Space for rate-limited pipelines)
     global _local_pipelines
@@ -432,6 +510,7 @@ def main():
     print(f"  Dataset: {dataset_label}")
     print(f"  Types: {', '.join(requested_types)}")
     print(f"  Max per pipeline: {args.max or 'all'}")
+    print(f"  Batch size: {args.batch_size} (questions in parallel per pipeline)")
     print(f"  Reset dedup: {args.reset}")
     print("=" * 70)
 
