@@ -32,6 +32,123 @@ RAG_ENDPOINTS = {
 
 # --- Functions ---
 
+def call_local_reasoning(question_text, rag_type="quantitative", timeout=30):
+    """
+    Call OpenRouter LLM directly from VM for context-rich questions.
+    Bypasses HF Space n8n pipeline (which is rate-limited from HF IPs).
+    Used for:
+      - quantitative questions with embedded context+table_data (FIX-39)
+      - graph questions with embedded reference context (FIX-39d)
+    Returns same format as call_rag() for drop-in replacement.
+    """
+    api_key = os.environ.get("OPENROUTER_API_KEY", "")
+    if not api_key:
+        return {"data": None, "latency_ms": 0, "error": "OPENROUTER_API_KEY not set", "http_status": None}
+
+    if rag_type == "quantitative":
+        system_prompt = (
+            "You are a financial analyst. Answer the question based ONLY on the provided context and table data.\n"
+            "Steps:\n"
+            "1. LOCATE the relevant numbers in the context/table\n"
+            "2. EXTRACT the exact values needed\n"
+            "3. CALCULATE if needed (show your work)\n"
+            "4. ANSWER with just the final answer\n\n"
+            "IMPORTANT: Your FIRST LINE must be the final answer only (a number, percentage, or short phrase). "
+            "Then explain your reasoning below."
+        )
+        # Parse FIX-39 format: question + \n\nContext:\n... + \n\nTable data:\n...
+        parts = question_text.split("\n\nContext:\n", 1)
+        if len(parts) == 2:
+            question_part = parts[0].strip()
+            rest = parts[1]
+        else:
+            question_part = question_text
+            rest = ""
+
+        user_prompt = f"{rest}\n\nQuestion: {question_part}\n\nAnswer (first line = final answer only):" if rest else question_text
+
+    elif rag_type == "graph":
+        system_prompt = (
+            "You are a knowledgeable assistant. Answer the question based on the provided reference context.\n"
+            "For multi-hop questions, trace the connections step by step through the context.\n"
+            "Give a concise, direct answer."
+        )
+        parts = question_text.split("\n\nReference context:", 1)
+        if len(parts) == 2:
+            question_part = parts[0].strip()
+            context = parts[1].strip()
+        else:
+            question_part = question_text
+            context = ""
+
+        user_prompt = f"Reference context:\n{context}\n\nQuestion: {question_part}\n\nAnswer:" if context else question_text
+
+    else:
+        system_prompt = "Answer the question concisely and accurately."
+        user_prompt = question_text
+
+    start_time = datetime.now()
+    # Models to try in order (rotate on rate-limit). No system role — Google AI Studio rejects it for Gemma.
+    MODELS = [
+        "google/gemma-3-27b-it:free",
+        "arcee-ai/trinity-large-preview:free",
+        "qwen/qwen3-235b-a22b:free",
+    ]
+    full_prompt = f"{system_prompt}\n\n---\n\n{user_prompt[:12000]}"
+
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
+
+    for model in MODELS:
+        payload = json.dumps({
+            "model": model,
+            "messages": [{"role": "user", "content": full_prompt}],
+            "max_tokens": 300,
+            "temperature": 0.1
+        }).encode('utf-8')
+
+        try:
+            req = request.Request("https://openrouter.ai/api/v1/chat/completions",
+                                 data=payload, headers=headers)
+            with request.urlopen(req, timeout=timeout) as resp:
+                data = json.loads(resp.read().decode('utf-8'))
+                latency_ms = int((datetime.now() - start_time).total_seconds() * 1000)
+
+                content = data.get("choices", [{}])[0].get("message", {}).get("content", "")
+                # Take first line as the answer
+                first_line = content.strip().split("\n")[0].strip()
+                # Clean up common prefixes
+                for prefix in ["Answer:", "The answer is", "Final answer:", "A:", "**", "## "]:
+                    if first_line.lower().startswith(prefix.lower()):
+                        first_line = first_line[len(prefix):].strip()
+                # Remove trailing ** (bold markdown)
+                first_line = first_line.rstrip("*").strip()
+
+                return {
+                    "data": {"response": first_line, "full_response": content},
+                    "latency_ms": latency_ms,
+                    "error": None,
+                    "http_status": 200
+                }
+        except error.HTTPError as e:
+            if e.code == 429 and model != MODELS[-1]:
+                time.sleep(1)
+                continue  # Try next model
+            latency_ms = int((datetime.now() - start_time).total_seconds() * 1000)
+            return {"data": None, "latency_ms": latency_ms, "error": str(e), "http_status": e.code}
+        except Exception as e:
+            if model != MODELS[-1]:
+                time.sleep(0.5)
+                continue
+            latency_ms = int((datetime.now() - start_time).total_seconds() * 1000)
+            return {"data": None, "latency_ms": latency_ms, "error": str(e), "http_status": None}
+
+    latency_ms = int((datetime.now() - start_time).total_seconds() * 1000)
+    return {"data": None, "latency_ms": latency_ms, "error": "all models rate-limited", "http_status": 429}
+
+
 def call_rag(endpoint, question, timeout=60, max_retries=3):
     """
     Makes an HTTP POST request to the RAG endpoint with retry + exponential backoff.

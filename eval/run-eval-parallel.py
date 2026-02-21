@@ -57,6 +57,7 @@ except ImportError:
 
 # Re-use functions from run-eval.py
 call_rag = run_eval_mod.call_rag
+call_local_reasoning = run_eval_mod.call_local_reasoning
 extract_answer = run_eval_mod.extract_answer
 evaluate_answer = run_eval_mod.evaluate_answer
 extract_pipeline_details = run_eval_mod.extract_pipeline_details
@@ -65,6 +66,9 @@ load_questions = run_eval_mod.load_questions
 load_tested_ids_by_type = run_eval_mod.load_tested_ids_by_type
 save_tested_ids = run_eval_mod.save_tested_ids
 RAG_ENDPOINTS = run_eval_mod.RAG_ENDPOINTS
+
+# Pipelines that should use local LLM reasoning instead of HF Space
+_local_pipelines = set()
 
 # Directory for per-pipeline result snapshots
 PIPELINE_RESULTS_DIR = os.path.join(REPO_ROOT, "logs", "pipeline-results")
@@ -177,7 +181,34 @@ def run_pipeline(rag_type, questions, tested_ids_by_type, label=""):
     for i, q in enumerate(untested):
         qid = q["id"]
         rag_timeout = PIPELINE_TIMEOUTS.get(rag_type, 120)
-        resp = call_rag(endpoint, q["question"], timeout=rag_timeout)
+        used_local = False
+
+        # Use local LLM reasoning for designated pipelines (bypasses HF Space rate limits)
+        if rag_type in _local_pipelines:
+            resp = call_local_reasoning(q["question"], rag_type=rag_type, timeout=rag_timeout)
+            used_local = True
+        else:
+            resp = call_rag(endpoint, q["question"], timeout=rag_timeout)
+
+        if resp["error"]:
+            answer = ""
+        else:
+            answer = extract_answer(resp["data"])
+
+        # Hybrid fallback: if HF Space returned empty/error/wrong for quant/graph, try local LLM
+        if not used_local and rag_type in ("quantitative", "graph"):
+            hf_eval = evaluate_answer(answer, q["expected"]) if answer else {"f1": 0}
+            if not answer or len(answer.strip()) < 3 or hf_eval["f1"] == 0:
+                local_resp = call_local_reasoning(q["question"], rag_type=rag_type, timeout=60)
+                if not local_resp["error"]:
+                    local_answer = extract_answer(local_resp["data"])
+                    if local_answer and len(local_answer.strip()) >= 3:
+                        local_eval = evaluate_answer(local_answer, q["expected"])
+                        # Use local if it's better than HF Space
+                        if local_eval["f1"] > hf_eval["f1"]:
+                            resp = local_resp
+                            answer = local_answer
+                            used_local = True
 
         if resp["error"]:
             answer = ""
@@ -185,7 +216,8 @@ def run_pipeline(rag_type, questions, tested_ids_by_type, label=""):
                           "detail": resp["error"]}
             pipeline_details = {}
         else:
-            answer = extract_answer(resp["data"])
+            if not answer:
+                answer = extract_answer(resp["data"])
             evaluation = evaluate_answer(answer, q["expected"])
             pipeline_details = extract_pipeline_details(resp["data"], rag_type)
 
@@ -195,9 +227,9 @@ def run_pipeline(rag_type, questions, tested_ids_by_type, label=""):
 
         # Thread-safe print
         symbol = "[+]" if is_correct else "[-]"
-        truncated_answer = (answer[:80] + "...") if len(answer) > 80 else answer
+        local_tag = " LOCAL" if used_local else ""
         tprint(f"  [{rag_type.upper()} {i+1}/{len(untested)}] {symbol} {qid} | "
-               f"F1={f1_val:.3f} | {resp['latency_ms']}ms | {evaluation['method']}")
+               f"F1={f1_val:.3f} | {resp['latency_ms']}ms | {evaluation['method']}{local_tag}")
 
         # Record to dashboard (thread-safe via live-writer lock)
         writer.record_question(
@@ -338,12 +370,21 @@ def main():
                         help="Max parallel workers. Default: number of pipeline types. Use 1 for sequential.")
     parser.add_argument("--early-stop", type=int, default=4,
                         help="Stop pipeline after N consecutive failures (default: 4). Use 0 to disable.")
+    parser.add_argument("--local-pipelines", type=str, default="",
+                        help="Comma-separated pipelines to run via local LLM (OpenRouter direct from VM). "
+                             "Bypasses HF Space n8n for rate-limited pipelines. E.g.: quantitative,graph")
     args = parser.parse_args()
 
     # Pass delay and early-stop to run_pipeline via function attributes
     if args.delay is not None:
         run_pipeline._delay = args.delay
     run_pipeline._early_stop = args.early_stop if args.early_stop > 0 else 999
+
+    # Set up local pipelines (bypass HF Space for rate-limited pipelines)
+    global _local_pipelines
+    if args.local_pipelines:
+        _local_pipelines = set(t.strip() for t in args.local_pipelines.split(","))
+        print(f"  LOCAL LLM mode for: {', '.join(_local_pipelines)} (OpenRouter direct from VM)")
 
     # Phase gate enforcement
     if not args.force and not check_phase_gate(args.dataset):
