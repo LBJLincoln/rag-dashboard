@@ -1,12 +1,12 @@
 {
   "meta": {
-    "generated_at": "2026-02-21T01:34:24+01:00",
+    "generated_at": "2026-02-21T01:35:02+01:00",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
-    "total_unique_questions": 303,
-    "total_test_runs": 1035,
-    "total_iterations": 52,
+    "total_unique_questions": 310,
+    "total_test_runs": 1042,
+    "total_iterations": 56,
     "status": "running",
     "current_session": "2026-02-21T01-33-20"
   },
@@ -14903,33 +14903,33 @@
       "id": "iter-2026-02-21T01-27-09",
       "number": 52,
       "timestamp_start": "2026-02-21T01:33:55+01:00",
-      "timestamp_end": "2026-02-21T01:34:24+01:00",
+      "timestamp_end": "2026-02-21T01:34:35+01:00",
       "label": "Iteration 52",
       "description": "",
       "changes_applied": [],
       "results_summary": {
         "standard": {
-          "tested": 3,
-          "correct": 2,
+          "tested": 4,
+          "correct": 3,
           "errors": 0,
-          "accuracy_pct": 66.7,
-          "avg_latency_ms": 15227,
+          "accuracy_pct": 75.0,
+          "avg_latency_ms": 14207,
           "p95_latency_ms": 17201,
-          "avg_f1": 0.5269
+          "avg_f1": 0.6513
         },
         "graph": {
-          "tested": 2,
+          "tested": 3,
           "correct": 0,
           "errors": 0,
           "accuracy_pct": 0.0,
-          "avg_latency_ms": 17677,
+          "avg_latency_ms": 15066,
           "p95_latency_ms": 20339,
           "avg_f1": 0
         }
       },
-      "total_tested": 5,
-      "total_correct": 2,
-      "overall_accuracy_pct": 40.0,
+      "total_tested": 7,
+      "total_correct": 3,
+      "overall_accuracy_pct": 42.9,
       "questions": [
         {
           "id": "p2-std-41",
@@ -14995,6 +14995,206 @@
           "error": null,
           "error_type": null,
           "timestamp": "2026-02-21T01:34:24+01:00"
+        },
+        {
+          "id": "graph-musique-43",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9843,
+          "answer": "No answer provided in context.",
+          "expected": "the Austrian government",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:34:27+01:00"
+        },
+        {
+          "id": "p2-std-44",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 11148,
+          "answer": "Daniel Barenboim was married to Jacqueline du Pré, one of the subjects of the film \"Hillary and Jackie.\"",
+          "expected": "Daniel Barenboim",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:34:35+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-33-20",
+      "number": 53,
+      "timestamp_start": "2026-02-21T01:34:47+01:00",
+      "timestamp_end": "2026-02-21T01:34:47+01:00",
+      "label": "Iteration 53",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 59266,
+          "p95_latency_ms": 59266,
+          "avg_f1": 0.25
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "orch-6",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.25,
+          "latency_ms": 59266,
+          "answer": "Ritchie Valens\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "expected": "Richie Valens",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:34:47+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 54,
+      "timestamp_start": "2026-02-21T01:34:49+01:00",
+      "timestamp_end": "2026-02-21T01:34:49+01:00",
+      "label": "Iteration 54",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 21951,
+          "p95_latency_ms": 21951,
+          "avg_f1": 0
+        },
+        "standard": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 13401,
+          "p95_latency_ms": 13401,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 2,
+      "total_correct": 1,
+      "overall_accuracy_pct": 50.0,
+      "questions": [
+        {
+          "id": "graph-musique-44",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 21951,
+          "answer": "No answer available.",
+          "expected": "November 5",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:34:49+01:00"
+        },
+        {
+          "id": "p2-std-45",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 13401,
+          "answer": "The study of birds is called ornithology.",
+          "expected": "Ornithology",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:34:49+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-33-20",
+      "number": 55,
+      "timestamp_start": "2026-02-21T01:34:57+01:00",
+      "timestamp_end": "2026-02-21T01:34:57+01:00",
+      "label": "Iteration 55",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 9492,
+          "p95_latency_ms": 9492,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "orch-7",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9492,
+          "answer": "Fruit, cricket, and horseshoe are varieties of beetles.\n\n---\n**Sources:**\n[1] commonsenseqa (42%)\n[2] strategyqa (39%)\n[3] musique (32%)\n[4] bigbench_hard (23%)",
+          "expected": "Bat",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:34:57+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-27-09",
+      "number": 56,
+      "timestamp_start": "2026-02-21T01:35:02+01:00",
+      "timestamp_end": "2026-02-21T01:35:02+01:00",
+      "label": "Iteration 56",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 1,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 12375,
+          "p95_latency_ms": 12375,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "graph-musique-45",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12375,
+          "answer": "2011",
+          "expected": "November 5",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:35:02+01:00"
         }
       ]
     }
@@ -33176,6 +33376,223 @@
       "last_tested": "2026-02-21T01:34:24+01:00",
       "best_f1": 0.0,
       "trend": "stable"
+    },
+    "graph-musique-43": {
+      "id": "graph-musique-43",
+      "question": "Who did Hayek work for upon being hired by the author of Bureaucracy?",
+      "expected": "the Austrian government",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 52,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9843,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No answer provided in context.",
+          "timestamp": "2026-02-21T01:34:27+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:34:27+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "p2-std-44": {
+      "id": "p2-std-44",
+      "question": "Which orchestral conductor was married to one of the subjects of the film Hillary and Jackie?",
+      "expected": "Daniel Barenboim",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 52,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 11148,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Daniel Barenboim was married to Jacqueline du Pré, one of the subjects of the film \"Hillary and Jackie.\"",
+          "timestamp": "2026-02-21T01:34:35+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:34:35+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "orch-6": {
+      "id": "orch-6",
+      "question": "Buddy Holly and the Big Bopper were two of the three musicians who died in a plane crash in February 1959. Who was the other one?",
+      "expected": "Richie Valens",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-33-20",
+          "iteration_number": 53,
+          "correct": false,
+          "f1": 0.25,
+          "latency_ms": 59266,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Ritchie Valens\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "timestamp": "2026-02-21T01:34:47+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:34:47+01:00",
+      "best_f1": 0.25,
+      "trend": "stable"
+    },
+    "graph-musique-44": {
+      "id": "graph-musique-44",
+      "question": "What date did the Japanese get to the city where New Plaza Stadium is located, and the rest of the Guangdong province?",
+      "expected": "November 5",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 54,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 21951,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No answer available.",
+          "timestamp": "2026-02-21T01:34:49+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:34:49+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "p2-std-45": {
+      "id": "p2-std-45",
+      "question": "What id the name given to the study of birds?",
+      "expected": "Ornithology",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 54,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 13401,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The study of birds is called ornithology.",
+          "timestamp": "2026-02-21T01:34:49+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:34:49+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "orch-7": {
+      "id": "orch-7",
+      "question": "Fruit, cricket and horseshoe are varieties of what type of animal?",
+      "expected": "Bat",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-33-20",
+          "iteration_number": 55,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9492,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Fruit, cricket, and horseshoe are varieties of beetles.\n\n---\n**Sources:**\n[1] commonsenseqa (42%)\n[2] strategyqa (39%)\n[3] musique (32%)\n[4] bigbench_hard (23%)",
+          "timestamp": "2026-02-21T01:34:57+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:34:57+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-45": {
+      "id": "graph-musique-45",
+      "question": "what year did the Japanese get to city where Wang Yue died and the rest of Guangdong province?",
+      "expected": "November 5",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-27-09",
+          "iteration_number": 56,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12375,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "2011",
+          "timestamp": "2026-02-21T01:35:02+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:35:02+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
     }
   },
   "quick_tests": [
@@ -33681,134 +34098,6 @@
     }
   ],
   "execution_logs": [
-    {
-      "timestamp": "2026-02-16T02:40:13.617596Z",
-      "question_id": "orch-43",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 108233,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The top 3 companies by stockholders equity at the end of 2023 are:\n\n1. TechVision Inc - $6,149,000,0",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-16T02:44:31.855547Z",
-      "question_id": "orch-44",
-      "rag_type": "orchestrator",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 247997,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Gene editing, research, agriculture, medicine.\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-16T02:46:38.114000Z",
-      "question_id": "orch-46",
-      "rag_type": "orchestrator",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 116001,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "National Air and Space Museum, National Museum of Natural History, National Museum of American Histo",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-16T02:49:01.886111Z",
-      "question_id": "orch-48",
-      "rag_type": "orchestrator",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 135508,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "I cannot determine the products sold by HealthPlus without additional context.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-16T02:51:55.598973Z",
-      "question_id": "orch-50",
-      "rag_type": "orchestrator",
-      "correct": false,
-      "f1": 0.2553,
-      "latency_ms": 164000,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Alexander Fleming discovered penicillin (1928) → Howard Florey and Ernst Boris Chain developed mass ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-16T02:54:27.118832Z",
-      "question_id": "orch-01",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 144238,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc's revenue for the year 2023 was $6,745,000,000.\n\n---\n**Sources:**\n[1] SQL Result 1",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-16T02:56:48.369678Z",
-      "question_id": "orch-02",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 131266,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Penicillin was discovered by Alexander Fleming.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-16T02:59:01.364305Z",
-      "question_id": "orch-03",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 119494,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "First woman to win a Nobel Prize, only person to win in two different scientific fields (Physics and",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
     {
       "timestamp": "2026-02-16T03:00:46.368054Z",
       "question_id": "orch-04",
@@ -37059,6 +37348,140 @@
       "error_type": null,
       "error_preview": null,
       "answer_preview": "No information provided.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:34:24+01:00",
+      "question_id": "p2-std-43",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 13375,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the provided context, there is no information about Barbara Walters or her interviews with ",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:34:27+01:00",
+      "question_id": "graph-musique-43",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 9843,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No answer provided in context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:34:36+01:00",
+      "question_id": "p2-std-44",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 11148,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Daniel Barenboim was married to Jacqueline du Pré, one of the subjects of the film \"Hillary and Jack",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:34:47+01:00",
+      "question_id": "orch-6",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.25,
+      "latency_ms": 59266,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Ritchie Valens\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:34:49+01:00",
+      "question_id": "graph-musique-44",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 21951,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No answer available.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:34:49+01:00",
+      "question_id": "p2-std-45",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 13401,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The study of birds is called ornithology.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:34:57+01:00",
+      "question_id": "orch-7",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 9492,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Fruit, cricket, and horseshoe are varieties of beetles.\n\n---\n**Sources:**\n[1] commonsenseqa (42%)\n[2",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:35:02+01:00",
+      "question_id": "graph-musique-45",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 12375,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "2011",
       "confidence": null,
       "pipeline_details_summary": {
         "entities": [],
