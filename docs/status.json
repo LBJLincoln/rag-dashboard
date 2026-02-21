@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-21T14:58:28+01:00",
+  "generated_at": "2026-02-21T16:05:47+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -51,24 +51,19 @@
   "blockers": [],
   "next_action": "Phase 1 COMPLETE \u2014 run Phase 2: python3 eval/run-eval-parallel.py --dataset phase-2 --reset",
   "last_iteration": {
-    "id": "iter-2026-02-21T14-48-26",
-    "label": "Phase2-3000q-FIX39-Gemma-v5",
-    "timestamp": "2026-02-21T14:48:27+01:00",
-    "total_tested": 38,
-    "overall_accuracy_pct": 36.8,
+    "id": "iter-2026-02-21T15-31-23",
+    "label": "Iteration 446",
+    "timestamp": "2026-02-21T16:05:16+01:00",
+    "total_tested": 2,
+    "overall_accuracy_pct": 0.0,
     "pipelines": {
-      "quantitative": {
-        "tested": 17,
-        "correct": 3,
-        "accuracy": 17.6
-      },
-      "standard": {
-        "tested": 11,
-        "correct": 11,
-        "accuracy": 100.0
-      },
       "graph": {
-        "tested": 10,
+        "tested": 1,
+        "correct": 0,
+        "accuracy": 0.0
+      },
+      "quantitative": {
+        "tested": 1,
         "correct": 0,
         "accuracy": 0.0
       }
@@ -76,7 +71,7 @@
   },
   "totals": {
     "unique_questions": 1200,
-    "test_runs": 3296,
-    "iterations": 434
+    "test_runs": 3466,
+    "iterations": 446
   }
 }
