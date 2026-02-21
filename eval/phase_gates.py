@@ -100,10 +100,34 @@ def load_data_json():
         return json.load(f)
 
 
+_PHASE1_IDS = None
+
+def _load_phase1_ids():
+    """Load Phase 1 question IDs from dataset files."""
+    global _PHASE1_IDS
+    if _PHASE1_IDS is not None:
+        return _PHASE1_IDS
+    ids = set()
+    for fname in ["standard-orch-50x2.json", "graph-quant-50x2.json"]:
+        fpath = os.path.join(REPO_ROOT, "datasets", "phase-1", fname)
+        if os.path.exists(fpath):
+            import json as _json
+            with open(fpath) as f:
+                d = _json.load(f)
+            for q in d.get("questions", []):
+                ids.add(q["id"])
+    _PHASE1_IDS = ids
+    return ids
+
+
 def _is_phase1_question(qid):
-    """Return True if question belongs to Phase 1 baseline (not Phase 2 HF datasets)."""
+    """Return True if question belongs to Phase 1 baseline (loaded from dataset files)."""
+    p1_ids = _load_phase1_ids()
+    if p1_ids:
+        return qid in p1_ids
+    # Fallback: pattern-based exclusion if dataset files unavailable
     qid_lower = qid.lower()
-    return not any(pat in qid_lower for pat in ("musique", "finqa", "phase2"))
+    return not any(pat in qid_lower for pat in ("musique", "finqa", "phase2", "p2-", "tatqa", "convfinqa", "2wiki"))
 
 
 def get_pipeline_accuracy(data, phase1_only=True):

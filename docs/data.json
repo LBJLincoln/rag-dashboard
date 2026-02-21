@@ -1,14 +1,14 @@
 {
   "meta": {
-    "generated_at": "2026-02-19T23:18:31+01:00",
+    "generated_at": "2026-02-21T01:26:29+01:00",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
-    "total_unique_questions": 232,
-    "total_test_runs": 932,
-    "total_iterations": 42,
+    "total_unique_questions": 243,
+    "total_test_runs": 965,
+    "total_iterations": 47,
     "status": "complete",
-    "current_session": "2026-02-16T11-28-16"
+    "current_session": "2026-02-21T01-23-57"
   },
   "reference_cloud_executions": {
     "note": "Executions reussies sur n8n Cloud (avant migration Docker). Servent de reference uniquement.",
@@ -13277,6 +13277,673 @@
           "error": "HTTP Error 408: Request Timeout",
           "error_type": "TIMEOUT",
           "timestamp": "2026-02-16T11:39:39.899867Z"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T00-54-06",
+      "number": 43,
+      "timestamp_start": "2026-02-21T00:54:06+01:00",
+      "timestamp_end": "2026-02-21T00:55:30+01:00",
+      "label": "Phase2-graph-smoke-5q",
+      "description": "Dataset: phase-2, Parallel: graph, Max: 5, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 5,
+          "correct": 2,
+          "errors": 0,
+          "accuracy_pct": 40.0,
+          "avg_latency_ms": 13898,
+          "p95_latency_ms": 21345,
+          "avg_f1": 1.0
+        }
+      },
+      "total_tested": 5,
+      "total_correct": 2,
+      "overall_accuracy_pct": 40.0,
+      "questions": [
+        {
+          "id": "graph-musique-0",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 21345,
+          "answer": "Mary Jo Catlett",
+          "expected": "Mr. Lawrence",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T00:54:28+01:00"
+        },
+        {
+          "id": "graph-musique-1",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 16377,
+          "answer": "Australia",
+          "expected": "Senica District",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T00:54:48+01:00"
+        },
+        {
+          "id": "graph-musique-2",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9437,
+          "answer": "1875",
+          "expected": "1572",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T00:55:00+01:00"
+        },
+        {
+          "id": "graph-musique-3",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 7074,
+          "answer": "1572",
+          "expected": "1572",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T00:55:10+01:00"
+        },
+        {
+          "id": "graph-musique-4",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 15261,
+          "answer": "1572",
+          "expected": "1572",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T00:55:29+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T00-55-43",
+      "number": 44,
+      "timestamp_start": "2026-02-21T00:55:43+01:00",
+      "timestamp_end": "2026-02-21T00:57:01+01:00",
+      "label": "Phase2-std-smoke-3q",
+      "description": "Dataset: phase-2, Parallel: standard, Max: 3, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 3,
+          "correct": 0,
+          "errors": 0,
+          "accuracy_pct": 0.0,
+          "avg_latency_ms": 21916,
+          "p95_latency_ms": 22284,
+          "avg_f1": 0
+        }
+      },
+      "total_tested": 3,
+      "total_correct": 0,
+      "overall_accuracy_pct": 0.0,
+      "questions": [
+        {
+          "id": "std-0",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 21818,
+          "answer": "Unable to generate answer",
+          "expected": "The Crow",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T00:56:06+01:00"
+        },
+        {
+          "id": "std-1",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 22284,
+          "answer": "Unable to generate answer",
+          "expected": "The Staple Singers",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T00:56:33+01:00"
+        },
+        {
+          "id": "std-2",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 21646,
+          "answer": "Unable to generate answer",
+          "expected": "MC Hammer",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T00:57:00+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-00-22",
+      "number": 45,
+      "timestamp_start": "2026-02-21T01:00:22+01:00",
+      "timestamp_end": "2026-02-21T01:05:41+01:00",
+      "label": "Phase2-graph-50q",
+      "description": "Dataset: phase-2, Parallel: graph, Max: 50, Reset: True",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 13,
+          "correct": 2,
+          "errors": 0,
+          "accuracy_pct": 15.4,
+          "avg_latency_ms": 21575,
+          "p95_latency_ms": 89764,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 13,
+      "total_correct": 2,
+      "overall_accuracy_pct": 15.4,
+      "questions": [
+        {
+          "id": "graph-musique-0",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 18735,
+          "answer": "Mary Jo Catlett",
+          "expected": "Mr. Lawrence",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:00:41+01:00"
+        },
+        {
+          "id": "graph-musique-1",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10625,
+          "answer": "Australia",
+          "expected": "Senica District",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:00:55+01:00"
+        },
+        {
+          "id": "graph-musique-2",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12634,
+          "answer": "1789",
+          "expected": "1572",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:01:11+01:00"
+        },
+        {
+          "id": "graph-musique-3",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11907,
+          "answer": "1637",
+          "expected": "1572",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:01:26+01:00"
+        },
+        {
+          "id": "graph-musique-4",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 12301,
+          "answer": "1572",
+          "expected": "1572",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:01:41+01:00"
+        },
+        {
+          "id": "graph-musique-5",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 89764,
+          "answer": "No answer provided in context.",
+          "expected": "October",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:03:14+01:00"
+        },
+        {
+          "id": "graph-musique-6",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 27092,
+          "answer": "1983",
+          "expected": "1572",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:03:44+01:00"
+        },
+        {
+          "id": "graph-musique-7",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10573,
+          "answer": "1183",
+          "expected": "1191",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:03:58+01:00"
+        },
+        {
+          "id": "graph-musique-8",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.8,
+          "latency_ms": 29977,
+          "answer": "Rooster Cogburn",
+          "expected": "U.S. Marshal Rooster Cogburn",
+          "match_type": "SUBSET_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:04:31+01:00"
+        },
+        {
+          "id": "graph-musique-9",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 14206,
+          "answer": "John Wayne",
+          "expected": "U.S. Marshal Rooster Cogburn",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:04:48+01:00"
+        },
+        {
+          "id": "graph-musique-10",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 13724,
+          "answer": "John Wayne",
+          "expected": "U.S. Marshal Rooster Cogburn",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:05:05+01:00"
+        },
+        {
+          "id": "graph-musique-11",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 18187,
+          "answer": "No information available.",
+          "expected": "U.S. Marshal Rooster Cogburn",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:05:26+01:00"
+        },
+        {
+          "id": "graph-musique-12",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10757,
+          "answer": "I don't have information about Leo Bennett or his place of death in the provided context.",
+          "expected": "River Thames",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:05:40+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-07-49",
+      "number": 46,
+      "timestamp_start": "2026-02-21T01:07:49+01:00",
+      "timestamp_end": "2026-02-21T01:10:38+01:00",
+      "label": "Phase2-graph-50q-no-early-stop",
+      "description": "Dataset: phase-2, Parallel: graph, Max: 50, Reset: False",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 10,
+          "correct": 2,
+          "errors": 0,
+          "accuracy_pct": 20.0,
+          "avg_latency_ms": 14050,
+          "p95_latency_ms": 23483,
+          "avg_f1": 0.443
+        }
+      },
+      "total_tested": 10,
+      "total_correct": 2,
+      "overall_accuracy_pct": 20.0,
+      "questions": [
+        {
+          "id": "graph-musique-13",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.2222,
+          "latency_ms": 15346,
+          "answer": "No major river (Qatar/Doha is coastal)",
+          "expected": "River Thames",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:08:05+01:00"
+        },
+        {
+          "id": "graph-musique-14",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.8,
+          "latency_ms": 13062,
+          "answer": "Thames",
+          "expected": "River Thames",
+          "match_type": "SUBSET_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:08:21+01:00"
+        },
+        {
+          "id": "graph-musique-15",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 13004,
+          "answer": "No information available.",
+          "expected": "River Thames",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:08:37+01:00"
+        },
+        {
+          "id": "graph-musique-16",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11076,
+          "answer": "1543",
+          "expected": "as early as the 3rd century BC",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:08:52+01:00"
+        },
+        {
+          "id": "graph-musique-17",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 15593,
+          "answer": "1543",
+          "expected": "as early as the 3rd century BC",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:09:10+01:00"
+        },
+        {
+          "id": "graph-musique-18",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 14520,
+          "answer": "John Fogerty",
+          "expected": "Cornell University",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:09:28+01:00"
+        },
+        {
+          "id": "graph-musique-19",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 23483,
+          "answer": "1543",
+          "expected": "as early as the 3rd century BC",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:09:55+01:00"
+        },
+        {
+          "id": "graph-musique-20",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 14010,
+          "answer": "1543",
+          "expected": "as early as the 3rd century BC",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:10:12+01:00"
+        },
+        {
+          "id": "graph-musique-21",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.5,
+          "latency_ms": 10700,
+          "answer": "Robert Peel",
+          "expected": "Arthur Peel",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:10:26+01:00"
+        },
+        {
+          "id": "graph-musique-22",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.25,
+          "latency_ms": 9709,
+          "answer": "Robert B. Sherman",
+          "expected": "Sir Robert Peel, 1st Baronet",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:10:38+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-23-57",
+      "number": 47,
+      "timestamp_start": "2026-02-21T01:23:57+01:00",
+      "timestamp_end": "2026-02-21T01:26:29+01:00",
+      "label": "Phase2-smoke-5q-hfspace",
+      "description": "Phase 2 smoke test via HF Space (skip quant - SQL gen broken)",
+      "changes_applied": [],
+      "results_summary": {
+        "standard": {
+          "tested": 5,
+          "correct": 5,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 10915,
+          "p95_latency_ms": 17120,
+          "avg_f1": 0.9
+        },
+        "orchestrator": {
+          "tested": 5,
+          "correct": 4,
+          "errors": 0,
+          "accuracy_pct": 80.0,
+          "avg_latency_ms": 18219,
+          "p95_latency_ms": 29282,
+          "avg_f1": 0.7036
+        }
+      },
+      "total_tested": 10,
+      "total_correct": 9,
+      "overall_accuracy_pct": 90.0,
+      "questions": [
+        {
+          "id": "std-0",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 10124,
+          "answer": "Brandon Lee died during the making of the movie \"The Crow\" in 1993.",
+          "expected": "The Crow",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:24:08+01:00"
+        },
+        {
+          "id": "std-1",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 9934,
+          "answer": "The Staple Singers had a 70s No 1 hit with \"Let's Do It Again.\"",
+          "expected": "The Staple Singers",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:24:18+01:00"
+        },
+        {
+          "id": "std-2",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 7200,
+          "answer": "MC Hammer had a Too Legit To Quit Tour.",
+          "expected": "MC Hammer",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:24:25+01:00"
+        },
+        {
+          "id": "std-3",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 17120,
+          "answer": "Rudyard Kipling referred to \"Triumph and Disaster\" as the two imposters to meet and treat the same day.",
+          "expected": "Triumph and Disaster",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:24:42+01:00"
+        },
+        {
+          "id": "std-4",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 10200,
+          "answer": "The Oscar-nominated film that had \"You Sexy Thing\" as its theme song is \"The Full Monty\" (1997).",
+          "expected": "The Full Monty",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:24:53+01:00"
+        },
+        {
+          "id": "orch-0",
+          "rag_type": "orchestrator",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11418,
+          "answer": "The song that begins with the line \"The taxman's taken all my dough\" is \"Taxman\" by The Beatles.\n\n---\n**Sources:**\n[1] bigbench_hard (42%)\n[2] triviaqa (32%)\n[3] gsm8k (20%)",
+          "expected": "Sunny Afternoon",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:25:04+01:00"
+        },
+        {
+          "id": "orch-1",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 29282,
+          "answer": "The Blind Beggar\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "expected": "The Blind Beggar",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:25:35+01:00"
+        },
+        {
+          "id": "orch-2",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 22340,
+          "answer": "Henry Mancini\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "expected": "Henry Mancini",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:25:58+01:00"
+        },
+        {
+          "id": "orch-3",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.1143,
+          "latency_ms": 14732,
+          "answer": "The cartoon adversary of Pixie and Dixie who would often say \"I hate those meeces to pieces\" was Mr. Jinks, a cat.\n\n---\n**Sources:**\n[1] bigbench_hard (43%)\n[2] strategyqa (38%)\n[3] musique (31%)",
+          "expected": "Mr Jinx",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:26:14+01:00"
+        },
+        {
+          "id": "orch-4",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 13325,
+          "answer": "Meg Ryan married Dennis Quaid on Valentine's Day in 1991.\n\n---\n**Sources:**\n[1] musique (43%)\n[2] gsm8k (29%)",
+          "expected": "Meg Ryan",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T01:26:28+01:00"
         }
       ]
     }
@@ -27498,161 +28165,6 @@
       "best_f1": 0.2553,
       "trend": "stable"
     },
-    "std-0": {
-      "id": "std-0",
-      "question": "Brandon Lee died during the making of which movie?",
-      "expected": "The Crow",
-      "expected_detail": "",
-      "rag_type": "standard",
-      "category": "",
-      "entities": [],
-      "tables": [],
-      "runs": [
-        {
-          "iteration_id": "iter-2026-02-16T08-08-12",
-          "iteration_number": 25,
-          "correct": true,
-          "f1": 0.9,
-          "latency_ms": 64255,
-          "match_type": "CONTAINS_MATCH",
-          "error": null,
-          "error_type": null,
-          "answer": "Brandon Lee died while filming the movie **The Crow**.",
-          "timestamp": "2026-02-16T08:10:02.547549Z"
-        }
-      ],
-      "total_runs": 1,
-      "pass_count": 1,
-      "pass_rate": 1.0,
-      "current_status": "pass",
-      "last_tested": "2026-02-16T08:10:02.547549Z",
-      "best_f1": 0.9,
-      "trend": "stable"
-    },
-    "std-1": {
-      "id": "std-1",
-      "question": "Who had a 70s No 1 hit with Let's Do It Again?",
-      "expected": "The Staple Singers",
-      "expected_detail": "",
-      "rag_type": "standard",
-      "category": "",
-      "entities": [],
-      "tables": [],
-      "runs": [
-        {
-          "iteration_id": "iter-2026-02-16T08-08-12",
-          "iteration_number": 25,
-          "correct": false,
-          "f1": 0.0,
-          "latency_ms": 56753,
-          "match_type": "NO_MATCH",
-          "error": null,
-          "error_type": null,
-          "answer": "Unable to generate answer",
-          "timestamp": "2026-02-16T08:11:06.555432Z"
-        }
-      ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-16T08:11:06.555432Z",
-      "best_f1": 0.0,
-      "trend": "stable"
-    },
-    "std-2": {
-      "id": "std-2",
-      "question": "Who had a Too Legit To Quit Tour?",
-      "expected": "MC Hammer",
-      "expected_detail": "",
-      "rag_type": "standard",
-      "category": "",
-      "entities": [],
-      "tables": [],
-      "runs": [
-        {
-          "iteration_id": "iter-2026-02-16T08-08-12",
-          "iteration_number": 25,
-          "correct": false,
-          "f1": 0.0,
-          "latency_ms": 69739,
-          "match_type": "NO_MATCH",
-          "error": null,
-          "error_type": null,
-          "answer": "Unable to generate answer",
-          "timestamp": "2026-02-16T08:12:29.307590Z"
-        }
-      ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-16T08:12:29.307590Z",
-      "best_f1": 0.0,
-      "trend": "stable"
-    },
-    "std-3": {
-      "id": "std-3",
-      "question": "\"According to Rudyard Kipling what were the \"\"two imposters\"\" to meet and treat the same day?\"",
-      "expected": "Triumph and Disaster",
-      "expected_detail": "",
-      "rag_type": "standard",
-      "category": "",
-      "entities": [],
-      "tables": [],
-      "runs": [
-        {
-          "iteration_id": "iter-2026-02-16T08-08-12",
-          "iteration_number": 25,
-          "correct": false,
-          "f1": 0.0,
-          "latency_ms": 74519,
-          "match_type": "NO_MATCH",
-          "error": null,
-          "error_type": null,
-          "answer": "Unable to generate answer",
-          "timestamp": "2026-02-16T08:13:54.295991Z"
-        }
-      ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-16T08:13:54.295991Z",
-      "best_f1": 0.0,
-      "trend": "stable"
-    },
-    "std-4": {
-      "id": "std-4",
-      "question": "Which Oscar-nominated film had You Sexy Thing as its theme song?",
-      "expected": "The Full Monty",
-      "expected_detail": "",
-      "rag_type": "standard",
-      "category": "",
-      "entities": [],
-      "tables": [],
-      "runs": [
-        {
-          "iteration_id": "iter-2026-02-16T08-08-12",
-          "iteration_number": 25,
-          "correct": false,
-          "f1": 0.0,
-          "latency_ms": 65736,
-          "match_type": "NO_MATCH",
-          "error": null,
-          "error_type": null,
-          "answer": "Unable to generate answer",
-          "timestamp": "2026-02-16T08:15:04.811030Z"
-        }
-      ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-16T08:15:04.811030Z",
-      "best_f1": 0.0,
-      "trend": "stable"
-    },
     "graph-musique-0": {
       "id": "graph-musique-0",
       "question": "Who voices the character in Spongebob Squarepants who is named after a glowing species found in some beaches in Portugal?",
@@ -27674,15 +28186,39 @@
           "error_type": null,
           "answer": "Doug Lawrence",
           "timestamp": "2026-02-16T08:28:25.367317Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T00-54-06",
+          "iteration_number": 43,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 21345,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Mary Jo Catlett",
+          "timestamp": "2026-02-21T00:54:28+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-00-22",
+          "iteration_number": 45,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 18735,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Mary Jo Catlett",
+          "timestamp": "2026-02-21T01:00:41+01:00"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 3,
       "pass_count": 1,
-      "pass_rate": 1.0,
-      "current_status": "pass",
-      "last_tested": "2026-02-16T08:28:25.367317Z",
+      "pass_rate": 0.333,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:00:41+01:00",
       "best_f1": 0.5,
-      "trend": "stable"
+      "trend": "regressing"
     },
     "graph-musique-1": {
       "id": "graph-musique-1",
@@ -27705,13 +28241,37 @@
           "error_type": null,
           "answer": "Styria, Austria",
           "timestamp": "2026-02-16T08:32:05.344470Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T00-54-06",
+          "iteration_number": 43,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 16377,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Australia",
+          "timestamp": "2026-02-21T00:54:48+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-00-22",
+          "iteration_number": 45,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10625,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Australia",
+          "timestamp": "2026-02-21T01:00:55+01:00"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 3,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-16T08:32:05.344470Z",
+      "last_tested": "2026-02-21T01:00:55+01:00",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -27736,15 +28296,39 @@
           "error_type": null,
           "answer": "1572",
           "timestamp": "2026-02-16T08:33:48.363559Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T00-54-06",
+          "iteration_number": 43,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 9437,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1875",
+          "timestamp": "2026-02-21T00:55:00+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-00-22",
+          "iteration_number": 45,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12634,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1789",
+          "timestamp": "2026-02-21T01:01:11+01:00"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 3,
       "pass_count": 1,
-      "pass_rate": 1.0,
-      "current_status": "pass",
-      "last_tested": "2026-02-16T08:33:48.363559Z",
+      "pass_rate": 0.333,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:01:11+01:00",
       "best_f1": 1.0,
-      "trend": "stable"
+      "trend": "regressing"
     },
     "graph-musique-3": {
       "id": "graph-musique-3",
@@ -27767,15 +28351,39 @@
           "error_type": null,
           "answer": "1572",
           "timestamp": "2026-02-16T08:35:01.614355Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T00-54-06",
+          "iteration_number": 43,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 7074,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1572",
+          "timestamp": "2026-02-21T00:55:10+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-00-22",
+          "iteration_number": 45,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11907,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1637",
+          "timestamp": "2026-02-21T01:01:26+01:00"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
-      "pass_rate": 1.0,
-      "current_status": "pass",
-      "last_tested": "2026-02-16T08:35:01.614355Z",
+      "total_runs": 3,
+      "pass_count": 2,
+      "pass_rate": 0.667,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:01:26+01:00",
       "best_f1": 1.0,
-      "trend": "stable"
+      "trend": "regressing"
     },
     "graph-musique-4": {
       "id": "graph-musique-4",
@@ -27798,13 +28406,37 @@
           "error_type": null,
           "answer": "1572",
           "timestamp": "2026-02-16T08:36:44.365238Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T00-54-06",
+          "iteration_number": 43,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 15261,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1572",
+          "timestamp": "2026-02-21T00:55:29+01:00"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-00-22",
+          "iteration_number": 45,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 12301,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1572",
+          "timestamp": "2026-02-21T01:01:41+01:00"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 3,
+      "pass_count": 3,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-16T08:36:44.365238Z",
+      "last_tested": "2026-02-21T01:01:41+01:00",
       "best_f1": 1.0,
       "trend": "stable"
     },
@@ -27829,13 +28461,25 @@
           "error_type": "TIMEOUT",
           "answer": "",
           "timestamp": "2026-02-16T08:41:22.369077Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-00-22",
+          "iteration_number": 45,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 89764,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No answer provided in context.",
+          "timestamp": "2026-02-21T01:03:14+01:00"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 0,
       "pass_rate": 0.0,
-      "current_status": "error",
-      "last_tested": "2026-02-16T08:41:22.369077Z",
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:03:14+01:00",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -27860,13 +28504,25 @@
           "error_type": null,
           "answer": "1586",
           "timestamp": "2026-02-16T08:43:02.348337Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-00-22",
+          "iteration_number": 45,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 27092,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1983",
+          "timestamp": "2026-02-21T01:03:44+01:00"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-16T08:43:02.348337Z",
+      "last_tested": "2026-02-21T01:03:44+01:00",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -27891,13 +28547,25 @@
           "error_type": null,
           "answer": "1156",
           "timestamp": "2026-02-16T08:44:41.861669Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-00-22",
+          "iteration_number": 45,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10573,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1183",
+          "timestamp": "2026-02-21T01:03:58+01:00"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-16T08:44:41.861669Z",
+      "last_tested": "2026-02-21T01:03:58+01:00",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -27922,13 +28590,25 @@
           "error_type": null,
           "answer": "Rooster Cogburn",
           "timestamp": "2026-02-16T08:46:02.599440Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-00-22",
+          "iteration_number": 45,
+          "correct": true,
+          "f1": 0.8,
+          "latency_ms": 29977,
+          "match_type": "SUBSET_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Rooster Cogburn",
+          "timestamp": "2026-02-21T01:04:31+01:00"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 1,
+      "total_runs": 2,
+      "pass_count": 2,
       "pass_rate": 1.0,
       "current_status": "pass",
-      "last_tested": "2026-02-16T08:46:02.599440Z",
+      "last_tested": "2026-02-21T01:04:31+01:00",
       "best_f1": 0.8,
       "trend": "stable"
     },
@@ -27953,13 +28633,25 @@
           "error_type": null,
           "answer": "John Wayne played Reuben J. \"Rooster\" Cogburn in True Grit.",
           "timestamp": "2026-02-16T08:47:14.117071Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-00-22",
+          "iteration_number": 45,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 14206,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "John Wayne",
+          "timestamp": "2026-02-21T01:04:48+01:00"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-16T08:47:14.117071Z",
+      "last_tested": "2026-02-21T01:04:48+01:00",
       "best_f1": 0.2857,
       "trend": "stable"
     },
@@ -27984,13 +28676,25 @@
           "error_type": null,
           "answer": "John Wayne played Rooster Cogburn in True Grit.",
           "timestamp": "2026-02-16T08:52:31.354778Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-00-22",
+          "iteration_number": 45,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 13724,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "John Wayne",
+          "timestamp": "2026-02-21T01:05:05+01:00"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-16T08:52:31.354778Z",
+      "last_tested": "2026-02-21T01:05:05+01:00",
       "best_f1": 0.3333,
       "trend": "stable"
     },
@@ -28015,15 +28719,27 @@
           "error_type": null,
           "answer": "Rooster Cogburn",
           "timestamp": "2026-02-16T08:53:41.362053Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-00-22",
+          "iteration_number": 45,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 18187,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No information available.",
+          "timestamp": "2026-02-21T01:05:26+01:00"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 1,
-      "pass_rate": 1.0,
-      "current_status": "pass",
-      "last_tested": "2026-02-16T08:53:41.362053Z",
+      "pass_rate": 0.5,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:05:26+01:00",
       "best_f1": 0.8,
-      "trend": "stable"
+      "trend": "regressing"
     },
     "graph-musique-12": {
       "id": "graph-musique-12",
@@ -28046,15 +28762,27 @@
           "error_type": null,
           "answer": "Mississippi River",
           "timestamp": "2026-02-16T08:55:01.869675Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-00-22",
+          "iteration_number": 45,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10757,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "I don't have information about Leo Bennett or his place of death in the provided context.",
+          "timestamp": "2026-02-21T01:05:40+01:00"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 1,
-      "pass_rate": 1.0,
-      "current_status": "pass",
-      "last_tested": "2026-02-16T08:55:01.869675Z",
+      "pass_rate": 0.5,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:05:40+01:00",
       "best_f1": 0.5,
-      "trend": "stable"
+      "trend": "regressing"
     },
     "graph-musique-13": {
       "id": "graph-musique-13",
@@ -28077,14 +28805,26 @@
           "error_type": null,
           "answer": "Information not available in the knowledge graph.",
           "timestamp": "2026-02-16T08:56:15.356304Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-07-49",
+          "iteration_number": 46,
+          "correct": false,
+          "f1": 0.2222,
+          "latency_ms": 15346,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "No major river (Qatar/Doha is coastal)",
+          "timestamp": "2026-02-21T01:08:05+01:00"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-16T08:56:15.356304Z",
-      "best_f1": 0.0,
+      "last_tested": "2026-02-21T01:08:05+01:00",
+      "best_f1": 0.2222,
       "trend": "stable"
     },
     "graph-musique-14": {
@@ -28108,15 +28848,27 @@
           "error_type": null,
           "answer": "Information not available in the knowledge graph.",
           "timestamp": "2026-02-16T08:58:11.355233Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-07-49",
+          "iteration_number": 46,
+          "correct": true,
+          "f1": 0.8,
+          "latency_ms": 13062,
+          "match_type": "SUBSET_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Thames",
+          "timestamp": "2026-02-21T01:08:21+01:00"
         }
       ],
-      "total_runs": 1,
-      "pass_count": 0,
-      "pass_rate": 0.0,
-      "current_status": "fail",
-      "last_tested": "2026-02-16T08:58:11.355233Z",
-      "best_f1": 0.0,
-      "trend": "stable"
+      "total_runs": 2,
+      "pass_count": 1,
+      "pass_rate": 0.5,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:08:21+01:00",
+      "best_f1": 0.8,
+      "trend": "improving"
     },
     "graph-musique-15": {
       "id": "graph-musique-15",
@@ -28139,13 +28891,25 @@
           "error_type": null,
           "answer": "Information not available in the knowledge graph.",
           "timestamp": "2026-02-16T08:59:35.873177Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-07-49",
+          "iteration_number": 46,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 13004,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No information available.",
+          "timestamp": "2026-02-21T01:08:37+01:00"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-16T08:59:35.873177Z",
+      "last_tested": "2026-02-21T01:08:37+01:00",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -28170,13 +28934,25 @@
           "error_type": null,
           "answer": "Information not available in the knowledge graph.",
           "timestamp": "2026-02-16T09:01:10.873713Z"
+        },
+        {
+          "iteration_id": "iter-2026-02-21T01-07-49",
+          "iteration_number": 46,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11076,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1543",
+          "timestamp": "2026-02-21T01:08:52+01:00"
         }
       ],
-      "total_runs": 1,
+      "total_runs": 2,
       "pass_count": 0,
       "pass_rate": 0.0,
       "current_status": "fail",
-      "last_tested": "2026-02-16T09:01:10.873713Z",
+      "last_tested": "2026-02-21T01:08:52+01:00",
       "best_f1": 0.0,
       "trend": "stable"
     },
@@ -28873,6 +29649,502 @@
       "last_tested": "2026-02-16T10:49:00.152655Z",
       "best_f1": 0.0,
       "trend": "stable"
+    },
+    "graph-musique-17": {
+      "id": "graph-musique-17",
+      "question": "When was the star to which Solgränd is named after discovered to be the center of the solar system?",
+      "expected": "as early as the 3rd century BC",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-07-49",
+          "iteration_number": 46,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 15593,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1543",
+          "timestamp": "2026-02-21T01:09:10+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:09:10+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-18": {
+      "id": "graph-musique-18",
+      "question": "Who employs the author of \"Ravenswood: The Steelworkers' Victory and the Revival of American Labor\"?",
+      "expected": "Cornell University",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-07-49",
+          "iteration_number": 46,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 14520,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "John Fogerty",
+          "timestamp": "2026-02-21T01:09:28+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:09:28+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-19": {
+      "id": "graph-musique-19",
+      "question": "When was the celestial object that eluded efforts to measure oxygen discovered to be the center of the solar system?",
+      "expected": "as early as the 3rd century BC",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-07-49",
+          "iteration_number": 46,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 23483,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1543",
+          "timestamp": "2026-02-21T01:09:55+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:09:55+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-20": {
+      "id": "graph-musique-20",
+      "question": "When was the celestial body that all objects focus on according to Kepler's laws discovered to be the center of the solar system?",
+      "expected": "as early as the 3rd century BC",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-07-49",
+          "iteration_number": 46,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 14010,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1543",
+          "timestamp": "2026-02-21T01:10:12+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:10:12+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-21": {
+      "id": "graph-musique-21",
+      "question": "Who is the father of the man who conceived of the 'new' police?",
+      "expected": "Arthur Peel",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-07-49",
+          "iteration_number": 46,
+          "correct": true,
+          "f1": 0.5,
+          "latency_ms": 10700,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Robert Peel",
+          "timestamp": "2026-02-21T01:10:26+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:10:26+01:00",
+      "best_f1": 0.5,
+      "trend": "stable"
+    },
+    "graph-musique-22": {
+      "id": "graph-musique-22",
+      "question": "Who was the father of the person who issued the Tamworth manifesto?",
+      "expected": "Sir Robert Peel, 1st Baronet",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-07-49",
+          "iteration_number": 46,
+          "correct": false,
+          "f1": 0.25,
+          "latency_ms": 9709,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Robert B. Sherman",
+          "timestamp": "2026-02-21T01:10:38+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:10:38+01:00",
+      "best_f1": 0.25,
+      "trend": "stable"
+    },
+    "std-0": {
+      "id": "std-0",
+      "question": "Brandon Lee died during the making of which movie?",
+      "expected": "The Crow",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-23-57",
+          "iteration_number": 47,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 10124,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Brandon Lee died during the making of the movie \"The Crow\" in 1993.",
+          "timestamp": "2026-02-21T01:24:08+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:24:08+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-1": {
+      "id": "std-1",
+      "question": "Who had a 70s No 1 hit with Let's Do It Again?",
+      "expected": "The Staple Singers",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-23-57",
+          "iteration_number": 47,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 9934,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The Staple Singers had a 70s No 1 hit with \"Let's Do It Again.\"",
+          "timestamp": "2026-02-21T01:24:18+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:24:18+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-2": {
+      "id": "std-2",
+      "question": "Who had a Too Legit To Quit Tour?",
+      "expected": "MC Hammer",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-23-57",
+          "iteration_number": 47,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 7200,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "MC Hammer had a Too Legit To Quit Tour.",
+          "timestamp": "2026-02-21T01:24:25+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:24:25+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-3": {
+      "id": "std-3",
+      "question": "\"According to Rudyard Kipling what were the \"\"two imposters\"\" to meet and treat the same day?\"",
+      "expected": "Triumph and Disaster",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-23-57",
+          "iteration_number": 47,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 17120,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Rudyard Kipling referred to \"Triumph and Disaster\" as the two imposters to meet and treat the same day.",
+          "timestamp": "2026-02-21T01:24:42+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:24:42+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-4": {
+      "id": "std-4",
+      "question": "Which Oscar-nominated film had You Sexy Thing as its theme song?",
+      "expected": "The Full Monty",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-23-57",
+          "iteration_number": 47,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 10200,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The Oscar-nominated film that had \"You Sexy Thing\" as its theme song is \"The Full Monty\" (1997).",
+          "timestamp": "2026-02-21T01:24:53+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:24:53+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "orch-0": {
+      "id": "orch-0",
+      "question": "Which song begins with the line The taxman's taken all my dough?",
+      "expected": "Sunny Afternoon",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-23-57",
+          "iteration_number": 47,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11418,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The song that begins with the line \"The taxman's taken all my dough\" is \"Taxman\" by The Beatles.\n\n---\n**Sources:**\n[1] bigbench_hard (42%)\n[2] triviaqa (32%)\n[3] gsm8k (20%)",
+          "timestamp": "2026-02-21T01:25:04+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T01:25:04+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "orch-1": {
+      "id": "orch-1",
+      "question": "The Kray twins were convicted of the murder of George Cornell in the East End of London in 1966. What was the name of the pub in which he was shot?",
+      "expected": "The Blind Beggar",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-23-57",
+          "iteration_number": 47,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 29282,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "The Blind Beggar\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "timestamp": "2026-02-21T01:25:35+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:25:35+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "orch-2": {
+      "id": "orch-2",
+      "question": "Who composed the musical theme for the Pink Panther?",
+      "expected": "Henry Mancini",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-23-57",
+          "iteration_number": 47,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 22340,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Henry Mancini\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+          "timestamp": "2026-02-21T01:25:58+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:25:58+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "orch-3": {
+      "id": "orch-3",
+      "question": "Who was the cartoon adversary of Pixie and Dixie, who would often say I hate those meeces to pieces?",
+      "expected": "Mr Jinx",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-23-57",
+          "iteration_number": 47,
+          "correct": true,
+          "f1": 0.1143,
+          "latency_ms": 14732,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "The cartoon adversary of Pixie and Dixie who would often say \"I hate those meeces to pieces\" was Mr. Jinks, a cat.\n\n---\n**Sources:**\n[1] bigbench_hard (43%)\n[2] strategyqa (38%)\n[3] musique (31%)",
+          "timestamp": "2026-02-21T01:26:14+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:26:14+01:00",
+      "best_f1": 0.1143,
+      "trend": "stable"
+    },
+    "orch-4": {
+      "id": "orch-4",
+      "question": "Which actress married Dennis Quaid on Valentine's Day in 1991?",
+      "expected": "Meg Ryan",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-23-57",
+          "iteration_number": 47,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 13325,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Meg Ryan married Dennis Quaid on Valentine's Day in 1991.\n\n---\n**Sources:**\n[1] musique (43%)\n[2] gsm8k (29%)",
+          "timestamp": "2026-02-21T01:26:28+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T01:26:28+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
     }
   },
   "quick_tests": [
@@ -29378,727 +30650,6 @@
     }
   ],
   "execution_logs": [
-    {
-      "timestamp": "2026-02-15T20:25:10.778266Z",
-      "question_id": "graph-17",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.3333,
-      "latency_ms": 47760,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Vaccination prevents and mitigates COVID-19 by stimulating immune response to SARS-CoV-2 virus.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:25:58.279979Z",
-      "question_id": "graph-18",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 45502,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Nobel Prize laureates are entities with the type \"Nobel laureate\" in the knowledge graph.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:26:59.036702Z",
-      "question_id": "graph-19",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.2581,
-      "latency_ms": 58739,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Ada Lovelace is known for her work on Charles Babbage's Analytical Engine and is considered the firs",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:27:56.532340Z",
-      "question_id": "graph-20",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 55001,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "British Museum, National Gallery, Victoria and Albert Museum, Natural History Museum, Science Museum",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:28:54.796418Z",
-      "question_id": "graph-21",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.3158,
-      "latency_ms": 56748,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "CERN focuses on fundamental particle physics research, while nuclear energy harnesses nuclear reacti",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:29:51.301933Z",
-      "question_id": "graph-22",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 54493,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "President, Senators, Representatives, cabinet members, Supreme Court Justices",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:30:47.055655Z",
-      "question_id": "graph-23",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 53001,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Charles Darwin studied natural world, origins and evolution of species, particularly during his voya",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:31:45.043406Z",
-      "question_id": "graph-24",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.6,
-      "latency_ms": 51257,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Leonardo da Vinci's works, including the Mona Lisa, are housed in the Louvre Museum.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:32:53.306674Z",
-      "question_id": "graph-25",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.3158,
-      "latency_ms": 66229,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Stanford University, MIT, Carnegie Mellon University, UC Berkeley, University of Toronto, University",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:33:53.540725Z",
-      "question_id": "graph-26",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 58270,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Woodrow Wilson, Albert Einstein, John von Neumann, F. Scott Fitzgerald, Toni Morrison, Joyce Carol O",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:35:04.805823Z",
-      "question_id": "graph-27",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 69728,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The telegraph system.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:36:12.547104Z",
-      "question_id": "graph-28",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.2105,
-      "latency_ms": 65981,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Gandhi studied law in London, attended conferences there, and developed his ideologies influenced by",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:37:26.553683Z",
-      "question_id": "graph-29",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 72241,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Martin Scorsese, Woody Allen, Spike Lee, Sidney Lumet, Francis Ford Coppola, Joel and Ethan Coen, No",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:38:22.792540Z",
-      "question_id": "graph-30",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 54259,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "WHO is a specialized agency of the UN that coordinates international health matters.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:39:18.307308Z",
-      "question_id": "graph-31",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 53521,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Radioactivity, radioactive elements, and their applications in medicine.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:40:47.054638Z",
-      "question_id": "graph-32",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.1739,
-      "latency_ms": 86990,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Eiffel Tower, Louvre Museum, Notre-Dame Cathedral, French government, Victor Hugo, Claude Monet, Pab",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:41:49.346266Z",
-      "question_id": "graph-33",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0571,
-      "latency_ms": 60284,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Einstein visited Cambridge in 1921, became visiting Fellow at Christ's College 1930-1931, worked on ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:43:13.089956Z",
-      "question_id": "graph-34",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.1481,
-      "latency_ms": 80497,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Thomas Edison invented the practical incandescent light bulb, developed electrical distribution syst",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:44:03.852213Z",
-      "question_id": "graph-35",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 49004,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Nikola Tesla, Jonas Salk, Barbara McClintock, Edwin H. Armstrong",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:45:23.336568Z",
-      "question_id": "graph-36",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.1212,
-      "latency_ms": 77002,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "William Shakespeare moved to London in the late 1580s to pursue theater opportunities. He wrote and ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:46:17.580724Z",
-      "question_id": "graph-37",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 48505,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Computer science, artificial intelligence, cryptography, computing machines",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:47:16.075007Z",
-      "question_id": "graph-38",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.1667,
-      "latency_ms": 56748,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Close personal and political relationship during World War II.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:48:24.350830Z",
-      "question_id": "graph-39",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.25,
-      "latency_ms": 64733,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "No direct connection; Cairo founded 969 CE, over 1000 years after her death.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:49:25.826620Z",
-      "question_id": "graph-40",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 59263,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Measles, mumps, rubella, polio, diphtheria, tetanus, pertussis, hepatitis B.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:50:13.081780Z",
-      "question_id": "graph-41",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.3077,
-      "latency_ms": 45499,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Steam engine principles influenced modern engines, transportation, and industrial automation.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:51:11.861313Z",
-      "question_id": "graph-42",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 1.0,
-      "latency_ms": 57951,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Leonardo da Vinci",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:52:39.779423Z",
-      "question_id": "graph-43",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 86584,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Complex and multifaceted, spanning decades.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:53:32.771765Z",
-      "question_id": "graph-44",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 51008,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Washington, D.C., United States",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:55:15.035066Z",
-      "question_id": "graph-45",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.4,
-      "latency_ms": 100238,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Nuclear energy generates electricity through fission, producing heat to create steam that drives tur",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:56:10.040480Z",
-      "question_id": "graph-46",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 52741,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Pablo Picasso, Vincent van Gogh, Henri Matisse, Salvador Dalí, Marc Chagall, Joan Miró, Amedeo Modig",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:57:14.034631Z",
-      "question_id": "graph-47",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.25,
-      "latency_ms": 61759,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Pablo Picasso had a profound connection to the Museo del Prado in Madrid, which significantly influe",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:58:32.276598Z",
-      "question_id": "graph-48",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.2857,
-      "latency_ms": 76005,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Germ theory and antibiosis research by Pasteur influenced penicillin discovery.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T20:59:24.041298Z",
-      "question_id": "graph-49",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 50005,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Alfred Hitchcock, Stanley Kubrick, Ridley Scott, Christopher Nolan, Danny Boyle, Guy Ritchie",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T21:00:09.517430Z",
-      "question_id": "graph-50",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 42750,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Paris, France",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-15T22:25:03.460644Z",
-      "question_id": "orch-03",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 188267,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Marie Curie won two Nobel Prizes in different sciences.\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesi",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-15T22:28:07.945856Z",
-      "question_id": "orch-11",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 175999,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "TechVision Inc reported a net income of $1,337,550,000 for the fiscal year 2022.\n\n---\n**Sources:**\n[",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-15T22:40:39.199043Z",
-      "question_id": "orch-12",
-      "rag_type": "orchestrator",
-      "correct": false,
-      "f1": 0.3333,
-      "latency_ms": 200773,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Alfred Hitchcock, Christopher Nolan\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-15T22:43:30.202555Z",
-      "question_id": "orch-13",
-      "rag_type": "orchestrator",
-      "correct": false,
-      "f1": 0.0435,
-      "latency_ms": 159500,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "NASA conducts research across a broad spectrum of scientific fields, including aeronautics, astrophy",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-15T22:46:23.450056Z",
-      "question_id": "orch-14",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.25,
-      "latency_ms": 164501,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "At standard atmospheric pressure (1 atm), water boils at 100 °C (212 °F).",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-15T22:49:42.715632Z",
-      "question_id": "orch-15",
-      "rag_type": "orchestrator",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 188498,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The total operating income for all companies in Q1 2023 is 698,751,000.\n\n---\n**Sources:**\n[1] SQL Re",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-15T22:54:56.476671Z",
-      "question_id": "orch-16",
-      "rag_type": "orchestrator",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 302025,
-      "error_type": "TIMEOUT",
-      "error_preview": "timed out",
-      "answer_preview": "",
-      "confidence": null,
-      "pipeline_details_summary": null
-    },
     {
       "timestamp": "2026-02-15T22:57:50.470672Z",
       "question_id": "orch-17",
@@ -32700,6 +33251,718 @@
       "answer_preview": "",
       "confidence": null,
       "pipeline_details_summary": null
+    },
+    {
+      "timestamp": "2026-02-21T00:54:28+01:00",
+      "question_id": "graph-musique-0",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 21345,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Mary Jo Catlett",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T00:54:48+01:00",
+      "question_id": "graph-musique-1",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 16377,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Australia",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T00:55:00+01:00",
+      "question_id": "graph-musique-2",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 9437,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1875",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T00:55:10+01:00",
+      "question_id": "graph-musique-3",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 7074,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1572",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T00:55:29+01:00",
+      "question_id": "graph-musique-4",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 15261,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1572",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T00:56:06+01:00",
+      "question_id": "std-0",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 21818,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Unable to generate answer",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T00:56:33+01:00",
+      "question_id": "std-1",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 22284,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Unable to generate answer",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T00:57:00+01:00",
+      "question_id": "std-2",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 21646,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Unable to generate answer",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:00:41+01:00",
+      "question_id": "graph-musique-0",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 18735,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Mary Jo Catlett",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:00:55+01:00",
+      "question_id": "graph-musique-1",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 10625,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Australia",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:01:11+01:00",
+      "question_id": "graph-musique-2",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 12634,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1789",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:01:26+01:00",
+      "question_id": "graph-musique-3",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 11907,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1637",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:01:41+01:00",
+      "question_id": "graph-musique-4",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 12301,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1572",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:03:14+01:00",
+      "question_id": "graph-musique-5",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 89764,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No answer provided in context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:03:44+01:00",
+      "question_id": "graph-musique-6",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 27092,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1983",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:03:58+01:00",
+      "question_id": "graph-musique-7",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 10573,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1183",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:04:31+01:00",
+      "question_id": "graph-musique-8",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.8,
+      "latency_ms": 29977,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Rooster Cogburn",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:04:48+01:00",
+      "question_id": "graph-musique-9",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 14206,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "John Wayne",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:05:05+01:00",
+      "question_id": "graph-musique-10",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 13724,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "John Wayne",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:05:26+01:00",
+      "question_id": "graph-musique-11",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 18187,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No information available.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:05:40+01:00",
+      "question_id": "graph-musique-12",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 10757,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "I don't have information about Leo Bennett or his place of death in the provided context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:08:05+01:00",
+      "question_id": "graph-musique-13",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.2222,
+      "latency_ms": 15346,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No major river (Qatar/Doha is coastal)",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:08:21+01:00",
+      "question_id": "graph-musique-14",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.8,
+      "latency_ms": 13062,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Thames",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:08:38+01:00",
+      "question_id": "graph-musique-15",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 13004,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No information available.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:08:52+01:00",
+      "question_id": "graph-musique-16",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 11076,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1543",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:09:10+01:00",
+      "question_id": "graph-musique-17",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 15593,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1543",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:09:28+01:00",
+      "question_id": "graph-musique-18",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 14520,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "John Fogerty",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:09:55+01:00",
+      "question_id": "graph-musique-19",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 23483,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1543",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:10:12+01:00",
+      "question_id": "graph-musique-20",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 14010,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1543",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:10:26+01:00",
+      "question_id": "graph-musique-21",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.5,
+      "latency_ms": 10700,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Robert Peel",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:10:39+01:00",
+      "question_id": "graph-musique-22",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.25,
+      "latency_ms": 9709,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Robert B. Sherman",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:24:08+01:00",
+      "question_id": "std-0",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 10124,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Brandon Lee died during the making of the movie \"The Crow\" in 1993.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:24:18+01:00",
+      "question_id": "std-1",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 9934,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The Staple Singers had a 70s No 1 hit with \"Let's Do It Again.\"",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:24:25+01:00",
+      "question_id": "std-2",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 7200,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "MC Hammer had a Too Legit To Quit Tour.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:24:42+01:00",
+      "question_id": "std-3",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 17120,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Rudyard Kipling referred to \"Triumph and Disaster\" as the two imposters to meet and treat the same d",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:24:53+01:00",
+      "question_id": "std-4",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 10200,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The Oscar-nominated film that had \"You Sexy Thing\" as its theme song is \"The Full Monty\" (1997).",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:25:04+01:00",
+      "question_id": "orch-0",
+      "rag_type": "orchestrator",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 11418,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The song that begins with the line \"The taxman's taken all my dough\" is \"Taxman\" by The Beatles.\n\n--",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:25:35+01:00",
+      "question_id": "orch-1",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 29282,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The Blind Beggar\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:25:58+01:00",
+      "question_id": "orch-2",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 22340,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Henry Mancini\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:26:14+01:00",
+      "question_id": "orch-3",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.1143,
+      "latency_ms": 14732,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "The cartoon adversary of Pixie and Dixie who would often say \"I hate those meeces to pieces\" was Mr.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T01:26:29+01:00",
+      "question_id": "orch-4",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 13325,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Meg Ryan married Dennis Quaid on Valentine's Day in 1991.\n\n---\n**Sources:**\n[1] musique (43%)\n[2] gs",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
     }
   ],
   "history": [
@@ -32892,6 +34155,31 @@
       "event": "eval_complete",
       "total_tested": 932,
       "quantitative": 0.0
+    },
+    {
+      "timestamp": "2026-02-21T00:55:30+01:00",
+      "event": "eval_complete",
+      "total_tested": 937,
+      "graph": 40.0
+    },
+    {
+      "timestamp": "2026-02-21T00:57:01+01:00",
+      "event": "eval_complete",
+      "total_tested": 940,
+      "standard": 0.0
+    },
+    {
+      "timestamp": "2026-02-21T01:05:41+01:00",
+      "event": "eval_complete",
+      "total_tested": 953,
+      "graph": 15.4
+    },
+    {
+      "timestamp": "2026-02-21T01:26:29+01:00",
+      "event": "eval_complete",
+      "total_tested": 965,
+      "standard": 100.0,
+      "orchestrator": 80.0
     }
   ],
   "workflow_versions": {
