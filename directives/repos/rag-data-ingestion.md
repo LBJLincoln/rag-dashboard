@@ -8,6 +8,8 @@
 > **DELEGATION** : Haiku 4.5 pour verification/exploration rapide via `Task(model: "haiku")`.
 > Tu suis le même workflow-process que mon-ipad, adapté à l'amélioration des pipelines d'ingestion.
 > Processus team-agentic multi-model : voir `technicals/project/team-agentic-process.md` (dans mon-ipad).
+> **Bottleneck-first** : Ingestions fonctionnelles en background. Se concentrer sur les erreurs et les pipelines bloqués.
+> **Push régulier** : Commit + push toutes les 15-20 min. Résultats JAMAIS perdus (Codespace éphémère).
 
 ---
 

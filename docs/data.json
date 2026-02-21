@@ -1,12 +1,12 @@
 {
   "meta": {
-    "generated_at": "2026-02-21T02:09:52+01:00",
+    "generated_at": "2026-02-21T02:15:21+01:00",
     "description": "Clean baseline - only successful cloud executions (reference). Docker testing starts from scratch.",
     "source": "Manual cleanup session 13-fev",
     "version": "2.0",
-    "total_unique_questions": 658,
-    "total_test_runs": 1435,
-    "total_iterations": 234,
+    "total_unique_questions": 702,
+    "total_test_runs": 1479,
+    "total_iterations": 236,
     "status": "running",
     "current_session": "2026-02-21T01-57-47"
   },
@@ -24910,33 +24910,33 @@
       "id": "iter-2026-02-21T01-39-47",
       "number": 234,
       "timestamp_start": "2026-02-21T02:06:38+01:00",
-      "timestamp_end": "2026-02-21T02:09:52+01:00",
+      "timestamp_end": "2026-02-21T02:11:43+01:00",
       "label": "Iteration 234",
       "description": "",
       "changes_applied": [],
       "results_summary": {
         "standard": {
-          "tested": 20,
-          "correct": 10,
+          "tested": 31,
+          "correct": 16,
           "errors": 0,
-          "accuracy_pct": 50.0,
-          "avg_latency_ms": 11539,
-          "p95_latency_ms": 41261,
-          "avg_f1": 0.8333
+          "accuracy_pct": 51.6,
+          "avg_latency_ms": 10970,
+          "p95_latency_ms": 17341,
+          "avg_f1": 0.8098
         },
         "graph": {
-          "tested": 6,
-          "correct": 1,
+          "tested": 15,
+          "correct": 2,
           "errors": 0,
-          "accuracy_pct": 16.7,
-          "avg_latency_ms": 34226,
+          "accuracy_pct": 13.3,
+          "avg_latency_ms": 21151,
           "p95_latency_ms": 145821,
-          "avg_f1": 1.0
+          "avg_f1": 0.9
         }
       },
-      "total_tested": 26,
-      "total_correct": 11,
-      "overall_accuracy_pct": 42.3,
+      "total_tested": 46,
+      "total_correct": 18,
+      "overall_accuracy_pct": 39.1,
       "questions": [
         {
           "id": "std-177",
@@ -25275,6 +25275,637 @@
           "error": null,
           "error_type": null,
           "timestamp": "2026-02-21T02:09:52+01:00"
+        },
+        {
+          "id": "std-197",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.1,
+          "latency_ms": 5624,
+          "answer": "Based on the provided context, Eduard Looijenga's occupation is not mentioned. The context only discusses Albert Einstein's life and achievements.",
+          "expected": "mathematician",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:09:57+01:00"
+        },
+        {
+          "id": "std-198",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 7396,
+          "answer": "Petrus Camper was a Dutch physician, anatomist, physiologist, midwife, zoologist, anthropologist, paleontologist, and mathematician.",
+          "expected": "physician",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:10:05+01:00"
+        },
+        {
+          "id": "graph-musique-176",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 20391,
+          "answer": "Yes",
+          "expected": "Kalb",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:10:09+01:00"
+        },
+        {
+          "id": "std-199",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 8035,
+          "answer": "Charles Harrison is a fictional character from the Harry Potter series, which was written by British author J.K. Rowling.",
+          "expected": "politician",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:10:13+01:00"
+        },
+        {
+          "id": "graph-musique-177",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 8323,
+          "answer": "No ranking provided.",
+          "expected": "100",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:10:18+01:00"
+        },
+        {
+          "id": "std-200",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 5671,
+          "answer": "Pathit Pisitkul is an actor.",
+          "expected": "actor",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:10:19+01:00"
+        },
+        {
+          "id": "graph-musique-178",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 7767,
+          "answer": "No answer provided in the context.",
+          "expected": "100",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:10:26+01:00"
+        },
+        {
+          "id": "std-201",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8205,
+          "answer": "Jacopo Melani was an Italian composer and violinist of the Baroque period.",
+          "expected": "composer",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:10:28+01:00"
+        },
+        {
+          "id": "graph-musique-179",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 6089,
+          "answer": "No ranking information available.",
+          "expected": "100",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:10:32+01:00"
+        },
+        {
+          "id": "std-202",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 8812,
+          "answer": "Jeremiah Smith's occupation is not mentioned in the provided context.",
+          "expected": "politician",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:10:37+01:00"
+        },
+        {
+          "id": "graph-musique-180",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12316,
+          "answer": "No answer available.",
+          "expected": "100",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:10:45+01:00"
+        },
+        {
+          "id": "std-203",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11514,
+          "answer": "Richard Harris was an Irish actor and singer.",
+          "expected": "composer",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:10:48+01:00"
+        },
+        {
+          "id": "graph-musique-181",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.8,
+          "latency_ms": 14415,
+          "answer": "1950",
+          "expected": "15 December 1950",
+          "match_type": "SUBSET_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:10:59+01:00"
+        },
+        {
+          "id": "std-204",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 13313,
+          "answer": "Peter W. Barca is a politician who has served as a member of the Wisconsin State Assembly and as the U.S. Representative for Wisconsin's 1st congressional district.",
+          "expected": "politician",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:11:02+01:00"
+        },
+        {
+          "id": "graph-musique-182",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10424,
+          "answer": "1969",
+          "expected": "15 December 1950",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:11:10+01:00"
+        },
+        {
+          "id": "std-205",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 12839,
+          "answer": "Harold Lever, Baron Lever of Manchester was a British politician and barrister.",
+          "expected": "politician",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:11:15+01:00"
+        },
+        {
+          "id": "std-206",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10709,
+          "answer": "Peter Murnoy's occupation is not mentioned in the provided context.",
+          "expected": "politician",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:11:26+01:00"
+        },
+        {
+          "id": "graph-musique-183",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 24794,
+          "answer": "No answer available.",
+          "expected": "12",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:11:35+01:00"
+        },
+        {
+          "id": "graph-musique-184",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 7393,
+          "answer": "No answer available.",
+          "expected": "12",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:11:42+01:00"
+        },
+        {
+          "id": "std-207",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 17196,
+          "answer": "Spencer Williams's occupation is not mentioned in the provided context.",
+          "expected": "composer",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:11:43+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-57-47",
+      "number": 235,
+      "timestamp_start": "2026-02-21T02:11:48+01:00",
+      "timestamp_end": "2026-02-21T02:11:48+01:00",
+      "label": "Iteration 235",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "orchestrator": {
+          "tested": 1,
+          "correct": 1,
+          "errors": 0,
+          "accuracy_pct": 100.0,
+          "avg_latency_ms": 16175,
+          "p95_latency_ms": 16175,
+          "avg_f1": 0.125
+        }
+      },
+      "total_tested": 1,
+      "total_correct": 1,
+      "overall_accuracy_pct": 100.0,
+      "questions": [
+        {
+          "id": "orch-75",
+          "rag_type": "orchestrator",
+          "correct": true,
+          "f1": 0.125,
+          "latency_ms": 16175,
+          "answer": "John Reginald Christie, the notorious British serial killer, lived at 10 Rillington Place.\n\n---\n**Sources:**\n[1] musique (42%)\n[2] commonsenseqa (35%)\n[3] wikihop (28%)\n[4] triviaqa (25%)\n[5] bigbench_hard (19%)",
+          "expected": "John Christie",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:11:48+01:00"
+        }
+      ]
+    },
+    {
+      "id": "iter-2026-02-21T01-39-47",
+      "number": 236,
+      "timestamp_start": "2026-02-21T02:11:58+01:00",
+      "timestamp_end": "2026-02-21T02:15:21+01:00",
+      "label": "Iteration 236",
+      "description": "",
+      "changes_applied": [],
+      "results_summary": {
+        "graph": {
+          "tested": 16,
+          "correct": 5,
+          "errors": 0,
+          "accuracy_pct": 31.2,
+          "avg_latency_ms": 13453,
+          "p95_latency_ms": 45592,
+          "avg_f1": 0.6957
+        },
+        "standard": {
+          "tested": 7,
+          "correct": 4,
+          "errors": 0,
+          "accuracy_pct": 57.1,
+          "avg_latency_ms": 8464,
+          "p95_latency_ms": 11006,
+          "avg_f1": 0.9
+        }
+      },
+      "total_tested": 23,
+      "total_correct": 9,
+      "overall_accuracy_pct": 39.1,
+      "questions": [
+        {
+          "id": "graph-musique-185",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 15932,
+          "answer": "7",
+          "expected": "12",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:11:58+01:00"
+        },
+        {
+          "id": "graph-musique-186",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 45592,
+          "answer": "Paris",
+          "expected": "Clatskanie",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:12:44+01:00"
+        },
+        {
+          "id": "graph-musique-187",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 8146,
+          "answer": "Port Angeles",
+          "expected": "Clatskanie",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:12:53+01:00"
+        },
+        {
+          "id": "graph-musique-188",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11091,
+          "answer": "No answer provided in context.",
+          "expected": "Clatskanie",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:13:04+01:00"
+        },
+        {
+          "id": "graph-musique-189",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12364,
+          "answer": "Yes",
+          "expected": "Clatskanie",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:13:16+01:00"
+        },
+        {
+          "id": "graph-musique-190",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.4,
+          "latency_ms": 14113,
+          "answer": "1950",
+          "expected": "began 10 July 1951",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:13:31+01:00"
+        },
+        {
+          "id": "graph-musique-191",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 6303,
+          "answer": "Golden Globe",
+          "expected": "Academy Award for Best Live Action Short Film",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:13:37+01:00"
+        },
+        {
+          "id": "graph-musique-192",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 16798,
+          "answer": "No information provided.",
+          "expected": "Academy Award for Best Live Action Short Film",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:13:54+01:00"
+        },
+        {
+          "id": "std-208",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 10086,
+          "answer": "Richard Lui is a journalist and news anchor who works for MSNBC and NBC News.",
+          "expected": "journalist",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:13:56+01:00"
+        },
+        {
+          "id": "std-209",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 8827,
+          "answer": "Charlotte von Hagn was a German actress.",
+          "expected": "actor",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:14:05+01:00"
+        },
+        {
+          "id": "graph-musique-193",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.8,
+          "latency_ms": 12969,
+          "answer": "Communist government",
+          "expected": "a communist government",
+          "match_type": "SUBSET_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:14:07+01:00"
+        },
+        {
+          "id": "std-210",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 5688,
+          "answer": "James M. Geraghty is a lawyer.",
+          "expected": "lawyer",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:14:11+01:00"
+        },
+        {
+          "id": "std-211",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 8608,
+          "answer": "Michael Hutchings is a mathematician who specializes in symplectic geometry and low-dimensional topology.",
+          "expected": "chef",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:14:19+01:00"
+        },
+        {
+          "id": "graph-musique-194",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 14097,
+          "answer": "Golden Globe",
+          "expected": "Academy Award for Best Live Action Short Film",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:14:22+01:00"
+        },
+        {
+          "id": "std-212",
+          "rag_type": "standard",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 6421,
+          "answer": "Gideon Olin's occupation is not mentioned in the provided context.",
+          "expected": "politician",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:14:26+01:00"
+        },
+        {
+          "id": "graph-musique-195",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.3077,
+          "latency_ms": 6465,
+          "answer": "Independent Spirit Award for Best Cinematography",
+          "expected": "Academy Award for Best Live Action Short Film",
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:14:28+01:00"
+        },
+        {
+          "id": "std-213",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8618,
+          "answer": "Cecil Aldin was a British artist and illustrator known for his paintings and drawings of animals, sports, and rural life.",
+          "expected": "illustrator",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:14:35+01:00"
+        },
+        {
+          "id": "graph-musique-196",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 16088,
+          "answer": "Kim Il-sung",
+          "expected": "Kim Il - Sung",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:14:45+01:00"
+        },
+        {
+          "id": "std-214",
+          "rag_type": "standard",
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 11006,
+          "answer": "Malcolm David Kelley is an American actor and singer.",
+          "expected": "actor",
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:14:46+01:00"
+        },
+        {
+          "id": "graph-musique-197",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 0.6667,
+          "latency_ms": 12541,
+          "answer": "1950-1953",
+          "expected": "1950–1953)",
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:14:57+01:00"
+        },
+        {
+          "id": "graph-musique-198",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10950,
+          "answer": "No answer provided in context.",
+          "expected": "54.7%",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:15:09+01:00"
+        },
+        {
+          "id": "graph-musique-199",
+          "rag_type": "graph",
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 7410,
+          "answer": "No information provided.",
+          "expected": "\"Archibald, certainly not!\"",
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:15:16+01:00"
+        },
+        {
+          "id": "graph-2wikimultihopqa-0",
+          "rag_type": "graph",
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 4397,
+          "answer": "Two For Tonight",
+          "expected": "Two For Tonight",
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "timestamp": "2026-02-21T02:15:21+01:00"
         }
       ]
     }
@@ -55001,6 +55632,1370 @@
       "last_tested": "2026-02-21T02:09:52+01:00",
       "best_f1": 0.0,
       "trend": "stable"
+    },
+    "std-197": {
+      "id": "std-197",
+      "question": "What is Eduard Looijenga's occupation?",
+      "expected": "mathematician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": true,
+          "f1": 0.1,
+          "latency_ms": 5624,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "Based on the provided context, Eduard Looijenga's occupation is not mentioned. The context only discusses Albert Einstein's life and achievements.",
+          "timestamp": "2026-02-21T02:09:57+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:09:57+01:00",
+      "best_f1": 0.1,
+      "trend": "stable"
+    },
+    "std-198": {
+      "id": "std-198",
+      "question": "What is Petrus Camper's occupation?",
+      "expected": "physician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 7396,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Petrus Camper was a Dutch physician, anatomist, physiologist, midwife, zoologist, anthropologist, paleontologist, and mathematician.",
+          "timestamp": "2026-02-21T02:10:05+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:10:05+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-176": {
+      "id": "graph-musique-176",
+      "question": "What tribe did the wife of the person who first brought postal service to Umayyad lands belong to?",
+      "expected": "Kalb",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 20391,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Yes",
+          "timestamp": "2026-02-21T02:10:09+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:10:09+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-199": {
+      "id": "std-199",
+      "question": "What is Charles Harrison's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 8035,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Charles Harrison is a fictional character from the Harry Potter series, which was written by British author J.K. Rowling.",
+          "timestamp": "2026-02-21T02:10:13+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:10:13+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-177": {
+      "id": "graph-musique-177",
+      "question": "What is the ranking of the law school at the university employing Bruce Nissen?",
+      "expected": "100",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 8323,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No ranking provided.",
+          "timestamp": "2026-02-21T02:10:18+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:10:18+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-200": {
+      "id": "std-200",
+      "question": "What is Pathit Pisitkul's occupation?",
+      "expected": "actor",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 5671,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Pathit Pisitkul is an actor.",
+          "timestamp": "2026-02-21T02:10:19+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:10:19+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-178": {
+      "id": "graph-musique-178",
+      "question": "What is the U.S. News ranking of the law school at Carlos Alvarez's employer?",
+      "expected": "100",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 7767,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No answer provided in the context.",
+          "timestamp": "2026-02-21T02:10:26+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:10:26+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-201": {
+      "id": "std-201",
+      "question": "What is Jacopo Melani's occupation?",
+      "expected": "composer",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8205,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Jacopo Melani was an Italian composer and violinist of the Baroque period.",
+          "timestamp": "2026-02-21T02:10:28+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:10:28+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-179": {
+      "id": "graph-musique-179",
+      "question": "What is the U.S. News ranking of the law school at Abraham Lavender's employer?",
+      "expected": "100",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 6089,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No ranking information available.",
+          "timestamp": "2026-02-21T02:10:32+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:10:32+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-202": {
+      "id": "std-202",
+      "question": "What is Jeremiah Smith's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 8812,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Jeremiah Smith's occupation is not mentioned in the provided context.",
+          "timestamp": "2026-02-21T02:10:37+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:10:37+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-180": {
+      "id": "graph-musique-180",
+      "question": "What is the U.S. News ranking of the law school at Bruce Nissen's employer?",
+      "expected": "100",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12316,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No answer available.",
+          "timestamp": "2026-02-21T02:10:45+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:10:45+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-203": {
+      "id": "std-203",
+      "question": "What is Richard Harris's occupation?",
+      "expected": "composer",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11514,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Richard Harris was an Irish actor and singer.",
+          "timestamp": "2026-02-21T02:10:48+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:10:48+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-181": {
+      "id": "graph-musique-181",
+      "question": "When did the person who launched the Bardoli Satyagraha on 4th february 1928 die?",
+      "expected": "15 December 1950",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": true,
+          "f1": 0.8,
+          "latency_ms": 14415,
+          "match_type": "SUBSET_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1950",
+          "timestamp": "2026-02-21T02:10:59+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:10:59+01:00",
+      "best_f1": 0.8,
+      "trend": "stable"
+    },
+    "std-204": {
+      "id": "std-204",
+      "question": "What is Peter W. Barca's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 13313,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Peter W. Barca is a politician who has served as a member of the Wisconsin State Assembly and as the U.S. Representative for Wisconsin's 1st congressional district.",
+          "timestamp": "2026-02-21T02:11:02+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:11:02+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-182": {
+      "id": "graph-musique-182",
+      "question": "When did the father of Dahyabhai Patel die?",
+      "expected": "15 December 1950",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10424,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "1969",
+          "timestamp": "2026-02-21T02:11:10+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:11:10+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-205": {
+      "id": "std-205",
+      "question": "What is Harold Lever, Baron Lever of Manchester's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 12839,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Harold Lever, Baron Lever of Manchester was a British politician and barrister.",
+          "timestamp": "2026-02-21T02:11:15+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:11:15+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-206": {
+      "id": "std-206",
+      "question": "What is Peter Murnoy's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10709,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Peter Murnoy's occupation is not mentioned in the provided context.",
+          "timestamp": "2026-02-21T02:11:26+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:11:26+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-183": {
+      "id": "graph-musique-183",
+      "question": "How many episodes are in season 5 of the series with The Bag or the Bat?",
+      "expected": "12",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 24794,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No answer available.",
+          "timestamp": "2026-02-21T02:11:35+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:11:35+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-184": {
+      "id": "graph-musique-184",
+      "question": "How many episodes are in season 5 of the series The Bag or the Bat is part of?",
+      "expected": "12",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 7393,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No answer available.",
+          "timestamp": "2026-02-21T02:11:42+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:11:42+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-207": {
+      "id": "std-207",
+      "question": "What is Spencer Williams's occupation?",
+      "expected": "composer",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 234,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 17196,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Spencer Williams's occupation is not mentioned in the provided context.",
+          "timestamp": "2026-02-21T02:11:43+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:11:43+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "orch-75": {
+      "id": "orch-75",
+      "question": "Which notorious murderer lived at 10 Rillington Place?",
+      "expected": "John Christie",
+      "expected_detail": "",
+      "rag_type": "orchestrator",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-57-47",
+          "iteration_number": 235,
+          "correct": true,
+          "f1": 0.125,
+          "latency_ms": 16175,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "John Reginald Christie, the notorious British serial killer, lived at 10 Rillington Place.\n\n---\n**Sources:**\n[1] musique (42%)\n[2] commonsenseqa (35%)\n[3] wikihop (28%)\n[4] triviaqa (25%)\n[5] bigbench_hard (19%)",
+          "timestamp": "2026-02-21T02:11:48+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:11:48+01:00",
+      "best_f1": 0.125,
+      "trend": "stable"
+    },
+    "graph-musique-185": {
+      "id": "graph-musique-185",
+      "question": "How many campuses are there in the institution that Desert Studies Center is a part of?",
+      "expected": "12",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 15932,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "7",
+          "timestamp": "2026-02-21T02:11:58+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:11:58+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-186": {
+      "id": "graph-musique-186",
+      "question": "What city was the author of Neighbors born in?",
+      "expected": "Clatskanie",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 45592,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Paris",
+          "timestamp": "2026-02-21T02:12:44+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:12:44+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-187": {
+      "id": "graph-musique-187",
+      "question": "What is the name of the city where Tess Gallagher's spouse was born in?",
+      "expected": "Clatskanie",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 8146,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Port Angeles",
+          "timestamp": "2026-02-21T02:12:53+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:12:53+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-188": {
+      "id": "graph-musique-188",
+      "question": "In what city was the author of Elephant born?",
+      "expected": "Clatskanie",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 11091,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No answer provided in context.",
+          "timestamp": "2026-02-21T02:13:04+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:13:04+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-189": {
+      "id": "graph-musique-189",
+      "question": "What city was the author of What We Talk About When We Talk About love born in?",
+      "expected": "Clatskanie",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 12364,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Yes",
+          "timestamp": "2026-02-21T02:13:16+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:13:16+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-190": {
+      "id": "graph-musique-190",
+      "question": "When did the stalemate happen in the war where UN troops approached the Yalu River?",
+      "expected": "began 10 July 1951",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": true,
+          "f1": 0.4,
+          "latency_ms": 14113,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "1950",
+          "timestamp": "2026-02-21T02:13:31+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:13:31+01:00",
+      "best_f1": 0.4,
+      "trend": "stable"
+    },
+    "graph-musique-191": {
+      "id": "graph-musique-191",
+      "question": "What was the cast member in After Hours nominated for?",
+      "expected": "Academy Award for Best Live Action Short Film",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 6303,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Golden Globe",
+          "timestamp": "2026-02-21T02:13:37+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:13:37+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-192": {
+      "id": "graph-musique-192",
+      "question": "What was the director of Lisa Picard is Famous nominated for?",
+      "expected": "Academy Award for Best Live Action Short Film",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 16798,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No information provided.",
+          "timestamp": "2026-02-21T02:13:54+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:13:54+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-208": {
+      "id": "std-208",
+      "question": "What is Richard Lui's occupation?",
+      "expected": "journalist",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 10086,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Richard Lui is a journalist and news anchor who works for MSNBC and NBC News.",
+          "timestamp": "2026-02-21T02:13:56+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:13:56+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-209": {
+      "id": "std-209",
+      "question": "What is Charlotte von Hagn's occupation?",
+      "expected": "actor",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 8827,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Charlotte von Hagn was a German actress.",
+          "timestamp": "2026-02-21T02:14:05+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:14:05+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-193": {
+      "id": "graph-musique-193",
+      "question": "What type of government did North Korea have during the conflict when UN troops approached the Yalu River?",
+      "expected": "a communist government",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": true,
+          "f1": 0.8,
+          "latency_ms": 12969,
+          "match_type": "SUBSET_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Communist government",
+          "timestamp": "2026-02-21T02:14:07+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:14:07+01:00",
+      "best_f1": 0.8,
+      "trend": "stable"
+    },
+    "std-210": {
+      "id": "std-210",
+      "question": "What is James M. Geraghty's occupation?",
+      "expected": "lawyer",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 5688,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "James M. Geraghty is a lawyer.",
+          "timestamp": "2026-02-21T02:14:11+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:14:11+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "std-211": {
+      "id": "std-211",
+      "question": "What is Michael Hutchings's occupation?",
+      "expected": "chef",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 8608,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Michael Hutchings is a mathematician who specializes in symplectic geometry and low-dimensional topology.",
+          "timestamp": "2026-02-21T02:14:19+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:14:19+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-194": {
+      "id": "graph-musique-194",
+      "question": "What was the director of Addicted to Love nominated for?",
+      "expected": "Academy Award for Best Live Action Short Film",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 14097,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Golden Globe",
+          "timestamp": "2026-02-21T02:14:22+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:14:22+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "std-212": {
+      "id": "std-212",
+      "question": "What is Gideon Olin's occupation?",
+      "expected": "politician",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 6421,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Gideon Olin's occupation is not mentioned in the provided context.",
+          "timestamp": "2026-02-21T02:14:26+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:14:26+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-195": {
+      "id": "graph-musique-195",
+      "question": "What was the director of The Accidental Husband nominated for?",
+      "expected": "Academy Award for Best Live Action Short Film",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": false,
+          "f1": 0.3077,
+          "latency_ms": 6465,
+          "match_type": "TOKEN_F1",
+          "error": null,
+          "error_type": null,
+          "answer": "Independent Spirit Award for Best Cinematography",
+          "timestamp": "2026-02-21T02:14:28+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:14:28+01:00",
+      "best_f1": 0.3077,
+      "trend": "stable"
+    },
+    "std-213": {
+      "id": "std-213",
+      "question": "What is Cecil Aldin's occupation?",
+      "expected": "illustrator",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 8618,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Cecil Aldin was a British artist and illustrator known for his paintings and drawings of animals, sports, and rural life.",
+          "timestamp": "2026-02-21T02:14:35+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:14:35+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-196": {
+      "id": "graph-musique-196",
+      "question": "Who led North Korea in to the war where UN troops approached the Yalu river.",
+      "expected": "Kim Il - Sung",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 16088,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Kim Il-sung",
+          "timestamp": "2026-02-21T02:14:45+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:14:45+01:00",
+      "best_f1": 1.0,
+      "trend": "stable"
+    },
+    "std-214": {
+      "id": "std-214",
+      "question": "What is Malcolm David Kelley's occupation?",
+      "expected": "actor",
+      "expected_detail": "",
+      "rag_type": "standard",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": true,
+          "f1": 0.9,
+          "latency_ms": 11006,
+          "match_type": "CONTAINS_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Malcolm David Kelley is an American actor and singer.",
+          "timestamp": "2026-02-21T02:14:46+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:14:46+01:00",
+      "best_f1": 0.9,
+      "trend": "stable"
+    },
+    "graph-musique-197": {
+      "id": "graph-musique-197",
+      "question": "During which span of years was the war where UN troops approached the Yalu River?",
+      "expected": "1950–1953)",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": true,
+          "f1": 0.6667,
+          "latency_ms": 12541,
+          "match_type": "FUZZY_RECALL",
+          "error": null,
+          "error_type": null,
+          "answer": "1950-1953",
+          "timestamp": "2026-02-21T02:14:57+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:14:57+01:00",
+      "best_f1": 0.6667,
+      "trend": "stable"
+    },
+    "graph-musique-198": {
+      "id": "graph-musique-198",
+      "question": "What was the percentage the Dow Jones fell during the time the first cake mix come out?",
+      "expected": "54.7%",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 10950,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No answer provided in context.",
+          "timestamp": "2026-02-21T02:15:09+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:15:09+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-musique-199": {
+      "id": "graph-musique-199",
+      "question": "What line by a cast member of Birds of Feather is believed to have started the archie nickname?",
+      "expected": "\"Archibald, certainly not!\"",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": false,
+          "f1": 0.0,
+          "latency_ms": 7410,
+          "match_type": "NO_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "No information provided.",
+          "timestamp": "2026-02-21T02:15:16+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "current_status": "fail",
+      "last_tested": "2026-02-21T02:15:16+01:00",
+      "best_f1": 0.0,
+      "trend": "stable"
+    },
+    "graph-2wikimultihopqa-0": {
+      "id": "graph-2wikimultihopqa-0",
+      "question": "Which film has the director died first, Two For Tonight or Light Over Russia?",
+      "expected": "Two For Tonight",
+      "expected_detail": "",
+      "rag_type": "graph",
+      "category": "",
+      "entities": [],
+      "tables": [],
+      "runs": [
+        {
+          "iteration_id": "iter-2026-02-21T01-39-47",
+          "iteration_number": 236,
+          "correct": true,
+          "f1": 1.0,
+          "latency_ms": 4397,
+          "match_type": "EXACT_MATCH",
+          "error": null,
+          "error_type": null,
+          "answer": "Two For Tonight",
+          "timestamp": "2026-02-21T02:15:21+01:00"
+        }
+      ],
+      "total_runs": 1,
+      "pass_count": 1,
+      "pass_rate": 1.0,
+      "current_status": "pass",
+      "last_tested": "2026-02-21T02:15:21+01:00",
+      "best_f1": 1.0,
+      "trend": "stable"
     }
   },
   "quick_tests": [
@@ -55506,744 +57501,6 @@
     }
   ],
   "execution_logs": [
-    {
-      "timestamp": "2026-02-21T01:49:15+01:00",
-      "question_id": "p2-orch-36",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 26036,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Polydeuces' twin in Greek mythology is Castor.\n\n---\n**Sources:**\n[1] strategyqa (44%)\n[2] musique (3",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:49:20+01:00",
-      "question_id": "graph-musique-105",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.8,
-      "latency_ms": 18869,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Hey Jude",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:49:24+01:00",
-      "question_id": "std-107",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 8801,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "James Cameron's Oscar acceptance speech for Titanic included the line \"I'm king of the world.\"",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:49:26+01:00",
-      "question_id": "p2-orch-37",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 9949,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The film that features the Dawes Tomes Mousley Grubbs Fidelity Fiduciary Bank is \"Mary Poppins.\"\n\n--",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:49:29+01:00",
-      "question_id": "graph-musique-106",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 8884,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Within You Without You",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:49:33+01:00",
-      "question_id": "std-108",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 8789,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Vincent Van Gogh was Dutch.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:49:37+01:00",
-      "question_id": "p2-orch-38",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 9898,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Robin Williams' character in Good Morning Vietnam is called Adrian Cronauer.\n\n---\n**Sources:**\n[1] t",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:49:40+01:00",
-      "question_id": "std-109",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 7050,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The film featuring the characters Sally Albright and Harry Burns is \"When Harry Met Sally.\"",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:49:41+01:00",
-      "question_id": "graph-musique-107",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 11531,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "No Way",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:49:48+01:00",
-      "question_id": "p2-orch-39",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 9676,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Glenn Close plays Cruella de Vil in the 1996 live action version of 101 Dalmatians.\n\n---\n**Sources:*",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:49:52+01:00",
-      "question_id": "graph-musique-108",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.5,
-      "latency_ms": 11228,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "John McCain",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:49:57+01:00",
-      "question_id": "std-110",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 16568,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Katrina and the Waves won the Eurovision Song Contest for the United Kingdom with their song \"Love S",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:49:59+01:00",
-      "question_id": "p2-orch-40",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 9748,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Billy Wilder directed \"The Seven Year Itch\" starring Marilyn Monroe.\n\n---\n**Sources:**\n[1] hotpotqa ",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:50:03+01:00",
-      "question_id": "graph-musique-109",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 11042,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "FDA",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:50:06+01:00",
-      "question_id": "std-111",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 8925,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The English word \"vinegar\" comes from the old French word \"vinaigre\" meaning sour wine.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:50:09+01:00",
-      "question_id": "p2-orch-41",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 9155,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Jack Dee won Celebrity Big Brother on Red Nose Day 2001.\n\n---\n**Sources:**\n[1] musique (42%)\n[2] gsm",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:50:12+01:00",
-      "question_id": "graph-musique-110",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 8745,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Harvard Law School",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:50:15+01:00",
-      "question_id": "std-112",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 9213,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Australia beat American Samoa 31-0 in a 2002 World Cup qualifier but still failed to qualify for the",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:50:21+01:00",
-      "question_id": "std-113",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 5656,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Roland Rat's gerbil friend was named Errol the Hamster.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:50:22+01:00",
-      "question_id": "graph-musique-111",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.5,
-      "latency_ms": 10125,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "John McCain",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:50:27+01:00",
-      "question_id": "std-114",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.1667,
-      "latency_ms": 6192,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The African elephant has the longest gestation period at around 22 months.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:50:29+01:00",
-      "question_id": "p2-orch-42",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 18060,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Walford East\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:50:30+01:00",
-      "question_id": "graph-musique-112",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.4,
-      "latency_ms": 7842,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Boston College",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:50:41+01:00",
-      "question_id": "graph-musique-113",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 9939,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "FDA",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:50:41+01:00",
-      "question_id": "p2-orch-43",
-      "rag_type": "orchestrator",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 11401,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Donald Bradman scored 0 runs in his last ever test match innings.\n\n---\n**Sources:**\n[1] spider2 (44%",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:50:54+01:00",
-      "question_id": "graph-musique-114",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 13669,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "FDA",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:51:05+01:00",
-      "question_id": "graph-musique-115",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 10660,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "No information provided.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:51:07+01:00",
-      "question_id": "std-115",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 39392,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "A beaver's home is called a lodge.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:51:15+01:00",
-      "question_id": "std-116",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 7532,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "A baby marsupial is called a joey.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:51:17+01:00",
-      "question_id": "p2-orch-44",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 34855,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Eddy Merckx\n\n---\n**Sources:**\n[1] graph_rag_llm_synthesis",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:51:19+01:00",
-      "question_id": "graph-musique-116",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 13705,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The Silence of the Lambs",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:51:28+01:00",
-      "question_id": "p2-orch-45",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 9294,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Captain America's arch nemesis is the Red Skull.\n\n---\n**Sources:**\n[1] arc (42%)\n[2] bigbench_hard (",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:51:29+01:00",
-      "question_id": "graph-musique-117",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 9558,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "No information provided.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:51:34+01:00",
-      "question_id": "std-117",
-      "rag_type": "standard",
-      "correct": false,
-      "f1": 0.0645,
-      "latency_ms": 19224,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Steve Bing dated Elizabeth Hurley between 2000 and 2001 and initially denied being the father of her",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:51:44+01:00",
-      "question_id": "p2-orch-46",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 15035,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Oswald Chesterfield Cobblepot is better known as The Penguin.\n\n---\n**Sources:**\n[1] strategyqa (42%)",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:51:45+01:00",
-      "question_id": "std-118",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 10998,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "A zebra is the star of the 2005 film Racing Stripes.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:51:47+01:00",
-      "question_id": "graph-musique-118",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 18289,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "No answer provided in context.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:51:54+01:00",
-      "question_id": "std-119",
-      "rag_type": "standard",
-      "correct": true,
-      "f1": 0.1667,
-      "latency_ms": 8872,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Dick Francis is famous for writing novels based around horse racing.",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "topK": null,
-        "pinecone_results": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:52:00+01:00",
-      "question_id": "graph-musique-119",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 12550,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "No",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:52:10+01:00",
-      "question_id": "p2-orch-47",
-      "rag_type": "orchestrator",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 24516,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Je n'ai pas pu trouver d'information pertinente pour répondre à votre question. Pourriez-vous reform",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:52:19+01:00",
-      "question_id": "graph-musique-120",
-      "rag_type": "graph",
-      "correct": true,
-      "f1": 0.5,
-      "latency_ms": 19262,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Joey Lawrence",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:52:21+01:00",
-      "question_id": "p2-orch-48",
-      "rag_type": "orchestrator",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 10323,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Wyatt Earp was shot multiple times during his life, though the exact number is not definitively docu",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:52:30+01:00",
-      "question_id": "graph-musique-121",
-      "rag_type": "graph",
-      "correct": false,
-      "f1": 0.0,
-      "latency_ms": 10037,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "Nile River",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "entities": [],
-        "neo4j_paths": 0,
-        "traversal_depth": 0,
-        "community_matches": 0
-      }
-    },
-    {
-      "timestamp": "2026-02-21T01:52:36+01:00",
-      "question_id": "p2-orch-49",
-      "rag_type": "orchestrator",
-      "correct": true,
-      "f1": 0.9,
-      "latency_ms": 13696,
-      "error_type": null,
-      "error_preview": null,
-      "answer_preview": "The Lone Ranger was the famous cowboy created by George W. Trendle.\n\n---\n**Sources:**\n[1] triviaqa (",
-      "confidence": null,
-      "pipeline_details_summary": {
-        "sub_pipelines": [],
-        "routing": null
-      }
-    },
     {
       "timestamp": "2026-02-21T01:52:46+01:00",
       "question_id": "std-120",
@@ -58846,6 +60103,760 @@
       "pipeline_details_summary": {
         "topK": null,
         "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:09:57+01:00",
+      "question_id": "std-197",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.1,
+      "latency_ms": 5624,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Based on the provided context, Eduard Looijenga's occupation is not mentioned. The context only disc",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:10:05+01:00",
+      "question_id": "std-198",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 7396,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Petrus Camper was a Dutch physician, anatomist, physiologist, midwife, zoologist, anthropologist, pa",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:10:09+01:00",
+      "question_id": "graph-musique-176",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 20391,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Yes",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:10:13+01:00",
+      "question_id": "std-199",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 8035,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Charles Harrison is a fictional character from the Harry Potter series, which was written by British",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:10:18+01:00",
+      "question_id": "graph-musique-177",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 8323,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No ranking provided.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:10:19+01:00",
+      "question_id": "std-200",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 5671,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Pathit Pisitkul is an actor.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:10:26+01:00",
+      "question_id": "graph-musique-178",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 7767,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No answer provided in the context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:10:28+01:00",
+      "question_id": "std-201",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 8205,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Jacopo Melani was an Italian composer and violinist of the Baroque period.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:10:32+01:00",
+      "question_id": "graph-musique-179",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 6089,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No ranking information available.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:10:37+01:00",
+      "question_id": "std-202",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 8812,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Jeremiah Smith's occupation is not mentioned in the provided context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:10:45+01:00",
+      "question_id": "graph-musique-180",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 12316,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No answer available.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:10:48+01:00",
+      "question_id": "std-203",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 11514,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Richard Harris was an Irish actor and singer.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:10:59+01:00",
+      "question_id": "graph-musique-181",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.8,
+      "latency_ms": 14415,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1950",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:11:02+01:00",
+      "question_id": "std-204",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 13313,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Peter W. Barca is a politician who has served as a member of the Wisconsin State Assembly and as the",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:11:10+01:00",
+      "question_id": "graph-musique-182",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 10424,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1969",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:11:15+01:00",
+      "question_id": "std-205",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 12839,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Harold Lever, Baron Lever of Manchester was a British politician and barrister.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:11:26+01:00",
+      "question_id": "std-206",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 10709,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Peter Murnoy's occupation is not mentioned in the provided context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:11:35+01:00",
+      "question_id": "graph-musique-183",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 24794,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No answer available.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:11:42+01:00",
+      "question_id": "graph-musique-184",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 7393,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No answer available.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:11:43+01:00",
+      "question_id": "std-207",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 17196,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Spencer Williams's occupation is not mentioned in the provided context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:11:48+01:00",
+      "question_id": "orch-75",
+      "rag_type": "orchestrator",
+      "correct": true,
+      "f1": 0.125,
+      "latency_ms": 16175,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "John Reginald Christie, the notorious British serial killer, lived at 10 Rillington Place.\n\n---\n**So",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "sub_pipelines": [],
+        "routing": null
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:11:59+01:00",
+      "question_id": "graph-musique-185",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 15932,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "7",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:12:44+01:00",
+      "question_id": "graph-musique-186",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 45592,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Paris",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:12:53+01:00",
+      "question_id": "graph-musique-187",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 8146,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Port Angeles",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:13:04+01:00",
+      "question_id": "graph-musique-188",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 11091,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No answer provided in context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:13:17+01:00",
+      "question_id": "graph-musique-189",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 12364,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Yes",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:13:31+01:00",
+      "question_id": "graph-musique-190",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.4,
+      "latency_ms": 14113,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1950",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:13:37+01:00",
+      "question_id": "graph-musique-191",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 6303,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Golden Globe",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:13:54+01:00",
+      "question_id": "graph-musique-192",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 16798,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No information provided.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:13:56+01:00",
+      "question_id": "std-208",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 10086,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Richard Lui is a journalist and news anchor who works for MSNBC and NBC News.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:14:05+01:00",
+      "question_id": "std-209",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 8827,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Charlotte von Hagn was a German actress.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:14:07+01:00",
+      "question_id": "graph-musique-193",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.8,
+      "latency_ms": 12969,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Communist government",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:14:11+01:00",
+      "question_id": "std-210",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 5688,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "James M. Geraghty is a lawyer.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:14:19+01:00",
+      "question_id": "std-211",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 8608,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Michael Hutchings is a mathematician who specializes in symplectic geometry and low-dimensional topo",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:14:22+01:00",
+      "question_id": "graph-musique-194",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 14097,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Golden Globe",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:14:26+01:00",
+      "question_id": "std-212",
+      "rag_type": "standard",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 6421,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Gideon Olin's occupation is not mentioned in the provided context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:14:28+01:00",
+      "question_id": "graph-musique-195",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.3077,
+      "latency_ms": 6465,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Independent Spirit Award for Best Cinematography",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:14:35+01:00",
+      "question_id": "std-213",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 8618,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Cecil Aldin was a British artist and illustrator known for his paintings and drawings of animals, sp",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:14:45+01:00",
+      "question_id": "graph-musique-196",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 16088,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Kim Il-sung",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:14:46+01:00",
+      "question_id": "std-214",
+      "rag_type": "standard",
+      "correct": true,
+      "f1": 0.9,
+      "latency_ms": 11006,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Malcolm David Kelley is an American actor and singer.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "topK": null,
+        "pinecone_results": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:14:57+01:00",
+      "question_id": "graph-musique-197",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 0.6667,
+      "latency_ms": 12541,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "1950-1953",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:15:09+01:00",
+      "question_id": "graph-musique-198",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 10950,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No answer provided in context.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:15:16+01:00",
+      "question_id": "graph-musique-199",
+      "rag_type": "graph",
+      "correct": false,
+      "f1": 0.0,
+      "latency_ms": 7410,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "No information provided.",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
+      }
+    },
+    {
+      "timestamp": "2026-02-21T02:15:21+01:00",
+      "question_id": "graph-2wikimultihopqa-0",
+      "rag_type": "graph",
+      "correct": true,
+      "f1": 1.0,
+      "latency_ms": 4397,
+      "error_type": null,
+      "error_preview": null,
+      "answer_preview": "Two For Tonight",
+      "confidence": null,
+      "pipeline_details_summary": {
+        "entities": [],
+        "neo4j_paths": 0,
+        "traversal_depth": 0,
+        "community_matches": 0
       }
     }
   ],

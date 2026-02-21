@@ -1,6 +1,6 @@
 # Multi-RAG Orchestrator — Tour de Contrôle Centrale
 
-> Last updated: 2026-02-20T20:35:00+01:00
+> Last updated: 2026-02-21T02:15:00+01:00
 
 > **CE REPO (`mon-ipad`) EST LA TOUR DE CONTRÔLE.**
 > VM Google Cloud permanente · Claude Code via Termius · Pilote 6 repos satellites
@@ -488,12 +488,12 @@ Inclus      : Python 3.11, Node.js 20, Docker-in-Docker, Claude Code CLI
 - **Déploiement** : GitHub Pages ou Vercel (statique)
 - **Directive** : `CLAUDE.md` dans le repo (poussé depuis `directives/repos/rag-dashboard.md`)
 
-#### `rag-pme-connectors` — Site PME Connecteurs (12 apps)
+#### `rag-pme-connectors` — Site PME Connecteurs (15 apps)
 - **Qui l'exécute** : Vercel (prod), dev local optionnel
-- **Ce qu'il contient** : Next.js 14, 12 connecteurs applications, chatbot intégré
-- **Ce qu'il fait** : Vitrine PME — intégrations Nomos AI avec apps business
-- **Déploiement** : Push GitHub → Vercel auto-deploy (à configurer)
-- **Directive** : Aucune (site statique)
+- **Ce qu'il contient** : Next.js 15, 15 connecteurs applications (WhatsApp, Telegram, Gmail, Outlook, Slack, Google Drive, OneDrive, Dropbox, Google Calendar, Notion, Trello, HubSpot, Salesforce, Stripe, QuickBooks), chatbot MacBook-style
+- **Ce qu'il fait** : Vitrine PME — intégrations Nomos AI avec 15 apps business, filtrage par catégorie (Communication, Stockage, Productivité, CRM, Finance)
+- **Déploiement** : Push GitHub → Vercel auto-deploy
+- **Directive** : `directives/repos/rag-pme-connectors.md` (a créer si modifs nécessaires)
 
 #### `rag-pme-usecases` — Site PME Use Cases (200 cas)
 - **Qui l'exécute** : Vercel (prod), dev local optionnel
@@ -792,6 +792,64 @@ TACHE → Analyse/Decision ? → OUI → OPUS fait lui-meme
 
 ---
 
+## Gestion des Bottlenecks et Résolution de Problèmes (OBLIGATOIRE)
+
+> **Principe fondamental** : Lancer les tests en background, se concentrer sur les problèmes.
+> Les tests qui fonctionnent tournent en autonomie. Le temps de l'agent est consacré à résoudre ce qui bloque.
+
+### Boucle de résolution par bottleneck
+```
+1. IDENTIFIER   → Quel pipeline/composant bloque la progression ?
+2. CLASSIFIER   → Infrastructure | Rate-limit | Code | Data | Modèle LLM
+3. PRIORISER    → Impact × Effort × Urgence (voir matrice ci-dessous)
+4. ISOLER       → Tests fonctionnels en background, focus sur le blocage
+5. RÉSOUDRE     → 1 fix à la fois, valider, documenter
+6. RELANCER     → Tests du pipeline corrigé, vérifier pas de régression
+```
+
+### Matrice de priorisation des bottlenecks
+| Type | Exemples | Impact | Effort | Action |
+|------|----------|--------|--------|--------|
+| **Infrastructure** | TCP port bloqué, VM OOM, Docker down | HAUT | MOYEN | Contourner (HF Space, Codespace) |
+| **Rate-limit** | OpenRouter 429, Jina quota | MOYEN | BAS | Changer modèle ou attendre |
+| **Code workflow** | [object Object], node crash, cache stale | HAUT | MOYEN | FIX + deactivate/activate cycle |
+| **Data** | IDs collision, dedup cassé, dataset manquant | MOYEN | BAS | Script correctif ponctuel |
+| **Modèle LLM** | Mauvaises réponses, hallucinations | BAS | HAUT | Changer prompt ou modèle |
+
+### Règle background testing
+```
+TESTS QUI PASSENT → nohup en background + auto-commit toutes les 15 min
+TESTS QUI ECHOUENT → investigation immédiate par l'agent
+PIPELINE BLOQUÉ → documenter le blocage + contourner + lancer les autres pipelines
+```
+
+**Pattern concret** :
+```bash
+# Lancer les pipelines fonctionnels en background
+N8N_HOST="$HF_SPACE_URL" nohup python3 eval/run-eval-parallel.py \
+  --dataset phase-2 --types standard,graph,orchestrator \
+  --force --early-stop 0 --workers 3 \
+  > /tmp/phase2-run.log 2>&1 &
+
+# Auto-commit périodique
+nohup bash -c 'while true; do sleep 900; cd /path/to/repo && \
+  python3 eval/generate_status.py && \
+  git add docs/ && git commit -m "auto-commit" && git push; done' &
+
+# Pendant ce temps : se concentrer sur le pipeline qui bloque
+```
+
+### Escalade des bottlenecks
+| Situation | Action | Escalade |
+|-----------|--------|----------|
+| 1 pipeline bloqué, 3 OK | Background les 3 OK, debug le bloqué | Aucune |
+| 2+ pipelines bloqués | Identifier la cause commune | Vérifier infra (n8n, API keys, network) |
+| Rate-limit OpenRouter | Changer `$env.LLM_*_MODEL` vers modèle alternatif | Tester Qwen 3 235B, Mistral Small 3.1 |
+| HF Space TCP bloqué | Utiliser VM n8n ou Codespace pour ce pipeline | Documenter dans fixes-library |
+| 3 échecs consécutifs | Auto-stop + rapport structuré | Consul fixes-library → knowledge-base |
+
+---
+
 ## Gestion des Credentials (CRITIQUE)
 
 **`.env.local` = seule source. GitHub = ZÉRO credentials.**
@@ -849,6 +907,9 @@ TACHE → Analyse/Decision ? → OUI → OPUS fait lui-meme
 30. **Agent Continuation** — Sous-agents (Sonnet/Haiku) continuent automatiquement apres succes (5q→10q→50q). Auto-stop sur 3 echecs consecutifs. Rapport structure a Opus pour analyse et decision. Details : `technicals/project/team-agentic-process.md` Section 3b.
 31. **Push regulier GitHub** — commit + push toutes les 15-20 minutes minimum, pour chaque agent actif. Resultats JAMAIS perdus.
 32. **Consulter document-index** — Au demarrage, consulter `docs/document-index.md` pour la carte complete des fichiers projet. `docs/executive-summary.md` pour le resume global.
+33. **Background testing** — Les tests qui passent (pipelines fonctionnels) tournent en `nohup` background avec auto-commit. L'agent se concentre sur la résolution des problèmes et bottlenecks. Ne JAMAIS attendre passivement qu'un test finisse si d'autres tâches sont possibles.
+34. **Bottleneck-first** — Toujours identifier et résoudre le bottleneck principal AVANT d'optimiser ce qui fonctionne. Prioriser : Infrastructure > Rate-limits > Code > Data > Modèle. Voir section "Gestion des Bottlenecks".
+35. **Pipeline isolation** — Si un pipeline est bloqué (TCP, rate-limit, code), l'isoler et lancer les autres en parallèle. Ne JAMAIS bloquer tous les tests pour un seul pipeline défaillant.
 
 ---
 
