@@ -1,6 +1,6 @@
 # rag-tests — CLAUDE.md
 
-> Last updated: 2026-02-20T01:30:00+01:00
+> Last updated: 2026-02-22T13:30:00+01:00
 > **Ce repo s'exécute dans un Codespace GitHub éphémère OU sur HF Space (16GB RAM).**
 > Tu es un agent Claude Code specialise dans les TESTS des 4 pipelines RAG.
 > **MODELE PRINCIPAL : `claude-opus-4-6`** — Analyse, decisions, evaluation des resultats.
@@ -20,15 +20,16 @@
 
 ---
 
-## ÉTAT ACTUEL — 20 fév 2026 (Session 27)
+## ÉTAT ACTUEL — 22 fév 2026 (Session 37)
 
 | | |
 |-|-|
-| **Dernier commit** | 9f5a53dd — 17 fév 2026 |
-| **Déployé / en cours** | Scripts eval à jour, 932 questions testées sur 42 itérations |
-| **Codespace** | Shutdown — nomos-rag-tests-5g6g5q9vjjwjf5g4 (à redémarrer pour tests 50q+) |
-| **HF Space** | https://lbjlincoln-nomos-rag-engine.hf.space — **3/4 pipelines fonctionnels** (Standard 100%, Graph 100%, Orchestrator 100%). Quantitative: infra OK mais OpenRouter 429 rate limit |
-| **Prochain objectif** | Deployer Qwen 2.5 Coder 32B pour Quantitative + Valider Phase 1 gates |
+| **Dernier commit** | 1f2a1e4 — session 37: v10 done (57%), v11 running |
+| **Phase 1** | PASSED (83.9% overall, 20 fev 2026) |
+| **Phase 2** | EN COURS — v11 running (Standard 335/537 tested, 45.7%) |
+| **v10 résultats** | 1263q, 57% overall (Standard 60.4%, Graph 55.7%, Quant 53.3%, Orch 58.2%) |
+| **HF Space** | https://lbjlincoln-nomos-rag-engine.hf.space — n8n 2.8.3, 16GB RAM, RUNNING |
+| **Prochain objectif** | Finaliser v11, analyser limites Phase 2, documenter |
 
 ### Commandes clés pour cette session
 ```bash
@@ -52,13 +53,13 @@ python3 eval/quick-test.py --questions 5 --pipeline quantitative
 python3 eval/iterative-eval.py --label "Phase1-fix-quant"
 ```
 
-### État des pipelines (objectif de session)
-| Pipeline | Accuracy | Target | Gap | Priorité |
-|----------|----------|--------|-----|----------|
-| Standard | **85.5%** | >= 85% | +0.5pp | Maintenir |
-| Graph | **100%** (10/10 HF Space) | >= 70% | +30pp | PASS — validated |
-| Quantitative | **78.3%** | >= 85% | -6.7pp | **P1 — OpenRouter rate limit (infra OK)** |
-| Orchestrator | **80.0%** | >= 70% | +10pp | Maintenir |
+### État des pipelines (Phase 1 PASSED, Phase 2 EN COURS)
+| Pipeline | Phase 1 (PASSED) | Phase 2 v11 (en cours) | Target P2 |
+|----------|------------------|------------------------|-----------|
+| Standard | 85.5% PASS | 335/537 tested (45.7%) | >= 75% |
+| Graph | 78.0% PASS | En attente | >= 55% |
+| Quantitative | 92.0% PASS | En attente | >= 65% |
+| Orchestrator | 80.0% PASS | En attente | >= 70% |
 
 ---
 

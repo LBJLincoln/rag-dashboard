@@ -1,6 +1,6 @@
 # Multi-RAG Orchestrator — Tour de Contrôle Centrale
 
-> Last updated: 2026-02-21T02:15:00+01:00
+> Last updated: 2026-02-22T14:00:00+01:00
 
 > **CE REPO (`mon-ipad`) EST LA TOUR DE CONTRÔLE.**
 > VM Google Cloud permanente · Claude Code via Termius · Pilote 6 repos satellites
@@ -532,10 +532,45 @@ rag-pme-usecases   → github.com/LBJLincoln/rag-pme-usecases.git
 4. **Lire `technicals/debug/knowledge-base.md`** — **CERVEAU PERSISTANT** (patterns, solutions, LLM, APIs)
 5. `cat technicals/debug/fixes-library.md | head -50` — Symptôme connu ?
 6. **Consulter `docs/document-index.md`** — **INDEX DE RECHERCHE** (sujet → fichier source)
+7. **Lancer Agent 1: Session Log Analyzer** — Sonnet background (Rule 41)
+8. **Lancer Agent 2: Repo Health Inspector** — Sonnet background (Rule 42)
 
 **Règle** : Avant chaque action complexe, re-lire `directives/session-state.md`.
 **Règle** : Après chaque découverte technique, mettre à jour `technicals/debug/knowledge-base.md` IMMÉDIATEMENT (pas en fin de session).
 **Règle** : Quand tu cherches une information, consulte `docs/document-index.md` pour savoir dans quel document la trouver.
+
+### 0.1b Agents de démarrage obligatoires (Session 38+)
+
+**Agent 1 — Session Log Analyzer** (Sonnet 4.5, background)
+```
+Task(model: "sonnet", subagent_type: "general-purpose", run_in_background: true)
+Prompt:
+  "Read outputs/session-<N-1>-log.md (last session log).
+   Analyze: rule adherence, patterns, bottlenecks, missed improvements.
+   Web search for current best practices (RAG 2026, n8n optimization, eval methodology).
+   Output: concrete improvements to apply to CLAUDE.md, fixes-library.md,
+   knowledge-base.md, team-agentic-process.md.
+   Write changes directly. Commit with message 'auto: session analyzer improvements'."
+```
+
+**Agent 2 — Repo Health Inspector** (Sonnet 4.5, background)
+```
+Task(model: "sonnet", subagent_type: "general-purpose", run_in_background: true)
+Prompt:
+  "Scan the mon-ipad repo structure: check staleness (check-staleness.sh),
+   architecture cleanliness, dead files, missing docs.
+   Then check all 5 satellite repos via 'gh api repos/LBJLincoln/<repo>':
+   - rag-tests: test protocol quality, dataset coverage, eval methodology
+   - rag-data-ingestion: ingestion pipeline efficiency, data quality checks
+   - rag-pme-connectors: PME workflow coverage, test scenarios
+   - rag-dashboard: data freshness, display accuracy
+   - rag-website: deployment health, content accuracy
+   Output: improvement suggestions per repo.
+   Write changes to technicals/project/improvements-roadmap.md.
+   Commit with message 'auto: repo health inspection improvements'."
+```
+
+**Both agents run in PARALLEL at session start.** They produce improvements that Opus reviews before applying.
 
 ### 0.2 Mise à jour session-state.md (OBLIGATOIRE)
 ```markdown

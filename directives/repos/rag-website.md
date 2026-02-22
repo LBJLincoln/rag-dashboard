@@ -1,6 +1,6 @@
 # rag-website — CLAUDE.md
 
-> Last updated: 2026-02-20T01:30:00+01:00
+> Last updated: 2026-02-22T13:30:00+01:00
 > **Ce repo s'exécute dans un Codespace GitHub éphémère (dev) + Vercel (prod).**
 > Tu es un agent Claude Code specialise dans le SITE BUSINESS multi-secteurs.
 > **MODELE PRINCIPAL : `claude-opus-4-6`** — Architecture, decisions, evaluation qualite.

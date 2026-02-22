@@ -1,6 +1,6 @@
 # Objectif Final & Situation Actuelle
 
-> Last updated: 2026-02-19T15:30:00+01:00
+> Last updated: 2026-02-22T13:30:00+01:00
 
 ---
 
@@ -171,14 +171,20 @@ Voir `technicals/infra/architecture.md` section "Architecture 16 Workflows".
 - **Graph bolt→https fix APPLIED** — Neo4j URL corrigee
 - **Quantitative 0-nodes fix APPLIED** — workflow live restaure
 
-### Prochaine action prioritaire
+### Prochaine action prioritaire (Session 37+)
 
-#### Priorites pipeline (Session 26+)
-1. **Deployer workflow Quantitative fixe sur HF Space** — template SQL matching
-2. **Importer Graph + Orchestrator sur HF Space** avec les bons webhook paths
-3. **Full eval Graph 50q** sur HF Space pour confirmer >=70%
-4. **Full eval Quantitative 50q** sur HF Space apres template fix
-5. **Si gates passees → Phase 2** (1000q HuggingFace)
+#### Phase 1 STATUS : PASSED ✅ (20 fev 2026)
+- Overall 83.9% >= 75% PASS
+- Standard 85.5% >= 85% PASS
+- Graph 78.0% >= 70% PASS
+- Quantitative 92.0% >= 85% PASS
+- Orchestrator 80.0% >= 70% PASS
+
+#### Phase 2 STATUS : EN COURS (v11 running)
+- v10 completed : 1263q, 57% overall
+- v11 running : Standard 335/537 tested (45.7%)
+- Target : >= 75% overall, >= 55% Graph, >= 65% Quant
+- Actions : Finaliser v11, documenter limites connues, analyser écart Phase 1 → Phase 2
 
 #### Website/Dashboard (livres en session 13)
 - Hero redesigne (problem-first, dual CTA, pain points cycliques)
@@ -213,18 +219,31 @@ Suivre le processus : `directives/workflow-process.md`
 
 ## Enterprise Production Gates 2026 (Standard industrie)
 
+### Phase 1 Gates (PASSED ✅)
 | Metrique | Seuil | Etat actuel |
 |---------|-------|-------------|
-| Accuracy (overall) | >= 75% | **78.1% PASS** |
+| Accuracy (overall) | >= 75% | **83.9% PASS** |
 | Accuracy Standard | >= 85% | **85.5% PASS** |
-| Accuracy Graph | >= 70% | **68.7% FAIL** |
-| Accuracy Quantitative | >= 85% | **78.3% FAIL** |
-| Faithfulness | >= 95% | **non mesure** |
-| Context Recall | >= 85% | **non mesure** |
-| Hallucination Rate | <= 2% | **non mesure** |
-| Mean Latency | <= 2.5s | **non mesure** |
+| Accuracy Graph | >= 70% | **78.0% PASS** |
+| Accuracy Quantitative | >= 85% | **92.0% PASS** |
+| Accuracy Orchestrator | >= 70% | **80.0% PASS** |
 
-→ Action : Ajouter RAGAS faithfulness + context_recall aux scripts eval.
+### Phase 2 Gates (EN COURS)
+| Metrique | Seuil | v10 (1263q) | v11 (en cours) |
+|---------|-------|-------------|----------------|
+| Accuracy (overall) | >= 75% | 57.0% | TBD |
+| Accuracy Standard | >= 75% | 60.4% | 45.7% (335/537) |
+| Accuracy Graph | >= 55% | 55.7% | TBD |
+| Accuracy Quantitative | >= 65% | 53.3% | TBD |
+| Accuracy Orchestrator | >= 70% | 58.2% | TBD |
+
+### Métriques avancées (à implémenter)
+| Metrique | Seuil | Status |
+|---------|-------|--------|
+| Faithfulness | >= 95% | Non mesuré |
+| Context Recall | >= 85% | Non mesuré |
+| Hallucination Rate | <= 2% | Non mesuré |
+| Mean Latency | <= 2.5s | Non mesuré |
 
 ## Stack Technique
 

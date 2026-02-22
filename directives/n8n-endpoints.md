@@ -1,6 +1,6 @@
 # n8n API Endpoints & Reference Complete
 
-> Last updated: 2026-02-19T15:30:00+01:00
+> Last updated: 2026-02-22T13:30:00+01:00
 
 > **Ce fichier est la reference unique** pour les scripts Python de test.
 > Les scripts doivent s'y referer pour formater les requetes et utiliser les bons points d'entree.

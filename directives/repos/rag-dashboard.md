@@ -1,7 +1,8 @@
 # rag-dashboard — CLAUDE.md
 
-> Last updated: 2026-02-20T01:30:00+01:00
-> **Ce repo est statique — déployé sur GitHub Pages ou Vercel.**
+> Last updated: 2026-02-22T13:30:00+01:00
+> **Ce repo est statique — déployé PUBLIQUEMENT sur GitHub Pages.**
+> **URL LIVE : https://lbjlincoln.github.io/rag-dashboard/**
 > Tu es un agent Claude Code specialise dans le DASHBOARD DE MONITORING live.
 > **MODELE PRINCIPAL : `claude-opus-4-6`** — Decisions UI/UX, architecture, evaluation.
 > **DELEGATION** : Haiku 4.5 pour exploration rapide si necessaire.
@@ -42,7 +43,7 @@ Il n'y a pas de n8n local ni de Codespace nécessaire.
 
 ```
 Type        : Site statique (HTML/JS/CSS)
-Deploy      : GitHub Pages OU Vercel (auto push main)
+Deploy      : GitHub Pages (PUBLIC — https://lbjlincoln.github.io/rag-dashboard/)
 n8n local   : AUCUN
 Codespace   : AUCUN nécessaire
 ```
@@ -110,14 +111,14 @@ git push origin main
 
 ## DATASETS & METRIQUES — CE QUE LE DASHBOARD AFFICHE
 
-### Metriques actuelles (Phase 1)
-| Pipeline | Accuracy | Target | Pass |
-|----------|----------|--------|------|
-| Standard | 85.5% | >= 85% | PASS |
-| Graph | 100% (10/10) | >= 70% | PASS |
-| Quantitative | 78.3% | >= 85% | FAIL (rate limited) |
-| Orchestrator | 80.0% | >= 70% | PASS |
-| Overall | 85.9% | >= 75% | PASS |
+### Metriques actuelles (Phase 1 PASSED, Phase 2 EN COURS)
+| Pipeline | Phase 1 (PASSED) | Phase 2 v10 (last completed) | Target P2 |
+|----------|------------------|------------------------------|-----------|
+| Standard | 85.5% PASS | 60.4% (1263q tested) | >= 75% |
+| Graph | 78.0% PASS | 55.7% | >= 55% |
+| Quantitative | 92.0% PASS | 53.3% | >= 65% |
+| Orchestrator | 80.0% PASS | 58.2% | >= 70% |
+| Overall | 83.9% PASS | 57.0% | >= 75% |
 
 ### Metriques Phase 2 (a ajouter)
 | Metrique | Source | Format |
