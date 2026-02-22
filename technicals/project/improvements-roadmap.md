@@ -314,3 +314,202 @@ Eval
 - [How to Deploy n8n on HF Spaces (Apidog)](https://apidog.com/blog/deploy-n8n-free-huggingface/)
 - [HF Docker Spaces Documentation](https://huggingface.co/docs/hub/main/spaces-sdks-docker)
 - [n8n on HF Community Thread](https://community.n8n.io/t/how-to-deploy-n8n-in-hugging-face-space/35961)
+
+---
+
+## 10. REPO HEALTH & ARCHITECTURE CLEANLINESS
+
+> Based on comprehensive repo inspection (Session 42)
+
+### 10.1 Mon-ipad Repo (Control Tower)
+
+| # | Issue/Improvement | Impact | Effort | Statut |
+|---|-------------------|--------|--------|--------|
+| RH1 | All directives fresh (<48h) except rag-data-ingestion.md (46h) | Health ✓ | — | OK |
+| RH2 | 5,405 Python/MD files, 11MB logs, no dead .log files | Clean ✓ | — | OK |
+| RH3 | Git pack file 16MB (.git/objects/pack) — consider gc | Disk space | Faible | Optional |
+| RH4 | Update directives/repos/rag-data-ingestion.md timestamp | Consistency | Faible | Next session |
+| RH5 | No __pycache__ or .pyc cleanup needed (gitignored) | Clean ✓ | — | OK |
+| RH6 | Create automated weekly git gc cron job | Disk hygiene | Faible | RECOMMANDE |
+| RH7 | Add pre-commit hook to check directive timestamps | Prevent staleness | Faible | RECOMMANDE |
+
+### 10.2 Rag-tests Repo
+
+| # | Issue/Improvement | Impact | Effort | Statut |
+|---|-------------------|--------|--------|--------|
+| RT1 | Last push: 2026-02-22 18:43 (today) — Active ✓ | Health ✓ | — | OK |
+| RT2 | 0 open issues, single main branch — Clean ✓ | Health ✓ | — | OK |
+| RT3 | Size: 34,719 KB (~34MB) — Normal | Health ✓ | — | OK |
+| RT4 | Add GitHub Actions CI for eval scripts linting | Code quality | Faible | RECOMMANDE |
+| RT5 | Create CONTRIBUTING.md for external contributors | Documentation | Faible | Future |
+| RT6 | Add pytest unit tests for quick-test.py, iterative-eval.py | Reliability | Moyen | RECOMMANDE |
+| RT7 | Document expected Codespace setup in README.md | Onboarding | Faible | RECOMMANDE |
+
+### 10.3 Rag-data-ingestion Repo
+
+| # | Issue/Improvement | Impact | Effort | Statut |
+|---|-------------------|--------|--------|--------|
+| DI1 | Last push: 2026-02-21 05:50 (2 days ago) — Stale warning | Activity ⚠ | — | Monitor |
+| DI2 | 0 open issues, single main branch — Clean ✓ | Health ✓ | — | OK |
+| DI3 | Size: 31,842 KB (~31MB) — Normal | Health ✓ | — | OK |
+| DI4 | No Codespace created yet (per CLAUDE.md) | Workflow blocked | Moyen | Session 40+ |
+| DI5 | Create sample ingestion job for testing (100 docs) | Testing | Faible | RECOMMANDE |
+| DI6 | Document dataset download process (14 benchmarks ~4GB) | Documentation | Faible | A FAIRE |
+| DI7 | Add dry-run mode for ingestion (preview without write) | Safety | Faible | RECOMMANDE |
+
+### 10.4 Rag-pme-connectors Repo
+
+| # | Issue/Improvement | Impact | Effort | Statut |
+|---|-------------------|--------|--------|--------|
+| PME1 | Last push: 2026-02-21 05:50 (2 days ago) — Recent ✓ | Health ✓ | — | OK |
+| PME2 | 0 open issues, single main branch — Clean ✓ | Health ✓ | — | OK |
+| PME3 | Size: 32,211 KB (~31MB) — Normal | Health ✓ | — | OK |
+| PME4 | CLAUDE.md exists ✓ | Documentation ✓ | — | OK |
+| PME5 | n8n/pme-connectors workflows present ✓ | Infrastructure ✓ | — | OK |
+| **PME6** | **NO directives/repos/rag-pme-connectors.md in mon-ipad** | Missing directive | Faible | **CREATE Session 40** |
+| **PME7** | **Add test infrastructure** (eval scripts for PME workflows) | Quality | Moyen | **PRIORITE 2** |
+| PME8 | GitHub Actions CI for Next.js build | Regression | Faible | RECOMMANDE |
+| PME9 | Vercel deployment health check in CI | Deployment safety | Faible | RECOMMANDE |
+| PME10 | Document 15 connectors with test scenarios | Testing | Moyen | A FAIRE |
+| PME11 | Add E2E tests for chatbot MacBook-style interface | UX quality | Moyen | RECOMMANDE |
+
+### 10.5 Rag-dashboard Repo
+
+| # | Issue/Improvement | Impact | Effort | Statut |
+|---|-------------------|--------|--------|--------|
+| RD1 | Last push: 2026-02-22 18:44 (today) — Active ✓ | Health ✓ | — | OK |
+| RD2 | 0 open issues, single main branch — Clean ✓ | Health ✓ | — | OK |
+| RD3 | Size: 37,285 KB (~36MB) — Normal | Health ✓ | — | OK |
+| RD4 | PUBLIC repo (unlike others) — Intentional ✓ | Visibility | — | OK |
+| RD5 | GitHub Pages enabled ✓ | Deployment ✓ | — | OK |
+| RD6 | Vercel deployment: nomos-dashboard.vercel.app ✓ | Production ✓ | — | OK |
+| RD7 | Add uptime monitoring (UptimeRobot free tier) | Reliability | Faible | RECOMMANDE |
+| RD8 | Implement fallback if n8n webhook fails | Resilience | Faible | RECOMMANDE |
+
+### 10.6 Rag-website Repo
+
+| # | Issue/Improvement | Impact | Effort | Statut |
+|---|-------------------|--------|--------|--------|
+| RW1 | Last push: 2026-02-21 05:50 (2 days ago) — Recent ✓ | Health ✓ | — | OK |
+| RW2 | 0 open issues, single main branch — Clean ✓ | Health ✓ | — | OK |
+| RW3 | Size: 31,872 KB (~31MB) — Normal | Health ✓ | — | OK |
+| RW4 | Vercel deployment: nomos-ai-pied.vercel.app ✓ | Production ✓ | — | OK |
+| RW5 | Add Playwright E2E tests for 4 sector pages | Quality | Moyen | RECOMMANDE |
+| RW6 | Lighthouse CI for performance tracking | Performance | Faible | RECOMMANDE |
+
+### 10.7 Rag-pme-usecases Repo (NEW)
+
+| # | Issue/Improvement | Impact | Effort | Statut |
+|---|-------------------|--------|--------|--------|
+| PU1 | Basic Next.js structure present ✓ | Infrastructure ✓ | — | OK |
+| **PU2** | **Missing CLAUDE.md** | Documentation | Faible | **CREATE Session 40** |
+| **PU3** | **Missing directives/repos/rag-pme-usecases.md in mon-ipad** | Missing directive | Faible | **CREATE Session 40** |
+| PU4 | NO deployment URL configured yet | Deployment | Faible | TODO Session 40+ |
+| PU5 | Add 200 use cases content (JSON or markdown) | Content | Eleve | A FAIRE |
+| PU6 | Implement filtering by sector (8 sectors) | UX | Moyen | A FAIRE |
+| PU7 | Add Vercel deployment configuration | Deployment | Faible | Session 40+ |
+
+---
+
+## 11. CROSS-REPO CONSISTENCY & GOVERNANCE
+
+> Ensuring all satellite repos follow the same standards
+
+### 11.1 Missing Governance Files
+
+| # | Issue | Impact | Effort | Statut |
+|---|-------|--------|--------|--------|
+| **GOV1** | **Create directives/repos/rag-pme-connectors.md** | Consistency | Faible | **Session 40** |
+| **GOV2** | **Create directives/repos/rag-pme-usecases.md** | Consistency | Faible | **Session 40** |
+| GOV3 | Standardize .gitignore across all 7 repos | Hygiene | Faible | RECOMMANDE |
+| GOV4 | Create template CLAUDE.md for new repos | Onboarding | Faible | RECOMMANDE |
+| GOV5 | Add CODE_OF_CONDUCT.md for public repos | Community | Faible | Future |
+
+### 11.2 CI/CD Standardization
+
+| # | Improvement | Impact | Effort | Statut |
+|---|-------------|--------|--------|--------|
+| CI5 | Template GitHub Actions workflow for all repos | Consistency | Faible | RECOMMANDE |
+| CI6 | Pre-commit hooks config (black, ruff, prettier) | Code quality | Faible | RECOMMANDE |
+| CI7 | Dependabot for all repos (Python, Node.js) | Security | Faible | RECOMMANDE |
+| CI8 | Branch protection rules (require CI pass) | Quality | Faible | Future |
+
+### 11.3 Documentation Completeness Matrix
+
+| Repo | CLAUDE.md | Directive (mon-ipad) | README.md | .env.example | Status |
+|------|-----------|---------------------|-----------|--------------|--------|
+| rag-tests | ✓ | ✓ | ? | ✓ | Good |
+| rag-data-ingestion | ✓ | ✓ (46h old) | ? | ✓ | OK |
+| rag-pme-connectors | ✓ | ✗ **MISSING** | ? | ✓ | **Action needed** |
+| rag-pme-usecases | ✗ **MISSING** | ✗ **MISSING** | ? | ? | **Action needed** |
+| rag-dashboard | ✓ | ✓ | ? | N/A | Good |
+| rag-website | ✓ | ✓ | ? | ✓ | Good |
+
+**Priority Action**: Create missing directives and CLAUDE.md files for rag-pme-* repos.
+
+---
+
+## 12. INFRASTRUCTURE & RESOURCE OPTIMIZATION
+
+> Based on repo sizes, file counts, and resource usage patterns
+
+### 12.1 Disk Space Management
+
+| # | Improvement | Impact | Effort | Statut |
+|---|-------------|--------|--------|--------|
+| DISK1 | Git gc monthly on all repos (pack optimization) | Free 20-30% disk | Faible | RECOMMANDE |
+| DISK2 | Logs rotation policy (delete >30 days) | Free 11MB (mon-ipad) | Faible | RECOMMANDE |
+| DISK3 | Node_modules cleanup script for website repos | Free ~200MB per repo | Faible | RECOMMANDE |
+| DISK4 | .venv excluded from git (check .gitignore) | Prevent bloat | Faible | OK |
+| DISK5 | Outputs/ archive compression (gzip old sessions) | Free ~50MB | Faible | RECOMMANDE |
+
+### 12.2 Multi-Repo Operations Efficiency
+
+| # | Improvement | Impact | Effort | Statut |
+|---|-------------|--------|--------|--------|
+| MR1 | Improve scripts/push-directives.sh error handling | Reliability | Faible | RECOMMANDE |
+| MR2 | Add scripts/bulk-status.sh (git status all 7 repos) | Visibility | Faible | RECOMMANDE |
+| MR3 | Add scripts/bulk-pull.sh (fetch all repos) | Sync | Faible | RECOMMANDE |
+| MR4 | Create GitHub Actions workflow to sync directives | Automation | Moyen | Future |
+
+---
+
+## 13. TESTING & QUALITY ASSURANCE GAP ANALYSIS
+
+> Critical testing gaps identified across repos
+
+### 13.1 Missing Test Coverage
+
+| Repo | Unit Tests | Integration Tests | E2E Tests | CI/CD | Gap Score |
+|------|-----------|------------------|-----------|-------|-----------|
+| rag-tests | ✗ | Partial (eval scripts) | ✗ | Partial | **HIGH** |
+| rag-data-ingestion | ✗ | ✗ | ✗ | ✗ | **CRITICAL** |
+| rag-pme-connectors | ✗ | ✗ | ✗ | ✗ | **CRITICAL** |
+| rag-pme-usecases | ✗ | ✗ | ✗ | ✗ | **CRITICAL** |
+| rag-dashboard | ✗ | ✗ | ✗ | ✗ | HIGH |
+| rag-website | ✗ | ✗ | ✗ | ✗ | HIGH |
+| mon-ipad | Partial | Partial | ✗ | Partial | MEDIUM |
+
+### 13.2 Priority Test Implementation
+
+| # | Test to Implement | Repo | Impact | Effort | Statut |
+|---|-------------------|------|--------|--------|--------|
+| **TEST1** | **Unit tests for PME workflows** | rag-pme-connectors | Prevent regressions | Moyen | **PRIORITE 1** |
+| **TEST2** | **Component tests for eval scripts** | rag-tests | Reliability | Moyen | **PRIORITE 2** |
+| TEST3 | E2E tests for website chatbots | rag-website, pme-connectors | UX quality | Eleve | RECOMMANDE |
+| TEST4 | Integration tests for ingestion pipeline | rag-data-ingestion | Data quality | Eleve | RECOMMANDE |
+| TEST5 | Smoke tests for all n8n webhooks | All repos | Infrastructure | Faible | RECOMMANDE |
+
+---
+
+## HISTORIQUE DES AJOUTS
+
+| Session | Ajouts | Date |
+|---------|--------|------|
+| 25 | Creation du document, 50+ ameliorations listees | 2026-02-19 |
+| 42 | Repo health inspection: 70+ nouveaux items (sections 10-13) | 2026-02-22 |
+
+---
+
+> **REGLE** : Mettre a jour ce fichier apres chaque session avec les nouvelles ameliorations identifiees.
+> Marquer le statut (A FAIRE → EN COURS → APPLIQUE) au fur et a mesure.
