@@ -1,3 +1,8 @@
+# Phase 1 - RAG Pipeline Tests
+# Last updated: 2026-02-22
+# Tests all 4 RAG pipelines (standard, graph, quantitative, orchestrator) in GitHub Actions
+# Uses n8n docker-compose with 3 workers, connects to cloud DBs (Pinecone, Neo4j, Supabase)
+
 name: Phase 1 - RAG Pipeline Tests
 
 on:

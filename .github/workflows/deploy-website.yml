@@ -1,3 +1,7 @@
+# Deploy Website to Vercel
+# Last updated: 2026-02-22
+# Auto-deploys website/ directory to Vercel on push to main
+
 name: Deploy Website to Vercel
 
 on:

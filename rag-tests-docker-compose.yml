@@ -1,6 +1,12 @@
 # docker-compose.yml pour GitHub Actions + Codespace rag-tests
+# Last updated: 2026-02-22
 # N8N LOCAL avec 3 workers — remplace le tunnel SSH vers VM
 # Copier ce fichier dans rag-tests/docker-compose.yml (auto via test-phase1.yml)
+#
+# Current status: CI passing with this config (commit 630f81f, 18 Feb 2026)
+# Workers: 3 (n8n-worker-1/2/3), mem_limit 1536m each
+# n8n version: latest (2.8.3+ expected)
+# N8N_RUNNERS_ENABLED: false (fixes $getWorkflowStaticData in loops)
 #
 # Usage: docker compose up -d
 # Ensuite: source .env.local && python3 eval/quick-test.py --pipeline quantitative --questions 5

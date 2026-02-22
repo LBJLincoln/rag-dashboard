@@ -1,8 +1,15 @@
+#!/usr/bin/env python3
+# analyze_db.py — Supabase database analysis tool
+# Last updated: 2026-02-22
+# Analyzes Supabase tables, schema, and data for RAG pipelines
+# Usage: SUPABASE_PASSWORD=xxx python3 db/analyze_db.py
+
 import psycopg2
 import os
 import json
 
 # --- Database Credentials ---
+# IMPORTANT: Always set SUPABASE_PASSWORD env var. Default shown is for reference only.
 SUPABASE_PASSWORD = os.environ.get("SUPABASE_PASSWORD", "udVECdcSnkMCAPiY")
 DB_CONNECTION_STRING = f"postgresql://postgres.ayqviqmxifzmhphiqfmj:{SUPABASE_PASSWORD}@aws-1-eu-west-1.pooler.supabase.com:6543/postgres"
 

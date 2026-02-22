@@ -1,5 +1,5 @@
 {
-  "name": "Nomos AI — RAG Testing Environment",
+  "name": "Nomos AI — Multi-RAG Control Tower",
   "image": "mcr.microsoft.com/devcontainers/universal:2",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {
@@ -12,17 +12,21 @@
   },
   "forwardPorts": [5678, 5432, 6379],
   "portsAttributes": {
-    "5678": { "label": "n8n", "onAutoForward": "silent" }
+    "5678": { "label": "n8n VM", "onAutoForward": "silent" },
+    "5432": { "label": "PostgreSQL", "onAutoForward": "silent" },
+    "6379": { "label": "Redis", "onAutoForward": "silent" }
   },
   "customizations": {
     "vscode": {
       "extensions": [
         "ms-python.python",
-        "ms-toolsai.jupyter"
+        "ms-toolsai.jupyter",
+        "ms-azuretools.vscode-docker"
       ]
     }
   },
   "remoteEnv": {
-    "REPO_ROLE": "rag-tests"
-  }
+    "REPO_ROLE": "mon-ipad-control-tower"
+  },
+  "postCreateCommand": "pip install -q requests python-dotenv aiohttp bcrypt psycopg2-binary && echo 'Control tower ready. Source .env.local before running scripts.'"
 }
