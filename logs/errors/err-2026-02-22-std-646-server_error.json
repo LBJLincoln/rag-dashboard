@@ -1,7 +1,7 @@
 {
   "error_id": "err-2026-02-22-std-646-server_error",
-  "timestamp": "2026-02-22T20:51:14+01:00",
-  "session_id": "2026-02-22T20-40-15",
+  "timestamp": "2026-02-22T23:00:34+01:00",
+  "session_id": "2026-02-22T22-35-16",
   "question_id": "std-646",
   "rag_type": "standard",
   "error_type": "SERVER_ERROR",
@@ -11,7 +11,7 @@
   "partial_response": null,
   "pipeline_details": {},
   "performance": {
-    "total_latency_ms": 20245,
+    "total_latency_ms": 10270,
     "http_status": 503,
     "response_size_bytes": 0,
     "cost_usd": 0

@@ -1,6 +1,6 @@
 # Knowledge Base — Cerveau Persistant Multi-RAG
 
-> Last updated: 2026-02-22T17:15:00+01:00
+> Last updated: 2026-02-22T18:30:00+01:00 (Session Analyzer enrichment)
 > **Ce document est VIVANT.** Il s'enrichit a CHAQUE session avec les solutions, patterns
 > et connaissances techniques decouvertes. A lire EN PREMIER avec `fixes-library.md`.
 > Objectif : ameliorer la performance de l'agent a chaque session.
@@ -317,6 +317,118 @@ qui utilise respondToWebhook. Utiliser httpRequest a la place.
 }
 ```
 
+### 3.7 n8n Queue Mode Performance — 2026 Best Practices
+
+**Current Setup**:
+- VM: main process (webhooks) + 0 workers (executions pass to main)
+- HF Space: main process + 0 workers + SQLite (NOT queue mode)
+- Bottleneck: Sequential execution, no parallelization
+
+**Queue Mode Architecture** (target for Phase 2+):
+```
+┌─ Main Instance ────────────────────────────────┐
+│ - Receives webhooks/timers                     │
+│ - Generates execution ID                       │
+│ - Pushes to Redis queue                        │
+│ - NO execution (delegates to workers)          │
+└─────────────────┬──────────────────────────────┘
+                  │
+         ┌────────▼─────────┐
+         │   Redis Queue    │  (execution IDs)
+         └────────┬─────────┘
+                  │
+    ┌─────────────┼─────────────┐
+    │             │             │
+┌───▼────┐  ┌────▼───┐  ┌─────▼──┐
+│Worker 1│  │Worker 2│  │Worker 3│
+│ n8n    │  │ n8n    │  │ n8n    │
+└────────┘  └────────┘  └────────┘
+  (actual execution)
+```
+
+**Performance Gains** (n8n official benchmarks 2026):
+- Single instance: 23 req/s
+- Queue mode (3 workers): 162 req/s (7x improvement)
+- Max tested: 220 req/s on single machine
+
+**Configuration Requirements**:
+```bash
+# .env for ALL instances (main + workers)
+EXECUTIONS_MODE=queue
+N8N_ENCRYPTION_KEY=<same-everywhere>  # CRITICAL
+DB_TYPE=postgresdb  # SQLite NOT recommended for queue
+QUEUE_BULL_REDIS_HOST=localhost
+QUEUE_BULL_REDIS_PORT=6379
+
+# Main instance
+N8N_SKIP_WEBHOOK_DEREGISTRATION_SHUTDOWN=true
+
+# Worker instances
+EXECUTIONS_PROCESS=main
+N8N_WORKER_CONCURRENCY=3  # Tune based on workflow complexity
+```
+
+**Worker Concurrency Tuning**:
+| Workflow Type | Recommended Concurrency | Rationale |
+|---------------|------------------------|-----------|
+| I/O-bound (HTTP requests, DB queries) | 5-10 | Waiting time dominates |
+| CPU-bound (LLM local, heavy compute) | 1-2 | Avoid resource contention |
+| Mixed (current RAG pipelines) | 3-5 | Balance parallelism vs stability |
+
+**Critical Considerations**:
+1. **Webhook latency**: Queue mode adds overhead (main → Redis → worker → response)
+   - Baseline: 100-200ms per webhook
+   - Queue mode: +50-100ms overhead
+   - Acceptable for batch/async workflows, not for real-time chat
+
+2. **PostgreSQL required**: SQLite does NOT support queue mode reliably
+   - Current HF Space uses SQLite → MUST migrate to Supabase PostgreSQL (improvement H3)
+
+3. **Redis memory**: Each execution ID in queue = ~1KB
+   - 1000 concurrent executions = ~1MB Redis
+   - Not a bottleneck for current scale
+
+**Implementation Priority**:
+- **Phase 1**: SKIP (200q baseline, sequential OK)
+- **Phase 2**: EVALUATE (1000q, 3 workers = 3x throughput)
+- **Phase 3+**: REQUIRED (10Kq+, 10 workers minimum)
+
+**HF Space Deployment** (docker-compose.yml):
+```yaml
+services:
+  n8n-main:
+    image: n8nio/n8n:2.8.3
+    environment:
+      - EXECUTIONS_MODE=queue
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=external-postgres  # Supabase
+    ports:
+      - "5678:5678"
+
+  n8n-worker-1:
+    image: n8nio/n8n:2.8.3
+    command: worker
+    environment:
+      - EXECUTIONS_MODE=queue
+      - N8N_WORKER_CONCURRENCY=3
+
+  n8n-worker-2:
+    image: n8nio/n8n:2.8.3
+    command: worker
+    environment:
+      - EXECUTIONS_MODE=queue
+      - N8N_WORKER_CONCURRENCY=3
+
+  redis:
+    image: redis:7-alpine
+```
+
+**References (2026)**:
+- n8n queue mode docs: https://docs.n8n.io/hosting/scaling/queue-mode/
+- Performance benchmarks: https://docs.n8n.io/hosting/scaling/performance-benchmarking/
+- Worker concurrency guide: https://evalics.com/blog/n8n-queue-mode-explained-scale-workers-and-avoid-pitfalls
+- Production setup: https://nextgrowth.ai/scaling-n8n-queue-mode-docker-compose/
+
 ---
 
 ## 4. APIS EXTERNES
@@ -436,6 +548,78 @@ calcul Phase 1. Phase 2 a ses propres targets (Graph 60%, Quant 70%, Overall 65%
 | Graph | 5s | 1 call LLM (community synthesis) |
 | Quantitative | 8-10s | 2-3 calls LLM (SQL gen + interpretation + repair) |
 | Orchestrator | 5s | 1-2 calls LLM (routing + delegation) |
+
+### 6.5 RAG Evaluation Metrics — 2026 Best Practices (CRITICAL MISSING)
+
+**Current Gap**: Project only tracks **accuracy** (1 metric). Enterprise production requires **6 metrics**.
+
+| Metric | Description | Target 2026 | Tool | Priority | Status |
+|--------|-------------|-------------|------|----------|--------|
+| **Accuracy** | Correct answer match | >= 75% | Manual | — | ✅ IMPLEMENTED |
+| **Faithfulness** | Response grounded in context (no hallucinations) | >= 95% | Ragas | HIGH | ❌ MISSING |
+| **Context Recall** | Context contains ALL info for ideal answer | >= 85% | Ragas | HIGH | ❌ MISSING |
+| **Context Precision** | Retrieved docs ranked correctly | >= 80% | Ragas | MEDIUM | ❌ MISSING |
+| **Answer Relevancy** | Response addresses the query | >= 90% | Ragas | MEDIUM | ❌ MISSING |
+| **Hallucination Rate** | Unsupported/fabricated text | <= 2% | Ragas | HIGH | ❌ MISSING |
+| **Latency (p95)** | End-to-end response time | <= 2.5s | Custom | MEDIUM | ❌ MISSING |
+
+**Implementation Roadmap** (Session 40+):
+```bash
+# 1. Install Ragas
+pip install ragas
+
+# 2. Add to eval/quick-test.py
+from ragas import evaluate
+from ragas.metrics import faithfulness, answer_relevancy, context_recall, context_precision
+
+# 3. Collect per-question metrics
+metrics_data = {
+    "question": question,
+    "answer": response["answer"],
+    "contexts": response.get("retrieved_contexts", []),
+    "ground_truth": expected_answer
+}
+
+# 4. Compute metrics
+result = evaluate(
+    dataset=Dataset.from_dict(metrics_data),
+    metrics=[faithfulness, answer_relevancy, context_recall, context_precision]
+)
+
+# 5. Store in docs/status.json alongside accuracy
+```
+
+**Advanced RAG Techniques — 2026 SOTA**:
+
+1. **Adaptive RAG** (priority: HIGH):
+   - Dynamically adjust retrieval strategy based on query complexity
+   - SELF-RAG: Critique outputs for alignment with retrieved data
+   - Corrective RAG (CRAG): Evaluate and correct retrieved data before generation
+   - Implementation: Add confidence scoring to Orchestrator (improvement O2)
+
+2. **Hybrid Retrieval** (priority: HIGH):
+   - Dense (embeddings) + Sparse (BM25 keyword search)
+   - Impact: +10-15% accuracy on domain-specific queries
+   - Status: PLANNED for Standard (improvement S2), Quantitative (improvement Q9)
+
+3. **Late Chunking** (priority: MEDIUM):
+   - Jina v3 feature: chunk AFTER embedding computation (preserves context)
+   - Parameter: `late_chunking=True` in Jina embeddings API
+   - Status: PLANNED for re-ingestion Phase 2+ (improvement S1)
+
+4. **Reranking Optimization** (priority: MEDIUM):
+   - Cross-encoder models outperform bi-encoder for final ranking
+   - Current: Cohere rerank (trial exhausted)
+   - Alternative: Jina Reranker v2 (free tier, multilingual)
+   - Impact: +3-5% accuracy, +10-15% context precision
+
+**References (2026)**:
+- Ragas metrics: https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/
+- RAG evaluation guide: https://www.evidentlyai.com/llm-guide/rag-evaluation
+- Enterprise best practices: https://labelyourdata.com/articles/llm-fine-tuning/rag-evaluation
+- Adaptive RAG research: https://arxiv.org/abs/2501.07391
+- RAG 2026 trends: https://squirro.com/squirro-blog/state-of-rag-genai
+- Hybrid retrieval: https://www.edenai.co/post/the-2025-guide-to-retrieval-augmented-generation-rag
 
 ---
 

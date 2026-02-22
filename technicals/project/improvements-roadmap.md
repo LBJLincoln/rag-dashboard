@@ -1,6 +1,6 @@
 # Improvements Roadmap — Centralized
 
-> Last updated: 2026-02-22T17:20:00+01:00
+> Last updated: 2026-02-22T18:30:00+01:00 (Session Analyzer enrichment)
 > **Document centralisé de TOUTES les améliorations possibles**, classées par catégorie et priorité.
 > Référencé par CLAUDE.md. Mis à jour à chaque session.
 
@@ -77,17 +77,19 @@
 
 ### 2.2 HF Space — Améliorations possibles
 
-| # | Amélioration | Impact | Effort | Statut |
-|---|-------------|--------|--------|--------|
-| H1 | Connecter Supabase depuis HF Space (env vars) | Quantitative fonctionne | Faible | A FAIRE |
-| H2 | Ajouter 3 workers n8n dans le Dockerfile | 3x throughput | Moyen | A FAIRE |
-| H3 | Migrer SQLite → PostgreSQL persistant (Supabase externe) | **CRITICAL** — Pas de perte au reboot | Moyen | **PRIORITE 1 (Session 40)** |
-| H4 | Exporter les fixes VM vers HF Space | Workflow a jour | Faible | A FAIRE |
-| H5 | Multi-API-key OpenRouter | 3x rate limit | Faible | A FAIRE |
-| H6 | Keep-alive plus fiable (webhook interne) | Uptime 99.9% | Faible | FAIT (cron VM) |
-| **H7** | **HF /data persistent volume activation** | Survit aux rebuilds (alternative à H3) | Faible | **ALTERNATIVE H3** |
-| **H8** | **Robust entrypoint.sh avec verification** | Detect failed activations | Faible | **PRIORITE 1 (Session 40)** |
-| **H9** | **Activation health check POST-deploy** | Test webhooks before marking success | Faible | **PRIORITE 1** |
+| # | Amélioration | Impact | Effort | Statut | Session |
+|---|-------------|--------|--------|--------|---------|
+| H1 | Connecter Supabase depuis HF Space (env vars) | Quantitative fonctionne | Faible | A FAIRE | — |
+| H2 | Ajouter 3 workers n8n dans le Dockerfile | 3x throughput | Moyen | A FAIRE | — |
+| H3 | Migrer SQLite → PostgreSQL persistant (Supabase externe) | **CRITICAL** — Pas de perte au reboot | Moyen | **PRIORITE 1 (Session 40)** | 39 |
+| H4 | Exporter les fixes VM vers HF Space | Workflow a jour | Faible | A FAIRE | — |
+| H5 | Multi-API-key OpenRouter | 3x rate limit | Faible | A FAIRE | — |
+| H6 | Keep-alive plus fiable (webhook interne) | Uptime 99.9% | Faible | FAIT (cron VM) | — |
+| **H7** | **HF /data persistent volume activation** | Survit aux rebuilds (alternative à H3) | Faible | **ALTERNATIVE H3** | 39 |
+| **H8** | **Robust entrypoint.sh avec verification** | Detect failed activations | Faible | **PRIORITE 1 (Session 40)** | 39 |
+| **H9** | **Activation health check POST-deploy** | Test webhooks before marking success | Faible | **PRIORITE 1** | 39 |
+| **H10** | **Queue mode (3 workers)** | 7x throughput (23→162 req/s) | Moyen | Phase 2+ (1000q) | Session analyzer |
+| **H11** | **Worker concurrency tuning** | Optimize per-workflow type (I/O vs CPU) | Faible | Phase 2+ | Session analyzer |
 
 ### 2.3 Estimation temps pour 1000q par pipeline
 
@@ -97,7 +99,110 @@
 | **Optimise** (3 workers, 8s delay) | ~1h | ~2h | ~3h | ~2h | ~8h |
 | **Ideal** (10 workers, multi-key) | ~20min | ~40min | ~1h | ~40min | ~2.5h |
 
-### 2.4 Architecture cible pour Phase 2 (1000q)
+### 2.4 n8n Queue Mode — 7x Performance Multiplier (2026 Best Practice)
+
+**RESEARCH INSIGHT (Session Analyzer 40)**: n8n official benchmarks show **7x throughput** with queue mode.
+
+**Current Setup** (Sequential, Single Instance):
+- VM n8n: main process handles webhooks + executions (no workers)
+- HF Space n8n: main process handles webhooks + executions (no workers)
+- Throughput: 23 req/s (n8n baseline)
+
+**Queue Mode Architecture** (Target Phase 2+):
+```
+Main Instance (receives webhooks) → Redis Queue → 3 Workers (execute workflows)
+```
+
+**Performance Gains**:
+| Config | Workers | Throughput | Multiplier | Source |
+|--------|---------|------------|------------|--------|
+| Baseline | 0 | 23 req/s | 1x | n8n docs [7] |
+| Queue mode | 3 | 162 req/s | 7x | n8n docs [7] |
+| Max tested | 10 | 220 req/s | 9.5x | n8n docs [7] |
+
+**Configuration Requirements**:
+```bash
+# ALL instances (main + workers) need:
+EXECUTIONS_MODE=queue
+N8N_ENCRYPTION_KEY=<same-key-everywhere>  # CRITICAL
+DB_TYPE=postgresdb  # SQLite NOT supported
+QUEUE_BULL_REDIS_HOST=localhost
+QUEUE_BULL_REDIS_PORT=6379
+
+# Worker-specific:
+N8N_WORKER_CONCURRENCY=3  # Tune per workflow type
+```
+
+**Worker Concurrency Tuning**:
+| Workflow Type | Concurrency | Rationale | Current Pipelines |
+|---------------|-------------|-----------|-------------------|
+| I/O-bound (HTTP, DB) | 5-10 | Waiting time dominates | Standard, Graph, Quant |
+| CPU-bound (local LLM) | 1-2 | Avoid resource contention | None (all use OpenRouter) |
+| Mixed | 3-5 | Balance | Orchestrator (routing + HTTP) |
+
+**Trade-offs**:
+| Aspect | Baseline | Queue Mode | Impact |
+|--------|----------|------------|--------|
+| Throughput | 23 req/s | 162 req/s | +700% |
+| Latency | 100-200ms | +50-100ms overhead | Acceptable for batch |
+| Complexity | Low | Medium | PostgreSQL + Redis required |
+| DB requirement | SQLite OK | PostgreSQL ONLY | HF Space migration needed |
+
+**Implementation Priority**:
+- **Phase 1 (200q)**: SKIP (sequential OK, baseline sufficient)
+- **Phase 2 (1000q)**: **EVALUATE** (3 workers = 3-5x faster, 1000q in ~3h instead of ~15h)
+- **Phase 3+ (10Kq)**: **REQUIRED** (10 workers minimum, 10Kq in ~5h instead of ~150h)
+
+**HF Space Deployment** (docker-compose.yml):
+```yaml
+services:
+  n8n-main:
+    image: n8nio/n8n:2.8.3
+    environment:
+      EXECUTIONS_MODE: queue
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: external-supabase  # NOT SQLite
+    ports:
+      - "5678:5678"
+
+  n8n-worker-1:
+    image: n8nio/n8n:2.8.3
+    command: worker
+    environment:
+      EXECUTIONS_MODE: queue
+      N8N_WORKER_CONCURRENCY: 3
+
+  n8n-worker-2:
+    image: n8nio/n8n:2.8.3
+    command: worker
+    environment:
+      EXECUTIONS_MODE: queue
+      N8N_WORKER_CONCURRENCY: 3
+
+  n8n-worker-3:
+    image: n8nio/n8n:2.8.3
+    command: worker
+    environment:
+      EXECUTIONS_MODE: queue
+      N8N_WORKER_CONCURRENCY: 3
+
+  redis:
+    image: redis:7-alpine
+```
+
+**Blocking Dependencies**:
+1. HF Space must migrate SQLite → PostgreSQL (improvement H3)
+2. External PostgreSQL (Supabase) must be configured as n8n DB
+3. Redis container added to docker-compose
+4. N8N_ENCRYPTION_KEY must be synchronized across all instances
+
+**References**:
+- [7] n8n queue mode docs: https://docs.n8n.io/hosting/scaling/queue-mode/
+- [8] Performance benchmarks: https://docs.n8n.io/hosting/scaling/performance-benchmarking/
+- [9] Worker concurrency guide: https://evalics.com/blog/n8n-queue-mode-explained-scale-workers-and-avoid-pitfalls
+- [10] Production setup: https://nextgrowth.ai/scaling-n8n-queue-mode-docker-compose/
+
+### 2.5 Architecture cible pour Phase 2 (1000q)
 
 ```
 VM (mon-ipad)
@@ -160,30 +265,158 @@ Eval
 
 ### 5.1 Enterprise Production Metrics (2026 Standards) — BLOCKING PHASE GATE
 
-| # | Amélioration | Impact | Effort | Statut |
-|---|-------------|--------|--------|--------|
-| **E1** | **Mesurer Faithfulness (>= 95%)** via LLM-as-judge | **BLOCKING** — Phase Gate requis | Moyen | **PRIORITE 2** |
-| **E2** | **Mesurer Context Recall (>= 85%)** compare retrieved vs. golden | **BLOCKING** — Phase Gate requis | Moyen | **PRIORITE 2** |
-| **E3** | **Mesurer Hallucination Rate (<= 2%)** inverse de faithfulness | **BLOCKING** — Phase Gate requis | Moyen | **PRIORITE 2** |
-| **E4** | **Mesurer Latency p50/p95 (<= 2.5s)** end-to-end | **BLOCKING** — Phase Gate requis | Faible | **PRIORITE 2** |
-| E5 | Evaluation parallele avec asyncio | 3x speedup eval | Moyen | A FAIRE |
-| E6 | Dashboard live accuracy en temps reel | Visibilite | Faible | PARTIEL (SSE) |
-| E7 | A/B testing entre versions de workflows | Qualite | Eleve | PLANIFIE |
-| **E8** | **Integrer RAGAS framework** pour faithfulness/context recall offline | Enterprise standard | Moyen | **RECOMMANDE Session 40+** |
-| **E9** | **Integrer DeepEval dans GitHub Actions CI** pour regression detection | Prevent quality drops | Moyen | **RECOMMANDE** |
-| **E10** | **Calibrer LLM-as-judge avec 50-100 human-labeled examples** | Fix judge bias | Faible | A FAIRE |
-| **E11** | **Component-level eval** (retriever-only tests, no generator) | Pinpoint failures | Moyen | A FAIRE |
+**CRITICAL INSIGHT (Session Analyzer 40)**: Current system only tracks 1/7 enterprise metrics. Phase 2+ gates REQUIRE comprehensive metrics.
 
-### 5.2 Autonomous Testing Architecture (Prevent Session 39 PID Deaths)
+| # | Métrique | Cible 2026 | Outil | Effort | Statut | Recherche |
+|---|----------|-----------|-------|--------|--------|-----------|
+| **E0** | **Accuracy** | >= 75% | Manual fuzzy match | — | ✅ IMPLEMENTED | — |
+| **E1** | **Faithfulness** | >= 95% | Ragas | Moyen | ❌ **BLOCKING Phase 2+** | [1] [2] [3] |
+| **E2** | **Context Recall** | >= 85% | Ragas | Moyen | ❌ **BLOCKING Phase 2+** | [1] [2] [3] |
+| **E3** | **Context Precision** | >= 80% | Ragas | Moyen | ❌ HIGH Priority | [1] [2] |
+| **E4** | **Answer Relevancy** | >= 90% | Ragas | Moyen | ❌ HIGH Priority | [1] [2] |
+| **E5** | **Hallucination Rate** | <= 2% | Ragas (inverse faithfulness) | Moyen | ❌ **BLOCKING Phase 2+** | [1] [3] |
+| **E6** | **Latency (p95)** | <= 2.5s | Custom (track execution time) | Faible | ❌ MEDIUM Priority | [3] |
 
-| # | Amélioration | Impact | Effort | Statut |
-|---|-------------|--------|--------|--------|
-| **E12** | **Auto-recovery logic dans eval scripts** (retry on rate-limit, stop on 3 failures) | No manual restart | Moyen | **PRIORITE 1** |
-| **E13** | **Structured JSON logging** pour monitoring distant | Observability | Faible | A FAIRE |
-| **E14** | **Auto-commit every 15 min** during long runs | Never lose results | Faible | **PRIORITE 1** |
-| **E15** | **Progress webhook POST to n8n** every 15 min pour dashboard | Real-time visibility | Faible | RECOMMANDE |
-| **E16** | **Kill switch** (auto-stop if disk > 90% or RAM > 95%) | Prevent VM crash | Faible | RECOMMANDE |
-| **E17** | **Self-healing nohup wrapper** around run-eval-parallel.py | 10+ hrs autonomous | Moyen | **PRIORITE 1** |
+**References**:
+- [1] Ragas metrics: https://docs.ragas.io/en/stable/concepts/metrics/available_metrics/
+- [2] RAG evaluation guide: https://www.evidentlyai.com/llm-guide/rag-evaluation
+- [3] Enterprise best practices: https://labelyourdata.com/articles/llm-fine-tuning/rag-evaluation
+
+**Implementation Roadmap** (Session 40+):
+```python
+# Step 1: Install Ragas
+pip install ragas
+
+# Step 2: Modify eval/quick-test.py to collect contexts
+response_data = {
+    "question": question,
+    "answer": pipeline_response["answer"],
+    "contexts": pipeline_response.get("retrieved_contexts", []),  # NEW
+    "ground_truth": expected_answer
+}
+
+# Step 3: Evaluate with Ragas
+from ragas import evaluate
+from ragas.metrics import faithfulness, answer_relevancy, context_recall, context_precision
+
+result = evaluate(
+    dataset=Dataset.from_dict([response_data]),
+    metrics=[faithfulness, answer_relevancy, context_recall, context_precision]
+)
+
+# Step 4: Store in docs/status.json
+{
+    "faithfulness": result["faithfulness"],
+    "context_recall": result["context_recall"],
+    "context_precision": result["context_precision"],
+    "answer_relevancy": result["answer_relevancy"],
+    "hallucination_rate": 1 - result["faithfulness"]
+}
+```
+
+### 5.2 Advanced RAG Techniques — 2026 Research Insights
+
+**Sources**: arXiv 2026, industry benchmarks, n8n queue mode docs
+
+| # | Technique | Impact | Effort | Pipeline | Priorité | Recherche |
+|---|-----------|--------|--------|----------|----------|-----------|
+| **E7** | **Adaptive RAG** (SELF-RAG, CRAG) | +5-10% accuracy | Élevé | Orchestrator | Phase 3+ | [4] [5] |
+| **E8** | **Hybrid Retrieval** (dense + BM25) | +10-15% domain queries | Moyen | Standard, Quant | **Phase 2** | [5] [6] |
+| **E9** | **Late Chunking** (Jina v3) | +3-5% context precision | Faible | Standard | **Phase 2+** | [5] |
+| **E10** | **Cross-encoder Reranking** | +3-5% accuracy, +15% precision | Faible | All pipelines | **Phase 2** | [5] [6] |
+| E11 | Evaluation parallele avec asyncio | 3x speedup eval | Moyen | Infrastructure | A FAIRE | — |
+| E12 | Dashboard live accuracy en temps reel | Visibilite | Faible | PARTIEL (SSE) | — | — |
+| E13 | A/B testing entre versions de workflows | Qualite | Eleve | Infrastructure | PLANIFIE | [2] |
+| **E14** | **Integrer RAGAS dans CI/CD** | Regression detection | Moyen | **RECOMMANDE** | [1] [2] |
+| **E15** | **Component-level eval** (retriever-only) | Pinpoint failures | Moyen | A FAIRE | [2] |
+
+**References**:
+- [4] Adaptive RAG: https://arxiv.org/abs/2501.07391
+- [5] RAG 2026 trends: https://squirro.com/squirro-blog/state-of-rag-genai
+- [6] Hybrid retrieval: https://www.edenai.co/post/the-2025-guide-to-retrieval-augmented-generation-rag
+
+**Details**:
+- **Adaptive RAG**: Dynamically adjusts retrieval strategy based on query complexity (SELF-RAG critiques outputs, CRAG corrects retrieved data)
+- **Hybrid Retrieval**: Combines semantic search (embeddings) + keyword search (BM25) for +10-15% on domain-specific queries
+- **Late Chunking**: Jina v3 feature — chunk AFTER embedding (preserves context), parameter: `late_chunking=True`
+- **Cross-encoder Reranking**: Outperforms bi-encoder for final ranking (current: Cohere exhausted, alternative: Jina Reranker v2 free)
+
+### 5.3 Autonomous Testing Architecture (Prevent Session 39 PID Deaths)
+
+**ROOT CAUSE ANALYSIS (Sessions 33, 38, 39)**:
+- All 4 pipeline PIDs died prematurely (graph, quant completed; standard, orch died)
+- Causes: git index.lock conflicts (parallel --push), HF Space overload, Orchestrator timeouts, rate-limits
+- Data loss: ZERO (tested_ids.json saved), but TIME loss: ~6 hours wasted
+
+**SOLUTION**: Self-healing autonomous architecture
+
+| # | Amélioration | Impact | Effort | Statut | Session |
+|---|-------------|--------|--------|--------|---------|
+| **E16** | **Auto-recovery logic** (retry on rate-limit, stop on 3 failures) | No manual restart | Moyen | **PRIORITE 1** | 40 |
+| **E17** | **Structured JSON logging** (not just print) | Observability | Faible | A FAIRE | 40 |
+| **E18** | **Auto-commit every 15 min** during long runs | Never lose results | Faible | **PRIORITE 1** | 40 |
+| **E19** | **Progress webhook POST to n8n** every 15 min | Real-time dashboard | Faible | RECOMMANDE | 40 |
+| **E20** | **Kill switch** (auto-stop if disk > 90% or RAM > 95%) | Prevent VM crash | Faible | RECOMMANDE | 40 |
+| **E21** | **Self-healing nohup wrapper** around run-eval-parallel.py | 10+ hrs autonomous | Moyen | **PRIORITE 1** | 40 |
+| **E22** | **Git lock file avoidance** (single commit thread, not per-pipeline) | No conflicts | Faible | **PRIORITE 1** | 40 |
+| **E23** | **HF Space health check** before every batch (webhook 200 test) | Early failure detection | Faible | **PRIORITE 1** | 40 |
+
+**Implementation Template** (Session 40):
+```python
+# eval/autonomous_wrapper.py
+import subprocess, time, json, os
+from pathlib import Path
+
+def auto_commit_thread():
+    """Commit every 15 min, single thread to avoid git lock conflicts"""
+    while True:
+        time.sleep(900)  # 15 min
+        subprocess.run(["python3", "eval/generate_status.py"])
+        subprocess.run(["git", "add", "docs/", "logs/"])
+        subprocess.run(["git", "commit", "-m", "auto: eval progress checkpoint"])
+        subprocess.run(["git", "push", "origin", "main"])
+
+def health_check(n8n_host, webhook_path):
+    """Test webhook responds before starting batch"""
+    resp = requests.post(f"{n8n_host}{webhook_path}", json={"query": "test"}, timeout=10)
+    return resp.status_code == 200
+
+def run_autonomous(pipeline, max_questions, batch_size):
+    """Self-healing wrapper with auto-recovery"""
+    # Start auto-commit thread
+    import threading
+    threading.Thread(target=auto_commit_thread, daemon=True).start()
+
+    # Pre-flight health check
+    if not health_check(N8N_HOST, WEBHOOK_PATHS[pipeline]):
+        print(f"ABORT: {pipeline} webhook not responding")
+        return
+
+    # Run with retries
+    consecutive_failures = 0
+    tested = 0
+    while tested < max_questions:
+        try:
+            result = test_question(pipeline, batch_size)
+            if result["success"]:
+                consecutive_failures = 0
+            else:
+                consecutive_failures += 1
+                if consecutive_failures >= 3:
+                    print(f"AUTO-STOP: {pipeline} 3 consecutive failures")
+                    break
+            tested += batch_size
+
+            # Resource check
+            disk_usage = os.statvfs('/').f_bavail / os.statvfs('/').f_blocks
+            if disk_usage < 0.1:  # < 10% free
+                print("KILL SWITCH: disk > 90%")
+                break
+
+        except Exception as e:
+            print(f"ERROR: {e}, retrying in 30s...")
+            time.sleep(30)
+```
 
 ---
 

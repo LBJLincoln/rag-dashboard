@@ -26,11 +26,19 @@ set -e
 cd "$(dirname "$0")/.."
 REPO_ROOT="$(pwd)"
 
-# Load env vars
+# Load env vars (for API keys, credentials)
 if [ -f .env.local ]; then
     set -a
     . .env.local
     set +a
+fi
+
+# FORCE HF Space for evals (Rule 25: NO operations on VM)
+# .env.local may set N8N_HOST to VM — we override it here
+if [ -n "$_USER_HOST" ]; then
+    N8N_HOST="$_USER_HOST"  # User explicitly passed N8N_HOST
+else
+    N8N_HOST="https://lbjlincoln-nomos-rag-engine.hf.space"  # Default: HF Space
 fi
 
 # Colors
@@ -46,9 +54,10 @@ LOG_DIR="/tmp/overnight-logs"
 CLAUDE_LOG_DIR="/tmp/overnight-claude-fixes"
 mkdir -p "$PID_DIR" "$LOG_DIR" "$CLAUDE_LOG_DIR"
 
-# Config
+# Config — ALWAYS use HF Space for evals (Rule 25: NO operations on VM)
+# Save override BEFORE .env.local clobbers it
+_USER_HOST="${N8N_HOST:-}"
 DATASET="${DATASET:-phase-2}"
-N8N_HOST="${N8N_HOST:-https://lbjlincoln-nomos-rag-engine.hf.space}"
 LABEL="overnight-$(date +%Y%m%d-%H%M)"
 MAX_CLAUDE_RETRIES=3
 WATCHDOG_INTERVAL=300  # 5 min
