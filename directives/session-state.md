@@ -1,79 +1,79 @@
-# Session State — 21 Fevrier 2026 (Session 36 continued)
+# Session State — 22 Fevrier 2026 (Session 37)
 
-> Last updated: 2026-02-21T20:15:00+01:00
+> Last updated: 2026-02-22T11:25:00+01:00
 
-## Objectif de session : Fix data issues permanently + batch parallelization + launch overnight runs
+## Objectif de session : Batch parallelization, fix dashboard, run all repos, create limits doc
 
 ### Accompli cette session
 
-#### 1. FIX-38: 2wikimultihopqa context parsing (ROOT CAUSE)
-- Graph accuracy on 2wikimultihopqa was 27.3% vs musique 46.0%
-- Root cause: `load_questions()` only handled musique JSON format `[{...}]`, NOT 2wikimultihopqa format `{"title":[...], "sentences":[[...]]}`
-- Fix: Created `_embed_graph_context()` handling ALL known formats
+#### 1. v10 COMPLETED overnight (1263 questions)
+- Graph: **64.0%** (256/400) — PASS target 60% (+21.4pp from v8)
+- Standard: 55.6% (202/363) — early-stopped
+- Quantitative: 52.4% (262/500)
+- Overall: 57.0%
 
-#### 2. FIX-39h: Permanent data validation (3 new files)
-- `eval/data_validator.py` — Validates ALL datasets before eval runs
-- `eval/preflight.py` — Pre-flight checks (data + env + connectivity)
-- `run-eval-parallel.py` now auto-runs preflight before every eval
-- `run-eval.py` refactored with modular helpers for context embedding
+#### 2. v11 RUNNING (continues from v10 dedup)
+- **PID 1453884** — running on VM via HF Space + local LLM
+- All 4 pipelines (standard, graph, quantitative, orchestrator)
+- `--batch-size 5` (E5 parallelization active)
+- `--local-pipelines graph,quantitative` (local LLM for these)
+- `--early-stop 15` + `--push`
+- Standard at 300/537 at session end — Graph+Quant SKIPPED (already done in v10)
+- Orchestrator: waiting (runs after other pipelines)
+- **WILL CONTINUE AFTER SESSION ENDS** (nohup)
 
-#### 3. Batch parallelization (E5 improvement)
-- Added `--batch-size N` CLI argument to `run-eval-parallel.py`
-- ThreadPoolExecutor processes N questions concurrently WITHIN each pipeline
-- Default: 1 (sequential). v10 uses batch-size 3.
-- Extracted `_process_question()` and `_record_result()` for thread safety
+#### 3. rag-tests Codespace eval RUNNING
+- Codespace `nomos-rag-tests-5g6g5q9vjjwjf5g4`
+- Standard+Orchestrator, batch=3, 400+ questions done
+- **MAY TIMEOUT** — codespace idle timeout could kill it
 
-#### 4. v8 → v9 → v10 transitions
-- Killed v8 (broken 2wikimultihopqa context)
-- v9 ran 143 questions (50.3% overall) — stopped for batch-size upgrade
-- **v10 running**: PID 1218900 (`Phase2-v10-batch3-overnight`)
-  - `--batch-size 3` (3 questions in parallel per pipeline)
-  - `--early-stop 10` (stops pipeline after 10 consecutive failures)
-  - `--push` (auto git push at end)
-  - `--local-pipelines graph` (OpenRouter direct for graph)
-  - `--delay 1` (1s between batches)
-  - Continues from v9 dedup (200 questions already done)
-  - ETA: ~5-7 hours (should complete overnight)
-- Auto-commit still running every 15 minutes (PIDs 1205333, 1205625)
+#### 4. Limits/quotas document CREATED
+- `technicals/infra/limits-quotas.md` — 22KB comprehensive
+- All services: VM, Codespaces, n8n, OpenRouter, Pinecone, Neo4j, Supabase, Jina, etc.
+- TODO: Add to CLAUDE.md mandatory reads (rule 36)
 
-#### 5. Codespaces launched
-- rag-tests: Available (started)
-- rag-data-ingestion: Created (`nomos-rag-data-ingestion-pjvj9r67464j27qg6`)
-- rag-pme-connectors: Pending (slot freed by deleting ominous-giggle)
+#### 5. Dashboard fix ATTEMPTED but INCOMPLETE
+- ROOT CAUSE: dashboard fetches from `raw.githubusercontent.com` → 404 (private repo)
+- FIX: Updated index.html in rag-dashboard to use `/docs/status.json` (local)
+- Pushed status.json + data.json to rag-dashboard repo
+- PROBLEM: Vercel auto-deploy not triggering — token (`vck_...`) invalid for CLI
+- GitHub Actions deploy also fails (VERCEL_TOKEN secret set but format wrong)
+- **NEXT SESSION**: Need valid Vercel deploy token, or manually redeploy from Vercel dashboard
 
-#### 6. Compliance infrastructure
-- Created `scripts/session-startup.sh` (mandatory startup script)
-- Created `scripts/session-logger.sh` (session command logging)
-- Created `logs/sessions/session-2026-02-21-18h.md` (full session log)
-- Audit: 10/35+ rules were NOT followed → now corrected
+#### 6. n8n VM recovered
+- Was stuck in DB timeout loop (RAM pressure)
+- Restarted successfully — all workflows activated
+- Still flapping under load (969MB VM too small for n8n + Claude Code)
+- Killed 2 old Claude Code sessions (freed ~70MB)
+
+#### 7. Codespaces managed
+- rag-tests: Running (eval active)
+- pme-connectors (`didactic-invention-wr6rx74vpppw276r`): Created, build passed, currently idle
+- data-ingestion: Shutdown (only 2 concurrent codespaces allowed on free tier)
+- rag-website: DELETED (freed slot for pme-connectors)
 
 ### Commits this session
 | Hash | Description |
 |------|-------------|
-| 734f895 | FIX-39h: Permanent data validation + fix 2wikimultihopqa context parsing |
-| c3401dc | feat: add --batch-size CLI arg for intra-pipeline parallelization (E5) |
+| c3401dc | feat: add --batch-size CLI arg (E5 improvement) |
+| d8cfbbc | eval: Phase2 v10 complete — 1263q, 57.0% overall |
+| 4a81e8b | update: v10 results + v11 in progress |
 
-### Running processes
-- **v10 eval**: PID 1218900 (`Phase2-v10-batch3-overnight`, batch-size 3)
-- Auto-commit: PIDs 1205333, 1205625 (every 15 min)
+### Running processes (will survive session end)
+- **v11 eval**: PID 1453884 (Phase2-v11-allpipelines-batch5, batch-size 5)
+- rag-tests codespace: eval running (may timeout)
 
-### v10 early results (first 12 questions)
-| Pipeline | Tested | Correct | Accuracy | Note |
-|----------|--------|---------|----------|------|
-| Graph | 6 | 5 | 83.3% | LOCAL LLM, musique subset |
-| Standard | 3 | 3 | 100% | HF Space, small sample |
-| Quantitative | 3 | 1 | 33.3% | HF Space, finqa |
+### Key bottlenecks identified
+1. **Dashboard**: Vercel deploy broken — need valid token or manual deploy
+2. **VM RAM**: 969MB total — n8n + Claude Code barely fit, DB timeouts frequent
+3. **Codespace limit**: Only 2 concurrent on free tier (can't run all 3 repos at once)
+4. **Standard accuracy**: ~55% at 300q — many NO_MATCH in later questions
 
-### Key data quality stats (Phase 2)
-- 3000 total questions (500 graph, 500 quant, 1000 std, 1000 orch)
-- 500/500 graph questions now have embedded context (was ~200 before fix)
-- 500/500 quant questions have embedded context (350 with tables)
-- Orchestrator NOT in current v10 run (will run separately after)
-
-### Prochaines actions
-1. Monitor v10 overnight run (results tomorrow morning)
-2. After v10: run orchestrator separately (1000 questions)
-3. Launch eval on rag-tests Codespace
-4. Launch ingestion on rag-data-ingestion Codespace
-5. Create pme-connectors Codespace
-6. Analyze overnight results → identify pipeline-specific improvements
+### Prochaines actions (Session 38)
+1. **FIX DASHBOARD** — Get valid Vercel token or redeploy manually
+2. Analyze v11 results (should be complete by then)
+3. Run orchestrator (1000 questions) if v11 didn't complete it
+4. Investigate Standard pipeline NO_MATCH pattern at questions 500+
+5. Add limits-quotas.md to CLAUDE.md mandatory reads
+6. Start data-ingestion runs (need to swap codespace slots)
+7. Create auto-sync script to push status.json to rag-dashboard on every auto-commit
