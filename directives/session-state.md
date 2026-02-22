@@ -1,87 +1,80 @@
-# Session State — 22 Fevrier 2026 (Session 38)
+# Session State — 22 Fevrier 2026 (Session 39)
 
-> Last updated: 2026-02-22T14:15:00+01:00
+> Last updated: 2026-02-22T15:55:00+01:00
 
-## Objectif de session : 3-env parallel architecture, dashboard live, parallel pipelines, startup agents
+## Objectif de session : Relaunch pipelines, fix repo independence, import PME workflows, start ingestion
 
 ### CRITICAL — Running processes (nohup, survive session)
 | Process | PID | Target | Status |
 |---------|-----|--------|--------|
-| **v11 Standard** | 1453884 | HF Space | ~515/537 (41.9%), almost done |
-| **v12 Graph** | 1533993 | HF Space | JUST LAUNCHED, batch-size 3 |
-| **v12 Quantitative** | 1533994 | HF Space | JUST LAUNCHED, batch-size 3 |
-| **v12 Orchestrator** | 1533995 | HF Space | JUST LAUNCHED, batch-size 3 |
+| **v13 Standard** | 1552227 | HF Space | 24/537, running (Phase 2 remaining) |
 | **Auto-push** | 1534406 | GitHub API | Every 20 min → origin + rag-dashboard |
-| **CS data-ingestion** | remote | Codespace | Keep-alive (datasets need `datasets` lib) |
-| **CS pme-connectors** | remote | Codespace | PME tests (0/10 — webhook 404, needs fix) |
+| **CS data-ingestion downloads** | 23438 (remote) | Codespace | Downloading triviaqa, hotpotqa, musique, finqa (squad_v2 done) |
+| **CS pme-connectors** | — | Codespace | Available, waiting for HF Space rebuild with PME workflows |
 
-### Accomplishments this session
+### Phase 2 Cumulative Results
+| Pipeline | Tested | Total | Accuracy | Status |
+|----------|--------|-------|----------|--------|
+| Standard | 463+24 | 1000 | ~42% | RUNNING (v13, 537 remaining) |
+| Graph | 500 | 500 | 78.0% | COMPLETE |
+| Quantitative | 500 | 500 | 92.0% | COMPLETE |
+| Orchestrator | 36 | 1000 | ~11% | BROKEN (empty responses, timeouts) |
 
-#### 1. Dashboard FIXED and LIVE
-- rag-dashboard repo made **PUBLIC**
-- GitHub Pages enabled: `https://lbjlincoln.github.io/rag-dashboard/`
-- `index.html` URLs fixed (absolute → relative for Pages)
-- status.json + data.json synced via GitHub API
-- Auto-refreshes every 30s
+### Accomplishments this session (Session 39)
 
-#### 2. 3-Environment Architecture DESIGNED
-- `technicals/infra/3-env-architecture.md` created (258 lines)
-- HF Space (RAG eval) + CS data-ingestion + CS pme-connectors
-- Each env: independent tests, datasets, auto-stop, sync to dashboard
-- Sync: each repo → own GitHub → VM aggregates → rag-dashboard API → Pages
+#### 1. Diagnosed all 4 pipeline deaths from Session 38
+- All PIDs (1453884, 1533993, 1533994, 1533995) confirmed DEAD
+- Root causes: git index.lock conflicts (parallel --push), HF Space overload, Orchestrator timeouts
+- Graph and Quant were already 100% tested (SKIPPED)
 
-#### 3. All 4 pipelines running in PARALLEL
-- Standard (v11): 515/537 almost done
-- Graph, Quant, Orchestrator (v12): JUST LAUNCHED in parallel on HF Space
-- batch-size 3, early-stop 15, auto-push enabled
+#### 2. HF Space restarted and verified
+- Space was unresponsive (all webhooks returning empty after heavy parallel eval)
+- Restarted via HF API → Stage: RUNNING
+- Standard webhook confirmed working (returns JSON, ~60-90s latency)
+- Orchestrator confirmed broken (execution errors in /diag)
 
-#### 4. Session log archive system CREATED
-- `scripts/archive-session.sh` — archives session state + metrics
-- `outputs/session-37-log.md` and `session-33-log.md` created
-- Previous sessions 14-36 NOT archived (only session 13 existed)
+#### 3. Standard pipeline relaunched (v13)
+- PID 1552227, 537 remaining questions
+- NO --push flag (avoids git lock conflicts)
+- Running with batch-size 3, early-stop 15
 
-#### 5. Auto-push script CREATED and RUNNING
-- `scripts/auto-push.sh` — every 20 min to origin + rag-dashboard
-- PID 1534406, running in background
+#### 4. PME workflows imported to HF Space
+- 3 workflows pushed to HF Space repo (n8n-workflows/):
+  - multi-canal-gateway.json (credential ID fixed: OPENROUTER_HEADER_AUTH → LLM_API_CREDENTIAL_ID)
+  - action-executor.json (credential ID fixed)
+  - whatsapp-telegram-bridge.json
+- HF Space will auto-rebuild and import them
+- After rebuild: /webhook/pme-assistant-gateway, /webhook/pme-action-executor will be active
 
-#### 6. Two startup agents DESIGNED (CLAUDE.md updated)
-- **Agent 1: Session Log Analyzer** — Sonnet, analyzes last session log, improves rules/files
-- **Agent 2: Repo Health Inspector** — Sonnet, scans all repos, improves test protocols
-- Added to CLAUDE.md Phase 0 startup protocol (Rules 41-42)
-- Both run in background at session start
+#### 5. Data-ingestion made real
+- `datasets` library installed (v4.5.0) on codespace
+- HF dataset downloads launched: squad_v2 (DONE, 5.3MB), triviaqa, hotpotqa, musique, finqa
+- Fixed download configs (trivia_qa needs 'rc', hotpot_qa needs 'distractor')
 
-#### 7. Stale files being updated
-- 2 Sonnet background agents dispatched for:
-  - 9 stale directive files (timestamps + content)
-  - Repo config files (devcontainer, workflows, package.json, docker-compose)
-- Status: IN PROGRESS at compaction time
-
-### Commits this session
-| Hash | Description |
-|------|-------------|
-| 1e729e3 | session 38: session docs, auto-push, archive system |
-| 4914180 | auto: push status+data for dashboard |
-| 726f203 | session 38: 3-env architecture, dashboard on Pages |
-| (pending) | CLAUDE.md update with startup agents |
-
-### Key decisions
-1. rag-dashboard repo → PUBLIC (for GitHub Pages)
-2. Dashboard URL: `lbjlincoln.github.io/rag-dashboard/`
-3. All 4 pipelines run PARALLEL (not sequential) on HF Space
-4. Two mandatory Sonnet startup agents per session
-5. Each repo is independent with own tests/datasets/sync
+#### 6. Repo independence investigation
+- **rag-pme-connectors**: Currently just a Next.js website. Has dead copies of mon-ipad eval scripts. Needs own PME test infrastructure.
+- **rag-data-ingestion**: Clone of mon-ipad structure. Keep-alive zombie until now. Now actually downloading datasets.
+- **Both repos need cleanup**: Remove dead mon-ipad code, add focused CLAUDE.md directives
 
 ### Blockers still open
-1. **PME connector webhook**: `pme-assistant-gateway` returns 404 on both VM and HF Space
-2. **data-ingestion codespace**: needs `datasets` Python library installed (pip bootstrap done but lib not installed)
-3. **Codespaces go to sleep**: free tier idle timeout — nohup processes should keep alive
-4. **42/66 docs stale**: Sonnet agents working on 9 priority files
+1. **Orchestrator broken**: Returns empty responses/timeouts on Phase 2 questions (~11% accuracy). Needs workflow debugging.
+2. **HF Space rebuild pending**: PME workflows committed but Space hasn't rebuilt yet. Standard pipeline may be interrupted.
+3. **PME credentials missing**: Google Calendar, Gmail, Google Drive, Telegram, WhatsApp OAuth2 not configured on HF Space.
+4. **Remaining stale docs**: ~33 files still stale after 9 priority ones updated in Session 38.
+5. **PME test infrastructure**: test-pme-connectors.py points at VM webhooks, needs to point at HF Space.
 
-### Prochaines actions (Session 39)
-1. Check v12 parallel pipeline results (Graph, Quant, Orchestrator)
-2. Fix PME webhook (import PME workflows to HF Space or fix VM cache)
-3. Install `datasets` library on data-ingestion codespace → run full ingestion
-4. Review Sonnet agents' improvements (if background tasks completed)
-5. Verify dashboard shows all 4 pipeline results
-6. Continue updating stale docs (remaining ~33 files)
-7. Run both mandatory startup agents (Session Log Analyzer + Repo Health Inspector)
+### Key decisions
+1. Graph + Quant are DONE for Phase 2 (500/500 each) — no more to test
+2. Standard continues as sole RAG pipeline running (v13)
+3. PME workflows go on HF Space (same n8n instance as RAG pipelines, since Gateway calls Orchestrator internally)
+4. "Independent repos" means own test scripts + own codespace + own result tracking, NOT separate n8n instances
+5. Orchestrator needs workflow-level debugging before relaunch
+
+### Prochaines actions (this session or next)
+1. Wait for HF Space rebuild → verify PME webhooks active
+2. Launch PME tests from pme-connectors codespace
+3. Monitor data-ingestion downloads completion
+4. Fix Orchestrator workflow (investigate empty response root cause)
+5. Commit Standard pipeline results periodically
+6. Update dashboard with all results
+7. Clean up pme-connectors + data-ingestion repos (remove dead mon-ipad code)
