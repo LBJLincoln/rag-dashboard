@@ -1,22 +1,24 @@
 #!/usr/bin/env python3
 """
-PARALLEL RAG EVALUATION — All 4 pipelines run concurrently
-============================================================
-Wraps run-eval.py logic but runs all pipeline types in parallel threads.
-Each pipeline's questions still run sequentially (to not overwhelm n8n),
-but all 4 pipelines execute simultaneously → ~4x speedup.
+PARALLEL RAG EVALUATION — Up to 12 workflows run concurrently
+==============================================================
+Runs all pipeline types in parallel threads. Within each pipeline, questions
+can also run in parallel batches (--batch-size). Supports up to 12+ concurrent
+workflow executions across RAG + PME + custom pipelines.
 
 Results are written to docs/data.json in real-time (thread-safe via live-writer lock).
 Per-pipeline results are saved to logs/pipeline-results/ as JSON snapshots.
 
 Usage:
-  python run-eval-parallel.py                          # All pipelines, parallel
-  python run-eval-parallel.py --max 10                 # 10 questions per pipeline
-  python run-eval-parallel.py --types graph,quantitative  # Specific pipelines
-  python run-eval-parallel.py --reset                  # Re-test everything
-  python run-eval-parallel.py --push                   # Git push after completion
+  python run-eval-parallel.py                                  # All 4 RAG pipelines, parallel
+  python run-eval-parallel.py --max 10                         # 10 questions per pipeline
+  python run-eval-parallel.py --types graph,quantitative       # Specific pipelines
+  python run-eval-parallel.py --all-parallel --workers 12      # ALL pipelines truly concurrent (including orchestrator)
+  python run-eval-parallel.py --types standard,graph,quantitative,orchestrator,pme-gateway --workers 12
+  python run-eval-parallel.py --reset                          # Re-test everything
+  python run-eval-parallel.py --push                           # Git push after completion
 
-Speedup: ~4x compared to sequential run-eval.py (60-90s/question × 200q → wall time = max pipeline)
+Speedup: ~4-12x compared to sequential run-eval.py depending on --workers and --batch-size
 """
 
 import json
@@ -417,11 +419,13 @@ def _record_result(rag_type, result, tested_ids_by_type, totals, per_question_re
 
 def main():
     import argparse
-    parser = argparse.ArgumentParser(description="Parallel RAG Evaluation (4 pipelines concurrent)")
+    parser = argparse.ArgumentParser(description="Parallel RAG Evaluation (up to 12 workflows concurrent)")
     parser.add_argument("--max", type=int, default=None,
                         help="Max questions per pipeline type")
     parser.add_argument("--types", type=str, default="standard,graph,quantitative,orchestrator",
-                        help="Comma-separated pipeline types to test")
+                        help="Comma-separated pipeline types to test. "
+                             "Available: standard,graph,quantitative,orchestrator,"
+                             "pme-gateway,pme-action,pme-whatsapp")
     parser.add_argument("--dataset", type=str, default=None,
                         choices=["phase-1", "phase-2", "all"],
                         help="Dataset to evaluate: phase-1 (200q), phase-2 (1000q HF), all (1200q)")
@@ -450,6 +454,10 @@ def main():
                         help="Questions processed in parallel WITHIN each pipeline (E5 improvement). "
                              "Default: 1 (sequential). Use 3-5 for local LLM pipelines. "
                              "Caution: HF Space n8n has 1 worker, so batch>1 queues there.")
+    parser.add_argument("--all-parallel", action="store_true",
+                        help="Run ALL pipelines concurrently (including orchestrator). "
+                             "Removes the orchestrator-sequential constraint. "
+                             "Use with --workers 12 for maximum throughput.")
     args = parser.parse_args()
 
     # Pass delay, early-stop, and batch-size to run_pipeline via function attributes
@@ -558,26 +566,18 @@ def main():
     except Exception as e:
         print(f"  DB snapshot failed (non-fatal): {e}")
 
-    # Run pipelines: orchestrator runs AFTER others (it calls sub-workflows internally)
+    # Run pipelines
     print("\n  Launching pipeline evaluation...")
     overall_totals = {"tested": 0, "correct": 0, "errors": 0}
 
-    # Separate orchestrator from other pipelines to avoid resource conflicts
-    non_orch = [t for t in requested_types if t != "orchestrator"]
-    orch_only = [t for t in requested_types if t == "orchestrator"]
+    if args.all_parallel:
+        # ALL-PARALLEL MODE: every pipeline runs concurrently (up to --workers)
+        all_workers = args.workers or len(requested_types)
+        print(f"\n  ALL-PARALLEL: {', '.join(requested_types)} ({all_workers} workers)")
 
-    for batch_label, batch_types in [("parallel", non_orch), ("sequential (post-parallel)", orch_only)]:
-        if not batch_types:
-            continue
-        batch_workers = args.workers or len(batch_types)
-        # Orchestrator always runs with 1 worker
-        if "orchestrator" in batch_types:
-            batch_workers = 1
-        print(f"\n  Batch: {', '.join(batch_types)} ({batch_label}, {batch_workers} workers)")
-
-        with ThreadPoolExecutor(max_workers=batch_workers) as executor:
+        with ThreadPoolExecutor(max_workers=all_workers) as executor:
             futures = {}
-            for rag_type in batch_types:
+            for rag_type in requested_types:
                 if questions.get(rag_type):
                     future = executor.submit(
                         run_pipeline, rag_type, questions[rag_type],
@@ -594,6 +594,38 @@ def main():
                     overall_totals["errors"] += totals["errors"]
                 except Exception as e:
                     print(f"  [{rag_type.upper()}] FAILED: {e}")
+    else:
+        # LEGACY MODE: orchestrator runs AFTER others (resource conflict avoidance)
+        non_orch = [t for t in requested_types if t != "orchestrator"]
+        orch_only = [t for t in requested_types if t == "orchestrator"]
+
+        for batch_label, batch_types in [("parallel", non_orch), ("sequential (post-parallel)", orch_only)]:
+            if not batch_types:
+                continue
+            batch_workers = args.workers or len(batch_types)
+            if "orchestrator" in batch_types:
+                batch_workers = 1
+            print(f"\n  Batch: {', '.join(batch_types)} ({batch_label}, {batch_workers} workers)")
+
+            with ThreadPoolExecutor(max_workers=batch_workers) as executor:
+                futures = {}
+                for rag_type in batch_types:
+                    if questions.get(rag_type):
+                        future = executor.submit(
+                            run_pipeline, rag_type, questions[rag_type],
+                            tested_ids, label=args.label
+                        )
+                        futures[future] = rag_type
+
+                for future in as_completed(futures):
+                    rag_type = futures[future]
+                    try:
+                        _, totals, _ = future.result()
+                        overall_totals["tested"] += totals["tested"]
+                        overall_totals["correct"] += totals["correct"]
+                        overall_totals["errors"] += totals["errors"]
+                    except Exception as e:
+                        print(f"  [{rag_type.upper()}] FAILED: {e}")
 
     # Post-eval DB snapshot
     print("\n  Taking post-evaluation DB snapshot...")
