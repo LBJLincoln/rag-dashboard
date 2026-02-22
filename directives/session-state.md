@@ -7,18 +7,21 @@
 ### CRITICAL — Running processes (nohup, survive session)
 | Process | PID | Target | Status |
 |---------|-----|--------|--------|
-| **v13 Standard** | 1552227 | HF Space | 24/537, running (Phase 2 remaining) |
+| **v13 Standard** | 1552227 | HF Space | 78/537, running (28 successes, 35.9%) |
 | **Auto-push** | 1534406 | GitHub API | Every 20 min → origin + rag-dashboard |
-| **CS data-ingestion downloads** | 23438 (remote) | Codespace | Downloading triviaqa, hotpotqa, musique, finqa (squad_v2 done) |
-| **CS pme-connectors** | — | Codespace | Available, waiting for HF Space rebuild with PME workflows |
+| **CS data-ingestion downloads** | 23438 (remote) | Codespace | 3/5 downloaded (squad_v2 5.3MB, triviaqa 633MB, hotpotqa 31.5MB) + keep-alive |
+| **CS pme-connectors** | — | Codespace | Available, PME tests launched (awaiting results) |
 
 ### Phase 2 Cumulative Results
 | Pipeline | Tested | Total | Accuracy | Status |
 |----------|--------|-------|----------|--------|
-| Standard | 463+24 | 1000 | ~42% | RUNNING (v13, 537 remaining) |
+| Standard | 463+78 | 1000 | ~36% (Phase 2) | RUNNING (v13, 459 remaining) |
 | Graph | 500 | 500 | 78.0% | COMPLETE |
 | Quantitative | 500 | 500 | 92.0% | COMPLETE |
-| Orchestrator | 36 | 1000 | ~11% | BROKEN (empty responses, timeouts) |
+| Orchestrator | 57 | 1000 | 0% (Phase 2) | BROKEN — workflow returns empty on all Phase 2 questions |
+| **PME Gateway** | testing | — | — | Imported to HF Space, tests running from CS |
+| **PME Action Exec** | testing | — | — | Imported to HF Space |
+| **Data-Ingestion** | 3/5 DL | — | — | squad_v2+triviaqa+hotpotqa downloaded (669MB total) |
 
 ### Accomplishments this session (Session 39)
 
@@ -70,11 +73,12 @@
 4. "Independent repos" means own test scripts + own codespace + own result tracking, NOT separate n8n instances
 5. Orchestrator needs workflow-level debugging before relaunch
 
-### Prochaines actions (this session or next)
-1. Wait for HF Space rebuild → verify PME webhooks active
-2. Launch PME tests from pme-connectors codespace
-3. Monitor data-ingestion downloads completion
-4. Fix Orchestrator workflow (investigate empty response root cause)
-5. Commit Standard pipeline results periodically
-6. Update dashboard with all results
-7. Clean up pme-connectors + data-ingestion repos (remove dead mon-ipad code)
+### Prochaines actions (Session 40)
+1. **FIX ORCHESTRATOR** — #1 priority. Returns 0% on Phase 2. Needs workflow debugging (intent classifier? sub-pipeline routing? response format?)
+2. Check PME Gateway test results — did the webhook respond?
+3. Complete Standard pipeline (459 remaining questions)
+4. Finish data-ingestion downloads (musique + finqa replacement)
+5. Set up actual ingestion pipeline (chunk → embed → Pinecone/Neo4j/Supabase) for 1000 document types
+6. Clean up pme-connectors + data-ingestion repos (remove dead mon-ipad code copies)
+7. Increase Standard batch-size to 5 for faster throughput
+8. Run both startup agents (Session Log Analyzer + Repo Health Inspector)
