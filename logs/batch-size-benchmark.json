@@ -1,0 +1,44 @@
+{
+  "timestamp": "2026-02-22T18:54:06.449191+01:00",
+  "n8n_host": "https://lbjlincoln-nomos-rag-engine.hf.space",
+  "results": {
+    "standard": [
+      {
+        "batch_size": 1,
+        "wall_time_s": 41.0,
+        "throughput_qpm": 1.5,
+        "success_rate": 100.0,
+        "answer_rate": 0.0,
+        "p50_ms": 40750,
+        "p95_ms": 40750,
+        "errors": [],
+        "total": 1,
+        "successes": 1
+      },
+      {
+        "batch_size": 3,
+        "wall_time_s": 41.0,
+        "throughput_qpm": 4.4,
+        "success_rate": 100.0,
+        "answer_rate": 0.0,
+        "p50_ms": 40756,
+        "p95_ms": 40975,
+        "errors": [],
+        "total": 3,
+        "successes": 3
+      },
+      {
+        "batch_size": 5,
+        "wall_time_s": 43.5,
+        "throughput_qpm": 6.9,
+        "success_rate": 100.0,
+        "answer_rate": 0.0,
+        "p50_ms": 40755,
+        "p95_ms": 43229,
+        "errors": [],
+        "total": 5,
+        "successes": 5
+      }
+    ]
+  }
+}
