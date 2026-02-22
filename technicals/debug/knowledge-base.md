@@ -1,6 +1,6 @@
 # Knowledge Base — Cerveau Persistant Multi-RAG
 
-> Last updated: 2026-02-21T15:45:00+01:00
+> Last updated: 2026-02-22T17:15:00+01:00
 > **Ce document est VIVANT.** Il s'enrichit a CHAQUE session avec les solutions, patterns
 > et connaissances techniques decouvertes. A lire EN PREMIER avec `fixes-library.md`.
 > Objectif : ameliorer la performance de l'agent a chaque session.
@@ -561,12 +561,272 @@ Full analysis: `/home/termius/mon-ipad/technicals/debug/neo4j-data-quality-analy
 
 ---
 
+## 9. HF SPACES — N8N DEPLOYMENT PATTERNS
+
+### 9.1 HF Space Persistent Storage (CRITICAL SESSION 39 FINDING)
+
+**Problem**: HF Space rebuild wiped ALL n8n workflow activations → ALL webhooks 404.
+
+**Root cause**: Docker containers on HF Spaces are ephemeral by default. Data written to disk is lost on restart unless persistent storage is configured.
+
+**Solutions** (ranked by reliability):
+
+| Approach | Pros | Cons | Status |
+|----------|------|------|--------|
+| **External Supabase DB** | Survives all restarts, same DB as Quantitative pipeline | Requires network latency, setup complexity | RECOMMENDED |
+| **HF /data volume** | Built-in persistence, opt-in via Space settings | Must enable in Space UI, limited to /data directory | ALTERNATIVE |
+| **Robust entrypoint.sh** | Works with any DB, retry + verification | Doesn't prevent data loss, only fixes activation | CURRENT (broken) |
+
+**Best practice (2026)**:
+1. Use external PostgreSQL (Supabase) instead of SQLite for n8n database
+2. Configure `DB_TYPE=postgresdb` and connection string in HF Space secrets
+3. Add `/data` persistent volume for binary files (if needed)
+4. Implement health checks in entrypoint.sh: verify workflow activation succeeded before exit
+
+**References**:
+- [HuggingFace Docker Spaces](https://huggingface.co/docs/hub/main/spaces-sdks-docker)
+- [Free n8n deployment on HF with Supabase](https://www.ubitools.com/deploy-n8n-huggingface-supabase-guide/)
+- [n8n on HF Spaces community thread](https://community.n8n.io/t/how-to-deploy-n8n-in-hugging-face-space/35961)
+
+### 9.2 HF Space Activation Verification Pattern
+
+**Failure mode**: Entrypoint.sh activates workflows via REST API, exits with success, but activation fails silently.
+
+**Diagnostic**:
+```bash
+# Check if workflow is actually active (inside HF container)
+curl -s http://localhost:5678/api/v1/workflows/<ID> | jq '.active'
+
+# Test webhook responds
+curl -s -X POST http://localhost:5678/webhook/<PATH> \
+  -H "Content-Type: application/json" \
+  -d '{"query": "test"}' | jq .
+```
+
+**Robust activation pattern** (from ci_full_setup.py):
+```python
+# 1. Login to get cookie
+login_resp = requests.post(f"{n8n_url}/login", json={"email": email, "password": password})
+cookie = login_resp.cookies.get("n8n-auth")
+
+# 2. Activate workflow with cookie auth
+activate_resp = requests.patch(
+    f"{n8n_url}/api/v1/workflows/{workflow_id}",
+    headers={"cookie": f"n8n-auth={cookie}"},
+    json={"active": True}
+)
+
+# 3. VERIFY activation succeeded
+verify_resp = requests.get(
+    f"{n8n_url}/api/v1/workflows/{workflow_id}",
+    headers={"cookie": f"n8n-auth={cookie}"}
+)
+if not verify_resp.json().get("active"):
+    raise Exception(f"Workflow {workflow_id} failed to activate")
+
+# 4. Test webhook endpoint
+test_resp = requests.post(f"{n8n_url}/webhook/<PATH>", json={"query": "test"})
+if test_resp.status_code != 200:
+    raise Exception(f"Webhook test failed: {test_resp.status_code}")
+```
+
+**Action for Session 40**: Apply this pattern to scripts/migrate-to-hf-spaces.sh
+
+### 9.3 n8n Queue Mode on HF Spaces
+
+**Current**: HF Space runs n8n with NO workers (single-process mode).
+
+**Target**: 3 workers for 3x throughput.
+
+**Docker Compose pattern**:
+```yaml
+services:
+  n8n-main:
+    image: n8nio/n8n:latest
+    environment:
+      - EXECUTIONS_MODE=queue
+      - QUEUE_BULL_REDIS_HOST=redis
+    depends_on:
+      - redis
+      - postgres
+
+  n8n-worker-1:
+    image: n8nio/n8n:latest
+    command: worker
+    environment:
+      - EXECUTIONS_MODE=queue
+      - QUEUE_BULL_REDIS_HOST=redis
+    depends_on:
+      - redis
+      - postgres
+
+  n8n-worker-2:
+    image: n8nio/n8n:latest
+    command: worker
+    # same config as worker-1
+
+  redis:
+    image: redis:7-alpine
+
+  postgres:
+    image: postgres:15-alpine
+```
+
+**HF Spaces limitation**: Multi-container setup requires Docker-in-Docker or separate Space for each worker.
+
+**Alternative**: Single container with multiple n8n processes via supervisor or PM2.
+
+**Performance gain**: 3 workers = ~3x throughput for parallel question batches.
+
+**References**:
+- [n8n Queue Mode Guide](https://docs.n8n.io/hosting/scaling/queue-mode/)
+- [n8n Performance Optimization](https://www.wednesday.is/writing-articles/n8n-performance-optimization-for-high-volume-workflows)
+
+---
+
+## 10. RAG EVALUATION 2026 — INDUSTRY STANDARDS
+
+### 10.1 Enterprise Production Metrics (Missing in Current Implementation)
+
+**Current state**: Only accuracy is measured (78.1% overall, Phase 1).
+
+**Enterprise 2026 standard** (from Patronus AI, Confident AI, EvidentlyAI):
+
+| Metric | Definition | Threshold | Measurement Method |
+|--------|------------|-----------|-------------------|
+| **Faithfulness** | % of claims supported by retrieved context (anti-hallucination) | >= 95% | LLM-as-judge + programmatic checks |
+| **Context Recall** | % of ground-truth info present in retrieved context | >= 85% | Compare retrieved chunks vs. golden answers |
+| **Context Precision** | Relevance ranking quality (high-relevance chunks first) | >= 80% | nDCG or MRR on chunk rankings |
+| **Answer Relevancy** | Generated answer matches user intent | >= 90% | LLM-as-judge + keyword overlap |
+| **Latency** | End-to-end response time | <= 2.5s | Median p50 + p95 tracking |
+| **Hallucination Rate** | % of responses with unsupported claims | <= 2% | Inverse of faithfulness |
+
+**Impact on project**:
+- Current 78.1% accuracy doesn't reveal if answers are hallucinated, have correct context, or are just lucky guesses
+- Phase Gate criteria include faithfulness >= 95%, context recall >= 85%, latency <= 2.5s (see CLAUDE.md)
+- **None of these are measured yet** → blocking enterprise production readiness
+
+### 10.2 Component-Level Evaluation Pattern
+
+**Best practice 2026**: Evaluate retriever and generator separately.
+
+**Retriever metrics**:
+- Context Recall: Did we retrieve the right chunks?
+- Context Precision: Are relevant chunks ranked higher?
+- Hit Rate: % of queries where at least 1 relevant chunk is in top-k
+
+**Generator metrics**:
+- Faithfulness: No hallucinations
+- Answer Relevancy: Matches user intent
+- Format Correctness: Valid JSON, proper structure
+
+**Why separate?**:
+- Pinpoint whether failure is retrieval (wrong chunks) or generation (LLM hallucination)
+- Example: Standard pipeline might have 90% retrieval recall but 70% generator faithfulness → fix LLM prompt, not retrieval
+
+**Implementation**: Add separate test suite for retriever-only (check Pinecone/Neo4j results before LLM generation).
+
+### 10.3 LLM-as-Judge Calibration (Critical for Faithfulness)
+
+**Problem**: LLM-as-judge has systematic biases:
+- Prefers longer responses
+- Positional bias (favors first option in multiple choice)
+- Self-preference (favors outputs from same model family)
+
+**Solution (2026 best practice)**:
+1. Use human-verified golden dataset to calibrate judge
+2. Mix LLM-as-judge with programmatic checks (e.g., claim extraction + fact verification)
+3. Use different model for judge than generator (e.g., judge = GPT-4o, generator = Llama 70B)
+4. Track judge agreement rate with human labels (target >= 85%)
+
+**For this project**:
+- Current eval uses exact string match (0 or 1) → brittle, misses semantically correct answers
+- Should add LLM-as-judge for semantic equivalence (e.g., "2019" vs "in 2019" should both be correct)
+- Calibrate judge on 50-100 human-labeled examples from Phase 1
+
+### 10.4 Evaluation Frameworks Comparison
+
+| Framework | Language | Features | Integration | Best For |
+|-----------|----------|----------|-------------|----------|
+| **RAGAS** | Python | Faithfulness, context recall/precision, answer relevancy | pytest, Haystack | Comprehensive offline eval |
+| **DeepEval** | Python | LLM-as-judge, CI/CD integration, custom metrics | pytest, GitHub Actions | Developer-first, unit testing |
+| **TruLens** | Python | Real-time monitoring, chain-of-thought tracing | LangChain, LlamaIndex | Production observability |
+| **Braintrust** | Python/TS | Dataset management, A/B testing, prompt versioning | API-first | Enterprise teams |
+
+**Recommendation for Session 40+**:
+- Add RAGAS for offline batch evaluation (faithfulness, context recall)
+- Keep current quick-test.py for fast iteration
+- Use DeepEval in GitHub Actions CI for regression detection
+
+**References**:
+- [RAG Evaluation Metrics Guide (Patronus AI)](https://www.patronus.ai/llm-testing/rag-evaluation-metrics)
+- [RAG Evaluation Best Practices (EvidentlyAI)](https://www.evidentlyai.com/llm-guide/rag-evaluation)
+- [RAGAS Framework](https://haystack.deepset.ai/cookbook/rag_eval_ragas)
+- [DeepEval CI/CD Guide](https://www.confident-ai.com/blog/how-to-evaluate-rag-applications-in-ci-cd-pipelines-with-deepeval)
+
+### 10.5 Autonomous Testing Architecture (Session 39 Lesson)
+
+**Problem**: All 4 pipeline PIDs died in Session 39 (git locks, HF overload). Claude Code had to manually restart.
+
+**2026 Best Practice**: Autonomous evaluation with self-healing.
+
+**Pattern**:
+```python
+# eval/autonomous_runner.py
+class AutonomousEvaluator:
+    def __init__(self, pipeline, max_retries=3, auto_commit_interval=900):
+        self.pipeline = pipeline
+        self.max_retries = max_retries
+        self.auto_commit_interval = auto_commit_interval
+        self.consecutive_failures = 0
+
+    def run(self):
+        while not self.is_complete():
+            try:
+                result = self.test_next_question()
+                if result.success:
+                    self.consecutive_failures = 0
+                else:
+                    self.consecutive_failures += 1
+
+                # Auto-stop on 3 consecutive failures
+                if self.consecutive_failures >= 3:
+                    self.stop_and_report("3 consecutive failures")
+                    break
+
+            except Exception as e:
+                self.handle_error(e)
+
+            # Auto-commit every 15 min
+            if time.time() - self.last_commit > self.auto_commit_interval:
+                self.commit_and_push()
+
+    def handle_error(self, error):
+        if "rate limit" in str(error):
+            time.sleep(60)  # Wait 1 min, retry
+        elif "connection refused" in str(error):
+            self.stop_and_report("n8n unreachable")
+        else:
+            self.consecutive_failures += 1
+```
+
+**Implementation for Session 40**:
+1. Wrap run-eval-parallel.py with auto-recovery logic
+2. Add structured logging (JSON) for monitoring
+3. POST progress to n8n webhook every 15 min (for dashboard)
+4. Kill switch: if VM disk > 90% or RAM > 95%, auto-stop
+
+**Expected outcome**: 10+ hours of autonomous testing without manual intervention.
+
+---
+
 ## HISTORIQUE DES AJOUTS
 
 | Session | Ajouts | Date |
 |---------|--------|------|
 | 25 | Creation du document, modeles LLM, 8 patterns, APIs, schemas | 2026-02-19 |
 | 27 | $env interdit tous noeuds (3.5), executeWorkflow vide (3.6) | 2026-02-19 |
+| 39 | HF Spaces persistence (9.1-9.3), RAG eval 2026 standards (10.1-10.5) | 2026-02-22 |
 | 27 | Concurrent load testing results (7.4), Orchestrator concurrency limits | 2026-02-19 |
 | 30 | Phase1 vs Phase2 question filtering (6.4), FIX-36 | 2026-02-20 |
 | 35 | Neo4j data quality analysis (8.1-8.4), 98% generic relationships critical issue | 2026-02-21 |

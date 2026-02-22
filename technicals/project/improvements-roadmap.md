@@ -1,6 +1,6 @@
 # Improvements Roadmap — Centralized
 
-> Last updated: 2026-02-19T13:30:00+01:00
+> Last updated: 2026-02-22T17:20:00+01:00
 > **Document centralisé de TOUTES les améliorations possibles**, classées par catégorie et priorité.
 > Référencé par CLAUDE.md. Mis à jour à chaque session.
 
@@ -81,10 +81,13 @@
 |---|-------------|--------|--------|--------|
 | H1 | Connecter Supabase depuis HF Space (env vars) | Quantitative fonctionne | Faible | A FAIRE |
 | H2 | Ajouter 3 workers n8n dans le Dockerfile | 3x throughput | Moyen | A FAIRE |
-| H3 | Migrer SQLite → PostgreSQL persistant | Pas de perte au reboot | Moyen | PLANIFIE |
+| H3 | Migrer SQLite → PostgreSQL persistant (Supabase externe) | **CRITICAL** — Pas de perte au reboot | Moyen | **PRIORITE 1 (Session 40)** |
 | H4 | Exporter les fixes VM vers HF Space | Workflow a jour | Faible | A FAIRE |
 | H5 | Multi-API-key OpenRouter | 3x rate limit | Faible | A FAIRE |
 | H6 | Keep-alive plus fiable (webhook interne) | Uptime 99.9% | Faible | FAIT (cron VM) |
+| **H7** | **HF /data persistent volume activation** | Survit aux rebuilds (alternative à H3) | Faible | **ALTERNATIVE H3** |
+| **H8** | **Robust entrypoint.sh avec verification** | Detect failed activations | Faible | **PRIORITE 1 (Session 40)** |
+| **H9** | **Activation health check POST-deploy** | Test webhooks before marking success | Faible | **PRIORITE 1** |
 
 ### 2.3 Estimation temps pour 1000q par pipeline
 
@@ -119,6 +122,8 @@ Eval
 
 ## 3. N8N WORKFLOWS
 
+### 3.1 Core Optimizations
+
 | # | Amélioration | Impact | Effort | Statut |
 |---|-------------|--------|--------|--------|
 | N1 | Workflow versioning automatique (snapshot avant chaque modification) | Fiabilite | Moyen | A FAIRE |
@@ -126,6 +131,16 @@ Eval
 | N3 | Metrics Prometheus via n8n metrics endpoint | Observabilite | Faible | PARTIEL (N8N_METRICS=true) |
 | N4 | Error notification webhook (Slack/Discord) | Alerting | Faible | A FAIRE |
 | N5 | Workflow export automatique apres chaque activation | Backup | Moyen | A FAIRE |
+
+### 3.2 Queue Mode & Scalability (2026 Best Practices)
+
+| # | Amélioration | Impact | Effort | Statut |
+|---|-------------|--------|--------|--------|
+| **N6** | **Configurer QUEUE_HEALTH_CHECK_ACTIVE=true** pour /healthz readiness | Detect worker failures | Faible | RECOMMANDE |
+| **N7** | **Worker count = CPU cores** (3 workers sur HF Space 2-core) | Optimal throughput | Faible | A FAIRE |
+| **N8** | **Binary data → S3 external storage** (required for queue mode) | Prevent file system errors | Moyen | SI BINARIES NEEDED |
+| **N9** | **Concurrency control per workflow** (limite 5 executions simultanées) | Prevent rate-limit cascade | Faible | RECOMMANDE |
+| **N10** | **Redis queue persistence** (AOF enabled) | Survive Redis restarts | Faible | A FAIRE |
 
 ---
 
@@ -143,15 +158,32 @@ Eval
 
 ## 5. EVALUATION
 
+### 5.1 Enterprise Production Metrics (2026 Standards) — BLOCKING PHASE GATE
+
 | # | Amélioration | Impact | Effort | Statut |
 |---|-------------|--------|--------|--------|
-| E1 | Mesurer Faithfulness (>= 95%) | Qualite | Moyen | A FAIRE |
-| E2 | Mesurer Context Recall (>= 85%) | Qualite | Moyen | A FAIRE |
-| E3 | Mesurer Hallucination Rate (<= 2%) | Fiabilite | Moyen | A FAIRE |
-| E4 | Mesurer Latency moyenne (<= 2.5s) | Performance | Faible | A FAIRE |
-| E5 | Evaluation parallele avec asyncio | 3x speedup | Moyen | A FAIRE |
+| **E1** | **Mesurer Faithfulness (>= 95%)** via LLM-as-judge | **BLOCKING** — Phase Gate requis | Moyen | **PRIORITE 2** |
+| **E2** | **Mesurer Context Recall (>= 85%)** compare retrieved vs. golden | **BLOCKING** — Phase Gate requis | Moyen | **PRIORITE 2** |
+| **E3** | **Mesurer Hallucination Rate (<= 2%)** inverse de faithfulness | **BLOCKING** — Phase Gate requis | Moyen | **PRIORITE 2** |
+| **E4** | **Mesurer Latency p50/p95 (<= 2.5s)** end-to-end | **BLOCKING** — Phase Gate requis | Faible | **PRIORITE 2** |
+| E5 | Evaluation parallele avec asyncio | 3x speedup eval | Moyen | A FAIRE |
 | E6 | Dashboard live accuracy en temps reel | Visibilite | Faible | PARTIEL (SSE) |
 | E7 | A/B testing entre versions de workflows | Qualite | Eleve | PLANIFIE |
+| **E8** | **Integrer RAGAS framework** pour faithfulness/context recall offline | Enterprise standard | Moyen | **RECOMMANDE Session 40+** |
+| **E9** | **Integrer DeepEval dans GitHub Actions CI** pour regression detection | Prevent quality drops | Moyen | **RECOMMANDE** |
+| **E10** | **Calibrer LLM-as-judge avec 50-100 human-labeled examples** | Fix judge bias | Faible | A FAIRE |
+| **E11** | **Component-level eval** (retriever-only tests, no generator) | Pinpoint failures | Moyen | A FAIRE |
+
+### 5.2 Autonomous Testing Architecture (Prevent Session 39 PID Deaths)
+
+| # | Amélioration | Impact | Effort | Statut |
+|---|-------------|--------|--------|--------|
+| **E12** | **Auto-recovery logic dans eval scripts** (retry on rate-limit, stop on 3 failures) | No manual restart | Moyen | **PRIORITE 1** |
+| **E13** | **Structured JSON logging** pour monitoring distant | Observability | Faible | A FAIRE |
+| **E14** | **Auto-commit every 15 min** during long runs | Never lose results | Faible | **PRIORITE 1** |
+| **E15** | **Progress webhook POST to n8n** every 15 min pour dashboard | Real-time visibility | Faible | RECOMMANDE |
+| **E16** | **Kill switch** (auto-stop if disk > 90% or RAM > 95%) | Prevent VM crash | Faible | RECOMMANDE |
+| **E17** | **Self-healing nohup wrapper** around run-eval-parallel.py | 10+ hrs autonomous | Moyen | **PRIORITE 1** |
 
 ---
 
@@ -210,13 +242,75 @@ Eval
 
 ---
 
+---
+
+## 9. SESSION 39 LESSONS — CRITICAL FIXES
+
+### 9.1 HF Space Reliability (ALL WEBHOOKS 404 After Rebuild)
+
+| # | Amélioration | Impact | Effort | Statut |
+|---|-------------|--------|--------|--------|
+| **S39-1** | **Migrate HF Space to external Supabase DB** (same as improvements-roadmap.md H3) | **CRITICAL** — Prevent data loss | Moyen | **MUST DO Session 40** |
+| **S39-2** | **Add /data persistent volume** (HF Spaces setting) | Alternative to S39-1 | Faible | **ALTERNATIVE** |
+| **S39-3** | **Fix entrypoint.sh activation verification** (see knowledge-base.md 9.2) | Detect silent failures | Faible | **MUST DO Session 40** |
+| **S39-4** | **POST-deploy webhook health check** (test all 7 webhooks before success) | Prevent 404 surprise | Faible | **MUST DO Session 40** |
+
+### 9.2 Orchestrator Failure (0% Phase 2)
+
+| # | Amélioration | Impact | Effort | Statut |
+|---|-------------|--------|--------|--------|
+| **S39-5** | **Debug Orchestrator intent classifier** (why 404 on every Phase 2 question?) | Fix 0% accuracy | Moyen | **PRIORITE 1 Session 40** |
+| **S39-6** | **Add intent classifier unit tests** (independent of full pipeline) | Regression detection | Faible | RECOMMANDE |
+
+### 9.3 Standard Pipeline Degradation (85.5% → 36%)
+
+| # | Amélioration | Impact | Effort | Statut |
+|---|-------------|--------|--------|--------|
+| **S39-7** | **Diagnose Standard pipeline Phase 2 degradation** (retrieval or LLM?) | +49pp accuracy | Moyen | **PRIORITE 1 Session 40** |
+| **S39-8** | **Component-level eval** (test retriever separately from generator) | Pinpoint root cause | Moyen | RECOMMANDE |
+
+### 9.4 PME Workflows (Imported but NOT Activated)
+
+| # | Amélioration | Impact | Effort | Statut |
+|---|-------------|--------|--------|--------|
+| **S39-9** | **Configure Google API credentials** in HF Space (key exists: AIzaSyBWN3...) | PME workflows functional | Faible | Session 40 |
+| **S39-10** | **GitHub Actions CI for PME workflows** (validate before HF deploy) | Prevent broken imports | Moyen | RECOMMANDE |
+| **S39-11** | **PME independent test suite** in rag-pme-connectors repo | Decouple from rag-tests | Moyen | RECOMMANDE |
+
+---
+
 ## HISTORIQUE DES AJOUTS
 
 | Session | Ajouts | Date |
 |---------|--------|------|
 | 25 | Creation du document, 50+ ameliorations listees | 2026-02-19 |
+| 39 | +20 ameliorations (HF persistence, RAG eval 2026, autonomous testing, Session 39 lessons) | 2026-02-22 |
 
 ---
 
 > **REGLE** : Mettre a jour ce fichier apres chaque session avec les nouvelles ameliorations identifiees.
 > Marquer le statut (A FAIRE → EN COURS → APPLIQUE) au fur et a mesure.
+
+---
+
+## REFERENCES WEB (Session 39 Research)
+
+### RAG Evaluation 2026
+- [RAG Evaluation Metrics (Patronus AI)](https://www.patronus.ai/llm-testing/rag-evaluation-metrics)
+- [RAG Evaluation Best Practices (EvidentlyAI)](https://www.evidentlyai.com/llm-guide/rag-evaluation)
+- [RAG Evaluation Complete Guide (Maxim AI)](https://www.getmaxim.ai/articles/rag-evaluation-a-complete-guide-for-2025/)
+- [Faithfulness, Context Recall Guide (Kinde)](https://www.kinde.com/learn/ai-for-software-engineering/best-practice/rag-evaluation-in-practice-faithfulness-context-recall-answer-relevancy/)
+- [DeepEval CI/CD Integration](https://www.confident-ai.com/blog/how-to-evaluate-rag-applications-in-ci-cd-pipelines-with-deepeval)
+- [RAGAS Framework Cookbook](https://haystack.deepset.ai/cookbook/rag_eval_ragas)
+
+### n8n Optimization & Queue Mode
+- [n8n Queue Mode Documentation](https://docs.n8n.io/hosting/scaling/queue-mode/)
+- [n8n Scaling & Reliability Guide (Medium)](https://medium.com/@orami98/the-n8n-scaling-reliability-guide-queue-mode-topologies-error-handling-at-scale-and-production-9f33b13d2be8)
+- [n8n Performance Optimization Guide](https://www.wednesday.is/writing-articles/n8n-performance-optimization-for-high-volume-workflows)
+- [n8n Concurrency Control](https://docs.n8n.io/hosting/scaling/concurrency-control/)
+
+### HuggingFace Spaces n8n Deployment
+- [Free n8n Deployment on HF with Supabase](https://www.ubitools.com/deploy-n8n-huggingface-supabase-guide/)
+- [How to Deploy n8n on HF Spaces (Apidog)](https://apidog.com/blog/deploy-n8n-free-huggingface/)
+- [HF Docker Spaces Documentation](https://huggingface.co/docs/hub/main/spaces-sdks-docker)
+- [n8n on HF Community Thread](https://community.n8n.io/t/how-to-deploy-n8n-in-hugging-face-space/35961)
