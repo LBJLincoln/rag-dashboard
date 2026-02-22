@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-22T09:18:55+01:00",
+  "generated_at": "2026-02-22T09:34:11+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -51,32 +51,22 @@
   "blockers": [],
   "next_action": "Phase 1 COMPLETE \u2014 run Phase 2: python3 eval/run-eval-parallel.py --dataset phase-2 --reset",
   "last_iteration": {
-    "id": "iter-2026-02-21T20-10-26",
-    "label": "Phase2-v10-batch3-overnight",
-    "timestamp": "2026-02-21T20:10:27+01:00",
-    "total_tested": 1263,
-    "overall_accuracy_pct": 57.0,
+    "id": "iter-2026-02-22T09-31-36",
+    "label": "Phase2-v11-allpipelines-batch5",
+    "timestamp": "2026-02-22T09:31:39+01:00",
+    "total_tested": 2,
+    "overall_accuracy_pct": 0.0,
     "pipelines": {
-      "graph": {
-        "tested": 400,
-        "correct": 256,
-        "accuracy": 64.0
-      },
       "standard": {
-        "tested": 363,
-        "correct": 202,
-        "accuracy": 55.6
-      },
-      "quantitative": {
-        "tested": 500,
-        "correct": 262,
-        "accuracy": 52.4
+        "tested": 2,
+        "correct": 0,
+        "accuracy": 0.0
       }
     }
   },
   "totals": {
-    "unique_questions": 1774,
-    "test_runs": 5712,
-    "iterations": 450
+    "unique_questions": 1776,
+    "test_runs": 5714,
+    "iterations": 451
   }
 }
