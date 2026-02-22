@@ -1,6 +1,6 @@
 # Multi-RAG Orchestrator — Tour de Contrôle Centrale
 
-> Last updated: 2026-02-22T14:00:00+01:00
+> Last updated: 2026-02-22T21:45:00+01:00
 
 > **CE REPO (`mon-ipad`) EST LA TOUR DE CONTRÔLE.**
 > VM Google Cloud permanente · Claude Code via Termius · Pilote 6 repos satellites
@@ -24,12 +24,14 @@
 ### HF Space — n8n distant (16 GB RAM, execution)
 | Composant | Adresse | État |
 |-----------|---------|------|
-| **n8n HF Space** | https://lbjlincoln-nomos-rag-engine.hf.space | RUNNING (cpu-basic, 16GB RAM, $0) |
+| **n8n HF Space** | https://lbjlincoln-nomos-rag-engine.hf.space | **ALL WEBHOOKS 404** — entrypoint.sh activation broken after rebuild (Session 39) |
 | n8n version | 2.8.3 (latest) | SQLite + Redis |
 | Credentials | 12/12 importes | postgres x4, redis, neo4j, pinecone x2, openrouter x4 |
-| Workflows | 9 importes | **Standard+Graph+Orchestrator OK (200)** — Quantitative: SQL gen broken (FIX-36 requis) |
+| Workflows | 9+3 PME importes | **ALL 404** — rebuild wiped activations. Needs entrypoint.sh fix with retry + verify |
 | Keep-alive | Cron VM */30 min | Empêche HF sleep |
-| REST API | **BROKEN** (FIX-15 : proxy HF strip POST body pour /api/) | Webhooks OK |
+| REST API | **BROKEN** (FIX-15 : proxy HF strip POST body pour /api/) | Webhooks **ALSO BROKEN** (404) |
+
+**CRITICAL (Session 39)** : HF Space rebuild (triggered by PME workflow push) wiped n8n database. ALL workflow activations lost. ALL webhooks return 404. No pipelines can run on HF Space until entrypoint.sh is fixed with retry logic + activation verification.
 
 **DECISION SESSION 25** : VM = pilotage UNIQUEMENT. ZERO modification workflow sur VM (Task Runner cache le code compile — Pattern 2.11). Modifications → HF Space ou Codespace.
 
@@ -120,44 +122,38 @@ scripts/codespace-control.sh monitor 30
 
 ---
 
-## ÉTAT ACTUEL — PHASE 1 (200q baseline)
+## ÉTAT ACTUEL — PHASE 2 EN COURS (1,000q par pipeline)
 
-### Pipelines RAG (mise à jour : 20 fév 2026 — Phase 1 PASSED)
-| Pipeline | Accuracy (Phase 1 only) | Target | Gap | Action |
-|----------|------------------------|--------|-----|--------|
-| Standard | **85.5%** (47/55) | >= 85% | +0.5pp | PASS |
-| Graph | **78.0%** (39/50) | >= 70% | +8.0pp | PASS |
-| Quantitative | **92.0%** (46/50) | >= 85% | +7.0pp | PASS |
-| Orchestrator | **80.0%** (40/50) | >= 70% | +10.0pp | PASS |
-| **Overall** | **83.9%** | >= 75% | +8.9pp | PASS |
+### Phase 1 — PASSED (20 fév 2026, session 30)
+| Pipeline | Accuracy (Phase 1) | Target | Status |
+|----------|-------------------|--------|--------|
+| Standard | 85.5% (47/55) | >= 85% | PASS |
+| Graph | 78.0% (39/50) | >= 70% | PASS |
+| Quantitative | 92.0% (46/50) | >= 85% | PASS |
+| Orchestrator | 80.0% (40/50) | >= 70% | PASS |
+| **Overall** | **83.9%** | >= 75% | **PASS** |
 
-### Gates Phase 1 → Phase 2 : PASSED ✅ (20 fév 2026, session 30)
-- ✅ CI smoke test : ALL 4 pipelines 5/5 PASS (GitHub Actions, commit 630f81f, 18 fév)
-- ✅ Overall accuracy : 83.9% >= 75% PASS
-- ✅ Standard : 85.5% >= 85% PASS
-- ✅ Graph : 78.0% >= 70% PASS
-- ✅ Quantitative : 92.0% >= 85% PASS
-- ✅ Orchestrator : 80.0% >= 70% PASS
-- **FIX-36** : Les scores precedents (Graph 68.7%, Quant 78.3%) incluaient des questions Phase 2 (musique, finqa) — corrige session 30
-- Prochaine action : **Lancer Phase 2 (1,000q HuggingFace)**
+### Phase 2 — EN COURS (mise à jour : 22 fév 2026, session 39-40)
+| Pipeline | Tested | Total | Accuracy | Status |
+|----------|--------|-------|----------|--------|
+| Standard | 579 | 1000 | **~36%** | STOPPED — HF Space ALL 404 after rebuild |
+| Graph | **500** | 500 | **78.0%** | COMPLETE |
+| Quantitative | **500** | 500 | **92.0%** | COMPLETE |
+| Orchestrator | 57 | 1000 | **0%** | BROKEN — returns empty/404 on every question |
+| PME Gateway | 0 | — | — | NOT ACTIVATED — HF rebuild didn't activate PME workflows |
 
-### IMPORTANT — Clarification nomenclature
-Les itérations 35-42 sont labellisées "Phase2-quant-*" dans docs/data.json.
-**Ce ne sont PAS des tests de Phase 2 officielle.** Ce sont des tests exploratoires
-du pipeline quantitatif avec des datasets de niveau Phase 2, effectués pour identifier les lacunes.
-**Phase 1 est PASSÉE (session 30, 20 fév 2026).** FIX-36 corrige le calcul des gates
-pour exclure les questions Phase 2 du calcul Phase 1.
-Les résultats exploratoires Phase 2 (Musique 41%, FinQA 40%) montrent le travail nécessaire.
+### CRITICAL BLOCKER (Session 39-40)
+**HF Space ALL WEBHOOKS 404** — entrypoint.sh activation broken after rebuild triggered by PME workflow push. NO pipelines can run until this is fixed. This is the #1 cross-pipeline bottleneck (Rule 36): fixing it unblocks Standard + Orchestrator + PME = 3+ pipelines.
 
 ### Plan des phases (A → D) — Vue d'ensemble
 | Phase | Description | Repo exécutant | Statut |
 |-------|-------------|---------------|--------|
 | **A.Phase1** | 200q baseline — 4 pipelines | rag-tests | ✅ PASSED (20 fév) |
-| **A.Phase2** | 1 000q HuggingFace | rag-tests | NEXT — Phase1 passed |
+| **A.Phase2** | 1 000q HuggingFace | rag-tests | **EN COURS** — Graph+Quant DONE, Standard+Orch BLOCKED |
 | **A.Phase3** | ~10K q | rag-tests | Prérequis : Phase2 |
 | **B. SOTA** | Recherche académique 2026 | mon-ipad | FAIT (session 13) |
-| **C. Ingestion** | 14 benchmarks + secteurs | rag-data-ingestion | PENDING (Codespace à créer) |
-| **D. Website** | Site 4 secteurs + dashboard | rag-website | EN COURS (MVP live) |
+| **C. Ingestion** | 14 benchmarks + secteurs | rag-data-ingestion | **STARTED** — 3/5 datasets downloaded (669MB) |
+| **D. Website** | Site 4 secteurs + dashboard + PME | rag-website | EN COURS (MVP live, PME sites deployed) |
 
 ### Métriques avancées (non mesurées — à implémenter Phase 2+)
 - Faithfulness >= 95% | Context Recall >= 85% | Hallucination <= 2% | Latency <= 2.5s
@@ -169,12 +165,12 @@ Les résultats exploratoires Phase 2 (Musique 41%, FinQA 40%) montrent le travai
 ### `rag-tests` — Tests des 4 pipelines
 | | |
 |-|-|
-| **Dernier commit** | 9f5a53dd — 17 fév 2026 |
-| **État** | Scripts à jour, **n8n LOCAL dans Codespace** (docker-compose, 3 workers) |
+| **Dernier commit** | Phase 2 runs — 22 fév 2026 |
+| **État** | Phase 2 partial: Graph 500/500 DONE, Quant 500/500 DONE, Std 579/1000 STOPPED, Orch 57/1000 BROKEN |
 | **Codespace** | Shutdown (à redémarrer — `docker compose up -d` au démarrage) |
-| **Prochain objectif** | Fix Quantitative 78.3%→85% (gap -6.7pp) |
-| **Commandes clés** | `docker compose up -d && python3 eval/iterative-eval.py --label "Phase1-fix-quant"` |
-| **Données** | 932 questions testées, 42 itérations, docs/data.json |
+| **Prochain objectif** | Fix HF Space → relaunch Standard + Orchestrator Phase 2 |
+| **Commandes clés** | `docker compose up -d && python3 eval/iterative-eval.py --label "Phase2-relaunch"` |
+| **Données** | 1520+ questions testées (Phase 1 + Phase 2), 50+ itérations |
 
 ### `rag-website` — Site business 4 secteurs
 | | |
@@ -874,6 +870,27 @@ nohup bash -c 'while true; do sleep 900; cd /path/to/repo && \
 # Pendant ce temps : se concentrer sur le pipeline qui bloque
 ```
 
+### Priorisation cross-pipeline (Rules 36-37)
+```
+AVANT CHAQUE FIX, RÉPONDRE À CES 2 QUESTIONS :
+
+Q1 — IMPACT TRANSVERSAL (Rule 36) :
+  "Ce fix débloque combien de pipelines ?"
+  → Fix HF Space activation = débloque Standard + Graph + Orchestrator + PME = 4 pipelines → PRIORITÉ MAX
+  → Fix Orchestrator intent = débloque Orchestrator seul = 1 pipeline → priorité basse
+
+Q2 — QUICK-WIN (Rule 37) :
+  "Combien de temps pour ce fix ?"
+  → Changer un env var = 2 min → QUICK-WIN
+  → Réécrire un prompt LLM complet = 1h → PAS un quick-win
+
+MATRICE DE DÉCISION :
+  Impact transversal HAUT + Quick-win → FAIRE EN PREMIER (gold)
+  Impact transversal HAUT + Long      → FAIRE EN SECOND (silver)
+  Impact transversal BAS  + Quick-win → FAIRE EN TROISIÈME (bronze)
+  Impact transversal BAS  + Long      → FAIRE EN DERNIER (backlog)
+```
+
 ### Escalade des bottlenecks
 | Situation | Action | Escalade |
 |-----------|--------|----------|
@@ -945,6 +962,11 @@ nohup bash -c 'while true; do sleep 900; cd /path/to/repo && \
 33. **Background testing** — Les tests qui passent (pipelines fonctionnels) tournent en `nohup` background avec auto-commit. L'agent se concentre sur la résolution des problèmes et bottlenecks. Ne JAMAIS attendre passivement qu'un test finisse si d'autres tâches sont possibles.
 34. **Bottleneck-first** — Toujours identifier et résoudre le bottleneck principal AVANT d'optimiser ce qui fonctionne. Prioriser : Infrastructure > Rate-limits > Code > Data > Modèle. Voir section "Gestion des Bottlenecks".
 35. **Pipeline isolation** — Si un pipeline est bloqué (TCP, rate-limit, code), l'isoler et lancer les autres en parallèle. Ne JAMAIS bloquer tous les tests pour un seul pipeline défaillant.
+36. **Cross-pipeline bottleneck** — AVANT de fixer un problème isolé, se demander : "Ce fix résout-il le problème pour TOUS les pipelines concernés ?" Prioriser les fixes à impact transversal (ex: un fix HF Space débloque 4 pipelines > un fix Standard qui ne débloque que Standard). Matrice : Impact_transversal × Nombre_pipelines_débloqués × Urgence.
+37. **Low-hanging fruit** — A impact égal, toujours commencer par le quick-win (fix rapide, résultat immédiat). Un fix de 5 min qui débloque 1 pipeline passe AVANT un fix de 2h qui en débloque 2. Réévaluer après chaque quick-win : le paysage des problèmes change. Ne JAMAIS s'enliser dans un fix complexe quand 3 quick-wins sont disponibles.
+38. **Executive summary always current** — `docs/executive-summary.md` DOIT refléter l'état réel du projet à tout moment. MAJ OBLIGATOIRE après chaque milestone, chaque changement de phase, chaque wipeout/incident. C'est le fichier de compréhension du projet — s'il est stale, tout le projet est opaque.
+39. **Sub-agent verification** — Les sub-agents (Session Analyzer, Repo Health Inspector) DOIVENT être vérifiés : leurs recommandations ne valent rien si elles ne sont pas APPLIQUÉES. Après chaque run sub-agent, Opus vérifie que les changements sont concrets (pas juste des recommandations dans roadmap). Si un sub-agent timeout, le relancer immédiatement.
+40. **Stale = broken** — Un fichier directive/technique stale de >24h est considéré BROKEN. Le staleness checker vérifie les headers mais PAS le contenu. Vérifier manuellement que le contenu reflète la réalité actuelle, pas juste que le timestamp est récent.
 
 ---
 

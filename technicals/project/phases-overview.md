@@ -1,6 +1,6 @@
 # Incremental Evaluation Plan — SOTA 2026
 
-> Last updated: 2026-02-19T18:00:00+01:00
+> Last updated: 2026-02-22T21:45:00+01:00
 
 ## Vue d'ensemble
 
@@ -42,9 +42,21 @@ PHASE C : Ingestion & Enrichment Pipelines
 - 3 iterations stables consecutives (pas de regression)
 - Eval complete 200q passee
 
-### Phase 2 — Expand (1,000 questions)
+**STATUS : PASSED** (20 fev 2026, session 30). Overall 83.9% >= 75%.
 
-**Prerequis** : Phase 1 gates passees.
+### Phase 2 — Expand (1,000 questions) — EN COURS
+
+**Prerequis** : Phase 1 gates passees. **PASSED 20 fev 2026.**
+
+**STATUS ACTUEL (22 fev 2026)** :
+| Pipeline | Tested | Total | Accuracy | Status |
+|----------|--------|-------|----------|--------|
+| Standard | 579 | 1000 | ~36% | STOPPED (HF Space 404) |
+| Graph | 500 | 500 | 78.0% | COMPLETE |
+| Quantitative | 500 | 500 | 92.0% | COMPLETE |
+| Orchestrator | 57 | 1000 | 0% | BROKEN (workflow bug) |
+
+**BLOCKER** : HF Space ALL WEBHOOKS 404 after rebuild. Standard + Orchestrator cannot continue.
 
 | Pipeline | Questions | Datasets HuggingFace |
 |----------|-----------|---------------------|

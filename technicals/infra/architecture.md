@@ -1,6 +1,6 @@
 # Architecture Reference — Multi-RAG Orchestrator SOTA 2026
 
-> Last updated: 2026-02-19T15:30:00+01:00
+> Last updated: 2026-02-22T21:45:00+01:00
 > Reference detaillee. Pour demarrage rapide, utiliser `docs/status.json`.
 
 ---

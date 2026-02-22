@@ -1,10 +1,11 @@
 # Processus Team-Agentic Formel — Multi-Model Strategy 2026
 
-> Last updated: 2026-02-19T18:00:00+01:00
+> Last updated: 2026-02-22T21:45:00+01:00
 > Definit les roles, la communication, les protocoles et la **strategie multi-modele**
 > entre agents Claude Code repartis sur la VM, HF Space et les Codespaces.
 > **Decision Session 25** : VM = pilotage UNIQUEMENT. Tests et modifications → HF Space (16GB) ou Codespaces (8GB).
 > **Decision Session 26** : Multi-model delegation — Opus 4.6 analyse + Sonnet 4.5 execution.
+> **Decision Session 40** : Cross-pipeline bottleneck prioritization (Rule 36) + Low-hanging fruit (Rule 37).
 
 ---
 
@@ -285,6 +286,33 @@ BOTTLENECK DÉTECTÉ
 - **Throughput** : questions/minute par pipeline (cible : Standard 4q/min, Graph 4q/min, Orch 2q/min)
 - **Error rate** : % de questions avec erreur workflow (cible : <5%)
 - **Zombie rate** : processus qui meurent silencieusement (cible : 0, mitigation : surveillance + restart)
+
+---
+
+## 3b. Priorisation Cross-Pipeline et Low-Hanging Fruit (Session 40)
+
+### Principe : Impact transversal AVANT fix isole (Rule 36)
+Avant chaque fix, repondre : **"Ce fix debloque combien de pipelines ?"**
+Un fix qui debloque 4 pipelines passe TOUJOURS avant un fix qui en debloque 1.
+
+### Principe : Quick-win AVANT fix complexe (Rule 37)
+A impact egal, commencer par le fix le plus rapide. Reevaluer apres chaque quick-win.
+
+### Matrice de decision
+```
+Impact transversal HAUT + Quick-win  → GOLD   (faire en PREMIER)
+Impact transversal HAUT + Long       → SILVER (faire en SECOND)
+Impact transversal BAS  + Quick-win  → BRONZE (faire en TROISIEME)
+Impact transversal BAS  + Long       → BACKLOG (faire en DERNIER)
+```
+
+### Exemple concret (Session 40)
+| Fix | Pipelines debloques | Temps | Priorite |
+|-----|-------------------|-------|----------|
+| Fix HF Space entrypoint.sh | Standard + Orchestrator + PME = 3 | ~30min | GOLD |
+| Fix Orchestrator intent classifier | Orchestrator = 1 | ~1h | SILVER |
+| Change env var for LLM model | Varies | ~2min | BRONZE (quick-win) |
+| Rewrite LLM prompt | 1 | ~2h | BACKLOG |
 
 ---
 

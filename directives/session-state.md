@@ -1,8 +1,8 @@
-# Session State — 22 Fevrier 2026 (Session 39 — FINAL)
+# Session State — 22 Fevrier 2026 (Session 40)
 
-> Last updated: 2026-02-22T16:45:00+01:00
+> Last updated: 2026-02-22T21:50:00+01:00
 
-## Objectif de session : Relaunch pipelines, fix repo independence, import PME workflows, start ingestion
+## Objectif de session : Fix staleness, add bottleneck/low-fruit rules, update all docs, plan self-healing agent
 
 ### CRITICAL — Running processes (nohup, survive session)
 | Process | PID | Target | Status |
@@ -91,91 +91,141 @@
 
 ---
 
-### OPTIMAL PROMPT FOR SESSION 40
+### OPTIMAL PROMPT FOR SESSION 40 — COPY-PASTE THIS TO START
 
-> **Read these files FIRST (30+ critical files):**
->
-> **Session Memory & State:**
-> 1. `directives/session-state.md` — THIS FILE (running processes, blockers, next actions)
-> 2. `directives/status.md` — Session summary
-> 3. `docs/status.json` — Live metrics
-> 4. `docs/data.json` — Dashboard data (all iterations)
-> 5. `docs/tested_ids.json` — Dedup tracker (1520 IDs)
-> 6. `docs/document-index.md` — Master file index
-> 7. `docs/executive-summary.md` — Project overview
->
-> **Technical References:**
-> 8. `technicals/debug/knowledge-base.md` — PERSISTENT BRAIN (patterns, solutions, APIs)
-> 9. `technicals/debug/fixes-library.md` — 24+ documented fixes
-> 10. `technicals/debug/diagnostic-flowchart.md` — Debug decision tree
-> 11. `technicals/infra/architecture.md` — 4 pipelines + 9 workflows, target 16
-> 12. `technicals/infra/stack.md` — Full tech stack
-> 13. `technicals/infra/credentials.md` — Service credentials
-> 14. `technicals/infra/env-vars-exhaustive.md` — 33 env vars documented
-> 15. `technicals/infra/infrastructure-plan.md` — Distributed infra plan
-> 16. `technicals/project/team-agentic-process.md` — Multi-agent process
-> 17. `technicals/project/phases-overview.md` — 5 phases and gates
-> 18. `technicals/project/improvements-roadmap.md` — 50+ improvements roadmap
-> 19. `technicals/data/sector-datasets.md` — 1000 document types, 4 sectors
->
-> **Directives:**
-> 20. `directives/objective.md` — Final objective
-> 21. `directives/workflow-process.md` — Iteration loop
-> 22. `directives/n8n-endpoints.md` — Webhook paths and API
-> 23. `directives/dataset-rationale.md` — 14 benchmarks justification
-> 24. `directives/research-methodology.md` — SOTA research directive
-> 25. `directives/repos/rag-tests.md` — rag-tests directive
-> 26. `directives/repos/rag-website.md` — rag-website directive
-> 27. `directives/repos/rag-dashboard.md` — rag-dashboard directive
-> 28. `directives/repos/rag-data-ingestion.md` — rag-data-ingestion directive
->
-> **Eval & Scripts:**
-> 29. `eval/run-eval-parallel.py` — Main eval script
-> 30. `eval/quick-test.py` — Quick pipeline test
-> 31. `scripts/auto-push.sh` — Auto-commit (PID 1534406 running)
-> 32. `scripts/migrate-to-hf-spaces.sh` — HF Space entrypoint (BROKEN — needs fix)
-> 33. `scripts/ci_full_setup.py` — CI workflow activation logic
-> 34. `scripts/ci_activate_workflows.py` — Workflow activation
->
-> **Logs (check):**
-> 35. `/tmp/phase2-v13-standard.log` — Last Standard run log
-> 36. `/tmp/phase2-v13-orch.log` — Last Orchestrator run log
->
-> **30 Rules & Commands Protocol:**
-> 1. `source .env.local` before ANY Python script
-> 2. Read `session-state.md` FIRST at session start
-> 3. Read `knowledge-base.md` Section 0 before webhook tests
-> 4. ONE fix per iteration, never multiple nodes
-> 5. 5/5 minimum before sync
-> 6. Tests SEQUENTIAL (never parallel — 503)
-> 7. ZERO credentials in git — pre-push check: `git diff --cached | grep -iE 'sk-or-|pcsk_|jV_zGdx|sbp_|hf_[A-Za-z]{10}'`
-> 8. Commit + push after each fix (origin + satellites)
-> 9. Update session-state.md after each milestone
-> 10. Update fixes-library.md after each fix
-> 11. Update knowledge-base.md DURING session (not just end)
-> 12. Push every 15-20 minutes minimum
-> 13. VM = pilotage ONLY, ZERO workflow modification on VM
-> 14. Tests → HF Space (16GB) or Codespaces (8GB), NEVER on VM
-> 15. 3 consecutive failures → AUTO-STOP
-> 16. Background testing for passing pipelines (nohup)
-> 17. Focus on bottlenecks, not what's working
-> 18. Session max 2h — at 1h45 finalize + push
-> 19. Kill old Claude processes at session start
-> 20. Pre-vol checklist before webhook tests
-> 21. Compare with `snapshot/good/` references
-> 22. `python3 eval/generate_status.py` after tests
-> 23. `python3 n8n/sync.py` after workflow fixes
-> 24. `bash scripts/check-staleness.sh` — check stale files
-> 25. Codespaces = ephemeral — PUSH results before shutdown
-> 26. `scripts/codespace-control.sh` for remote Codespace management
-> 27. Delegation: Opus analyzes, Sonnet executes, Haiku explores
-> 28. Run sub-agents in parallel for independent tasks
-> 29. `git config user.email = alexis.moret6@outlook.fr`
-> 30. Update `directives/status.md` as LAST action of session
->
-> **IMMEDIATE ACTIONS:**
-> 1. Fix HF Space entrypoint (workflows not activating — all 404)
-> 2. Debug and fix Orchestrator (0% Phase 2)
-> 3. Relaunch Standard pipeline (batch-size 5)
-> 4. Activate PME workflows + configure Google API credentials
-> 5. Set up GitHub CI for PME workflow validation
+```
+Session 40. Read CLAUDE.md first, then read these 36 files before doing ANYTHING:
+
+FILES TO READ (mandatory, in order):
+1. directives/session-state.md (THIS — blockers, running processes, next actions)
+2. directives/status.md (session 39 summary)
+3. docs/status.json (live metrics)
+4. docs/data.json (dashboard data, all iterations)
+5. docs/tested_ids.json (dedup: Standard 463, Graph 500, Quant 500, Orch 57 = 1520)
+6. docs/document-index.md (master file index)
+7. docs/executive-summary.md (project overview)
+8. technicals/debug/knowledge-base.md (PERSISTENT BRAIN — patterns, solutions, APIs)
+9. technicals/debug/fixes-library.md (24+ documented fixes)
+10. technicals/debug/diagnostic-flowchart.md (debug decision tree)
+11. technicals/infra/architecture.md (4 RAG + 3 PME + ingestion workflows)
+12. technicals/infra/stack.md (full tech stack)
+13. technicals/infra/credentials.md (service credentials — GOOGLE_API_KEY exists)
+14. technicals/infra/env-vars-exhaustive.md (33 env vars)
+15. technicals/infra/infrastructure-plan.md (distributed infra)
+16. technicals/project/team-agentic-process.md (multi-agent process)
+17. technicals/project/phases-overview.md (5 phases and gates)
+18. technicals/project/improvements-roadmap.md (50+ improvements)
+19. technicals/data/sector-datasets.md (1000 doc types, 4 sectors)
+20. directives/objective.md (final objective)
+21. directives/workflow-process.md (iteration loop)
+22. directives/n8n-endpoints.md (webhook paths)
+23. directives/dataset-rationale.md (14 benchmarks)
+24. directives/research-methodology.md (SOTA research)
+25. directives/repos/rag-tests.md
+26. directives/repos/rag-website.md
+27. directives/repos/rag-dashboard.md
+28. directives/repos/rag-data-ingestion.md
+29. eval/run-eval-parallel.py (main eval script)
+30. eval/quick-test.py (quick pipeline test)
+31. scripts/auto-push.sh (auto-commit, PID 1534406 may still run)
+32. scripts/migrate-to-hf-spaces.sh (HF Space entrypoint — BROKEN, needs fix)
+33. scripts/ci_full_setup.py (CI workflow activation logic — reference for fix)
+34. scripts/ci_activate_workflows.py (workflow activation)
+35. n8n/pme-connectors/ (3 PME workflow JSONs)
+36. /tmp/phase2-v13-standard.log + /tmp/phase2-v13-orch.log (last run logs)
+
+30 RULES & COMMANDS (follow ALL):
+1. source .env.local before ANY Python script
+2. Read session-state.md FIRST at session start
+3. Read knowledge-base.md Section 0 before webhook tests
+4. ONE fix per iteration, never multiple nodes
+5. 5/5 minimum before sync
+6. Tests SEQUENTIAL per pipeline (never parallel — 503)
+7. ZERO credentials in git — pre-push: git diff --cached | grep -iE 'sk-or-|pcsk_|jV_zGdx|sbp_|hf_'
+8. Commit + push after each fix (origin + all satellites)
+9. Update session-state.md after each milestone
+10. Update fixes-library.md after each fix
+11. Update knowledge-base.md DURING session (not end)
+12. Push every 15-20 min minimum
+13. VM = pilotage ONLY, ZERO workflow modification on VM
+14. Tests on HF Space (16GB) or Codespaces (8GB), NEVER on VM
+15. 3 consecutive failures → AUTO-STOP that pipeline
+16. Background testing (nohup) for passing pipelines
+17. Focus on bottlenecks first, not what works
+18. Session max 2h — at 1h45 finalize + push
+19. Kill old Claude processes at session start: ps aux | grep claude
+20. Pre-vol checklist before webhook tests
+21. Compare with snapshot/good/ references
+22. python3 eval/generate_status.py after tests
+23. python3 n8n/sync.py after workflow fixes
+24. bash scripts/check-staleness.sh for stale files
+25. Codespaces = ephemeral — PUSH before shutdown
+26. scripts/codespace-control.sh for remote CS management
+27. Delegation: Opus analyzes/decides, Sonnet executes, Haiku explores
+28. Run sub-agents in parallel for independent tasks
+29. git config user.email = alexis.moret6@outlook.fr
+30. Update directives/status.md as LAST action of session
+
+CRITICAL BLOCKER — FIX FIRST:
+HF Space ALL WEBHOOKS 404. Entrypoint.sh activation broken after rebuild.
+NO pipeline can run until this is fixed. Reference: scripts/ci_full_setup.py
+has the correct activation logic (cookie auth + REST API activate).
+
+AUTONOMOUS EXECUTION REQUIREMENT:
+All pipelines MUST run autonomously WITHOUT Claude Code intervention.
+Each pipeline = nohup background process with auto-commit every 15 min.
+Only stops on: (a) 3 consecutive failures auto-stop, (b) completion, (c) manual kill.
+Minimum 8-10 workflows running simultaneously across HF Space + Codespaces.
+
+TARGET PARALLEL ARCHITECTURE:
+┌─ HF Space (16GB) ──────────────────────────────────────────┐
+│ Standard RAG    — batch-size 5, parallel questions          │
+│ Graph RAG       — DONE 500/500 (skip unless re-eval)       │
+│ Quantitative    — DONE 500/500 (skip unless re-eval)       │
+│ Orchestrator    — FIX FIRST then batch-size 5              │
+│ PME Gateway     — activate + test (Google API key ready)   │
+│ PME Action Exec — activate + configure Google OAuth2       │
+│ PME WA/TG Bridge— activate + configure Telegram/WA creds  │
+└────────────────────────────────────────────────────────────┘
+┌─ Codespace: rag-data-ingestion (8GB) ─────────────────────┐
+│ Dataset downloads — fix configs (hotpotqa='distractor',    │
+│   trivia_qa='rc', skip natural_questions=gated)            │
+│ Ingestion pipeline — chunk → embed → Pinecone/Neo4j/Supa  │
+│   Target: 1000 doc types, 4 sectors, scale to 1M docs     │
+└────────────────────────────────────────────────────────────┘
+┌─ Codespace: rag-pme-connectors (8GB) ─────────────────────┐
+│ PME test suite — independent from rag-tests                │
+│ GitHub Actions CI — validate workflow JSONs before deploy  │
+│ Google API integration tests (Calendar, Gmail, Drive)      │
+└────────────────────────────────────────────────────────────┘
+
+LAUNCH SEQUENCE (do in order):
+1. Fix HF Space entrypoint activation (debug why workflows not activating)
+2. Verify all 7 HF webhooks respond (Standard, Graph, Quant, Orch, PME x3)
+3. Launch Standard (batch-size 5, early-stop 15, nohup, auto-commit)
+4. Launch Orchestrator (batch-size 3, early-stop 10, nohup) — IF fixed
+5. Launch PME Gateway tests (nohup) — IF activated
+6. Start data-ingestion codespace, fix download configs, launch ingestion
+7. Start pme-connectors codespace, set up independent test suite + CI
+8. All pipelines running in parallel, each with internal parallel batches
+9. Monitor via auto-push (every 15 min) + codespace-control.sh
+
+EACH PIPELINE RUNS LIKE THIS (template):
+source .env.local && N8N_HOST="https://lbjlincoln-nomos-rag-engine.hf.space" \
+nohup python3 eval/run-eval-parallel.py \
+  --dataset phase-2 --types <pipeline> \
+  --batch-size 5 --early-stop 15 \
+  --label "v14-<pipeline>-phase2" \
+  > /tmp/phase2-v14-<pipeline>.log 2>&1 &
+echo $! > /tmp/phase2-v14-<pipeline>.pid
+
+AUTO-COMMIT (must be running):
+nohup bash scripts/auto-push.sh 15 > /tmp/auto-push.log 2>&1 &
+
+REPORT FORMAT (every 30 min):
+| Pipeline | Tested/Total | Accuracy | Batch | Status |
+| Standard | X/1000       | X%       | 5     | running/stopped |
+| Orch     | X/1000       | X%       | 3     | running/fixed/broken |
+| PME GW   | X/—          | —        | 1     | active/404 |
+| Ingestion| X docs       | —        | —     | downloading/ingesting |
+```

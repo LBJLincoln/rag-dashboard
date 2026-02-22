@@ -1,6 +1,6 @@
 # EXECUTIVE SUMMARY — Nomos AI Multi-RAG Orchestrator
 
-> Last updated: 2026-02-20T01:00:00+01:00
+> Last updated: 2026-02-22T21:45:00+01:00
 > **Ce fichier DOIT etre consulte et mis a jour a CHAQUE session.**
 > Il est la reference unique pour comprendre tout le projet en langage clair.
 
@@ -33,21 +33,25 @@ Nomos AI est un **systeme d'intelligence artificielle qui repond a des questions
 Construire un moteur de reponse capable de traiter **1 million+ de questions** dans 4 secteurs d'activite (BTP, Industrie, Finance, Juridique) avec une precision de **85%+** et un temps de reponse de **moins de 2.5 secondes**.
 
 ### Ou en est-on ?
-- **Phase 1** (200 questions de test) : 3 pipelines sur 4 passent leurs objectifs
-- **Phase 2** (3,000 questions) : En preparation, datasets prets
-- **Bloqueur restant** : Le pipeline Quantitative fonctionne (200 OK) mais est rate-limited par OpenRouter (429 Too Many Requests). Solution identifiee : rotation de modeles LLM.
+- **Phase 1** (200 questions) : **PASSED** (83.9% overall, 20 fev 2026, session 30). Tous les 4 pipelines au-dessus de leurs cibles.
+- **Phase 2** (1,000q par pipeline) : **EN COURS** — Graph DONE (500/500, 78%), Quant DONE (500/500, 92%), Standard partial (579/1000, ~36%), Orchestrator BROKEN (57/1000, 0%)
+- **Bloqueur critique** : HF Space ALL WEBHOOKS 404 apres rebuild (session 39). Aucun pipeline ne peut tourner tant que entrypoint.sh n'est pas repare.
+- **PME** : 3 workflows importes (multi-canal-gateway, action-executor, whatsapp-telegram-bridge) mais PAS actives (404).
+- **Data ingestion** : Demarree — 3/5 datasets HuggingFace telecharges (669MB).
 
 ### Chiffres cles
 | Metrique | Valeur |
 |----------|--------|
-| Questions testees a ce jour | 932 |
-| Precision globale | 85.9% |
+| Questions testees a ce jour | **1,520+** (Phase 1 + Phase 2) |
+| Precision Phase 1 (baseline) | 83.9% (PASSED) |
+| Precision Phase 2 (partiel) | Graph 78%, Quant 92%, Std ~36%, Orch 0% |
 | Vecteurs dans Pinecone | 22,070 |
 | Entites dans Neo4j | 19,788 |
 | Lignes dans Supabase | ~17,600 |
-| Datasets sectoriels telecharges | 7,609 items |
-| Commits depuis le debut | 100+ |
-| Sessions Claude Code | 27 |
+| Datasets telecharges | 7,609 sectoriels + 669MB HuggingFace |
+| Commits depuis le debut | 200+ |
+| Sessions Claude Code | **40** |
+| Sites web live | **4** (ETI + PME connectors + PME use cases + Dashboard) |
 
 ---
 
@@ -67,7 +71,7 @@ Construire un moteur de reponse capable de traiter **1 million+ de questions** d
          |                                   |
     CLAUDE CODE CLI                    n8n (Docker)
     Modele: Opus 4.6                   Port 5678
-    Tour de controle                   9 workflows actifs
+    Tour de controle                   9+3 PME workflows (ALL 404)
     Repo: mon-ipad                     Webhooks ouverts
          |                                   |
          +-----------------------------------+
@@ -115,7 +119,7 @@ Tous les repos sont **prives** sous le compte `LBJLincoln`.
 | 3 | **rag-website** | Site vitrine ETI | Vercel (prod) | Next.js 14, 4 secteurs, chatbots |
 | 4 | **rag-dashboard** | Dashboard metriques | GitHub Pages / Vercel | HTML/JS statique, graphiques live |
 | 5 | **rag-data-ingestion** | Ingestion donnees | Codespace | Scripts download, workflows ingestion |
-| 6 | **rag-pme-connectors** | Site PME connecteurs | Vercel | Next.js 14, 12 connecteurs apps |
+| 6 | **rag-pme-connectors** | Site PME connecteurs | Vercel | Next.js 15, 15 connecteurs apps (WhatsApp, Telegram, Gmail, etc.) |
 | 7 | **rag-pme-usecases** | Site PME use cases | Vercel | Next.js 14, 200 cas d'usage |
 
 ### Relations entre repos
@@ -172,7 +176,8 @@ mon-ipad (PILOTE)
 | **n8n** | Version 2.8.3 (latest) |
 | **DB interne** | SQLite + Redis |
 | **Usage** | Execution des pipelines RAG pour les tests |
-| **Workflows** | 9 importes. **3/4 pipelines fonctionnels** (Standard 100%, Graph 100%, Orchestrator 100%). Quantitative: infra OK mais OpenRouter 429 rate limit |
+| **Status** | **ALL WEBHOOKS 404** — rebuild (session 39) wiped n8n activations. entrypoint.sh activation broken. |
+| **Workflows** | 9 RAG + 3 PME importes. **TOUS 404** apres rebuild. Needs entrypoint.sh fix with retry + verify |
 
 ### Codespaces GitHub (ephemeres — 60h/mois)
 | Element | Detail |
@@ -205,7 +210,7 @@ Question → Genere une question hypothetique (HyDE)
          → LLM genere la reponse avec les sources
 ```
 - **Base de donnees** : Pinecone `sota-rag-jina-1024` (10,411 vecteurs)
-- **Precision** : 85.5%
+- **Precision** : Phase 1: 85.5%, Phase 2: ~36% (degradation sous investigation)
 - **Webhook** : `/webhook/rag-multi-index-v3`
 
 #### Pipeline Graph (entites et relations)
@@ -216,7 +221,7 @@ Question → Extrait les entites (personnes, lieux, organisations)
          → LLM synthetise les relations trouvees
 ```
 - **Base de donnees** : Neo4j Aura (19,788 nodes, 76,717 relations)
-- **Precision** : 100% (10/10 sur HF Space)
+- **Precision** : Phase 1: 78.0%, Phase 2: 78.0% (500/500 COMPLETE)
 - **Webhook** : `/webhook/ff622742-6d71-4e91-af71-b5c666088717`
 
 #### Pipeline Quantitative (chiffres et tableaux)
@@ -227,9 +232,8 @@ Question → Analyse l'intention financiere
          → LLM interprete les resultats
 ```
 - **Base de donnees** : Supabase (financials, balance_sheet, sales_data, etc.)
-- **Precision** : 78.3% (sur VM) — HF Space: 200 OK mais OpenRouter 429 rate limit
+- **Precision** : Phase 1: 92.0%, Phase 2: 92.0% (500/500 COMPLETE)
 - **Webhook** : `/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9`
-- **Probleme actuel** : OpenRouter 429 rate limit (20 RPM par modele). Les 6 pipelines partagent le meme compteur RPM Llama 70B. Solution: changer vers Qwen 2.5 Coder 32B (pool RPM separe) + rotation 3 modeles. Voir `technicals/infra/llm-models-and-fallbacks.md`
 
 #### Pipeline Orchestrator (combine les 3)
 ```
@@ -239,7 +243,7 @@ Question → Classifie l'intention (standard/graph/quantitative/multi)
          → Aggrege les resultats
 ```
 - **Base de donnees** : Toutes (Pinecone + Neo4j + Supabase)
-- **Precision** : 80.0%
+- **Precision** : Phase 1: 80.0%, Phase 2: 0% (BROKEN — 404/empty on all questions)
 - **Webhook** : `/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0`
 
 ### Parametres d'appel (identiques pour les 4)
@@ -471,11 +475,11 @@ git push origin main
 ### Fichiers critiques (modifies regulierement)
 | Fichier | Role | Modifie a chaque session ? |
 |---------|------|---------------------------|
-| `CLAUDE.md` | Directives globales (29 regles, architecture) | Souvent |
+| `CLAUDE.md` | Directives globales (40 regles, architecture) | Souvent |
 | `directives/session-state.md` | Memoire de travail active | **TOUJOURS** |
 | `directives/status.md` | Resume de la derniere session | **TOUJOURS** (en dernier) |
 | `technicals/debug/knowledge-base.md` | Cerveau persistant (patterns, solutions) | Souvent |
-| `technicals/debug/fixes-library.md` | 35 bugs documentes | Apres chaque fix |
+| `technicals/debug/fixes-library.md` | 35+ bugs documentes | Apres chaque fix |
 | `docs/status.json` | Metriques machine-readable (auto-genere) | Apres chaque eval |
 | `docs/data.json` | Donnees de toutes les iterations | Apres chaque eval |
 | `docs/executive-summary.md` | **CE FICHIER** | **TOUJOURS** |
@@ -518,39 +522,37 @@ git push origin main
 
 ## 11. ETAT ACTUEL ET METRIQUES
 
-### Phase 1 — Accuracy (19 fevrier 2026)
+### Phase 1 — PASSED (20 fevrier 2026, session 30)
 | Pipeline | Precision | Objectif | Status | Ecart |
 |----------|-----------|----------|--------|-------|
-| Standard | **85.5%** | >= 85% | PASSE | +0.5pp |
-| Graph | **100%** (10/10) | >= 70% | **PASSE** | +30pp |
-| Quantitative | **78.3%** | >= 85% | **ECHOUE** | -6.7pp |
-| Orchestrator | **80.0%** | >= 70% | PASSE | +10pp |
-| **Global** | **85.9%** | >= 75% | **PASSE** | +10.9pp |
+| Standard | **85.5%** (47/55) | >= 85% | PASSE | +0.5pp |
+| Graph | **78.0%** (39/50) | >= 70% | PASSE | +8.0pp |
+| Quantitative | **92.0%** (46/50) | >= 85% | PASSE | +7.0pp |
+| Orchestrator | **80.0%** (40/50) | >= 70% | PASSE | +10.0pp |
+| **Global** | **83.9%** | >= 75% | **PASSE** | +8.9pp |
 
-### Bloqueur restant : Quantitative (rate limit, pas crash)
-- Le pipeline fonctionne (HTTP 200 OK sur HF Space) — FIX-29 a FIX-35 appliques
-- Infra OK: 12 noeuds s'executent correctement, credentials configurees
-- Probleme: OpenRouter 429 rate limit — 6 env vars pointent vers le meme Llama 70B (20 RPM partage)
-- Solution identifiee: Changer LLM_SQL_MODEL vers Qwen 2.5 Coder 32B (pool RPM separe, HumanEval 85%)
-- Details complets: `technicals/infra/llm-models-and-fallbacks.md`
+### Phase 2 — EN COURS (22 fevrier 2026, sessions 37-40)
+| Pipeline | Tested | Total | Accuracy | Status |
+|----------|--------|-------|----------|--------|
+| Standard | 579 | 1000 | ~36% | **STOPPED** — HF Space 404 |
+| Graph | **500** | 500 | **78.0%** | **COMPLETE** |
+| Quantitative | **500** | 500 | **92.0%** | **COMPLETE** |
+| Orchestrator | 57 | 1000 | 0% | **BROKEN** — 404/empty on every question |
+| PME Gateway | 0 | — | — | NOT ACTIVATED (404 after rebuild) |
 
-### Datasets Phase 2 (prets)
-| Dataset | Questions | Status |
-|---------|-----------|--------|
-| Graph + Quant (hf-1000.json) | 1,000 | PRET |
-| Standard + Orch (standard-orch-1000x2.json) | 2,000 | PRET |
-| Secteur Finance (6 fichiers JSONL) | 2,250 | TELECHARGE |
-| Secteur Juridique (5 fichiers JSONL) | 2,500 | TELECHARGE |
-| Secteur BTP (4 fichiers JSONL) | 1,844 | TELECHARGE |
-| Secteur Industrie (3 fichiers JSONL) | 1,015 | TELECHARGE |
+### Bloqueur critique : HF Space ALL WEBHOOKS 404
+- **Cause** : HF Space rebuild (triggered by PME workflow push in session 39) wiped n8n database
+- **Impact** : ALL workflow activations lost → ALL webhooks return 404 → NO pipeline can run
+- **Data safe** : ALL test results stored on VM (docs/tested_ids.json, logs/pipeline-results/)
+- **What was lost** : n8n runtime state (activations, credentials, execution history) — reconstructible from git
+- **Fix needed** : entrypoint.sh retry logic + activation verification step
 
-### Fixes documentes (35 au total)
-Les 35 bugs deja resolus sont dans `technicals/debug/fixes-library.md`.
-Les plus importants :
-- FIX-21 : n8n Code node cache (Task Runner)
-- FIX-22 : OpenRouter rate limiting (429)
-- FIX-26 : Webhook path/field name incorrects
-- FIX-27 : n8n REST API sans cle API
+### Fixes documentes (35+ au total)
+Les 35+ bugs documentes sont dans `technicals/debug/fixes-library.md`.
+Highlights recents :
+- FIX-36 : Phase 1 gate calculation (excluded Phase 2 questions)
+- FIX-29 to FIX-35 : Quantitative + Orchestrator fixes (sessions 27-28)
+- Session 39 : HF Space wipeout root cause identified (entrypoint.sh)
 
 ### Tests de concurrence (session 27)
 | Config | Pipelines | Concurrency | Standard | Graph | Orchestrator |
@@ -559,34 +561,28 @@ Les plus importants :
 | Moderate | 3 | 3 | 100% (23s) | 90% (26s) | 70% (35s) |
 | Stress | 3 | 5 | 100% (29s) | 90% (44s) | 0% AUTO-STOP |
 
-**Limites de concurrence recommandees** :
-- Standard : jusqu'a 5 questions simultanees (rock solid)
-- Graph : jusqu'a 3 questions simultanees (leger degrade au-dela)
-- Orchestrator : 1 question a la fois (degrade sous charge car delegue aux sous-pipelines)
-- Quantitative : non teste (rate limited)
-
-### Fixes session 27 (FIX-29 a FIX-35)
-| Fix | Description |
-|-----|-------------|
-| FIX-29 | Quant postgres→REST API, Orch bitwiseHash, 16 env vars, JWT key |
-| FIX-30 | PostgreSQL local pour Orchestrator, HTTP v4.3, continueOnFail |
-| FIX-31 | Live diagnostic server (diag-server.py) + improved error tracking |
-| FIX-32 | Quant $env Code nodes + Standard sub-workflow return |
-| FIX-33 | $env replace ALL refs at import time (n8n 2.8 blocks ALL) |
-| FIX-34 | Orchestrator: executeWorkflow → httpRequest (sub-wf return vide) |
-| FIX-35 | Quantitative: OPENROUTER_BASE_URL manquait /chat/completions |
+**Limites recommandees** : Standard 5, Graph 3, Orchestrator 1, Quantitative 1
 
 ---
 
 ## 12. PROCHAINES ETAPES
 
-### Session 28 (prochaine)
-1. **Deployer Qwen 2.5 Coder 32B comme LLM_SQL_MODEL sur HF Space** (pool RPM separe)
-2. **Implementer rotation 3 modeles dans le Code node Quantitative** (60 RPM combines)
-3. **Valider Phase 1** : full eval 200q sur les 4 pipelines (3 iterations stables)
+### Session 40 — PRIORITIES (ordre)
+1. **FIX HF SPACE ACTIVATION** — #0 priority. ALL webhooks 404. Debug entrypoint.sh, add retry + verify. CROSS-PIPELINE bottleneck: unblocks Standard + Orchestrator + PME (Rule 36).
+2. **FIX ORCHESTRATOR** — Returns 0% on Phase 2. Debug intent classifier + sub-pipeline routing.
+3. **RELAUNCH STANDARD** — batch-size 5, on fixed HF Space. Complete remaining 421/1000 questions.
+4. **ACTIVATE PME WORKFLOWS** — Configure Google API key as credential, test gateway webhook.
+5. **Complete data-ingestion** — musique + finqa downloads, start actual ingestion pipeline.
+6. **Update ALL stale files** — executive-summary (this), CLAUDE.md, technicals, directives.
+
+### Phase 2 completion targets
+- Graph : DONE (500/500)
+- Quantitative : DONE (500/500)
+- Standard : 421 questions remaining (need HF Space fix first)
+- Orchestrator : 943 questions remaining (need workflow fix first)
 
 ### Phase 2 → Phase 3
-- Phase 2 : 3,000 questions → objectifs relaxes (Graph >= 60%, Quant >= 70%)
+- Phase 2 completion : ~2-3 sessions if HF Space fixed
 - Phase 3 : ~10,000 questions → objectifs encore relaxes
 - Phase 4 : ~100K questions (infrastructure payante requise)
 - Phase 5 : 1M+ questions (production)
@@ -596,6 +592,10 @@ Les plus importants :
 - **Sonnet 4.5** : Bras — recherches web, batch commands (delegue quand pertinent)
 - **Haiku 4.5** : Sprint — exploration codebase rapide (delegue pour recherches simples)
 - Opus decide QUAND deleguer. Jamais l'inverse.
+
+### Principes de priorisation (Rules 36-37)
+- **Rule 36 — Cross-pipeline bottleneck** : Quel fix debloque le PLUS de pipelines ? Toujours prioriser les fixes a impact transversal.
+- **Rule 37 — Low-hanging fruit** : A impact egal, commencer par le quick-win. Ne jamais s'enliser dans un fix complexe quand des quick-wins sont disponibles.
 
 ---
 
