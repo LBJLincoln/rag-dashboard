@@ -1,6 +1,6 @@
 # INDEX DES DOCUMENTS — Ou trouver chaque information
 
-> Last updated: 2026-02-20T01:00:00+01:00
+> Last updated: 2026-02-22T18:15:00+01:00
 
 > **Ce fichier est un INDEX DE RECHERCHE.**
 > Quand tu cherches une information, consulte ce fichier EN PREMIER pour savoir
@@ -44,6 +44,7 @@
 | **Topologie n8n** (workers, queue, Redis) | `technicals/infra/n8n-topology.md` |
 | **RAM disponible sur VM** | `CLAUDE.md` (rechercher "970 MB") |
 | **Keep-alive HF Space** | `CLAUDE.md` Section HF Space |
+| **Limites & quotas** (tous services) | `technicals/infra/limits-quotas.md` |
 
 ---
 
@@ -256,6 +257,7 @@
 | Datasets sectoriels | `technicals/data/datasets-4-secteurs.md` | `technicals/data/sector-datasets.md` |
 | Docker containers | `CLAUDE.md` | `technicals/infra/architecture.md` |
 | Env vars (33) | `technicals/infra/env-vars-exhaustive.md` | |
+| Limites & quotas | `technicals/infra/limits-quotas.md` | |
 | Fallback LLM | `technicals/infra/llm-models-and-fallbacks.md` | |
 | Fixes documentes | `technicals/debug/fixes-library.md` | |
 | Flowchart debug | `technicals/debug/diagnostic-flowchart.md` | |
@@ -333,7 +335,8 @@ mon-ipad/
 │   │   ├── infrastructure-plan.md     ← Plan d'infrastructure distribue
 │   │   ├── env-vars-exhaustive.md     ← 33 variables d'environnement
 │   │   ├── credentials.md             ← Documentation credentials (pas les valeurs)
-│   │   └── llm-models-and-fallbacks.md ← Modeles LLM + rate limits + fallbacks
+│   │   ├── llm-models-and-fallbacks.md ← Modeles LLM + rate limits + fallbacks
+│   │   └── limits-quotas.md           ← Limites & quotas (tous services)
 │   │
 │   ├── project/                       ← GESTION PROJET
 │   │   ├── phases-overview.md         ← 5 phases (200q → 1M+)
