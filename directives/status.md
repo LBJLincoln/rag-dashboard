@@ -1,65 +1,36 @@
-# Status — 22 Fevrier 2026 (Session 38)
+# Status — 22 Fevrier 2026 (Session 39)
 
-> Last updated: 2026-02-22T13:00:00+01:00
+> Last updated: 2026-02-22T16:50:00+01:00
 
-## Session 38 = 3-Env Parallel Architecture + Dashboard Fix + Session Logs
+## Session 39 = Pipeline Relaunch, HF Space Wipeout, PME Import, Data-Ingestion Start
 
-### Current State
+### What happened
+- All 4 pipeline PIDs from Session 38 were dead (git locks + HF overload)
+- HF Space restarted → Standard worked briefly → PME workflows pushed → Rebuild wiped ALL workflows
+- Standard ran v13: 116/537 questions (45 successes, ~36% HF + ~39% LOCAL fallback)
+- Orchestrator retried: 0/21 (0%), early-stopped. Confirmed broken on Phase 2.
+- PME workflows imported to HF Space git repo but NOT activated (404 after rebuild)
+- Data-ingestion: 3/5 HF datasets downloaded (669MB) — squad_v2, triviaqa, hotpotqa
+- Google API key found in .env.local (AIzaSyBWN3...) — available for PME connectors
 
-#### Phase 1: PASSED (session 30, 20 fev)
-| Pipeline | Accuracy | Target | Status |
-|----------|----------|--------|--------|
-| Standard | 85.5% | >= 85% | PASS |
-| Graph | 78.0% | >= 70% | PASS |
-| Quantitative | 92.0% | >= 85% | PASS |
-| Orchestrator | 80.0% | >= 70% | PASS |
-| **Overall** | **83.9%** | >= 75% | **PASS** |
+### Critical blocker for Session 40
+**HF Space ALL WEBHOOKS 404** — entrypoint.sh activation broken after rebuild. NO pipelines can run.
 
-#### Phase 2 (in progress — v11 running)
-| Pipeline | Accuracy | Tested | Target | Status |
-|----------|----------|--------|--------|--------|
-| Standard | 45.7% | 335/537 | 65% | RUNNING (v11) |
-| Graph | 64.0% | 400 (v10) | 60% | PASS (v10) |
-| Quantitative | 52.4% | 500 (v10) | 70% | NEEDS WORK |
-| Orchestrator | — | 0 (pending) | 65% | PENDING |
-| **Overall (v10)** | **57.0%** | 1263 | 65% | IN PROGRESS |
+### Phase 2 cumulative results
+| Pipeline | Tested | Accuracy | Status |
+|----------|--------|----------|--------|
+| Standard | 579/1000 | ~36% | STOPPED (HF dead) |
+| Graph | 500/500 | 78.0% | COMPLETE |
+| Quantitative | 500/500 | 92.0% | COMPLETE |
+| Orchestrator | 57/1000 | 0% | BROKEN |
 
-### Sessions 34-37 Summary (previously missing)
-- **Session 34-36**: Phase 2 iterative testing (v7-v9), graph improvements, quant pipeline fixes
-- **Session 37**: v10 completed (1263q, 57%), v11 launched, limits-quotas.md created, dashboard fix attempted (incomplete), batch-size CLI added
+### Running processes
+- Auto-push (PID 1534406) — every 20 min to GitHub
+- Data-ingestion downloads on codespace (3/5 done)
 
-### v11 Live Status
-- PID 1453884, running since 08:31 UTC
-- Standard pipeline: 335/537 (45.7%), batch-size 5
-- Graph+Quant+Orchestrator: pending (after Standard)
-- Execution via HF Space webhooks
-
-### Infrastructure
-| Component | Status |
-|-----------|--------|
-| VM (n8n + Redis + Postgres) | UP (135MB free, heavy swap) |
-| HF Space (16GB) | RUNNING (v11 target) |
-| Codespace rag-tests | SHUTDOWN |
-| Codespace data-ingestion | SHUTDOWN |
-| Codespace pme-connectors | SHUTDOWN |
-| Dashboard (Vercel) | HTTP 200 but DATA BROKEN |
-| Auto-push | SETTING UP (session 38) |
-
-### Totals
-- Unique questions: 2,100
-- Test runs: 6,038
-- Iterations: 451
-
-### Key Blockers
-1. **Dashboard data pipeline**: Private repo → raw.githubusercontent.com 404
-2. **Standard accuracy dropping**: 85.5% (P1) → 45.7% (P2) — harder questions
-3. **Codespace 2-max limit**: Can't run 3 repos simultaneously as Codespaces
-4. **VM RAM**: 135MB free — pilotage only
-
-### Session 38 Objectives
-1. Design 3-env parallel architecture (HF Space + 2 Codespaces)
-2. Fix dashboard for live visibility
-3. Create auto-push script (every 20 min)
-4. Create session log archive system
-5. Actualize all stale files (9 flagged)
-6. Monitor v11 progress
+### Session 40 priorities
+1. Fix HF Space entrypoint activation (all 404)
+2. Fix Orchestrator workflow (0% Phase 2)
+3. Relaunch Standard (batch-size 5)
+4. Activate PME + configure Google credentials
+5. GitHub CI for PME validation
