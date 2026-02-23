@@ -1,57 +1,17 @@
-# Environment
-.env
-.env.local
-*.local
-.venv/
-
-# Claude Code (contains API keys)
-.claude/settings.json
-.mcp.json
-
-# Dependencies
-node_modules/
-package-lock.json
-
-# Build outputs
-dist/
-build/
-*.js.map
-
-# Outputs from agents
-outputs/
-backups/
-# modified-workflows/ - tracked for final importable n8n workflows
-final-workflows/
-# patches/ - tracked for patch-writer agent output
-
-# Logs (generic)
-*.log
-
-# Structured logs - tracked for monitoring
-# logs/ directory is tracked (execution traces, error files, DB snapshots)
-# Only ignore large/generated JSONL execution logs
-logs/executions/*.jsonl
-
 # OS
 .DS_Store
 Thumbs.db
 
-# IDE
+# Editor
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
 
-# Python
-__pycache__/
-*.pyc
+# Logs
+*.log
 
-# Temp
+# Temp files
 *.tmp
-*.temp
-snapshot/pre-jina-migration/
-
-# Large HF dataset files (>100MB — re-downloadable)
-datasets/hf/natural_questions.jsonl
-datasets/hf/narrativeqa.jsonl
-datasets/hf/triviaqa.jsonl
-website-pme-connectors/.next/
-website-pme-usecases/.next/
+.cache/
