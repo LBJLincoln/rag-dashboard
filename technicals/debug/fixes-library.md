@@ -1,6 +1,6 @@
 # Fixes Library — Multi-RAG Orchestrator
 
-> Last updated: 2026-02-23T01:10:00+01:00
+> Last updated: 2026-02-23T02:35:00+01:00
 
 > **Bibliotheque permanente de tous les bugs resolus.** A consulter EN PREMIER avant tout debug.
 > Mise a jour obligatoire apres chaque fix reussi. Session courante : Session 40 (2026-02-23).
@@ -52,6 +52,7 @@
 | 39h | Data Validation | Permanent data validator + preflight checks + all context formats | 35 | CRITIQUE |
 | 40 | VM Infrastructure | OOM → zombie processes → PG connection timeouts → all webhooks 404/503 | 40 | CRITIQUE |
 | 41 | n8n Infrastructure | FIX-05 TTL 15s→120s re-applied — still needed on e2-micro VM | 40 | CRITIQUE |
+| 42 | VM Infrastructure | Stuck executions (79 new/running) block webhook response — DELETE + restart | 40b | CRITIQUE |
 
 ---
 
@@ -805,3 +806,35 @@ Le pipeline Phase 1 (Text-to-SQL → Execute SQL → Interpret) ne fonctionne pa
 With TTL changed from `15 * seconds` to `120 * seconds`.
 **RULE** : NEVER remove FIX-05 TTL patch on e2-micro VM. The built-in 15s TTL is too short for this hardware.
 **Fichiers impactes** : `/home/termius/n8n/docker-compose.yml`, `/home/termius/n8n/task-broker-auth.service.js`
+
+---
+
+### FIX-42 — Stuck executions (79 new/running) block webhook processing
+**Session** : 40b (2026-02-23, overnight self-healing)
+**Pipeline** : ALL
+**Symptome** : All webhooks accept HTTP POST (connection established, data sent) but never respond (curl hangs, eventually times out with code 000). `healthz` returns 200. n8n logs show "Execution is already being resumed by another process" spam (50+ lines).
+**Root cause** : After OOM cascade + container restart, 79 executions stuck in `new`/`running` status in `execution_entity` table. n8n tries to resume ALL of them on startup, consuming all available processing capacity. New webhook requests are accepted but queued behind the stuck execution resume attempts and never processed.
+**Diagnosis** :
+```sql
+-- Check stuck executions
+SELECT status, COUNT(*) FROM execution_entity GROUP BY status;
+-- Result: new|77, running|2, success|14, error|11, crashed|7
+```
+**Fix** :
+```bash
+# 1. Stop n8n
+docker stop n8n-n8n-1
+# 2. Delete ALL non-final executions
+docker exec n8n-postgres-1 psql -U n8n -d n8n -t -A -c \
+  "DELETE FROM execution_entity WHERE status IN ('new', 'running', 'waiting', 'crashed');"
+# 3. Start n8n (clean activation, no resume spam)
+docker start n8n-n8n-1
+# 4. Wait 35s for full startup + webhook registration
+sleep 35
+# 5. Verify
+curl -s http://localhost:5678/healthz
+```
+**Result** : All 7 active webhooks restored to HTTP 200. Clean startup logs, no resume spam.
+**RULE** : When n8n hangs on webhook responses but healthz is OK, ALWAYS check for stuck executions first. This is the #1 cause of "webhooks accept but never respond" on the VM.
+**Prevention** : The overnight script should clean stuck executions on every restart cycle.
+**Fichiers impactes** : None (runtime fix — DB cleanup + restart)

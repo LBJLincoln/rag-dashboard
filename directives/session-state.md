@@ -1,8 +1,8 @@
-# Session State — 22 Fevrier 2026 (Session 40)
+# Session State — 23 Fevrier 2026 (Session 40b — overnight self-healing)
 
-> Last updated: 2026-02-22T21:50:00+01:00
+> Last updated: 2026-02-23T02:35:00+01:00
 
-## Objectif de session : Fix staleness, add bottleneck/low-fruit rules, update all docs, plan self-healing agent
+## Objectif de session : Fix infrastructure — restore all webhooks after OOM cascade
 
 ### CRITICAL — Running processes (nohup, survive session)
 | Process | PID | Target | Status |
@@ -60,13 +60,35 @@
 - data-ingestion: Was a keep-alive zombie, now downloading datasets
 - Google API key available: AIzaSyBWN3... (can power PME Google connectors)
 
-### Blockers (Session 40 MUST FIX)
-1. **HF Space ALL WEBHOOKS 404** — entrypoint.sh activation broken. NO pipelines can run until fixed.
-2. **Orchestrator 0% Phase 2** — returns empty/404 on every question. Workflow-level bug.
-3. **PME not activated** — workflows imported but never activated on HF Space
-4. **PME credentials missing** — Google Calendar, Gmail, Drive (key exists: AIzaSyBWN3...), Telegram, WhatsApp OAuth2
-5. **GitHub CI not testing PME** — should use GitHub Actions as quality gate for workflow validity
-6. **HF Space wipeout prevention** — need persistent storage or robust activation retry
+### Session 40b — Overnight Self-Healing (2026-02-23 01:20-02:35 UTC)
+
+#### Problem: All VM webhooks reported as DOWN
+- Deploy-overnight-v2.sh was using 10s timeout — too short for pipelines that need 40-60s
+- n8n had 79 stuck executions (new/running) from prior OOM cascade
+- Webhooks accepted connections but never responded (FIX-42: HTTP code 000)
+
+#### Fix Applied (FIX-42):
+1. Stopped n8n container
+2. Deleted 90 stuck executions from execution_entity table
+3. Restarted n8n — clean activation of all 7 workflows
+4. Verified all core webhooks respond HTTP 200
+
+#### Webhook Status After Fix:
+| Webhook | HTTP | Response Time | Notes |
+|---------|------|---------------|-------|
+| Standard | 200 | 52s | "Unable to generate answer" (app-level, not infra) |
+| Graph | 200 | 40s | Working — "Information not available" |
+| Quantitative | 200 | 2s | OpenRouter 401 "User not found" ($env blocked in Task Runner) |
+| Orchestrator | 200 | 64s | Working — returns response |
+| Dashboard | 200 | 4s | Working — returns full status JSON |
+| PME Gateway | 404 | — | Missing OpenRouter credential on VM (only 2 creds exist) |
+| PME Action | 404 | — | Missing credential — designed for HF Space |
+
+#### Remaining Blockers:
+1. **PME webhooks 404** — VM has only 2 credentials (Redis, Supabase PG). PME needs OpenRouter HTTP Header Auth.
+2. **Quantitative OpenRouter 401** — $env.OPENROUTER_API_KEY not accessible in Task Runner (FIX-32/33)
+3. **Standard "Unable to generate answer"** — Pipeline runs but LLM/Pinecone calls fail (needs investigation)
+4. **HF Space status unknown** — API returned empty; may need restart
 7. **Standard accuracy low** — ~36% on Phase 2 (vs 85.5% Phase 1). LLM or retrieval degradation.
 
 ### Key decisions

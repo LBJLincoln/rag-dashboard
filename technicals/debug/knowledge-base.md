@@ -1,6 +1,6 @@
 # Knowledge Base — Cerveau Persistant Multi-RAG
 
-> Last updated: 2026-02-23T01:10:00+01:00 (Session 40 — overnight self-healing)
+> Last updated: 2026-02-23T02:35:00+01:00 (Session 40b — overnight self-healing FIX-42)
 > **Ce document est VIVANT.** Il s'enrichit a CHAQUE session avec les solutions, patterns
 > et connaissances techniques decouvertes. A lire EN PREMIER avec `fixes-library.md`.
 > Objectif : ameliorer la performance de l'agent a chaque session.
@@ -633,6 +633,7 @@ result = evaluate(
 - **PIEGE RECURRENT** : Les anciennes sessions Claude Code restent en memoire (PID zombie). Au demarrage de session : `ps aux | grep claude | grep -v grep` et killer les anciens PID. Chaque session = ~280 MB.
 - **Nettoyage RAM** : `sync && echo 3 | sudo tee /proc/sys/vm/drop_caches` libere 20-50 MB de cache filesystem.
 - **OOM CASCADE (FIX-40)** : Quand swap atteint 100%, PostgreSQL connections timeout → n8n webhooks 404. Symptomes : healthz=OK mais "Cannot POST /webhook/..." ou 503. Fix : 1) Kill zombies (git pack-objects, old eval scripts, old claude sessions), 2) Clean execution_entity table, 3) Full docker compose down/up, 4) Wait ~65-110s startup.
+- **STUCK EXECUTION HANG (FIX-42)** : Webhooks accept HTTP connection but NEVER respond (curl hangs, HTTP code 000 on timeout). Healthz=200. Logs show "Execution is already being resumed by another process" spam. Root cause: 79+ stuck executions in `new`/`running` status. Fix: `docker stop n8n-n8n-1 && docker exec n8n-postgres-1 psql -U n8n -d n8n -c "DELETE FROM execution_entity WHERE status IN ('new','running','waiting','crashed');" && docker start n8n-n8n-1`. **This is DIFFERENT from FIX-40**: FIX-40 is 404/503, FIX-42 is "accepts but never responds" (HTTP 000).
 - **PIEGE git pack-objects** : Des `git push` echoues laissent des `git pack-objects` zombie (~80MB chacun). Overnight scripts qui push en boucle peuvent creer 4+ processus = 320MB perdus. Verifier avec `ps aux | grep pack-objects`.
 - **FIX-05 TTL OBLIGATOIRE** : Le patch task-broker-auth.service.js (15s→120s) est OBLIGATOIRE sur e2-micro. Ne JAMAIS le retirer — le Task Runner n8n ne peut pas s'authentifier en 15s sur ce hardware.
 
