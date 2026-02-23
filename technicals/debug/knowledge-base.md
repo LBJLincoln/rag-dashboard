@@ -1,6 +1,6 @@
 # Knowledge Base — Cerveau Persistant Multi-RAG
 
-> Last updated: 2026-02-23T03:15:00+01:00 (Session 40d — overnight self-healing #3)
+> Last updated: 2026-02-23T03:40:00+01:00 (Session 40e — overnight self-healing #4)
 > **Ce document est VIVANT.** Il s'enrichit a CHAQUE session avec les solutions, patterns
 > et connaissances techniques decouvertes. A lire EN PREMIER avec `fixes-library.md`.
 > Objectif : ameliorer la performance de l'agent a chaque session.
@@ -46,6 +46,12 @@
 > A second restart (after another stuck exec clean) activates ALL 7 workflows. The pattern is:
 > 1. Clean stuck executions → 2. Restart n8n → 3. Clean any new stuck execs created during shutdown → 4. Wait 25s → 5. Verify all activated in logs
 > The "Waiting for N active executions to finish" during shutdown can CREATE new stuck executions that block the next startup.
+>
+> **FIX-45 (Session 40e)**: HF Space webhooks are NOT actually down — they just need >30s timeout.
+> Previous overnight scripts used 10-30s timeout which causes HTTP 000 (timeout). Use `-m 120` for pipeline curls.
+> The deploy-overnight script must NOT report webhooks as DOWN if they just need longer timeout.
+> HF Space `/activate` endpoint confirms all 9 workflows are active. `/diag` shows recent successful executions.
+> **Quick HF Space check**: `curl -s -m 10 "https://lbjlincoln-nomos-rag-engine.hf.space/activate"` — if it returns "already active", webhooks are fine.
 
 ### 0.2 Format d'appel standard
 
