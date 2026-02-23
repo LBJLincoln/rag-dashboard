@@ -1,8 +1,38 @@
-# Session State — 23 Fevrier 2026 (Session 40f — overnight self-healing #5)
+# Session State — 23 Fevrier 2026 (Session 40g — overnight self-healing #6)
 
-> Last updated: 2026-02-23T07:15:00+01:00
+> Last updated: 2026-02-23T09:30:00+01:00
 
-## Objectif de session : Fix infrastructure — restore all webhooks after OOM cascade
+## Objectif de session : Fix infrastructure — restore all webhooks after stuck execution accumulation
+
+### Session 40g — Overnight Self-Healing #6 (2026-02-23 08:15-08:35 UTC)
+
+#### Problem: deploy-overnight script reported 9 webhooks DOWN
+- 5 stuck executions (3 new + 2 running) accumulated from previous session tests
+- n8n was healthy (healthz OK) but webhooks timed out (HTTP 000)
+- HF Space was RUNNING with all 9 workflows already active
+
+#### Fix Applied (FIX-47 — stuck exec cleanup + n8n restart):
+1. Cleaned 5 stuck executions on VM
+2. Dashboard still timed out → applied full FIX-44 pattern: restart n8n
+3. 4 new stuck executions appeared during restart shutdown → cleaned those too
+4. All 7 workflows activated cleanly after second cleanup
+5. HF Space confirmed RUNNING, /activate shows all 9 workflows "already active"
+6. Verified ALL core webhooks HTTP 200 on BOTH VM and HF Space
+
+#### Final Webhook Status:
+| Webhook | VM HTTP | VM Time | HF Space HTTP | HF Time | Notes |
+|---------|---------|---------|---------------|---------|-------|
+| Standard | **200** | 53s | **200** | 38s | Working |
+| Graph | **200** | 43s | **200** | 38s | Working |
+| Quantitative | **200** | 2.7s | **200** | 0.6s | Working |
+| Orchestrator | **200** | 64s | **200** | 38s | Working |
+| Dashboard | **200** | 0.9s | — | — | VM only (GET) |
+| Benchmark | **200** | 102s | **200** | 102s | Working (slow) |
+| SQL Exec | timeout | — | — | — | App-level issue (known) |
+| PME Gateway | 404 | — | — | — | Deactivated — needs creds |
+| PME Action | 404 | — | — | — | Deactivated — needs creds |
+
+**6/6 core VM webhooks = HTTP 200. 5/5 core HF Space webhooks = HTTP 200. 0 stuck executions. Infrastructure FULLY OPERATIONAL.**
 
 ### Session 40f — Overnight Self-Healing #5 (2026-02-23 06:15-06:25 UTC)
 
@@ -15,19 +45,6 @@
 1. Cleaned 5 stuck executions on VM (DELETE FROM execution_entity WHERE status IN ('new', 'running'))
 2. HF Space confirmed RUNNING (API stage=RUNNING), /activate shows all 9 workflows "already active"
 3. Verified ALL core webhooks HTTP 200 on BOTH VM and HF Space
-
-#### Final Webhook Status:
-| Webhook | VM HTTP | VM Time | HF Space HTTP | HF Time | Notes |
-|---------|---------|---------|---------------|---------|-------|
-| Standard | **200** | 119s | **200** | 39s | Working |
-| Graph | **200** | 81s | **200** | 38s | Working |
-| Quantitative | **200** | 43s | **200** | 0.4s | Working |
-| Orchestrator | **200** | 63s | **200** | 38s | Working |
-| Dashboard | **200** | 0.3s | — | — | VM only (GET) |
-| Benchmark | **200** | 103s | **200** | 102s | Working (slow) |
-| SQL Exec | 500 | 0.1s | 500 | 0.2s | App-level error (both) |
-| PME Gateway | 404 | — | 404 | — | Deactivated — needs creds |
-| PME Action | 404 | — | 404 | — | Deactivated — needs creds |
 
 **6/6 core VM webhooks = HTTP 200. 5/5 core HF Space webhooks = HTTP 200. 0 stuck executions. Infrastructure FULLY OPERATIONAL.**
 

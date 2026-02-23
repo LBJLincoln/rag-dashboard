@@ -1,6 +1,6 @@
 # Knowledge Base — Cerveau Persistant Multi-RAG
 
-> Last updated: 2026-02-23T03:40:00+01:00 (Session 40e — overnight self-healing #4)
+> Last updated: 2026-02-23T09:30:00+01:00 (Session 40g — overnight self-healing #6)
 > **Ce document est VIVANT.** Il s'enrichit a CHAQUE session avec les solutions, patterns
 > et connaissances techniques decouvertes. A lire EN PREMIER avec `fixes-library.md`.
 > Objectif : ameliorer la performance de l'agent a chaque session.
@@ -52,6 +52,11 @@
 > The deploy-overnight script must NOT report webhooks as DOWN if they just need longer timeout.
 > HF Space `/activate` endpoint confirms all 9 workflows are active. `/diag` shows recent successful executions.
 > **Quick HF Space check**: `curl -s -m 10 "https://lbjlincoln-nomos-rag-engine.hf.space/activate"` — if it returns "already active", webhooks are fine.
+>
+> **FIX-47 (Session 40g)**: Sometimes stuck exec cleanup alone is NOT enough — n8n healthz returns OK but webhooks
+> still timeout (HTTP 000). In this case, a full n8n restart is required (docker restart n8n-n8n-1). After restart,
+> 4 new stuck execs appear from the shutdown process — clean those too, then wait 20s for all workflows to activate.
+> **Decision tree**: stuck execs → clean → test Dashboard (fast) → if still timeout → restart n8n → clean new stuck execs → verify.
 
 ### 0.2 Format d'appel standard
 
