@@ -1,6 +1,6 @@
 # Knowledge Base — Cerveau Persistant Multi-RAG
 
-> Last updated: 2026-02-22T18:30:00+01:00 (Session Analyzer enrichment)
+> Last updated: 2026-02-23T01:10:00+01:00 (Session 40 — overnight self-healing)
 > **Ce document est VIVANT.** Il s'enrichit a CHAQUE session avec les solutions, patterns
 > et connaissances techniques decouvertes. A lire EN PREMIER avec `fixes-library.md`.
 > Objectif : ameliorer la performance de l'agent a chaque session.
@@ -632,6 +632,9 @@ result = evaluate(
 - **Disque** : 30 GB, 17 GB libres. Les datasets sectoriels font ~27 MB total — OK.
 - **PIEGE RECURRENT** : Les anciennes sessions Claude Code restent en memoire (PID zombie). Au demarrage de session : `ps aux | grep claude | grep -v grep` et killer les anciens PID. Chaque session = ~280 MB.
 - **Nettoyage RAM** : `sync && echo 3 | sudo tee /proc/sys/vm/drop_caches` libere 20-50 MB de cache filesystem.
+- **OOM CASCADE (FIX-40)** : Quand swap atteint 100%, PostgreSQL connections timeout → n8n webhooks 404. Symptomes : healthz=OK mais "Cannot POST /webhook/..." ou 503. Fix : 1) Kill zombies (git pack-objects, old eval scripts, old claude sessions), 2) Clean execution_entity table, 3) Full docker compose down/up, 4) Wait ~65-110s startup.
+- **PIEGE git pack-objects** : Des `git push` echoues laissent des `git pack-objects` zombie (~80MB chacun). Overnight scripts qui push en boucle peuvent creer 4+ processus = 320MB perdus. Verifier avec `ps aux | grep pack-objects`.
+- **FIX-05 TTL OBLIGATOIRE** : Le patch task-broker-auth.service.js (15s→120s) est OBLIGATOIRE sur e2-micro. Ne JAMAIS le retirer — le Task Runner n8n ne peut pas s'authentifier en 15s sur ce hardware.
 
 ### 7.2 Session Claude Code — Limites
 - **Duree max** : 2h par session pour conserver l'efficacite (eviter context overflow)

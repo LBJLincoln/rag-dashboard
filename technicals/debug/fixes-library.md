@@ -1,9 +1,9 @@
 # Fixes Library — Multi-RAG Orchestrator
 
-> Last updated: 2026-02-21T07:00:00+01:00
+> Last updated: 2026-02-23T01:10:00+01:00
 
 > **Bibliotheque permanente de tous les bugs resolus.** A consulter EN PREMIER avant tout debug.
-> Mise a jour obligatoire apres chaque fix reussi. Session courante : Session 34 (2026-02-21).
+> Mise a jour obligatoire apres chaque fix reussi. Session courante : Session 40 (2026-02-23).
 
 ---
 
@@ -50,6 +50,8 @@
 | 37 | Quantitative Pipeline | Phase 2 context-based questions need LLM reasoning, not SQL | 34 | CRITIQUE |
 | 38 | Evaluation | load_questions() broke 2wikimultihopqa context (wrong JSON format) | 35 | CRITIQUE |
 | 39h | Data Validation | Permanent data validator + preflight checks + all context formats | 35 | CRITIQUE |
+| 40 | VM Infrastructure | OOM → zombie processes → PG connection timeouts → all webhooks 404/503 | 40 | CRITIQUE |
+| 41 | n8n Infrastructure | FIX-05 TTL 15s→120s re-applied — still needed on e2-micro VM | 40 | CRITIQUE |
 
 ---
 
@@ -763,3 +765,43 @@ Le pipeline Phase 1 (Text-to-SQL → Execute SQL → Interpret) ne fonctionne pa
 4. `eval/run-eval.py` — Refactored `load_questions()` into modular helpers: `_embed_graph_context()`, `_embed_quant_context()`, `_load_dataset_file()`. Logs data quality summary after loading.
 **Also fixed** : Quantitative table_data now formatted as readable text (pipe-delimited) instead of raw JSON string.
 **RULE** : NEVER run eval without data validation. The preflight check is automatic — respect it.
+
+---
+
+### FIX-40 — VM OOM cascade: zombie processes → PG timeouts → all webhooks down
+**Session** : 40 (2026-02-23)
+**Pipeline** : ALL (infrastructure)
+**Symptome** : All 9 webhooks returning 404/503. n8n healthz says OK but no webhook can execute. PostgreSQL "Database connection timed out" in a loop.
+**Root cause** : Chain of failures:
+1. Overnight eval scripts (`run-eval-parallel.py`) ran for hours hitting 404s, accumulating memory
+2. Multiple `git pack-objects` processes stuck from failed pushes (~310MB total)
+3. Old Claude Code zombie session consuming ~67MB
+4. RAM: 55MB free, swap 100% full (2047/2047 MB)
+5. PostgreSQL connections timing out due to memory pressure → n8n can't serve webhooks
+6. Additionally, 106 stale executions (73 in `new` status) from queued webhook requests
+**Fix** (multi-step):
+1. Kill zombie processes: `kill <git-pack-objects PIDs> <old-eval PIDs> <old-claude PID>` → freed ~350MB
+2. Clean stale executions: `DELETE FROM execution_data; DELETE FROM execution_entity;` + VACUUM
+3. Full docker compose down/up cycle (not just restart)
+4. Wait for full n8n startup (~65-110s on e2-micro)
+**Result** : All 5 webhooks (Standard, Graph, Quant, Orchestrator, Dashboard) returning 200.
+**Prevention** :
+- Rule 27: Kill old Claude processes at session start
+- Add process cleanup to overnight scripts (kill stale git pack-objects)
+- Monitor swap usage — 100% swap = imminent cascade failure
+**Fichiers impactes** : None (runtime fix)
+
+---
+
+### FIX-41 — FIX-05 TTL re-applied: Task Runner auth 15s→120s still needed on e2-micro
+**Session** : 40 (2026-02-23)
+**Pipeline** : ALL (n8n Task Runner)
+**Symptome** : After restart, webhooks return 503 with "Task request timed out after 60 seconds" and "Task runner connection attempt failed with status code 403".
+**Root cause** : docker-compose.yml had removed the TTL patch volume mount (comment: "n8n 2.7.4 has built-in TTL handling"). But on e2-micro VM (1 vCPU, 970MB RAM), the Task Runner can't authenticate within the 15s default TTL due to slow startup.
+**Fix** : Re-added volume mount in docker-compose.yml:
+```yaml
+- ./task-broker-auth.service.js:/usr/local/lib/node_modules/n8n/dist/task-runners/task-broker/auth/task-broker-auth.service.js:ro
+```
+With TTL changed from `15 * seconds` to `120 * seconds`.
+**RULE** : NEVER remove FIX-05 TTL patch on e2-micro VM. The built-in 15s TTL is too short for this hardware.
+**Fichiers impactes** : `/home/termius/n8n/docker-compose.yml`, `/home/termius/n8n/task-broker-auth.service.js`
