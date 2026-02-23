@@ -3,7 +3,8 @@
   "outputDirectory": ".",
   "framework": null,
   "rewrites": [
-    { "source": "/", "destination": "/control-panel.html" },
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/control-panel", "destination": "/control-panel.html" },
     { "source": "/dashboard", "destination": "/docs/index.html" }
   ]
 }
