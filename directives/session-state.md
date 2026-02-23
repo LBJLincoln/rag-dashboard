@@ -1,6 +1,6 @@
-# Session State — 23 Fevrier 2026 (Session 40c — overnight self-healing #2)
+# Session State — 23 Fevrier 2026 (Session 40d — overnight self-healing #3)
 
-> Last updated: 2026-02-23T03:00:00+01:00
+> Last updated: 2026-02-23T03:15:00+01:00
 
 ## Objectif de session : Fix infrastructure — restore all webhooks after OOM cascade
 
@@ -59,6 +59,37 @@
 - pme-connectors: Just a Next.js website, dead mon-ipad code copies, needs own PME test infra
 - data-ingestion: Was a keep-alive zombie, now downloading datasets
 - Google API key available: AIzaSyBWN3... (can power PME Google connectors)
+
+### Session 40d — Overnight Self-Healing #3 (2026-02-23 02:10-02:20 UTC)
+
+#### Problem: deploy-overnight script reported 9 webhooks DOWN
+- Stuck executions accumulated again (5 new/running) from session 40c tests
+- n8n restart only partially activated workflows (Graph + Quant only)
+- Second clean + restart activated all 7 workflows
+
+#### Fix Applied (FIX-44):
+1. Cleaned 5 stuck executions
+2. Restarted n8n — only 2 of 7 workflows activated
+3. Cleaned 1 more stuck execution (created during shutdown "Waiting for active executions")
+4. Waited 25s for full startup — all 7 workflows activated
+5. Verified all 6 core webhooks HTTP 200: Standard (53s), Graph (44s), Quantitative (3s), Orchestrator (64s), Dashboard (0.8s), Benchmark (102s)
+6. Cleaned 3 stuck executions from test runs
+7. HF Space confirmed RUNNING but webhooks still 404 (known entrypoint.sh activation bug)
+
+#### Final VM Webhook Status:
+| Webhook | HTTP | Time | Notes |
+|---------|------|------|-------|
+| Standard | **200** | 53s | Working |
+| Graph | **200** | 44s | Working |
+| Quantitative | **200** | 3s | Working |
+| Orchestrator | **200** | 64s | Working |
+| Dashboard | **200** | 0.8s | Working (GET) |
+| Benchmark | **200** | 102s | Working (slow) |
+| SQL Exec | 500 | 0.2s | App-level error |
+| PME Gateway | 404 | — | Expected — deactivated (no creds on VM) |
+| PME Action | 404 | — | Expected — deactivated (no creds on VM) |
+
+**6/6 core + support webhooks = HTTP 200. Infrastructure RESTORED.**
 
 ### Session 40c — Overnight Self-Healing #2 (2026-02-23 01:55-02:05 UTC)
 

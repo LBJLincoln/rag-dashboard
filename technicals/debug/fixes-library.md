@@ -1,6 +1,6 @@
 # Fixes Library — Multi-RAG Orchestrator
 
-> Last updated: 2026-02-23T02:58:00+01:00
+> Last updated: 2026-02-23T03:15:00+01:00
 
 > **Bibliotheque permanente de tous les bugs resolus.** A consulter EN PREMIER avant tout debug.
 > Mise a jour obligatoire apres chaque fix reussi. Session courante : Session 40 (2026-02-23).
@@ -54,6 +54,7 @@
 | 41 | n8n Infrastructure | FIX-05 TTL 15s→120s re-applied — still needed on e2-micro VM | 40 | CRITIQUE |
 | 42 | VM Infrastructure | Stuck executions (79 new/running) block webhook response — DELETE + restart | 40b | CRITIQUE |
 | 43 | VM Infrastructure | PME workflows active=true but 0 webhooks registered — missing credentials silently fail | 40c | IMPORTANT |
+| 44 | VM Infrastructure | n8n restart only partially activates workflows when stuck execs exist during shutdown | 40d | CRITIQUE |
 
 ---
 

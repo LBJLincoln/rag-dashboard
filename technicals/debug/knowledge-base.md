@@ -1,6 +1,6 @@
 # Knowledge Base — Cerveau Persistant Multi-RAG
 
-> Last updated: 2026-02-23T02:58:00+01:00 (Session 40c — overnight self-healing FIX-43)
+> Last updated: 2026-02-23T03:15:00+01:00 (Session 40d — overnight self-healing #3)
 > **Ce document est VIVANT.** Il s'enrichit a CHAQUE session avec les solutions, patterns
 > et connaissances techniques decouvertes. A lire EN PREMIER avec `fixes-library.md`.
 > Objectif : ameliorer la performance de l'agent a chaque session.
@@ -41,6 +41,11 @@
 > docker exec n8n-postgres-1 psql -U n8n -d n8n -t -A -c "DELETE FROM execution_entity WHERE status IN ('new', 'running');"
 > ```
 > Then wait 10-15s for n8n to re-register webhooks. This is FIX-42/43 combined pattern.
+>
+> **FIX-44 (Session 40d)**: After cleaning stuck executions, n8n restart only activates SOME workflows.
+> A second restart (after another stuck exec clean) activates ALL 7 workflows. The pattern is:
+> 1. Clean stuck executions → 2. Restart n8n → 3. Clean any new stuck execs created during shutdown → 4. Wait 25s → 5. Verify all activated in logs
+> The "Waiting for N active executions to finish" during shutdown can CREATE new stuck executions that block the next startup.
 
 ### 0.2 Format d'appel standard
 
