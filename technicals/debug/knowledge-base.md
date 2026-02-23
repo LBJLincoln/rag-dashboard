@@ -1,6 +1,6 @@
 # Knowledge Base — Cerveau Persistant Multi-RAG
 
-> Last updated: 2026-02-23T02:35:00+01:00 (Session 40b — overnight self-healing FIX-42)
+> Last updated: 2026-02-23T02:58:00+01:00 (Session 40c — overnight self-healing FIX-43)
 > **Ce document est VIVANT.** Il s'enrichit a CHAQUE session avec les solutions, patterns
 > et connaissances techniques decouvertes. A lire EN PREMIER avec `fixes-library.md`.
 > Objectif : ameliorer la performance de l'agent a chaque session.
@@ -20,6 +20,27 @@
 | **Graph** | `6257AfT1l4FMC6lY` | `/webhook/ff622742-6d71-4e91-af71-b5c666088717` | `query` | POST |
 | **Quantitative** | `e465W7V9Q8uK6zJE` | `/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9` | `query` | POST |
 | **Orchestrator** | `aGsYnJY9nNCaTM82` | `/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0` | `query` | POST |
+
+### 0.1b Support Webhooks (VM localhost:5678)
+
+| Workflow | Workflow ID | Webhook Path | Methode | Status |
+|----------|-------------|--------------|---------|--------|
+| **Dashboard Status** | `KcfzvJD6yydxY9Uk` | `/webhook/nomos-status` | **GET** (not POST!) | Active |
+| **Benchmark V3.0** | `LKZO1QQY9jvBltP0` | `/webhook/benchmark-v2` | POST | Active (hangs ~90s) |
+| **SQL Executor** | `22k9541l9mHENlLD` | `/webhook/benchmark-sql-exec` | POST | Active (returns 500 — app-level) |
+| **PME Gateway** | `IipwYgPoWqM3axwY` | `/webhook/pme-assistant-gateway` | POST | **DEACTIVATED** — needs OpenRouter credential (VM has none) |
+| **PME Action** | `EaB5iHZsHBCBzFk2` | `/webhook/pme-action-executor` | POST | **DEACTIVATED** — needs OpenRouter + Google OAuth2 creds |
+
+> **FIX-43 (Session 40c)**: PME workflows set `active=true` in DB but n8n silently fails to register webhooks when credentials are missing. Deactivated PME on VM — they work only on HF Space (12 creds).
+
+### 0.1c Stuck Execution Pattern (CRITICAL — recurrent)
+
+> **Stuck executions (status='new' or 'running') block ALL webhook processing.**
+> After any n8n restart, OOM, or heavy load, always clean stuck executions:
+> ```bash
+> docker exec n8n-postgres-1 psql -U n8n -d n8n -t -A -c "DELETE FROM execution_entity WHERE status IN ('new', 'running');"
+> ```
+> Then wait 10-15s for n8n to re-register webhooks. This is FIX-42/43 combined pattern.
 
 ### 0.2 Format d'appel standard
 

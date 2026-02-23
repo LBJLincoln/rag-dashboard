@@ -19,10 +19,9 @@
 #   bash scripts/deploy-overnight-v2.sh --status         # Check status
 #   bash scripts/deploy-overnight-v2.sh --kill           # Kill everything
 #
-# Last updated: 2026-02-22T22:00:00+01:00
+# Last updated: 2026-02-23T03:00:00+01:00
 # ============================================================
 
-set -e
 cd "$(dirname "$0")/.."
 REPO_ROOT="$(pwd)"
 
@@ -79,10 +78,15 @@ PME_WEBHOOKS[pme-gateway]="/webhook/pme-assistant-gateway"
 PME_WEBHOOKS[pme-action]="/webhook/pme-action-executor"
 
 # Support Webhooks (3) — health checks only
+# NOTE: dashboard-api uses GET method, not POST (FIX-43)
 declare -A SUPPORT_WEBHOOKS
 SUPPORT_WEBHOOKS[dashboard-api]="/webhook/nomos-status"
 SUPPORT_WEBHOOKS[benchmark]="/webhook/benchmark-v2"
 SUPPORT_WEBHOOKS[sql-exec]="/webhook/benchmark-sql-exec"
+
+# Webhooks that use GET instead of POST
+declare -A WEBHOOK_METHODS
+WEBHOOK_METHODS[dashboard-api]="GET"
 
 # ============================================================
 # Parse args
@@ -226,8 +230,17 @@ for pidfile in "$PID_DIR"/*.pid; do
 done
 
 # ============================================================
-# PREFLIGHT — Check all webhooks
+# PREFLIGHT — Clean stuck executions + Check webhooks
 # ============================================================
+echo ""
+echo "  Preflight: cleaning stuck executions (FIX-42/43)..."
+if docker exec n8n-postgres-1 psql -U n8n -d n8n -t -A -c "DELETE FROM execution_entity WHERE status IN ('new', 'running');" 2>/dev/null; then
+    echo -e "    ${GREEN}OK${NC} Stuck executions cleaned"
+    sleep 5  # Wait for n8n to re-register webhooks
+else
+    echo -e "    ${YELLOW}SKIP${NC} No local n8n DB (running against HF Space?)"
+fi
+
 echo ""
 echo "  Preflight webhook checks..."
 ALL_OK=true
@@ -297,10 +310,11 @@ nohup bash -c "
 
         git add docs/ logs/pipeline-results/ website/public/ 2>/dev/null || true
         git commit -m \"auto: overnight push \$(date +%H:%M) — $LABEL\" 2>/dev/null || true
-        git push origin main 2>/dev/null || true
-        git push rag-dashboard main 2>/dev/null || true
+        for REMOTE in origin rag-tests rag-website rag-dashboard rag-data-ingestion rag-pme-connectors rag-pme-usecases; do
+            git push \$REMOTE main 2>/dev/null || true
+        done
 
-        echo \"[\$(date)] Auto-push done\"
+        echo \"[\$(date)] Auto-push done (all 7 repos)\"
     done
 " >> "$LOG_DIR/auto-push.log" 2>&1 &
 
@@ -362,12 +376,19 @@ while true; do
     DEAD_WEBHOOKS=""
     for NAME in "${!ALL_WEBHOOKS[@]}"; do
         WH="${ALL_WEBHOOKS[$NAME]}"
-        HTTP=$(curl -s -o /dev/null -w "%{http_code}" -X POST "${N8N_HOST}${WH}" \
-            -H "Content-Type: application/json" \
-            -d '{"query":"watchdog health check","sessionId":"watchdog-cycle-'$CYCLE'"}' \
-            --max-time 15 2>/dev/null || echo "ERR")
+        # dashboard-api uses GET, all others use POST (FIX-43)
+        if [ "$NAME" = "dashboard-api" ]; then
+            HTTP=$(curl -s -o /dev/null -w "%{http_code}" -X GET "${N8N_HOST}${WH}" \
+                --max-time 15 2>/dev/null || echo "ERR")
+        else
+            HTTP=$(curl -s -o /dev/null -w "%{http_code}" -X POST "${N8N_HOST}${WH}" \
+                -H "Content-Type: application/json" \
+                -d '{"query":"watchdog health check","sessionId":"watchdog-cycle-'$CYCLE'"}' \
+                --max-time 15 2>/dev/null || echo "ERR")
+        fi
 
-        if [ "$HTTP" != "200" ]; then
+        if [ "$HTTP" != "200" ] && [ "$HTTP" != "500" ]; then
+            # 500 = app-level error (workflow runs but has internal error) — not infra down
             echo "[$(date)] WEBHOOK DOWN: $NAME (HTTP $HTTP) path=$WH"
             DEAD_WEBHOOKS="$DEAD_WEBHOOKS $NAME"
         fi

@@ -1,6 +1,6 @@
 # Fixes Library — Multi-RAG Orchestrator
 
-> Last updated: 2026-02-23T02:35:00+01:00
+> Last updated: 2026-02-23T02:58:00+01:00
 
 > **Bibliotheque permanente de tous les bugs resolus.** A consulter EN PREMIER avant tout debug.
 > Mise a jour obligatoire apres chaque fix reussi. Session courante : Session 40 (2026-02-23).
@@ -53,6 +53,7 @@
 | 40 | VM Infrastructure | OOM → zombie processes → PG connection timeouts → all webhooks 404/503 | 40 | CRITIQUE |
 | 41 | n8n Infrastructure | FIX-05 TTL 15s→120s re-applied — still needed on e2-micro VM | 40 | CRITIQUE |
 | 42 | VM Infrastructure | Stuck executions (79 new/running) block webhook response — DELETE + restart | 40b | CRITIQUE |
+| 43 | VM Infrastructure | PME workflows active=true but 0 webhooks registered — missing credentials silently fail | 40c | IMPORTANT |
 
 ---
 
@@ -838,3 +839,31 @@ curl -s http://localhost:5678/healthz
 **RULE** : When n8n hangs on webhook responses but healthz is OK, ALWAYS check for stuck executions first. This is the #1 cause of "webhooks accept but never respond" on the VM.
 **Prevention** : The overnight script should clean stuck executions on every restart cycle.
 **Fichiers impactes** : None (runtime fix — DB cleanup + restart)
+
+### FIX-43 — PME workflows active=true but 0 webhooks registered (silent credential failure)
+**Session** : 40c (2026-02-23, overnight self-healing #2)
+**Pipeline** : PME Gateway, PME Action Executor
+**Symptome** : PME workflows show `active=true` in `workflow_entity` but `webhook_entity` has 0 rows for them. Webhook calls return 404 "not registered".
+**Root cause** : n8n sets `active=true` in the DB but fails to register webhooks when referenced credentials don't exist. The failure is SILENT — no error logs, no exception, just 0 webhooks. VM only has 2 credentials (Redis + Supabase PG). PME Gateway needs `OPENROUTER_HEADER_AUTH`, Action Executor needs that + 3 Google OAuth2 credentials.
+**Diagnosis** :
+```sql
+-- Check webhook count per workflow
+SELECT we.id, we.name, we.active,
+  (SELECT COUNT(*) FROM webhook_entity wh WHERE wh."workflowId" = we.id) as webhook_count
+FROM workflow_entity we WHERE we.active = true;
+-- Result: PME workflows show active=true, webhook_count=0
+
+-- List available credentials
+SELECT id, name, type FROM credentials_entity;
+-- Result: only Redis and Supabase PG
+```
+**Fix** : Deactivated PME workflows on VM since they can't function without credentials:
+```sql
+UPDATE workflow_entity SET active = false WHERE id IN ('EaB5iHZsHBCBzFk2', 'IipwYgPoWqM3axwY');
+```
+**RULE** : PME workflows work ONLY on HF Space (which has 12 credentials). On VM, deactivate them to prevent confusion.
+**Prevention** : Before activating any workflow, verify ALL referenced credentials exist:
+```sql
+SELECT DISTINCT node->'credentials'->>key FROM jsonb_array_elements(nodes::jsonb) AS node, LATERAL jsonb_object_keys(COALESCE(node->'credentials', '{}'::jsonb)) AS key;
+```
+**Fichiers impactes** : None (runtime — DB deactivation)
