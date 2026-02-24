@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOMOS Multi-RAG Control Center</title>
+    <title>Multi-RAG Orchestrator — Live Dashboard</title>
     <style>
         * {
             margin: 0;
@@ -11,595 +11,61 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --bg-primary: #0d1117;
-            --bg-secondary: #161b22;
-            --bg-tertiary: #21262d;
-            --border: #30363d;
-            --text-primary: #c9d1d9;
-            --text-secondary: #8b949e;
-            --accent: #58a6ff;
-            --success: #3fb950;
-            --warning: #d29922;
-            --danger: #f85149;
-            --info: #79c0ff;
-        }
-
         body {
-            font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', 'Courier New', monospace;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .layout {
-            display: flex;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: #e0e6ed;
+            padding: 20px;
             min-height: 100vh;
         }
 
-        /* Sidebar */
-        .sidebar {
-            width: 280px;
-            background: var(--bg-secondary);
-            border-right: 1px solid var(--border);
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
-            z-index: 100;
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .sidebar-header {
-            padding: 24px 20px;
-            border-bottom: 1px solid var(--border);
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .sidebar-header h1 {
-            font-size: 18px;
-            font-weight: 600;
-            background: linear-gradient(135deg, var(--accent), var(--info));
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 4px;
         }
 
-        .sidebar-header .subtitle {
-            font-size: 11px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .subtitle {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            margin-bottom: 15px;
         }
 
-        .nav {
-            padding: 12px 0;
-        }
-
-        .nav-section {
-            margin-bottom: 20px;
-        }
-
-        .nav-section-title {
-            font-size: 11px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 8px 20px;
-            margin-bottom: 4px;
-        }
-
-        .nav-item {
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 13px;
-            border-left: 3px solid transparent;
-        }
-
-        .nav-item:hover {
-            background: var(--bg-tertiary);
-        }
-
-        .nav-item.active {
-            background: var(--bg-tertiary);
-            border-left-color: var(--accent);
-            color: var(--accent);
-        }
-
-        .nav-item-icon {
-            width: 20px;
-            margin-right: 10px;
-            display: inline-block;
-        }
-
-        .status-badge {
-            font-size: 10px;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .status-active { background: rgba(63, 185, 80, 0.15); color: var(--success); }
-        .status-deployed { background: rgba(88, 166, 255, 0.15); color: var(--accent); }
-        .status-idle { background: rgba(139, 148, 158, 0.15); color: var(--text-secondary); }
-        .status-pending { background: rgba(210, 153, 34, 0.15); color: var(--warning); }
-        .status-error { background: rgba(248, 81, 73, 0.15); color: var(--danger); }
-
-        /* Main Content */
-        .main {
-            margin-left: 280px;
-            flex: 1;
-            padding: 32px;
-            max-width: calc(100vw - 280px);
-        }
-
-        .content-section {
-            display: none;
-        }
-
-        .content-section.active {
-            display: block;
-            animation: fadeIn 0.3s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Cards */
-        .card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 24px;
-            margin-bottom: 20px;
-        }
-
-        .card-header {
-            margin-bottom: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .card-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .card-subtitle {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin-top: 4px;
-        }
-
-        /* Grid */
-        .grid {
-            display: grid;
-            gap: 20px;
-        }
-
-        .grid-2 { grid-template-columns: repeat(2, 1fr); }
-        .grid-3 { grid-template-columns: repeat(3, 1fr); }
-        .grid-4 { grid-template-columns: repeat(4, 1fr); }
-
-        @media (max-width: 1400px) {
-            .grid-4 { grid-template-columns: repeat(3, 1fr); }
-        }
-
-        @media (max-width: 1024px) {
-            .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (max-width: 768px) {
-            .sidebar { width: 100%; height: auto; position: relative; }
-            .main { margin-left: 0; max-width: 100%; }
-            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-        }
-
-        /* Stats */
-        .stat-group {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .stat {
-            flex: 1;
-            min-width: 120px;
-        }
-
-        .stat-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--text-primary);
-            line-height: 1;
-            margin-bottom: 4px;
-        }
-
-        .stat-label {
-            font-size: 11px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Progress Bar */
-        .progress-bar {
-            height: 8px;
-            background: var(--bg-tertiary);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-top: 8px;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent), var(--info));
-            transition: width 0.3s;
-        }
-
-        /* Pipeline Cards */
-        .pipeline-card {
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 16px;
-        }
-
-        .pipeline-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .pipeline-name {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .pipeline-accuracy {
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .accuracy-high { color: var(--success); }
-        .accuracy-medium { color: var(--warning); }
-        .accuracy-low { color: var(--danger); }
-
-        .pipeline-progress {
-            font-size: 11px;
-            color: var(--text-secondary);
-            margin-top: 8px;
-        }
-
-        /* Architecture Diagram */
-        .architecture {
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 32px;
-            text-align: center;
-        }
-
-        .arch-node {
-            display: inline-block;
-            background: var(--bg-secondary);
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            padding: 16px 24px;
-            margin: 8px;
-            min-width: 180px;
-        }
-
-        .arch-node-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-
-        .arch-node-subtitle {
-            font-size: 10px;
-            color: var(--text-secondary);
-        }
-
-        .arch-node.primary {
-            border-color: var(--accent);
-            background: rgba(88, 166, 255, 0.05);
-        }
-
-        .arch-node.success {
-            border-color: var(--success);
-            background: rgba(63, 185, 80, 0.05);
-        }
-
-        .arch-node.warning {
-            border-color: var(--warning);
-            background: rgba(210, 153, 34, 0.05);
-        }
-
-        .arch-connector {
-            font-size: 20px;
-            color: var(--text-secondary);
-            margin: 0 8px;
-        }
-
-        .arch-layer {
-            margin: 24px 0;
-        }
-
-        .arch-layer-title {
-            font-size: 11px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 12px;
-        }
-
-        /* Repo Detail */
-        .repo-detail {
-            max-width: 900px;
-        }
-
-        .repo-header {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            margin-bottom: 24px;
-        }
-
-        .repo-icon {
-            width: 64px;
-            height: 64px;
-            background: var(--bg-tertiary);
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            flex-shrink: 0;
-        }
-
-        .repo-info {
-            flex: 1;
-        }
-
-        .repo-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-
-        .repo-description {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-        }
-
-        .repo-meta {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            font-size: 12px;
-        }
-
-        .meta-item {
-            color: var(--text-secondary);
-        }
-
-        .meta-item strong {
-            color: var(--text-primary);
-        }
-
-        .repo-link {
+        .refresh-info {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            color: var(--accent);
-            text-decoration: none;
-            font-size: 13px;
+            gap: 10px;
             padding: 8px 16px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            transition: all 0.2s;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #a5b4fc;
         }
 
-        .repo-link:hover {
-            background: var(--bg-tertiary);
-            border-color: var(--accent);
-        }
-
-        .command-list {
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 16px;
-            font-size: 12px;
-            font-family: 'SF Mono', monospace;
-        }
-
-        .command-item {
-            padding: 8px;
-            margin: 4px 0;
-            background: var(--bg-tertiary);
-            border-radius: 4px;
-            color: var(--success);
-        }
-
-        .metric-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 16px;
-        }
-
-        .metric-box {
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 12px;
-            text-align: center;
-        }
-
-        .metric-box-value {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 4px;
-        }
-
-        .metric-box-label {
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-
-        /* Executive Summary */
-        .summary-section {
-            margin-bottom: 32px;
-        }
-
-        .summary-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .summary-icon {
-            font-size: 24px;
-        }
-
-        .summary-content {
-            line-height: 1.8;
-            color: var(--text-secondary);
-        }
-
-        .summary-content strong {
-            color: var(--text-primary);
-        }
-
-        .highlight-box {
-            background: rgba(88, 166, 255, 0.1);
-            border-left: 3px solid var(--accent);
-            padding: 16px;
-            margin: 16px 0;
-            border-radius: 4px;
-        }
-
-        .highlight-box.success {
-            background: rgba(63, 185, 80, 0.1);
-            border-left-color: var(--success);
-        }
-
-        .highlight-box.warning {
-            background: rgba(210, 153, 34, 0.1);
-            border-left-color: var(--warning);
-        }
-
-        .highlight-box.danger {
-            background: rgba(248, 81, 73, 0.1);
-            border-left-color: var(--danger);
-        }
-
-        /* Timeline */
-        .timeline {
-            position: relative;
-            padding-left: 32px;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 8px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--border);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 24px;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -28px;
-            top: 4px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--accent);
-            border: 2px solid var(--bg-secondary);
-        }
-
-        .timeline-date {
-            font-size: 11px;
-            color: var(--text-secondary);
-            margin-bottom: 4px;
-        }
-
-        .timeline-content {
-            font-size: 13px;
-            color: var(--text-primary);
-        }
-
-        /* Links */
-        a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        /* Code */
-        code {
-            font-family: 'SF Mono', monospace;
-            background: var(--bg-tertiary);
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 12px;
-        }
-
-        /* Refresh indicator */
-        .refresh-indicator {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 10px 16px;
-            font-size: 12px;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 1000;
-        }
-
-        .refresh-dot {
+        .pulse {
             width: 8px;
             height: 8px;
+            background: #22c55e;
             border-radius: 50%;
-            background: var(--success);
-            animation: pulse 2s infinite;
+            animation: pulse 2s ease-in-out infinite;
         }
 
         @keyframes pulse {
@@ -607,1592 +73,639 @@
             50% { opacity: 0.3; }
         }
 
-        /* Table */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
-        th {
-            text-align: left;
-            padding: 12px;
-            background: var(--bg-tertiary);
-            color: var(--text-secondary);
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
-            font-size: 11px;
             letter-spacing: 0.5px;
         }
 
-        td {
-            padding: 12px;
-            border-top: 1px solid var(--border);
+        .status-healthy {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.4);
         }
 
-        tr:hover {
-            background: var(--bg-tertiary);
+        .status-warning {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.4);
+        }
+
+        .status-error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+
+        .status-unknown {
+            background: rgba(148, 163, 184, 0.2);
+            color: #94a3b8;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .metric-value {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #f1f5f9;
+        }
+
+        .accuracy-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .accuracy-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease, background 0.5s ease;
+        }
+
+        .accuracy-excellent {
+            background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
+        }
+
+        .accuracy-good {
+            background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+        }
+
+        .accuracy-warning {
+            background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%);
+        }
+
+        .accuracy-poor {
+            background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        .infrastructure-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .infra-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .infra-label {
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+
+        .infra-value {
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .webhook-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+        }
+
+        .webhook-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .webhook-ok { background: #22c55e; }
+        .webhook-error { background: #ef4444; }
+        .webhook-pending { background: #94a3b8; }
+
+        .timestamp {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 8px;
+            text-align: right;
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 10px;
+            color: #fca5a5;
+            font-size: 0.85rem;
         }
 
         .loading {
             text-align: center;
-            padding: 48px;
-            color: var(--text-secondary);
-            font-size: 14px;
+            padding: 40px;
+            color: #94a3b8;
+        }
+
+        .spinner {
+            border: 3px solid rgba(102, 126, 234, 0.1);
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .phase-indicator {
+            display: inline-block;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8rem; }
+            .grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="layout">
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h1>NOMOS Control</h1>
-                <div class="subtitle">Multi-RAG Orchestrator</div>
+    <div class="container">
+        <header>
+            <h1>Multi-RAG Orchestrator</h1>
+            <div class="subtitle">Live Pipeline Monitoring Dashboard</div>
+            <div class="refresh-info">
+                <span class="pulse"></span>
+                <span>Auto-refresh: 30s | Last updated: <strong id="last-updated">Loading...</strong></span>
             </div>
-            <nav class="nav">
-                <div class="nav-section">
-                    <div class="nav-section-title">Overview</div>
-                    <div class="nav-item active" data-section="executive">
-                        <span><span class="nav-item-icon">🎯</span> Executive Summary</span>
-                    </div>
-                    <div class="nav-item" data-section="architecture">
-                        <span><span class="nav-item-icon">🏗️</span> Architecture</span>
-                    </div>
-                    <div class="nav-item" data-section="pipelines">
-                        <span><span class="nav-item-icon">⚡</span> Pipelines</span>
-                    </div>
-                </div>
-                <div class="nav-section">
-                    <div class="nav-section-title">Repositories</div>
-                    <div class="nav-item" data-section="repo-mon-ipad">
-                        <span><span class="nav-item-icon">🎛️</span> mon-ipad</span>
-                        <span class="status-badge status-active">Active</span>
-                    </div>
-                    <div class="nav-item" data-section="repo-rag-tests">
-                        <span><span class="nav-item-icon">🧪</span> rag-tests</span>
-                        <span class="status-badge status-idle">Idle</span>
-                    </div>
-                    <div class="nav-item" data-section="repo-rag-website">
-                        <span><span class="nav-item-icon">🌐</span> rag-website</span>
-                        <span class="status-badge status-deployed">Deployed</span>
-                    </div>
-                    <div class="nav-item" data-section="repo-rag-dashboard">
-                        <span><span class="nav-item-icon">📊</span> rag-dashboard</span>
-                        <span class="status-badge status-deployed">Deployed</span>
-                    </div>
-                    <div class="nav-item" data-section="repo-rag-data-ingestion">
-                        <span><span class="nav-item-icon">💾</span> rag-data-ingestion</span>
-                        <span class="status-badge status-pending">Pending</span>
-                    </div>
-                    <div class="nav-item" data-section="repo-rag-pme-connectors">
-                        <span><span class="nav-item-icon">🔌</span> rag-pme-connectors</span>
-                        <span class="status-badge status-deployed">Deployed</span>
-                    </div>
-                    <div class="nav-item" data-section="repo-rag-pme-usecases">
-                        <span><span class="nav-item-icon">📚</span> rag-pme-usecases</span>
-                        <span class="status-badge status-deployed">Deployed</span>
-                    </div>
-                    <div class="nav-item" data-section="repo-rag-storage">
-                        <span><span class="nav-item-icon">🗄️</span> rag-storage</span>
-                        <span class="status-badge status-active">Active</span>
-                    </div>
-                </div>
-                <div class="nav-section">
-                    <div class="nav-section-title">Infrastructure</div>
-                    <div class="nav-item" data-section="infra-vm">
-                        <span><span class="nav-item-icon">🖥️</span> VM Google Cloud</span>
-                    </div>
-                    <div class="nav-item" data-section="infra-hf">
-                        <span><span class="nav-item-icon">🤗</span> HF Space</span>
-                    </div>
-                    <div class="nav-item" data-section="infra-databases">
-                        <span><span class="nav-item-icon">🗃️</span> Databases</span>
-                    </div>
-                </div>
-            </nav>
-        </aside>
+        </header>
 
-        <!-- Main Content -->
-        <main class="main">
-            <!-- Executive Summary Section -->
-            <section class="content-section active" id="executive">
-                <div class="summary-section">
-                    <div class="summary-title">
-                        <span class="summary-icon">🎯</span>
-                        <span>Executive Summary</span>
-                    </div>
-                    <div class="card">
-                        <div class="summary-content">
-                            <p><strong>Mission:</strong> Multi-RAG Orchestrator — Production-grade RAG system across 4 sectors (BTP, Finance, Industrie, Juridique) with 200+ PME use cases.</p>
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <div>Loading pipeline data...</div>
+        </div>
 
-                            <div class="highlight-box success">
-                                <strong>✅ Phase 1 PASSED</strong> — 20 Feb 2026<br>
-                                Overall accuracy: <strong>83.9%</strong> (205 questions tested)<br>
-                                Standard: 85.5% | Graph: 78.0% | Quantitative: 92.0% | Orchestrator: 80.0%
-                            </div>
-
-                            <div class="highlight-box warning">
-                                <strong>⚠️ Phase 2 IN PROGRESS</strong> — 1000q per pipeline<br>
-                                Graph: <strong>500/500 COMPLETE (78.0%)</strong><br>
-                                Quantitative: <strong>500/500 COMPLETE (92.0%)</strong><br>
-                                Standard: <strong>579/1000 RE-RUNNING</strong> (was 404 after HF rebuild)<br>
-                                Orchestrator: <strong>57/1000 RE-RUNNING</strong> (was 0% after HF rebuild)<br>
-                                PME: <strong>NOT ACTIVATED</strong> (HF rebuild wiped activations)
-                            </div>
-
-                            <div class="highlight-box danger">
-                                <strong>🔴 CRITICAL BLOCKER (Session 39-40)</strong><br>
-                                HF Space rebuild (triggered by PME workflow push) wiped n8n database.<br>
-                                ALL workflow activations lost. ALL webhooks returned 404.<br>
-                                <strong>FIX APPLIED (Session 46):</strong> entrypoint.sh v4.0 with sqlite3 direct activation + auto-ID generation.<br>
-                                Standard & Orchestrator pipelines now re-running on HF Space.
-                            </div>
-
-                            <p><strong>Architecture:</strong> VM Google Cloud (pilotage only, n8n REMOVED Session 42) + HF Space n8n (16GB RAM, 13 workflows) + 7 GitHub repos (5 active satellites) + Codespaces (ephemeral compute) + Cloud DBs (Pinecone, Neo4j, Supabase)</p>
-
-                            <p><strong>Deployment Status:</strong></p>
-                            <ul style="margin-left: 20px; margin-top: 8px;">
-                                <li><strong>Website ETI (4 sectors):</strong> Live at <a href="https://nomos-ai-pied.vercel.app" target="_blank">nomos-ai-pied.vercel.app</a></li>
-                                <li><strong>PME Connectors (15 apps):</strong> Live at <a href="https://nomos-pme-connectors-alexis-morets-projects.vercel.app" target="_blank">nomos-pme-connectors.vercel.app</a></li>
-                                <li><strong>PME Use Cases (200):</strong> Live at <a href="https://nomos-pme-usecases-alexis-morets-projects.vercel.app" target="_blank">nomos-pme-usecases.vercel.app</a></li>
-                                <li><strong>Dashboard:</strong> Live at <a href="https://nomos-dashboard-alexis-morets-projects.vercel.app" target="_blank">nomos-dashboard.vercel.app</a></li>
-                            </ul>
-
-                            <p style="margin-top: 16px;"><strong>Next Actions:</strong></p>
-                            <ol style="margin-left: 20px; margin-top: 8px;">
-                                <li>Monitor Standard & Orchestrator Phase 2 completion (re-running after fix)</li>
-                                <li>Activate PME workflows on HF Space (3 workflows: Gateway, Ingestion, Enrichment)</li>
-                                <li>Launch Phase 2 for PME pipeline (1000 questions)</li>
-                                <li>Complete Phase 2 for all 5 pipelines</li>
-                                <li>Implement advanced metrics (Faithfulness, Context Recall, Hallucination, Latency)</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="summary-section">
-                    <div class="summary-title">
-                        <span class="summary-icon">📊</span>
-                        <span>Key Metrics</span>
-                    </div>
-                    <div class="grid grid-4">
-                        <div class="card">
-                            <div class="stat">
-                                <div class="stat-value">7</div>
-                                <div class="stat-label">Active Repos</div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="stat">
-                                <div class="stat-value">13</div>
-                                <div class="stat-label">n8n Workflows</div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="stat">
-                                <div class="stat-value">2,308</div>
-                                <div class="stat-label">Questions Tested</div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="stat">
-                                <div class="stat-value">6,622</div>
-                                <div class="stat-label">Test Runs</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="summary-section">
-                    <div class="summary-title">
-                        <span class="summary-icon">🔄</span>
-                        <span>Recent Updates</span>
-                    </div>
-                    <div class="card">
-                        <div class="timeline">
-                            <div class="timeline-item">
-                                <div class="timeline-date">2026-02-23 (Session 46)</div>
-                                <div class="timeline-content">
-                                    <strong>FIX:</strong> entrypoint.sh v4.0 — sqlite3 direct activation (bypasses REST API)<br>
-                                    Auto-generates missing IDs, strips shared/activeVersion/tags, uses PATCH re-activation for n8n 2.9.x
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-date">2026-02-23 (Session 42)</div>
-                                <div class="timeline-content">
-                                    <strong>REMOVED:</strong> n8n from VM (freed ~270MB RAM)<br>
-                                    All eval scripts now default to HF Space. Guard blocks prevent accidental VM localhost usage.
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-date">2026-02-22 (Session 39-40)</div>
-                                <div class="timeline-content">
-                                    <strong>CRITICAL:</strong> HF Space rebuild wiped n8n database<br>
-                                    ALL webhooks returned 404. Graph & Quant Phase 2 completed before incident (500/500 each).
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-date">2026-02-20 (Session 30)</div>
-                                <div class="timeline-content">
-                                    <strong>MILESTONE:</strong> Phase 1 PASSED<br>
-                                    Overall accuracy: 83.9% (target ≥75%). All 4 pipelines validated.
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-date">2026-02-17 (Session 13)</div>
-                                <div class="timeline-content">
-                                    <strong>DEPLOYED:</strong> Website ETI + PME sites live<br>
-                                    4 Vercel deployments: nomos-ai-pied, pme-connectors, pme-usecases, dashboard
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Architecture Section -->
-            <section class="content-section" id="architecture">
-                <div class="summary-title">
-                    <span class="summary-icon">🏗️</span>
-                    <span>System Architecture</span>
-                </div>
-
-                <div class="architecture">
-                    <div class="arch-layer">
-                        <div class="arch-layer-title">Control Layer</div>
-                        <div class="arch-node primary">
-                            <div class="arch-node-title">VM Google Cloud</div>
-                            <div class="arch-node-subtitle">34.136.180.66 • e2-micro • 1GB RAM</div>
-                            <div class="arch-node-subtitle">Pilotage Only (n8n removed)</div>
-                        </div>
-                    </div>
-
-                    <div class="arch-connector">↓</div>
-
-                    <div class="arch-layer">
-                        <div class="arch-layer-title">Execution Layer</div>
-                        <div class="arch-node success">
-                            <div class="arch-node-title">HF Space</div>
-                            <div class="arch-node-subtitle">n8n 2.8.4 • 16GB RAM</div>
-                            <div class="arch-node-subtitle">13 workflows • SQLite</div>
-                        </div>
-                        <span class="arch-connector">+</span>
-                        <div class="arch-node success">
-                            <div class="arch-node-title">Codespaces</div>
-                            <div class="arch-node-subtitle">8GB RAM • 60h/month</div>
-                            <div class="arch-node-subtitle">Ephemeral compute</div>
-                        </div>
-                    </div>
-
-                    <div class="arch-connector">↓</div>
-
-                    <div class="arch-layer">
-                        <div class="arch-layer-title">Storage Layer</div>
-                        <div class="arch-node warning">
-                            <div class="arch-node-title">Pinecone</div>
-                            <div class="arch-node-subtitle">10,411 vectors</div>
-                        </div>
-                        <span class="arch-connector">+</span>
-                        <div class="arch-node warning">
-                            <div class="arch-node-title">Neo4j</div>
-                            <div class="arch-node-subtitle">19,788 nodes</div>
-                        </div>
-                        <span class="arch-connector">+</span>
-                        <div class="arch-node warning">
-                            <div class="arch-node-title">Supabase</div>
-                            <div class="arch-node-subtitle">40 tables</div>
-                        </div>
-                    </div>
-
-                    <div class="arch-connector">↓</div>
-
-                    <div class="arch-layer">
-                        <div class="arch-layer-title">Presentation Layer</div>
-                        <div class="arch-node primary">
-                            <div class="arch-node-title">Vercel</div>
-                            <div class="arch-node-subtitle">4 deployments • CDG1</div>
-                            <div class="arch-node-subtitle">ETI + PME sites</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" style="margin-top: 24px;">
-                    <div class="card-title">Repository Topology</div>
-                    <div class="card-subtitle">7 repositories orchestrated from mon-ipad control center</div>
-                    <table style="margin-top: 16px;">
-                        <thead>
-                            <tr>
-                                <th>Repo</th>
-                                <th>Role</th>
-                                <th>Runtime</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>mon-ipad</strong></td>
-                                <td>Control Tower</td>
-                                <td>VM Google Cloud</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>rag-tests</strong></td>
-                                <td>Pipeline Testing</td>
-                                <td>Codespace (8GB)</td>
-                                <td><span class="status-badge status-idle">Idle</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>rag-website</strong></td>
-                                <td>ETI Website (4 sectors)</td>
-                                <td>Vercel (CDG1)</td>
-                                <td><span class="status-badge status-deployed">Deployed</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>rag-pme-connectors</strong></td>
-                                <td>PME Connectors (15 apps)</td>
-                                <td>Vercel (CDG1)</td>
-                                <td><span class="status-badge status-deployed">Deployed</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>rag-pme-usecases</strong></td>
-                                <td>PME Use Cases (200)</td>
-                                <td>Vercel (CDG1)</td>
-                                <td><span class="status-badge status-deployed">Deployed</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>rag-dashboard</strong></td>
-                                <td>Live Metrics Dashboard</td>
-                                <td>Vercel (IAD1)</td>
-                                <td><span class="status-badge status-deployed">Deployed</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>rag-data-ingestion</strong></td>
-                                <td>Data Ingestion</td>
-                                <td>Codespace (not created)</td>
-                                <td><span class="status-badge status-pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>rag-storage</strong></td>
-                                <td>Central Archive</td>
-                                <td>GitHub</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- Pipelines Section -->
-            <section class="content-section" id="pipelines">
-                <div class="summary-title">
-                    <span class="summary-icon">⚡</span>
-                    <span>RAG Pipelines Status</span>
-                </div>
-
+        <div id="content" style="display: none;">
+            <!-- Phase & Overall Status -->
+            <section style="margin-bottom: 30px;">
                 <div class="card">
                     <div class="card-header">
-                        <div>
-                            <div class="card-title">Phase 1: Baseline Validation (200q)</div>
-                            <div class="card-subtitle">Completed 2026-02-20 — Overall 83.9% PASS</div>
-                        </div>
+                        <h2 class="card-title">System Overview</h2>
+                        <span id="overall-status" class="status-badge status-unknown">Loading</span>
                     </div>
-                    <div class="grid grid-2">
-                        <div class="pipeline-card">
-                            <div class="pipeline-header">
-                                <div class="pipeline-name">Standard RAG V3.4</div>
-                                <div class="pipeline-accuracy accuracy-high">85.5%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 85.5%"></div>
-                            </div>
-                            <div class="pipeline-progress">47/55 correct • Target: ≥85% • PASS</div>
-                        </div>
-                        <div class="pipeline-card">
-                            <div class="pipeline-header">
-                                <div class="pipeline-name">Graph RAG V3.3</div>
-                                <div class="pipeline-accuracy accuracy-medium">78.0%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 78%"></div>
-                            </div>
-                            <div class="pipeline-progress">39/50 correct • Target: ≥70% • PASS</div>
-                        </div>
-                        <div class="pipeline-card">
-                            <div class="pipeline-header">
-                                <div class="pipeline-name">Quantitative V2.0</div>
-                                <div class="pipeline-accuracy accuracy-high">92.0%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 92%"></div>
-                            </div>
-                            <div class="pipeline-progress">46/50 correct • Target: ≥85% • PASS</div>
-                        </div>
-                        <div class="pipeline-card">
-                            <div class="pipeline-header">
-                                <div class="pipeline-name">Orchestrator V10.1</div>
-                                <div class="pipeline-accuracy accuracy-medium">80.0%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 80%"></div>
-                            </div>
-                            <div class="pipeline-progress">40/50 correct • Target: ≥70% • PASS</div>
-                        </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Current Phase</span>
+                        <span class="metric-value" id="phase-name">-</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Overall Accuracy</span>
+                        <span class="metric-value" id="overall-accuracy">-</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Total Questions Tested</span>
+                        <span class="metric-value" id="total-questions">-</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Total Test Runs</span>
+                        <span class="metric-value" id="total-runs">-</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Active Blockers</span>
+                        <span class="metric-value" id="blockers-count">-</span>
                     </div>
                 </div>
+            </section>
 
+            <!-- Pipeline Cards -->
+            <section>
+                <h2 style="margin-bottom: 20px; color: #f1f5f9; font-size: 1.5rem;">Pipeline Status</h2>
+                <div class="grid" id="pipeline-grid">
+                    <!-- Pipelines will be inserted here -->
+                </div>
+            </section>
+
+            <!-- Infrastructure Status -->
+            <section style="margin-top: 30px;">
                 <div class="card">
                     <div class="card-header">
-                        <div>
-                            <div class="card-title">Phase 2: Scale Testing (1000q per pipeline)</div>
-                            <div class="card-subtitle">In Progress — HF Space recovery after rebuild</div>
-                        </div>
+                        <h2 class="card-title">Infrastructure Health</h2>
+                        <span id="infra-status" class="status-badge status-unknown">Checking</span>
                     </div>
-                    <div class="grid grid-2">
-                        <div class="pipeline-card">
-                            <div class="pipeline-header">
-                                <div class="pipeline-name">Standard RAG V3.4</div>
-                                <div class="pipeline-accuracy accuracy-low">~36%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 57.9%"></div>
-                            </div>
-                            <div class="pipeline-progress">579/1000 tested • RE-RUNNING (was 404)</div>
-                        </div>
-                        <div class="pipeline-card">
-                            <div class="pipeline-header">
-                                <div class="pipeline-name">Graph RAG V3.3</div>
-                                <div class="pipeline-accuracy accuracy-medium">78.0%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 100%"></div>
-                            </div>
-                            <div class="pipeline-progress">500/500 tested • COMPLETE ✓</div>
-                        </div>
-                        <div class="pipeline-card">
-                            <div class="pipeline-header">
-                                <div class="pipeline-name">Quantitative V2.0</div>
-                                <div class="pipeline-accuracy accuracy-high">92.0%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 100%"></div>
-                            </div>
-                            <div class="pipeline-progress">500/500 tested • COMPLETE ✓</div>
-                        </div>
-                        <div class="pipeline-card">
-                            <div class="pipeline-header">
-                                <div class="pipeline-name">Orchestrator V10.1</div>
-                                <div class="pipeline-accuracy accuracy-low">0%</div>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 5.7%"></div>
-                            </div>
-                            <div class="pipeline-progress">57/1000 tested • RE-RUNNING (was 404)</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="highlight-box warning">
-                    <strong>⚠️ Phase 2 Recovery Status:</strong><br>
-                    Graph & Quantitative completed BEFORE HF Space rebuild incident (500/500 each).<br>
-                    Standard & Orchestrator stopped mid-run after webhooks went 404.<br>
-                    <strong>Fix applied Session 46:</strong> entrypoint.sh v4.0 with sqlite3 direct activation.<br>
-                    Standard & Orchestrator now re-running from where they stopped.
-                </div>
-
-                <div class="card">
-                    <div class="card-title">Pipeline Details</div>
-                    <table style="margin-top: 16px;">
-                        <thead>
-                            <tr>
-                                <th>Pipeline</th>
-                                <th>Version</th>
-                                <th>Database</th>
-                                <th>Webhook Path</th>
-                                <th>Phase 1</th>
-                                <th>Phase 2</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Standard</strong></td>
-                                <td>V3.4</td>
-                                <td>Pinecone</td>
-                                <td><code>/webhook/rag-multi-index-v3</code></td>
-                                <td><span class="status-badge status-active">85.5% ✓</span></td>
-                                <td><span class="status-badge status-warning">579/1000</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Graph</strong></td>
-                                <td>V3.3</td>
-                                <td>Neo4j + Supabase</td>
-                                <td><code>/webhook/ff622742-...</code></td>
-                                <td><span class="status-badge status-active">78.0% ✓</span></td>
-                                <td><span class="status-badge status-active">500/500 ✓</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Quantitative</strong></td>
-                                <td>V2.0</td>
-                                <td>Supabase</td>
-                                <td><code>/webhook/3e0f8010-...</code></td>
-                                <td><span class="status-badge status-active">92.0% ✓</span></td>
-                                <td><span class="status-badge status-active">500/500 ✓</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Orchestrator</strong></td>
-                                <td>V10.1</td>
-                                <td>Meta (routes to all)</td>
-                                <td><code>/webhook/92217bb8-...</code></td>
-                                <td><span class="status-badge status-active">80.0% ✓</span></td>
-                                <td><span class="status-badge status-warning">57/1000</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>PME Gateway</strong></td>
-                                <td>V1.0</td>
-                                <td>Multiple</td>
-                                <td><code>/webhook/pme-gateway</code></td>
-                                <td><span class="status-badge status-idle">Not tested</span></td>
-                                <td><span class="status-badge status-pending">Not activated</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- Repository Detail Sections (one per repo) -->
-            <section class="content-section" id="repo-mon-ipad">
-                <div class="repo-detail">
-                    <div class="repo-header">
-                        <div class="repo-icon">🎛️</div>
-                        <div class="repo-info">
-                            <div class="repo-title">mon-ipad</div>
-                            <div class="repo-description">Tour de pilotage — Scripts, directives, workflow definitions, MCP servers</div>
-                            <div class="repo-meta">
-                                <div class="meta-item"><strong>Runtime:</strong> VM Google Cloud (34.136.180.66)</div>
-                                <div class="meta-item"><strong>Status:</strong> <span class="status-badge status-active">Active</span></div>
-                                <div class="meta-item"><strong>Model:</strong> Claude Opus 4.6</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Repository Links</div>
-                        <div style="display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap;">
-                            <a href="https://github.com/LBJLincoln/mon-ipad" target="_blank" class="repo-link">
-                                <span>📦</span> GitHub
-                            </a>
-                            <a href="https://github.com/LBJLincoln/mon-ipad/tree/main/directives" target="_blank" class="repo-link">
-                                <span>📋</span> Directives
-                            </a>
-                            <a href="https://github.com/LBJLincoln/mon-ipad/tree/main/eval" target="_blank" class="repo-link">
-                                <span>🧪</span> Eval Scripts
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Metrics</div>
-                        <div class="metric-grid">
-                            <div class="metric-box">
-                                <div class="metric-box-value">957</div>
-                                <div class="metric-box-label">Tracked Files</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">15</div>
-                                <div class="metric-box-label">Directives</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">8</div>
-                                <div class="metric-box-label">Eval Scripts</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">13</div>
-                                <div class="metric-box-label">Workflow Defs</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Current Objective</div>
-                        <p style="color: var(--text-secondary); margin-top: 8px;">
-                            Monitor Standard & Orchestrator Phase 2 completion after HF Space fix. Prepare PME workflow activation.
-                        </p>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Key Commands</div>
-                        <div class="command-list">
-                            <div class="command-item">bash scripts/deploy-hf-space.sh</div>
-                            <div class="command-item">bash scripts/push-directives.sh</div>
-                            <div class="command-item">python3 eval/generate_status.py</div>
-                            <div class="command-item">bash scripts/codespace-control.sh monitor 30</div>
-                        </div>
+                    <div class="infrastructure-grid" id="infra-grid">
+                        <!-- Infrastructure items will be inserted here -->
                     </div>
                 </div>
             </section>
+        </div>
 
-            <section class="content-section" id="repo-rag-tests">
-                <div class="repo-detail">
-                    <div class="repo-header">
-                        <div class="repo-icon">🧪</div>
-                        <div class="repo-info">
-                            <div class="repo-title">rag-tests</div>
-                            <div class="repo-description">4-pipeline evaluation — Phase 1 PASSED (83.9%), Phase 2 in progress</div>
-                            <div class="repo-meta">
-                                <div class="meta-item"><strong>Runtime:</strong> Codespace (8GB RAM)</div>
-                                <div class="meta-item"><strong>Status:</strong> <span class="status-badge status-idle">Idle</span></div>
-                                <div class="meta-item"><strong>Codespace:</strong> nomos-rag-tests-5g6g5q9vjjwjf5g4</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Repository Links</div>
-                        <div style="display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap;">
-                            <a href="https://github.com/LBJLincoln/rag-tests" target="_blank" class="repo-link">
-                                <span>📦</span> GitHub
-                            </a>
-                            <a href="https://github.com/LBJLincoln/rag-tests/tree/main/eval" target="_blank" class="repo-link">
-                                <span>🧪</span> Tests
-                            </a>
-                            <a href="https://github.com/LBJLincoln/rag-tests/tree/main/datasets" target="_blank" class="repo-link">
-                                <span>📊</span> Datasets
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Metrics</div>
-                        <div class="metric-grid">
-                            <div class="metric-box">
-                                <div class="metric-box-value">2,308</div>
-                                <div class="metric-box-label">Questions Tested</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">6,622</div>
-                                <div class="metric-box-label">Test Runs</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">578</div>
-                                <div class="metric-box-label">Iterations</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">83.9%</div>
-                                <div class="metric-box-label">Phase 1 Accuracy</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Current Objective</div>
-                        <p style="color: var(--text-secondary); margin-top: 8px;">
-                            Monitor Phase 2 completion for Standard & Orchestrator pipelines. Launch Phase 2 for PME pipeline once workflows activated.
-                        </p>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Key Commands</div>
-                        <div class="command-list">
-                            <div class="command-item">python3 eval/quick-test.py --pipeline standard --questions 5</div>
-                            <div class="command-item">python3 eval/iterative-eval.py --label "Phase2-relaunch"</div>
-                            <div class="command-item">python3 eval/run-eval-parallel.py --dataset phase-2 --reset</div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Phase 2 Progress</div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Pipeline</th>
-                                    <th>Progress</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Standard</td>
-                                    <td>579/1000 (57.9%)</td>
-                                    <td><span class="status-badge status-warning">Re-running</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Graph</td>
-                                    <td>500/500 (100%)</td>
-                                    <td><span class="status-badge status-active">Complete</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Quantitative</td>
-                                    <td>500/500 (100%)</td>
-                                    <td><span class="status-badge status-active">Complete</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Orchestrator</td>
-                                    <td>57/1000 (5.7%)</td>
-                                    <td><span class="status-badge status-warning">Re-running</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <section class="content-section" id="repo-rag-website">
-                <div class="repo-detail">
-                    <div class="repo-header">
-                        <div class="repo-icon">🌐</div>
-                        <div class="repo-info">
-                            <div class="repo-title">rag-website</div>
-                            <div class="repo-description">Next.js 14 — 4 sectors (BTP, Finance, Industrie, Juridique) + dashboard SSE</div>
-                            <div class="repo-meta">
-                                <div class="meta-item"><strong>Runtime:</strong> Vercel (CDG1)</div>
-                                <div class="meta-item"><strong>Status:</strong> <span class="status-badge status-deployed">Deployed</span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Links</div>
-                        <div style="display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap;">
-                            <a href="https://github.com/LBJLincoln/rag-website" target="_blank" class="repo-link">
-                                <span>📦</span> GitHub
-                            </a>
-                            <a href="https://nomos-ai-pied.vercel.app" target="_blank" class="repo-link">
-                                <span>🌐</span> Live Website
-                            </a>
-                            <a href="https://nomos-ai-pied.vercel.app/dashboard" target="_blank" class="repo-link">
-                                <span>📊</span> Dashboard
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Metrics</div>
-                        <div class="metric-grid">
-                            <div class="metric-box">
-                                <div class="metric-box-value">6</div>
-                                <div class="metric-box-label">Pages</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">4</div>
-                                <div class="metric-box-label">Sectors</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">932</div>
-                                <div class="metric-box-label">Dashboard Questions</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Current Objective</div>
-                        <p style="color: var(--text-secondary); margin-top: 8px;">
-                            Integrate real sector documents (BTP, Finance, Industrie, Juridique). Currently uses placeholder content.
-                        </p>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Sectors</div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Sector</th>
-                                    <th>Description</th>
-                                    <th>Pipeline</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>BTP</strong></td>
-                                    <td>Construction & Public Works</td>
-                                    <td>Standard + Graph</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Finance</strong></td>
-                                    <td>Banking & Investment</td>
-                                    <td>Quantitative + Orchestrator</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Industrie</strong></td>
-                                    <td>Manufacturing & Engineering</td>
-                                    <td>Graph + Quantitative</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Juridique</strong></td>
-                                    <td>Legal & Compliance</td>
-                                    <td>Standard + Orchestrator</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <section class="content-section" id="repo-rag-dashboard">
-                <div class="repo-detail">
-                    <div class="repo-header">
-                        <div class="repo-icon">📊</div>
-                        <div class="repo-info">
-                            <div class="repo-title">rag-dashboard</div>
-                            <div class="repo-description">Static HTML/JS monitoring — pipeline metrics, phase gates, live feed</div>
-                            <div class="repo-meta">
-                                <div class="meta-item"><strong>Runtime:</strong> Vercel (IAD1)</div>
-                                <div class="meta-item"><strong>Status:</strong> <span class="status-badge status-deployed">Deployed</span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Links</div>
-                        <div style="display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap;">
-                            <a href="https://github.com/LBJLincoln/rag-dashboard" target="_blank" class="repo-link">
-                                <span>📦</span> GitHub
-                            </a>
-                            <a href="https://nomos-dashboard-alexis-morets-projects.vercel.app" target="_blank" class="repo-link">
-                                <span>🌐</span> Live Dashboard
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Current Objective</div>
-                        <p style="color: var(--text-secondary); margin-top: 8px;">
-                            This comprehensive control panel (you're viewing it now!). Displays all repos, pipelines, infrastructure status.
-                        </p>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Features</div>
-                        <ul style="margin-left: 20px; color: var(--text-secondary); line-height: 1.8;">
-                            <li>Executive summary with Phase 1 & 2 status</li>
-                            <li>System architecture visualization</li>
-                            <li>Per-pipeline accuracy tracking</li>
-                            <li>Per-repo detail pages</li>
-                            <li>Infrastructure monitoring (VM, HF Space, DBs)</li>
-                            <li>Timeline of recent updates</li>
-                            <li>Responsive dark theme design</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section class="content-section" id="repo-rag-data-ingestion">
-                <div class="repo-detail">
-                    <div class="repo-header">
-                        <div class="repo-icon">💾</div>
-                        <div class="repo-info">
-                            <div class="repo-title">rag-data-ingestion</div>
-                            <div class="repo-description">Pinecone + Neo4j + Supabase ingestion & enrichment pipelines</div>
-                            <div class="repo-meta">
-                                <div class="meta-item"><strong>Runtime:</strong> Codespace (not created yet)</div>
-                                <div class="meta-item"><strong>Status:</strong> <span class="status-badge status-pending">Pending</span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Links</div>
-                        <div style="display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap;">
-                            <a href="https://github.com/LBJLincoln/rag-data-ingestion" target="_blank" class="repo-link">
-                                <span>📦</span> GitHub
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Metrics</div>
-                        <div class="metric-grid">
-                            <div class="metric-box">
-                                <div class="metric-box-value">10,411</div>
-                                <div class="metric-box-label">Pinecone Vectors</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">19,788</div>
-                                <div class="metric-box-label">Neo4j Nodes</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">76,717</div>
-                                <div class="metric-box-label">Neo4j Relations</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">17,000</div>
-                                <div class="metric-box-label">Supabase Rows</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Current Objective</div>
-                        <p style="color: var(--text-secondary); margin-top: 8px;">
-                            Create Codespace, download 14 benchmarks (~4GB), ingest sector documents (~1.4GB).
-                        </p>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Pending Datasets</div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Category</th>
-                                    <th>Count</th>
-                                    <th>Size</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Academic Benchmarks</td>
-                                    <td>14</td>
-                                    <td>~4 GB</td>
-                                </tr>
-                                <tr>
-                                    <td>Sector Documents</td>
-                                    <td>4 sectors</td>
-                                    <td>~1.4 GB</td>
-                                </tr>
-                                <tr>
-                                    <td>PME Use Cases</td>
-                                    <td>200</td>
-                                    <td>TBD</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <section class="content-section" id="repo-rag-pme-connectors">
-                <div class="repo-detail">
-                    <div class="repo-header">
-                        <div class="repo-icon">🔌</div>
-                        <div class="repo-info">
-                            <div class="repo-title">rag-pme-connectors</div>
-                            <div class="repo-description">Next.js 15 — 15 app integrations (WhatsApp, Slack, Gmail, CRM...)</div>
-                            <div class="repo-meta">
-                                <div class="meta-item"><strong>Runtime:</strong> Vercel (CDG1)</div>
-                                <div class="meta-item"><strong>Status:</strong> <span class="status-badge status-deployed">Deployed</span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Links</div>
-                        <div style="display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap;">
-                            <a href="https://github.com/LBJLincoln/rag-pme-connectors" target="_blank" class="repo-link">
-                                <span>📦</span> GitHub
-                            </a>
-                            <a href="https://nomos-pme-connectors-alexis-morets-projects.vercel.app" target="_blank" class="repo-link">
-                                <span>🌐</span> Live Website
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Metrics</div>
-                        <div class="metric-grid">
-                            <div class="metric-box">
-                                <div class="metric-box-value">15</div>
-                                <div class="metric-box-label">Connectors</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">5</div>
-                                <div class="metric-box-label">Categories</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">3</div>
-                                <div class="metric-box-label">Workflows</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Current Objective</div>
-                        <p style="color: var(--text-secondary); margin-top: 8px;">
-                            Activate PME workflows on HF Space (Gateway, Ingestion, Enrichment). Launch Phase 2 testing.
-                        </p>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">App Integrations</div>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Category</th>
-                                    <th>Apps</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Communication</strong></td>
-                                    <td>WhatsApp, Telegram, Gmail, Outlook, Slack</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Storage</strong></td>
-                                    <td>Google Drive, OneDrive, Dropbox</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Productivity</strong></td>
-                                    <td>Google Calendar, Notion, Trello</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>CRM</strong></td>
-                                    <td>HubSpot, Salesforce</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Finance</strong></td>
-                                    <td>Stripe, QuickBooks</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <section class="content-section" id="repo-rag-pme-usecases">
-                <div class="repo-detail">
-                    <div class="repo-header">
-                        <div class="repo-icon">📚</div>
-                        <div class="repo-info">
-                            <div class="repo-title">rag-pme-usecases</div>
-                            <div class="repo-description">Next.js 14 — 200 use case catalog by sector</div>
-                            <div class="repo-meta">
-                                <div class="meta-item"><strong>Runtime:</strong> Vercel (CDG1)</div>
-                                <div class="meta-item"><strong>Status:</strong> <span class="status-badge status-deployed">Deployed</span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Links</div>
-                        <div style="display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap;">
-                            <a href="https://github.com/LBJLincoln/rag-pme-usecases" target="_blank" class="repo-link">
-                                <span>📦</span> GitHub
-                            </a>
-                            <a href="https://nomos-pme-usecases-alexis-morets-projects.vercel.app" target="_blank" class="repo-link">
-                                <span>🌐</span> Live Website
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Metrics</div>
-                        <div class="metric-grid">
-                            <div class="metric-box">
-                                <div class="metric-box-value">200</div>
-                                <div class="metric-box-label">Use Cases</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">10+</div>
-                                <div class="metric-box-label">Sectors</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Description</div>
-                        <p style="color: var(--text-secondary); margin-top: 8px;">
-                            Comprehensive catalog of 200 RAG use cases for SMBs, organized by sector. Filterable, searchable interface.
-                            Demonstrates the breadth of Nomos AI applications across industries.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="content-section" id="repo-rag-storage">
-                <div class="repo-detail">
-                    <div class="repo-header">
-                        <div class="repo-icon">🗄️</div>
-                        <div class="repo-info">
-                            <div class="repo-title">rag-storage</div>
-                            <div class="repo-description">Central archive — all outputs/data from every repo</div>
-                            <div class="repo-meta">
-                                <div class="meta-item"><strong>Runtime:</strong> GitHub</div>
-                                <div class="meta-item"><strong>Status:</strong> <span class="status-badge status-active">Active</span></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Links</div>
-                        <div style="display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap;">
-                            <a href="https://github.com/LBJLincoln/rag-storage" target="_blank" class="repo-link">
-                                <span>📦</span> GitHub
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Metrics</div>
-                        <div class="metric-grid">
-                            <div class="metric-box">
-                                <div class="metric-box-value">7</div>
-                                <div class="metric-box-label">Repos Mirrored</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">105 MB</div>
-                                <div class="metric-box-label">Datasets</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">18 MB</div>
-                                <div class="metric-box-label">Eval Data</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">12 MB</div>
-                                <div class="metric-box-label">Logs</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Current Objective</div>
-                        <p style="color: var(--text-secondary); margin-top: 8px;">
-                            Sync all repos data, maintain global metrics. Acts as long-term storage for evaluation results, datasets, logs.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Infrastructure Sections -->
-            <section class="content-section" id="infra-vm">
-                <div class="summary-title">
-                    <span class="summary-icon">🖥️</span>
-                    <span>VM Google Cloud Infrastructure</span>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <div class="card-title">VM Specifications</div>
-                            <div class="card-subtitle">e2-micro • us-central1 • Permanent</div>
-                        </div>
-                        <span class="status-badge status-active">Online</span>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Spec</th>
-                                <th>Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>IP Address</strong></td>
-                                <td><code>34.136.180.66</code></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Machine Type</strong></td>
-                                <td>e2-micro</td>
-                            </tr>
-                            <tr>
-                                <td><strong>CPU</strong></td>
-                                <td>1 vCPU Intel Xeon @ 2.20GHz</td>
-                            </tr>
-                            <tr>
-                                <td><strong>RAM</strong></td>
-                                <td>969 MB total | ~413 MB available</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Disk</strong></td>
-                                <td>30 GB total | 17 GB free (43% used)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>OS</strong></td>
-                                <td>Linux Debian 11 (Bullseye)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Role</strong></td>
-                                <td>Pilotage only (n8n removed Session 42)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Uptime</strong></td>
-                                <td>Permanent (no planned downtime)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">Resource Usage</div>
-                    <div class="highlight-box success">
-                        <strong>✅ RAM Improvement (Session 42):</strong><br>
-                        n8n removed from VM → freed ~270MB RAM.<br>
-                        Available: ~413MB (was ~104MB with n8n).<br>
-                        VM no longer swaps during normal operation.
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">Services Running</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Service</th>
-                                <th>Status</th>
-                                <th>Purpose</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Claude Code (Opus 4.6)</strong></td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>Main control agent (~297MB RAM)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>MCP Servers</strong></td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>n8n, Pinecone, Neo4j, Supabase, Jina (~6MB total)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>HF Space Keep-Alive Cron</strong></td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>Ping HF Space every 30 min</td>
-                            </tr>
-                            <tr>
-                                <td><strong>n8n Docker</strong></td>
-                                <td><span class="status-badge status-error">Removed</span></td>
-                                <td>Removed Session 42 (freed RAM)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <section class="content-section" id="infra-hf">
-                <div class="summary-title">
-                    <span class="summary-icon">🤗</span>
-                    <span>HuggingFace Space Infrastructure</span>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div>
-                            <div class="card-title">n8n on HuggingFace Space</div>
-                            <div class="card-subtitle"><a href="https://lbjlincoln-nomos-rag-engine.hf.space" target="_blank">lbjlincoln-nomos-rag-engine.hf.space</a></div>
-                        </div>
-                        <span class="status-badge status-active">Online</span>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Spec</th>
-                                <th>Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Hardware</strong></td>
-                                <td>cpu-basic (16GB RAM)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>n8n Version</strong></td>
-                                <td>2.8.4 (latest)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Database</strong></td>
-                                <td>SQLite</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Cache</strong></td>
-                                <td>Redis (in-memory)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Workflows</strong></td>
-                                <td>13 total (9 active, 4 inactive)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Credentials</strong></td>
-                                <td>12 imported (postgres, redis, neo4j, pinecone, openrouter)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>OpenRouter Keys</strong></td>
-                                <td>7 keys across 3 accounts (~140 req/min aggregate)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">Recent Incidents</div>
-                    <div class="highlight-box danger">
-                        <strong>🔴 Session 39-40 Incident:</strong><br>
-                        HF Space rebuild (triggered by PME workflow push) wiped n8n SQLite database.<br>
-                        ALL workflow activations lost. ALL webhooks returned 404.<br>
-                        Graph & Quantitative Phase 2 completed BEFORE incident (500/500 each).<br>
-                        Standard (579/1000) and Orchestrator (57/1000) stopped mid-run.
-                    </div>
-                    <div class="highlight-box success" style="margin-top: 12px;">
-                        <strong>✅ Session 46 Fix:</strong><br>
-                        entrypoint.sh v4.0 implemented:<br>
-                        • sqlite3 direct activation (bypasses broken REST API)<br>
-                        • Auto-generates missing IDs (shared, activeVersion, tags)<br>
-                        • Uses PATCH re-activation for n8n 2.9.x publish system<br>
-                        • Strips incompatible fields before activation<br>
-                        Standard & Orchestrator pipelines now re-running.
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">Workflow Status</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Workflow</th>
-                                <th>Version</th>
-                                <th>Status</th>
-                                <th>Purpose</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Standard RAG</strong></td>
-                                <td>V3.4</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>Pinecone vector search</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Graph RAG</strong></td>
-                                <td>V3.3</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>Neo4j + Supabase graph</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Quantitative</strong></td>
-                                <td>V2.0</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>Supabase SQL queries</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Orchestrator</strong></td>
-                                <td>V10.1</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>Meta-router to all pipelines</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Dashboard Status API</strong></td>
-                                <td>V1.0</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>Metrics webhook</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Benchmark</strong></td>
-                                <td>V3.0</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>Test orchestration</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Ingestion</strong></td>
-                                <td>V3.1</td>
-                                <td><span class="status-badge status-idle">Inactive</span></td>
-                                <td>Document ingestion</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Enrichissement</strong></td>
-                                <td>V3.1</td>
-                                <td><span class="status-badge status-idle">Inactive</span></td>
-                                <td>Data enrichment</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Dataset Ingestion</strong></td>
-                                <td>V1.0</td>
-                                <td><span class="status-badge status-idle">Inactive</span></td>
-                                <td>Bulk dataset import</td>
-                            </tr>
-                            <tr>
-                                <td><strong>PME Gateway</strong></td>
-                                <td>V1.0</td>
-                                <td><span class="status-badge status-pending">Pending</span></td>
-                                <td>PME pipeline router</td>
-                            </tr>
-                            <tr>
-                                <td><strong>PME Ingestion</strong></td>
-                                <td>V1.0</td>
-                                <td><span class="status-badge status-pending">Pending</span></td>
-                                <td>PME document ingestion</td>
-                            </tr>
-                            <tr>
-                                <td><strong>PME Enrichment</strong></td>
-                                <td>V1.0</td>
-                                <td><span class="status-badge status-pending">Pending</span></td>
-                                <td>PME data enrichment</td>
-                            </tr>
-                            <tr>
-                                <td><strong>PME Use Cases</strong></td>
-                                <td>V1.0</td>
-                                <td><span class="status-badge status-pending">Pending</span></td>
-                                <td>200 use case catalog</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <section class="content-section" id="infra-databases">
-                <div class="summary-title">
-                    <span class="summary-icon">🗃️</span>
-                    <span>Database Infrastructure</span>
-                </div>
-
-                <div class="grid grid-3">
-                    <div class="card">
-                        <div class="card-title">Pinecone</div>
-                        <div class="card-subtitle">Vector Store • Free Tier</div>
-                        <div class="metric-grid" style="margin-top: 16px;">
-                            <div class="metric-box">
-                                <div class="metric-box-value">3</div>
-                                <div class="metric-box-label">Indexes</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">10,411</div>
-                                <div class="metric-box-label">Vectors (primary)</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">1024</div>
-                                <div class="metric-box-label">Dimensions</div>
-                            </div>
-                        </div>
-                        <div style="margin-top: 16px;">
-                            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">Indexes:</div>
-                            <ul style="font-size: 12px; color: var(--text-secondary); margin-left: 20px;">
-                                <li><strong>sota-rag-jina-1024:</strong> 10,411 vectors (primary)</li>
-                                <li><strong>sota-rag-cohere-1024:</strong> 10,411 vectors (backup)</li>
-                                <li><strong>sota-rag-phase2-graph:</strong> 1,296 vectors (graph enriched)</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Neo4j Aura</div>
-                        <div class="card-subtitle">Graph Database • Free Tier</div>
-                        <div class="metric-grid" style="margin-top: 16px;">
-                            <div class="metric-box">
-                                <div class="metric-box-value">19,788</div>
-                                <div class="metric-box-label">Nodes</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">76,717</div>
-                                <div class="metric-box-label">Relationships</div>
-                            </div>
-                        </div>
-                        <div style="margin-top: 16px;">
-                            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">Limits:</div>
-                            <ul style="font-size: 12px; color: var(--text-secondary); margin-left: 20px;">
-                                <li>Max 200,000 nodes</li>
-                                <li>Max 400,000 relationships</li>
-                                <li>Currently at 9.9% capacity</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-title">Supabase</div>
-                        <div class="card-subtitle">PostgreSQL • Free Tier</div>
-                        <div class="metric-grid" style="margin-top: 16px;">
-                            <div class="metric-box">
-                                <div class="metric-box-value">40</div>
-                                <div class="metric-box-label">Tables</div>
-                            </div>
-                            <div class="metric-box">
-                                <div class="metric-box-value">~17K</div>
-                                <div class="metric-box-label">Rows</div>
-                            </div>
-                        </div>
-                        <div style="margin-top: 16px;">
-                            <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px;">Connection:</div>
-                            <ul style="font-size: 12px; color: var(--text-secondary); margin-left: 20px;">
-                                <li>Region: eu-west-1</li>
-                                <li>Pooler: aws-1-eu-west-1.pooler.supabase.com:6543</li>
-                                <li>Storage limit: 500MB</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">External APIs</div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Service</th>
-                                <th>Purpose</th>
-                                <th>Tier</th>
-                                <th>Usage</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>OpenRouter</strong></td>
-                                <td>LLM inference (7 models)</td>
-                                <td>Free</td>
-                                <td>~140 req/min (7 keys)</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Jina AI</strong></td>
-                                <td>Embeddings (jina-embeddings-v3)</td>
-                                <td>Free</td>
-                                <td>~1M tokens/month</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Cohere</strong></td>
-                                <td>Reranking (command-r)</td>
-                                <td>Trial</td>
-                                <td>Nearly exhausted</td>
-                            </tr>
-                            <tr>
-                                <td><strong>HuggingFace</strong></td>
-                                <td>Datasets & models</td>
-                                <td>Free</td>
-                                <td>Unlimited</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </main>
-    </div>
-
-    <!-- Refresh Indicator -->
-    <div class="refresh-indicator">
-        <div class="refresh-dot"></div>
-        <span>Live</span>
+        <footer>
+            <p>Multi-RAG Orchestrator | Powered by n8n, Pinecone, Neo4j, Supabase | VM: 34.136.180.66</p>
+            <p style="margin-top: 8px;">Data sources: GitHub raw (status.json, data.json) + HF Space webhooks</p>
+        </footer>
     </div>
 
     <script>
-        // Navigation
-        const navItems = document.querySelectorAll('.nav-item');
-        const sections = document.querySelectorAll('.content-section');
-
-        navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const sectionId = item.dataset.section;
-
-                // Update nav
-                navItems.forEach(nav => nav.classList.remove('active'));
-                item.classList.add('active');
-
-                // Update sections
-                sections.forEach(section => section.classList.remove('active'));
-                document.getElementById(sectionId).classList.add('active');
-            });
-        });
-
-        // Load config data (if repos-config.json exists)
-        async function loadConfig() {
-            try {
-                const response = await fetch('repos-config.json');
-                if (response.ok) {
-                    const config = await response.json();
-                    console.log('Config loaded:', config);
-                    // Could update UI with live data here
+        // Configuration
+        const CONFIG = {
+            refreshInterval: 30000, // 30 seconds
+            githubRaw: 'https://raw.githubusercontent.com/LBJLincoln/mon-ipad/main',
+            n8nHost: 'https://lbjlincoln-nomos-rag-engine.hf.space',
+            pipelines: [
+                {
+                    id: 'standard',
+                    name: 'Standard RAG',
+                    path: '/webhook/rag-multi-index-v3',
+                    target: 85.0,
+                    color: '#667eea'
+                },
+                {
+                    id: 'graph',
+                    name: 'Graph RAG',
+                    path: '/webhook/ff622742-6d71-4e91-af71-b5c666088717',
+                    target: 70.0,
+                    color: '#764ba2'
+                },
+                {
+                    id: 'quantitative',
+                    name: 'Quantitative RAG',
+                    path: '/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9',
+                    target: 85.0,
+                    color: '#f093fb'
+                },
+                {
+                    id: 'orchestrator',
+                    name: 'Orchestrator',
+                    path: '/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0',
+                    target: 70.0,
+                    color: '#4facfe'
                 }
+            ]
+        };
+
+        let statusData = null;
+        let webhookStatus = {};
+        let lastUpdateTime = null;
+
+        // Fetch data from GitHub raw
+        async function fetchGitHubData(file) {
+            const url = `${CONFIG.githubRaw}/${file}?t=${Date.now()}`;
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`Failed to fetch ${file}`);
+            return await response.json();
+        }
+
+        // Test webhook health (with timeout)
+        async function testWebhook(path) {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout
+
+            try {
+                const response = await fetch(`${CONFIG.n8nHost}${path}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: 'health-check' }),
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+
+                return {
+                    status: response.status,
+                    ok: response.status >= 200 && response.status < 500,
+                    error: null
+                };
             } catch (error) {
-                console.log('Config not available, using static data');
+                clearTimeout(timeoutId);
+                return {
+                    status: 0,
+                    ok: false,
+                    error: error.name === 'AbortError' ? 'Timeout' : error.message
+                };
             }
         }
 
-        loadConfig();
+        // Get status badge class
+        function getStatusClass(accuracy, target) {
+            if (accuracy >= target) return 'status-healthy';
+            if (accuracy >= target * 0.9) return 'status-warning';
+            if (accuracy > 0) return 'status-error';
+            return 'status-unknown';
+        }
 
-        // Auto-refresh every 60s
-        setInterval(() => {
-            loadConfig();
-        }, 60000);
+        // Get accuracy bar class
+        function getAccuracyClass(accuracy) {
+            if (accuracy >= 85) return 'accuracy-excellent';
+            if (accuracy >= 70) return 'accuracy-good';
+            if (accuracy >= 50) return 'accuracy-warning';
+            return 'accuracy-poor';
+        }
+
+        // Format timestamp
+        function formatTime(isoString) {
+            if (!isoString) return 'Never';
+            const date = new Date(isoString);
+            return date.toLocaleString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Calculate time ago
+        function timeAgo(isoString) {
+            if (!isoString) return 'Never';
+            const seconds = Math.floor((Date.now() - new Date(isoString)) / 1000);
+            if (seconds < 60) return `${seconds}s ago`;
+            if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+            if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+            return `${Math.floor(seconds / 86400)}d ago`;
+        }
+
+        // Render pipeline cards
+        function renderPipelines() {
+            const grid = document.getElementById('pipeline-grid');
+            grid.innerHTML = '';
+
+            CONFIG.pipelines.forEach(pipeline => {
+                const data = statusData.pipelines[pipeline.id] || {};
+                const webhook = webhookStatus[pipeline.id] || { ok: null, status: 0 };
+
+                const accuracy = data.accuracy || 0;
+                const tested = data.tested || 0;
+                const correct = data.correct || 0;
+                const errors = data.errors || 0;
+                const target = data.target || pipeline.target;
+                const met = data.met || false;
+
+                const statusClass = getStatusClass(accuracy, target);
+                const accuracyClass = getAccuracyClass(accuracy);
+
+                let webhookHTML = '';
+                if (webhook.ok === null) {
+                    webhookHTML = '<span class="webhook-status"><span class="webhook-dot webhook-pending"></span>Checking...</span>';
+                } else if (webhook.ok) {
+                    webhookHTML = `<span class="webhook-status"><span class="webhook-dot webhook-ok"></span>HTTP ${webhook.status}</span>`;
+                } else {
+                    webhookHTML = `<span class="webhook-status"><span class="webhook-dot webhook-error"></span>${webhook.error || 'Error'}</span>`;
+                }
+
+                const card = `
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">${pipeline.name}</h3>
+                            <span class="status-badge ${statusClass}">${met ? 'Passing' : 'Not Met'}</span>
+                        </div>
+
+                        <div class="metric-row">
+                            <span class="metric-label">Accuracy</span>
+                            <span class="metric-value">${accuracy.toFixed(1)}%</span>
+                        </div>
+                        <div class="accuracy-bar">
+                            <div class="accuracy-fill ${accuracyClass}" style="width: ${accuracy}%"></div>
+                        </div>
+
+                        <div class="metric-row">
+                            <span class="metric-label">Target</span>
+                            <span class="metric-value">${target.toFixed(0)}%</span>
+                        </div>
+
+                        <div class="metric-row">
+                            <span class="metric-label">Questions Tested</span>
+                            <span class="metric-value">${tested}</span>
+                        </div>
+
+                        <div class="metric-row">
+                            <span class="metric-label">Correct / Errors</span>
+                            <span class="metric-value">${correct} / ${errors}</span>
+                        </div>
+
+                        <div class="metric-row">
+                            <span class="metric-label">Webhook Status</span>
+                            <span class="metric-value">${webhookHTML}</span>
+                        </div>
+
+                        <div class="metric-row">
+                            <span class="metric-label">Gap to Target</span>
+                            <span class="metric-value" style="color: ${data.gap >= 0 ? '#22c55e' : '#ef4444'}">
+                                ${data.gap !== undefined ? (data.gap >= 0 ? '+' : '') + data.gap.toFixed(1) + '%' : 'N/A'}
+                            </span>
+                        </div>
+                    </div>
+                `;
+
+                grid.innerHTML += card;
+            });
+        }
+
+        // Render infrastructure status
+        function renderInfrastructure() {
+            const grid = document.getElementById('infra-grid');
+
+            const healthyWebhooks = Object.values(webhookStatus).filter(w => w.ok).length;
+            const totalWebhooks = CONFIG.pipelines.length;
+            const infraHealthy = healthyWebhooks === totalWebhooks;
+
+            document.getElementById('infra-status').className =
+                `status-badge ${infraHealthy ? 'status-healthy' : 'status-warning'}`;
+            document.getElementById('infra-status').textContent =
+                infraHealthy ? 'Healthy' : 'Degraded';
+
+            const items = [
+                {
+                    label: 'HF Space Host',
+                    value: CONFIG.n8nHost.replace('https://', '')
+                },
+                {
+                    label: 'Webhook Health',
+                    value: `${healthyWebhooks}/${totalWebhooks} active`
+                },
+                {
+                    label: 'Phase Gate',
+                    value: statusData.phase.gates_passed ? 'Passed' : 'Pending'
+                },
+                {
+                    label: 'Total Iterations',
+                    value: statusData.totals?.iterations || 'N/A'
+                },
+                {
+                    label: 'Data Generated',
+                    value: formatTime(statusData.generated_at)
+                },
+                {
+                    label: 'Active Blockers',
+                    value: statusData.blockers?.length || 0
+                }
+            ];
+
+            grid.innerHTML = items.map(item => `
+                <div class="infra-item">
+                    <div class="infra-label">${item.label}</div>
+                    <div class="infra-value">${item.value}</div>
+                </div>
+            `).join('');
+
+            // Show blockers if any
+            if (statusData.blockers && statusData.blockers.length > 0) {
+                grid.innerHTML += `
+                    <div class="error-message" style="grid-column: 1 / -1;">
+                        <strong>Active Blockers:</strong> ${statusData.blockers.join(', ')}
+                    </div>
+                `;
+            }
+        }
+
+        // Update overall stats
+        function updateOverallStats() {
+            const overall = statusData.overall || {};
+            const phase = statusData.phase || {};
+            const totals = statusData.totals || {};
+
+            document.getElementById('phase-name').textContent =
+                `Phase ${phase.current}: ${phase.name || 'Unknown'}`;
+
+            document.getElementById('overall-accuracy').textContent =
+                `${(overall.accuracy || 0).toFixed(1)}% (Target: ${(overall.target || 0).toFixed(0)}%)`;
+
+            document.getElementById('total-questions').textContent =
+                totals.unique_questions?.toLocaleString() || 'N/A';
+
+            document.getElementById('total-runs').textContent =
+                totals.test_runs?.toLocaleString() || 'N/A';
+
+            document.getElementById('blockers-count').textContent =
+                statusData.blockers?.length || 0;
+
+            const overallMet = overall.met || false;
+            document.getElementById('overall-status').className =
+                `status-badge ${overallMet ? 'status-healthy' : 'status-warning'}`;
+            document.getElementById('overall-status').textContent =
+                overallMet ? 'Healthy' : 'Below Target';
+        }
+
+        // Test all webhooks in parallel
+        async function testAllWebhooks() {
+            const promises = CONFIG.pipelines.map(async (pipeline) => {
+                const result = await testWebhook(pipeline.path);
+                webhookStatus[pipeline.id] = result;
+            });
+
+            await Promise.all(promises);
+        }
+
+        // Main update function
+        async function updateDashboard() {
+            try {
+                // Fetch status.json from GitHub
+                statusData = await fetchGitHubData('docs/status.json');
+
+                // Test webhooks in parallel
+                await testAllWebhooks();
+
+                // Update UI
+                updateOverallStats();
+                renderPipelines();
+                renderInfrastructure();
+
+                // Update timestamp
+                lastUpdateTime = new Date();
+                document.getElementById('last-updated').textContent = timeAgo(lastUpdateTime.toISOString());
+
+                // Hide loading, show content
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+
+            } catch (error) {
+                console.error('Dashboard update failed:', error);
+                document.getElementById('loading').innerHTML = `
+                    <div class="error-message">
+                        Failed to load dashboard data: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        // Update "Last updated" counter every second
+        function updateCounter() {
+            if (lastUpdateTime) {
+                document.getElementById('last-updated').textContent = timeAgo(lastUpdateTime.toISOString());
+            }
+        }
+
+        // Initialize
+        updateDashboard();
+        setInterval(updateDashboard, CONFIG.refreshInterval);
+        setInterval(updateCounter, 1000);
     </script>
 </body>
 </html>
