@@ -5,6 +5,16 @@
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/control-panel", "destination": "/control-panel.html" },
-    { "source": "/dashboard", "destination": "/docs/index.html" }
+    { "source": "/dashboard", "destination": "/docs/index.html" },
+    { "source": "/api/status", "destination": "/api/status.js" }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+      ]
+    }
   ]
 }

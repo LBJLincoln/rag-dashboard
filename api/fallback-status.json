@@ -1,0 +1,72 @@
+{
+  "generated_at": "2026-02-27T17:00:00+00:00",
+  "phase": {
+    "current": 1,
+    "name": "Baseline (200q)",
+    "gates_passed": true
+  },
+  "pipelines": {
+    "standard": {
+      "accuracy": 92.0,
+      "tested": 50,
+      "correct": 46,
+      "errors": 1,
+      "target": 85.0,
+      "met": true,
+      "gap": 7.0
+    },
+    "graph": {
+      "accuracy": 78.0,
+      "tested": 50,
+      "correct": 39,
+      "errors": 0,
+      "target": 70.0,
+      "met": true,
+      "gap": 8.0
+    },
+    "quantitative": {
+      "accuracy": 92.0,
+      "tested": 50,
+      "correct": 46,
+      "errors": 1,
+      "target": 85.0,
+      "met": true,
+      "gap": 7.0
+    },
+    "orchestrator": {
+      "accuracy": 80.0,
+      "tested": 50,
+      "correct": 40,
+      "errors": 2,
+      "target": 70.0,
+      "met": true,
+      "gap": 10.0
+    }
+  },
+  "overall": {
+    "accuracy": 85.5,
+    "target": 75.0,
+    "met": true
+  },
+  "blockers": [],
+  "next_action": "Phase 1 COMPLETE — run Phase 2: python3 eval/run-eval-parallel.py --dataset phase-2 --reset",
+  "last_iteration": {
+    "id": "iter-2026-02-23T00-55-22",
+    "label": "Iteration 507",
+    "timestamp": "2026-02-23T01:21:47+01:00",
+    "total_tested": 1,
+    "overall_accuracy_pct": 100.0,
+    "pipelines": {
+      "standard": {
+        "tested": 1,
+        "correct": 1,
+        "accuracy": 100.0
+      }
+    }
+  },
+  "totals": {
+    "unique_questions": 2308,
+    "test_runs": 6517,
+    "iterations": 507
+  }
+}

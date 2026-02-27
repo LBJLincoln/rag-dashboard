@@ -378,6 +378,54 @@ section{margin-bottom:32px}
 /* ===== Loading State ===== */
 .loading{display:flex;align-items:center;justify-content:center;padding:60px;color:var(--tx3)}
 .spinner{width:24px;height:24px;border:3px solid var(--s3);border-top-color:var(--ac);border-radius:50%;animation:spin .8s linear infinite;margin-right:12px}
+
+/* ===== Trading Board ===== */
+.trading-board{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:16px}
+@media(max-width:1024px){.trading-board{grid-template-columns:1fr}}
+.tb-panel{background:var(--glass);border:1px solid var(--glass-bd);border-radius:var(--r);padding:20px;position:relative;overflow:hidden}
+.tb-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.tb-best::before{background:linear-gradient(90deg,var(--gn),#60f0a0)}
+.tb-worst::before{background:linear-gradient(90deg,var(--rd),#f87171)}
+.tb-middle::before{background:linear-gradient(90deg,var(--yl),#fcd34d)}
+.tb-header{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.tb-badge{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;flex-shrink:0}
+.tb-badge.best{background:linear-gradient(135deg,var(--gn),var(--gn2))}
+.tb-badge.worst{background:linear-gradient(135deg,var(--rd),var(--rd2))}
+.tb-badge.middle{background:linear-gradient(135deg,var(--yl),#ca8a04);color:#000}
+.tb-title{font-size:14px;font-weight:700}
+.tb-subtitle{font-size:10px;color:var(--tx3)}
+.tb-pipeline{display:flex;align-items:center;gap:12px;padding:16px;background:var(--s2);border-radius:var(--r-sm);border:1px solid var(--bd);margin-bottom:12px;transition:all .2s}
+.tb-pipeline:hover{border-color:var(--bd2);transform:translateY(-1px)}
+.tb-pipe-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.tb-pipe-info{flex:1}
+.tb-pipe-name{font-size:13px;font-weight:700;margin-bottom:4px}
+.tb-pipe-accuracy{font-size:24px;font-weight:900;font-family:'JetBrains Mono',monospace;letter-spacing:-.03em}
+.tb-pipe-accuracy.best{color:var(--gn)}
+.tb-pipe-accuracy.worst{color:var(--rd)}
+.tb-pipe-accuracy.middle{color:var(--yl)}
+.tb-pipe-meta{font-size:10px;color:var(--tx3);margin-top:2px}
+.tb-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tb-stat{text-align:center;padding:10px;background:var(--s2);border-radius:var(--r-sm);border:1px solid var(--bd)}
+.tb-stat .v{font-size:16px;font-weight:800;font-family:'JetBrains Mono',monospace}
+.tb-stat .l{font-size:9px;color:var(--tx3);margin-top:2px;text-transform:uppercase;letter-spacing:.06em}
+.tb-middle-list{display:flex;flex-direction:column;gap:8px}
+.tb-middle-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--s2);border-radius:var(--r-sm);border:1px solid var(--bd);transition:all .2s}
+.tb-middle-item:hover{border-color:var(--bd2);background:var(--ac-bg)}
+.tb-middle-rank{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;background:var(--s3);color:var(--tx2)}
+.tb-middle-info{flex:1}
+.tb-middle-name{font-size:12px;font-weight:600}
+.tb-middle-acc{font-size:14px;font-weight:800;font-family:'JetBrains Mono',monospace;color:var(--yl)}
+.tb-middle-trend{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600}
+.trend-stable{background:var(--gn-bg);color:var(--gn)}
+.trend-recovering{background:var(--yl-bg);color:var(--yl)}
+.trend-at-risk{background:var(--rd-bg);color:var(--rd)}
+.tb-summary{display:flex;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--bd)}
+.tb-sum-item{flex:1;text-align:center}
+.tb-sum-val{font-size:20px;font-weight:900;font-family:'JetBrains Mono',monospace}
+.tb-sum-val.pass{color:var(--gn)}
+.tb-sum-val.atrisk{color:var(--yl)}
+.tb-sum-val.critical{color:var(--rd)}
+.tb-sum-label{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
 </style>
 </head>
 <body>
@@ -400,6 +448,7 @@ section{margin-bottom:32px}
   <span class="nav-item active" data-target="exec-section">Overview</span>
   <span class="nav-item" data-target="infra-section">Infrastructure</span>
   <span class="nav-item" data-target="pipeline-section">Pipelines</span>
+  <span class="nav-item" data-target="trading-section">Trading Board</span>
   <span class="nav-item" data-target="progression-section">Progression</span>
   <span class="nav-item" data-target="repo-section">Repos</span>
   <span class="nav-item" data-target="db-section">Databases</span>
@@ -445,6 +494,14 @@ section{margin-bottom:32px}
     <div class="section-title">Pipelines RAG</div>
     <div class="grid g4" id="pipeline-grid">
       <div class="loading"><div class="spinner"></div>Loading pipelines...</div>
+    </div>
+  </section>
+
+  <!-- Trading Board -->
+  <section class="fade-up fade-up-2" id="trading-section">
+    <div class="section-title">Trading Board <span style="color:var(--tx3);font-size:10px;font-weight:400;margin-left:8px">BEST / MIDDLE / WORST</span></div>
+    <div class="trading-board" id="trading-board">
+      <div class="loading"><div class="spinner"></div>Loading trading board...</div>
     </div>
   </section>
 
@@ -712,6 +769,7 @@ function render() {
     renderExecSummary();
     renderPipelines();
     renderPhaseBar();
+    renderTradingBoard();
     renderProgression();
   }
   renderInfrastructure();
@@ -772,6 +830,119 @@ function renderExecSummary() {
     wrap.innerHTML = blockerHtml;
     gates.appendChild(wrap);
   }
+}
+
+// ============================================================
+// TRADING BOARD
+// ============================================================
+function renderTradingBoard() {
+  const pipelines = STATUS.pipelines;
+  if (!pipelines) return;
+
+  // Sort pipelines by accuracy (descending)
+  const sorted = Object.entries(pipelines)
+    .map(([id, data]) => ({ id, ...data }))
+    .sort((a, b) => (b.accuracy || 0) - (a.accuracy || 0));
+
+  if (sorted.length === 0) return;
+
+  // BEST performer
+  const best = sorted[0];
+  // WORST performer
+  const worst = sorted[sorted.length - 1];
+  // MIDDLE performers (rolling)
+  const middle = sorted.slice(1, -1);
+
+  // Calculate summary stats
+  const passing = sorted.filter(p => p.met).length;
+  const atRisk = sorted.filter(p => !p.met && p.gap >= -5).length;
+  const critical = sorted.filter(p => !p.met && p.gap < -5).length;
+
+  const container = document.getElementById('trading-board');
+  container.innerHTML = `
+    <!-- BEST Panel -->
+    <div class="tb-panel tb-best">
+      <div class="tb-header">
+        <div class="tb-badge best">🏆</div>
+        <div>
+          <div class="tb-title">BEST Performer</div>
+          <div class="tb-subtitle">Rank #1 • Fixed Position</div>
+        </div>
+      </div>
+      <div class="tb-pipeline">
+        <div class="tb-pipe-icon ${PIPE_ICON_CLASS[best.id]}" style="background:linear-gradient(135deg,${PIPE_COLORS[best.id]},${PIPE_COLORS[best.id]}aa)">${PIPE_ICONS[best.id]}</div>
+        <div class="tb-pipe-info">
+          <div class="tb-pipe-name">${PIPE_NAMES[best.id]}</div>
+          <div class="tb-pipe-accuracy best">${best.accuracy.toFixed(1)}%</div>
+          <div class="tb-pipe-meta">Target: ${best.target}% • Gap: +${best.gap.toFixed(1)}pp</div>
+        </div>
+      </div>
+      <div class="tb-stats">
+        <div class="tb-stat"><div class="v" style="color:var(--gn)">${best.tested}</div><div class="l">Tested</div></div>
+        <div class="tb-stat"><div class="v" style="color:var(--gn)">${best.correct}</div><div class="l">Correct</div></div>
+        <div class="tb-stat"><div class="v" style="color:var(--gn)">${best.met ? 'PASS' : 'FAIL'}</div><div class="l">Status</div></div>
+        <div class="tb-stat"><div class="v" style="color:var(--gn)">${best.errors}</div><div class="l">Errors</div></div>
+      </div>
+    </div>
+
+    <!-- MIDDLE Panel -->
+    <div class="tb-panel tb-middle">
+      <div class="tb-header">
+        <div class="tb-badge middle">📊</div>
+        <div>
+          <div class="tb-title">MIDDLE Tier</div>
+          <div class="tb-subtitle">Rolling Positions • ${middle.length} Pipeline${middle.length !== 1 ? 's' : ''}</div>
+        </div>
+      </div>
+      <div class="tb-middle-list">
+        ${middle.map((p, idx) => {
+          const trend = p.gap >= 0 ? 'stable' : p.gap >= -5 ? 'recovering' : 'at-risk';
+          const trendLabel = trend === 'stable' ? 'Stable' : trend === 'recovering' ? 'Recovering' : 'At Risk';
+          return `
+            <div class="tb-middle-item">
+              <div class="tb-middle-rank">${idx + 2}</div>
+              <div class="tb-pipe-icon ${PIPE_ICON_CLASS[p.id]}" style="width:32px;height:32px;font-size:14px;background:linear-gradient(135deg,${PIPE_COLORS[p.id]},${PIPE_COLORS[p.id]}aa)">${PIPE_ICONS[p.id]}</div>
+              <div class="tb-middle-info">
+                <div class="tb-middle-name">${PIPE_NAMES[p.id]}</div>
+              </div>
+              <div class="tb-middle-acc">${p.accuracy.toFixed(1)}%</div>
+              <span class="tb-middle-trend trend-${trend}">${trendLabel}</span>
+            </div>
+          `;
+        }).join('')}
+      </div>
+      <div class="tb-summary">
+        <div class="tb-sum-item"><div class="tb-sum-val pass">${passing}</div><div class="tb-sum-label">Passing</div></div>
+        <div class="tb-sum-item"><div class="tb-sum-val atrisk">${atRisk}</div><div class="tb-sum-label">At Risk</div></div>
+        <div class="tb-sum-item"><div class="tb-sum-val critical">${critical}</div><div class="tb-sum-label">Critical</div></div>
+      </div>
+    </div>
+
+    <!-- WORST Panel -->
+    <div class="tb-panel tb-worst">
+      <div class="tb-header">
+        <div class="tb-badge worst">⚠️</div>
+        <div>
+          <div class="tb-title">WORST Performer</div>
+          <div class="tb-subtitle">Rank #${sorted.length} • Fixed Position</div>
+        </div>
+      </div>
+      <div class="tb-pipeline">
+        <div class="tb-pipe-icon ${PIPE_ICON_CLASS[worst.id]}" style="background:linear-gradient(135deg,${PIPE_COLORS[worst.id]},${PIPE_COLORS[worst.id]}aa)">${PIPE_ICONS[worst.id]}</div>
+        <div class="tb-pipe-info">
+          <div class="tb-pipe-name">${PIPE_NAMES[worst.id]}</div>
+          <div class="tb-pipe-accuracy worst">${worst.accuracy.toFixed(1)}%</div>
+          <div class="tb-pipe-meta">Target: ${worst.target}% • Gap: ${worst.gap.toFixed(1)}pp</div>
+        </div>
+      </div>
+      <div class="tb-stats">
+        <div class="tb-stat"><div class="v" style="color:var(--rd)">${worst.tested}</div><div class="l">Tested</div></div>
+        <div class="tb-stat"><div class="v" style="color:var(--rd)">${worst.correct}</div><div class="l">Correct</div></div>
+        <div class="tb-stat"><div class="v" style="color:${worst.met ? 'var(--gn)' : 'var(--rd)'}">${worst.met ? 'PASS' : 'FAIL'}</div><div class="l">Status</div></div>
+        <div class="tb-stat"><div class="v" style="color:var(--rd)">${worst.errors}</div><div class="l">Errors</div></div>
+      </div>
+    </div>
+  `;
 }
 
 // ============================================================

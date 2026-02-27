@@ -294,6 +294,58 @@
             font-size: 0.85rem;
         }
 
+        /* Trading Board Styles */
+        .trading-board { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 20px; }
+        @media (max-width: 1024px) { .trading-board { grid-template-columns: 1fr; } }
+        
+        .tb-panel { background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 20px; border: 1px solid rgba(255, 255, 255, 0.1); position: relative; overflow: hidden; }
+        .tb-panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+        .tb-best::before { background: linear-gradient(90deg, #22c55e, #16a34a); }
+        .tb-worst::before { background: linear-gradient(90deg, #ef4444, #dc2626); }
+        .tb-middle::before { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+        
+        .tb-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+        .tb-badge { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; }
+        .tb-badge.best { background: linear-gradient(135deg, #22c55e, #16a34a); }
+        .tb-badge.worst { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .tb-badge.middle { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
+        
+        .tb-title { font-size: 14px; font-weight: 700; color: #f1f5f9; }
+        .tb-subtitle { font-size: 11px; color: #94a3b8; }
+        
+        .tb-pipeline { display: flex; align-items: center; gap: 14px; padding: 16px; background: rgba(255, 255, 255, 0.03); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 12px; }
+        .tb-pipe-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: #fff; }
+        .tb-pipe-info { flex: 1; }
+        .tb-pipe-name { font-size: 14px; font-weight: 600; color: #f1f5f9; margin-bottom: 4px; }
+        .tb-pipe-accuracy { font-size: 28px; font-weight: 800; font-family: monospace; }
+        .tb-pipe-accuracy.best { color: #22c55e; }
+        .tb-pipe-accuracy.worst { color: #ef4444; }
+        .tb-pipe-meta { font-size: 11px; color: #94a3b8; margin-top: 4px; }
+        
+        .tb-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .tb-stat { text-align: center; padding: 12px; background: rgba(255, 255, 255, 0.03); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .tb-stat .v { font-size: 18px; font-weight: 700; font-family: monospace; }
+        .tb-stat .l { font-size: 10px; color: #94a3b8; text-transform: uppercase; margin-top: 4px; }
+        
+        .tb-middle-list { display: flex; flex-direction: column; gap: 8px; }
+        .tb-middle-item { display: flex; align-items: center; gap: 10px; padding: 12px; background: rgba(255, 255, 255, 0.03); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .tb-middle-rank { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: rgba(255, 255, 255, 0.1); color: #94a3b8; }
+        .tb-middle-info { flex: 1; }
+        .tb-middle-name { font-size: 13px; font-weight: 600; color: #f1f5f9; }
+        .tb-middle-acc { font-size: 16px; font-weight: 700; font-family: monospace; color: #fbbf24; }
+        .tb-middle-trend { font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 600; }
+        .trend-stable { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
+        .trend-recovering { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
+        .trend-at-risk { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        
+        .tb-summary { display: flex; gap: 12px; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        .tb-sum-item { flex: 1; text-align: center; }
+        .tb-sum-val { font-size: 22px; font-weight: 800; font-family: monospace; }
+        .tb-sum-val.pass { color: #22c55e; }
+        .tb-sum-val.atrisk { color: #fbbf24; }
+        .tb-sum-val.critical { color: #ef4444; }
+        .tb-sum-label { font-size: 10px; color: #94a3b8; text-transform: uppercase; }
+
         @media (max-width: 768px) {
             h1 { font-size: 1.8rem; }
             .grid { grid-template-columns: 1fr; }
@@ -347,8 +399,19 @@
                 </div>
             </section>
 
+            <!-- Trading Board -->
+            <section style="margin-top: 30px;">
+                <h2 style="margin-bottom: 20px; color: #f1f5f9; font-size: 1.5rem;">📊 Trading Board</h2>
+                <div class="trading-board" id="trading-board">
+                    <div class="card" style="text-align: center; padding: 40px;">
+                        <div class="spinner"></div>
+                        <p style="color: #94a3b8; margin-top: 15px;">Loading trading board...</p>
+                    </div>
+                </div>
+            </section>
+
             <!-- Pipeline Cards -->
-            <section>
+            <section style="margin-top: 30px;">
                 <h2 style="margin-bottom: 20px; color: #f1f5f9; font-size: 1.5rem;">Pipeline Status</h2>
                 <div class="grid" id="pipeline-grid">
                     <!-- Pipelines will be inserted here -->
@@ -416,6 +479,21 @@
         let statusData = null;
         let webhookStatus = {};
         let lastUpdateTime = null;
+
+        // Fallback status data when backend is unavailable
+        const FALLBACK_STATUS = {
+            "generated_at": "2026-02-27T17:00:00+00:00",
+            "phase": { "current": 1, "name": "Baseline (200q)", "gates_passed": true },
+            "pipelines": {
+                "standard": { "accuracy": 92.0, "tested": 50, "correct": 46, "errors": 1, "target": 85.0, "met": true, "gap": 7.0 },
+                "graph": { "accuracy": 78.0, "tested": 50, "correct": 39, "errors": 0, "target": 70.0, "met": true, "gap": 8.0 },
+                "quantitative": { "accuracy": 92.0, "tested": 50, "correct": 46, "errors": 1, "target": 85.0, "met": true, "gap": 7.0 },
+                "orchestrator": { "accuracy": 80.0, "tested": 50, "correct": 40, "errors": 2, "target": 70.0, "met": true, "gap": 10.0 }
+            },
+            "overall": { "accuracy": 85.5, "target": 75.0, "met": true },
+            "blockers": [],
+            "totals": { "unique_questions": 2308, "test_runs": 6517, "iterations": 507 }
+        };
 
         // Fetch data from GitHub raw
         async function fetchGitHubData(file) {
@@ -490,6 +568,116 @@
             if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
             if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
             return `${Math.floor(seconds / 86400)}d ago`;
+        }
+
+        // Render trading board
+        function renderTradingBoard() {
+            const pipelines = statusData.pipelines;
+            if (!pipelines) return;
+
+            // Sort by accuracy descending
+            const sorted = Object.entries(pipelines)
+                .map(([id, data]) => ({ id, ...data, name: CONFIG.pipelines.find(p => p.id === id)?.name || id }))
+                .sort((a, b) => (b.accuracy || 0) - (a.accuracy || 0));
+
+            if (sorted.length === 0) return;
+
+            const best = sorted[0];
+            const worst = sorted[sorted.length - 1];
+            const middle = sorted.slice(1, -1);
+
+            // Summary stats
+            const passing = sorted.filter(p => p.met).length;
+            const atRisk = sorted.filter(p => !p.met && p.gap >= -5).length;
+            const critical = sorted.filter(p => !p.met && p.gap < -5).length;
+
+            const pipeColors = { standard: '#667eea', graph: '#764ba2', quantitative: '#f093fb', orchestrator: '#4facfe' };
+            const pipeIcons = { standard: 'S', graph: 'G', quantitative: 'Q', orchestrator: 'O' };
+
+            document.getElementById('trading-board').innerHTML = `
+                <!-- BEST -->
+                <div class="tb-panel tb-best">
+                    <div class="tb-header">
+                        <div class="tb-badge best">🏆</div>
+                        <div>
+                            <div class="tb-title">BEST Performer</div>
+                            <div class="tb-subtitle">Rank #1 • Fixed</div>
+                        </div>
+                    </div>
+                    <div class="tb-pipeline">
+                        <div class="tb-pipe-icon" style="background: ${pipeColors[best.id]}">${pipeIcons[best.id]}</div>
+                        <div class="tb-pipe-info">
+                            <div class="tb-pipe-name">${best.name}</div>
+                            <div class="tb-pipe-accuracy best">${best.accuracy.toFixed(1)}%</div>
+                            <div class="tb-pipe-meta">Target: ${best.target}% • Gap: +${best.gap.toFixed(1)}pp</div>
+                        </div>
+                    </div>
+                    <div class="tb-stats">
+                        <div class="tb-stat"><div class="v" style="color:#22c55e">${best.tested}</div><div class="l">Tested</div></div>
+                        <div class="tb-stat"><div class="v" style="color:#22c55e">${best.correct}</div><div class="l">Correct</div></div>
+                        <div class="tb-stat"><div class="v" style="color:#22c55e">${best.met ? 'PASS' : 'FAIL'}</div><div class="l">Status</div></div>
+                        <div class="tb-stat"><div class="v" style="color:#22c55e">${best.errors}</div><div class="l">Errors</div></div>
+                    </div>
+                </div>
+
+                <!-- MIDDLE -->
+                <div class="tb-panel tb-middle">
+                    <div class="tb-header">
+                        <div class="tb-badge middle">📊</div>
+                        <div>
+                            <div class="tb-title">MIDDLE Tier</div>
+                            <div class="tb-subtitle">Rolling • ${middle.length} Pipeline${middle.length !== 1 ? 's' : ''}</div>
+                        </div>
+                    </div>
+                    <div class="tb-middle-list">
+                        ${middle.map((p, idx) => {
+                            const trend = p.gap >= 0 ? 'stable' : p.gap >= -5 ? 'recovering' : 'at-risk';
+                            const trendLabel = trend === 'stable' ? 'Stable' : trend === 'recovering' ? 'Recovering' : 'At Risk';
+                            return `
+                                <div class="tb-middle-item">
+                                    <div class="tb-middle-rank">${idx + 2}</div>
+                                    <div class="tb-pipe-icon" style="width:32px;height:32px;font-size:14px;background:${pipeColors[p.id]}">${pipeIcons[p.id]}</div>
+                                    <div class="tb-middle-info">
+                                        <div class="tb-middle-name">${p.name}</div>
+                                    </div>
+                                    <div class="tb-middle-acc">${p.accuracy.toFixed(1)}%</div>
+                                    <span class="tb-middle-trend trend-${trend}">${trendLabel}</span>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="tb-summary">
+                        <div class="tb-sum-item"><div class="tb-sum-val pass">${passing}</div><div class="tb-sum-label">Passing</div></div>
+                        <div class="tb-sum-item"><div class="tb-sum-val atrisk">${atRisk}</div><div class="tb-sum-label">At Risk</div></div>
+                        <div class="tb-sum-item"><div class="tb-sum-val critical">${critical}</div><div class="tb-sum-label">Critical</div></div>
+                    </div>
+                </div>
+
+                <!-- WORST -->
+                <div class="tb-panel tb-worst">
+                    <div class="tb-header">
+                        <div class="tb-badge worst">⚠️</div>
+                        <div>
+                            <div class="tb-title">WORST Performer</div>
+                            <div class="tb-subtitle">Rank #${sorted.length} • Fixed</div>
+                        </div>
+                    </div>
+                    <div class="tb-pipeline">
+                        <div class="tb-pipe-icon" style="background: ${pipeColors[worst.id]}">${pipeIcons[worst.id]}</div>
+                        <div class="tb-pipe-info">
+                            <div class="tb-pipe-name">${worst.name}</div>
+                            <div class="tb-pipe-accuracy worst">${worst.accuracy.toFixed(1)}%</div>
+                            <div class="tb-pipe-meta">Target: ${worst.target}% • Gap: ${worst.gap.toFixed(1)}pp</div>
+                        </div>
+                    </div>
+                    <div class="tb-stats">
+                        <div class="tb-stat"><div class="v" style="color:#ef4444">${worst.tested}</div><div class="l">Tested</div></div>
+                        <div class="tb-stat"><div class="v" style="color:#ef4444">${worst.correct}</div><div class="l">Correct</div></div>
+                        <div class="tb-stat"><div class="v" style="color:${worst.met ? '#22c55e' : '#ef4444'}">${worst.met ? 'PASS' : 'FAIL'}</div><div class="l">Status</div></div>
+                        <div class="tb-stat"><div class="v" style="color:#ef4444">${worst.errors}</div><div class="l">Errors</div></div>
+                    </div>
+                </div>
+            `;
         }
 
         // Render pipeline cards
@@ -665,21 +853,35 @@
 
         // Main update function
         async function updateDashboard() {
+            let usingFallback = false;
+            
             try {
                 // Fetch status.json from GitHub
-                statusData = await fetchGitHubData('docs/status.json');
+                try {
+                    statusData = await fetchGitHubData('docs/status.json');
+                } catch (e) {
+                    console.warn('External data fetch failed, using fallback:', e.message);
+                    statusData = FALLBACK_STATUS;
+                    usingFallback = true;
+                }
 
-                // Test webhooks in parallel
-                await testAllWebhooks();
+                // Test webhooks in parallel (non-blocking)
+                testAllWebhooks().catch(() => {});
 
                 // Update UI
                 updateOverallStats();
+                renderTradingBoard();
                 renderPipelines();
                 renderInfrastructure();
 
                 // Update timestamp
                 lastUpdateTime = new Date();
                 document.getElementById('last-updated').textContent = timeAgo(lastUpdateTime.toISOString());
+                
+                // Show fallback indicator if using local data
+                if (usingFallback) {
+                    document.getElementById('last-updated').innerHTML += ' <span style="color:#fbbf24;font-size:0.8em">(fallback)</span>';
+                }
 
                 // Hide loading, show content
                 document.getElementById('loading').style.display = 'none';
@@ -687,11 +889,23 @@
 
             } catch (error) {
                 console.error('Dashboard update failed:', error);
-                document.getElementById('loading').innerHTML = `
-                    <div class="error-message">
-                        Failed to load dashboard data: ${error.message}
-                    </div>
-                `;
+                // Ultimate fallback - use local data
+                statusData = FALLBACK_STATUS;
+                try {
+                    updateOverallStats();
+                    renderTradingBoard();
+                    renderPipelines();
+                    renderInfrastructure();
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('content').style.display = 'block';
+                    document.getElementById('last-updated').innerHTML = 'Using fallback data <span style="color:#fbbf24;font-size:0.8em">(offline)</span>';
+                } catch (e) {
+                    document.getElementById('loading').innerHTML = `
+                        <div class="error-message">
+                            Failed to load dashboard data: ${error.message}
+                        </div>
+                    `;
+                }
             }
         }
 
