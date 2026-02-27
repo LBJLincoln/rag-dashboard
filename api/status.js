@@ -12,7 +12,7 @@
 const FALLBACK_STATUS = require('./fallback-status.json');
 
 // External data source URLs
-const EXTERNAL_STATUS_URL = 'https://raw.githubusercontent.com/LBJLincoln/mon-ipad/main/docs/status.json';
+const EXTERNAL_STATUS_URL = 'https://raw.githubusercontent.com/LBJLincoln/rag-dashboard/main/docs/status.json';
 const HF_HEALTH_URL = 'https://lbjlincoln-nomos-rag-engine.hf.space/healthz';
 const REFRESH_INTERVAL_MS = 30000; // 30 seconds
 

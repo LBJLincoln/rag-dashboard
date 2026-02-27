@@ -434,7 +434,7 @@
 
         <footer>
             <p>Multi-RAG Orchestrator | Powered by n8n, Pinecone, Neo4j, Supabase | VM: 34.136.180.66</p>
-            <p style="margin-top: 8px;">Data sources: GitHub raw (status.json, data.json) + HF Space webhooks</p>
+            <p style="margin-top: 8px;">Data sources: rag-dashboard/docs (status.json, data.json) + HF Space webhooks</p>
         </footer>
     </div>
 
@@ -442,7 +442,7 @@
         // Configuration
         const CONFIG = {
             refreshInterval: 30000, // 30 seconds
-            githubRaw: 'https://raw.githubusercontent.com/LBJLincoln/mon-ipad/main',
+            githubRaw: 'https://raw.githubusercontent.com/LBJLincoln/rag-dashboard/main',
             n8nHost: 'https://lbjlincoln-nomos-rag-engine.hf.space',
             pipelines: [
                 {
@@ -482,7 +482,7 @@
 
         // Fallback status data when backend is unavailable
         const FALLBACK_STATUS = {
-            "generated_at": "2026-02-27T17:00:00+00:00",
+            "generated_at": "2026-02-27T19:32:22+01:00",
             "phase": { "current": 1, "name": "Baseline (200q)", "gates_passed": true },
             "pipelines": {
                 "standard": { "accuracy": 92.0, "tested": 50, "correct": 46, "errors": 1, "target": 85.0, "met": true, "gap": 7.0 },
@@ -492,7 +492,7 @@
             },
             "overall": { "accuracy": 85.5, "target": 75.0, "met": true },
             "blockers": [],
-            "totals": { "unique_questions": 2308, "test_runs": 6517, "iterations": 507 }
+            "totals": { "unique_questions": 2697, "test_runs": 9813, "iterations": 1048 }
         };
 
         // Fetch data from GitHub raw
