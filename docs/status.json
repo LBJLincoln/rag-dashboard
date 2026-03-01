@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-01T14:23:19+01:00",
+  "generated_at": "2026-03-01T14:23:35+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -54,8 +54,8 @@
     "id": "iter-2026-03-01T14-20-21",
     "label": "autorun-s66",
     "timestamp": "2026-03-01T14:20:22+01:00",
-    "total_tested": 4,
-    "overall_accuracy_pct": 50.0,
+    "total_tested": 3,
+    "overall_accuracy_pct": 66.7,
     "pipelines": {
       "graph": {
         "tested": 2,
@@ -63,15 +63,15 @@
         "accuracy": 50.0
       },
       "standard": {
-        "tested": 2,
+        "tested": 1,
         "correct": 1,
-        "accuracy": 50.0
+        "accuracy": 100.0
       }
     }
   },
   "totals": {
     "unique_questions": 2816,
-    "test_runs": 10648,
+    "test_runs": 10647,
     "iterations": 1403
   }
 }
