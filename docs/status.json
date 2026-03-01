@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-02T00:15:43+01:00",
+  "generated_at": "2026-03-02T00:16:04+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -60,19 +60,19 @@
     "id": "iter-2026-03-01T20-11-30",
     "label": "Iteration 1424",
     "timestamp": "2026-03-01T21:01:12+01:00",
-    "total_tested": 227,
-    "overall_accuracy_pct": 61.2,
+    "total_tested": 228,
+    "overall_accuracy_pct": 61.4,
     "pipelines": {
       "standard": {
-        "tested": 227,
-        "correct": 139,
-        "accuracy": 61.2
+        "tested": 228,
+        "correct": 140,
+        "accuracy": 61.4
       }
     }
   },
   "totals": {
     "unique_questions": 2816,
-    "test_runs": 11164,
+    "test_runs": 11165,
     "iterations": 1424
   }
 }
