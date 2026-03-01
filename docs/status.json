@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-02T00:51:45+01:00",
+  "generated_at": "2026-03-02T00:52:03+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -60,108 +60,19 @@
     "id": "iter-2026-03-01T20-11-30",
     "label": "Iteration 1424",
     "timestamp": "2026-03-01T21:01:12+01:00",
-    "total_tested": 276,
-    "overall_accuracy_pct": 58.7,
+    "total_tested": 277,
+    "overall_accuracy_pct": 58.5,
     "pipelines": {
       "standard": {
-        "tested": 276,
+        "tested": 277,
         "correct": 162,
-        "accuracy": 58.7
+        "accuracy": 58.5
       }
     }
   },
   "totals": {
     "unique_questions": 2816,
-    "test_runs": 11213,
+    "test_runs": 11214,
     "iterations": 1424
-  },
-  "cross_repo_health": {
-    "generated_at": "2026-03-01T23:50:15.236542+00:00",
-    "overall_score": 99.4,
-    "overall_status": "HEALTHY",
-    "critical_issues": 0,
-    "component_scores": {
-      "repos": 100.0,
-      "ci": 100.0,
-      "vercel": 100.0,
-      "hf_space": 100,
-      "webhooks": 100.0,
-      "databases": 100.0,
-      "pipelines": 96.1
-    },
-    "repos_summary": {
-      "rag-dashboard": {
-        "stale": false,
-        "days_since_commit": 0,
-        "ci_status": "no_ci"
-      },
-      "rag-tests": {
-        "stale": false,
-        "days_since_commit": 2,
-        "ci_status": "healthy"
-      },
-      "rag-website": {
-        "stale": false,
-        "days_since_commit": 0,
-        "ci_status": "no_ci"
-      },
-      "mon-ipad": {
-        "stale": false,
-        "days_since_commit": 0,
-        "ci_status": "healthy"
-      },
-      "rag-pme-connectors": {
-        "stale": false,
-        "days_since_commit": 0,
-        "ci_status": "healthy"
-      },
-      "rag-data-ingestion": {
-        "stale": false,
-        "days_since_commit": 2,
-        "ci_status": "no_ci"
-      },
-      "rag-pme-usecases": {
-        "stale": false,
-        "days_since_commit": 0,
-        "ci_status": "no_ci"
-      }
-    },
-    "vercel_sites": {
-      "ETI 4 Sectors": {
-        "healthy": true,
-        "latency_ms": 4770
-      },
-      "PME Use Cases": {
-        "healthy": true,
-        "latency_ms": 4749
-      },
-      "Dashboard": {
-        "healthy": true,
-        "latency_ms": 4752
-      },
-      "PME Connectors": {
-        "healthy": true,
-        "latency_ms": 4989
-      }
-    },
-    "webhooks": {
-      "standard": {
-        "healthy": true,
-        "latency_ms": 10490
-      },
-      "graph": {
-        "healthy": true,
-        "latency_ms": 6497
-      },
-      "quantitative": {
-        "healthy": true,
-        "latency_ms": 1246
-      },
-      "orchestrator": {
-        "healthy": true,
-        "latency_ms": 2495
-      }
-    },
-    "hf_space_healthy": true
   }
 }
