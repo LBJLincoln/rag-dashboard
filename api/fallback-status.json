@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-01T07:40:54+01:00",
+  "generated_at": "2026-03-01T07:41:15+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -51,22 +51,22 @@
   "blockers": [],
   "next_action": "Phase 1 COMPLETE \u2014 run Phase 2: python3 eval/run-eval-parallel.py --dataset phase-2 --reset",
   "last_iteration": {
-    "id": "iter-2026-02-28T19-46-52",
-    "label": "Iteration 1279",
-    "timestamp": "2026-03-01T07:37:05+01:00",
-    "total_tested": 4,
-    "overall_accuracy_pct": 0.0,
+    "id": "iter-2026-02-28T19-45-36",
+    "label": "Iteration 1282",
+    "timestamp": "2026-03-01T07:40:17+01:00",
+    "total_tested": 1,
+    "overall_accuracy_pct": 100.0,
     "pipelines": {
-      "quantitative": {
-        "tested": 4,
-        "correct": 0,
-        "accuracy": 0.0
+      "standard": {
+        "tested": 1,
+        "correct": 1,
+        "accuracy": 100.0
       }
     }
   },
   "totals": {
     "unique_questions": 2698,
     "test_runs": 10403,
-    "iterations": 1279
+    "iterations": 1282
   }
 }
