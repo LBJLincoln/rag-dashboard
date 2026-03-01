@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-01T17:39:00+01:00",
+  "generated_at": "2026-03-01T17:43:58+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -57,18 +57,12 @@
   ],
   "next_action": "Fix standard pipeline (60.0% vs 85.0% target, gap: -25.0pp)",
   "last_iteration": {
-    "id": "iter-2026-03-01T17-31-22",
-    "label": "post-fix-v2",
-    "timestamp": "2026-03-01T17:31:26+01:00",
-    "total_tested": 10,
-    "overall_accuracy_pct": 20.0,
-    "pipelines": {
-      "standard": {
-        "tested": 10,
-        "correct": 2,
-        "accuracy": 20.0
-      }
-    }
+    "id": "iter-2026-03-01T17-43-41",
+    "label": "no-namespace-v3",
+    "timestamp": "2026-03-01T17:43:44+01:00",
+    "total_tested": 0,
+    "overall_accuracy_pct": 0,
+    "pipelines": {}
   },
   "totals": {
     "unique_questions": 2816,
