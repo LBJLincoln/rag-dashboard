@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-01T14:39:44+01:00",
+  "generated_at": "2026-03-01T14:40:06+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -10,7 +10,7 @@
       "accuracy": 90.0,
       "tested": 50,
       "correct": 45,
-      "errors": 2,
+      "errors": 1,
       "target": 85.0,
       "met": true,
       "gap": 5.0
@@ -54,8 +54,8 @@
     "id": "iter-2026-03-01T14-34-26",
     "label": "autorun-s66-v2",
     "timestamp": "2026-03-01T14:34:29+01:00",
-    "total_tested": 8,
-    "overall_accuracy_pct": 25.0,
+    "total_tested": 9,
+    "overall_accuracy_pct": 22.2,
     "pipelines": {
       "quantitative": {
         "tested": 4,
@@ -63,9 +63,9 @@
         "accuracy": 25.0
       },
       "standard": {
-        "tested": 2,
+        "tested": 3,
         "correct": 1,
-        "accuracy": 50.0
+        "accuracy": 33.3
       },
       "graph": {
         "tested": 2,
@@ -76,7 +76,7 @@
   },
   "totals": {
     "unique_questions": 2816,
-    "test_runs": 10668,
+    "test_runs": 10669,
     "iterations": 1405
   }
 }
