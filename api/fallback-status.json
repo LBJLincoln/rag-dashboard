@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-01T14:41:42+01:00",
+  "generated_at": "2026-03-01T14:41:58+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -7,13 +7,13 @@
   },
   "pipelines": {
     "standard": {
-      "accuracy": 90.0,
+      "accuracy": 88.0,
       "tested": 50,
-      "correct": 45,
+      "correct": 44,
       "errors": 1,
       "target": 85.0,
       "met": true,
-      "gap": 5.0
+      "gap": 3.0
     },
     "graph": {
       "accuracy": 72.0,
@@ -44,7 +44,7 @@
     }
   },
   "overall": {
-    "accuracy": 81.5,
+    "accuracy": 81.0,
     "target": 75.0,
     "met": true
   },
@@ -56,8 +56,8 @@
     "id": "iter-2026-03-01T14-34-26",
     "label": "autorun-s66-v2",
     "timestamp": "2026-03-01T14:34:29+01:00",
-    "total_tested": 11,
-    "overall_accuracy_pct": 18.2,
+    "total_tested": 12,
+    "overall_accuracy_pct": 16.7,
     "pipelines": {
       "quantitative": {
         "tested": 5,
@@ -65,9 +65,9 @@
         "accuracy": 20.0
       },
       "standard": {
-        "tested": 3,
+        "tested": 4,
         "correct": 1,
-        "accuracy": 33.3
+        "accuracy": 25.0
       },
       "graph": {
         "tested": 3,
@@ -78,7 +78,7 @@
   },
   "totals": {
     "unique_questions": 2816,
-    "test_runs": 10671,
+    "test_runs": 10672,
     "iterations": 1405
   }
 }
