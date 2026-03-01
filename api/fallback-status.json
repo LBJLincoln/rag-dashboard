@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-01T15:01:50+01:00",
+  "generated_at": "2026-03-01T15:02:16+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -16,13 +16,13 @@
       "gap": -23.0
     },
     "graph": {
-      "accuracy": 56.0,
+      "accuracy": 54.0,
       "tested": 50,
-      "correct": 28,
+      "correct": 27,
       "errors": 0,
       "target": 70.0,
       "met": false,
-      "gap": -14.0
+      "gap": -16.0
     },
     "quantitative": {
       "accuracy": 82.0,
@@ -44,23 +44,23 @@
     }
   },
   "overall": {
-    "accuracy": 70.0,
+    "accuracy": 69.5,
     "target": 75.0,
     "met": false
   },
   "blockers": [
     "standard: 62.0% < 85.0% (gap: -23.0pp)",
-    "graph: 56.0% < 70.0% (gap: -14.0pp)",
+    "graph: 54.0% < 70.0% (gap: -16.0pp)",
     "quantitative: 82.0% < 85.0% (gap: -3.0pp)",
-    "overall: 70.0% < 75.0%"
+    "overall: 69.5% < 75.0%"
   ],
   "next_action": "Fix standard pipeline (62.0% vs 85.0% target, gap: -23.0pp)",
   "last_iteration": {
     "id": "iter-2026-03-01T14-34-26",
     "label": "autorun-s66-v2",
     "timestamp": "2026-03-01T14:34:29+01:00",
-    "total_tested": 40,
-    "overall_accuracy_pct": 17.5,
+    "total_tested": 41,
+    "overall_accuracy_pct": 17.1,
     "pipelines": {
       "quantitative": {
         "tested": 6,
@@ -73,15 +73,15 @@
         "accuracy": 11.1
       },
       "graph": {
-        "tested": 16,
+        "tested": 17,
         "correct": 4,
-        "accuracy": 25.0
+        "accuracy": 23.5
       }
     }
   },
   "totals": {
     "unique_questions": 2816,
-    "test_runs": 10700,
+    "test_runs": 10701,
     "iterations": 1405
   }
 }
