@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-01T19:48:16+01:00",
+  "generated_at": "2026-03-01T19:48:30+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -7,22 +7,22 @@
   },
   "pipelines": {
     "standard": {
-      "accuracy": 88.0,
+      "accuracy": 90.0,
       "tested": 50,
-      "correct": 44,
+      "correct": 45,
       "errors": 1,
       "target": 85.0,
       "met": true,
-      "gap": 3.0
+      "gap": 5.0
     },
     "graph": {
-      "accuracy": 74.0,
+      "accuracy": 76.0,
       "tested": 50,
-      "correct": 37,
+      "correct": 38,
       "errors": 0,
       "target": 70.0,
       "met": true,
-      "gap": 4.0
+      "gap": 6.0
     },
     "quantitative": {
       "accuracy": 80.0,
@@ -44,7 +44,7 @@
     }
   },
   "overall": {
-    "accuracy": 77.0,
+    "accuracy": 78.0,
     "target": 75.0,
     "met": true
   },
@@ -54,32 +54,27 @@
   ],
   "next_action": "Fix quantitative pipeline (80.0% vs 85.0% target, gap: -5.0pp)",
   "last_iteration": {
-    "id": "iter-2026-03-01T19-32-27",
-    "label": "Iteration 1418",
-    "timestamp": "2026-03-01T19:44:31+01:00",
-    "total_tested": 3,
-    "overall_accuracy_pct": 100.0,
+    "id": "iter-2026-03-01T19-25-10",
+    "label": "Iteration 1417",
+    "timestamp": "2026-03-01T19:37:58+01:00",
+    "total_tested": 11,
+    "overall_accuracy_pct": 90.9,
     "pipelines": {
-      "quantitative": {
-        "tested": 1,
-        "correct": 1,
+      "graph": {
+        "tested": 6,
+        "correct": 6,
         "accuracy": 100.0
       },
       "standard": {
-        "tested": 1,
-        "correct": 1,
-        "accuracy": 100.0
-      },
-      "graph": {
-        "tested": 1,
-        "correct": 1,
-        "accuracy": 100.0
+        "tested": 5,
+        "correct": 4,
+        "accuracy": 80.0
       }
     }
   },
   "totals": {
     "unique_questions": 2816,
-    "test_runs": 10862,
-    "iterations": 1418
+    "test_runs": 10865,
+    "iterations": 1417
   }
 }
