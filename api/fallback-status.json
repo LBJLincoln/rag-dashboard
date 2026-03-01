@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-01T18:41:11+01:00",
+  "generated_at": "2026-03-01T18:41:21+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -16,13 +16,13 @@
       "gap": -9.0
     },
     "graph": {
-      "accuracy": 56.0,
+      "accuracy": 58.0,
       "tested": 50,
-      "correct": 28,
+      "correct": 29,
       "errors": 0,
       "target": 70.0,
       "met": false,
-      "gap": -14.0
+      "gap": -12.0
     },
     "quantitative": {
       "accuracy": 80.0,
@@ -44,45 +44,45 @@
     }
   },
   "overall": {
-    "accuracy": 69.5,
+    "accuracy": 70.0,
     "target": 75.0,
     "met": false
   },
   "blockers": [
     "standard: 76.0% < 85.0% (gap: -9.0pp)",
-    "graph: 56.0% < 70.0% (gap: -14.0pp)",
+    "graph: 58.0% < 70.0% (gap: -12.0pp)",
     "quantitative: 80.0% < 85.0% (gap: -5.0pp)",
     "orchestrator: 66.0% < 70.0% (gap: -4.0pp)",
-    "overall: 69.5% < 75.0%"
+    "overall: 70.0% < 75.0%"
   ],
-  "next_action": "Fix graph pipeline (56.0% vs 70.0% target, gap: -14.0pp)",
+  "next_action": "Fix graph pipeline (58.0% vs 70.0% target, gap: -12.0pp)",
   "last_iteration": {
-    "id": "iter-2026-03-01T18-22-47",
-    "label": "all-pipelines-v7",
-    "timestamp": "2026-03-01T18:22:50+01:00",
-    "total_tested": 17,
-    "overall_accuracy_pct": 58.8,
+    "id": "iter-2026-03-01T18-23-44",
+    "label": "Iteration 1414",
+    "timestamp": "2026-03-01T18:36:35+01:00",
+    "total_tested": 5,
+    "overall_accuracy_pct": 60.0,
     "pipelines": {
+      "graph": {
+        "tested": 2,
+        "correct": 2,
+        "accuracy": 100.0
+      },
       "quantitative": {
-        "tested": 6,
+        "tested": 2,
         "correct": 0,
         "accuracy": 0.0
       },
       "standard": {
-        "tested": 6,
-        "correct": 6,
+        "tested": 1,
+        "correct": 1,
         "accuracy": 100.0
-      },
-      "graph": {
-        "tested": 5,
-        "correct": 4,
-        "accuracy": 80.0
       }
     }
   },
   "totals": {
     "unique_questions": 2816,
     "test_runs": 10808,
-    "iterations": 1413
+    "iterations": 1414
   }
 }
