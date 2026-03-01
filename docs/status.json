@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-01T18:51:15+01:00",
+  "generated_at": "2026-03-01T18:51:29+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -7,13 +7,13 @@
   },
   "pipelines": {
     "standard": {
-      "accuracy": 76.0,
+      "accuracy": 78.0,
       "tested": 50,
-      "correct": 38,
+      "correct": 39,
       "errors": 1,
       "target": 85.0,
       "met": false,
-      "gap": -9.0
+      "gap": -7.0
     },
     "graph": {
       "accuracy": 60.0,
@@ -44,45 +44,45 @@
     }
   },
   "overall": {
-    "accuracy": 70.5,
+    "accuracy": 71.0,
     "target": 75.0,
     "met": false
   },
   "blockers": [
-    "standard: 76.0% < 85.0% (gap: -9.0pp)",
+    "standard: 78.0% < 85.0% (gap: -7.0pp)",
     "graph: 60.0% < 70.0% (gap: -10.0pp)",
     "quantitative: 80.0% < 85.0% (gap: -5.0pp)",
     "orchestrator: 66.0% < 70.0% (gap: -4.0pp)",
-    "overall: 70.5% < 75.0%"
+    "overall: 71.0% < 75.0%"
   ],
   "next_action": "Fix graph pipeline (60.0% vs 70.0% target, gap: -10.0pp)",
   "last_iteration": {
-    "id": "iter-2026-03-01T18-23-44",
-    "label": "Iteration 1414",
-    "timestamp": "2026-03-01T18:36:35+01:00",
-    "total_tested": 15,
-    "overall_accuracy_pct": 73.3,
+    "id": "iter-2026-03-01T18-22-47",
+    "label": "all-pipelines-v7",
+    "timestamp": "2026-03-01T18:22:50+01:00",
+    "total_tested": 27,
+    "overall_accuracy_pct": 70.4,
     "pipelines": {
-      "graph": {
-        "tested": 7,
-        "correct": 5,
-        "accuracy": 71.4
-      },
       "quantitative": {
-        "tested": 2,
+        "tested": 6,
         "correct": 0,
         "accuracy": 0.0
       },
       "standard": {
-        "tested": 6,
-        "correct": 6,
+        "tested": 11,
+        "correct": 11,
         "accuracy": 100.0
+      },
+      "graph": {
+        "tested": 10,
+        "correct": 8,
+        "accuracy": 80.0
       }
     }
   },
   "totals": {
     "unique_questions": 2816,
     "test_runs": 10818,
-    "iterations": 1414
+    "iterations": 1413
   }
 }
