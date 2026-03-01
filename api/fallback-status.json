@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-01T14:30:43+01:00",
+  "generated_at": "2026-03-01T14:31:03+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -25,13 +25,13 @@
       "gap": 6.0
     },
     "quantitative": {
-      "accuracy": 90.0,
+      "accuracy": 88.0,
       "tested": 50,
-      "correct": 45,
-      "errors": 2,
+      "correct": 44,
+      "errors": 3,
       "target": 85.0,
       "met": true,
-      "gap": 5.0
+      "gap": 3.0
     },
     "orchestrator": {
       "accuracy": 80.0,
@@ -44,7 +44,7 @@
     }
   },
   "overall": {
-    "accuracy": 84.5,
+    "accuracy": 84.0,
     "target": 75.0,
     "met": true
   },
@@ -54,13 +54,13 @@
     "id": "iter-2026-03-01T14-24-19",
     "label": "autorun-s66",
     "timestamp": "2026-03-01T14:24:25+01:00",
-    "total_tested": 6,
-    "overall_accuracy_pct": 33.3,
+    "total_tested": 7,
+    "overall_accuracy_pct": 28.6,
     "pipelines": {
       "quantitative": {
-        "tested": 2,
+        "tested": 3,
         "correct": 1,
-        "accuracy": 50.0
+        "accuracy": 33.3
       },
       "graph": {
         "tested": 2,
@@ -76,7 +76,7 @@
   },
   "totals": {
     "unique_questions": 2816,
-    "test_runs": 10655,
+    "test_runs": 10656,
     "iterations": 1404
   }
 }
