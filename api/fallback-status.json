@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-01T16:32:23+01:00",
+  "generated_at": "2026-03-01T16:40:31+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -57,33 +57,12 @@
   ],
   "next_action": "Fix standard pipeline (60.0% vs 85.0% target, gap: -25.0pp)",
   "last_iteration": {
-    "id": "iter-2026-03-01T14-34-26",
-    "label": "autorun-s66-v2",
-    "timestamp": "2026-03-01T14:34:29+01:00",
-    "total_tested": 54,
-    "overall_accuracy_pct": 16.7,
-    "pipelines": {
-      "quantitative": {
-        "tested": 6,
-        "correct": 1,
-        "accuracy": 16.7
-      },
-      "standard": {
-        "tested": 20,
-        "correct": 3,
-        "accuracy": 15.0
-      },
-      "graph": {
-        "tested": 20,
-        "correct": 4,
-        "accuracy": 20.0
-      },
-      "orchestrator": {
-        "tested": 8,
-        "correct": 1,
-        "accuracy": 12.5
-      }
-    }
+    "id": "iter-2026-03-01T16-40-12",
+    "label": "post-restore-validation",
+    "timestamp": "2026-03-01T16:40:17+01:00",
+    "total_tested": 0,
+    "overall_accuracy_pct": 0,
+    "pipelines": {}
   },
   "totals": {
     "unique_questions": 2816,
