@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-01T23:41:23+01:00",
+  "generated_at": "2026-03-01T23:42:08+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -74,5 +74,94 @@
     "unique_questions": 2816,
     "test_runs": 11132,
     "iterations": 1424
+  },
+  "cross_repo_health": {
+    "generated_at": "2026-03-01T22:40:03.984397+00:00",
+    "overall_score": 94.4,
+    "overall_status": "HEALTHY",
+    "critical_issues": 0,
+    "component_scores": {
+      "repos": 100.0,
+      "ci": 100.0,
+      "vercel": 100.0,
+      "hf_space": 100,
+      "webhooks": 100.0,
+      "databases": 50,
+      "pipelines": 96.1
+    },
+    "repos_summary": {
+      "mon-ipad": {
+        "stale": false,
+        "days_since_commit": 0,
+        "ci_status": "healthy"
+      },
+      "rag-dashboard": {
+        "stale": false,
+        "days_since_commit": 0,
+        "ci_status": "no_ci"
+      },
+      "rag-website": {
+        "stale": false,
+        "days_since_commit": 0,
+        "ci_status": "no_ci"
+      },
+      "rag-tests": {
+        "stale": false,
+        "days_since_commit": 2,
+        "ci_status": "healthy"
+      },
+      "rag-data-ingestion": {
+        "stale": false,
+        "days_since_commit": 2,
+        "ci_status": "no_ci"
+      },
+      "rag-pme-usecases": {
+        "stale": false,
+        "days_since_commit": 0,
+        "ci_status": "no_ci"
+      },
+      "rag-pme-connectors": {
+        "stale": false,
+        "days_since_commit": 1,
+        "ci_status": "healthy"
+      }
+    },
+    "vercel_sites": {
+      "PME Connectors": {
+        "healthy": true,
+        "latency_ms": 6474
+      },
+      "ETI 4 Sectors": {
+        "healthy": true,
+        "latency_ms": 6748
+      },
+      "Dashboard": {
+        "healthy": true,
+        "latency_ms": 6731
+      },
+      "PME Use Cases": {
+        "healthy": true,
+        "latency_ms": 8486
+      }
+    },
+    "webhooks": {
+      "standard": {
+        "healthy": true,
+        "latency_ms": 19517
+      },
+      "graph": {
+        "healthy": true,
+        "latency_ms": 14259
+      },
+      "quantitative": {
+        "healthy": true,
+        "latency_ms": 2734
+      },
+      "orchestrator": {
+        "healthy": true,
+        "latency_ms": 3746
+      }
+    },
+    "hf_space_healthy": true
   }
 }
