@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-01T19:10:23+01:00",
+  "generated_at": "2026-03-01T19:10:37+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -7,22 +7,22 @@
   },
   "pipelines": {
     "standard": {
-      "accuracy": 90.0,
+      "accuracy": 92.0,
       "tested": 50,
-      "correct": 45,
+      "correct": 46,
       "errors": 1,
       "target": 85.0,
       "met": true,
-      "gap": 5.0
+      "gap": 7.0
     },
     "graph": {
-      "accuracy": 72.0,
+      "accuracy": 74.0,
       "tested": 50,
-      "correct": 36,
+      "correct": 37,
       "errors": 0,
       "target": 70.0,
       "met": true,
-      "gap": 2.0
+      "gap": 4.0
     },
     "quantitative": {
       "accuracy": 80.0,
@@ -44,7 +44,7 @@
     }
   },
   "overall": {
-    "accuracy": 77.0,
+    "accuracy": 78.0,
     "target": 75.0,
     "met": true
   },
@@ -54,32 +54,32 @@
   ],
   "next_action": "Fix quantitative pipeline (80.0% vs 85.0% target, gap: -5.0pp)",
   "last_iteration": {
-    "id": "iter-2026-03-01T18-23-44",
-    "label": "Iteration 1414",
-    "timestamp": "2026-03-01T18:36:35+01:00",
-    "total_tested": 34,
-    "overall_accuracy_pct": 76.5,
+    "id": "iter-2026-03-01T18-22-47",
+    "label": "all-pipelines-v7",
+    "timestamp": "2026-03-01T18:22:50+01:00",
+    "total_tested": 45,
+    "overall_accuracy_pct": 77.8,
     "pipelines": {
-      "graph": {
-        "tested": 16,
-        "correct": 12,
-        "accuracy": 75.0
-      },
       "quantitative": {
-        "tested": 2,
+        "tested": 6,
         "correct": 0,
         "accuracy": 0.0
       },
       "standard": {
-        "tested": 16,
-        "correct": 14,
-        "accuracy": 87.5
+        "tested": 20,
+        "correct": 19,
+        "accuracy": 95.0
+      },
+      "graph": {
+        "tested": 19,
+        "correct": 16,
+        "accuracy": 84.2
       }
     }
   },
   "totals": {
     "unique_questions": 2816,
-    "test_runs": 10837,
-    "iterations": 1414
+    "test_runs": 10836,
+    "iterations": 1413
   }
 }
