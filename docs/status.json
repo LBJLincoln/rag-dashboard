@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-01T19:07:13+01:00",
+  "generated_at": "2026-03-01T19:07:53+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -16,13 +16,13 @@
       "gap": 5.0
     },
     "graph": {
-      "accuracy": 68.0,
+      "accuracy": 70.0,
       "tested": 50,
-      "correct": 34,
+      "correct": 35,
       "errors": 0,
       "target": 70.0,
-      "met": false,
-      "gap": -2.0
+      "met": true,
+      "gap": 0.0
     },
     "quantitative": {
       "accuracy": 80.0,
@@ -44,12 +44,11 @@
     }
   },
   "overall": {
-    "accuracy": 76.0,
+    "accuracy": 76.5,
     "target": 75.0,
     "met": true
   },
   "blockers": [
-    "graph: 68.0% < 70.0% (gap: -2.0pp)",
     "quantitative: 80.0% < 85.0% (gap: -5.0pp)",
     "orchestrator: 66.0% < 70.0% (gap: -4.0pp)"
   ],
@@ -58,13 +57,13 @@
     "id": "iter-2026-03-01T18-23-44",
     "label": "Iteration 1414",
     "timestamp": "2026-03-01T18:36:35+01:00",
-    "total_tested": 30,
-    "overall_accuracy_pct": 76.7,
+    "total_tested": 31,
+    "overall_accuracy_pct": 77.4,
     "pipelines": {
       "graph": {
-        "tested": 14,
-        "correct": 10,
-        "accuracy": 71.4
+        "tested": 15,
+        "correct": 11,
+        "accuracy": 73.3
       },
       "quantitative": {
         "tested": 2,
@@ -80,7 +79,7 @@
   },
   "totals": {
     "unique_questions": 2816,
-    "test_runs": 10833,
+    "test_runs": 10834,
     "iterations": 1414
   }
 }
