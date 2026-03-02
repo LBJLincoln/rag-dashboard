@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-02T20:22:07+01:00",
+  "generated_at": "2026-03-02T20:27:44+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -58,21 +58,21 @@
   "next_action": "Fix graph pipeline (62.0% vs 70.0% target, gap: -8.0pp)",
   "last_iteration": {
     "id": "iter-2026-03-02T18-54-03",
-    "label": "Iteration 1435",
-    "timestamp": "2026-03-02T20:15:11+01:00",
-    "total_tested": 7,
-    "overall_accuracy_pct": 85.7,
+    "label": "Iteration 1437",
+    "timestamp": "2026-03-02T20:25:32+01:00",
+    "total_tested": 2,
+    "overall_accuracy_pct": 100.0,
     "pipelines": {
       "standard": {
-        "tested": 7,
-        "correct": 6,
-        "accuracy": 85.7
+        "tested": 2,
+        "correct": 2,
+        "accuracy": 100.0
       }
     }
   },
   "totals": {
     "unique_questions": 2816,
-    "test_runs": 11873,
-    "iterations": 1435
+    "test_runs": 11878,
+    "iterations": 1437
   }
 }
