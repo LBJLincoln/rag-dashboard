@@ -346,6 +346,44 @@
         .tb-sum-val.critical { color: #ef4444; }
         .tb-sum-label { font-size: 10px; color: #94a3b8; text-transform: uppercase; }
 
+        .repo-status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .repo-dot-ok { background: #22c55e; }
+        .repo-dot-degraded { background: #fbbf24; }
+        .repo-dot-missing { background: #ef4444; }
+        .repo-dot-error { background: #94a3b8; }
+        .repo-card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .repo-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+        .repo-role {
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+        .repo-detail {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+        .repo-detail a {
+            color: #a5b4fc;
+            text-decoration: none;
+        }
+        .repo-detail a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 768px) {
             h1 { font-size: 1.8rem; }
             .grid { grid-template-columns: 1fr; }
@@ -427,6 +465,16 @@
                     </div>
                     <div class="infrastructure-grid" id="infra-grid">
                         <!-- Infrastructure items will be inserted here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Repositories Status -->
+            <section style="margin-top: 30px;">
+                <h2 style="margin-bottom: 20px; color: #f1f5f9; font-size: 1.5rem;">Repositories</h2>
+                <div class="grid" id="repo-grid">
+                    <div class="card" style="text-align: center; padding: 30px; grid-column: 1 / -1;">
+                        <div style="color: #94a3b8;">Loading repository data...</div>
                     </div>
                 </div>
             </section>
@@ -916,9 +964,46 @@
             }
         }
 
+        // Render repository status cards
+        async function renderRepos() {
+            const grid = document.getElementById('repo-grid');
+            try {
+                const data = await fetchGitHubData('docs/repo-status.json');
+                if (!data || !data.repos) return;
+
+                grid.innerHTML = data.repos.map(repo => {
+                    const dotClass = repo.status === 'ok' ? 'repo-dot-ok' :
+                                     repo.status === 'degraded' ? 'repo-dot-degraded' :
+                                     repo.status === 'missing' ? 'repo-dot-missing' : 'repo-dot-error';
+                    const commitDate = repo.lastCommitDate ? timeAgo(new Date(repo.lastCommitDate).toISOString()) : 'N/A';
+                    const urlHtml = repo.url ? `<div class="repo-detail"><a href="${repo.url}" target="_blank">${repo.url.replace('https://', '')}</a> (HTTP ${repo.httpStatus || '?'})</div>` : '';
+                    const commitHtml = repo.lastCommit && repo.lastCommit !== 'not-cloned'
+                        ? `<div class="repo-detail">${repo.lastCommit} — ${commitDate}</div><div class="repo-detail" style="color:#64748b;font-size:0.8rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:280px;" title="${(repo.lastCommitMsg || '').replace(/"/g, '&quot;')}">${repo.lastCommitMsg || ''}</div>`
+                        : '<div class="repo-detail" style="color:#ef4444;">Not cloned on VM</div>';
+                    return `
+                        <div class="card" style="padding: 16px;">
+                            <div class="repo-card-header">
+                                <span class="repo-status-dot ${dotClass}"></span>
+                                <div>
+                                    <div class="repo-name">${repo.name}</div>
+                                    <div class="repo-role">${repo.role}</div>
+                                </div>
+                            </div>
+                            ${commitHtml}
+                            ${urlHtml}
+                        </div>
+                    `;
+                }).join('');
+            } catch (e) {
+                grid.innerHTML = '<div class="card" style="text-align:center;padding:20px;grid-column:1/-1;"><div style="color:#94a3b8;">Could not load repo data</div></div>';
+            }
+        }
+
         // Initialize
         updateDashboard();
+        renderRepos();
         setInterval(updateDashboard, CONFIG.refreshInterval);
+        setInterval(renderRepos, 300000); // refresh repos every 5 min
         setInterval(updateCounter, 1000);
     </script>
 </body>
