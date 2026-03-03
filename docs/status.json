@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-03T22:09:09+01:00",
+  "generated_at": "2026-03-03T22:18:08+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -57,9 +57,9 @@
   ],
   "next_action": "Fix graph pipeline (62.0% vs 70.0% target, gap: -8.0pp)",
   "last_iteration": {
-    "id": "iter-2026-03-03T22-09-05",
+    "id": "iter-2026-03-03T22-17-36",
     "label": "Iterative eval (3 pipes, stage 1+)",
-    "timestamp": "2026-03-03T22:09:06+01:00",
+    "timestamp": "2026-03-03T22:17:42+01:00",
     "total_tested": 0,
     "overall_accuracy_pct": 0,
     "pipelines": {}
