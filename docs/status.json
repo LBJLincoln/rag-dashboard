@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-03T16:07:39+01:00",
+  "generated_at": "2026-03-03T22:09:09+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -57,18 +57,12 @@
   ],
   "next_action": "Fix graph pipeline (62.0% vs 70.0% target, gap: -8.0pp)",
   "last_iteration": {
-    "id": "iter-2026-03-02T19-22-47",
-    "label": "Iteration 1484",
-    "timestamp": "2026-03-03T03:52:38+01:00",
-    "total_tested": 50,
-    "overall_accuracy_pct": 0.0,
-    "pipelines": {
-      "standard": {
-        "tested": 50,
-        "correct": 0,
-        "accuracy": 0.0
-      }
-    }
+    "id": "iter-2026-03-03T22-09-05",
+    "label": "Iterative eval (3 pipes, stage 1+)",
+    "timestamp": "2026-03-03T22:09:06+01:00",
+    "total_tested": 0,
+    "overall_accuracy_pct": 0,
+    "pipelines": {}
   },
   "totals": {
     "unique_questions": 2816,
