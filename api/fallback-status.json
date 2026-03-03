@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-03T22:57:23+01:00",
+  "generated_at": "2026-03-03T23:04:11+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -57,32 +57,16 @@
   ],
   "next_action": "Fix graph pipeline (62.0% vs 70.0% target, gap: -8.0pp)",
   "last_iteration": {
-    "id": "iter-2026-03-03T22-17-36",
-    "label": "Iterative eval (3 pipes, stage 1+)",
-    "timestamp": "2026-03-03T22:17:42+01:00",
-    "total_tested": 35,
-    "overall_accuracy_pct": 37.1,
-    "pipelines": {
-      "standard": {
-        "tested": 25,
-        "correct": 8,
-        "accuracy": 32.0
-      },
-      "graph": {
-        "tested": 5,
-        "correct": 5,
-        "accuracy": 100.0
-      },
-      "quantitative": {
-        "tested": 5,
-        "correct": 0,
-        "accuracy": 0.0
-      }
-    }
+    "id": "iter-2026-03-03T23-03-39",
+    "label": "phase3-parallel-s69",
+    "timestamp": "2026-03-03T23:03:44+01:00",
+    "total_tested": 0,
+    "overall_accuracy_pct": 0,
+    "pipelines": {}
   },
   "totals": {
-    "unique_questions": 2827,
-    "test_runs": 12309,
+    "unique_questions": 2831,
+    "test_runs": 12313,
     "iterations": 1486
   }
 }
