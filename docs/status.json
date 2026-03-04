@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-04T14:15:29+01:00",
+  "generated_at": "2026-03-04T14:22:38+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -7,81 +7,66 @@
   },
   "pipelines": {
     "standard": {
-      "accuracy": 100.0,
-      "tested": 50,
-      "correct": 50,
+      "accuracy": 0,
+      "tested": 0,
+      "correct": 0,
       "errors": 0,
       "target": 85.0,
-      "met": true,
-      "gap": 15.0
+      "met": false,
+      "gap": -85.0
     },
     "graph": {
-      "accuracy": 50.0,
-      "tested": 50,
-      "correct": 25,
+      "accuracy": 0,
+      "tested": 0,
+      "correct": 0,
       "errors": 0,
       "target": 70.0,
       "met": false,
-      "gap": -20.0
+      "gap": -70.0
     },
     "quantitative": {
-      "accuracy": 62.0,
-      "tested": 50,
-      "correct": 31,
-      "errors": 1,
+      "accuracy": 0,
+      "tested": 0,
+      "correct": 0,
+      "errors": 0,
       "target": 85.0,
       "met": false,
-      "gap": -23.0
+      "gap": -85.0
     },
     "orchestrator": {
-      "accuracy": 64.0,
-      "tested": 50,
-      "correct": 32,
-      "errors": 10,
+      "accuracy": 0,
+      "tested": 0,
+      "correct": 0,
+      "errors": 0,
       "target": 70.0,
       "met": false,
-      "gap": -6.0
+      "gap": -70.0
     }
   },
   "overall": {
-    "accuracy": 69.0,
+    "accuracy": 0,
     "target": 75.0,
     "met": false
   },
   "blockers": [
-    "graph: 50.0% < 70.0% (gap: -20.0pp)",
-    "quantitative: 62.0% < 85.0% (gap: -23.0pp)",
-    "orchestrator: 64.0% < 70.0% (gap: -6.0pp)",
-    "overall: 69.0% < 75.0%"
+    "standard: 0% < 85.0% (gap: -85.0pp)",
+    "graph: 0% < 70.0% (gap: -70.0pp)",
+    "quantitative: 0% < 85.0% (gap: -85.0pp)",
+    "orchestrator: 0% < 70.0% (gap: -70.0pp)",
+    "overall: 0% < 75.0%"
   ],
-  "next_action": "Fix quantitative pipeline (62.0% vs 85.0% target, gap: -23.0pp)",
+  "next_action": "Fix standard pipeline (0% vs 85.0% target, gap: -85.0pp)",
   "last_iteration": {
-    "id": "iter-2026-03-04T14-09-49",
-    "label": "Phase2-S70-litellm-b9",
-    "timestamp": "2026-03-04T14:09:53+01:00",
-    "total_tested": 12,
-    "overall_accuracy_pct": 66.7,
-    "pipelines": {
-      "graph": {
-        "tested": 4,
-        "correct": 2,
-        "accuracy": 50.0
-      },
-      "standard": {
-        "tested": 4,
-        "correct": 4,
-        "accuracy": 100.0
-      },
-      "quantitative": {
-        "tested": 4,
-        "correct": 2,
-        "accuracy": 50.0
-      }
-    }
+    "id": "iter-2026-03-04T14-22-37",
+    "label": "Phase2-S70-b9-v2",
+    "timestamp": "2026-03-04T14:22:37+01:00",
+    "total_tested": 0,
+    "overall_accuracy_pct": 0,
+    "pipelines": {}
   },
   "totals": {
     "unique_questions": 2944,
-    "test_runs": 12908,
+    "test_runs": 12913,
     "iterations": 1513
   }
 }
