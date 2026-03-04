@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-04T13:55:11+01:00",
+  "generated_at": "2026-03-04T14:00:30+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -59,8 +59,8 @@
     "id": "iter-2026-03-04T13-17-10",
     "label": "Phase1-S70-writerfix",
     "timestamp": "2026-03-04T13:17:15+01:00",
-    "total_tested": 92,
-    "overall_accuracy_pct": 67.4,
+    "total_tested": 101,
+    "overall_accuracy_pct": 70.3,
     "pipelines": {
       "quantitative": {
         "tested": 24,
@@ -73,15 +73,15 @@
         "accuracy": 48.1
       },
       "standard": {
-        "tested": 41,
-        "correct": 41,
+        "tested": 50,
+        "correct": 50,
         "accuracy": 100.0
       }
     }
   },
   "totals": {
     "unique_questions": 2944,
-    "test_runs": 12887,
+    "test_runs": 12896,
     "iterations": 1512
   }
 }
