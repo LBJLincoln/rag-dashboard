@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-04T07:13:14+01:00",
+  "generated_at": "2026-03-04T07:18:28+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -7,13 +7,13 @@
   },
   "pipelines": {
     "standard": {
-      "accuracy": 66.0,
+      "accuracy": 68.0,
       "tested": 50,
-      "correct": 33,
+      "correct": 34,
       "errors": 10,
       "target": 85.0,
       "met": false,
-      "gap": -19.0
+      "gap": -17.0
     },
     "graph": {
       "accuracy": 62.0,
@@ -44,35 +44,35 @@
     }
   },
   "overall": {
-    "accuracy": 68.0,
+    "accuracy": 68.5,
     "target": 75.0,
     "met": false
   },
   "blockers": [
-    "standard: 66.0% < 85.0% (gap: -19.0pp)",
+    "standard: 68.0% < 85.0% (gap: -17.0pp)",
     "graph: 62.0% < 70.0% (gap: -8.0pp)",
     "quantitative: 80.0% < 85.0% (gap: -5.0pp)",
     "orchestrator: 64.0% < 70.0% (gap: -6.0pp)",
-    "overall: 68.0% < 75.0%"
+    "overall: 68.5% < 75.0%"
   ],
-  "next_action": "Fix standard pipeline (66.0% vs 85.0% target, gap: -19.0pp)",
+  "next_action": "Fix standard pipeline (68.0% vs 85.0% target, gap: -17.0pp)",
   "last_iteration": {
-    "id": "iter-2026-03-04T07-07-04",
-    "label": "Phase2-S69-single-space",
-    "timestamp": "2026-03-04T07:07:09+01:00",
-    "total_tested": 5,
+    "id": "iter-2026-03-04T07-11-51",
+    "label": "Iteration 1490",
+    "timestamp": "2026-03-04T07:17:08+01:00",
+    "total_tested": 2,
     "overall_accuracy_pct": 100.0,
     "pipelines": {
       "standard": {
-        "tested": 5,
-        "correct": 5,
+        "tested": 2,
+        "correct": 2,
         "accuracy": 100.0
       }
     }
   },
   "totals": {
     "unique_questions": 2944,
-    "test_runs": 12479,
-    "iterations": 1489
+    "test_runs": 12485,
+    "iterations": 1490
   }
 }
