@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-04T13:38:40+01:00",
+  "generated_at": "2026-03-04T13:43:59+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -25,13 +25,13 @@
       "gap": -20.0
     },
     "quantitative": {
-      "accuracy": 66.0,
+      "accuracy": 62.0,
       "tested": 50,
-      "correct": 33,
+      "correct": 31,
       "errors": 1,
       "target": 85.0,
       "met": false,
-      "gap": -19.0
+      "gap": -23.0
     },
     "orchestrator": {
       "accuracy": 64.0,
@@ -44,44 +44,44 @@
     }
   },
   "overall": {
-    "accuracy": 70.0,
+    "accuracy": 69.0,
     "target": 75.0,
     "met": false
   },
   "blockers": [
     "graph: 50.0% < 70.0% (gap: -20.0pp)",
-    "quantitative: 66.0% < 85.0% (gap: -19.0pp)",
+    "quantitative: 62.0% < 85.0% (gap: -23.0pp)",
     "orchestrator: 64.0% < 70.0% (gap: -6.0pp)",
-    "overall: 70.0% < 75.0%"
+    "overall: 69.0% < 75.0%"
   ],
-  "next_action": "Fix graph pipeline (50.0% vs 70.0% target, gap: -20.0pp)",
+  "next_action": "Fix quantitative pipeline (62.0% vs 85.0% target, gap: -23.0pp)",
   "last_iteration": {
     "id": "iter-2026-03-04T13-17-10",
     "label": "Phase1-S70-writerfix",
     "timestamp": "2026-03-04T13:17:15+01:00",
-    "total_tested": 58,
-    "overall_accuracy_pct": 62.1,
+    "total_tested": 72,
+    "overall_accuracy_pct": 61.1,
     "pipelines": {
       "quantitative": {
-        "tested": 22,
+        "tested": 24,
         "correct": 8,
-        "accuracy": 36.4
+        "accuracy": 33.3
       },
       "graph": {
-        "tested": 19,
-        "correct": 11,
-        "accuracy": 57.9
+        "tested": 25,
+        "correct": 13,
+        "accuracy": 52.0
       },
       "standard": {
-        "tested": 17,
-        "correct": 17,
+        "tested": 23,
+        "correct": 23,
         "accuracy": 100.0
       }
     }
   },
   "totals": {
     "unique_questions": 2944,
-    "test_runs": 12853,
+    "test_runs": 12867,
     "iterations": 1512
   }
 }
