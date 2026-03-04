@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-04T11:12:00+01:00",
+  "generated_at": "2026-03-04T11:17:10+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -25,13 +25,13 @@
       "gap": -16.0
     },
     "quantitative": {
-      "accuracy": 80.0,
+      "accuracy": 78.0,
       "tested": 50,
-      "correct": 40,
+      "correct": 39,
       "errors": 1,
       "target": 85.0,
       "met": false,
-      "gap": -5.0
+      "gap": -7.0
     },
     "orchestrator": {
       "accuracy": 64.0,
@@ -44,44 +44,44 @@
     }
   },
   "overall": {
-    "accuracy": 74.5,
+    "accuracy": 74.0,
     "target": 75.0,
     "met": false
   },
   "blockers": [
     "graph: 54.0% < 70.0% (gap: -16.0pp)",
-    "quantitative: 80.0% < 85.0% (gap: -5.0pp)",
+    "quantitative: 78.0% < 85.0% (gap: -7.0pp)",
     "orchestrator: 64.0% < 70.0% (gap: -6.0pp)",
-    "overall: 74.5% < 75.0%"
+    "overall: 74.0% < 75.0%"
   ],
   "next_action": "Fix graph pipeline (54.0% vs 70.0% target, gap: -16.0pp)",
   "last_iteration": {
-    "id": "iter-2026-03-04T10-58-32",
-    "label": "Iteration 1506",
-    "timestamp": "2026-03-04T11:09:57+01:00",
-    "total_tested": 3,
-    "overall_accuracy_pct": 66.7,
+    "id": "iter-2026-03-04T10-57-09",
+    "label": "Iteration 1505",
+    "timestamp": "2026-03-04T11:00:29+01:00",
+    "total_tested": 13,
+    "overall_accuracy_pct": 84.6,
     "pipelines": {
       "quantitative": {
-        "tested": 1,
-        "correct": 0,
-        "accuracy": 0.0
+        "tested": 5,
+        "correct": 3,
+        "accuracy": 60.0
       },
       "graph": {
-        "tested": 1,
-        "correct": 1,
+        "tested": 4,
+        "correct": 4,
         "accuracy": 100.0
       },
       "standard": {
-        "tested": 1,
-        "correct": 1,
+        "tested": 4,
+        "correct": 4,
         "accuracy": 100.0
       }
     }
   },
   "totals": {
     "unique_questions": 2944,
-    "test_runs": 12731,
-    "iterations": 1506
+    "test_runs": 12733,
+    "iterations": 1505
   }
 }
