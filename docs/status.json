@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-04T10:05:50+01:00",
+  "generated_at": "2026-03-04T10:11:16+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -16,22 +16,22 @@
       "gap": 15.0
     },
     "graph": {
-      "accuracy": 66.0,
+      "accuracy": 62.0,
       "tested": 50,
-      "correct": 33,
+      "correct": 31,
       "errors": 0,
       "target": 70.0,
       "met": false,
-      "gap": -4.0
+      "gap": -8.0
     },
     "quantitative": {
-      "accuracy": 88.0,
+      "accuracy": 84.0,
       "tested": 50,
-      "correct": 44,
+      "correct": 42,
       "errors": 1,
       "target": 85.0,
-      "met": true,
-      "gap": 3.0
+      "met": false,
+      "gap": -1.0
     },
     "orchestrator": {
       "accuracy": 64.0,
@@ -44,42 +44,43 @@
     }
   },
   "overall": {
-    "accuracy": 79.5,
+    "accuracy": 77.5,
     "target": 75.0,
     "met": true
   },
   "blockers": [
-    "graph: 66.0% < 70.0% (gap: -4.0pp)",
+    "graph: 62.0% < 70.0% (gap: -8.0pp)",
+    "quantitative: 84.0% < 85.0% (gap: -1.0pp)",
     "orchestrator: 64.0% < 70.0% (gap: -6.0pp)"
   ],
-  "next_action": "Fix orchestrator pipeline (64.0% vs 70.0% target, gap: -6.0pp)",
+  "next_action": "Fix graph pipeline (62.0% vs 70.0% target, gap: -8.0pp)",
   "last_iteration": {
     "id": "iter-2026-03-04T09-49-19",
     "label": "Phase1-S70-fixed",
     "timestamp": "2026-03-04T09:49:23+01:00",
-    "total_tested": 26,
-    "overall_accuracy_pct": 84.6,
+    "total_tested": 35,
+    "overall_accuracy_pct": 74.3,
     "pipelines": {
       "quantitative": {
-        "tested": 10,
+        "tested": 13,
         "correct": 8,
-        "accuracy": 80.0
+        "accuracy": 61.5
       },
       "graph": {
-        "tested": 8,
-        "correct": 6,
-        "accuracy": 75.0
+        "tested": 12,
+        "correct": 8,
+        "accuracy": 66.7
       },
       "standard": {
-        "tested": 8,
-        "correct": 8,
+        "tested": 10,
+        "correct": 10,
         "accuracy": 100.0
       }
     }
   },
   "totals": {
     "unique_questions": 2944,
-    "test_runs": 12632,
+    "test_runs": 12641,
     "iterations": 1502
   }
 }
