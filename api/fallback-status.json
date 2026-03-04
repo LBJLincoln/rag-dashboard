@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-04T06:53:56+01:00",
+  "generated_at": "2026-03-04T07:07:35+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -7,13 +7,13 @@
   },
   "pipelines": {
     "standard": {
-      "accuracy": 74.0,
+      "accuracy": 66.0,
       "tested": 50,
-      "correct": 37,
-      "errors": 6,
+      "correct": 33,
+      "errors": 10,
       "target": 85.0,
       "met": false,
-      "gap": -11.0
+      "gap": -19.0
     },
     "graph": {
       "accuracy": 62.0,
@@ -44,35 +44,29 @@
     }
   },
   "overall": {
-    "accuracy": 70.0,
+    "accuracy": 68.0,
     "target": 75.0,
     "met": false
   },
   "blockers": [
-    "standard: 74.0% < 85.0% (gap: -11.0pp)",
+    "standard: 66.0% < 85.0% (gap: -19.0pp)",
     "graph: 62.0% < 70.0% (gap: -8.0pp)",
     "quantitative: 80.0% < 85.0% (gap: -5.0pp)",
     "orchestrator: 64.0% < 70.0% (gap: -6.0pp)",
-    "overall: 70.0% < 75.0%"
+    "overall: 68.0% < 75.0%"
   ],
-  "next_action": "Fix standard pipeline (74.0% vs 85.0% target, gap: -11.0pp)",
+  "next_action": "Fix standard pipeline (66.0% vs 85.0% target, gap: -19.0pp)",
   "last_iteration": {
-    "id": "iter-2026-03-04T06-31-34",
-    "label": "Phase2-S69-standard",
-    "timestamp": "2026-03-04T06:31:38+01:00",
-    "total_tested": 26,
-    "overall_accuracy_pct": 69.2,
-    "pipelines": {
-      "standard": {
-        "tested": 26,
-        "correct": 18,
-        "accuracy": 69.2
-      }
-    }
+    "id": "iter-2026-03-04T07-07-04",
+    "label": "Phase2-S69-single-space",
+    "timestamp": "2026-03-04T07:07:09+01:00",
+    "total_tested": 0,
+    "overall_accuracy_pct": 0,
+    "pipelines": {}
   },
   "totals": {
     "unique_questions": 2944,
-    "test_runs": 12470,
+    "test_runs": 12474,
     "iterations": 1488
   }
 }
