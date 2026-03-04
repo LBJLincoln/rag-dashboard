@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-04T08:18:43+01:00",
+  "generated_at": "2026-03-04T08:24:00+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -16,22 +16,22 @@
       "gap": 5.0
     },
     "graph": {
-      "accuracy": 60.0,
+      "accuracy": 58.0,
       "tested": 50,
-      "correct": 30,
+      "correct": 29,
       "errors": 0,
       "target": 70.0,
       "met": false,
-      "gap": -10.0
+      "gap": -12.0
     },
     "quantitative": {
-      "accuracy": 82.0,
+      "accuracy": 76.0,
       "tested": 50,
-      "correct": 41,
+      "correct": 38,
       "errors": 1,
       "target": 85.0,
       "met": false,
-      "gap": -3.0
+      "gap": -9.0
     },
     "orchestrator": {
       "accuracy": 64.0,
@@ -44,44 +44,44 @@
     }
   },
   "overall": {
-    "accuracy": 74.0,
+    "accuracy": 72.0,
     "target": 75.0,
     "met": false
   },
   "blockers": [
-    "graph: 60.0% < 70.0% (gap: -10.0pp)",
-    "quantitative: 82.0% < 85.0% (gap: -3.0pp)",
+    "graph: 58.0% < 70.0% (gap: -12.0pp)",
+    "quantitative: 76.0% < 85.0% (gap: -9.0pp)",
     "orchestrator: 64.0% < 70.0% (gap: -6.0pp)",
-    "overall: 74.0% < 75.0%"
+    "overall: 72.0% < 75.0%"
   ],
-  "next_action": "Fix graph pipeline (60.0% vs 70.0% target, gap: -10.0pp)",
+  "next_action": "Fix graph pipeline (58.0% vs 70.0% target, gap: -12.0pp)",
   "last_iteration": {
     "id": "iter-2026-03-04T08-05-55",
     "label": "Phase1-S69-all",
     "timestamp": "2026-03-04T08:06:01+01:00",
-    "total_tested": 15,
-    "overall_accuracy_pct": 40.0,
+    "total_tested": 22,
+    "overall_accuracy_pct": 36.4,
     "pipelines": {
       "quantitative": {
-        "tested": 6,
+        "tested": 9,
         "correct": 1,
-        "accuracy": 16.7
+        "accuracy": 11.1
       },
       "graph": {
-        "tested": 5,
+        "tested": 7,
         "correct": 1,
-        "accuracy": 20.0
+        "accuracy": 14.3
       },
       "standard": {
-        "tested": 4,
-        "correct": 4,
+        "tested": 6,
+        "correct": 6,
         "accuracy": 100.0
       }
     }
   },
   "totals": {
     "unique_questions": 2944,
-    "test_runs": 12553,
+    "test_runs": 12560,
     "iterations": 1501
   }
 }
