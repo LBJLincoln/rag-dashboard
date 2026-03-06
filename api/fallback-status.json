@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-06T11:51:13+01:00",
+  "generated_at": "2026-03-06T11:56:46+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -57,22 +57,22 @@
   ],
   "next_action": "Fix standard pipeline (0% vs 85.0% target, gap: -85.0pp)",
   "last_iteration": {
-    "id": "iter-2026-03-06T08-59-14",
-    "label": "Phase3-Quant-v2-RealData",
-    "timestamp": "2026-03-06T08:59:18+01:00",
-    "total_tested": 10,
-    "overall_accuracy_pct": 20.0,
+    "id": "iter-2026-03-06T11-52-35",
+    "label": "Phase3-Std-finish-S73",
+    "timestamp": "2026-03-06T11:52:42+01:00",
+    "total_tested": 1,
+    "overall_accuracy_pct": 100.0,
     "pipelines": {
-      "quantitative": {
-        "tested": 10,
-        "correct": 2,
-        "accuracy": 20.0
+      "standard": {
+        "tested": 1,
+        "correct": 1,
+        "accuracy": 100.0
       }
     }
   },
   "totals": {
-    "unique_questions": 12025,
-    "test_runs": 12029,
-    "iterations": 54
+    "unique_questions": 12026,
+    "test_runs": 12030,
+    "iterations": 55
   }
 }
