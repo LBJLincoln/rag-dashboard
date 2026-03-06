@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-06T14:50:08+01:00",
+  "generated_at": "2026-03-06T15:34:51+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -57,16 +57,16 @@
   ],
   "next_action": "Fix standard pipeline (0% vs 85.0% target, gap: -85.0pp)",
   "last_iteration": {
-    "id": "iter-2026-03-06T14-49-10",
+    "id": "iter-2026-03-06T15-34-27",
     "label": "Phase3-Quant-v2-S74",
-    "timestamp": "2026-03-06T14:49:16+01:00",
+    "timestamp": "2026-03-06T15:34:30+01:00",
     "total_tested": 0,
     "overall_accuracy_pct": 0,
     "pipelines": {}
   },
   "totals": {
-    "unique_questions": 12026,
-    "test_runs": 12305,
-    "iterations": 56
+    "unique_questions": 12032,
+    "test_runs": 12311,
+    "iterations": 58
   }
 }
