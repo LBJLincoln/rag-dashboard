@@ -3,272 +3,491 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi-RAG Orchestrator — Live Dashboard</title>
+    <title>Multi-RAG Orchestrator — Live Dashboard | Nomos AI</title>
+    <meta name="description" content="Real-time monitoring dashboard for Multi-RAG Orchestrator pipelines. Track Standard, Graph, Quantitative RAG accuracy and infrastructure health.">
+    <meta name="author" content="Nomos AI">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0D1117">
+
+    <!-- GEO Meta Tags -->
+    <meta name="geo.region" content="FR">
+    <meta name="geo.placename" content="Paris">
+    <meta name="geo.position" content="48.8566;2.3522">
+    <meta name="ICBM" content="48.8566, 2.3522">
+
+    <!-- OpenGraph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Multi-RAG Orchestrator — Live Dashboard">
+    <meta property="og:description" content="Real-time pipeline monitoring for enterprise RAG systems. Track accuracy, infrastructure health, and trading board rankings.">
+    <meta property="og:url" content="https://nomos-dashboard.vercel.app">
+    <meta property="og:site_name" content="Nomos AI Dashboard">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:image" content="https://nomos-dashboard.vercel.app/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Multi-RAG Orchestrator — Live Dashboard">
+    <meta name="twitter:description" content="Real-time pipeline monitoring for enterprise RAG systems.">
+    <meta name="twitter:image" content="https://nomos-dashboard.vercel.app/og-image.png">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Multi-RAG Orchestrator Dashboard",
+      "description": "Real-time monitoring dashboard for Multi-RAG Orchestrator pipelines powering enterprise AI solutions.",
+      "url": "https://nomos-dashboard.vercel.app",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Web",
+      "author": {
+        "@type": "Organization",
+        "name": "Nomos AI",
+        "url": "https://nomos-ai-pied.vercel.app"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "featureList": [
+        "Real-time pipeline accuracy monitoring",
+        "Trading board with BEST/MIDDLE/WORST rankings",
+        "Infrastructure health checks",
+        "Webhook status verification",
+        "Auto-refresh every 30 seconds"
+      ],
+      "screenshot": "https://nomos-dashboard.vercel.app/og-image.png",
+      "softwareVersion": "3.0",
+      "creator": {
+        "@type": "Person",
+        "name": "Alexis Moret",
+        "jobTitle": "CTO"
+      }
+    }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* ===== CSS Variables — Dark + Neon Palette ===== */
+        :root {
+            --bg-primary: #0D1117;
+            --bg-secondary: #161B22;
+            --bg-tertiary: #1C2128;
+            --bg-card: rgba(22, 27, 34, 0.8);
+            --bg-card-hover: rgba(30, 37, 46, 0.9);
+
+            --neon-green: #39D353;
+            --neon-green-dim: rgba(57, 211, 83, 0.15);
+            --neon-green-glow: rgba(57, 211, 83, 0.4);
+
+            --electric-blue: #58A6FF;
+            --electric-blue-dim: rgba(88, 166, 255, 0.12);
+            --electric-blue-glow: rgba(88, 166, 255, 0.3);
+
+            --text-primary: #C9D1D9;
+            --text-secondary: #8B949E;
+            --text-muted: #484F58;
+
+            --border: #30363D;
+            --border-hover: #484F58;
+
+            --red: #F85149;
+            --red-dim: rgba(248, 81, 73, 0.15);
+            --yellow: #D29922;
+            --yellow-dim: rgba(210, 153, 34, 0.15);
+            --purple: #BC8CFF;
+            --cyan: #39D2C0;
+
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-lg: 16px;
+
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+            --shadow-neon: 0 0 20px rgba(57, 211, 83, 0.1);
+            --shadow-blue: 0 0 20px rgba(88, 166, 255, 0.1);
         }
 
+        /* ===== Reset ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
-            color: #e0e6ed;
-            padding: 20px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 24px;
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
+
+        /* Subtle grid pattern background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                linear-gradient(rgba(57, 211, 83, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(57, 211, 83, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        ::selection { background: var(--neon-green); color: var(--bg-primary); }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--border-hover); }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
+        /* ===== Header ===== */
         header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 32px;
+            padding: 28px 32px;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(12px);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-green), var(--electric-blue), var(--purple));
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            top: -100px; right: -50px;
+            width: 300px; height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--neon-green-dim), transparent 70%);
+            pointer-events: none;
         }
 
         h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--neon-green) 0%, var(--electric-blue) 50%, var(--purple) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
         .subtitle {
-            font-size: 1.1rem;
-            color: #94a3b8;
-            margin-bottom: 15px;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            font-weight: 400;
+            letter-spacing: 0.02em;
         }
 
         .refresh-info {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 8px 16px;
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 20px;
-            font-size: 0.9rem;
-            color: #a5b4fc;
+            padding: 8px 18px;
+            background: var(--neon-green-dim);
+            border: 1px solid rgba(57, 211, 83, 0.2);
+            border-radius: 24px;
+            font-size: 0.85rem;
+            color: var(--neon-green);
+            font-weight: 500;
         }
 
         .pulse {
             width: 8px;
             height: 8px;
-            background: #22c55e;
+            background: var(--neon-green);
             border-radius: 50%;
             animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 0 8px var(--neon-green-glow);
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+            0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--neon-green-glow); }
+            50% { opacity: 0.4; box-shadow: 0 0 16px var(--neon-green-glow); }
         }
 
+        /* ===== Section Titles ===== */
+        .section-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 3px;
+            height: 16px;
+            border-radius: 2px;
+            background: var(--neon-green);
+            box-shadow: 0 0 8px var(--neon-green-glow);
+        }
+
+        /* ===== Grid ===== */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            gap: 16px;
+            margin-bottom: 32px;
         }
 
+        /* ===== Cards ===== */
         .card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
+            background: var(--bg-card);
+            border-radius: var(--radius);
             padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(8px);
+            position: relative;
+            overflow: hidden;
         }
 
         .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            border-color: rgba(102, 126, 234, 0.5);
+            transform: translateY(-3px);
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow), var(--shadow-neon);
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 16px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
         }
 
         .card-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #f1f5f9;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
         }
 
+        /* ===== Status Badges ===== */
         .status-badge {
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.08em;
         }
 
         .status-healthy {
-            background: rgba(34, 197, 94, 0.2);
-            color: #22c55e;
-            border: 1px solid rgba(34, 197, 94, 0.4);
+            background: var(--neon-green-dim);
+            color: var(--neon-green);
+            border: 1px solid rgba(57, 211, 83, 0.3);
+            box-shadow: 0 0 12px rgba(57, 211, 83, 0.1);
         }
 
         .status-warning {
-            background: rgba(251, 191, 36, 0.2);
-            color: #fbbf24;
-            border: 1px solid rgba(251, 191, 36, 0.4);
+            background: var(--yellow-dim);
+            color: var(--yellow);
+            border: 1px solid rgba(210, 153, 34, 0.3);
         }
 
         .status-error {
-            background: rgba(239, 68, 68, 0.2);
-            color: #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.4);
+            background: var(--red-dim);
+            color: var(--red);
+            border: 1px solid rgba(248, 81, 73, 0.3);
         }
 
         .status-unknown {
-            background: rgba(148, 163, 184, 0.2);
-            color: #94a3b8;
-            border: 1px solid rgba(148, 163, 184, 0.4);
+            background: rgba(139, 148, 158, 0.15);
+            color: var(--text-secondary);
+            border: 1px solid rgba(139, 148, 158, 0.3);
         }
 
+        /* ===== Metric Rows ===== */
         .metric-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(48, 54, 61, 0.5);
         }
 
-        .metric-row:last-child {
-            border-bottom: none;
-        }
+        .metric-row:last-child { border-bottom: none; }
 
         .metric-label {
-            color: #94a3b8;
-            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 400;
         }
 
         .metric-value {
-            font-weight: 600;
-            font-size: 1rem;
-            color: #f1f5f9;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
         }
 
+        /* ===== Accuracy Bar ===== */
         .accuracy-bar {
             width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
+            height: 6px;
+            background: rgba(48, 54, 61, 0.8);
+            border-radius: 3px;
             overflow: hidden;
             margin-top: 8px;
         }
 
         .accuracy-fill {
             height: 100%;
-            border-radius: 4px;
-            transition: width 0.5s ease, background 0.5s ease;
+            border-radius: 3px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .accuracy-fill::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15));
         }
 
         .accuracy-excellent {
-            background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
+            background: linear-gradient(90deg, var(--neon-green), #2ea043);
+            box-shadow: 0 0 12px var(--neon-green-glow);
         }
 
         .accuracy-good {
-            background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+            background: linear-gradient(90deg, var(--electric-blue), #388bfd);
+            box-shadow: 0 0 12px var(--electric-blue-glow);
         }
 
         .accuracy-warning {
-            background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%);
+            background: linear-gradient(90deg, var(--yellow), #e3b341);
         }
 
         .accuracy-poor {
-            background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+            background: linear-gradient(90deg, var(--red), #da3633);
         }
 
+        /* ===== Infrastructure Grid ===== */
         .infrastructure-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
         }
 
         .infra-item {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(22, 27, 34, 0.6);
+            padding: 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(48, 54, 61, 0.5);
+            transition: all 0.2s;
+        }
+
+        .infra-item:hover {
+            border-color: var(--border);
+            background: rgba(30, 37, 46, 0.6);
         }
 
         .infra-label {
-            color: #64748b;
-            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-size: 0.75rem;
             margin-bottom: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
         }
 
         .infra-value {
-            color: #e2e8f0;
-            font-size: 0.95rem;
-            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
         }
 
+        /* ===== Webhook Status ===== */
         .webhook-status {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         .webhook-dot {
-            width: 6px;
-            height: 6px;
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
         }
 
-        .webhook-ok { background: #22c55e; }
-        .webhook-error { background: #ef4444; }
-        .webhook-pending { background: #94a3b8; }
+        .webhook-ok {
+            background: var(--neon-green);
+            box-shadow: 0 0 8px var(--neon-green-glow);
+        }
+        .webhook-error { background: var(--red); }
+        .webhook-pending { background: var(--text-secondary); }
 
+        /* ===== Timestamp ===== */
         .timestamp {
-            font-size: 0.8rem;
-            color: #64748b;
+            font-size: 0.75rem;
+            color: var(--text-muted);
             margin-top: 8px;
             text-align: right;
         }
 
+        /* ===== Error Message ===== */
         .error-message {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            border-radius: 8px;
-            padding: 12px;
+            background: var(--red-dim);
+            border: 1px solid rgba(248, 81, 73, 0.25);
+            border-radius: var(--radius-sm);
+            padding: 14px;
             margin-top: 10px;
-            color: #fca5a5;
+            color: #ffa198;
             font-size: 0.85rem;
         }
 
+        /* ===== Loading ===== */
         .loading {
             text-align: center;
-            padding: 40px;
-            color: #94a3b8;
+            padding: 60px 20px;
+            color: var(--text-secondary);
         }
 
         .spinner {
-            border: 3px solid rgba(102, 126, 234, 0.1);
-            border-top: 3px solid #667eea;
+            border: 3px solid var(--border);
+            border-top: 3px solid var(--neon-green);
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
+            width: 36px;
+            height: 36px;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 16px;
+            box-shadow: 0 0 12px var(--neon-green-glow);
         }
 
         @keyframes spin {
@@ -276,117 +495,228 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* ===== Phase Indicator ===== */
         .phase-indicator {
             display: inline-block;
-            padding: 6px 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 16px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            padding: 6px 16px;
+            background: linear-gradient(135deg, var(--neon-green-dim), var(--electric-blue-dim));
+            border: 1px solid rgba(57, 211, 83, 0.2);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
             margin-top: 10px;
+            color: var(--neon-green);
         }
 
+        /* ===== Trading Board ===== */
+        .trading-board {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1fr;
+            gap: 16px;
+        }
+        @media (max-width: 1024px) { .trading-board { grid-template-columns: 1fr; } }
+
+        .tb-panel {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 20px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s;
+        }
+
+        .tb-panel:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow);
+        }
+
+        .tb-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+        }
+
+        .tb-best::before { background: linear-gradient(90deg, var(--neon-green), #2ea043); box-shadow: 0 0 20px var(--neon-green-glow); }
+        .tb-worst::before { background: linear-gradient(90deg, var(--red), #da3633); }
+        .tb-middle::before { background: linear-gradient(90deg, var(--yellow), #e3b341); }
+
+        .tb-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+
+        .tb-badge {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; font-weight: 800;
+        }
+
+        .tb-badge.best { background: linear-gradient(135deg, var(--neon-green), #2ea043); box-shadow: 0 4px 12px var(--neon-green-glow); }
+        .tb-badge.worst { background: linear-gradient(135deg, var(--red), #da3633); }
+        .tb-badge.middle { background: linear-gradient(135deg, var(--yellow), #e3b341); }
+
+        .tb-title { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+        .tb-subtitle { font-size: 11px; color: var(--text-muted); }
+
+        .tb-pipeline {
+            display: flex; align-items: center; gap: 14px;
+            padding: 16px;
+            background: rgba(22, 27, 34, 0.6);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(48, 54, 61, 0.5);
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+        .tb-pipeline:hover { border-color: var(--border); transform: translateY(-1px); }
+
+        .tb-pipe-icon {
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; font-weight: 800; color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .tb-pipe-info { flex: 1; }
+        .tb-pipe-name { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+        .tb-pipe-accuracy { font-size: 28px; font-weight: 800; font-family: 'JetBrains Mono', monospace; letter-spacing: -0.03em; }
+        .tb-pipe-accuracy.best { color: var(--neon-green); text-shadow: 0 0 20px var(--neon-green-glow); }
+        .tb-pipe-accuracy.worst { color: var(--red); }
+        .tb-pipe-meta { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+        .tb-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+        .tb-stat {
+            text-align: center; padding: 12px;
+            background: rgba(22, 27, 34, 0.6);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(48, 54, 61, 0.5);
+        }
+        .tb-stat .v { font-size: 18px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+        .tb-stat .l { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+
+        .tb-middle-list { display: flex; flex-direction: column; gap: 8px; }
+
+        .tb-middle-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 12px;
+            background: rgba(22, 27, 34, 0.6);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(48, 54, 61, 0.5);
+            transition: all 0.2s;
+        }
+        .tb-middle-item:hover { border-color: var(--border); background: var(--electric-blue-dim); }
+
+        .tb-middle-rank {
+            width: 26px; height: 26px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 700;
+            background: rgba(48, 54, 61, 0.8); color: var(--text-secondary);
+        }
+        .tb-middle-info { flex: 1; }
+        .tb-middle-name { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+        .tb-middle-acc { font-size: 16px; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--yellow); }
+        .tb-middle-trend { font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 700; }
+        .trend-stable { background: var(--neon-green-dim); color: var(--neon-green); }
+        .trend-recovering { background: var(--yellow-dim); color: var(--yellow); }
+        .trend-at-risk { background: var(--red-dim); color: var(--red); }
+
+        .tb-summary { display: flex; gap: 12px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+        .tb-sum-item { flex: 1; text-align: center; }
+        .tb-sum-val { font-size: 22px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+        .tb-sum-val.pass { color: var(--neon-green); text-shadow: 0 0 12px var(--neon-green-glow); }
+        .tb-sum-val.atrisk { color: var(--yellow); }
+        .tb-sum-val.critical { color: var(--red); }
+        .tb-sum-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+        /* ===== Repo Cards ===== */
+        .repo-status-dot {
+            width: 10px; height: 10px; border-radius: 50%; display: inline-block;
+        }
+        .repo-dot-ok { background: var(--neon-green); box-shadow: 0 0 6px var(--neon-green-glow); }
+        .repo-dot-degraded { background: var(--yellow); }
+        .repo-dot-missing { background: var(--red); }
+        .repo-dot-error { background: var(--text-secondary); }
+
+        .repo-card-header {
+            display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+        }
+        .repo-name { font-size: 1rem; font-weight: 700; color: var(--text-primary); }
+        .repo-role { font-size: 0.78rem; color: var(--text-secondary); }
+        .repo-detail { font-size: 0.82rem; color: var(--text-secondary); margin-top: 4px; }
+        .repo-detail a {
+            color: var(--electric-blue);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .repo-detail a:hover { color: var(--neon-green); text-decoration: underline; }
+
+        /* ===== Navigation Link ===== */
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: var(--electric-blue-dim);
+            border: 1px solid rgba(88, 166, 255, 0.2);
+            border-radius: var(--radius-sm);
+            color: var(--electric-blue);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            margin-top: 16px;
+        }
+
+        .nav-link:hover {
+            background: rgba(88, 166, 255, 0.2);
+            border-color: var(--electric-blue);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-blue);
+        }
+
+        /* ===== Footer ===== */
         footer {
             text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            color: #64748b;
-            font-size: 0.85rem;
-        }
-
-        /* Trading Board Styles */
-        .trading-board { display: grid; grid-template-columns: 1fr 1.5fr 1fr; gap: 20px; }
-        @media (max-width: 1024px) { .trading-board { grid-template-columns: 1fr; } }
-        
-        .tb-panel { background: rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 20px; border: 1px solid rgba(255, 255, 255, 0.1); position: relative; overflow: hidden; }
-        .tb-panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-        .tb-best::before { background: linear-gradient(90deg, #22c55e, #16a34a); }
-        .tb-worst::before { background: linear-gradient(90deg, #ef4444, #dc2626); }
-        .tb-middle::before { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
-        
-        .tb-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-        .tb-badge { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; }
-        .tb-badge.best { background: linear-gradient(135deg, #22c55e, #16a34a); }
-        .tb-badge.worst { background: linear-gradient(135deg, #ef4444, #dc2626); }
-        .tb-badge.middle { background: linear-gradient(135deg, #fbbf24, #f59e0b); }
-        
-        .tb-title { font-size: 14px; font-weight: 700; color: #f1f5f9; }
-        .tb-subtitle { font-size: 11px; color: #94a3b8; }
-        
-        .tb-pipeline { display: flex; align-items: center; gap: 14px; padding: 16px; background: rgba(255, 255, 255, 0.03); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 12px; }
-        .tb-pipe-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; color: #fff; }
-        .tb-pipe-info { flex: 1; }
-        .tb-pipe-name { font-size: 14px; font-weight: 600; color: #f1f5f9; margin-bottom: 4px; }
-        .tb-pipe-accuracy { font-size: 28px; font-weight: 800; font-family: monospace; }
-        .tb-pipe-accuracy.best { color: #22c55e; }
-        .tb-pipe-accuracy.worst { color: #ef4444; }
-        .tb-pipe-meta { font-size: 11px; color: #94a3b8; margin-top: 4px; }
-        
-        .tb-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .tb-stat { text-align: center; padding: 12px; background: rgba(255, 255, 255, 0.03); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.05); }
-        .tb-stat .v { font-size: 18px; font-weight: 700; font-family: monospace; }
-        .tb-stat .l { font-size: 10px; color: #94a3b8; text-transform: uppercase; margin-top: 4px; }
-        
-        .tb-middle-list { display: flex; flex-direction: column; gap: 8px; }
-        .tb-middle-item { display: flex; align-items: center; gap: 10px; padding: 12px; background: rgba(255, 255, 255, 0.03); border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.05); }
-        .tb-middle-rank { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: rgba(255, 255, 255, 0.1); color: #94a3b8; }
-        .tb-middle-info { flex: 1; }
-        .tb-middle-name { font-size: 13px; font-weight: 600; color: #f1f5f9; }
-        .tb-middle-acc { font-size: 16px; font-weight: 700; font-family: monospace; color: #fbbf24; }
-        .tb-middle-trend { font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 600; }
-        .trend-stable { background: rgba(34, 197, 94, 0.2); color: #22c55e; }
-        .trend-recovering { background: rgba(251, 191, 36, 0.2); color: #fbbf24; }
-        .trend-at-risk { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
-        
-        .tb-summary { display: flex; gap: 12px; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
-        .tb-sum-item { flex: 1; text-align: center; }
-        .tb-sum-val { font-size: 22px; font-weight: 800; font-family: monospace; }
-        .tb-sum-val.pass { color: #22c55e; }
-        .tb-sum-val.atrisk { color: #fbbf24; }
-        .tb-sum-val.critical { color: #ef4444; }
-        .tb-sum-label { font-size: 10px; color: #94a3b8; text-transform: uppercase; }
-
-        .repo-status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            display: inline-block;
-        }
-        .repo-dot-ok { background: #22c55e; }
-        .repo-dot-degraded { background: #fbbf24; }
-        .repo-dot-missing { background: #ef4444; }
-        .repo-dot-error { background: #94a3b8; }
-        .repo-card-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        .repo-name {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #f1f5f9;
-        }
-        .repo-role {
+            margin-top: 48px;
+            padding: 24px;
+            color: var(--text-muted);
             font-size: 0.8rem;
-            color: #94a3b8;
-        }
-        .repo-detail {
-            font-size: 0.85rem;
-            color: #94a3b8;
-            margin-top: 4px;
-        }
-        .repo-detail a {
-            color: #a5b4fc;
-            text-decoration: none;
-        }
-        .repo-detail a:hover {
-            text-decoration: underline;
+            border-top: 1px solid var(--border);
         }
 
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        footer a:hover { color: var(--neon-green); }
+
+        .footer-tech {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .tech-badge {
+            padding: 4px 10px;
+            background: rgba(48, 54, 61, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-secondary);
+        }
+
+        /* ===== Responsive ===== */
         @media (max-width: 768px) {
-            h1 { font-size: 1.8rem; }
+            body { padding: 12px; }
+            h1 { font-size: 1.6rem; }
             .grid { grid-template-columns: 1fr; }
+            header { padding: 20px 16px; }
         }
     </style>
 </head>
@@ -399,6 +729,9 @@
                 <span class="pulse"></span>
                 <span>Auto-refresh: 30s | Last updated: <strong id="last-updated">Loading...</strong></span>
             </div>
+            <div style="margin-top: 16px;">
+                <a href="/dashboard" class="nav-link">Open Command Center &rarr;</a>
+            </div>
         </header>
 
         <div id="loading" class="loading">
@@ -408,10 +741,11 @@
 
         <div id="content" style="display: none;">
             <!-- Phase & Overall Status -->
-            <section style="margin-bottom: 30px;">
+            <section style="margin-bottom: 32px;">
+                <div class="section-title">System Overview</div>
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">System Overview</h2>
+                        <h2 class="card-title">System Health</h2>
                         <span id="overall-status" class="status-badge status-unknown">Loading</span>
                     </div>
                     <div class="metric-row">
@@ -438,26 +772,27 @@
             </section>
 
             <!-- Trading Board -->
-            <section style="margin-top: 30px;">
-                <h2 style="margin-bottom: 20px; color: #f1f5f9; font-size: 1.5rem;">📊 Trading Board</h2>
+            <section style="margin-top: 32px;">
+                <div class="section-title">Trading Board</div>
                 <div class="trading-board" id="trading-board">
                     <div class="card" style="text-align: center; padding: 40px;">
                         <div class="spinner"></div>
-                        <p style="color: #94a3b8; margin-top: 15px;">Loading trading board...</p>
+                        <p style="color: var(--text-secondary); margin-top: 15px;">Loading trading board...</p>
                     </div>
                 </div>
             </section>
 
             <!-- Pipeline Cards -->
-            <section style="margin-top: 30px;">
-                <h2 style="margin-bottom: 20px; color: #f1f5f9; font-size: 1.5rem;">Pipeline Status</h2>
+            <section style="margin-top: 32px;">
+                <div class="section-title">Pipeline Status</div>
                 <div class="grid" id="pipeline-grid">
                     <!-- Pipelines will be inserted here -->
                 </div>
             </section>
 
             <!-- Infrastructure Status -->
-            <section style="margin-top: 30px;">
+            <section style="margin-top: 32px;">
+                <div class="section-title">Infrastructure</div>
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">Infrastructure Health</h2>
@@ -470,26 +805,33 @@
             </section>
 
             <!-- Repositories Status -->
-            <section style="margin-top: 30px;">
-                <h2 style="margin-bottom: 20px; color: #f1f5f9; font-size: 1.5rem;">Repositories</h2>
+            <section style="margin-top: 32px;">
+                <div class="section-title">Repositories</div>
                 <div class="grid" id="repo-grid">
                     <div class="card" style="text-align: center; padding: 30px; grid-column: 1 / -1;">
-                        <div style="color: #94a3b8;">Loading repository data...</div>
+                        <div style="color: var(--text-secondary);">Loading repository data...</div>
                     </div>
                 </div>
             </section>
         </div>
 
         <footer>
-            <p>Multi-RAG Orchestrator | Powered by n8n, Pinecone, Neo4j, Supabase | VM: 34.136.180.66</p>
-            <p style="margin-top: 8px;">Data sources: rag-dashboard/docs (status.json, data.json) + HF Space webhooks</p>
+            <p>Multi-RAG Orchestrator &mdash; Enterprise AI Pipeline Monitoring</p>
+            <div class="footer-tech">
+                <span class="tech-badge">n8n</span>
+                <span class="tech-badge">Pinecone</span>
+                <span class="tech-badge">Neo4j</span>
+                <span class="tech-badge">Supabase</span>
+                <span class="tech-badge">HF Spaces</span>
+            </div>
+            <p style="margin-top: 12px;">Data sources: status.json + data.json + HF Space webhooks</p>
         </footer>
     </div>
 
     <script>
         // Configuration
         const CONFIG = {
-            refreshInterval: 30000, // 30 seconds
+            refreshInterval: 30000,
             githubRaw: 'https://raw.githubusercontent.com/LBJLincoln/rag-dashboard/main',
             n8nHost: 'https://lbjlincoln-nomos-rag-engine.hf.space',
             pipelines: [
@@ -498,28 +840,28 @@
                     name: 'Standard RAG',
                     path: '/webhook/rag-multi-index-v3',
                     target: 85.0,
-                    color: '#667eea'
+                    color: '#58A6FF'
                 },
                 {
                     id: 'graph',
                     name: 'Graph RAG',
                     path: '/webhook/ff622742-6d71-4e91-af71-b5c666088717',
                     target: 70.0,
-                    color: '#764ba2'
+                    color: '#BC8CFF'
                 },
                 {
                     id: 'quantitative',
                     name: 'Quantitative RAG',
                     path: '/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9',
                     target: 85.0,
-                    color: '#f093fb'
+                    color: '#39D353'
                 },
                 {
                     id: 'orchestrator',
                     name: 'Orchestrator',
                     path: '/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0',
                     target: 70.0,
-                    color: '#4facfe'
+                    color: '#39D2C0'
                 }
             ]
         };
@@ -528,7 +870,7 @@
         let webhookStatus = {};
         let lastUpdateTime = null;
 
-        // Fallback status data when backend is unavailable
+        // Fallback status data
         const FALLBACK_STATUS = {
             "generated_at": "2026-02-27T19:32:22+01:00",
             "phase": { "current": 1, "name": "Baseline (200q)", "gates_passed": true },
@@ -543,7 +885,6 @@
             "totals": { "unique_questions": 2697, "test_runs": 9813, "iterations": 1048 }
         };
 
-        // Fetch data from GitHub raw
         async function fetchGitHubData(file) {
             const url = `${CONFIG.githubRaw}/${file}?t=${Date.now()}`;
             const response = await fetch(url);
@@ -551,11 +892,9 @@
             return await response.json();
         }
 
-        // Test webhook health (with timeout)
         async function testWebhook(path) {
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout
-
+            const timeoutId = setTimeout(() => controller.abort(), 8000);
             try {
                 const response = await fetch(`${CONFIG.n8nHost}${path}`, {
                     method: 'POST',
@@ -564,23 +903,13 @@
                     signal: controller.signal
                 });
                 clearTimeout(timeoutId);
-
-                return {
-                    status: response.status,
-                    ok: response.status >= 200 && response.status < 500,
-                    error: null
-                };
+                return { status: response.status, ok: response.status >= 200 && response.status < 500, error: null };
             } catch (error) {
                 clearTimeout(timeoutId);
-                return {
-                    status: 0,
-                    ok: false,
-                    error: error.name === 'AbortError' ? 'Timeout' : error.message
-                };
+                return { status: 0, ok: false, error: error.name === 'AbortError' ? 'Timeout' : error.message };
             }
         }
 
-        // Get status badge class
         function getStatusClass(accuracy, target) {
             if (accuracy >= target) return 'status-healthy';
             if (accuracy >= target * 0.9) return 'status-warning';
@@ -588,7 +917,6 @@
             return 'status-unknown';
         }
 
-        // Get accuracy bar class
         function getAccuracyClass(accuracy) {
             if (accuracy >= 85) return 'accuracy-excellent';
             if (accuracy >= 70) return 'accuracy-good';
@@ -596,19 +924,12 @@
             return 'accuracy-poor';
         }
 
-        // Format timestamp
         function formatTime(isoString) {
             if (!isoString) return 'Never';
             const date = new Date(isoString);
-            return date.toLocaleString('en-US', {
-                month: 'short',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
+            return date.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
         }
 
-        // Calculate time ago
         function timeAgo(isoString) {
             if (!isoString) return 'Never';
             const seconds = Math.floor((Date.now() - new Date(isoString)) / 1000);
@@ -618,12 +939,10 @@
             return `${Math.floor(seconds / 86400)}d ago`;
         }
 
-        // Render trading board
         function renderTradingBoard() {
             const pipelines = statusData.pipelines;
             if (!pipelines) return;
 
-            // Sort by accuracy descending
             const sorted = Object.entries(pipelines)
                 .map(([id, data]) => ({ id, ...data, name: CONFIG.pipelines.find(p => p.id === id)?.name || id }))
                 .sort((a, b) => (b.accuracy || 0) - (a.accuracy || 0));
@@ -634,47 +953,44 @@
             const worst = sorted[sorted.length - 1];
             const middle = sorted.slice(1, -1);
 
-            // Summary stats
             const passing = sorted.filter(p => p.met).length;
             const atRisk = sorted.filter(p => !p.met && p.gap >= -5).length;
             const critical = sorted.filter(p => !p.met && p.gap < -5).length;
 
-            const pipeColors = { standard: '#667eea', graph: '#764ba2', quantitative: '#f093fb', orchestrator: '#4facfe' };
+            const pipeColors = { standard: '#58A6FF', graph: '#BC8CFF', quantitative: '#39D353', orchestrator: '#39D2C0' };
             const pipeIcons = { standard: 'S', graph: 'G', quantitative: 'Q', orchestrator: 'O' };
 
             document.getElementById('trading-board').innerHTML = `
-                <!-- BEST -->
                 <div class="tb-panel tb-best">
                     <div class="tb-header">
-                        <div class="tb-badge best">🏆</div>
+                        <div class="tb-badge best">1</div>
                         <div>
                             <div class="tb-title">BEST Performer</div>
-                            <div class="tb-subtitle">Rank #1 • Fixed</div>
+                            <div class="tb-subtitle">Rank #1</div>
                         </div>
                     </div>
                     <div class="tb-pipeline">
-                        <div class="tb-pipe-icon" style="background: ${pipeColors[best.id]}">${pipeIcons[best.id]}</div>
+                        <div class="tb-pipe-icon" style="background: linear-gradient(135deg, ${pipeColors[best.id]}, ${pipeColors[best.id]}88)">${pipeIcons[best.id]}</div>
                         <div class="tb-pipe-info">
                             <div class="tb-pipe-name">${best.name}</div>
                             <div class="tb-pipe-accuracy best">${best.accuracy.toFixed(1)}%</div>
-                            <div class="tb-pipe-meta">Target: ${best.target}% • Gap: +${best.gap.toFixed(1)}pp</div>
+                            <div class="tb-pipe-meta">Target: ${best.target}% | Gap: +${best.gap.toFixed(1)}pp</div>
                         </div>
                     </div>
                     <div class="tb-stats">
-                        <div class="tb-stat"><div class="v" style="color:#22c55e">${best.tested}</div><div class="l">Tested</div></div>
-                        <div class="tb-stat"><div class="v" style="color:#22c55e">${best.correct}</div><div class="l">Correct</div></div>
-                        <div class="tb-stat"><div class="v" style="color:#22c55e">${best.met ? 'PASS' : 'FAIL'}</div><div class="l">Status</div></div>
-                        <div class="tb-stat"><div class="v" style="color:#22c55e">${best.errors}</div><div class="l">Errors</div></div>
+                        <div class="tb-stat"><div class="v" style="color:var(--neon-green)">${best.tested}</div><div class="l">Tested</div></div>
+                        <div class="tb-stat"><div class="v" style="color:var(--neon-green)">${best.correct}</div><div class="l">Correct</div></div>
+                        <div class="tb-stat"><div class="v" style="color:var(--neon-green)">${best.met ? 'PASS' : 'FAIL'}</div><div class="l">Status</div></div>
+                        <div class="tb-stat"><div class="v" style="color:var(--neon-green)">${best.errors}</div><div class="l">Errors</div></div>
                     </div>
                 </div>
 
-                <!-- MIDDLE -->
                 <div class="tb-panel tb-middle">
                     <div class="tb-header">
-                        <div class="tb-badge middle">📊</div>
+                        <div class="tb-badge middle">~</div>
                         <div>
                             <div class="tb-title">MIDDLE Tier</div>
-                            <div class="tb-subtitle">Rolling • ${middle.length} Pipeline${middle.length !== 1 ? 's' : ''}</div>
+                            <div class="tb-subtitle">Rolling | ${middle.length} Pipeline${middle.length !== 1 ? 's' : ''}</div>
                         </div>
                     </div>
                     <div class="tb-middle-list">
@@ -684,7 +1000,7 @@
                             return `
                                 <div class="tb-middle-item">
                                     <div class="tb-middle-rank">${idx + 2}</div>
-                                    <div class="tb-pipe-icon" style="width:32px;height:32px;font-size:14px;background:${pipeColors[p.id]}">${pipeIcons[p.id]}</div>
+                                    <div class="tb-pipe-icon" style="width:32px;height:32px;font-size:14px;background:linear-gradient(135deg,${pipeColors[p.id]},${pipeColors[p.id]}88)">${pipeIcons[p.id]}</div>
                                     <div class="tb-middle-info">
                                         <div class="tb-middle-name">${p.name}</div>
                                     </div>
@@ -701,34 +1017,32 @@
                     </div>
                 </div>
 
-                <!-- WORST -->
                 <div class="tb-panel tb-worst">
                     <div class="tb-header">
-                        <div class="tb-badge worst">⚠️</div>
+                        <div class="tb-badge worst">${sorted.length}</div>
                         <div>
                             <div class="tb-title">WORST Performer</div>
-                            <div class="tb-subtitle">Rank #${sorted.length} • Fixed</div>
+                            <div class="tb-subtitle">Rank #${sorted.length}</div>
                         </div>
                     </div>
                     <div class="tb-pipeline">
-                        <div class="tb-pipe-icon" style="background: ${pipeColors[worst.id]}">${pipeIcons[worst.id]}</div>
+                        <div class="tb-pipe-icon" style="background: linear-gradient(135deg, ${pipeColors[worst.id]}, ${pipeColors[worst.id]}88)">${pipeIcons[worst.id]}</div>
                         <div class="tb-pipe-info">
                             <div class="tb-pipe-name">${worst.name}</div>
                             <div class="tb-pipe-accuracy worst">${worst.accuracy.toFixed(1)}%</div>
-                            <div class="tb-pipe-meta">Target: ${worst.target}% • Gap: ${worst.gap.toFixed(1)}pp</div>
+                            <div class="tb-pipe-meta">Target: ${worst.target}% | Gap: ${worst.gap.toFixed(1)}pp</div>
                         </div>
                     </div>
                     <div class="tb-stats">
-                        <div class="tb-stat"><div class="v" style="color:#ef4444">${worst.tested}</div><div class="l">Tested</div></div>
-                        <div class="tb-stat"><div class="v" style="color:#ef4444">${worst.correct}</div><div class="l">Correct</div></div>
-                        <div class="tb-stat"><div class="v" style="color:${worst.met ? '#22c55e' : '#ef4444'}">${worst.met ? 'PASS' : 'FAIL'}</div><div class="l">Status</div></div>
-                        <div class="tb-stat"><div class="v" style="color:#ef4444">${worst.errors}</div><div class="l">Errors</div></div>
+                        <div class="tb-stat"><div class="v" style="color:var(--red)">${worst.tested}</div><div class="l">Tested</div></div>
+                        <div class="tb-stat"><div class="v" style="color:var(--red)">${worst.correct}</div><div class="l">Correct</div></div>
+                        <div class="tb-stat"><div class="v" style="color:${worst.met ? 'var(--neon-green)' : 'var(--red)'}">${worst.met ? 'PASS' : 'FAIL'}</div><div class="l">Status</div></div>
+                        <div class="tb-stat"><div class="v" style="color:var(--red)">${worst.errors}</div><div class="l">Errors</div></div>
                     </div>
                 </div>
             `;
         }
 
-        // Render pipeline cards
         function renderPipelines() {
             const grid = document.getElementById('pipeline-grid');
             grid.innerHTML = '';
@@ -757,7 +1071,7 @@
                 }
 
                 const card = `
-                    <div class="card">
+                    <div class="card" style="border-top: 2px solid ${pipeline.color};">
                         <div class="card-header">
                             <h3 class="card-title">${pipeline.name}</h3>
                             <span class="status-badge ${statusClass}">${met ? 'Passing' : 'Not Met'}</span>
@@ -765,7 +1079,7 @@
 
                         <div class="metric-row">
                             <span class="metric-label">Accuracy</span>
-                            <span class="metric-value">${accuracy.toFixed(1)}%</span>
+                            <span class="metric-value" style="color: ${met ? 'var(--neon-green)' : accuracy >= target * 0.9 ? 'var(--yellow)' : 'var(--red)'}">${accuracy.toFixed(1)}%</span>
                         </div>
                         <div class="accuracy-bar">
                             <div class="accuracy-fill ${accuracyClass}" style="width: ${accuracy}%"></div>
@@ -793,7 +1107,7 @@
 
                         <div class="metric-row">
                             <span class="metric-label">Gap to Target</span>
-                            <span class="metric-value" style="color: ${data.gap >= 0 ? '#22c55e' : '#ef4444'}">
+                            <span class="metric-value" style="color: ${data.gap >= 0 ? 'var(--neon-green)' : 'var(--red)'}">
                                 ${data.gap !== undefined ? (data.gap >= 0 ? '+' : '') + data.gap.toFixed(1) + '%' : 'N/A'}
                             </span>
                         </div>
@@ -804,7 +1118,6 @@
             });
         }
 
-        // Render infrastructure status
         function renderInfrastructure() {
             const grid = document.getElementById('infra-grid');
 
@@ -818,30 +1131,12 @@
                 infraHealthy ? 'Healthy' : 'Degraded';
 
             const items = [
-                {
-                    label: 'HF Space Host',
-                    value: CONFIG.n8nHost.replace('https://', '')
-                },
-                {
-                    label: 'Webhook Health',
-                    value: `${healthyWebhooks}/${totalWebhooks} active`
-                },
-                {
-                    label: 'Phase Gate',
-                    value: statusData.phase.gates_passed ? 'Passed' : 'Pending'
-                },
-                {
-                    label: 'Total Iterations',
-                    value: statusData.totals?.iterations || 'N/A'
-                },
-                {
-                    label: 'Data Generated',
-                    value: formatTime(statusData.generated_at)
-                },
-                {
-                    label: 'Active Blockers',
-                    value: statusData.blockers?.length || 0
-                }
+                { label: 'HF Space Host', value: CONFIG.n8nHost.replace('https://', '') },
+                { label: 'Webhook Health', value: `${healthyWebhooks}/${totalWebhooks} active` },
+                { label: 'Phase Gate', value: statusData.phase.gates_passed ? 'Passed' : 'Pending' },
+                { label: 'Total Iterations', value: statusData.totals?.iterations || 'N/A' },
+                { label: 'Data Generated', value: formatTime(statusData.generated_at) },
+                { label: 'Active Blockers', value: statusData.blockers?.length || 0 }
             ];
 
             grid.innerHTML = items.map(item => `
@@ -851,7 +1146,6 @@
                 </div>
             `).join('');
 
-            // Show blockers if any
             if (statusData.blockers && statusData.blockers.length > 0) {
                 grid.innerHTML += `
                     <div class="error-message" style="grid-column: 1 / -1;">
@@ -861,7 +1155,6 @@
             }
         }
 
-        // Update overall stats
         function updateOverallStats() {
             const overall = statusData.overall || {};
             const phase = statusData.phase || {};
@@ -869,16 +1162,12 @@
 
             document.getElementById('phase-name').textContent =
                 `Phase ${phase.current}: ${phase.name || 'Unknown'}`;
-
             document.getElementById('overall-accuracy').textContent =
                 `${(overall.accuracy || 0).toFixed(1)}% (Target: ${(overall.target || 0).toFixed(0)}%)`;
-
             document.getElementById('total-questions').textContent =
                 totals.unique_questions?.toLocaleString() || 'N/A';
-
             document.getElementById('total-runs').textContent =
                 totals.test_runs?.toLocaleString() || 'N/A';
-
             document.getElementById('blockers-count').textContent =
                 statusData.blockers?.length || 0;
 
@@ -889,22 +1178,17 @@
                 overallMet ? 'Healthy' : 'Below Target';
         }
 
-        // Test all webhooks in parallel
         async function testAllWebhooks() {
             const promises = CONFIG.pipelines.map(async (pipeline) => {
                 const result = await testWebhook(pipeline.path);
                 webhookStatus[pipeline.id] = result;
             });
-
             await Promise.all(promises);
         }
 
-        // Main update function
         async function updateDashboard() {
             let usingFallback = false;
-            
             try {
-                // Fetch status.json from GitHub
                 try {
                     statusData = await fetchGitHubData('docs/status.json');
                 } catch (e) {
@@ -912,32 +1196,20 @@
                     statusData = FALLBACK_STATUS;
                     usingFallback = true;
                 }
-
-                // Test webhooks in parallel (non-blocking)
                 testAllWebhooks().catch(() => {});
-
-                // Update UI
                 updateOverallStats();
                 renderTradingBoard();
                 renderPipelines();
                 renderInfrastructure();
-
-                // Update timestamp
                 lastUpdateTime = new Date();
                 document.getElementById('last-updated').textContent = timeAgo(lastUpdateTime.toISOString());
-                
-                // Show fallback indicator if using local data
                 if (usingFallback) {
-                    document.getElementById('last-updated').innerHTML += ' <span style="color:#fbbf24;font-size:0.8em">(fallback)</span>';
+                    document.getElementById('last-updated').innerHTML += ' <span style="color:var(--yellow);font-size:0.8em">(fallback)</span>';
                 }
-
-                // Hide loading, show content
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('content').style.display = 'block';
-
             } catch (error) {
                 console.error('Dashboard update failed:', error);
-                // Ultimate fallback - use local data
                 statusData = FALLBACK_STATUS;
                 try {
                     updateOverallStats();
@@ -946,31 +1218,26 @@
                     renderInfrastructure();
                     document.getElementById('loading').style.display = 'none';
                     document.getElementById('content').style.display = 'block';
-                    document.getElementById('last-updated').innerHTML = 'Using fallback data <span style="color:#fbbf24;font-size:0.8em">(offline)</span>';
+                    document.getElementById('last-updated').innerHTML = 'Using fallback data <span style="color:var(--yellow);font-size:0.8em">(offline)</span>';
                 } catch (e) {
                     document.getElementById('loading').innerHTML = `
-                        <div class="error-message">
-                            Failed to load dashboard data: ${error.message}
-                        </div>
+                        <div class="error-message">Failed to load dashboard data: ${error.message}</div>
                     `;
                 }
             }
         }
 
-        // Update "Last updated" counter every second
         function updateCounter() {
             if (lastUpdateTime) {
                 document.getElementById('last-updated').textContent = timeAgo(lastUpdateTime.toISOString());
             }
         }
 
-        // Render repository status cards
         async function renderRepos() {
             const grid = document.getElementById('repo-grid');
             try {
                 const data = await fetchGitHubData('docs/repo-status.json');
                 if (!data || !data.repos) return;
-
                 grid.innerHTML = data.repos.map(repo => {
                     const dotClass = repo.status === 'ok' ? 'repo-dot-ok' :
                                      repo.status === 'degraded' ? 'repo-dot-degraded' :
@@ -978,8 +1245,8 @@
                     const commitDate = repo.lastCommitDate ? timeAgo(new Date(repo.lastCommitDate).toISOString()) : 'N/A';
                     const urlHtml = repo.url ? `<div class="repo-detail"><a href="${repo.url}" target="_blank">${repo.url.replace('https://', '')}</a> (HTTP ${repo.httpStatus || '?'})</div>` : '';
                     const commitHtml = repo.lastCommit && repo.lastCommit !== 'not-cloned'
-                        ? `<div class="repo-detail">${repo.lastCommit} — ${commitDate}</div><div class="repo-detail" style="color:#64748b;font-size:0.8rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:280px;" title="${(repo.lastCommitMsg || '').replace(/"/g, '&quot;')}">${repo.lastCommitMsg || ''}</div>`
-                        : '<div class="repo-detail" style="color:#ef4444;">Not cloned on VM</div>';
+                        ? `<div class="repo-detail" style="font-family:'JetBrains Mono',monospace;font-size:0.78rem;">${repo.lastCommit} &mdash; ${commitDate}</div><div class="repo-detail" style="color:var(--text-muted);font-size:0.75rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:280px;" title="${(repo.lastCommitMsg || '').replace(/"/g, '&quot;')}">${repo.lastCommitMsg || ''}</div>`
+                        : '<div class="repo-detail" style="color:var(--red);">Not cloned on VM</div>';
                     return `
                         <div class="card" style="padding: 16px;">
                             <div class="repo-card-header">
@@ -995,7 +1262,7 @@
                     `;
                 }).join('');
             } catch (e) {
-                grid.innerHTML = '<div class="card" style="text-align:center;padding:20px;grid-column:1/-1;"><div style="color:#94a3b8;">Could not load repo data</div></div>';
+                grid.innerHTML = '<div class="card" style="text-align:center;padding:20px;grid-column:1/-1;"><div style="color:var(--text-secondary);">Could not load repo data</div></div>';
             }
         }
 
@@ -1003,7 +1270,7 @@
         updateDashboard();
         renderRepos();
         setInterval(updateDashboard, CONFIG.refreshInterval);
-        setInterval(renderRepos, 300000); // refresh repos every 5 min
+        setInterval(renderRepos, 300000);
         setInterval(updateCounter, 1000);
     </script>
 </body>

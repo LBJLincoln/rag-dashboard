@@ -7,34 +7,71 @@
     <title>Redirecting to NOMOS Control Center...</title>
     <style>
         body {
-            font-family: monospace;
-            background: #0d1117;
-            color: #c9d1d9;
+            font-family: 'JetBrains Mono', monospace;
+            background: #0D1117;
+            color: #C9D1D9;
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100vh;
             margin: 0;
         }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                linear-gradient(rgba(57, 211, 83, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(57, 211, 83, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
         .redirect-message {
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
         .redirect-message h1 {
-            font-size: 24px;
+            font-size: 20px;
             margin-bottom: 16px;
+            background: linear-gradient(135deg, #39D353, #58A6FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
         }
         .redirect-message p {
-            font-size: 14px;
-            color: #8b949e;
+            font-size: 13px;
+            color: #8B949E;
         }
         .redirect-message a {
-            color: #58a6ff;
+            color: #58A6FF;
             text-decoration: none;
+            border-bottom: 1px solid rgba(88, 166, 255, 0.3);
+            padding-bottom: 2px;
+            transition: all 0.2s;
+        }
+        .redirect-message a:hover {
+            color: #39D353;
+            border-bottom-color: rgba(57, 211, 83, 0.5);
+        }
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid #30363D;
+            border-top-color: #39D353;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 20px;
+            box-shadow: 0 0 12px rgba(57, 211, 83, 0.2);
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
     <div class="redirect-message">
+        <div class="spinner"></div>
         <h1>Redirecting to Control Center...</h1>
         <p>If you are not redirected automatically, <a href="./index.html">click here</a>.</p>
     </div>
