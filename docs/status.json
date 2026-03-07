@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-07T13:18:15+01:00",
+  "generated_at": "2026-03-07T13:24:02+01:00",
   "phase": {
     "current": 1,
     "name": "Baseline (200q)",
@@ -60,19 +60,19 @@
     "id": "iter-2026-03-07T13-06-01",
     "label": "Phase3-Quant-v2-Session75",
     "timestamp": "2026-03-07T13:06:05+01:00",
-    "total_tested": 33,
-    "overall_accuracy_pct": 97.0,
+    "total_tested": 65,
+    "overall_accuracy_pct": 96.9,
     "pipelines": {
       "quantitative": {
-        "tested": 33,
-        "correct": 32,
-        "accuracy": 97.0
+        "tested": 65,
+        "correct": 63,
+        "accuracy": 96.9
       }
     }
   },
   "totals": {
-    "unique_questions": 12059,
-    "test_runs": 12360,
+    "unique_questions": 12091,
+    "test_runs": 12392,
     "iterations": 60
   }
 }
