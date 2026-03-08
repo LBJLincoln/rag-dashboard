@@ -711,6 +711,117 @@
             color: var(--text-secondary);
         }
 
+        /* ===== Latency Bar ===== */
+        .latency-bar-container {
+            margin-top: 8px;
+            background: rgba(48, 54, 61, 0.4);
+            border-radius: 6px;
+            height: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .latency-bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--bg-primary);
+            transition: width 0.6s ease;
+        }
+
+        .latency-fast { background: linear-gradient(90deg, var(--neon-green), #2ea043); }
+        .latency-medium { background: linear-gradient(90deg, var(--yellow), #d29922); }
+        .latency-slow { background: linear-gradient(90deg, var(--red), #da3633); }
+
+        /* ===== Phase Table ===== */
+        .phase-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        .phase-table th {
+            padding: 10px 14px;
+            text-align: left;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .phase-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(48, 54, 61, 0.3);
+        }
+
+        .phase-table tr:last-child td { border-bottom: none; }
+
+        .phase-table .val-pass { color: var(--neon-green); font-weight: 600; }
+        .phase-table .val-fail { color: var(--red); font-weight: 600; }
+        .phase-table .val-hold { color: var(--text-muted); font-style: italic; }
+
+        /* ===== HF Space Card ===== */
+        .hf-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+        .hf-dot-up { background: var(--neon-green); box-shadow: 0 0 6px var(--neon-green-glow); }
+        .hf-dot-down { background: var(--red); box-shadow: 0 0 6px rgba(248, 81, 73, 0.4); }
+        .hf-dot-unknown { background: var(--text-muted); }
+
+        .hf-space-row {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(48, 54, 61, 0.3);
+        }
+        .hf-space-row:last-child { border-bottom: none; }
+
+        .hf-space-name {
+            flex: 1;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+        }
+        .hf-space-type {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            padding: 2px 8px;
+            background: rgba(48, 54, 61, 0.5);
+            border-radius: 4px;
+        }
+
+        /* ===== DB Stats ===== */
+        .db-stat-bar {
+            margin-top: 8px;
+            background: rgba(48, 54, 61, 0.4);
+            border-radius: 4px;
+            height: 6px;
+            overflow: hidden;
+        }
+        .db-stat-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.6s ease;
+        }
+        .db-usage-text {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
         /* ===== Responsive ===== */
         @media (max-width: 768px) {
             body { padding: 12px; }
@@ -788,6 +899,44 @@
                 <div class="section-title">Pipeline Status</div>
                 <div class="grid" id="pipeline-grid">
                     <!-- Pipelines will be inserted here -->
+                </div>
+            </section>
+
+            <!-- Latency Metrics -->
+            <section style="margin-top: 32px;">
+                <div class="section-title">Pipeline Latency</div>
+                <div class="grid" id="latency-grid">
+                    <!-- Latency cards will be inserted here -->
+                </div>
+            </section>
+
+            <!-- Phase Comparison -->
+            <section style="margin-top: 32px;">
+                <div class="section-title">Phase Results Comparison</div>
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Phase 3 vs Phase 4</h2>
+                        <span class="status-badge status-healthy">Multi-Phase</span>
+                    </div>
+                    <div id="phase-comparison" style="overflow-x: auto;">
+                        <!-- Phase comparison table will be inserted here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- HF Space Health -->
+            <section style="margin-top: 32px;">
+                <div class="section-title">HF Space Health</div>
+                <div class="grid" id="hf-health-grid">
+                    <!-- HF Space health cards will be inserted here -->
+                </div>
+            </section>
+
+            <!-- Database Stats -->
+            <section style="margin-top: 32px;">
+                <div class="section-title">Database Stats</div>
+                <div class="grid" id="db-stats-grid">
+                    <!-- Database stats will be inserted here -->
                 </div>
             </section>
 
@@ -871,19 +1020,34 @@
         let webhookStatus = {};
         let lastUpdateTime = null;
 
-        // Fallback status data
+        // Fallback status data (updated 2026-03-08)
         const FALLBACK_STATUS = {
-            "generated_at": "2026-02-27T19:32:22+01:00",
-            "phase": { "current": 1, "name": "Baseline (200q)", "gates_passed": true },
+            "generated_at": "2026-03-08T15:30:00+01:00",
+            "phase": { "current": 4, "name": "SOTA Benchmark (61K questions)", "gates_passed": true },
             "pipelines": {
-                "standard": { "accuracy": 92.0, "tested": 50, "correct": 46, "errors": 1, "target": 85.0, "met": true, "gap": 7.0 },
-                "graph": { "accuracy": 78.0, "tested": 50, "correct": 39, "errors": 0, "target": 70.0, "met": true, "gap": 8.0 },
-                "quantitative": { "accuracy": 92.0, "tested": 50, "correct": 46, "errors": 1, "target": 85.0, "met": true, "gap": 7.0 },
-                "orchestrator": { "accuracy": 80.0, "tested": 50, "correct": 40, "errors": 2, "target": 70.0, "met": true, "gap": 10.0 }
+                "standard": { "accuracy": 87.5, "tested": 10917, "correct": 9553, "errors": 218, "target": 85.0, "met": true, "gap": 2.5, "latency_ms": 36000, "latency_p95_ms": 52000, "phase3_accuracy": 87.5, "phase4_accuracy": 13.0, "phase4_tested": 10917, "phase4_status": "DONE" },
+                "graph": { "accuracy": 40.9, "tested": 11300, "correct": 4622, "errors": 565, "target": 70.0, "met": false, "gap": -29.1, "latency_ms": 39000, "latency_p95_ms": 58000, "phase3_accuracy": 40.9, "phase4_accuracy": 7.0, "phase4_tested": 11300, "phase4_status": "DONE" },
+                "quantitative": { "accuracy": 95.2, "tested": 3550, "correct": 3380, "errors": 35, "target": 85.0, "met": true, "gap": 10.2, "latency_ms": 43000, "latency_p95_ms": 65000, "phase3_accuracy": 95.2, "phase4_accuracy": 14.0, "phase4_tested": 3550, "phase4_status": "91.7% ingested" },
+                "orchestrator": { "accuracy": 0, "tested": 0, "correct": 0, "errors": 0, "target": 70.0, "met": false, "gap": -70.0, "latency_ms": 0, "latency_p95_ms": 0, "phase3_accuracy": 80.0, "phase4_accuracy": 0, "phase4_tested": 0, "phase4_status": "ON HOLD" }
             },
-            "overall": { "accuracy": 85.5, "target": 75.0, "met": true },
-            "blockers": [],
-            "totals": { "unique_questions": 2697, "test_runs": 9813, "iterations": 1048 }
+            "infrastructure": {
+                "hf_spaces": {
+                    "n8n_primary": { "name": "nomos-rag-engine", "status": "UP" },
+                    "n8n_space_2": { "name": "nomos-rag-engine-2", "status": "UP" },
+                    "n8n_space_3": { "name": "nomos-rag-engine-3", "status": "UP" },
+                    "n8n_space_4": { "name": "nomos-rag-engine-4", "status": "UP" },
+                    "litellm": { "name": "nomos-rag-engine-7", "status": "UP", "type": "LiteLLM Proxy" },
+                    "embeddings": { "name": "nomos-embeddings-api", "status": "UP", "type": "Embeddings" }
+                },
+                "databases": {
+                    "pinecone": { "sota_index": { "name": "sota-rag-jina-1024", "vectors": 46263, "limit": 100000 }, "website_index": { "name": "website-sectors-jina-1024", "vectors": 31916, "limit": 100000 }, "total_vectors": 78179 },
+                    "neo4j": { "nodes": 79451, "relationships": 219414, "limit_nodes": 200000, "limit_rels": 400000 },
+                    "supabase": { "tables": 40, "sector_documents": 11387, "financial_tables": 3876, "limit_mb": 500 }
+                }
+            },
+            "overall": { "accuracy": 74.5, "target": 75.0, "met": false },
+            "blockers": ["Graph pipeline 40.9% < 70.0% target (gap: -29.1pp)", "Orchestrator ON HOLD (404 webhook)"],
+            "totals": { "unique_questions": 61661, "test_runs": 25767, "iterations": 87 }
         };
 
         async function fetchGitHubData(file) {
@@ -1112,6 +1276,13 @@
                                 ${data.gap !== undefined ? (data.gap >= 0 ? '+' : '') + data.gap.toFixed(1) + '%' : 'N/A'}
                             </span>
                         </div>
+
+                        ${data.latency_ms ? `
+                        <div class="metric-row">
+                            <span class="metric-label">Avg Latency</span>
+                            <span class="metric-value" style="font-family:'JetBrains Mono',monospace;">${(data.latency_ms / 1000).toFixed(1)}s</span>
+                        </div>
+                        ` : ''}
                     </div>
                 `;
 
@@ -1179,6 +1350,214 @@
                 overallMet ? 'Healthy' : 'Below Target';
         }
 
+        function renderLatencyMetrics() {
+            const grid = document.getElementById('latency-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            const maxLatency = 70000; // 70s max for bar scaling
+            const pipeColors = { standard: '#58A6FF', graph: '#BC8CFF', quantitative: '#39D353', orchestrator: '#39D2C0' };
+
+            CONFIG.pipelines.forEach(pipeline => {
+                const data = statusData.pipelines[pipeline.id] || {};
+                const latency = data.latency_ms || 0;
+                const p95 = data.latency_p95_ms || 0;
+
+                if (latency === 0 && pipeline.id === 'orchestrator') return; // Skip ON HOLD
+
+                const latencySec = (latency / 1000).toFixed(1);
+                const p95Sec = (p95 / 1000).toFixed(1);
+                const pct = Math.min((latency / maxLatency) * 100, 100);
+                const barClass = latency <= 30000 ? 'latency-fast' : latency <= 45000 ? 'latency-medium' : 'latency-slow';
+
+                grid.innerHTML += `
+                    <div class="card" style="border-top: 2px solid ${pipeColors[pipeline.id]};">
+                        <div class="card-header">
+                            <h3 class="card-title">${pipeline.name}</h3>
+                            <span class="metric-value" style="font-family:'JetBrains Mono',monospace;font-size:1.4rem;color:${pipeColors[pipeline.id]}">${latencySec}s</span>
+                        </div>
+                        <div class="latency-bar-container">
+                            <div class="latency-bar-fill ${barClass}" style="width: ${pct}%">${latencySec}s avg</div>
+                        </div>
+                        <div class="metric-row" style="margin-top: 12px;">
+                            <span class="metric-label">P95 Latency</span>
+                            <span class="metric-value" style="font-family:'JetBrains Mono',monospace;">${p95Sec}s</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label">Questions Tested</span>
+                            <span class="metric-value">${(data.tested || 0).toLocaleString()}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderPhaseComparison() {
+            const container = document.getElementById('phase-comparison');
+            if (!container) return;
+
+            const rows = CONFIG.pipelines.map(pipeline => {
+                const data = statusData.pipelines[pipeline.id] || {};
+                const p3 = data.phase3_accuracy;
+                const p4 = data.phase4_accuracy;
+                const p4Status = data.phase4_status || 'N/A';
+                const p4Tested = data.phase4_tested || 0;
+
+                const p3Class = p3 !== undefined ? (p3 >= (data.target || 70) ? 'val-pass' : 'val-fail') : 'val-hold';
+                const p4Class = p4 !== undefined && p4 > 0 ? (p4 >= (data.target || 70) ? 'val-pass' : 'val-fail') : 'val-hold';
+                const statusClass = p4Status === 'DONE' ? 'val-pass' : p4Status === 'ON HOLD' ? 'val-hold' : '';
+
+                return `
+                    <tr>
+                        <td style="color:${pipeline.color};font-weight:600;">${pipeline.name}</td>
+                        <td class="${p3Class}">${p3 !== undefined ? p3.toFixed(1) + '%' : '-'}</td>
+                        <td class="${p4Class}">${p4 !== undefined && p4 > 0 ? p4.toFixed(1) + '%' : '-'}</td>
+                        <td>${p4Tested > 0 ? p4Tested.toLocaleString() : '-'}</td>
+                        <td class="${statusClass}">${p4Status}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            container.innerHTML = `
+                <table class="phase-table">
+                    <thead>
+                        <tr>
+                            <th>Pipeline</th>
+                            <th>Phase 3 (10K)</th>
+                            <th>Phase 4 (61K)</th>
+                            <th>P4 Tested</th>
+                            <th>P4 Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>${rows}</tbody>
+                </table>
+            `;
+        }
+
+        function renderHFHealth() {
+            const grid = document.getElementById('hf-health-grid');
+            if (!grid) return;
+
+            const infra = statusData.infrastructure;
+            if (!infra || !infra.hf_spaces) {
+                grid.innerHTML = '<div class="card" style="text-align:center;padding:20px;grid-column:1/-1;color:var(--text-secondary);">No HF Space data available</div>';
+                return;
+            }
+
+            const spaces = infra.hf_spaces;
+            const spaceList = Object.entries(spaces);
+            const upCount = spaceList.filter(([, s]) => s.status === 'UP').length;
+
+            grid.innerHTML = `
+                <div class="card" style="grid-column: 1 / -1;">
+                    <div class="card-header">
+                        <h3 class="card-title">HF Spaces Status</h3>
+                        <span class="status-badge ${upCount === spaceList.length ? 'status-healthy' : 'status-warning'}">${upCount}/${spaceList.length} UP</span>
+                    </div>
+                    ${spaceList.map(([key, space]) => {
+                        const dotClass = space.status === 'UP' ? 'hf-dot-up' : space.status === 'DOWN' ? 'hf-dot-down' : 'hf-dot-unknown';
+                        const typeLabel = space.type || (key.includes('litellm') ? 'LiteLLM Proxy' : key.includes('embed') ? 'Embeddings' : 'n8n');
+                        return `
+                            <div class="hf-space-row">
+                                <span class="hf-dot ${dotClass}"></span>
+                                <span class="hf-space-name">${space.name}</span>
+                                <span class="hf-space-type">${typeLabel}</span>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        function renderDBStats() {
+            const grid = document.getElementById('db-stats-grid');
+            if (!grid) return;
+
+            const infra = statusData.infrastructure;
+            if (!infra || !infra.databases) {
+                grid.innerHTML = '<div class="card" style="text-align:center;padding:20px;grid-column:1/-1;color:var(--text-secondary);">No database data available</div>';
+                return;
+            }
+
+            const db = infra.databases;
+
+            // Pinecone
+            const pcTotal = db.pinecone?.total_vectors || 0;
+            const pcLimit = (db.pinecone?.sota_index?.limit || 100000) + (db.pinecone?.website_index?.limit || 100000);
+            const pcPct = Math.min((pcTotal / pcLimit) * 100, 100);
+            const pcColor = pcPct < 60 ? 'var(--neon-green)' : pcPct < 80 ? 'var(--yellow)' : 'var(--red)';
+
+            // Neo4j
+            const neoNodes = db.neo4j?.nodes || 0;
+            const neoLimit = db.neo4j?.limit_nodes || 200000;
+            const neoPct = Math.min((neoNodes / neoLimit) * 100, 100);
+            const neoColor = neoPct < 60 ? 'var(--electric-blue)' : neoPct < 80 ? 'var(--yellow)' : 'var(--red)';
+
+            // Supabase
+            const supaDocs = db.supabase?.sector_documents || 0;
+            const supaFin = db.supabase?.financial_tables || 0;
+            const supaTables = db.supabase?.tables || 0;
+
+            grid.innerHTML = `
+                <div class="card" style="border-top: 2px solid var(--neon-green);">
+                    <div class="card-header">
+                        <h3 class="card-title">Pinecone</h3>
+                        <span class="metric-value" style="font-family:'JetBrains Mono',monospace;color:var(--neon-green);">${pcTotal.toLocaleString()}</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">SOTA Index</span>
+                        <span class="metric-value">${(db.pinecone?.sota_index?.vectors || 0).toLocaleString()} vectors</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Website Index</span>
+                        <span class="metric-value">${(db.pinecone?.website_index?.vectors || 0).toLocaleString()} vectors</span>
+                    </div>
+                    <div class="db-stat-bar">
+                        <div class="db-stat-bar-fill" style="width:${pcPct}%;background:${pcColor};"></div>
+                    </div>
+                    <div class="db-usage-text">${pcPct.toFixed(1)}% of ${(pcLimit / 1000).toFixed(0)}K limit</div>
+                </div>
+
+                <div class="card" style="border-top: 2px solid var(--electric-blue);">
+                    <div class="card-header">
+                        <h3 class="card-title">Neo4j</h3>
+                        <span class="metric-value" style="font-family:'JetBrains Mono',monospace;color:var(--electric-blue);">${neoNodes.toLocaleString()}</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Nodes</span>
+                        <span class="metric-value">${neoNodes.toLocaleString()}</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Relationships</span>
+                        <span class="metric-value">${(db.neo4j?.relationships || 0).toLocaleString()}</span>
+                    </div>
+                    <div class="db-stat-bar">
+                        <div class="db-stat-bar-fill" style="width:${neoPct}%;background:${neoColor};"></div>
+                    </div>
+                    <div class="db-usage-text">${neoPct.toFixed(1)}% of ${(neoLimit / 1000).toFixed(0)}K node limit</div>
+                </div>
+
+                <div class="card" style="border-top: 2px solid var(--purple);">
+                    <div class="card-header">
+                        <h3 class="card-title">Supabase</h3>
+                        <span class="metric-value" style="font-family:'JetBrains Mono',monospace;color:var(--purple);">${supaDocs.toLocaleString()}</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Sector Documents</span>
+                        <span class="metric-value">${supaDocs.toLocaleString()}</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Financial Tables</span>
+                        <span class="metric-value">${supaFin.toLocaleString()}</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Total Tables</span>
+                        <span class="metric-value">${supaTables}</span>
+                    </div>
+                </div>
+            `;
+        }
+
         async function testAllWebhooks() {
             const promises = CONFIG.pipelines.map(async (pipeline) => {
                 const result = await testWebhook(pipeline.path);
@@ -1201,6 +1580,10 @@
                 updateOverallStats();
                 renderTradingBoard();
                 renderPipelines();
+                renderLatencyMetrics();
+                renderPhaseComparison();
+                renderHFHealth();
+                renderDBStats();
                 renderInfrastructure();
                 lastUpdateTime = new Date();
                 document.getElementById('last-updated').textContent = timeAgo(lastUpdateTime.toISOString());
@@ -1216,6 +1599,10 @@
                     updateOverallStats();
                     renderTradingBoard();
                     renderPipelines();
+                    renderLatencyMetrics();
+                    renderPhaseComparison();
+                    renderHFHealth();
+                    renderDBStats();
                     renderInfrastructure();
                     document.getElementById('loading').style.display = 'none';
                     document.getElementById('content').style.display = 'block';
