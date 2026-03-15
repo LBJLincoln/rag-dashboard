@@ -15,3 +15,27 @@ Thumbs.db
 # Temp files
 *.tmp
 .cache/
+
+# Environment & Secrets
+.env
+.env.local
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+
+# Process IDs
+*.pid
+
+# Claude Code
+.claude/
+.mcp.json
+
+# Generated data (auto-generated, do not track)
+docs/data.json
+data/
