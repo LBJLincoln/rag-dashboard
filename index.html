@@ -983,44 +983,9 @@
         </footer>
     </div>
 
+    <script src="utils.js"></script>
+    <script src="config.js"></script>
     <script>
-        // Configuration
-        const CONFIG = {
-            refreshInterval: 30000,
-            githubRaw: 'https://raw.githubusercontent.com/LBJLincoln/rag-dashboard/main',
-            n8nHost: 'https://lbjlincoln-nomos-rag-engine.hf.space',
-            pipelines: [
-                {
-                    id: 'standard',
-                    name: 'Standard RAG',
-                    path: '/webhook/rag-multi-index-v3',
-                    target: 85.0,
-                    color: '#58A6FF'
-                },
-                {
-                    id: 'graph',
-                    name: 'Graph RAG',
-                    path: '/webhook/ff622742-6d71-4e91-af71-b5c666088717',
-                    target: 70.0,
-                    color: '#BC8CFF'
-                },
-                {
-                    id: 'quantitative',
-                    name: 'Quantitative RAG',
-                    path: '/webhook/3e0f8010-39e0-4bca-9d19-35e5094391a9',
-                    target: 85.0,
-                    color: '#39D353'
-                },
-                {
-                    id: 'orchestrator',
-                    name: 'Orchestrator',
-                    path: '/webhook/92217bb8-ffc8-459a-8331-3f553812c3d0',
-                    target: 70.0,
-                    color: '#39D2C0'
-                }
-            ]
-        };
-
         let statusData = null;
         let webhookStatus = {};
         let lastUpdateTime = null;
@@ -1078,35 +1043,6 @@
                 clearTimeout(timeoutId);
                 return { status: 0, ok: false, error: error.name === 'AbortError' ? 'Timeout' : error.message };
             }
-        }
-
-        function getStatusClass(accuracy, target) {
-            if (accuracy >= target) return 'status-healthy';
-            if (accuracy >= target * 0.9) return 'status-warning';
-            if (accuracy > 0) return 'status-error';
-            return 'status-unknown';
-        }
-
-        function getAccuracyClass(accuracy) {
-            if (accuracy >= 85) return 'accuracy-excellent';
-            if (accuracy >= 70) return 'accuracy-good';
-            if (accuracy >= 50) return 'accuracy-warning';
-            return 'accuracy-poor';
-        }
-
-        function formatTime(isoString) {
-            if (!isoString) return 'Never';
-            const date = new Date(isoString);
-            return date.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-        }
-
-        function timeAgo(isoString) {
-            if (!isoString) return 'Never';
-            const seconds = Math.floor((Date.now() - new Date(isoString)) / 1000);
-            if (seconds < 60) return `${seconds}s ago`;
-            if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
-            if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
-            return `${Math.floor(seconds / 86400)}d ago`;
         }
 
         function renderTradingBoard() {
