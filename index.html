@@ -1631,7 +1631,7 @@
                                      repo.status === 'degraded' ? 'repo-dot-degraded' :
                                      repo.status === 'missing' ? 'repo-dot-missing' : 'repo-dot-error';
                     const commitDate = repo.lastCommitDate ? timeAgo(new Date(repo.lastCommitDate).toISOString()) : 'N/A';
-                    const urlHtml = repo.url ? `<div class="repo-detail"><a href="${repo.url}" target="_blank">${repo.url.replace('https://', '')}</a> (HTTP ${repo.httpStatus || '?'})</div>` : '';
+                    const urlHtml = repo.url ? `<div class="repo-detail"><a href="${repo.url}" target="_blank" rel="noopener noreferrer">${repo.url.replace('https://', '')}</a> (HTTP ${repo.httpStatus || '?'})</div>` : '';
                     const commitHtml = repo.lastCommit && repo.lastCommit !== 'not-cloned'
                         ? `<div class="repo-detail" style="font-family:'JetBrains Mono',monospace;font-size:0.78rem;">${repo.lastCommit} &mdash; ${commitDate}</div><div class="repo-detail" style="color:var(--text-muted);font-size:0.75rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:280px;" title="${(repo.lastCommitMsg || '').replace(/"/g, '&quot;')}">${repo.lastCommitMsg || ''}</div>`
                         : '<div class="repo-detail" style="color:var(--red);">Not cloned on VM</div>';
