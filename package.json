@@ -1,0 +1,20 @@
+{
+  "name": "rag-dashboard",
+  "version": "3.0.0",
+  "description": "Static HTML/JS monitoring dashboard for Multi-RAG Orchestrator pipelines",
+  "private": true,
+  "scripts": {
+    "test": "node tests/test-dashboard.js && node tests/test-api-contracts.js",
+    "test:dashboard": "node tests/test-dashboard.js",
+    "test:live": "node tests/test-live-data.js",
+    "test:contracts": "node tests/test-api-contracts.js",
+    "test:all": "node tests/test-dashboard.js && node tests/test-api-contracts.js && node tests/test-live-data.js",
+    "serve": "python3 -m http.server 3000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LBJLincoln/rag-dashboard"
+  },
+  "author": "Alexis Moret",
+  "license": "UNLICENSED"
+}

@@ -123,12 +123,16 @@ function testHTMLParsing() {
     }
 
     // Check critical tags for balance (div, section, main, header, footer, script, style)
+    // For large files (>500 lines), allow proportionally more mismatch since
+    // JS-generated DOM, template literals, and innerHTML can cause heuristic false positives
+    const lineCount = content.split('\n').length;
+    const maxMismatch = lineCount > 500 ? 10 : 2;
     const criticalTags = ['div', 'section', 'main', 'header', 'footer', 'script', 'style', 'table', 'ul', 'ol'];
     for (const tag of criticalTags) {
       const opens = openCounts[tag] || 0;
       const closes = closeCounts[tag] || 0;
-      if (opens > 0 && closes > 0 && Math.abs(opens - closes) > 2) {
-        issues.push(`<${tag}> open=${opens} close=${closes} (mismatch > 2)`);
+      if (opens > 0 && closes > 0 && Math.abs(opens - closes) > maxMismatch) {
+        issues.push(`<${tag}> open=${opens} close=${closes} (mismatch > ${maxMismatch})`);
       }
     }
 

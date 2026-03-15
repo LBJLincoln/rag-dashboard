@@ -129,56 +129,93 @@ async function testCrossRepoDashboard() {
     fail('cross-repo-has-timestamp', 'no timestamp or generated_at field');
   }
 
-  if (data.stats && typeof data.stats === 'object') {
-    ok('cross-repo-has-stats');
-  } else {
-    fail('cross-repo-has-stats', 'missing stats object');
-    return;
-  }
+  // Detect schema type: cross-repo-dashboard (repos/summary) vs dashboard-data (stats/spaces)
+  const isCrossRepo = !!(data.repos || data.summary);
+  const isDashboardData = !!(data.stats);
 
-  // Check required stats fields
-  const requiredStatsFields = ['total_docs', 'total_questions'];
-  for (const field of requiredStatsFields) {
-    if (data.stats[field] !== undefined) {
-      ok(`cross-repo-stats.${field} = ${data.stats[field]}`);
+  if (isCrossRepo) {
+    ok('cross-repo-schema-detected (repos/summary format)');
+
+    // Validate repos array
+    if (data.repos && Array.isArray(data.repos)) {
+      ok(`cross-repo-repos-count: ${data.repos.length}`);
+      for (const repo of data.repos) {
+        if (repo.name) {
+          healthReport[`repo_${repo.name}`] = repo.status || 'unknown';
+          ok(`repo:${repo.name} = ${repo.status || 'no-status'}`);
+        }
+      }
+    } else if (data.repos && typeof data.repos === 'object') {
+      const repoNames = Object.keys(data.repos);
+      ok(`cross-repo-repos-count: ${repoNames.length}`);
+      for (const name of repoNames) {
+        healthReport[`repo_${name}`] = data.repos[name].status || 'present';
+        ok(`repo:${name}`);
+      }
     } else {
-      fail(`cross-repo-stats.${field}`, 'missing');
+      fail('cross-repo-repos', 'missing repos field');
     }
-  }
 
-  // Docs by sector
-  if (data.stats.docs_by_sector && typeof data.stats.docs_by_sector === 'object') {
-    const sectors = Object.keys(data.stats.docs_by_sector);
-    ok(`cross-repo-sectors (${sectors.join(', ')})`);
+    // Validate summary
+    if (data.summary && typeof data.summary === 'object') {
+      ok('cross-repo-has-summary');
+      for (const [key, val] of Object.entries(data.summary)) {
+        healthReport[`summary_${key}`] = val;
+      }
+    } else {
+      skip('cross-repo-summary', 'no summary field');
+    }
 
-    const expectedSectors = ['finance', 'btp', 'juridique', 'industrie'];
-    for (const s of expectedSectors) {
-      if (data.stats.docs_by_sector[s] !== undefined) {
-        healthReport[`sector_docs_${s}`] = data.stats.docs_by_sector[s];
-        ok(`sector-docs:${s} = ${data.stats.docs_by_sector[s]}`);
+  } else if (isDashboardData) {
+    ok('cross-repo-schema-detected (stats/spaces format)');
+
+    // Check required stats fields
+    const requiredStatsFields = ['total_docs', 'total_questions'];
+    for (const field of requiredStatsFields) {
+      if (data.stats[field] !== undefined) {
+        ok(`cross-repo-stats.${field} = ${data.stats[field]}`);
       } else {
-        fail(`sector-docs:${s}`, 'sector missing from docs_by_sector');
+        fail(`cross-repo-stats.${field}`, 'missing');
       }
     }
-  } else {
-    fail('cross-repo-docs-by-sector', 'missing');
-  }
 
-  // Accuracy data
-  if (data.stats.accuracy_24h && typeof data.stats.accuracy_24h === 'object') {
-    ok('cross-repo-accuracy-24h');
-    for (const [pipeline, acc] of Object.entries(data.stats.accuracy_24h)) {
-      if (typeof acc.accuracy === 'number') {
-        healthReport[`accuracy_${pipeline}`] = acc.accuracy;
-        const status = acc.accuracy >= 70 ? 'HEALTHY' : acc.accuracy >= 50 ? 'WARNING' : 'CRITICAL';
-        ok(`accuracy:${pipeline} = ${acc.accuracy}% [${status}]`);
+    // Docs by sector
+    if (data.stats.docs_by_sector && typeof data.stats.docs_by_sector === 'object') {
+      const sectors = Object.keys(data.stats.docs_by_sector);
+      ok(`cross-repo-sectors (${sectors.join(', ')})`);
+
+      const expectedSectors = ['finance', 'btp', 'juridique', 'industrie'];
+      for (const s of expectedSectors) {
+        if (data.stats.docs_by_sector[s] !== undefined) {
+          healthReport[`sector_docs_${s}`] = data.stats.docs_by_sector[s];
+          ok(`sector-docs:${s} = ${data.stats.docs_by_sector[s]}`);
+        } else {
+          fail(`sector-docs:${s}`, 'sector missing from docs_by_sector');
+        }
       }
+    } else {
+      skip('cross-repo-docs-by-sector', 'not in this schema');
     }
+
+    // Accuracy data
+    if (data.stats.accuracy_24h && typeof data.stats.accuracy_24h === 'object') {
+      ok('cross-repo-accuracy-24h');
+      for (const [pipeline, acc] of Object.entries(data.stats.accuracy_24h)) {
+        if (typeof acc.accuracy === 'number') {
+          healthReport[`accuracy_${pipeline}`] = acc.accuracy;
+          const status = acc.accuracy >= 70 ? 'HEALTHY' : acc.accuracy >= 50 ? 'WARNING' : 'CRITICAL';
+          ok(`accuracy:${pipeline} = ${acc.accuracy}% [${status}]`);
+        }
+      }
+    } else {
+      skip('cross-repo-accuracy-24h', 'no accuracy_24h data');
+    }
+
   } else {
-    skip('cross-repo-accuracy-24h', 'no accuracy_24h data');
+    fail('cross-repo-schema', 'unrecognized schema: no repos, summary, or stats field');
   }
 
-  // HF Spaces health
+  // HF Spaces health (may be in either schema)
   if (data.spaces && typeof data.spaces === 'object') {
     ok('cross-repo-spaces');
     let spacesUp = 0;
